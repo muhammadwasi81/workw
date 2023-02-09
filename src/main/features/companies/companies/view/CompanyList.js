@@ -22,15 +22,16 @@ function CompanyList() {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { companyDictionary, Direction } = companyDictionaryList[userLanguage];
   const labels = companyDictionary.sharedLabels;
-
   const { companies, loader } = useSelector((state) => state.companySlice);
-  useEffect(() => {
-    dispatch(getCompanyAction());
-  }, []);
 
-  const searchHandler = (value) => {
-    dispatch(getCompanyAction(value));
-  };
+  useEffect(() => {
+    dispatch(getCompanyAction(search));
+  }, [search]);
+
+  // const searchHandler = (value) => {
+  //   console.log(value, "value");
+  //   dispatch(getCompanyAction(value));
+  // };
   let classes = "teamListContainer ";
   classes += Direction === "ltr" ? "ltr" : "rtl";
   if (loader) {
@@ -53,7 +54,7 @@ function CompanyList() {
             <div style={{ flexDirection: "column", width: "100%" }}>
               <TopBar
                 style={{ margin: 0, width: "100%" }}
-                onSearch={(val) => searchHandler(val)}
+                onSearch={(val) => setSearch(val)}
                 segment={{
                   onSegment: (value) => {
                     setView(value);

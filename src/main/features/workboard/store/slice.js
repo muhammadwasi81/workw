@@ -319,6 +319,24 @@ const trelloSlice = createSlice({
       state.isComposerEdit = false;
       state.isComposerVisible = false;
     },
+    addWorkBoardMembers(state, { payload }) {
+      //TODO: replace the response with existing id object
+      const newMembers = state.workboardsList.map((item, i) => {
+        if (item.id === payload[0].workBoardId) {
+          let members = [...item.members, payload[0]];
+          let newItem = {
+            ...item,
+            members,
+          };
+
+          return newItem;
+        } else {
+          return item;
+        }
+      });
+
+      state.workboardsList = newMembers;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -555,6 +573,7 @@ export const {
   updaateWorkboardById,
   resetComposerDetail,
   addMember,
+  addWorkBoardMembers,
 } = trelloSlice.actions;
 
 export default trelloSlice.reducer;

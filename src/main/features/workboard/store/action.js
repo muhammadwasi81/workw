@@ -31,7 +31,7 @@ import {
   getWorkBoardMemberService,
   addWorkBoardMemberService,
 } from "../services/services";
-
+import { addWorkBoardMembers } from "../store/slice";
 export const addWorkBoard = createAsyncThunk(
   "addWorkBoard",
   async (data, { dispatch, getState, rejectWithValue }) => {
@@ -431,7 +431,8 @@ export const addWorkBoardMember = createAsyncThunk(
   "addWorkBoardMember",
   async (data, { dispatch, getState, rejectWithValue }) => {
     const res = await addWorkBoardMemberService(data);
-    if (res.data?.responseCode === responseCode.Success) {
+    if (res.responseCode === responseCode.Success) {
+      dispatch(addWorkBoardMembers(res.data));
       message.success("Member Added");
       return res;
     } else {

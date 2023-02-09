@@ -21,6 +21,7 @@ function Scheduler({ feed = false, referenceId }) {
   const [todayDate, setTodayDate] = useState(new Date());
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const schedules = useSelector((state) => state.scheduleSlice.schedules);
+  console.log(schedules, "scheduless");
   const calendarRef = useRef();
   let isPanelChange = false;
   const dispatch = useDispatch();

@@ -12,7 +12,8 @@ import { getAllEmployees } from "../../../../utils/Shared/store/actions";
 import { getWorkBoardMemberAction, addWorkBoardMember } from "../store/action";
 import { NoDataFound } from "./index";
 
-function MemberModal({ isOpen = false }) {
+function MemberModal({ isOpen = false, data }) {
+  console.log(data, "dataa");
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.userSlice.user.id);
   const modalRequest = useSelector((state) => state.trelloSlice.addMemberModal);
@@ -23,12 +24,6 @@ function MemberModal({ isOpen = false }) {
   const [value, setValue] = useState([]);
 
   let ModalOpen = modalRequest.status;
-  let type = modalRequest.memberType;
-
-  useEffect(() => {
-    ModalOpen && dispatch(getWorkBoardMemberAction(userId));
-    // dispatch(getWorkBoardMemberAction(userId));
-  }, [ModalOpen]);
 
   useEffect(() => {
     fetchEmployees("", 0);
@@ -42,17 +37,13 @@ function MemberModal({ isOpen = false }) {
     dispatch(addMember(false));
   };
 
-  const handleChange = (id) => {
-    let memberId = id.toString();
-    console.log(memberId, "memberIddd");
-    const data = {
-      id: userId,
+  const handleChange = (myid) => {
+    let memberId = myid.toString();
+    const membersData = {
+      id: data.id,
       memberId: memberId,
-      memberType: type,
     };
-    console.log(type, "memberType");
-    dispatch(addWorkBoardMember(data));
-    dispatch(getWorkBoardMemberAction(userId));
+    dispatch(addWorkBoardMember(membersData));
   };
 
   useEffect(() => {
@@ -61,11 +52,6 @@ function MemberModal({ isOpen = false }) {
       setFirstTimeEmpData(employees);
     }
   }, [employees]);
-
-  const [newState, setNewState] = useState({
-    members: [],
-    memberType: null,
-  });
 
   return (
     <Modal
@@ -112,8 +98,8 @@ function MemberModal({ isOpen = false }) {
           },
         ]}
       />
-      {workBoardMembers?.length > 0 ? (
-        <ApproverListItem className="AddMemberModal" data={workBoardMembers} />
+      {data.members?.length > 0 ? (
+        <ApproverListItem className="AddMemberModal" data={data.members} />
       ) : (
         <NoDataFound />
       )}

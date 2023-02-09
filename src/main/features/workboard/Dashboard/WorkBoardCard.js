@@ -5,7 +5,7 @@ import WorkBoardImg from "../../../../content/png/workboard.png";
 import PublicPrivateIcon from "../../../sharedComponents/PublicPrivateIcon/PublicPrivateIcon";
 import { DOMAIN_PREFIX, ROUTES } from "../../../../utils/routes";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import menuIcon from '../../../../content/NewContent/Documents/3dots.svg';
+import menuIcon from "../../../../content/NewContent/Documents/3dots.svg";
 import { useSelector, useDispatch } from "react-redux";
 // import { getWorkboardById } from "../store/action";
 import {
@@ -28,8 +28,8 @@ function WorkBoardCard({ data }) {
   const [open, setOpen] = useState(false);
   const userId = useSelector((state) => state.userSlice.user.id);
   const loading = useSelector((state) => state.trelloSlice.loader);
-  const {memberModal} = useSelector((state) => state.trelloSlice);
- 
+  const { memberModal } = useSelector((state) => state.trelloSlice);
+
   const [visible, setVisible] = useState(false);
   const path = useLocation().pathname;
   // const params = useParams();
@@ -58,7 +58,7 @@ function WorkBoardCard({ data }) {
     setOpen(false);
   };
   const handleOpenChange = (newOpen) => {
-      setOpen(newOpen);
+    setOpen(newOpen);
   };
 
   const handleUpdate = () => {
@@ -67,15 +67,15 @@ function WorkBoardCard({ data }) {
       handleBoardComposer({
         isEdit: true,
         isVisible: true,
-          })
-      );
+      })
+    );
     // handleClose();
-  }
+  };
   const handleOpenMembers = () => {
     dispatch(addMember({ status: true }));
     setVisible(true);
     // handleClose();
-  }
+  };
 
   return (
     <>
@@ -127,38 +127,46 @@ function WorkBoardCard({ data }) {
           </div>
 
           {userId === data.createBy && (
-             <div className="docsPopover"  onClick={(e) => {e.preventDefault(); e.stopPropagation();}} >
-             <Popover
-                 content={
-                      <div className="flex flex-col">
-                        <div className="flex gap-2 items-center btn cursor-pointer hover:bg-[#f6f6f6] transition-all p-2 py-1 rounded-[6px]"
-                          onClick={handleUpdate}>
-                          <span>Update</span>
-                        </div>
-                        <div className="flex gap-3 items-center btn cursor-pointer hover:bg-[#f6f6f6] transition-all p-2 py-1 rounded-[6px]"
-                          onClick={(e) => memberHandler(e)}>
-                          <span>Members</span>
-                        </div>
-                      </div>
-                 }
-                 title={null}
-                 trigger="click"
-                 placement="rightTop"
-                 open={open}
-                
-                 onOpenChange={handleOpenChange}
-                 overlayClassName="docsPopover"
-             >
-                 <div className='menuIcon' >
-                     <img src={menuIcon}
-                     />
-                 </div>
-             </Popover>
-         </div>
+            <div
+              className="docsPopover"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+              }}
+            >
+              <Popover
+                content={
+                  <div className="flex flex-col">
+                    <div
+                      className="flex gap-2 items-center btn cursor-pointer hover:bg-[#f6f6f6] transition-all p-2 py-1 rounded-[6px]"
+                      onClick={handleUpdate}
+                    >
+                      <span>Update</span>
+                    </div>
+                    <div
+                      className="flex gap-3 items-center btn cursor-pointer hover:bg-[#f6f6f6] transition-all p-2 py-1 rounded-[6px]"
+                      onClick={(e) => memberHandler(e)}
+                    >
+                      <span>Members</span>
+                    </div>
+                  </div>
+                }
+                title={null}
+                trigger="click"
+                placement="rightTop"
+                open={open}
+                onOpenChange={handleOpenChange}
+                overlayClassName="docsPopover"
+              >
+                <div className="menuIcon">
+                  <img src={menuIcon} />
+                </div>
+              </Popover>
+            </div>
           )}
         </div>
       </Card>
-      {visible && <MemberModal />}
+      {visible && <MemberModal data={data} />}
     </>
   );
 }

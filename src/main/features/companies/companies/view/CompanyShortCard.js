@@ -5,7 +5,6 @@ import { LanguageChangeContext } from "../../../../../utils/localization/localCo
 import { companyDictionaryList } from "../../companies/localization/index";
 
 const CompanyShortCard = ({ company }) => {
-  console.log(company, "short card");
   const navigate = useNavigate();
   const { userLanguage } = useContext(LanguageChangeContext);
   const { companyDictionary } = companyDictionaryList[userLanguage];

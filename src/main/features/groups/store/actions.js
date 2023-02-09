@@ -139,7 +139,6 @@ export const deleteGroupMemberAction = createAsyncThunk(
   "deletegroupMember",
   async (data, { dispatch, getState, rejectWithValue }) => {
     const res = await deleteGroupMemberService(data);
-    console.log(data, "delete member");
     if (res.responseCode === responseCode.Success) {
       dispatch(deleteGroupMember(data));
       return data.memberId;

@@ -243,3 +243,17 @@ export const getWorkBoardMemberService = (id) => {
       return error;
     });
 };
+
+export const removeWorkBoardMemberService = (data) => {
+  const id = data.id;
+  const memberId = data.memberId;
+  return MasterConfig.post(`api/WorkBoard/RemoveWorkBoardMember?id=${id}`, [
+    memberId,
+  ])
+    .then((res) => {
+      return res.data;
+    })
+    .catch((error) => {
+      return error;
+    });
+};

@@ -191,10 +191,6 @@ function GroupDetails() {
             <div className="basis-1/4 gap-5 flex flex-col overflow-scroll">
               <WhiteCard>
                 <MemberCollapse
-                  // isEmail={true}
-                  // onEmailClick={() => {
-                  //   dispatch(handleComposeEmail(true));
-                  // }}
                   data={detail?.members}
                   isMember={true}
                   handleAdd={(e) => memberHandler(e)}

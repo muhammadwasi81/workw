@@ -9,15 +9,16 @@ import { useParams } from "react-router-dom";
 import { addMember } from "../store/slice";
 import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
 import { getAllEmployees } from "../../../../utils/Shared/store/actions";
-import { getWorkBoardMemberAction, addWorkBoardMember } from "../store/action";
+import {
+  getWorkBoardMemberAction,
+  addWorkBoardMember,
+  removeWorkBoardMember,
+} from "../store/action";
 import { NoDataFound } from "./index";
 
 function MemberModal({ isOpen = false, data }) {
-  console.log(data, "dataa");
   const dispatch = useDispatch();
-  const userId = useSelector((state) => state.userSlice.user.id);
   const modalRequest = useSelector((state) => state.trelloSlice.addMemberModal);
-  const { workBoardMembers } = useSelector((state) => state.trelloSlice);
   const employees = useSelector((state) => state.sharedSlice.employees);
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
@@ -53,6 +54,14 @@ function MemberModal({ isOpen = false, data }) {
     }
   }, [employees]);
 
+  const handleDeleteMember = (myid) => {
+    const memberId = myid.toString();
+    const membersData = {
+      id: data.id,
+      memberId: memberId,
+    };
+    dispatch(removeWorkBoardMember(membersData));
+  };
   return (
     <Modal
       open={ModalOpen}
@@ -99,7 +108,11 @@ function MemberModal({ isOpen = false, data }) {
         ]}
       />
       {data.members?.length > 0 ? (
-        <ApproverListItem className="AddMemberModal" data={data.members} />
+        <ApproverListItem
+          className="AddMemberModal"
+          data={data.members}
+          handleDelete={handleDeleteMember}
+        />
       ) : (
         <NoDataFound />
       )}

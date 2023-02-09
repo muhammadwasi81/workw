@@ -30,8 +30,9 @@ import {
   uploadWorkBoardTodoImageService,
   getWorkBoardMemberService,
   addWorkBoardMemberService,
+  removeWorkBoardMemberService,
 } from "../services/services";
-import { addWorkBoardMembers } from "../store/slice";
+import { addWorkBoardMembers, deleteWorkBoardMember } from "../store/slice";
 export const addWorkBoard = createAsyncThunk(
   "addWorkBoard",
   async (data, { dispatch, getState, rejectWithValue }) => {
@@ -433,7 +434,7 @@ export const addWorkBoardMember = createAsyncThunk(
     const res = await addWorkBoardMemberService(data);
     if (res.responseCode === responseCode.Success) {
       dispatch(addWorkBoardMembers(res.data));
-      message.success("Member Added");
+      // message.success("Member Added");
       return res;
     } else {
       message.error(res.data.message);
@@ -449,10 +450,22 @@ export const getWorkBoardMemberAction = createAsyncThunk(
     try {
       const response = await getWorkBoardMemberService(args);
       console.log(response, "getWorkBoardMemberAction");
-      // if (!response.data) return message.error(`Error fetching data`);
       return response.data;
     } catch (error) {
       console.log(error.message);
+    }
+  }
+);
+export const removeWorkBoardMember = createAsyncThunk(
+  "deleteWorkBoardMember",
+  async (data, { dispatch, getState, rejectWithValue }) => {
+    const res = await removeWorkBoardMemberService(data);
+    if (res.responseCode === responseCode.Success) {
+      dispatch(deleteWorkBoardMember(data));
+      return data;
+    } else {
+      message.error(res.data.message);
+      return rejectWithValue(res.data.message);
     }
   }
 );

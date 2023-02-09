@@ -181,7 +181,7 @@ function BoardComposer({
                 size="large"
                 loading={loading}
               >
-                {isEdit ? updateGrp : createGrp}
+                {isEdit ? "Update Lead Manager" : "Create Lead Manager"}
               </Button>
             </>
           )}

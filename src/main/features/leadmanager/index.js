@@ -12,6 +12,9 @@ import { useDispatch, useNavigate, useSelector } from "react-redux";
 import { getAllLeadManager } from "./store/actions";
 import useDebounce from "../../../utils/Shared/helper/use-debounce";
 import Spinner from "../../sharedComponents/spinner/spinner";
+import { resetLeadManagerDetail } from "./store/slice";
+import BoardComposer from "./view/Composer/BoardComposer";
+import SideDrawer from "../../sharedComponents/Drawer/SideDrawer";
 
 function LeadManager() {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -29,7 +32,9 @@ function LeadManager() {
   const leadManagerData = useSelector(
     (state) => state.leadMangerSlice.leadManagersData
   );
-  const loading = useSelector((state) => state.leadMangerSlice.loading);
+  const { loading, success, isComposerOpen, isEditComposer } = useSelector(
+    (state) => state.leadMangerSlice
+  );
   useEffect(() => {
     const promise = dispatch(
       getAllLeadManager({
@@ -74,6 +79,28 @@ function LeadManager() {
           data={leadManagerData}
           onChange={handleColumnSorting}
         />
+
+        {/* <SideDrawer
+          children={
+            <BoardComposer
+              isEdit={isEditComposer}
+              loading={loading}
+              dictionary={dictionary}
+              // direction={direction}
+              // labels={labels}
+            />
+          }
+          title={isEditComposer ? "Update Group" : "Create Group"}
+          buttonText={"Update Lead Manager"}
+          isAccessDrawer={true}
+          openDrawer={isComposerOpen}
+          success={success}
+          handleClose={() => {
+            setTimeout(() => {
+              dispatch(resetLeadManagerDetail());
+            }, 100);
+          }}
+        /> */}
       </ContBody>
     </TabbableContainer>
   );

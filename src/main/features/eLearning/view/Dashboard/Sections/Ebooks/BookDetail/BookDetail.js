@@ -39,6 +39,7 @@ function EBookDetail() {
 		information,
 		attachment,
 	} = bookDetail
+	
 	let Default = "https://www.makeintern.com/learning/img/online-course12.jpg"
 	let loader = loaders.bookDetailLoading
 
@@ -103,7 +104,8 @@ function EBookDetail() {
 												text={"Members"}
 												image={"https://joeschmoe.io/api/v1/random"}
 											/>
-											<div className="addMemberBtn" onClick={() => disptach(addAssignMember({status: true, type: AssignMemEnum.ebook}))} >+</div>
+											<div className="addMemberBtn" onClick={() =>
+											   disptach(addAssignMember({status: true, type: AssignMemEnum.ebook}))} >+</div>
 										</div>
 										<AssignMemberModal />
 									</>

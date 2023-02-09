@@ -531,9 +531,7 @@ const trelloSlice = createSlice({
       .addCase(getWorkBoardMemberAction.fulfilled, (state, action) => {
         state.workBoardMembers = action.payload ? action.payload : [];
       })
-      .addCase(removeWorkBoardMemberAction.fulfilled, (state, { payload }) => {
-        state.removeMemberSucess = true;
-      })
+
       .addCase(addWorkBoardMember.fulfilled, (state, { payload }) => {})
       .addCase(removeWorkBoardMember.fulfilled, (state, { payload }) => {
         state.removeMemberSucess = true;

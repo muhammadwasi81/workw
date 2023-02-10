@@ -14,7 +14,8 @@ import useDebounce from "../../../utils/Shared/helper/use-debounce";
 import Spinner from "../../sharedComponents/spinner/spinner";
 import { resetLeadManagerDetail } from "./store/slice";
 import BoardComposer from "./view/Composer/BoardComposer";
-import SideDrawer from "../../sharedComponents/Drawer/SideDrawer";
+import { Drawer } from "antd";
+import { handleComposer } from "./store/slice";
 
 function LeadManager() {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -35,6 +36,7 @@ function LeadManager() {
   const { loading, success, isComposerOpen, isEditComposer } = useSelector(
     (state) => state.leadMangerSlice
   );
+
   useEffect(() => {
     const promise = dispatch(
       getAllLeadManager({
@@ -60,6 +62,9 @@ function LeadManager() {
     }
     setSort(1);
   };
+  const handleEditComposer = () => {
+    dispatch(handleComposer({ isOpen: false, isEdit: false }));
+  };
   return (
     <TabbableContainer>
       <Header dictionary={LeadManagerDictionaryList} direction={Direction} />
@@ -79,28 +84,15 @@ function LeadManager() {
           data={leadManagerData}
           onChange={handleColumnSorting}
         />
-
-        {/* <SideDrawer
-          children={
-            <BoardComposer
-              isEdit={isEditComposer}
-              loading={loading}
-              dictionary={dictionary}
-              // direction={direction}
-              // labels={labels}
-            />
-          }
-          title={isEditComposer ? "Update Group" : "Create Group"}
-          buttonText={"Update Lead Manager"}
-          isAccessDrawer={true}
-          openDrawer={isComposerOpen}
-          success={success}
-          handleClose={() => {
-            setTimeout(() => {
-              dispatch(resetLeadManagerDetail());
-            }, 100);
-          }}
-        /> */}
+        <Drawer
+          open={isComposerOpen}
+          width={"786px"}
+          onClose={handleEditComposer}
+          title={"Update Lead Manager"}
+          className={"shared_drawer drawerSecondary"}
+        >
+          <BoardComposer isEdit={isEditComposer} loading={loading} />
+        </Drawer>
       </ContBody>
     </TabbableContainer>
   );

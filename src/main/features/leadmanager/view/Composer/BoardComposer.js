@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Button, Form, Input, Skeleton } from "antd";
 import WorkBoardMemberSelect from "./WorkBoardMemberSelect";
 import SingleUpload from "../../../../sharedComponents/Upload/singleUpload";
@@ -9,17 +9,18 @@ import { jsonToFormData } from "../../../../../utils/base";
 import { defaultUiid } from "../../../../../utils/Shared/enums/enums";
 import { addLeadManager, updateLeadManager } from "../../store/actions";
 import { useSelector } from "react-redux";
-function BoardComposer({
-  isEdit,
-  loading,
-  dataLoading = false,
-  dictionary,
-  direction,
-}) {
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+import { LeadManagerDictionary } from "../../localization/index";
+
+function BoardComposer({ isEdit, loading, dataLoading = false, direction }) {
   const leadDetail = useSelector(
     (state) => state.leadMangerSlice.leadManagerDetail
   );
-  const { placeHolder, labels } = dictionary;
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { LeadManagerDictionaryList, Direction } = LeadManagerDictionary[
+    userLanguage
+  ];
+  const { placeHolder, labels } = LeadManagerDictionaryList;
   const { createGrp, updateGrp } = labels;
   const [form] = Form.useForm();
   const userId = useSelector((state) => state.userSlice.user.id);
@@ -29,6 +30,7 @@ function BoardComposer({
   const [privacyId, setPrivacyId] = useState(1);
 
   const onFinish = (values) => {
+    console.log(values, "values");
     let members = values.members.map((member) => {
       return { memberId: member };
     });
@@ -142,18 +144,18 @@ function BoardComposer({
           <Input size="large" placeholder={placeHolder.grpNameDescPH} />
         )}
       </Form.Item>
-      {!isEdit && (
-        <>
-          {dataLoading ? (
-            <Skeleton.Input active={true} block size={"large"} />
-          ) : (
-            <WorkBoardMemberSelect
-              placeholder={placeHolder.serachMembersPH}
-              label={labels.members}
-            />
-          )}
-        </>
-      )}
+      {/* {!isEdit && ( */}
+      <>
+        {dataLoading ? (
+          <Skeleton.Input active={true} block size={"large"} />
+        ) : (
+          <WorkBoardMemberSelect
+            placeholder={placeHolder.serachMembersPH}
+            label={labels.members}
+          />
+        )}
+      </>
+      {/* )} */}
       <Form.Item>
         <div className="flex items-center gap-2">
           {dataLoading ? (

@@ -54,11 +54,11 @@ function Header({ dictionary, direction }) {
         <SideDrawer
           children={
             <BoardComposer
-            // isEdit={isEditComposer}
-            // loading={loading}
-            // dictionary={dictionary}
-            // direction={direction}
-            // labels={labels}
+              // isEdit={isEditComposer}
+              // loading={loading}
+              // dictionary={dictionary}
+              direction={direction}
+              // labels={labels}
             />
           }
           title={"Create Lead Manager"}

@@ -21,11 +21,14 @@ function MemberModal({ isOpen = false, data }) {
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [value, setValue] = useState([]);
-  const modalRequest = useSelector(
-    (state) => state.projectSlice.addMemberModal
-  );
 
-  let ModalOpen = modalRequest.status;
+  const modalRequest = useSelector((state) => state.projectSlice.addMemberModal);
+  console.log(modalRequest,"modalRequest");
+
+  const {projects} = useSelector((state) => state.projectSlice);
+  console.log("projectsprojects",projects);
+
+ let ModalOpen = modalRequest.status;
 
   useEffect(() => {
     fetchEmployees("", 0);
@@ -41,11 +44,24 @@ function MemberModal({ isOpen = false, data }) {
 
   const handleChange = (id) => {
     let memberId = id.toString();
-    const members = {
+    const membersData = {
       id: data.id,
       memberId: memberId,
     };
-    dispatch(addProjectMemberAction(members));
+
+    let a = data.members.filter((item) => {
+      return item.member.id === membersData.memberId;
+    });
+
+    let b = a[0] ? a[0].memberId : "";
+
+    if (membersData.memberId === b) 
+    {
+      return message.error("Member Already Added");
+    } else
+      {
+         dispatch(addProjectMemberAction(membersData));
+      }
   };
 
   useEffect(() => {

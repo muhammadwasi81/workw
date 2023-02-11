@@ -10,6 +10,9 @@ import {
   SingleItem,
 } from "../../../../sharedComponents/Card/CardStyle";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { getAllSignupAction } from "../../companies/store/action";
 // import Avatar from "../../../../sharedComponents/Avatar/avatar";
 // import { useDispatch } from "react-redux";
 // import { data } from "jquery";
@@ -17,14 +20,23 @@ import { useEffect } from "react";
 // import "./style/reward.css";
 
 
-function ListItem({item, onClick, id}) {
+function SignupDetail({id}) {
+    const dispatch = useDispatch()
+    const { signup } = useSelector((state) => state.companySlice)
+    let detailItem = signup.map((item) => item.id ) 
+    useEffect(() => {
+        dispatch(getAllSignupAction())
+    },[])
 
-  const {
-    firstName,
-    lastName,
-    email,
-    title,
-  } = item ? item : "";
+    console.log(signup, "SIGNUPssss")
+    console.log(id, 'IDDDD')
+    console.log(detailItem, "DETAIL ITEMM !!!")
+//   const {
+//     firstName,
+//     lastName,
+//     email,
+//     title,
+//   } = item ? item : "";
 
   // const localTime = moment
   //   .utc(createDate)
@@ -32,7 +44,7 @@ function ListItem({item, onClick, id}) {
   //   .format();
   return (
     <>
-      <SingleItem onClick={onClick}>
+      {/* <SingleItem onClick={onClick}>
         <div className="" id={id}></div>
         <ItemHeader>
           <div className="left">
@@ -73,9 +85,9 @@ function ListItem({item, onClick, id}) {
             <div className="cardSection__body layout">{lastName}</div>
           </div>
         </div>
-      </SingleItem>
+      </SingleItem> */}
     </>
   );
 }
 
-export default ListItem;
+export default SignupDetail;

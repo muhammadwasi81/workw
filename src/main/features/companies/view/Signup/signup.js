@@ -17,8 +17,6 @@ function Signup() {
     dispatch(getAllSignupAction())
   }, [])
 
-  console.log(signup, "Signup Listing !!!")
-
   return (
     <TabbableContainer>       
       <Header/>

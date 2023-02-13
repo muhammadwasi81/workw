@@ -17,6 +17,8 @@ import AssetsDetail from "../../../assets/view/assetsDetailedCard";
 import LeaveDetail from "../../../leave/view/DetailCard";
 import ResignationDetail from "../../../resignation/view/detailCard";
 import AppraisalDetail from "../../../appraisalModule/view/components/DetailedCard";
+import ListItem from "../../../companies/view/Signup/ListItem";
+import SignupDetail from "../../../companies/view/Signup/Detail";
 
 export default function ApprovalDetail({ approvalDetailData }) {
   const panes = () => {
@@ -29,6 +31,7 @@ export default function ApprovalDetail({ approvalDetailData }) {
     ];
   };
   function getConditionalyModule({ module, referenceId: id }) {
+    console.log(id, "ID")
     switch (module) {
       case ApprovalsModule.SalaryApproval:
         return <SalaryDetailCard id={id} />;
@@ -54,6 +57,9 @@ export default function ApprovalDetail({ approvalDetailData }) {
 
       case ApprovalsModule.LoanApproval:
         return <LoanDetail id={id} />;
+
+        case ApprovalsModule.SignupApproval:
+        return <SignupDetail id={id} />;
 
       case ApprovalsModule.PayrollApproval:
         return <PayrolDetailCard id={id} />;

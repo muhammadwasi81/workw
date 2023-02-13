@@ -2,7 +2,6 @@ import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import {
   addGroup,
   getAllGroup,
-  getAllProjects,
   getGroupById,
   updateGroup,
   addGroupMemberAction,
@@ -84,6 +83,11 @@ const groupSlice = createSlice({
         }
       });
       state.groups = deleteGroupMembers;
+    },
+    handleFavoriteMark(state, { payload }) {
+      console.log(payload, "payload in slice");
+      const favGroups = state.groups.find((group) => group.id === payload.id);
+      favGroups.isPinnedPost = !favGroups.isPinnedPost;
     },
   },
   extraReducers: (builder) => {
@@ -175,5 +179,6 @@ export const {
   deleteGroupMember,
   addGroupMember,
   handleOpenComposer,
+  handleFavoriteMark,
 } = groupSlice.actions;
 export default groupSlice.reducer;

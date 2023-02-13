@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { Card, Skeleton } from "antd";
+import { memo } from "react";
+import { Card } from "antd";
 import Avatar from "../../../../../sharedComponents/Avatar/avatar";
 import PublicPrivateIcon from "../../../../../sharedComponents/PublicPrivateIcon/PublicPrivateIcon";
-import { useSelector, useDispatch } from "react-redux";
-
+import { useDispatch } from "react-redux";
 import QuickOptions from "../../../quickOptions/index";
-import { getAllGroupMemberAction } from "../../../store/actions";
+import { StarFilled, StarOutlined } from "@ant-design/icons";
+import { handleFavoriteMark } from "../../../store/slice";
+import { addGroupFavoriteMarkAction } from "../../../store/actions";
+import PropTypes from "prop-types";
 
 function DashboardCardLayout({
   data = {},
@@ -17,26 +19,24 @@ function DashboardCardLayout({
   dictionary = {},
   chatIcon,
 }) {
+  const dispatch = useDispatch();
   const { Meta } = Card;
   const menuHandler = (e) => {
     e.preventDefault();
     e.stopPropagation();
   };
 
+  const handleFavorite = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    dispatch(handleFavoriteMark({ id: data.id, isPinned: !data.isPinnedPost }));
+    dispatch(
+      addGroupFavoriteMarkAction({ id: data.id, isPinned: !data.isPinnedPost })
+    );
+  };
   return (
     <>
       <Card
-        // cover={
-        // 	!loading ? (
-        // 		<img
-        // 			alt="example"
-        // 			className="object-cover"
-        // 			src={data.image ? data.image : defaultImg}
-        // 		/>
-        // 	) : (
-        // 		<Skeleton.Image className="ant-skeleton-active" />
-        // 	)
-        // }
         cover={
           <img
             alt="example"
@@ -62,8 +62,7 @@ function DashboardCardLayout({
             </div>
           }
         />
-
-        <div className="flex  justify-between items-center">
+        <div className="flex justify-between items-center">
           <div className="members">
             <Avatar
               isAvatarGroup={true}
@@ -72,12 +71,23 @@ function DashboardCardLayout({
               membersData={data.members}
             />
           </div>
-
-          <div className="flex justify-end">
-            <div className={`halfHeader mr-2`}>
-              <img src={chatIcon} alt="" width={20} />
-            </div>{" "}
-            <QuickOptions data={data} onClick={(e) => menuHandler(e)} />
+          <div className="flex  justify-between">
+            <div className="flex justify-between m-2">
+              <div className={`halfHeader `}>
+                <img src={chatIcon} alt="chatIcon" loading="lazy" width={20} />
+              </div>
+              <div
+                onClick={(e) => handleFavorite(e)}
+                className="relative bottom-2 right-1 mr-1 mt-1"
+              >
+                {data.isPinnedPost ? (
+                  <StarFilled className="!text-[18px] !text-yellow-400 cursor-pointer" />
+                ) : (
+                  <StarOutlined className="!text-[18px] cursor-pointer !text-[#707070]" />
+                )}
+              </div>
+              <QuickOptions data={data} onClick={(e) => menuHandler(e)} />
+            </div>
           </div>
         </div>
       </Card>
@@ -85,4 +95,14 @@ function DashboardCardLayout({
   );
 }
 
-export default DashboardCardLayout;
+export default memo(DashboardCardLayout);
+DashboardCardLayout.propTypes = {
+  data: PropTypes.object,
+  defaultImg: PropTypes.string,
+  loading: PropTypes.bool,
+  handleUpdate: PropTypes.func,
+  getDetailById: PropTypes.func,
+  onClick: PropTypes.func,
+  dictionary: PropTypes.object,
+  chatIcon: PropTypes.string,
+};

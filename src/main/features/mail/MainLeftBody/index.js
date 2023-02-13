@@ -27,17 +27,18 @@ const Index = () => {
 
   // const { id: api_base } = useParams();
   const { pathname } = useLocation();
-  const api_base = pathname.split("/")[2];
+  const api_base = pathname.split("/");
+  const lastIndex = api_base[api_base.length-1] 
   const dispatch = useDispatch()
   const GetAllMailHandle = () => {
     let objData = {
-      folderPath: api_base,
+      folderPath: lastIndex,
     };
     dispatch(getAllMail(objData))
   };
   useEffect(() => {
     GetAllMailHandle();
-  }, [api_base]);
+  }, [lastIndex]);
 
 
   return (

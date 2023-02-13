@@ -11,6 +11,7 @@ import {
   updateCoverImgService,
   updateUserProfileImgService,
   GetCourseByUserIdService,
+  addRatingService,
 } from '../service/service';
 
 export const addEmployeeAction = createAsyncThunk(
@@ -20,6 +21,21 @@ export const addEmployeeAction = createAsyncThunk(
     console.log(res.data.message, 'addEmployee actions');
     if (res.data?.responseCode === responseCode.Success) {
       message.success('Employee Created');
+      return res;
+    } else {
+      message.error(res.data.message);
+      return rejectWithValue(res.data.message);
+    }
+  }
+);
+
+export const addRatingAction = createAsyncThunk(
+  `Employee/AddRating`,
+  async (data, { rejectWithValue }) => {
+    const res = await addRatingService(data);
+    console.log(res.data.message, 'Add Rating actions');
+    if (res.data?.responseCode === responseCode.Success) {
+      message.success('Rating Updated');
       return res;
     } else {
       message.error(res.data.message);

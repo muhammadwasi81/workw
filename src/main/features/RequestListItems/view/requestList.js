@@ -10,7 +10,7 @@ const RequestList = ({ data }) => {
   const dispatch = useDispatch();
   const [itemId, setItemId] = useState(null);
   const { loader } = useSelector((state) => state.requestItemSlice);
-  console.log(loader, 'datataaaa');
+  console.log(loader, 'loader');
   const onClose = () => {
     setItemId(null);
     dispatch(clearRequestDetails());

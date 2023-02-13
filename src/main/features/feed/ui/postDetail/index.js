@@ -1,17 +1,17 @@
-import React, { useContext, useEffect } from 'react';
-import Post from '../posts_list/post';
-import { useSelector, useDispatch } from 'react-redux';
-import '../stylesheet/EventBox.css';
-import '../stylesheet/NewsFeed.css';
+import React, { useContext, useEffect } from "react";
+import Post from "../posts_list/post";
+import { useSelector, useDispatch } from "react-redux";
+import "../stylesheet/EventBox.css";
+import "../stylesheet/NewsFeed.css";
 import {
   ContBody,
   TabbableContainer,
-} from '../../../../sharedComponents/AppComponents/MainFlexContainer';
-import { useParams } from 'react-router-dom';
-import { getFeedById } from '../../store/actions';
-import Header from '../../../../layout/header';
-import { LanguageChangeContext } from '../../../../../utils/localization/localContext/LocalContext';
-import { FeedDictionary } from '../../localization';
+} from "../../../../sharedComponents/AppComponents/MainFlexContainer";
+import { useParams } from "react-router-dom";
+import { getFeedById } from "../../store/actions";
+import Header from "../../../../layout/header";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+import { FeedDictionary } from "../../localization";
 
 function PostDetail() {
   const { singlePost } = useSelector((state) => state.feedSlice);

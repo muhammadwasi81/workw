@@ -8,12 +8,13 @@ import MessageProfile from "./messageProfile";
 import MessageStatusView, { getIconByStatus } from "./messageStatusView";
 import AudioComponent from "./audioComponent";
 import { replaceURL } from "../../../../../feed/utils/ValidateCreatePost";
+import "./style.css";
 
 const MessengerListItem = ({
   messgeItem,
   messengerDetail = { chatType: 1 },
   isChatBox = false,
-  previousMessage
+  previousMessage,
 }) => {
   const {
     id,
@@ -30,10 +31,8 @@ const MessengerListItem = ({
   const { chatType } = messengerDetail;
   const isGroupMessage = previousMessage?.creator?.id === creator?.id;
   let contClasses = !messageByMe ? "MessengerListItem" : "MessengerListItem-ME";
-  contClasses =
-
-    console.log(previousMessage, "previousMessage");
-  console.log(id, "id");
+  contClasses = console.log(previousMessage, "previousMessage");
+  console.log(messageByMe, "messgeItem");
 
   return (
     <div
@@ -54,22 +53,25 @@ const MessengerListItem = ({
             messageByMe={messageByMe}
           />
         )
-          // <audio controls>
-          // 	<source src={attachments[0].path} />
-          // 	Your browser does not support the audio tag.
-          // </audio>
+        // <audio controls>
+        // 	<source src={attachments[0].path} />
+        // 	Your browser does not support the audio tag.
+        // </audio>
         }
         {!(messageType === 2) && (
           <Attachments
             data={attachments}
             key={{ data: attachments }}
             toShow={3}
-            onClick={() => { }}
+            onClick={() => {}}
             size={isChatBox ? "75px" : "100px"}
           />
         )}
         <div className="textMessage">
-          <div className="textMsgArea" dangerouslySetInnerHTML={{ __html: replaceURL(message) }}></div>
+          <div
+            className={`textMsgArea ${!messageByMe ? "textarea" : ""}`}
+            dangerouslySetInnerHTML={{ __html: replaceURL(message) }}
+          ></div>
           <MessageStatusView messageByMe={messageByMe} status={status} />
         </div>
       </div>

@@ -5,6 +5,7 @@ import WhiteCard from '../projects/UI/WhiteCard';
 import profile from '../../../content/profile.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import {
+  addRatingAction,
   getEmployeeByIdAction,
   updateUserProfileImgAction,
 } from './store/action';
@@ -18,6 +19,7 @@ const imageMimeType = /image\/(png|jpg|jpeg)/i;
 const ProfileCoverDetail = ({ id }) => {
   const [file, setFile] = useState(null);
   const [fileDataURL, setFileDataURL] = useState(null);
+  const [rating, setRating] = useState(3);
 
   const imageUploadHandler = (e) => {
     const fileObj = e.target.files[0];
@@ -64,6 +66,15 @@ const ProfileCoverDetail = ({ id }) => {
   useEffect(() => {
     dispatch(getEmployeeByIdAction(id));
   }, [id]);
+
+  const handleRating = (value) => {
+    const payload = {
+      ratingAssign: value,
+      userId: id,
+      id: id
+    }
+    dispatch(addRatingAction(payload))
+  }
 
   return (
     <WhiteCard className={'z-10 sticky top-0 w-full mt-[-87px] shadow-md'}>
@@ -114,7 +125,11 @@ const ProfileCoverDetail = ({ id }) => {
           )}
         </div>
         <div className="text-black text-base font-bold flex items-center gap-5">
-          <Rate allowHalf defaultValue={2.5} />
+          <Rate 
+            allowHalf 
+            defaultValue={rating}
+            onChange={(value) => handleRating(value)} 
+          />
           <Link to="/settings">
             <SettingOutlined className="text-xl !text-primary-color cursor-pointer" />
           </Link>

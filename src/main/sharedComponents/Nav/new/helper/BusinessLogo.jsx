@@ -16,7 +16,6 @@ function BusinessLogo() {
   );
 
   useEffect(() => {
-    console.log('Dark Mode', isDarkMode);
     setTheme(isDarkMode);
     dispatch(darkModeHandler(isDarkMode));
   }, [isDarkMode]);

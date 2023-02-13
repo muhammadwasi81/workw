@@ -1,14 +1,13 @@
-import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
+import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
 import {
   addGroup,
   getAllGroup,
-  getAllProjects,
   getGroupById,
   updateGroup,
   addGroupMemberAction,
   getAllGroupMemberAction,
   deleteGroupMemberAction,
-} from "./actions";
+} from './actions';
 
 const initialState = {
   groups: [],
@@ -27,7 +26,7 @@ const initialState = {
 };
 
 const groupSlice = createSlice({
-  name: "groupSlice",
+  name: 'groupSlice',
   initialState,
   reducers: {
     resetGroupDetail(state, { payload }) {
@@ -78,6 +77,11 @@ const groupSlice = createSlice({
         }
       });
       state.groups = deleteGroupMembers;
+    },
+    handleFavoriteMark(state, { payload }) {
+      console.log(payload, 'payload in slice');
+      const favGroups = state.groups.find((group) => group.id === payload.id);
+      favGroups.isPinnedPost = !favGroups.isPinnedPost;
     },
   },
   extraReducers: (builder) => {
@@ -168,5 +172,6 @@ export const {
   addMember,
   deleteGroupMember,
   addGroupMember,
+  handleFavoriteMark,
 } = groupSlice.actions;
 export default groupSlice.reducer;

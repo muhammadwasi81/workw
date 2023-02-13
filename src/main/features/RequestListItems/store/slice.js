@@ -36,6 +36,7 @@ const requestItemSlice = createSlice({
       console.log(action.payload.data, 'getRequestListItemsById slice');
       state.requestItemDetail = action.payload.data;
       state.loadingData = false;
+      state.loader = false;
     });
     builder
       .addCase(addRequestListItems.fulfilled, (state, { payload }) => {
@@ -46,7 +47,14 @@ const requestItemSlice = createSlice({
         state.requestItems = [...state.requestItems, payload.data.data];
       })
       .addMatcher(
-        isPending(
+        isPending(...[getAllRequestListItems, addRequestListItems]),
+        (state) => {
+          console.log('isPending');
+          state.loader = true;
+        }
+      )
+      .addMatcher(
+        isRejected(
           ...[
             getAllRequestListItems,
             getRequestListItemsById,
@@ -54,13 +62,10 @@ const requestItemSlice = createSlice({
           ]
         ),
         (state) => {
-          console.log('isPending');
+          console.log('isRejected');
           state.loader = true;
         }
-      )
-      .addMatcher(isRejected(...[getAllRequestListItems]), (state) => {
-        state.loader = true;
-      });
+      );
   },
 });
 

@@ -65,11 +65,11 @@ export default function AllApprovals() {
             renderButton: [1],
             to: ROUTES.APPROVALS.DEFAULT,
           },
-          {
-            name: 'My Approval',
-            renderButton: [2],
-            to: ROUTES.APPROVALS.DEFAULT + "?myApproval",
-          },
+          // {
+          //   name: 'My Approval',
+          //   renderButton: [2],
+          //   to: ROUTES.APPROVALS.DEFAULT + "?myApproval",
+          // },
         ]}
         backButton={false}
       />

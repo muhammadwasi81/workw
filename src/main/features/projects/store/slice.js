@@ -1,4 +1,4 @@
-import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
+import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
 import {
   addProject,
   getAllProjects,
@@ -10,7 +10,7 @@ import {
   getAllProjectMemberAction,
   addProjectMemberAction,
   deleteProjectMemberAction,
-} from "./actions";
+} from './actions';
 
 const initialState = {
   projects: [],
@@ -28,7 +28,7 @@ const initialState = {
 };
 
 const projectSlice = createSlice({
-  name: "projects",
+  name: 'projects',
   initialState,
   reducers: {
     resetProjectDetail(state, { payload }) {
@@ -79,6 +79,12 @@ const projectSlice = createSlice({
         }
       });
       state.projects = deleteProjectMembers;
+    },
+    handleFavoriteProjects(state, { payload }) {
+      const favProjects = state.projects.find(
+        (project) => project.id === payload.id
+      );
+      favProjects.isPinnedPost = !favProjects.isPinnedPost;
     },
   },
   extraReducers: (builder) => {
@@ -164,5 +170,6 @@ export const {
   addMember,
   deleteProjectMember,
   addProjectMember,
+  handleFavoriteProjects,
 } = projectSlice.actions;
 export default projectSlice.reducer;

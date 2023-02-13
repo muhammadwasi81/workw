@@ -66,7 +66,7 @@ function SectionDetail(props) {
   const { detail, labels, placeHolder } = LeadManagerDictionaryList;
   const scheduleSuccess = useSelector((state) => state.scheduleSlice.success);
   const { meetingDetail } = useSelector((state) => state.leadMangerSlice);
-
+  console.log('meetingDetail', meetingDetail);
   useEffect(() => {
     dispatch(
       getAllScheduleAction({
@@ -302,7 +302,7 @@ function SectionDetail(props) {
                 <div className="eventWrapper">
                   <div className="eventWrapper__body">
                     <EventDetail />
-                    {meetingDetail?.length > 0 ? (
+                    {meetingDetail && meetingDetail.length > 0 ? (
                       meetingDetail?.map((event) => (
                         <Event
                           data={event}
@@ -425,7 +425,9 @@ function SectionDetail(props) {
         className=" drawerSecondary"
       >
         <CreateSchedule
-          scheduleDetail={{ referenceType: 4, referenceId: id, members: [] }}
+          // scheduleDetail={{ referenceType: 4, referenceId: id, members: [] }}
+          referenceType={ScheduleReferenceTypeEnum.Lead}
+          referenceId={id}
         />
       </Drawer>
     </>

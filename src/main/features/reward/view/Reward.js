@@ -114,7 +114,7 @@ const Reward = (props) => {
                   handleClose={() => dispatch(handleOpenComposer(false))}
                   handleOpen={() => dispatch(handleOpenComposer(true))}
                   isOpen={drawerOpen}
-                  children={<Composer />}
+                  children={<Composer />} 
                 />
               ),
             },

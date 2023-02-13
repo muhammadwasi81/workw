@@ -35,7 +35,6 @@ const companySlice = createSlice({
       })
       .addCase(getAllSignupAction.fulfilled, (state, { payload }) => {
         state.signup = payload;
-        console.log(payload,"signUp Sliceeee"); 
       })
       .addMatcher(isPending(getTeamsAction), (state) => {
         console.log('pending teams');

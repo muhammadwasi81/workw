@@ -84,20 +84,6 @@ function SignIn() {
             </Form.Item>
           </Space>
         </div>
-        <div className="terms-alert">
-          By signing in,{" "}
-          <span
-            style={{ cursor: "pointer" }}
-            onClick={() =>
-              setlocalState({
-                ...localState,
-                path: termsAndCondition,
-                openView: true,
-              })
-            }>
-            I agree the terms and conditions.
-          </span>
-        </div>
         <div className="btn">
           <button className={`button ${loader ? "disable" : ""}`}>
             Sign in

@@ -12,10 +12,17 @@ import { useSelector } from "react-redux";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { LeadManagerDictionary } from "../../localization/index";
 
-function BoardComposer({ isEdit, loading, dataLoading = false, direction }) {
+function BoardComposer({
+  isEdit,
+  loading,
+  dataLoading = false,
+  direction,
+  leadmanagerData,
+}) {
   const leadDetail = useSelector(
     (state) => state.leadMangerSlice.leadManagerDetail
   );
+
   const { userLanguage } = useContext(LanguageChangeContext);
   const { LeadManagerDictionaryList, Direction } = LeadManagerDictionary[
     userLanguage
@@ -30,24 +37,33 @@ function BoardComposer({ isEdit, loading, dataLoading = false, direction }) {
   const [privacyId, setPrivacyId] = useState(1);
 
   const onFinish = (values) => {
-    console.log(values, "values");
-    let members = values.members.map((member) => {
-      return { memberId: member };
-    });
-    let imgObj = { file: image, id: defaultUiid };
-    let tempObj = { ...values };
-    tempObj.members = members;
-    tempObj.image = imgObj;
-    tempObj.privacyId = privacyId;
     if (isEdit) {
+      let members = leadDetail.members.map((member) => {
+        return { memberId: member.memberId };
+      });
+      // return;
+      let imgObj = { file: image, id: defaultUiid };
+      let updateObj = { ...values };
       if (typeof image === "string" && image) {
-        tempObj.image = { ...imgObj, id: leadDetail.imageId };
+        updateObj.image = { ...imgObj, id: leadDetail.imageId };
       }
-      tempObj.id = leadDetail.id;
-      dispatch(updateLeadManager(jsonToFormData(tempObj)));
+
+      updateObj.members = members;
+      updateObj.id = leadDetail.id;
+
+      dispatch(updateLeadManager(jsonToFormData(updateObj)));
       return;
+    } else {
+      let members = values.members?.map((member) => {
+        return { memberId: member };
+      });
+      let imgObj = { file: image, id: defaultUiid };
+      let tempObj = { ...values };
+      tempObj.members = members;
+      tempObj.image = imgObj;
+      tempObj.privacyId = privacyId;
+      dispatch(addLeadManager(jsonToFormData(tempObj)));
     }
-    dispatch(addLeadManager(jsonToFormData(tempObj)));
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -63,7 +79,6 @@ function BoardComposer({ isEdit, loading, dataLoading = false, direction }) {
 
   useEffect(() => {
     if (leadDetail && isEdit) {
-      // console.log("lead detail", leadDetail);
       form.setFieldsValue({ ...leadDetail });
       form.setFieldsValue({
         members: leadDetail.members
@@ -144,18 +159,18 @@ function BoardComposer({ isEdit, loading, dataLoading = false, direction }) {
           <Input size="large" placeholder={placeHolder.grpNameDescPH} />
         )}
       </Form.Item>
-      {/* {!isEdit && ( */}
-      <>
-        {dataLoading ? (
-          <Skeleton.Input active={true} block size={"large"} />
-        ) : (
-          <WorkBoardMemberSelect
-            placeholder={placeHolder.serachMembersPH}
-            label={labels.members}
-          />
-        )}
-      </>
-      {/* )} */}
+      {!isEdit && (
+        <>
+          {dataLoading ? (
+            <Skeleton.Input active={true} block size={"large"} />
+          ) : (
+            <WorkBoardMemberSelect
+              placeholder={placeHolder.serachMembersPH}
+              label={labels.members}
+            />
+          )}
+        </>
+      )}
       <Form.Item>
         <div className="flex items-center gap-2">
           {dataLoading ? (

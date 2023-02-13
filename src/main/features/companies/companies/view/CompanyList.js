@@ -26,6 +26,7 @@ function CompanyList() {
 
   useEffect(() => {
     dispatch(getCompanyAction(search));
+    console.log(search, "searchh");
   }, [search]);
 
   // const searchHandler = (value) => {

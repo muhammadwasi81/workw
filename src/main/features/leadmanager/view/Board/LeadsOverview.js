@@ -107,13 +107,13 @@ function LeadsOverview({ handleSelectedMembers = () => {}, setLeadSectionId }) {
             icon={<PlusOutlined className="!text-gray-500" />}
             onClick={handleToggleForm}
           />
-          {toggleForm && (
+          {/* {toggleForm && (
             <SectionForm
               onFinish={onFinish}
               handleToggleForm={handleToggleForm}
               list={true}
             />
-          )}
+          )} */}
           <div className="rounded">
             {leadManagerDetail?.sections?.map((detail) => (
               <>

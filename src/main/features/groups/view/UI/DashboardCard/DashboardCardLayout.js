@@ -1,13 +1,13 @@
-import { memo } from 'react';
-import { Card } from 'antd';
-import Avatar from '../../../../../sharedComponents/Avatar/avatar';
-import PublicPrivateIcon from '../../../../../sharedComponents/PublicPrivateIcon/PublicPrivateIcon';
-import { useDispatch } from 'react-redux';
-import QuickOptions from '../../../quickOptions/index';
-import { StarFilled, StarOutlined } from '@ant-design/icons';
-import { handleFavoriteMark } from '../../../store/slice';
-import { addGroupFavoriteMarkAction } from '../../../store/actions';
-import PropTypes from 'prop-types';
+import { memo } from "react";
+import { Card } from "antd";
+import Avatar from "../../../../../sharedComponents/Avatar/avatar";
+import PublicPrivateIcon from "../../../../../sharedComponents/PublicPrivateIcon/PublicPrivateIcon";
+import { useDispatch } from "react-redux";
+import QuickOptions from "../../../quickOptions/index";
+import { StarFilled, StarOutlined } from "@ant-design/icons";
+import { handleFavoriteMark } from "../../../store/slice";
+import { addGroupFavoriteMarkAction } from "../../../store/actions";
+import PropTypes from "prop-types";
 
 function DashboardCardLayout({
   data = {},
@@ -53,7 +53,7 @@ function DashboardCardLayout({
           title={data.name}
           description={
             <div className="flex items-center gap-1 w-full">
-              <PublicPrivateIcon id={data.privacyId} />{' '}
+              <PublicPrivateIcon id={data.privacyId} />{" "}
               <div className="flex items-center justify-between w-full">
                 <span className="text-ellipsis whitespace-nowrap overflow-hidden w-[150px]">
                   {data.description}
@@ -67,7 +67,7 @@ function DashboardCardLayout({
             <Avatar
               isAvatarGroup={true}
               isTag={false}
-              heading={'Members'}
+              heading={"Members"}
               membersData={data.members}
             />
           </div>

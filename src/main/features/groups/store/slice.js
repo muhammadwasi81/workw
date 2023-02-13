@@ -1,4 +1,4 @@
-import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
+import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import {
   addGroup,
   getAllGroup,
@@ -7,12 +7,14 @@ import {
   addGroupMemberAction,
   getAllGroupMemberAction,
   deleteGroupMemberAction,
-} from './actions';
+} from "./actions";
 
 const initialState = {
   groups: [],
   loadingData: false,
   loader: false,
+  createLoader: false,
+
   groupDetail: null,
   success: false,
   error: false,
@@ -22,13 +24,17 @@ const initialState = {
   isEditComposer: false,
   addMemberModal: false,
   open: false,
+  drawerOpen: false,
   removeMemberSucess: false,
 };
 
 const groupSlice = createSlice({
-  name: 'groupSlice',
+  name: "groupSlice",
   initialState,
   reducers: {
+    handleOpenComposer: (state, { payload }) => {
+      state.drawerOpen = payload;
+    },
     resetGroupDetail(state, { payload }) {
       state.groupDetail = null;
     },
@@ -79,7 +85,7 @@ const groupSlice = createSlice({
       state.groups = deleteGroupMembers;
     },
     handleFavoriteMark(state, { payload }) {
-      console.log(payload, 'payload in slice');
+      console.log(payload, "payload in slice");
       const favGroups = state.groups.find((group) => group.id === payload.id);
       favGroups.isPinnedPost = !favGroups.isPinnedPost;
     },
@@ -89,14 +95,14 @@ const groupSlice = createSlice({
       .addCase(getAllGroup.fulfilled, (state, { payload }) => {
         state.groups = payload.data;
         state.success = true;
-        state.loadingData = false;
+        state.loader = false;
       })
       .addCase(addGroup.fulfilled, (state, { payload }) => {
-        state.groups = [...payload, ...state.groups];
-        // state.groups.unshift(payload);
-
-        state.loader = false;
-        state.success = true;
+        state.groups = [payload.data, ...state.groups];
+        state.drawerOpen = false;
+        state.createLoader = false;
+        return state;
+        // state.success = true;
       })
       .addCase(getGroupById.fulfilled, (state, { payload }) => {
         state.groupDetail = payload.data;
@@ -105,16 +111,12 @@ const groupSlice = createSlice({
       })
       .addCase(updateGroup.fulfilled, (state, { payload }) => {
         state.groupDetail = payload.data;
-        state.loader = false;
-        state.success = true;
+        state.createLoader = false;
+        state.drawerOpen = false;
+        // state.success = true;
+        return state;
       })
       .addCase(addGroupMemberAction.fulfilled, (state, { payload }) => {
-        // state.groups = state.groups.filter((group) => group.id);
-        // if (payload.data.length > 0) {
-        //   state.memberData = [...state.memberData, payload.data[0]];
-        //   return state;
-        // }
-
         if (state.groupDetail) {
           //TODO: check if response is empty
           if (payload.data?.length) {
@@ -130,9 +132,6 @@ const groupSlice = createSlice({
         state.memberData = payload.data.length > 0 ? payload.data : [];
       })
       .addCase(deleteGroupMemberAction.fulfilled, (state, { payload }) => {
-        // if (state.groupDetail) {
-        console.log(payload, "payload in iff");
-
         let newMembers = state.groupDetail.members.filter(
           (member) => member.memberId !== payload
         );
@@ -142,22 +141,29 @@ const groupSlice = createSlice({
       .addMatcher(isPending(...[deleteGroupMemberAction]), (state) => {
         state.removeMemberSucess = false;
       })
-      .addMatcher(isPending(getAllGroup), (state) => {
+      .addMatcher(isPending(...[getAllGroup]), (state) => {
         state.loader = true;
       })
-      .addMatcher(isPending(...[addGroup]), (state) => {
+      .addMatcher(isPending(...[getGroupById]), (state) => {
+        state.loadingData = true;
+      })
+      .addMatcher(isPending(...[addGroup, updateGroup]), (state) => {
+        state.createLoader = true;
+        // state.success = false;
+        // state.error = false;
+      })
+      .addMatcher(isRejected(...[getAllGroup]), (state) => {
         state.loader = true;
+      })
+      .addMatcher(isRejected(...[addGroup, updateGroup]), (state) => {
+        state.createLoader = false;
         state.success = false;
         state.error = false;
-      })
-      .addMatcher(isRejected(...[addGroup]), (state) => {
-        state.loader = false;
-        state.success = false;
       })
       .addMatcher(isRejected(...[deleteGroupMemberAction]), (state) => {
         state.removeMemberSucess = false;
       })
-      .addMatcher(isRejected(...[updateGroup, getGroupById]), (state) => {
+      .addMatcher(isRejected(...[getGroupById]), (state) => {
         state.loader = false;
         state.success = false;
         state.error = true;
@@ -172,6 +178,7 @@ export const {
   addMember,
   deleteGroupMember,
   addGroupMember,
+  handleOpenComposer,
   handleFavoriteMark,
 } = groupSlice.actions;
 export default groupSlice.reducer;

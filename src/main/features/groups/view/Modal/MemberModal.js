@@ -15,7 +15,6 @@ import { deleteGroupMemberAction } from "../../store/actions";
 import { useParams } from "react-router-dom";
 
 function MemberModal({ isOpen = false, data }) {
-  console.log(data, "memberss data");
   const dispatch = useDispatch();
   const modalRequest = useSelector((state) => state.groupSlice.addMemberModal);
   const employees = useSelector((state) => state.sharedSlice.employees);
@@ -24,8 +23,6 @@ function MemberModal({ isOpen = false, data }) {
   const [value, setValue] = useState([]);
   const params = useParams();
   const { groupDetailid } = params;
-  console.log(groupDetailid, "iddd");
-  console.log(data, "sss");
   let ModalOpen = modalRequest.status;
 
   useEffect(() => {

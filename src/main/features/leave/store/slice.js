@@ -30,12 +30,10 @@ const leaveSlice = createSlice({
     builder
       .addCase(getAllLeaves.fulfilled, (state, action) => {
         state.leaves = action.payload ? action.payload : [];
-        console.log(action.payload, "payloadddd");
         state.loader = false;
       })
       .addCase(GetLeaveUserById.fulfilled, (state, { payload }) => {
         state.leaves = payload.data ? payload.data : [];
-        console.log(payload.data, "payloadddd");
         state.loader = false;
       })
       .addCase(GetLeaveById.fulfilled, (state, action) => {
@@ -43,14 +41,10 @@ const leaveSlice = createSlice({
         state.loadingData = false;
       })
       .addCase(GetLeaveTypeAction.fulfilled, (state, action) => {
-        console.log(action.payload, "sliceeeee");
         state.UserLeave = action.payload.data;
         state.loadingData = false;
       })
       .addCase(addLeave.fulfilled, (state, { payload }) => {
-        console.log(payload, "payload");
-        console.log(state.leaves, "leaves");
-
         // state.drawerOpen = false;
         // state.leaveData = payload;
         // return state;

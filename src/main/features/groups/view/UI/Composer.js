@@ -33,7 +33,7 @@ const Composer = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, groupsDictionary } = groupsDictionaryList[userLanguage];
   const { labels, placeHolders, errors, features } = groupsDictionary;
-  const { loader } = useSelector((state) => state.groupSlice);
+  const { loader, createLoader } = useSelector((state) => state.groupSlice);
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const [profileImage, setProfileImage] = useState("");
@@ -213,7 +213,7 @@ const Composer = (props) => {
               className="ThemeBtn"
               block
               htmlType="submit"
-              // loading={loader}
+              loading={createLoader}
               // onClick={onFinish}
             >
               {update

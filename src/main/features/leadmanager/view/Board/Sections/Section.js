@@ -17,7 +17,6 @@ function Section(props) {
   const [toggleForm, setToggleForm] = useState(false);
   const dispatch = useDispatch();
   const onFinish = (values) => {
-    console.log("values", values, section.id);
     let tempObj = {
       sectionId: section.id,
       image: {

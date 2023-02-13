@@ -64,19 +64,27 @@ function MemberModal({ isOpen = false }) {
   };
 
   const handleChange = (id) => {
+    let b;
     let memberId = id.toString();
     const data = {
       id: assignMemberId,
       memberId: memberId,
     };
-
+    if(Type === MemberEnum.courses)
+    {
     let a = courseMembers.filter((item) => {
       return item.memberId === data.memberId
     });
-
-    let b = a[0] ? a[0].memberId : "";  
-    console.log(data.memberId, b)
-
+     b = a[0] ? a[0].memberId : "";  
+  }
+  else if(Type === MemberEnum.ebook)
+  {
+    let a = bookMembers.filter((item) => {
+    return item.memberId === data.memberId
+  });
+   b = a[0] ? a[0].memberId : "";  
+  }
+    
     if (data.memberId ===  b) {
       return message.error("Member Already Added")
     } else {

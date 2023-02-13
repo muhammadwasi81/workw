@@ -45,7 +45,6 @@ const DefaultApprovers = () => {
   const dispatch = useDispatch();
   const employees = useSelector((state) => state.sharedSlice.employees);
   const { loader, approversData } = useSelector((state) => state.approverSlice);
-  console.log(loader, 'loader');
 
   const payloadData = {
     pageNo: 1,
@@ -77,14 +76,16 @@ const DefaultApprovers = () => {
   };
 
   const handleChange = (e) => {
-    const isAlreadyAdded = approversData.find((item) => item.memberId === e);
+    const isAlreadyAdded = approversData.find(
+      (item) => item.memberId === e && item.type === currentType
+    );
     console.log(isAlreadyAdded, 'isAlreadyAdded');
     if (isAlreadyAdded) {
       return message.error('Member Already Exists');
-    } else {
-      dispatch(addDefaultApproversAction({ memberId: [e], type: currentType }));
-      dispatch(handleApproversDelete(e));
     }
+    setValue([]);
+    dispatch(addDefaultApproversAction({ memberId: [e], type: currentType }));
+    dispatch(handleApproversDelete(e));
   };
 
   const cancel = (e) => {
@@ -261,8 +262,8 @@ const DefaultApprovers = () => {
                                         width={'30px'}
                                         height={'30px'}
                                       />
-                                      <span className="font-semibold">
-                                        &nbsp;{item.member.name}
+                                      <span className="member-name font-semibold">
+                                        &nbsp; &nbsp;{item.member.name}
                                       </span>
                                     </div>
                                   );

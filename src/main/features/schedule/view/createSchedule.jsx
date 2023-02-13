@@ -10,7 +10,6 @@ import {
   EnvironmentOutlined,
   VideoCameraOutlined,
 } from '@ant-design/icons';
-
 import { getAllEmployees } from '../../../../utils/Shared/store/actions';
 import MemberSelect from '../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect';
 import SingleUpload from '../../../sharedComponents/Upload/singleUpload';
@@ -19,8 +18,15 @@ import { addSchedule } from '../store/action';
 import { defaultUiid } from '../../../../utils/Shared/enums/enums';
 import { getNameForImage, jsonToFormData } from '../../../../utils/base';
 import '../styles/style.css';
+import {
+  formats,
+  meetingDuration,
+  modules,
+  preparationDuration,
+  travelDuration,
+} from '../utils';
 
-function CreateSchedule({ scheduleDetail = {} }) {
+function CreateSchedule({ scheduleDetail = {}, referenceType, referenceId }) {
   const [venue, setVenue] = useState('Venue');
   const [quillError, setQuillError] = useState(false);
   const [files, setFiles] = useState([]);
@@ -33,58 +39,7 @@ function CreateSchedule({ scheduleDetail = {} }) {
   const loading = useSelector((state) => state.scheduleSlice.loading);
   const dispatch = useDispatch();
   const [form] = Form.useForm();
-  const modules = {
-    toolbar: [
-      [{ font: [] }],
-      [{ size: ['small', false, 'large', 'huge'] }],
-      [{ header: [1, 2, 3, 4, 5, 6, false] }],
-      ['bold', 'italic', 'underline', 'link', 'image'],
-      [{ list: 'ordered' }, { list: 'bullet' }],
-      [{ script: 'sub' }, { script: 'super' }],
-      //[{ 'indent': '-1'}, { 'indent': '+1' }],
-      [{ direction: 'rtl' }],
-      [{ align: ['center'] }],
-      [{ color: [] }, { background: [] }],
-      ['clean'],
-    ],
-    clipboard: {
-      matchVisual: false,
-    },
-  };
-  const formats = {
-    toolbar: [
-      [{ font: [] }],
-      [{ size: ['small', false, 'large', 'huge'] }],
-      [{ header: [1, 2, 3, 4, 5, 6, false] }],
-      ['bold', 'italic', 'underline', 'link', 'image'],
-      [{ list: 'ordered' }, { list: 'bullet' }],
-      [{ script: 'sub' }, { script: 'super' }],
-      //[{ 'indent': '-1'}, { 'indent': '+1' }],
-      [{ direction: 'rtl' }],
-      [{ align: ['center'] }],
-      [{ color: [] }, { background: [] }],
-      ['clean'],
-    ],
-  };
-  const meetingduration = [
-    { label: '15 min', value: '15 minutes' },
-    { label: '30 min', value: '30 minutes' },
-    { label: '45 min', value: '45 minutes' },
-    { label: '01 hr', value: '1 hours' },
-    { label: '02 hr', value: '2 hours' },
-  ];
-  const travelDuration = [
-    { label: '0 min', value: 0 },
-    { label: '15 min', value: 15 },
-    { label: '30 min', value: 30 },
-    { label: '45 min', value: 45 },
-  ];
-  const preparationDuration = [
-    { label: '0 min', value: 0 },
-    { label: '15 min', value: 15 },
-    { label: '30 min', value: 30 },
-    { label: '45 min', value: 45 },
-  ];
+
   const fetchEmployees = (text, pgNo) => {
     dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
   };
@@ -94,11 +49,13 @@ function CreateSchedule({ scheduleDetail = {} }) {
       setFirstTimeEmpData(employees);
     }
   }, [employees]);
+
   useEffect(() => {
     fetchEmployees('', 0);
   }, []);
 
   const onFinish = (value) => {
+    console.log('onFinish', value);
     let objToSend = value;
     if (objToSend.startDate) {
       objToSend.endDate = moment(value.startDate)
@@ -132,6 +89,8 @@ function CreateSchedule({ scheduleDetail = {} }) {
         jsonToFormData({
           ...objToSend,
           attachments,
+          referenceType: referenceType,
+          referenceId: referenceId,
         })
       )
     );
@@ -153,12 +112,6 @@ function CreateSchedule({ scheduleDetail = {} }) {
     // }
   };
 
-  const checkDesc = (_, value) => {
-    if (value.replace(/<(.|\n)*?>/g, '').trim().length === 0) {
-      return Promise.reject(new Error(''));
-    }
-    return Promise.resolve();
-  };
   useEffect(() => {
     if (Object.keys(scheduleDetail).length > 0) {
       console.log('scheduleDetail', scheduleDetail);
@@ -176,6 +129,7 @@ function CreateSchedule({ scheduleDetail = {} }) {
       });
     }
   }, [scheduleDetail]);
+
   return (
     <div className="createSchedule">
       <Form
@@ -247,7 +201,7 @@ function CreateSchedule({ scheduleDetail = {} }) {
             </Radio.Button>
           </Radio.Group>
         </Form.Item>
-        <Form.Item label="Loaction:">
+        <Form.Item label="Location:">
           <Radio.Group
             onChange={(e) => {
               setVenue(e.target.value);
@@ -293,7 +247,7 @@ function CreateSchedule({ scheduleDetail = {} }) {
             name="endDate"
             rules={[{ required: true, message: 'Duration is required' }]}
           >
-            <Select defaultValue="15min" options={meetingduration}></Select>
+            <Select defaultValue="15min" options={meetingDuration}></Select>
           </Form.Item>
         </div>
 
@@ -305,7 +259,7 @@ function CreateSchedule({ scheduleDetail = {} }) {
           <Select
             mode="tags"
             dropdownClassName="hidden"
-            placeholder={'Enter the Email Adresses'}
+            placeholder={'Enter the Email Address'}
             size="large"
           />
         </Form.Item>

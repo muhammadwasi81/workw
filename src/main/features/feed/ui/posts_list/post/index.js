@@ -30,6 +30,7 @@ const Post = ({
     reactionCount,
     myReaction,
   } = post;
+  console.log('post', post);
   return (
     <div className="post">
       <PostHeader

@@ -74,8 +74,8 @@ function Scheduler({ feed = false, referenceId }) {
   let data = schedules?.map((sch) => {
     return {
       ...sch,
-      start: new Date(sch.startDate),
-      end: new Date(sch.endDate),
+      date: new Date(sch.startDate), //this will only show the start date and upon clicking the schedule it will open detail of that event
+      // end: new Date(sch.endDate), //commented by humayoun
       title: sch.subject,
     };
   });

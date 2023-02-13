@@ -36,6 +36,7 @@ const projectSlice = createSlice({
     },
     addMember: (state, { payload }) => {
       state.addMemberModal = payload;
+      console.log(payload,"mypayload");
     },
     updateProjectById(state, { payload }) {
       state.projectDetail = state.projects.find((list) => list.id === payload);

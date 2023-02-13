@@ -13,6 +13,7 @@ import { Form } from "antd";
 import PasswordInput from "../../../../sharedComponents/Input/PasswordInput";
 import SingleUpload from "../../../../sharedComponents/Upload/singleUpload";
 
+
 let formData = {};
 
 function Signup() {
@@ -212,7 +213,11 @@ function Signup() {
                 />
               </Form.Item> */}
               <div className="agreement small-sign-up-form small-sign-up-form-agreement">
-                <Form.Item name="agree" valuePropName="checked">
+                <Form.Item 
+                  name="agree"
+                  valuePropName="checked"
+                  rules={rules}
+                >
                   <Checkbox>
                     <span className="terms-and-conditions">
                       I agree the terms and conditions.

@@ -27,7 +27,15 @@ function CommentWrapper({
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.userSlice);
   useEffect(() => {
-    setComments([...initailComments]);
+    console.log('this works');
+    const newResponse = initailComments?.map((it) => {
+      return {
+        ...it,
+        cssClass: 'no',
+      };
+    });
+    // console.log(newResponse, "newresponse");
+    setComments([...newResponse]);
   }, [JSON.stringify(initailComments)]);
 
   useEffect(() => {
@@ -42,15 +50,28 @@ function CommentWrapper({
   if (comments.length === 0 && loadSkeleton) return <Skeleton active />;
 
   const handleAddReaction = (id) => {
-    // console.log("id", id);
+    console.log('id', id);
     dispatch(
       addReaction({
         referenceId: id,
-        reactionModule,
+        reactionModule: 3,
         reactionType: 1,
       })
     );
-    setLikeClass('liked');
+    //todo set className for comments
+    const updatedComments = comments.map((item) => {
+      // console.log(item);
+      if (item.id === id) {
+        return {
+          ...item,
+          cssClass: 'liked',
+        };
+      } else {
+        return item;
+      }
+    });
+    setComments(updatedComments);
+    // setLikeClass("liked");
   };
   // console.log("initailComments", initailComments);
   // console.log("comment", comments);
@@ -84,6 +105,8 @@ function CommentWrapper({
               attachments,
               attachmentCount,
               attachmentFile,
+              reactionCount,
+              cssClass,
             }) => {
               const { designation, name, image } = creator;
               return (
@@ -103,6 +126,7 @@ function CommentWrapper({
                     createDate,
                     youLikeType: 0,
                     likeCounter: 0,
+                    reactionCount,
                     creator: {
                       name,
                       image,
@@ -111,6 +135,7 @@ function CommentWrapper({
                     attachments,
                     attachmentCount,
                     attachmentFile,
+                    cssClass: cssClass,
                   }}
                 />
               );

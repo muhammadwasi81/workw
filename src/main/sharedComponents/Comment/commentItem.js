@@ -26,8 +26,10 @@ const CommentItem = ({
     attachments,
     attachmentCount,
     attachmentFile,
+    reactionCount,
+    cssClass,
   } = comment;
-  console.log(content, 'contentttt');
+  // console.log(comment, "contentttt");
   const [openComposer, setOpenComposer] = useState(false);
   const [replies, setReplies] = useState([]);
   const toggleReply = (referenceId, parentId) => {
@@ -74,7 +76,8 @@ const CommentItem = ({
           />
           {type !== 2 && (
             <div className="likeReplyCont">
-              <div className={likeClass} onClick={() => handleLike(parentId)}>
+              <div className={cssClass} onClick={() => handleLike(parentId)}>
+                {/* {Like} &nbsp; {reactionCount > 0 ? reactionCount : ""} */}
                 {Like}
               </div>
               <div onClick={() => toggleReply(referenceId, parentId)}>

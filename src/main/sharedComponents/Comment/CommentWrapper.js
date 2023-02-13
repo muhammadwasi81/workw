@@ -1,11 +1,11 @@
-import { Skeleton } from "antd";
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { STRINGS } from "../../../utils/base";
-import { addReaction } from "../../features/feed/store/actions";
-import CommentItem from "./commentItem";
-import CommentComposer from "./Composer";
-import { getAllComment } from "./services";
+import { Skeleton } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { STRINGS } from '../../../utils/base';
+import { addReaction } from '../../features/feed/store/actions';
+import CommentItem from './commentItem';
+import CommentComposer from './Composer';
+import { getAllComment } from './services';
 
 function CommentWrapper({
   initailComments = [],
@@ -23,15 +23,15 @@ function CommentWrapper({
   setShowComments = () => {},
 }) {
   const [comments, setComments] = useState([]);
-  const [likeClass, setLikeClass] = useState("hello boy");
+  const [likeClass, setLikeClass] = useState('hello boy');
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.userSlice);
   useEffect(() => {
-    console.log("this works");
+    console.log('this works');
     const newResponse = initailComments?.map((it) => {
       return {
         ...it,
-        cssClass: "no",
+        cssClass: 'no',
       };
     });
     // console.log(newResponse, "newresponse");
@@ -50,7 +50,7 @@ function CommentWrapper({
   if (comments.length === 0 && loadSkeleton) return <Skeleton active />;
 
   const handleAddReaction = (id) => {
-    console.log("id", id);
+    console.log('id', id);
     dispatch(
       addReaction({
         referenceId: id,
@@ -64,7 +64,7 @@ function CommentWrapper({
       if (item.id === id) {
         return {
           ...item,
-          cssClass: "liked",
+          cssClass: 'liked',
         };
       } else {
         return item;
@@ -94,7 +94,7 @@ function CommentWrapper({
               type,
               comment,
               creator = {
-                designation: user.designation || "",
+                designation: user.designation || '',
                 name: user.name,
                 image: user.userImage,
               },
@@ -116,7 +116,7 @@ function CommentWrapper({
                   initialMentions={initialMentions}
                   mentionedUser={mentionedUser}
                   module={module}
-                  likeClass={likeClass}
+                  likeClass={`${likeClass}`}
                   handleLike={handleAddReaction}
                   comment={{
                     content: comment,

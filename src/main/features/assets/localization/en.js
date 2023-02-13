@@ -35,6 +35,9 @@ const en = {
     waitingForHandover: 'Waiting For Handover',
     allocated: 'Allocated',
     available: 'Available',
+    lost: 'Lost',
+    damage: 'Damaged',
+    forMaintenance: 'For Maintenance',
   },
 
   /*** Define language write side ***/

@@ -36,18 +36,18 @@ const Verified = () => {
 						title="Thank You!"
 						extra={[
 							<p>
-								We verified your email, you can now{" "}
-								<a href={`${ROUTES.ROOT}`}> login </a>
+								Your email has been verified wait for the approval process{" "}
+								{/* <a href={`${ROUTES.ROOT}`}> login </a> */}
 							</p>,
 						]}
 					/>
 				</div>
 			) : (
 				<div style={{ width: "100%" }} className="verificationScreen">
-					<Result
+					{/* <Result
 						title="You don't have valid token"
 						subTitle="May be token already exist"
-					/>
+					/> */}
 				</div>
 			)}
 		</>

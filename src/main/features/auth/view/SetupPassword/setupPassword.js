@@ -27,7 +27,6 @@ function PasswordForm() {
 	const passwordToken = useParams();
 	const id = useLocation();
 	const stoken = id.search.split("=");
-	console.log(stoken[1], "Token");
 
 	const { loader } = useSelector((state) => state.authSlice);
 
@@ -69,7 +68,7 @@ function PasswordForm() {
         <div className="welcome-heading">
           <div>Setup Password</div>
         </div>
-        <div className="note note-heading">Enter email address to receive email to reset password.</div>
+        <div className="note note-heading">Enter your password to login on Workwise.</div>
         <div className="">
           <Space direction="vertical" size={16} style={{ width: "100%" }}>
             {/* <Form.Item name="email">
@@ -103,7 +102,7 @@ function PasswordForm() {
         </div> */}
         <div className="btn">
           <button className={`button ${loader ? "disable" : ""}`}>
-            Send Request
+            Update Password 
             {!loader ? (
               <span className="icon-login">
                 <i className="ic-login_icon" />

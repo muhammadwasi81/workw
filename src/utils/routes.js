@@ -577,6 +577,7 @@ export const ROUTES = {
   MAIL: {
     DEFAULT: `${DOMAIN_PREFIX}/mail/*`,
     ROOT: `${DOMAIN_PREFIX}/mail`,
+    LINK: `${DOMAIN_PREFIX}/`,
     DETAIL: `/detail`,
 
     INBOX: `${DOMAIN_PREFIX}/mail/inbox`,

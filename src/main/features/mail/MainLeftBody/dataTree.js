@@ -2,6 +2,7 @@ import React from "react";
 import {Tree} from 'antd';
 import MenuItem from "./MenuItem";
 import {STRINGS} from "../../../../utils/base";
+import { ROUTES } from "../../../../utils/routes";
 
 const {TreeNode} = Tree;
 
@@ -18,7 +19,7 @@ const Demo = ({mailFolderItem, menuLabel}) => {
                         title={
                             <MenuItem
                                 key={folderPath}
-                                path={`${STRINGS.ROUTES.MAIL.DEFAULT}/${folderPath}`}
+                                path={`${ROUTES.MAIL.ROOT}/${folderPath}`}
                                 pathName={folderPath}
                                 name={name}
                                 badgeCount={unseen}

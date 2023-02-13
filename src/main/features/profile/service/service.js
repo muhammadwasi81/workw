@@ -13,6 +13,18 @@ export const addEmployeeService = async (data) => {
     });
 };
 
+export const addRatingService = async (data) => {
+  return MasterConfig.post(`/api/Employee/UserProfileRating`, data)
+    .then((res) => {
+      console.log(res.data, 'Add Rating service');
+      return res;
+    })
+    .catch((err) => {
+      console.log(err.message, 'error in Rating');
+      return err;
+    });
+};
+
 export const getAllEmployeeService = async (data) => {
   return MasterConfig.post(`/api/Employee/GetAllEmployeeShort`, data)
     .then((res) => {
@@ -94,7 +106,7 @@ export const GetCourseByUserIdService = async (userId) => {
 // update user coverImg
 export const updateCoverImgService = async (data) => {
   const formData = jsonToFormData(data);
-  return MasterConfig.put(`/api/Employee/UpdateProfileCoverImage`, formData)
+  return MasterConfig.post(`/api/Employee/AddProfileCoverImage`, formData)
     .then((res) => {
       console.log(res.data, 'updateCoverImgService service');
       return res;

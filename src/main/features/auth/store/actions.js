@@ -8,6 +8,7 @@ import { STRINGS } from "../../../../utils/base";
 import { getDefaultDesignationService } from "../../../../utils/Shared/services/services";
 import { addDeviceService } from "../../calling/services/services";
 import { getFirebaseToken } from "../../../../firebase/initFirebase";
+import { ValidateFunction } from './functions/validate'
 
 const addFcmDeviceOnServer = async (data) => {
 	const payload = {
@@ -79,6 +80,11 @@ export const getDesignation = createAsyncThunk(
 // 	}
 // );
 
+function redirectToLogin() {
+	window.location.pathname = "/login"
+}
+
+
 export const signup = createAsyncThunk(
 	"auth/signup",
 	async (formData, { }) => {
@@ -88,7 +94,8 @@ export const signup = createAsyncThunk(
 			const { data } = res;
 
 			if (data.responseCode === 1001) {
-				window.location.pathname = "/verification";
+				message.success("Thank you for signing up with Workwise please check confirmation email")
+				setTimeout(redirectToLogin, 4000);
 				return data;
 			} else {
 				message.error(data.message);
@@ -106,8 +113,10 @@ export const verification = createAsyncThunk(
 	async (token, { rejectWithValue }) => {
 		try {
 			const response = await emailVerificationService(token);
+			ValidateFunction(response.data.responseCode, response.data.message)
 			return response.data;
 		} catch (e) {
+			message.error("Someting went wrong")
 			return rejectWithValue(e.response.data);
 		}
 	}

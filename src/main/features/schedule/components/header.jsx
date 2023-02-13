@@ -47,6 +47,7 @@ function Header({ handleShareLinkModal, width, routeLink, backButton }) {
   ];
   return (
     <HeaderLayout
+      isSchedule={true}
       items={items}
       buttons={buttons}
       width={width}

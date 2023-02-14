@@ -22,11 +22,11 @@ function Header({ handleShareLinkModal, width, routeLink, backButton }) {
       to: routeLink ? routeLink : `?f=sc`,
       renderButton: [1, 2],
     },
-    // {
-    //   name: "Schedule Interviews",
-    //   to: `?f=si`,
-    //   renderButton: [1],
-    // },
+    {
+      name: "Schedule Interviews",
+      to: `?f=si`,
+      renderButton: [1],
+    },
   ];
   const buttons = [
     {

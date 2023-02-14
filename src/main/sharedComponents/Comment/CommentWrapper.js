@@ -27,7 +27,6 @@ function CommentWrapper({
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.userSlice);
   useEffect(() => {
-    console.log("this works");
     const newResponse = initailComments?.map((it) => {
       return {
         ...it,

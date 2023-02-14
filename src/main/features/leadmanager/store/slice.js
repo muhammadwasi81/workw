@@ -238,7 +238,12 @@ const leadMangerSlice = createSlice({
         const updatedManagerIndex = state.leadManagersData.findIndex(
           (manager) => manager.id === data.id
         );
-        state.leadManagersData[updatedManagerIndex] = data;
+        //TODO
+        var newData = {
+          members: state.leadManagersData[updatedManagerIndex].members,
+          data,
+        };
+        state.leadManagersData[updatedManagerIndex] = newData;
         state.success = true;
         state.loading = false;
       })

@@ -1,73 +1,162 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Tab from "../../../../sharedComponents/Tab";
 import ScheduleCard from "../../UI/ScheduleCard";
+import { useDispatch, useSelector } from "react-redux";
 // import Approval from "../../../../sharedComponents/AppComponents/Approvals/view";
 // import EventDetail from "../../UI/EventDetail";
 import TaskDetail from "../../../task/view/TaskDetail/TaskDetail";
 import TravelDetail from "../../../travel/view/TravelDetail/TravelDetail";
 import ScheduleComposerDetail from "../Composer/ScheduleComposerDetail";
 import { ScheduleTypeEnum } from "../../enum/enum";
+import CustomSelect from "../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
+import {
+  getAllEmployees,
+  getAllEmployeeShort,
+} from "../../../../../utils/Shared/store/actions";
+import { Avatar } from "antd";
 function MySchedules() {
-	const [scheduleData, setScheduleData] = useState(null);
-	const panes = [
-		{
-			featureName: "Past",
-			featureId: 0,
-			content: (
-				<ScheduleCard
-					sheduleType="Past"
-					setScheduleData={setScheduleData}
-					key="past"
-				/>
-			),
-		},
-		{
-			featureName: "Today",
-			featureId: 1,
-			content: (
-				<ScheduleCard
-					sheduleType="Today"
-					setScheduleData={setScheduleData}
-					key="today"
-				/>
-			),
-		},
-		{
-			featureName: "Upcoming",
-			featureId: 2,
-			content: (
-				<ScheduleCard
-					sheduleType="Upcoming"
-					setScheduleData={setScheduleData}
-					key={"upcoming"}
-				/>
-			),
-		},
-	];
+  const dispatch = useDispatch();
+  const [scheduleData, setScheduleData] = useState(null);
+  const [employee, setEmployee] = useState({});
+  const [fetchEmployeesData, setFetchEmployeesData] = useState([]);
+  const [isFirstTime, setIsFirstTime] = useState(true);
+  const employeesData = useSelector((state) => state.sharedSlice.employees);
+  const employeesShortData = useSelector(
+    (state) => state.sharedSlice.employeeShort
+  );
 
-	return (
-		<div className="flex flex-col gap-3 overflow-hidden h-full">
-			<div className="flex flex-1 gap-5 h-full">
-				<div className="basis-[30%] min-w-[330px] overflow-y-auto">
-					<Tab panes={panes} activeKey="1" />
-				</div>
-				<div className="basis-[70%] flex flex-col gap-[18px] min-h-0">
-					<div className="rounded-lg p-2 px-5 bg-[white] font-bold text-black">
-						Details
-					</div>
-					<div className="p-5 bg-white rounded-lg min-h-0 overflow-y-auto">
-						{scheduleData !== null ? (
-							scheduleData?.type === ScheduleTypeEnum.Travel ? (
-								<TravelDetail travelId={scheduleData?.id} />
-							) : scheduleData?.type === ScheduleTypeEnum.Task ? (
-								<TaskDetail id={scheduleData?.id} />
-							) : (
-								<>
-									<ScheduleComposerDetail
-										id={scheduleData?.id}
-										shortEvent={false}
-									/>
-									{/* <div className="eventDetail p-5 bg-white rounded-lg min-h-0 overflow-y-auto">
+  useEffect(() => {
+    fetchEmployees();
+    fetchEmployeesShort();
+  }, []);
+
+  const fetchEmployees = (text = "", pgNo = 1) => {
+    dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
+  };
+  const fetchEmployeesShort = (text = "", pgNo = 1) => {
+    dispatch(getAllEmployeeShort({ text, pgNo, pgSize: 20 }));
+  };
+
+  const selectedEmployee = (employee) => {
+    // console.log(employeesData, employee);
+    let selected = employeesData.filter((el) => el.id === employee);
+    setEmployee(selected[0]);
+    // console.log(selected[0].id);
+    // setUserId(selected[0].id);
+  };
+
+  const newPanes = [
+    {
+      featureName: "My Schedules",
+      featureId: 0,
+    },
+    // {
+    //   featureName: "Team Schedules",
+    //   featureId: 1,
+    //   content: <div>my contents</div>,
+    // },
+    {
+      featureName: "Team Schedules",
+      featureId: 1,
+      content: (
+        <div className=" mb-2 mr-[1rem] ml-[1rem]">
+          <CustomSelect
+            style={{ marginBottom: "0px" }}
+            data={fetchEmployeesData}
+            selectedData={(value) => selectedEmployee(value.join())}
+            canFetchNow={employeesShortData && employeesShortData.length > 0}
+            fetchData={fetchEmployeesShort}
+            sliceName="employeeShort"
+            placeholder={"Select"}
+            isObject={true}
+            size={"medium"}
+            loadDefaultData={false}
+            formItem={false}
+            optionComponent={(opt) => {
+              return (
+                <>
+                  <Avatar
+                    name={opt.name}
+                    src={opt.image}
+                    round={true}
+                    width={"30px"}
+                    height={"30px"}
+                  />
+                  {opt.name}
+                </>
+              );
+            }}
+            dataVal={[]}
+            name="Employee"
+            showSearch={true}
+          />
+        </div>
+      ),
+    },
+  ];
+
+  const panes = [
+    {
+      featureName: "Past",
+      featureId: 0,
+      content: (
+        <ScheduleCard
+          sheduleType="Past"
+          setScheduleData={setScheduleData}
+          key="past"
+        />
+      ),
+    },
+    {
+      featureName: "Today",
+      featureId: 1,
+      content: (
+        <ScheduleCard
+          sheduleType="Today"
+          setScheduleData={setScheduleData}
+          key="today"
+        />
+      ),
+    },
+    {
+      featureName: "Upcoming",
+      featureId: 2,
+      content: (
+        <ScheduleCard
+          sheduleType="Upcoming"
+          setScheduleData={setScheduleData}
+          key={"upcoming"}
+        />
+      ),
+    },
+  ];
+
+  return (
+    <div className="flex flex-col gap-3 overflow-hidden h-full">
+      <div className="flex flex-1 gap-5 h-full">
+        <div className="basis-[30%] min-w-[330px] overflow-y-auto">
+          <div className="bg-[#ffffff] mb-[1rem] rounded-[10px]">
+            <Tab panes={newPanes} activeKey="0" />
+          </div>
+          <Tab panes={panes} activeKey="1" />
+        </div>
+        <div className="basis-[70%] flex flex-col gap-[18px] min-h-0">
+          <div className="rounded-lg p-2 px-5 bg-[white] font-bold text-black">
+            Details
+          </div>
+          <div className="p-5 bg-white rounded-lg min-h-0 overflow-y-auto">
+            {scheduleData !== null ? (
+              scheduleData?.type === ScheduleTypeEnum.Travel ? (
+                <TravelDetail travelId={scheduleData?.id} />
+              ) : scheduleData?.type === ScheduleTypeEnum.Task ? (
+                <TaskDetail id={scheduleData?.id} />
+              ) : (
+                <>
+                  <ScheduleComposerDetail
+                    id={scheduleData?.id}
+                    shortEvent={false}
+                  />
+                  {/* <div className="eventDetail p-5 bg-white rounded-lg min-h-0 overflow-y-auto">
 									<div className="eventDetail__header">
 							<p className="eventDetail-title">Details</p>
 							<span className="eventNum">SCH-000085</span>
@@ -478,14 +567,14 @@ function MySchedules() {
 										status={""}
 									/>
 								</div> */}
-								</>
-							)
-						) : null}
-					</div>
-				</div>
-			</div>
-		</div>
-	);
+                </>
+              )
+            ) : null}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default MySchedules;

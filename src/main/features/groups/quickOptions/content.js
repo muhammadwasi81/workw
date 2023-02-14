@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getGroupDetailById, handleComposer, addMember } from "../store/slice";
 
 import MemberModal from "../view/Modal/MemberModal";
-import Composer from "../view/UI/Composer";
 
 const ContentOptions = ({ handleClose, data }) => {
   const dispatch = useDispatch();

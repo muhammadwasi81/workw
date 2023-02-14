@@ -1,11 +1,11 @@
-import MasterConfig from "../../../../utils/services/MasterConfig";
-const API_PREFIX = "api/Project/";
+import MasterConfig from '../../../../utils/services/MasterConfig';
+const API_PREFIX = 'api/Project/';
 
 const getAllSticky_SD = (data) => {
   return {
     pageNo: data.pageNo ? data.pageNo : 1,
     pageSize: data.pageSize ? data.pageSize : 20,
-    search: data.search ? data.search : "",
+    search: data.search ? data.search : '',
     filterSortBy: data.filterSortBy ? data.filterSortBy : 1,
   };
 };
@@ -50,12 +50,12 @@ export const addProjectService = (data) => {
 };
 
 export const removeProjectFeatureService = ({ id, featureId }) => {
-  console.log(id, featureId, "id in service");
+  console.log(id, featureId, 'id in service');
   return MasterConfig.delete(
     `${API_PREFIX}RemoveProjectFeature?id=${id}&featureId=${featureId}`
   )
     .then((res) => {
-      console.log(res.data, "removeProjectFeatureService");
+      console.log(res.data, 'removeProjectFeatureService');
       return res.data;
     })
     .catch((err) => {
@@ -64,10 +64,10 @@ export const removeProjectFeatureService = ({ id, featureId }) => {
 };
 
 export const addProjectFeatureService = (data) => {
-  console.log(data, "payload in service");
+  console.log(data, 'payload in service');
   return MasterConfig.post(`${API_PREFIX}AddProjectFeature`, data)
     .then((res) => {
-      console.log(res.data, "addProjectFeatureService");
+      console.log(res.data, 'addProjectFeatureService');
       return res.data;
     })
     .catch((err) => {
@@ -78,7 +78,7 @@ export const addProjectFeatureService = (data) => {
 export const saveProjectStickyNotesService = (data) => {
   return MasterConfig.post(`api/StickyNotes/SaveProjectStickyNotes`, data)
     .then((res) => {
-      console.log(res.data, "project sticky");
+      console.log(res.data, 'project sticky');
       return res.data;
     })
     .catch((err) => {
@@ -89,7 +89,7 @@ export const saveProjectStickyNotesService = (data) => {
 export const saveStickyNotesTitleService = (data) => {
   return MasterConfig.post(`api/StickyNotes/SaveTitleProjectStickyNotes`, data)
     .then((res) => {
-      console.log(res.data, "project sticky title");
+      console.log(res.data, 'project sticky title');
       return res.data;
     })
     .catch((err) => {
@@ -101,7 +101,7 @@ export const getAllProjectStickyService = (data) => {
   let request = getAllSticky_SD(data);
   return MasterConfig.post(`api/StickyNotes/GetAllProjectStickyNotes`, request)
     .then((res) => {
-      console.log(res.data, "get project sticky");
+      console.log(res.data, 'get project sticky');
       return res.data;
     })
     .catch((err) => {
@@ -143,6 +143,22 @@ export const deleteProjectMemberService = (data) => {
     memberId,
   ])
     .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+export const addProjectFavoriteService = (payload) => {
+  console.log(payload, 'payload in service');
+  console.log(payload, 'projectId in service');
+  return MasterConfig.get(
+    `api/Project/AddProjectFavouriteMark?projectId=${payload.id}&isPinned=${payload.isPinned}`,
+    payload.payload
+  )
+    .then((res) => {
+      console.log(res.data, 'addProjectFeatureService');
       return res.data;
     })
     .catch((err) => {

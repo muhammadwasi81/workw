@@ -239,7 +239,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
     }
   };
 
-  console.log('userType.id', userTypeList);
+  console.log('userTypeList', userTypeList);
 
   let classes = 'employeeForm basicInfo ';
   classes += Direction === 'ltr' ? 'ltr' : 'rtl';
@@ -325,11 +325,7 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
           <Input placeholder={placeholder.cnicNo}></Input>
         </Form.Item>
         <Form.Item
-          rules={[
-            {
-              required: true,
-            },
-          ]}
+          rules={[{ required: true }]}
           name="designationId"
           label={labels.Designation}
           placeholder={placeholder.selectGender}
@@ -545,20 +541,9 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
             ))}
           </Select>
         </Form.Item>
-        {isEdit ? (
-          <>
-            <Form.Item
-              name="userTypeId"
-              label={labels.UserType}
-              rules={[{ required: true }]}
-            >
-              &nbsp;&nbsp;
-              <strong>
-                {basicdetails?.userTypeId === 1 ? 'Admin' : 'Employee'}
-              </strong>
-            </Form.Item>
-          </>
-        ) : (
+
+        {!(isEdit && basicdetails.userTypeId === 1) ||
+        basicdetails.userTypeId === 2 ? (
           <Form.Item
             name="userTypeId"
             label={labels.UserType}
@@ -577,45 +562,50 @@ const BasicInfo = ({ mode, profileImage, handleImageUpload, id }) => {
               ))}
             </Select>
           </Form.Item>
-        )}
+        ) : null}
 
-        <Form.Item
-          name="accessRoleId"
-          rules={[{ required: true }]}
-          label={labels.AccessRole}
-        >
-          <Select
-            size="large"
-            placeholder={placeholder.selectAccessRole}
-            getPopupContainer={(trigger) => trigger.parentNode}
-            showSearch={true}
-            onChange={(value) => {
-              console.log(value, 'accessroles');
-            }}
-            mode="multiple"
-            filterOption={(input, option) =>
-              (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
-            }
-            options={accessRoles
-              .filter(
-                (x) =>
-                  x.roleTypeId === userTypeEnum.Employee ||
-                  x.roleTypeId === userTypeEnum.Admin
-              )
-              .map((item) => {
-                return {
-                  value: item.id,
-                  label: item.name,
-                };
-              })}
+        {(!isEdit && basicdetails.userTypeId === 1) ||
+        basicdetails.userTypeId === 2 ? (
+          <Form.Item
+            name="accessRoleId"
+            rules={[{ required: true }]}
+            label={labels.AccessRole}
           >
-            {accessRoles.map((item) => (
-              <Select.Option key={item.id} value={item.id}>
-                {item.name}
-              </Select.Option>
-            ))}
-          </Select>
-        </Form.Item>
+            <Select
+              size="large"
+              placeholder={placeholder.selectAccessRole}
+              getPopupContainer={(trigger) => trigger.parentNode}
+              showSearch={true}
+              onChange={(value) => {
+                console.log(value, 'accessroles');
+              }}
+              mode="multiple"
+              filterOption={(input, option) =>
+                (option?.label ?? '')
+                  .toLowerCase()
+                  .includes(input.toLowerCase())
+              }
+              options={accessRoles
+                .filter(
+                  (x) =>
+                    x.roleTypeId === userTypeEnum.Employee ||
+                    x.roleTypeId === userTypeEnum.Admin
+                )
+                .map((item) => {
+                  return {
+                    value: item.id,
+                    label: item.name,
+                  };
+                })}
+            >
+              {accessRoles.map((item) => (
+                <Select.Option key={item.id} value={item.id}>
+                  {item.name}
+                </Select.Option>
+              ))}
+            </Select>
+          </Form.Item>
+        ) : null}
 
         <Form.Item name="departmentId" label={labels.department}>
           <Select

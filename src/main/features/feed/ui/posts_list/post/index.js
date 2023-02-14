@@ -28,10 +28,8 @@ const Post = ({
     comments,
     commentCount,
     reactionCount,
-
     myReaction,
   } = post;
-
   return (
     <div className="post">
       <PostHeader

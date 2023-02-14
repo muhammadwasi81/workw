@@ -45,7 +45,6 @@ const DefaultApprovers = () => {
   const dispatch = useDispatch();
   const employees = useSelector((state) => state.sharedSlice.employees);
   const { loader, approversData } = useSelector((state) => state.approverSlice);
-  console.log(loader, 'loader');
 
   const payloadData = {
     pageNo: 1,
@@ -77,12 +76,15 @@ const DefaultApprovers = () => {
   };
 
   const handleChange = (e) => {
-    const payload = {
-      memberId: [e],
-      type: currentType,
-    };
-
-    dispatch(addDefaultApproversAction(payload));
+    const isAlreadyAdded = approversData.find(
+      (item) => item.memberId === e && item.type === currentType
+    );
+    console.log(isAlreadyAdded, 'isAlreadyAdded');
+    if (isAlreadyAdded) {
+      return message.error('Member Already Exists');
+    }
+    setValue([]);
+    dispatch(addDefaultApproversAction({ memberId: [e], type: currentType }));
     dispatch(handleApproversDelete(e));
   };
 
@@ -190,7 +192,9 @@ const DefaultApprovers = () => {
                                             okText="OK"
                                             cancelText="cancel"
                                           >
-                                            <DeleteFilled style={{ color: "#1b5669" }} />
+                                            <DeleteFilled
+                                              style={{ color: '#1b5669' }}
+                                            />
                                           </Popconfirm>
                                         </td>
                                       </tr>
@@ -258,8 +262,8 @@ const DefaultApprovers = () => {
                                         width={'30px'}
                                         height={'30px'}
                                       />
-                                      <span className="font-semibold">
-                                        &nbsp;{item.member.name}
+                                      <span className="member-name font-semibold">
+                                        &nbsp; &nbsp;{item.member.name}
                                       </span>
                                     </div>
                                   );

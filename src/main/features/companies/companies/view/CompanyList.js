@@ -5,30 +5,34 @@ import TopBar from "../../../../sharedComponents/topBar/topBar";
 import "../Styles/company.css";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { companyDictionaryList } from "../localization/index";
-import { getTeamsAction } from "../store/action";
+import { getCompanyAction } from "../store/action";
 import CompanyCard from "./CompanyCard";
 import CompanyTableView from "./TeamTableView";
 import Header from "../../view/Header/Header";
-import { ContBody, TabbableContainer } from "../../../../sharedComponents/AppComponents/MainFlexContainer";
+import {
+  ContBody,
+  TabbableContainer,
+} from "../../../../sharedComponents/AppComponents/MainFlexContainer";
 import CompanyShortCard, { CardGrid } from "./CompanyShortCard";
 
 function CompanyList() {
   const [view, setView] = useState("List");
-  const [search, setSearch] = useState(null);
   const dispatch = useDispatch();
+  const [search, setSearch] = useState("");
   const { userLanguage } = useContext(LanguageChangeContext);
   const { companyDictionary, Direction } = companyDictionaryList[userLanguage];
   const labels = companyDictionary.sharedLabels;
+  const { companies, loader } = useSelector((state) => state.companySlice);
 
-  const { teams, loader } = useSelector((state) => state.companySlice);
   useEffect(() => {
-    dispatch(getTeamsAction());
-  }, []);
+    dispatch(getCompanyAction(search));
+    console.log(search, "searchh");
+  }, [search]);
 
-  const searchHandler = (value) => {
-    dispatch(getTeamsAction({ search: value }));
-    console.log(value, "valueee");
-  };
+  // const searchHandler = (value) => {
+  //   console.log(value, "value");
+  //   dispatch(getCompanyAction(value));
+  // };
   let classes = "teamListContainer ";
   classes += Direction === "ltr" ? "ltr" : "rtl";
   if (loader) {
@@ -51,7 +55,7 @@ function CompanyList() {
             <div style={{ flexDirection: "column", width: "100%" }}>
               <TopBar
                 style={{ margin: 0, width: "100%" }}
-                onSearch={(value) => searchHandler(value)}
+                onSearch={(val) => setSearch(val)}
                 segment={{
                   onSegment: (value) => {
                     setView(value);
@@ -68,17 +72,19 @@ function CompanyList() {
                 // </div>
                 <>
                   <CardGrid>
-                    {teams.map((team, index) => {
-                      return <CompanyShortCard key={index} team={team} />;
+                    {companies.map((team, index) => {
+                      return (
+                        <CompanyShortCard key={index} company={companies} />
+                      );
                     })}
                   </CardGrid>
                 </>
-            ) : (
-            <CompanyTableView />
+              ) : (
+                <CompanyTableView />
               )}
-          </div>
-        </ContBody>
-      </TabbableContainer>
+            </div>
+          </ContBody>
+        </TabbableContainer>
       </>
     );
   }

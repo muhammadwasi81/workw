@@ -115,7 +115,7 @@ function CommentWrapper({
                   initialMentions={initialMentions}
                   mentionedUser={mentionedUser}
                   module={module}
-                  likeClass={likeClass}
+                  likeClass={`${likeClass}`}
                   handleLike={handleAddReaction}
                   comment={{
                     content: comment,

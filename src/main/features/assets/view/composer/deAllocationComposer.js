@@ -188,19 +188,26 @@ const AssetDeAllocationComposer = () => {
                             setStatus(e);
                           }}
                         >
-                          <Select.Option value={1}>
+                          {/* <Select.Option value={1}>
                             {assetsDictionary.waitingForApproval}
                           </Select.Option>
                           <Select.Option value={2}>
                             {assetsDictionary.waitingForHandover}
-                          </Select.Option>
-                          <Select.Option value={3}>
-                            {' '}
+                          </Select.Option> */}
+                          <Select.Option value={1}>
                             {assetsDictionary.allocated}
                           </Select.Option>
-                          <Select.Option value={4}>
-                            {' '}
+                          <Select.Option value={2}>
                             {assetsDictionary.available}
+                          </Select.Option>
+                          <Select.Option value={3}>
+                            {assetsDictionary.lost}
+                          </Select.Option>
+                          <Select.Option value={4}>
+                            {assetsDictionary.damage}
+                          </Select.Option>
+                          <Select.Option value={5}>
+                            {assetsDictionary.forMaintenance}
                           </Select.Option>
                         </Select>
                       </td>

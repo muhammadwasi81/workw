@@ -1,5 +1,5 @@
 import { Button, Form, Input, Tree, Skeleton, message } from 'antd';
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState, memo } from 'react';
 import { useSelector } from 'react-redux';
 import { FormTextArea } from '../../../../components/HrMenu/Administration/StyledComponents/adminForm';
 import { getAllBussinessFeatures } from '../../../../utils/Shared/store/actions';
@@ -30,6 +30,8 @@ function AccessRoleComposer(props) {
   const { bussinessFeatures } = useSelector((state) => state.sharedSlice);
   const [featuresTreeData, setFeaturesTreeData] = useState(initialTreeData);
   const [loadingTreeData, setLoadingTreeData] = useState(false);
+  const [showChecked, setShowChecked] = useState(false);
+  const [form] = Form.useForm();
   const [formDataObject, setFormDataObject] = useState({
     name: '',
     description: '',
@@ -47,6 +49,10 @@ function AccessRoleComposer(props) {
   const { administration, sharedLabels, Direction } = dictionaryList[
     userLanguage
   ];
+
+  // console.log(selectedKeys, 'featuresTreeData');
+  // console.log(featuresTreeData, 'featuresTreeData');
+  // console.log(checkedKeys, 'featuresTreeData');
 
   useEffect(() => {
     getAllBussinessFeatures();
@@ -66,33 +72,20 @@ function AccessRoleComposer(props) {
         ...expandedKeys,
         ...expandedKeysArray,
       ]);
-      console.log(bussinessFeatures, 'bussinessFeatures');
+      // console.log(bussinessFeatures, 'bussinessFeatures');
       const transformObject =
         bussinessFeatures &&
         bussinessFeatures.length > 0 &&
         bussinessFeatures.map((feature) => ({
           key: JSON.stringify({
             name: feature.name,
-            permissionId: feature.featureId,
+            permissionId: feature.id,
             permissions: feature.permissions,
           }),
           title: feature.name,
           permissionId: feature.featureId,
           children: [],
         }));
-      console.log(
-        bussinessFeatures.map((x) => ({
-          key: JSON.stringify({
-            name: x.name,
-            permissionId: x.featureId,
-            permissions: x.permissions,
-          }),
-          title: x.name,
-          id: x.featureId,
-          children: [],
-        })),
-        'json object'
-      );
       let transformedChildren;
 
       for (let i = 0; i < bussinessFeatures.length; i++) {
@@ -107,17 +100,6 @@ function AccessRoleComposer(props) {
             title: permission.name,
             parentId: bussinessFeatures[i].featureId,
           }));
-        console.log(
-          bussinessFeatures[i].permissions.map((x) => ({
-            key: JSON.stringify({
-              permissionId: x.id,
-            }),
-            value: x.featurePermissionId,
-            title: x.name,
-            parentId: bussinessFeatures[i].featureId,
-          })),
-          'dusra wala object'
-        );
         transformObject[i].children = transformedChildren;
       }
       let newFeatures = [...featuresTreeData];
@@ -128,37 +110,51 @@ function AccessRoleComposer(props) {
   }, [bussinessFeatures]);
 
   useEffect(() => {
-    if (
-      singleAccessRole &&
-      singleAccessRole.features &&
-      singleAccessRole.features.length > 0
-    ) {
+    if (singleAccessRole && singleAccessRole?.features?.length > 0) {
+      // console.log(singleAccessRole, 'singleAccessRole');
       setFormDataObject((prevObj) => ({
         ...prevObj,
         name: props.formData.name,
         description: props.formData.description,
+        roleTypeId: props.formData.roleTypeId,
+        features: props.formData.features,
+        permissions: props.formData.permissions,
       }));
 
       let checkedData = [];
       for (let i = 0; i < singleAccessRole.features.length; i++) {
         if (singleAccessRole.features[i].permissions.length > 0) {
           singleAccessRole.features[i].permissions.map((role) => {
+            let obj = {
+              id: role.permissionId,
+              featureId: singleAccessRole.features[i].featureId,
+              name: role.permission,
+            };
             checkedData.push(
-              JSON.stringify(role) + '_' + singleAccessRole.features[i].id
+              JSON.stringify(obj) + '_' + singleAccessRole.features[i].featureId
             );
           });
         } else {
           let singleAccessRoleObj = {
             id: '',
             name: '',
+            features: [],
             permissions: [],
           };
           singleAccessRoleObj.name = singleAccessRole.features[i].name;
           singleAccessRoleObj.id = singleAccessRole.features[i].id;
+          singleAccessRoleObj.features = singleAccessRole.features[i].features;
           checkedData.push(JSON.stringify(singleAccessRoleObj));
         }
       }
+      // console.log(checkedData, 'checkedDatacheckedData');
       setCheckedKeys((prevCheckedKeys) => [...prevCheckedKeys, ...checkedData]);
+      // "{\"id\":20,\"featureId\":11,\"name\":\"View Travel\"}_11"
+
+      // accessRoleFeatureId: "5524ddd0-d57f-487f-b8d6-774d3514dee8"
+      // id: "152a577e-eaa0-402f-b736-6550ed8926e2"
+      // permission: "View Feed"
+      // permissionId: 1
     }
   }, [singleAccessRole]);
 
@@ -171,32 +167,34 @@ function AccessRoleComposer(props) {
   }, [success]);
 
   const onExpand = (expandedKeysValue) => {
+    // console.log('onExpand', expandedKeysValue);
     setExpandedKeys(expandedKeysValue);
     setAutoExpandParent(false);
   };
 
-  const onCheck = (checkedKeysValue) => {
-    setCheckedKeys(checkedKeysValue);
-  };
-
   const onSelect = (selectedKeysValue) => {
+    // console.log('featuresTreeData', selectedKeysValue);
     setSelectedKeys(selectedKeysValue);
   };
+
+  const onCheck = (checkedKeysValue) => {
+    // console.log('featuresTreeData onCheck', checkedKeysValue);
+    setCheckedKeys(checkedKeysValue);
+    setShowChecked(true);
+  };
+
   const handleTreeForm = (values) => {
+    // console.log(handleTreeForm, 'handleTreeForm');
     let finalData = {
       name: values.name,
       description: values.description,
       roleTypeId: values.roleTypeId,
       features: [],
     };
-
+    // console.log(finalData, 'finalData in handleTreeForm');
     for (let i = 0; i < checkedKeys.length; i++) {
       let id = checkedKeys[i].split('_')[1];
-      console.log(id, 'id');
       let data = checkedKeys[i].split('_')[0];
-      console.log(data, 'data');
-      console.log(checkedKeys, 'checkedKeys[i]');
-      console.log(finalData, 'finalData');
       if (id) {
         if (
           finalData.features.length > 0 &&
@@ -210,7 +208,6 @@ function AccessRoleComposer(props) {
             }
           });
         } else {
-          console.log([JSON.parse(data)], 'TTTTTTT');
           finalData.features.push({
             featureId: Number(id),
             name: JSON.parse(data).name,
@@ -224,6 +221,7 @@ function AccessRoleComposer(props) {
       } else {
         if (data !== 'Access Controls') {
           const tempData = JSON.parse(data);
+          // console.log(data.features, 'data.features');
           if (tempData.permissions.length === 0) {
             finalData.features.push({
               id: Number(tempData.id),
@@ -239,12 +237,12 @@ function AccessRoleComposer(props) {
 
   const onFinish = (values) => {
     if (checkedKeys.length === 0) {
-      message.error('Please add access role!');
-      return;
+      return message.error('Please add access role!');
     }
     let finalData = handleTreeForm(values);
-    console.log(finalData, 'finalData');
+    // console.log(finalData, 'finalData onFinish');
     if (props.isEdited) {
+      // console.log(props.isEdited, 'props.isEdited');
       finalData.id = props.id;
     }
     props.onSubmitData(finalData);
@@ -253,12 +251,12 @@ function AccessRoleComposer(props) {
   useEffect(() => {
     if (props.isEdited) {
       const finalData = handleTreeForm(formDataObject);
+      // console.log(finalData, 'finalData in useEffect');
       finalData &&
         finalData.features &&
         finalData.features.sort((a, b) => {
           return a.id - b.id;
         });
-
       if (
         JSON.stringify(finalData).includes(JSON.stringify(props.defaultData))
       ) {
@@ -267,7 +265,7 @@ function AccessRoleComposer(props) {
         setIsObjEqual(false);
       }
     }
-  }, [formDataObject, checkedKeys]);
+  }, [formDataObject, checkedKeys, props.defaultData]);
 
   useEffect(() => {
     if (!props.openDrawer) {
@@ -287,6 +285,7 @@ function AccessRoleComposer(props) {
           name: props.formData.name,
           description: props.formData.description,
           roleTypeId: props.formData.roleTypeId,
+          features: props.formData.features,
         }}
       >
         <div>
@@ -411,4 +410,4 @@ function AccessRoleComposer(props) {
   );
 }
 
-export default AccessRoleComposer;
+export default memo(AccessRoleComposer);

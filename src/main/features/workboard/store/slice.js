@@ -22,6 +22,7 @@ import {
   updateWorkBoardTodoTitle,
   getWorkBoardMemberAction,
   addWorkBoardMember,
+  removeWorkBoardMember,
 } from "./action";
 
 const initialComposerData = {
@@ -55,6 +56,7 @@ const initialState = {
   addMemberModal: false,
   workBoardMembers: [],
   memberModal: false,
+  removeMemberSucess: false,
 };
 
 const trelloSlice = createSlice({
@@ -319,6 +321,40 @@ const trelloSlice = createSlice({
       state.isComposerEdit = false;
       state.isComposerVisible = false;
     },
+    addWorkBoardMembers(state, { payload }) {
+      //TODO: replace the response with existing id object
+      const newMembers = state.workboardsList.map((item, i) => {
+        if (item.id === payload[0].workBoardId) {
+          let members = [...item.members, payload[0]];
+          let newItem = {
+            ...item,
+            members,
+          };
+          return newItem;
+        } else {
+          return item;
+        }
+      });
+
+      state.workboardsList = newMembers;
+    },
+    deleteWorkBoardMember(state, { payload }) {
+      const deleteBoardMembers = state.workboardsList.map((item, i) => {
+        if (item.id === payload.id) {
+          let delMember = item.members.filter(
+            (member) => member.memberId !== payload.memberId
+          );
+          let deleteItem = {
+            ...item,
+            members: delMember,
+          };
+          return deleteItem;
+        } else {
+          return item;
+        }
+      });
+      state.workboardsList = deleteBoardMembers;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -495,7 +531,14 @@ const trelloSlice = createSlice({
       .addCase(getWorkBoardMemberAction.fulfilled, (state, action) => {
         state.workBoardMembers = action.payload ? action.payload : [];
       })
+
       .addCase(addWorkBoardMember.fulfilled, (state, { payload }) => {})
+      .addCase(removeWorkBoardMember.fulfilled, (state, { payload }) => {
+        state.removeMemberSucess = true;
+      })
+      .addMatcher(isPending(...[removeWorkBoardMember]), (state) => {
+        state.removeMemberSucess = false;
+      })
       .addMatcher(
         isPending(
           ...[
@@ -525,7 +568,10 @@ const trelloSlice = createSlice({
           state.success = false;
           state.error = false;
         }
-      );
+      )
+      .addMatcher(isRejected(...[removeWorkBoardMember]), (state) => {
+        state.removeMemberSucess = false;
+      });
   },
 });
 
@@ -555,6 +601,8 @@ export const {
   updaateWorkboardById,
   resetComposerDetail,
   addMember,
+  addWorkBoardMembers,
+  deleteWorkBoardMember,
 } = trelloSlice.actions;
 
 export default trelloSlice.reducer;

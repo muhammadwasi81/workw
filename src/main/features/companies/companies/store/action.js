@@ -3,18 +3,17 @@ import { ResponseType } from "../../../../../utils/api/ResponseResult";
 // import { jsonToFormData, STRINGS } from "../../../../../../utils/base";
 import { openNotification } from "../../../../../utils/Shared/store/slice";
 import {
-  getAllTeamsService,
+  getAllCompanyService,
   getAllRewardService,
   getAllLoanService,
   getAllComplainService,
   getAllSignupService,
 } from "../services/service";
 
-export const getTeamsAction = createAsyncThunk(
-  "teamSlice/getTeamsAction",
+export const getCompanyAction = createAsyncThunk(
+  "getComapnyAction",
   async (payload, { rejectWithValue, dispatch }) => {
-    const response = await getAllTeamsService(payload);
-    // console.log(response, "TEAM SERVICE");
+    const response = await getAllCompanyService(payload);
     switch (response.type) {
       case ResponseType.ERROR:
         return rejectWithValue(response.errorMessage);
@@ -106,7 +105,7 @@ export const getAllSignupAction = createAsyncThunk(
   async (payload, { rejectWithValue, dispatch }) => {
     const response = await getAllSignupService(payload);
     console.log(response, "getAllSignupAction");
-   
+
     switch (response.type) {
       case ResponseType.ERROR:
         return rejectWithValue(response.errorMessage);

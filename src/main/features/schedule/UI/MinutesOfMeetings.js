@@ -1,9 +1,8 @@
-import { useState } from 'react';
-import { Modal } from 'antd';
-import { useSelector } from 'react-redux';
+import { useState } from "react";
+import { Modal } from "antd";
+import { useSelector } from "react-redux";
 
 function MinutesOfMeetings({ data }) {
-  console.log(data, 'data');
   const [showMilePad, setShowMilePad] = useState(false);
 
   const handleMilePad = () => {

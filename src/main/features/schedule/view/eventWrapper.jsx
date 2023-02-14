@@ -1,13 +1,11 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import { Skeleton } from 'antd';
-import '../styles/event.css';
-import Event from './event';
-import { toggleEventDetailComposer } from '../store/slice';
+import React from "react";
+import { useDispatch } from "react-redux";
+import { Skeleton } from "antd";
+import "../styles/event.css";
+import Event from "./event";
+import { toggleEventDetailComposer } from "../store/slice";
 
-function EventWrapper({ data, heading = 'Events', loading = false }) {
-  console.log('data', data);
-
+function EventWrapper({ data, heading = "Events", loading = false }) {
   // if (loading) {
   // 	return <Skeleton.Input active size block />;
   // }

@@ -235,11 +235,18 @@ const leadMangerSlice = createSlice({
       })
       .addCase(updateLeadManager.fulfilled, (state, { payload }) => {
         const { data } = payload;
-        console.log(data, "Dataaa");
         const updatedManagerIndex = state.leadManagersData.findIndex(
           (manager) => manager.id === data.id
         );
-        state.leadManagersData[updatedManagerIndex] = data;
+        //TODO
+        let newData = {
+          members: state.leadManagersData[updatedManagerIndex].members,
+          name: data.name,
+          description: data.description,
+          image: data.image,
+          privacyId: data.privacyId,
+        };
+        state.leadManagersData[updatedManagerIndex] = newData;
         state.success = true;
         state.loading = false;
       })

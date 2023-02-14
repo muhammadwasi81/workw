@@ -32,6 +32,10 @@
   border-color: transparent !important;
   border-radius: 5px;
 }
+.cJClNC .filter-date {
+  font-size: 12px !important;
+  top: 20px;
+}
 
 @media screen and (max-width: 800px) {
   .filterBtn {

@@ -85,7 +85,8 @@
   flex: 1;
   width: 100%;
   max-width: 100%;
-  max-height: 100%;
+  /* max-height: 300px; */
+  height: 200px;
   outline: none;
   border: none;
   margin: 0;
@@ -96,12 +97,12 @@
 
 @media (min-width: 1280px) {
   .coursListing .xl\:grid-cols-3 {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
 @media (min-width: 768px) {
   .coursListing .md\:grid-cols-2 {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }

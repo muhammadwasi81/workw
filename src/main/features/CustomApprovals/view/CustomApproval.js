@@ -114,6 +114,9 @@ const CustomApproval = (props) => {
               onClick: () => setFilter({ filterType: 3 }),
             },
           ]}
+          filter={{
+            onFilter: () => {},
+          }}
           segment={{
             onSegment: (value) => {
               if (value === customApprovalDictionary.table) {

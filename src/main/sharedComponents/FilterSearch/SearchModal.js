@@ -53,13 +53,13 @@ function SearchModal({ isVisible, onClose, onFilter }) {
           </Select>
         </Form.Item>
         <DatePickerWithlabel>
-          <span>Start Date</span>
-          <Form.Item name="startDate" label="To ">
+          {/* <span className="filter-date">Start Date</span> */}
+          <Form.Item name="startDate" label="To">
             <DatePicker placeholder="Select Date" />
           </Form.Item>
         </DatePickerWithlabel>
         <DatePickerWithlabel>
-          <span>End Date</span>
+          {/* <span className="filter-date">End Date</span> */}
           <Form.Item name="endDate" label="End">
             <DatePicker placeholder="Select Date" />
           </Form.Item>

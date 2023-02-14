@@ -3,10 +3,11 @@ import "./style.css";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button, Dropdown } from "antd";
 import DropDownMenu from "./DropDownMenu";
-import { PlusOutlined, LeftOutlined } from "@ant-design/icons";
+import { PlusOutlined, LeftOutlined, SearchOutlined } from "@ant-design/icons";
 import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../utils/localization/languages";
-function Header({ items, buttons, backButton, width }) {
+import SearchInput from "../../sharedComponents/searchBox/SearchInput";
+function Header({ items, buttons, backButton, width, isSchedule = false }) {
   const { pathname, search } = useLocation();
   const [activeLinks, setActiveLinks] = useState(items.map(() => false));
   const env = process.env.NODE_ENV === "development";
@@ -94,7 +95,21 @@ function Header({ items, buttons, backButton, width }) {
           ))}
         </ul>
       </div>
-      <div className="right">
+
+      <div className="right flex">
+        {isSchedule && (
+          <div className="searchBox">
+            <SearchInput
+              icon={<SearchOutlined />}
+              placeholder={"search Schedule..."}
+              size="larger"
+              onChange={(e) => {
+                console.log(e.target.value);
+              }}
+              style={{ height: "30px" }}
+            />
+          </div>
+        )}
         <div className="buttons">
           {filterButtons.map((button, index) => renderButton(button, index))}
         </div>

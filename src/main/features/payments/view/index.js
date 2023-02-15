@@ -7,18 +7,19 @@ import {
 import PaymentTable from "./table";
 
 const Index = () => {
+  const { payment } = useSelector((state) => state.userBillingSlice);
+  console.log(payment);
+
+  useEffect(() => {
+    //TODO: call api to get all payment
+    console.log("mount payment component");
+  }, []);
+
   return (
-    <>
-      <FormContainer>
-        <FormHeader>{"Payment"}</FormHeader>
-        <PaymentTable />
-        {/* <EmailConfigurationTable
-        handleEdit={setemailConfiguration}
-        handleDelete={handleDelete}
-        actionRights={[1, 2]}
-      /> */}
-      </FormContainer>
-    </>
+    <FormContainer>
+      <FormHeader>{"Payment"}</FormHeader>
+      <PaymentTable />
+    </FormContainer>
   );
 };
 

@@ -331,6 +331,7 @@ export const ROUTES = {
     ALLOWANCES: `allowances`,
     REWARD_CATEGORY: `rewardCategory`,
     WARNING_CATEGORY: `warningCategory`,
+    // BILLING: `billing`,
   },
   LOAN: {
     DEFAULT: `${DOMAIN_PREFIX}/loan/*`,
@@ -438,7 +439,6 @@ export const ROUTES = {
     TAX_SLAB_GROUP: `taxSlabsGroup`,
     GRADE: `grade`,
     ELEARNING_CATEGORY: `eLearningCategory`,
-
     APPRASIAL: `appraisal`,
     TIMEZONE: `timezone`,
     OFFICETIMING: `officetimings`,
@@ -458,6 +458,7 @@ export const ROUTES = {
     ALLOWANCES: `allowances`,
     REWARD_CATEGORY: `rewardCategory`,
     WARNING_CATEGORY: `warningCategory`,
+    BILLING: `billing`,
   },
 
   LOAN: {

@@ -428,6 +428,7 @@ const hindi = {
     Rewards: "बैंक विवरण1",
     Reward_Category: "बैंक विवरण2",
     Warning_Category: "बैंक विवरण3",
+    Billing: "बिलिंग",
     Form: {
       Description: "बैंक विवरण4",
       Add: "बैंक विवरण5",

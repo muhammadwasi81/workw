@@ -2,7 +2,22 @@ import { Input } from "antd";
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
-function TextInput({ name, type, placeholder, onChange, className, value, error, children, label, reset, status, defaultValue, ...props }) {
+function TextInput({
+  name,
+  type,
+  placeholder,
+  onChange,
+  className,
+  value,
+  error,
+  children,
+  label,
+  reset,
+  status,
+  disabled,
+  defaultValue,
+  ...props
+}) {
   const [state, setstate] = useState("");
   const handleChange = (e) => {
     setstate(e.target.value, e.target.name);
@@ -18,7 +33,13 @@ function TextInput({ name, type, placeholder, onChange, className, value, error,
     <>
       <Input
         id={name}
-        prefix={props.prefix ? <props.prefix style={{ color: "#bfbfbf", marginRight: "10px" }} /> : false}
+        prefix={
+          props.prefix ? (
+            <props.prefix style={{ color: "#bfbfbf", marginRight: "10px" }} />
+          ) : (
+            false
+          )
+        }
         name={name}
         type={type}
         placeholder={placeholder}
@@ -27,8 +48,13 @@ function TextInput({ name, type, placeholder, onChange, className, value, error,
         value={value}
         defaultValue={defaultValue}
         className={className}
+        disabled={disabled}
         size={props.size}
-        style={error ? { border: "solid 1px red", borderRadius: "5px" } : { borderRadius: "5px", height: "38px" }}
+        style={
+          error
+            ? { border: "solid 1px red", borderRadius: "5px" }
+            : { borderRadius: "5px", height: "38px" }
+        }
       />
     </>
   );

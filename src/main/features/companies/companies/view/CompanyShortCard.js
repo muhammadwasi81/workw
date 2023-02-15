@@ -9,6 +9,7 @@ const CompanyShortCard = ({ company }) => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { companyDictionary } = companyDictionaryList[userLanguage];
   const labels = companyDictionary.CompanyList;
+  console.log("company", company);
 
   return (
     <Parent>
@@ -20,12 +21,12 @@ const CompanyShortCard = ({ company }) => {
         }
       />
       <ContentBox>
-        <Heading>{company[0]?.name}</Heading>
+        <Heading>{company.name}</Heading>
         <Text>
-          <b>{labels.email}: </b>&nbsp; {company[0]?.email}{" "}
+          <b>{labels.email}: </b>&nbsp; {company.email}{" "}
         </Text>
         <Text>
-          <b> {labels.website}: </b>&nbsp; {company[0]?.website}{" "}
+          <b> {labels.website}: </b>&nbsp; {company.website}{" "}
         </Text>
         <ButtonsBox>
           <ActionButton BackgroundColor="#db5252">

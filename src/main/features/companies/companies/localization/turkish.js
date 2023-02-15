@@ -38,6 +38,7 @@ const turkish = {
       basicInfo: "temel bilgi",
       sendEmail: "eposta gönder",
       dashBoard: "Gösterge Paneli",
+      billing: "faturalandırma",
     },
   },
 

@@ -38,6 +38,7 @@ const hindi = {
       basicInfo: "बुनियादी जानकारी",
       sendEmail: "ईमेल भेजें",
       dashBoard: "डैशबोर्ड",
+      billing: "बिलिंग",
     },
   },
 

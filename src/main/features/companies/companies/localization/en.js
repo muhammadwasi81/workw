@@ -74,6 +74,7 @@ const en = {
       basicInfo: "Basic Info",
       sendEmail: "Send Email",
       dashBoard: "Dashboard",
+      billing: "Billing",
     },
   },
 

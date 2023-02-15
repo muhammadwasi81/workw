@@ -54,6 +54,9 @@ export const ROUTES = {
     SETUP_PASSWORD: `${DOMAIN_PREFIX}/SetupNewPassword`,
     // VERIFICATION_INPROCESS: `${DOMAIN_PREFIX}/verifying`,
   },
+  EXTERNAL_PROJECT: {
+    REGISTER: `${DOMAIN_PREFIX}/projectExternal`,
+  },
   BUDGET: {
     DEFAULT: `${DOMAIN_PREFIX}/budgets`,
   },

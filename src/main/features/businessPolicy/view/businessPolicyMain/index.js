@@ -40,7 +40,6 @@ export default function AllApprovals() {
   }, []);
   const searchHandler = (value) => {
     dispatch(getAllBusinessPolicy(value));
-    console.log(value, "valueee");
   };
 
   return (

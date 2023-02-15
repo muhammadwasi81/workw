@@ -54,17 +54,17 @@ function Header({ dictionary, direction }) {
         <SideDrawer
           children={
             <BoardComposer
-              isEdit={isEditComposer}
-              loading={loading}
-              dictionary={dictionary}
+              // isEdit={isEditComposer}
+              // loading={loading}
+              // dictionary={dictionary}
               direction={direction}
-              labels={labels}
+              // labels={labels}
             />
           }
-          title={isEditComposer ? updateGrp : createGrp}
-          buttonText={createTextBtn}
+          title={"Create Lead Manager"}
+          buttonText={"Create Lead Manager"}
           isAccessDrawer={true}
-          openDrawer={isComposerOpen}
+          // openDrawer={isComposerOpen}
           success={success}
           handleClose={() => {
             setTimeout(() => {

@@ -57,7 +57,7 @@ const PostFooter = ({
         addFeedReaction({
           referenceId: id,
           reactionMode: "click",
-          myReaction: 1,
+          ReactionType: myReaction,
           isDetail,
         })
       );
@@ -65,16 +65,17 @@ const PostFooter = ({
         addReaction({
           referenceId: id,
           reactionModule,
-          myReaction: 1,
+          reactionType: myReaction,
         })
       );
       return;
     }
+
     dispatch(
       addFeedReaction({
         referenceId: id,
         reactionMode: "click",
-        myReaction,
+        reactionType: myReaction,
         isDetail,
       })
     );
@@ -82,7 +83,7 @@ const PostFooter = ({
       addReaction({
         referenceId: id,
         reactionModule,
-        myReaction: 0,
+        reactionType: myReaction,
       })
     );
   };
@@ -114,10 +115,7 @@ const PostFooter = ({
         )}
       </div>
       <div className="post-events">
-        <div
-          className={`btn on`}
-          onClick={() => handleAddReaction(myReaction, id)}
-        >
+        <div className={`btn on`} onClick={() => handleAddReaction(0, id)}>
           <Reactions
             direction={Direction}
             onUpdate={(e) => {
@@ -136,7 +134,7 @@ const PostFooter = ({
                 })
               );
             }}
-            onLikeBtnClick={() => handleAddReaction(myReaction, id)}
+            onLikeBtnClick={() => handleAddReaction(0, id)}
           >
             <div className={`btn on`}>
               <span>

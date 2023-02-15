@@ -1,9 +1,15 @@
-import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
-import { getTeamsAction, getRewardsAction, getAllLoanAction,getAllSignupAction } from './action';
+import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
+import {
+  getCompanyAction,
+  getRewardsAction,
+  getAllLoanAction,
+  getAllSignupAction,
+} from "./action";
 
 const initialState = {
-  signup:[],
+  signup: [],
   teams: [],
+  companies: [],
   team: {
     rewardsdetails: [],
     loandetails: [],
@@ -13,13 +19,14 @@ const initialState = {
 };
 
 const companySlice = createSlice({
-  name: 'teams',
+  name: "comapnies",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getTeamsAction.fulfilled, (state, { payload }) => {
-        state.teams = payload;
+      .addCase(getCompanyAction.fulfilled, (state, { payload }) => {
+        console.log(payload, "payloadd");
+        state.companies = payload;
         state.loader = false;
         state.success = true;
       })
@@ -36,25 +43,21 @@ const companySlice = createSlice({
       .addCase(getAllSignupAction.fulfilled, (state, { payload }) => {
         state.signup = payload;
       })
-      .addMatcher(isPending(getTeamsAction), (state) => {
-        console.log('pending teams');
+      .addMatcher(isPending(getCompanyAction), (state) => {
         state.loader = true;
         state.success = false;
       })
       .addMatcher(isPending(getRewardsAction), (state) => {
-        console.log('pending teams');
         state.loader = true;
         state.success = false;
       })
       .addMatcher(isPending(getAllLoanAction), (state) => {
-        console.log('pending teams');
         state.loader = true;
         state.success = false;
       })
       .addMatcher(
-        isRejected(...[getTeamsAction, getRewardsAction, getAllLoanAction]),
+        isRejected(...[getCompanyAction, getRewardsAction, getAllLoanAction]),
         (state) => {
-          console.log('rejected');
           state.loader = false;
           state.success = false;
         }

@@ -2,14 +2,12 @@ import { Image, Tag } from "antd";
 import React, { useContext, useState } from "react";
 import UserInfo from "../../../../sharedComponents/UserShortInfo/UserInfo";
 import SublineDesigWithTime from "../../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
-import StatusTag from "../../../../sharedComponents/Tag/StatusTag";
-import moment from "moment";
 import {
-  ItemContent,
   ItemHeader,
   SingleItem,
 } from "../../../../sharedComponents/Card/CardStyle";
 import { useEffect } from "react";
+import { FeaturesEnum, FeaturesEnumList, getFeatures } from "../../companies/util/enums";
 // import Avatar from "../../../../sharedComponents/Avatar/avatar";
 // import { useDispatch } from "react-redux";
 // import { data } from "jquery";
@@ -24,7 +22,14 @@ function ListItem({item, onClick, id}) {
     lastName,
     email,
     title,
+    features,
   } = item ? item : "";
+
+  let myArray = features.split(',')
+  console.log(myArray, "ARRAY")
+  // getFeatures(array)
+  // let arr = [1,2]
+  // console.log(getFeatures(arr), "MY ARRAY")
 
   // const localTime = moment
   //   .utc(createDate)
@@ -60,7 +65,17 @@ function ListItem({item, onClick, id}) {
             </button>
           </div>
         </ItemHeader>
-        <ItemContent className="flex"></ItemContent>
+        <div className="tagsContainer">
+              {
+                FeaturesEnumList.map((item) => {
+                  if ([1,5,7,5,6,8,9,10,11].includes(item.value)) {
+                    return (
+                      <span className="featureTag">{item.label}</span>
+                    )
+                  }
+                })
+            }
+        </div>
         <div className="cardSections">
           <div className="cardSectionItem">
             <div className="cardSection__title">

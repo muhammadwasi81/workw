@@ -4,6 +4,7 @@ const en = {
     company: {
       companies: "کمپنیاں",
       companyDashboard: "کمپنی ڈیش بورڈ",
+      billing: "بلنگ",
     },
     companyDetail: {
       companyDetails: "کمپنی کی تفصیلات",

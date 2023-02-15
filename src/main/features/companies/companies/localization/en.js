@@ -4,7 +4,8 @@ const en = {
     company: {
       companies: "My Company",
       companyDashboard: "Company Dashboard",
-      signup:"Signup Not Confirmed",
+      signup: "Signup Not Confirmed",
+      billing: "Billing",
     },
     companyDetail: {
       teamDetails: "Team Details",

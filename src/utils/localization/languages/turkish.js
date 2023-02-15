@@ -429,6 +429,7 @@ const turkish = {
     Rewards: "Erişim Rolü6",
     Reward_Category: "Erişim Rolü7",
     Warning_Category: "Erişim Rolü8",
+    Billing: "Faturalandırma",
     Form: {
       Description: "Erişim Rolü9",
       Add: "Derece0",

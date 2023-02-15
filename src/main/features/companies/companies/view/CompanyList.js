@@ -73,9 +73,7 @@ function CompanyList() {
                 <>
                   <CardGrid>
                     {companies.map((team, index) => {
-                      return (
-                        <CompanyShortCard key={index} company={companies} />
-                      );
+                      return <CompanyShortCard key={index} company={team} />;
                     })}
                   </CardGrid>
                 </>

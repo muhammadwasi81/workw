@@ -49,6 +49,10 @@ import quotationIcon from "../../../content/svg/menu/newNavBarIcon/quotationsIco
 import chartAccountIcon from "../../../content/svg/menu/newNavBarIcon/chartAccountsIcon.svg";
 
 import { DOMAIN_PREFIX } from "../../../utils/routes";
+import { useSelector } from "react-redux";
+//import { FeaturesEnum } from "../../../utils/Shared/enums/featuresEnums";
+import { FeaturesEnum, FeaturePermissionEnum } from "../../../utils/Shared/enums/featuresEnums";
+
 const NavMenuList = () => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const label = dictionaryList[userLanguage];
@@ -61,6 +65,7 @@ const NavMenuList = () => {
       to: DOMAIN_PREFIX,
       icon: newsIcon,
       isActive: 1,
+      featureId:FeaturesEnum.Feed
     },
     {
       name: label.navMenuLabel.expense,
@@ -69,6 +74,7 @@ const NavMenuList = () => {
       icon: expensesIcon,
       isActive: 10,
       key: label.navMenuLabel.hr,
+      
     },
     {
       name: label.navMenuLabel.travel,
@@ -84,6 +90,7 @@ const NavMenuList = () => {
       to: `${ROUTES.TRAVELS}?f=trv`,
       icon: travelIcon,
       isActive: 11,
+      // featureId:FeaturesEnum.
     },
   ];
   const navHrMenuData = [
@@ -94,6 +101,7 @@ const NavMenuList = () => {
       icon: newsIcon,
       isActive: 1,
       key: label.navMenuLabel.menu,
+      featureId:FeaturesEnum.Feed
     },
     {
       name: label.navMenuLabel.schedules,
@@ -110,6 +118,7 @@ const NavMenuList = () => {
       icon: messengerIcon,
       isActive: 3,
       key: label.navMenuLabel.menu,
+      featureId:FeaturesEnum.Messenger
     },
     {
       name: label.navMenuLabel.mailBox,
@@ -118,6 +127,7 @@ const NavMenuList = () => {
       icon: mailsIcon,
       isActive: 3,
       key: label.navMenuLabel.menu,
+      featureId:FeaturesEnum.Mailbox
     },
     {
       name: label.navMenuLabel.leadManager,
@@ -126,6 +136,7 @@ const NavMenuList = () => {
       icon: contactManagerIcon,
       isActive: 8,
       key: label.navMenuLabel.menu,
+      featureId:FeaturesEnum.Lead
     },
     {
       name: label.navMenuLabel.customApprovals,
@@ -134,6 +145,7 @@ const NavMenuList = () => {
       icon: customApprovalIcon,
       isActive: 4,
       key: label.navMenuLabel.menu,
+      featureId:FeaturesEnum.CustomApproval
     },
     {
       name: label.navMenuLabel.travel,
@@ -142,6 +154,7 @@ const NavMenuList = () => {
       icon: travelIcon,
       isActive: 11,
       key: label.navMenuLabel.menu,
+      featureId:FeaturesEnum.Travel
     },
     {
       name: label.navMenuLabel.docsArchives,
@@ -150,6 +163,7 @@ const NavMenuList = () => {
       icon: documentIcon,
       // isActive: 6,
       key: label.navMenuLabel.menu,
+      featureId:FeaturesEnum.Document
     },
     {
       name: label.navMenuLabel.LD,
@@ -158,6 +172,7 @@ const NavMenuList = () => {
       to: ROUTES.ELearning.LINK,
       isActive: true,
       key: label.navMenuLabel.menu,
+      featureId:FeaturesEnum.ELearning
     },
     {
       name: label.navMenuLabel.employee,
@@ -166,6 +181,7 @@ const NavMenuList = () => {
       to: ROUTES.EMPLOYEES.EMPLOYEELINK,
       isActive: true,
       key: label.navMenuLabel.hr,
+      featureId:FeaturesEnum.Employees
     },
     {
       name: label.navMenuLabel.appraisals,
@@ -174,6 +190,7 @@ const NavMenuList = () => {
       to: ROUTES.APPRAISALS.ROOT,
       isActive: true,
       key: label.navMenuLabel.hr,
+      featureId:FeaturesEnum.Appraisal
     },
     {
       name: label.navMenuLabel.projects,
@@ -182,6 +199,7 @@ const NavMenuList = () => {
       icon: projectsIcon,
       isActive: true,
       key: label.navMenuLabel.menu,
+      featureId:FeaturesEnum.Project
     },
     {
       name: label.navMenuLabel.workBoard,
@@ -190,6 +208,7 @@ const NavMenuList = () => {
       icon: todoBoard,
       isActive: true,
       key: label.navMenuLabel.menu,
+      featureId:FeaturesEnum.Workboard
     },
     {
       name: label.navMenuLabel.groups,
@@ -198,6 +217,7 @@ const NavMenuList = () => {
       icon: groupsIcon,
       isActive: true,
       key: label.navMenuLabel.menu,
+      featureId:FeaturesEnum.Group
     },
     {
       name: label.navMenuLabel.expense,
@@ -206,6 +226,7 @@ const NavMenuList = () => {
       icon: expensesIcon,
       isActive: 10,
       key: label.navMenuLabel.menu,
+      featureId:FeaturesEnum.Expense
     },
     {
       name: label.navMenuLabel.administration,
@@ -214,6 +235,7 @@ const NavMenuList = () => {
       to: ROUTES.ADMINISTRATOR.ADMINISTRATION,
       isActive: true,
       key: label.navMenuLabel.hr,
+      featureId:FeaturesEnum.Administration
     },
 
     {
@@ -223,6 +245,7 @@ const NavMenuList = () => {
       icon: taskIcon,
       isActive: 6,
       key: label.navMenuLabel.menu,
+      featureId:FeaturesEnum.Task
     },
     {
       name: label.navMenuLabel.promotions,
@@ -231,6 +254,7 @@ const NavMenuList = () => {
       icon: promotionIcon,
       isActive: 7,
       key: label.navMenuLabel.hr,
+      featureId:FeaturesEnum.Promotion
     },
     {
       name: label.navMenuLabel.warnings,
@@ -239,6 +263,7 @@ const NavMenuList = () => {
       to: ROUTES.WARNINGS.WARNING,
       isActive: true,
       key: label.navMenuLabel.hr,
+      featureId:FeaturesEnum.Warnings
     },
     {
       name: label.navMenuLabel.bonus,
@@ -247,6 +272,7 @@ const NavMenuList = () => {
       to: ROUTES.BONUS.ROOT,
       isActive: true,
       key: label.navMenuLabel.hr,
+      featureId:FeaturesEnum.Bonus
     },
     {
       name: label.navMenuLabel.complains,
@@ -255,6 +281,7 @@ const NavMenuList = () => {
       to: ROUTES.COMPLAINS.ROOT,
       isActive: true,
       key: label.navMenuLabel.hr,
+      featureId:FeaturesEnum.Complains
     },
     {
       name: label.navMenuLabel.rewards,
@@ -263,6 +290,7 @@ const NavMenuList = () => {
       to: ROUTES.REWARDS.REWARD,
       isActive: true,
       key: label.navMenuLabel.hr,
+      featureId:FeaturesEnum.Rewards
     },
     // *****BY SANJNA****
     {
@@ -272,6 +300,7 @@ const NavMenuList = () => {
       to: ROUTES.TEAMS.TEAM,
       isActive: true,
       key: label.navMenuLabel.hr,
+      featureId:FeaturesEnum.MyTeam
     },
     {
       name: label.navMenuLabel.leaves,
@@ -280,6 +309,7 @@ const NavMenuList = () => {
       to: ROUTES.LEAVES.LEAVE,
       isActive: true,
       key: label.navMenuLabel.hr,
+      featureId:FeaturesEnum.Leave
     },
     {
       name: label.navMenuLabel.departments,
@@ -288,6 +318,7 @@ const NavMenuList = () => {
       to: ROUTES.DEPARTMENTS.DEPARTMENT,
       isActive: true,
       key: label.navMenuLabel.hr,
+      featureId:FeaturesEnum.Department
     },
     {
       name: label.navMenuLabel.jobBoard,
@@ -296,6 +327,7 @@ const NavMenuList = () => {
       to: ROUTES.JOBS.ROOT,
       isActive: true,
       key: label.navMenuLabel.menu,
+      featureId:FeaturesEnum.JobBoard
     },
     {
       name: label.navMenuLabel.careers,
@@ -304,6 +336,7 @@ const NavMenuList = () => {
       to: ROUTES.CAREER.CAREERLINK,
       isActive: true,
       key: label.navMenuLabel.hr,
+      featureId:FeaturesEnum.Career
     },
     {
       name: label.navMenuLabel.chartOfAccount,
@@ -368,6 +401,7 @@ const NavMenuList = () => {
       icon: salaryIcon,
       isActive: true,
       key: label.navMenuLabel.hr,
+      featureId:FeaturesEnum.Salary
     },
     {
       name: label.navMenuLabel.businessPolicy,
@@ -376,6 +410,7 @@ const NavMenuList = () => {
       icon: businessPolicy,
       isActive: true,
       key: label.navMenuLabel.menu,
+      featureId:FeaturesEnum
     },
     {
       name: label.navMenuLabel.form,
@@ -392,6 +427,7 @@ const NavMenuList = () => {
       to: ROUTES.LOAN.LOAN,
       isActive: true,
       key: label.navMenuLabel.hr,
+      featureId:FeaturesEnum.Loan
     },
     {
       name: label.navMenuLabel.resignations,
@@ -408,6 +444,7 @@ const NavMenuList = () => {
       to: ROUTES.REQUISITION.REQUISITION,
       isActive: true,
       key: label.navMenuLabel.inventory,
+      featureId:FeaturesEnum.Requisition
     },
     // TODO:// ASSETS MODULE
     {
@@ -417,6 +454,7 @@ const NavMenuList = () => {
       to: `${ROUTES.ASSETS.ROOT}`,
       isActive: true,
       key: label.navMenuLabel.inventory,
+      featureId:FeaturesEnum.Asset
     },
     // TODO:// CREATE ASSETS
     {

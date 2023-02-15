@@ -77,6 +77,29 @@ export const getAllLoanAction = createAsyncThunk(
   }
 );
 
+// export const ResendAction = createAsyncThunk(
+//   "Signup/ getAllLoanAction",
+//   async (id, { rejectWithValue, dispatch }) => {
+//     const response = await getAllLoanService(id);
+//     switch (response.type) {
+//       case ResponseType.ERROR:
+//         return rejectWithValue(response.errorMessage);
+//       case ResponseType.SUCCESS:
+//         dispatch(
+//           openNotification({
+//             // message: "Team added Successfully!",
+//             type: "success",
+//             //   duration: 2
+//           })
+//         );
+//         return response.data;
+//       default:
+//         return;
+//     }
+//   }
+// );
+
+
 export const getAllComplainAction = createAsyncThunk(
   "teamSlice/ getAllComplainAction",
   async (id, { rejectWithValue, dispatch }) => {

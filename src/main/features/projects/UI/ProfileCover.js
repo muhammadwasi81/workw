@@ -1,17 +1,20 @@
-import { useState, useEffect } from 'react';
-import { message } from 'antd';
-import { CameraOutlined } from '@ant-design/icons';
-import './style.css';
-import { updateUserCoverImgAction } from '../../profile/store/action';
-import { useDispatch } from 'react-redux';
-import { STRINGS } from '../../../../utils/base';
-import { useSelector } from 'react-redux';
-import coverImage from '../../../../content/default-cover.png';
+import { useState, useEffect } from "react";
+import { message } from "antd";
+import { CameraOutlined } from "@ant-design/icons";
+import "./style.css";
+import { updateUserCoverImgAction } from "../../profile/store/action";
+import { useDispatch } from "react-redux";
+import { STRINGS } from "../../../../utils/base";
+import { useSelector } from "react-redux";
+import coverImage from "../../../../content/default-cover.png";
+import { useParams } from "react-router-dom";
 
 const imageMimeType = /image\/(png|jpg|jpeg)/i;
 
 const ProfileCover = () => {
   const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.userSlice);
+  const param = useParams();
   const [file, setFile] = useState(null);
   const [fileDataURL, setFileDataURL] = useState(null);
   const { employees } = useSelector((state) => state.employeeProfileSlice);
@@ -25,14 +28,14 @@ const ProfileCover = () => {
       id: STRINGS.DEFAULTS.guid,
       file: fileObj,
     };
-    console.log('payload', payload);
+    console.log("payload", payload);
     dispatch(updateUserCoverImgAction(payload));
     setFile(fileObj);
-    console.log('file', fileObj);
+    console.log("file", fileObj);
   };
 
   useEffect(() => {
-    console.log('file', file);
+    console.log("file", file);
     let fileReader,
       isCancel = false;
     if (file) {
@@ -70,17 +73,19 @@ const ProfileCover = () => {
           className="h-full object-cover w-full rounded-xl z-0"
         />
       )}
-      <div className="profilepic__content">
-        <span className="profilepic__icon">
-          <CameraOutlined className="uploadIcon" />
-        </span>
-        <input
-          type="file"
-          accept="image/*"
-          className="imageUpload w-100 h-100"
-          onChange={imageUploadHandler}
-        />
-      </div>
+      {user.id === param.id && (
+        <div className="profilepic__content">
+          <span className="profilepic__icon">
+            <CameraOutlined className="uploadIcon" />
+          </span>
+          <input
+            type="file"
+            accept="image/*"
+            className="imageUpload w-100 h-100"
+            onChange={imageUploadHandler}
+          />
+        </div>
+      )}
     </div>
   );
 };

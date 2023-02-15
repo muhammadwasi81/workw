@@ -25,8 +25,8 @@ function CompanyList() {
   const { companies, loader } = useSelector((state) => state.companySlice);
 
   useEffect(() => {
+    console.log(search, "search");
     dispatch(getCompanyAction(search));
-    console.log(search, "searchh");
   }, [search]);
 
   // const searchHandler = (value) => {
@@ -73,9 +73,7 @@ function CompanyList() {
                 <>
                   <CardGrid>
                     {companies.map((team, index) => {
-                      return (
-                        <CompanyShortCard key={index} company={companies} />
-                      );
+                      return <CompanyShortCard key={index} company={team} />;
                     })}
                   </CardGrid>
                 </>

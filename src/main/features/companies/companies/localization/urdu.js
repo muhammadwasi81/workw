@@ -4,6 +4,7 @@ const en = {
     company: {
       companies: "کمپنیاں",
       companyDashboard: "کمپنی ڈیش بورڈ",
+      billing: "بلنگ",
     },
     companyDetail: {
       companyDetails: "کمپنی کی تفصیلات",
@@ -71,6 +72,7 @@ const en = {
       basicInfo: "بنیادی معلومات",
       sendEmail: "ای میل بھیجیں",
       dashBoard: "ڈیش بورڈ",
+      billing: "بلنگ",
     },
   },
 

@@ -25,7 +25,6 @@ const companySlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getCompanyAction.fulfilled, (state, { payload }) => {
-        console.log(payload, "payloadd");
         state.companies = payload;
         state.loader = false;
         state.success = true;

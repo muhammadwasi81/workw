@@ -11,7 +11,7 @@ import {
 } from "../services/service";
 
 export const getCompanyAction = createAsyncThunk(
-  "getComapnyAction",
+  "getCompanyAction",
   async (payload, { rejectWithValue, dispatch }) => {
     const response = await getAllCompanyService(payload);
     switch (response.type) {

@@ -33,10 +33,10 @@ const QuickOptions = ({ data, onClick = () => {} }) => {
           onOpenChange={handleOpenChange}
           overlayClassName="docsPopover"
         >
-          <div className="" onClick={onClick}>
+          <div onClick={onClick}>
             {/* <img src={menuIcon} /> */}
             <MoreOutlined
-              className="!text-[22px] cursor-pointer  !text-[#707070] shadow-md shadow-gray-300 "
+              className="three-dot !text-[22px] cursor-pointer !text-[#707070] "
               width={20}
             />
           </div>

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../../../../utils/routes";
@@ -14,6 +14,7 @@ import { handleComposer } from "../../store/slice";
 function LeadDashboard({ isTableView, dictionary, data, onChange }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [table, setTable] = useState(0);
   // const loading = useSelector((state) => state.leadMangerSlice.loading);
   const { loading, success, isComposerOpen, isEditComposer } = useSelector(
     (state) => state.leadMangerSlice

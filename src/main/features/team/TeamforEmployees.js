@@ -5,12 +5,13 @@ import { teamDictionaryList } from "./localization/index";
 import TeamCard, { CardGrid } from "./view/TeamCard";
 import { useSelector, useDispatch } from "react-redux";
 import { addTeamMemberAction, getTeamsAction } from "./store/action";
-import { Form, Select, Avatar } from "antd";
+import { Form, Select, Avatar, Skeleton } from "antd";
 import { getAllEmployees } from "../../../utils/Shared/store/actions";
 import { getNameForImage } from "../../../utils/base";
 import { useParams } from "react-router-dom";
 import TopBar from "../../sharedComponents/topBar/topBar";
 import TeamTableView from "./view/TeamTableView";
+import { NoDataFound } from "../../sharedComponents/NoDataIcon";
 
 const { Option } = Select;
 
@@ -56,6 +57,15 @@ const MyTeam = () => {
     dispatch(addTeamMemberAction(payload));
   };
 
+  if (loader)
+    return [...Array(40)].map((_, index) => (
+      <div className={` teamListContainer`}>
+        <Skeleton key={index} loading={true} active />
+      </div>
+    ));
+
+  // if (teams.length === 0) return <NoDataFound />;
+
   return (
     <>
       <span className="text-xl font-bold">Add Members</span>
@@ -99,35 +109,35 @@ const MyTeam = () => {
           })}
         </Select>
       </Form.Item>
-      {/* <CardGrid>
-        {teams.map((team, index) => {
-          return <TeamCard teams={team} key={index} />;
-        })}
-      </CardGrid> */}
-
-      <div style={{ flexDirection: "column", width: "100%" }}>
-        <TopBar
-          style={{ margin: 0, width: "100%" }}
-          // onSearch={(value) => searchHandler(value)}
-          segment={{
-            onSegment: (value) => {
-              setView(value);
-            },
-            label1: labels.list,
-            label2: labels.table,
-          }}
-          searchEnable={false}
-        />
-        {view === "List" ? (
-          <CardGrid>
-            {teams.map((team, index) => {
-              return <TeamCard teams={team} key={index} />;
-            })}
-          </CardGrid>
-        ) : (
-          <TeamTableView />
-        )}
-      </div>
+      {teams.length === 0 ? (
+        <NoDataFound />
+      ) : (
+        <>
+          <div style={{ flexDirection: "column", width: "100%" }}>
+            <TopBar
+              style={{ margin: 0, width: "100%" }}
+              // onSearch={(value) => searchHandler(value)}
+              segment={{
+                onSegment: (value) => {
+                  setView(value);
+                },
+                label1: labels.list,
+                label2: labels.table,
+              }}
+              searchEnable={false}
+            />
+            {view === "List" ? (
+              <CardGrid>
+                {teams.map((team, index) => {
+                  return <TeamCard teams={team} key={index} />;
+                })}
+              </CardGrid>
+            ) : (
+              <TeamTableView />
+            )}
+          </div>
+        </>
+      )}
     </>
   );
 };

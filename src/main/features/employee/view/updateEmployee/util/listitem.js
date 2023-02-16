@@ -34,6 +34,11 @@ export const listitem = [
     to: (id) => `${ROUTES.EMPLOYEES.EMPLOYEELINK}/info/experience/${id}`,
   },
   {
+    displayName: "My_Team",
+    classObj: "button",
+    to: (id) => `${ROUTES.EMPLOYEES.EMPLOYEELINK}/info/team/${id}`,
+  },
+  {
     displayName: "Rebate",
     classObj: "button",
     to: (id) => `${ROUTES.EMPLOYEES.EMPLOYEELINK}/info/rebate/${id}`,

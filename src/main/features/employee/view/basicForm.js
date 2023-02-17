@@ -1,5 +1,5 @@
+import { useContext, useEffect, useState } from 'react';
 import { Button, DatePicker, Divider, Form, Input, Select, Avatar } from 'antd';
-import React, { useContext, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
 import { employeeDictionaryList } from '../localization/index';
@@ -25,7 +25,6 @@ import { getAllAccessRoles } from '../../accessRole/store/action';
 import { getAllOfficeTimingGroups } from '../../officeTimings/store/actions';
 import { getUserBasicInfo } from '../../basicInfo/store/actions';
 import moment from 'moment';
-import MemberSelect from '../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect';
 import { getNameForImage, STRINGS } from '../../../../utils/base';
 import CitySelect from '../../../sharedComponents/AntdCustomSelects/SharedSelects/CitySelect';
 import { resetBasicdetails } from '../store/slice';
@@ -42,10 +41,9 @@ const BasicInfo = ({ mode, id }) => {
   const isEdit = mode === 'edit';
   const [form] = Form.useForm();
   const [selectedAccessRole, setSelectedAccessRole] = useState([]);
-  const [newAccessRoles, setNewAccessRoles] = useState([]);
   const initialState = {
     coverImageId: '',
-    userTypeId: userTypeEnum.Employee || userTypeEnum.Admin,
+    userTypeId: [],
     titleId: 1,
     firstName: '',
     lastName: '',
@@ -90,7 +88,7 @@ const BasicInfo = ({ mode, id }) => {
   const { employeesDictionary, Direction } = employeeDictionaryList[
     userLanguage
   ];
-  // console.log(accessRoles, 'accessRoles');
+  console.log(designations, 'designations');
   const {
     sharedSlice: { employees },
   } = useSelector((state) => state);
@@ -168,7 +166,7 @@ const BasicInfo = ({ mode, id }) => {
     if (isEdit) {
       setInitialValues({
         ...basicdetails,
-        imageId: basicdetails?.image?.id,
+        image,
         birthDate: basicdetails.birthDate ? moment(basicdetails.birthDate) : '',
         joinDate: moment(basicdetails.joinDate),
         accessRoles: basicdetails?.accessRoles?.map((role) => {
@@ -226,7 +224,10 @@ const BasicInfo = ({ mode, id }) => {
       })
     );
   };
-  console.log(selectedAccessRole, 'selectedAccessRole');
+  let image = {
+    file: profileImage,
+    id: STRINGS.DEFAULTS.guid,
+  };
   const handleUpdateInfo = async () => {
     form.submit();
     try {
@@ -238,19 +239,17 @@ const BasicInfo = ({ mode, id }) => {
             id: role.value,
           };
         });
-        console.log(roles, 'roles');
         if (payload) {
           payload = {
             ...payload,
             accessRoles: roles,
-            image: profileImage,
+            image,
             id: id,
             birthDate: moment(form.getFieldValue('birthDate')._ds).format(),
             joinDate: moment(form.getFieldValue('joinDate')._ds).format(),
             probationPeriod: parseInt(payload.probationPeriod),
             noticePeriod: isEdit ? 30 : parseInt(payload.noticePeriod),
           };
-          console.log(payload, 'payload');
           dispatch(
             updateEmployeeAction({
               data: payload,
@@ -269,7 +268,6 @@ const BasicInfo = ({ mode, id }) => {
   let classes = 'employeeForm basicInfo ';
   classes += Direction === 'ltr' ? 'ltr' : 'rtl';
 
-  console.log(accessRoles, 'accessRoles');
   return (
     <div className={classes}>
       <Divider orientation="left"> {labels.BasicInfo}</Divider>
@@ -286,11 +284,11 @@ const BasicInfo = ({ mode, id }) => {
           }}
         >
           <SingleUpload
-            url={isEdit ? initialValues.image : STRINGS.DEFAULTS.guid}
-            value={profileImage}
             handleImageUpload={handleImageUpload}
-            uploadText={labels.AddImage}
+            position="flex-start"
+            uploadText={labels.upload}
             multiple={false}
+            url={basicdetails?.image?.url}
           />
         </Form.Item>
         <Form.Item
@@ -429,7 +427,6 @@ const BasicInfo = ({ mode, id }) => {
           }}
           canFetchNow={cities && cities.length > 0}
           fetchData={fetchCityData}
-          value={isEdit ? basicdetails.city : basicdetails.cityId}
           optionComponent={(opt) => {
             return (
               <>
@@ -562,12 +559,13 @@ const BasicInfo = ({ mode, id }) => {
           <Form.Item
             name="userTypeId"
             label={labels.UserType}
-            rules={[{ required: true }]}
+            rules={[{ required: true, message: 'Please select user type' }]}
           >
             <Select
               size="large"
               getPopupContainer={(trigger) => trigger.parentNode}
-              placeholder={placeholder.selectUserType}
+              placeholder={'Select User Type'}
+              value={basicdetails.userTypeId}
               options={userTypeList
                 .filter(
                   (x) =>
@@ -583,7 +581,7 @@ const BasicInfo = ({ mode, id }) => {
               onChange={(value) => {
                 console.log(value, 'filteredRoles');
                 // Filter accessRoles based on selected user type
-                const filteredRoles = accessRoles.filter((role) => {
+                let filteredRoles = accessRoles.filter((role) => {
                   if (value === userTypeEnum.Admin) {
                     return role.roleTypeId === userTypeEnum.Admin;
                   } else if (value === userTypeEnum.Employee) {
@@ -592,9 +590,14 @@ const BasicInfo = ({ mode, id }) => {
                   return false;
                 });
 
-                // Update access roles options
+                const selectedRoleIds = form.getFieldValue('accessRoles');
+                const unselectedRoles = filteredRoles.filter(
+                  (role) => !selectedRoleIds.includes(role.id)
+                );
+                console.log(unselectedRoles, 'unselectedRoles');
+                console.log(selectedRoleIds, 'selectedRoleIds');
                 setSelectedAccessRole(
-                  filteredRoles.map((role) => {
+                  unselectedRoles.map((role) => {
                     return {
                       value: role.id,
                       label: role.name,
@@ -638,7 +641,6 @@ const BasicInfo = ({ mode, id }) => {
               placeholder={placeholder.selectAccessRole}
               getPopupContainer={(trigger) => trigger.parentNode}
               showSearch={true}
-              onChange={(value) => {}}
               mode="multiple"
               filterOption={(input, option) =>
                 (option?.label ?? '')

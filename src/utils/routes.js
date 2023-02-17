@@ -54,6 +54,9 @@ export const ROUTES = {
     SETUP_PASSWORD: `${DOMAIN_PREFIX}/SetupNewPassword`,
     // VERIFICATION_INPROCESS: `${DOMAIN_PREFIX}/verifying`,
   },
+  EXTERNAL_PROJECT: {
+    REGISTER: `${DOMAIN_PREFIX}/projectExternal`,
+  },
   BUDGET: {
     DEFAULT: `${DOMAIN_PREFIX}/budgets`,
   },
@@ -331,6 +334,7 @@ export const ROUTES = {
     ALLOWANCES: `allowances`,
     REWARD_CATEGORY: `rewardCategory`,
     WARNING_CATEGORY: `warningCategory`,
+    // BILLING: `billing`,
   },
   LOAN: {
     DEFAULT: `${DOMAIN_PREFIX}/loan/*`,
@@ -438,7 +442,6 @@ export const ROUTES = {
     TAX_SLAB_GROUP: `taxSlabsGroup`,
     GRADE: `grade`,
     ELEARNING_CATEGORY: `eLearningCategory`,
-
     APPRASIAL: `appraisal`,
     TIMEZONE: `timezone`,
     OFFICETIMING: `officetimings`,
@@ -458,6 +461,7 @@ export const ROUTES = {
     ALLOWANCES: `allowances`,
     REWARD_CATEGORY: `rewardCategory`,
     WARNING_CATEGORY: `warningCategory`,
+    BILLING: `billing`,
   },
 
   LOAN: {

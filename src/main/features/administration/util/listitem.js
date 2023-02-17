@@ -15,6 +15,7 @@ import {
   AiOutlineCalendar,
   AiOutlineShrink,
   AiFillMoneyCollect,
+  AiOutlineReconciliation,
 } from "react-icons/ai";
 import {
   RiMedal2Line,
@@ -61,6 +62,14 @@ export const listitem = [
     displayName: "Payroll_Group",
     classObj: "button",
     to: ROUTES.ADMINISTRATOR.PAYROLL_GROUP,
+  },
+  {
+    IconName: (
+      <AiOutlineReconciliation size={20} color={"var(--currentThemeColor)"} />
+    ),
+    displayName: "Billing",
+    classObj: "button",
+    to: ROUTES.ADMINISTRATOR.BILLING,
   },
   {
     IconName: <AiFillShop size={20} color={"var(--currentThemeColor)"} />,

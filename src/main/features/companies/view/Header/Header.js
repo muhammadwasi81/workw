@@ -6,41 +6,40 @@ import { companyDictionaryList } from "../../companies/localization/index";
 import { useContext } from "react";
 
 function Header({ dictionary, direction }) {
-	const { userLanguage } = useContext(LanguageChangeContext);
-	const { companyDictionary } = companyDictionaryList[userLanguage];
-	const labels = companyDictionary.company;
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { companyDictionary } = companyDictionaryList[userLanguage];
+  const labels = companyDictionary.company;
 
+  const items = [
+    {
+      name: labels.companies,
+      to: `/companies`,
+      renderButton: [1],
+    },
+    {
+      name: labels.companyDashboard,
+      to: `/companies/dashboard`,
+      renderButton: [1],
+    },
 
-	const items = [
-		{
-			name: labels.companies,
-			to: `/companies`,
-			renderButton: [1],
-		},
-		{
-			name: labels.companyDashboard,
-			to: `/companies/dashboard`,
-			renderButton: [1],
-		},
-		
-		{
-			name: labels.signup,
-			to: `/companies/Signup`,
-			renderButton: [1],
-		},
-		// {
-		// 	name: "Summary",
-		// 	to: `/eLearning/summary`,
-		// 	renderButton: [1],
-		// },
-	];
+    {
+      name: labels.signup,
+      to: `/companies/Signup`,
+      renderButton: [1],
+    },
+    {
+      name: labels.billing,
+      to: `/companies/billing`,
+      renderButton: [1],
+    },
+  ];
 
-	const buttons = [
-		{
-			render: <CreateLearningDropdown />,
-		},
-	];
-	return <LayoutHeader backButton={false} items={items} />;
+  const buttons = [
+    {
+      render: <CreateLearningDropdown />,
+    },
+  ];
+  return <LayoutHeader backButton={false} items={items} />;
 }
 
 export default Header;

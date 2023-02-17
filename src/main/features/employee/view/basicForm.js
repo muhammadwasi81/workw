@@ -141,6 +141,11 @@ const BasicInfo = ({ mode, id }) => {
     dispatch(getAllBranch());
     dispatch(getAllBranchOffice());
     dispatch(getAllAccessRoles());
+    dispatch(getAllDesignation());
+    dispatch(getAllGrades());
+    dispatch(getAllOfficeTimingGroups());
+    dispatch(getCountries());
+    dispatch(getCities());
 
     if (isEdit) {
       dispatch(getUserBasicInfo(id));
@@ -150,7 +155,7 @@ const BasicInfo = ({ mode, id }) => {
       if (!grades.length) dispatch(getAllGrades());
       if (!officeTimingGroups?.length) dispatch(getAllOfficeTimingGroups());
       if (!accessRoles.length) dispatch(getAllAccessRoles());
-      if (!department.length) getAllDepartments();
+      if (!department.length) dispatch(getAllDepartments());
     }
     return () => {
       dispatch(resetBasicdetails());
@@ -228,6 +233,7 @@ const BasicInfo = ({ mode, id }) => {
     file: profileImage,
     id: STRINGS.DEFAULTS.guid,
   };
+
   const handleUpdateInfo = async () => {
     form.submit();
     try {
@@ -349,6 +355,7 @@ const BasicInfo = ({ mode, id }) => {
         <Form.Item name="nic" label={labels.CNICNumber}>
           <Input placeholder={placeholder.cnicNo}></Input>
         </Form.Item>
+
         <Form.Item
           rules={[{ required: true }]}
           name="designationId"
@@ -363,6 +370,7 @@ const BasicInfo = ({ mode, id }) => {
             defaultValue={initialValues.designationId}
           />
         </Form.Item>
+
         <Form.Item name="managerId" label={labels.Manager}>
           <Select
             showSearch={true}

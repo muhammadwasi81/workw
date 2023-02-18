@@ -4,7 +4,10 @@ import SharedButton from "../../button";
 import ApprovalIcon from "../../../../content/svg/topMenu/mobileapprovalIcon.svg";
 import mobileStickyNote from "./assests/mobileStickyNote.svg";
 import Messenger from "../../../../content/svg/topMenu/mobileMsgIcon.svg";
-import { disable as disableDarkMode, enable as enableDarkMode } from "darkreader";
+import {
+  disable as disableDarkMode,
+  enable as enableDarkMode,
+} from "darkreader";
 import sunIcon from "../../../../content/svg/topMenu/mobileSunLightIcon.svg";
 import moonIcon from "../../../../content/svg/topMenu/mobileMoonIcon.svg";
 import { MoreOutlined } from "@ant-design/icons";
@@ -18,7 +21,9 @@ import Approvals from "./approvals/";
 import { useLocation } from "react-router-dom";
 
 const Index = () => {
-  const [darkMode, setDarkMode] = useState(window.localStorage.getItem("darkMode") === "1");
+  const [darkMode, setDarkMode] = useState(
+    window.localStorage.getItem("darkMode") === "1"
+  );
   const modeHandler = (status) => {
     if (status) {
       enableDarkMode({
@@ -39,16 +44,20 @@ const Index = () => {
   const [showApprovals, setShowApprovals] = useState(false);
 
   useEffect(() => {
-		if (location.pathname.includes("/messenger")) {
-			setIsHide(true);
-		} else setIsHide(false);
-	}, [location]);
+    if (location.pathname.includes("/messenger")) {
+      setIsHide(true);
+    } else setIsHide(false);
+  }, [location]);
 
   return (
-    <div className="bottomNavigationTab"
-    style={{ display: isHide ? "none" : "block" }}
+    <div
+      className="bottomNavigationTab"
+      style={{ display: isHide ? "none" : "" }}
     >
-      <div className="bottom-tab-Item" onClick={() => setShowNotification(true)}>
+      <div
+        className="bottom-tab-Item"
+        onClick={() => setShowNotification(true)}
+      >
         <SharedButton
           type="default"
           shape="circle"
@@ -58,7 +67,8 @@ const Index = () => {
           icon={bell}
           IconSize={18}
           badge={true}
-          style={{ backgroundColor: "#1b5669" }}></SharedButton>
+          style={{ backgroundColor: "#1b5669" }}
+        ></SharedButton>
         <div>Notification</div>
       </div>
 
@@ -72,11 +82,15 @@ const Index = () => {
           icon={ApprovalIcon}
           IconSize={18}
           badge={true}
-          style={{ backgroundColor: "#1b5669" }}></SharedButton>
+          style={{ backgroundColor: "#1b5669" }}
+        ></SharedButton>
         <div>Approvals</div>
       </div>
 
-      <div className="bottom-tab-Item" onClick={() => dispatch(sideBarOpen(!sideBarChatStatus))}>
+      <div
+        className="bottom-tab-Item"
+        onClick={() => dispatch(sideBarOpen(!sideBarChatStatus))}
+      >
         <SharedButton
           type="default"
           shape="circle"
@@ -86,7 +100,8 @@ const Index = () => {
           icon={Messenger}
           IconSize={18}
           badge={true}
-          style={{ backgroundColor: "#1b5669" }}></SharedButton>
+          style={{ backgroundColor: "#1b5669" }}
+        ></SharedButton>
         <div>Messenger</div>
       </div>
 
@@ -95,15 +110,33 @@ const Index = () => {
           content={
             <React.Fragment>
               <div className="bottom-tab-more">
-                <img src={mobileStickyNote} height={15} width={15} alt="sticky-notes" />
+                <img
+                  src={mobileStickyNote}
+                  height={15}
+                  width={15}
+                  alt="sticky-notes"
+                />
                 <div style={{ marginLeft: "9px" }}>Sticky Notes</div>
               </div>
-              <div className="bottom-tab-more" onClick={() => modeHandler(!darkMode)}>
-                <img src={darkMode ? sunIcon : moonIcon} height={24} width={24} alt="dark-mode" />
+              <div
+                className="bottom-tab-more"
+                onClick={() => modeHandler(!darkMode)}
+              >
+                <img
+                  src={darkMode ? sunIcon : moonIcon}
+                  height={24}
+                  width={24}
+                  alt="dark-mode"
+                />
                 <div style={{ marginLeft: "4px" }}>Dark Mode</div>
               </div>
               <div className="bottom-tab-more">
-                <img alt="addExternalUser" src={mobileAddExIcon} height={15} width={15} />
+                <img
+                  alt="addExternalUser"
+                  src={mobileAddExIcon}
+                  height={15}
+                  width={15}
+                />
                 <div style={{ marginLeft: "9px" }}>Add Employee</div>
               </div>
             </React.Fragment>
@@ -111,19 +144,24 @@ const Index = () => {
           title={""}
           trigger="click"
           placement="top"
-          destroyTooltipOnHide={true}>
+          destroyTooltipOnHide={true}
+        >
           <SharedButton
             type="default"
             shape="circle"
             size="small"
             onClick={() => {}}
             antIcon={<MoreOutlined />}
-            style={{ backgroundColor: "#1b5669", color: "#fff" }}></SharedButton>
+            style={{ backgroundColor: "#1b5669", color: "#fff" }}
+          ></SharedButton>
           <div>More</div>
         </Popover>
       </div>
 
-      <Notification drawerStatus={showNotification} handleDrawer={setShowNotification} />
+      <Notification
+        drawerStatus={showNotification}
+        handleDrawer={setShowNotification}
+      />
       <Approvals drawerStatus={showApprovals} handleDrawer={setShowApprovals} />
     </div>
   );

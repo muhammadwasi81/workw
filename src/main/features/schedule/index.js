@@ -10,8 +10,10 @@ import Header from "./components/header";
 import Calendar from "./view/calendar";
 import { LinkOutlined } from "@ant-design/icons";
 import MySchedules from "./view/ScheduleDetail/SchedulesDetail";
-import { Button, Modal } from "antd";
+import { Button, Modal, message } from "antd";
 import { defaultUiid } from "../../../utils/Shared/enums/enums";
+import CopyToClipboard from "react-copy-to-clipboard";
+import { ROUTES } from "../../../utils/routes";
 
 // import { Button, Drawer } from "antd";
 // import { ScheduleTopBar } from "./view/ScheduleDetail/topbar/ScheduleTopBar";
@@ -22,16 +24,24 @@ function Schedules({ referenceId = defaultUiid }) {
   const [isShareLinkModalOpen, setIsShareLinkModalOpen] = useState(false);
   // const dispatch = useDispatch();
   // const { drawerOpen } = useSelector(state => state.scheduleSlice);
+  const [copy, setCopy] = useState(false);
 
   const render = {
     cal: <Calendar referenceId={referenceId} />,
     sc: <MySchedules />,
+    si: <MySchedules />,
   };
   const handleShareLinkModal = () => {
     setIsShareLinkModalOpen(!isShareLinkModalOpen);
   };
+
+  const copyfunc = () => {
+    setCopy(true);
+  };
+
   return (
     <>
+      {copy && message.success("Copied")}
       <TabbableContainer>
         <Header handleShareLinkModal={handleShareLinkModal} />
         {/* <ScheduleTopBar /> */}
@@ -53,7 +63,12 @@ function Schedules({ referenceId = defaultUiid }) {
             <p className="!m-0 text-[18px] flex-1">
               <strong>Anyone</strong> with the link can create a schedule.
             </p>
-            <Button>Copy Link</Button>
+            <CopyToClipboard
+              text={`${window.location.origin}${ROUTES.SCHEDULES.DEFAULT}`}
+              onCopy={copyfunc}
+            >
+              <Button>Copy Link</Button>
+            </CopyToClipboard>
           </div>
         </div>
       </Modal>

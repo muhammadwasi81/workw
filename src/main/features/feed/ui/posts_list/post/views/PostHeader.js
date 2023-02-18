@@ -1,10 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { STRINGS } from '../../../../../../../utils/base';
 import Avatar from '../../../../../../sharedComponents/Avatar/avatarOLD';
-// import starIcon from "./../../../../../../../content/NewContent/NewsFeed/svg/star.svg";
 import publicIcon from './../../../../../../../content/NewContent/NewsFeed/svg/public.svg';
-// import cover from "./../../../../../../../content/NewContent/NewsFeed/svg/COVER.svg";
 import moment from 'moment';
 import {
   LockOutlined,
@@ -12,12 +10,9 @@ import {
   StarFilled,
   StarOutlined,
 } from '@ant-design/icons';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { favoriteFeed } from '../../../../store/actions';
 import { addFeedFavourite } from '../../../../store/slice';
-import { Modal } from 'antd';
-import MemberSelect from '../../../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect';
-import { getAllEmployees } from '../../../../../../../utils/Shared/store/actions';
 import PostTaggedModal from './PostTaggedModal';
 import { ROUTES } from '../../../../../../../utils/routes';
 
@@ -62,7 +57,6 @@ const PostHeader = ({
         <div className="user-det">
           <div className="name">
             <span>
-              {/* <Link to={`/user/${creator.id}`}>{name}</Link> */}
               <Link to={`${ROUTES.USER.DEFAULT}${creator.id}`}>{name}</Link>
             </span>
             {tags.length > 0 && (

@@ -457,7 +457,7 @@ const en = {
     Payroll_Group: "Payroll Group",
     Business_Policy: "Business Policy",
     Companies_Policy: "Company Policies",
-
+    Billing: "Billing",
     Rebate_Category: "Rebate Category",
     Assets_Category: " Assets Category",
     AccessRole: "Access Role",

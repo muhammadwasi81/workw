@@ -1,6 +1,6 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { responseCode } from "../../../../services/enums/responseCode";
-import { openNotification } from "../../../../utils/Shared/store/slice";
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { responseCode } from '../../../../services/enums/responseCode';
+import { openNotification } from '../../../../utils/Shared/store/slice';
 import {
   addProjectFeatureService,
   addProjectService,
@@ -14,27 +14,28 @@ import {
   getAllProjectMemberService,
   addProjectMemberService,
   deleteProjectMemberService,
-} from "../services/service";
-import { message } from "antd";
+  addProjectFavoriteService,
+} from '../services/service';
+import { message } from 'antd';
 import {
   responseMessage,
   responseMessageType,
-} from "../../../../services/slices/notificationSlice";
-import { jsonToFormData, STRINGS } from "../../../../utils/base";
-import { deleteProjectMember, addProjectMember } from "../store/slice";
+} from '../../../../services/slices/notificationSlice';
+import { jsonToFormData, STRINGS } from '../../../../utils/base';
+import { deleteProjectMember, addProjectMember } from '../store/slice';
 
 const addSticky_SD = (data) => {
   return {
     // id: data.id ? data.id : 1,
-    title: data.title ? data.title : "",
-    description: data.description ? data.description : "",
+    title: data.title ? data.title : '',
+    description: data.description ? data.description : '',
     privacyId: data.privacyId ? data.privacyId : 1,
-    colorCode: data.colorCode ? data.colorCode : "",
+    colorCode: data.colorCode ? data.colorCode : '',
     attachments: data.attachments ? data.attachments : [],
   };
 };
 export const getAllProjects = createAsyncThunk(
-  "getAllProject",
+  'getAllProject',
   async (data, { dispatch, getState, rejectWithValue }) => {
     const res = await getAllProjectsService(data);
     if (res.responseCode === responseCode.Success) {
@@ -43,7 +44,7 @@ export const getAllProjects = createAsyncThunk(
       dispatch(
         openNotification({
           message: res.message,
-          type: "error",
+          type: 'error',
           duration: 2,
         })
       );
@@ -53,14 +54,14 @@ export const getAllProjects = createAsyncThunk(
 );
 
 export const addProject = createAsyncThunk(
-  "addProject",
+  'addProject',
   async (data, { dispatch, getState, rejectWithValue }) => {
     const res = await addProjectService(data);
     if (res.responseCode === responseCode.Success) {
       dispatch(
         openNotification({
-          message: "Project Created Successfully!",
-          type: "success",
+          message: 'Project Created Successfully!',
+          type: 'success',
           duration: 2,
         })
       );
@@ -69,7 +70,7 @@ export const addProject = createAsyncThunk(
       dispatch(
         openNotification({
           message: res.message,
-          type: "error",
+          type: 'error',
           duration: 2,
         })
       );
@@ -79,14 +80,14 @@ export const addProject = createAsyncThunk(
 );
 
 export const updateProject = createAsyncThunk(
-  "updateProject",
+  'updateProject',
   async (data, { dispatch, getState, rejectWithValue }) => {
     const res = await updateProjectService(data);
     if (res.responseCode === responseCode.Success) {
       dispatch(
         openNotification({
-          message: "Project Updated Successfully!",
-          type: "success",
+          message: 'Project Updated Successfully!',
+          type: 'success',
           duration: 2,
         })
       );
@@ -95,7 +96,7 @@ export const updateProject = createAsyncThunk(
       dispatch(
         openNotification({
           message: res.message,
-          type: "error",
+          type: 'error',
           duration: 2,
         })
       );
@@ -105,7 +106,7 @@ export const updateProject = createAsyncThunk(
 );
 
 export const getProjectById = createAsyncThunk(
-  "getProjectById",
+  'getProjectById',
   async (id, { dispatch, getState, rejectWithValue }) => {
     const res = await getProjectByIdService(id);
     if (res.responseCode === responseCode.Success) {
@@ -114,7 +115,7 @@ export const getProjectById = createAsyncThunk(
       dispatch(
         openNotification({
           message: res.message,
-          type: "error",
+          type: 'error',
           duration: 2,
         })
       );
@@ -124,13 +125,13 @@ export const getProjectById = createAsyncThunk(
 );
 
 export const removeProjectFeatureAction = createAsyncThunk(
-  "removeProjectFeature",
+  'removeProjectFeature',
   async (id, { dispatch }) => {
-    console.log(id, "args.id in action");
+    console.log(id, 'args.id in action');
     const res = await removeProjectFeatureService(id);
     if (res.responseCode) {
       if (res.responseCode === responseCode.Success)
-        message.success("Project Feature Removed Successfully!");
+        message.success('Project Feature Removed Successfully!');
       responseMessage({ dispatch, data: res });
     } else {
       responseMessage({
@@ -143,14 +144,14 @@ export const removeProjectFeatureAction = createAsyncThunk(
 );
 
 export const addProjectFeatureAction = createAsyncThunk(
-  "addProjectFeature",
+  'addProjectFeature',
   async (id, { dispatch }) => {
-    console.log(id, "data in action");
+    console.log(id, 'data in action');
     const res = await addProjectFeatureService(id);
-    console.log(res, "res in action");
+    console.log(res, 'res in action');
     if (res.responseCode) {
       if (res.responseCode === responseCode.Success)
-        message.success("Project Feature Added Successfully!");
+        message.success('Project Feature Added Successfully!');
       responseMessage({ dispatch, data: res });
     } else {
       responseMessage({
@@ -163,14 +164,14 @@ export const addProjectFeatureAction = createAsyncThunk(
 );
 
 export const saveProjectStickyAction = createAsyncThunk(
-  "saveProject",
+  'saveProject',
   async (data, { dispatch }) => {
     let request = addSticky_SD(data);
     const formdataRequest = jsonToFormData(request);
     const res = await saveProjectStickyNotesService(formdataRequest);
     if (res.responseCode) {
       if (res.responseCode === responseCode.Success)
-        message.success("Save Notes Successfully!");
+        message.success('Save Notes Successfully!');
       responseMessage({ dispatch, data: res });
     } else {
       responseMessage({
@@ -183,14 +184,14 @@ export const saveProjectStickyAction = createAsyncThunk(
 );
 
 export const saveStickyTitleAction = createAsyncThunk(
-  "saveProjectTitle",
+  'saveProjectTitle',
   async (data, { dispatch }) => {
     let request = addSticky_SD(data);
     const formdataRequest = jsonToFormData(request);
     const res = await saveStickyNotesTitleService(formdataRequest);
     if (res.responseCode) {
       if (res.responseCode === responseCode.Success)
-        message.success("save title notes");
+        message.success('save title notes');
       responseMessage({ dispatch, data: res });
     } else {
       responseMessage({
@@ -203,12 +204,12 @@ export const saveStickyTitleAction = createAsyncThunk(
 );
 
 export const getProjectStickyAction = createAsyncThunk(
-  "getSticky",
+  'getSticky',
   async (data, { dispatch }) => {
     const res = await getAllProjectStickyService(data);
     if (res.responseCode) {
       if (res.responseCode === responseCode.Success)
-        message.success("save title notes");
+        message.success('save title notes');
       responseMessage({ dispatch, data: res });
     } else {
       responseMessage({
@@ -221,7 +222,7 @@ export const getProjectStickyAction = createAsyncThunk(
 );
 
 export const getAllProjectMemberAction = createAsyncThunk(
-  "getMember",
+  'getMember',
   async (id, { dispatch }) => {
     const res = await getAllProjectMemberService(id);
     if (res.responseCode) {
@@ -238,7 +239,7 @@ export const getAllProjectMemberAction = createAsyncThunk(
 );
 
 export const addProjectMemberAction = createAsyncThunk(
-  "addMember",
+  'addMember',
   async (data, { dispatch }) => {
     const res = await addProjectMemberService(data);
     if (res.responseCode) {
@@ -256,13 +257,32 @@ export const addProjectMemberAction = createAsyncThunk(
 );
 
 export const deleteProjectMemberAction = createAsyncThunk(
-  "deleteMember",
+  'deleteMember',
   async (data, { dispatch }) => {
     const res = await deleteProjectMemberService(data);
     if (res.responseCode) {
       if (res.responseCode === responseCode.Success)
         dispatch(deleteProjectMember(data));
-      responseMessage({ dispatch, data: res });
+      return data.memberId;
+    } else {
+      responseMessage({
+        dispatch: dispatch,
+        type: responseMessageType.ApiFailure,
+      });
+    }
+    return res;
+  }
+);
+
+export const addProjectFavoriteAction = createAsyncThunk(
+  'addFavorite',
+  async (data, { dispatch }) => {
+    console.log(data, 'data in action');
+    const res = await addProjectFavoriteService(data);
+    console.log(res, 'res in action');
+    if (res.responseCode) {
+      if (res.responseCode === responseCode.Success)
+        responseMessage({ dispatch, data: res });
     } else {
       responseMessage({
         dispatch: dispatch,

@@ -35,7 +35,8 @@ const ResultPage = ({ id }) => {
     // const result = options.find((el)=>console.log(el))
     let output = (
       <>
-        <AiFillCloseCircle color="#DF0000" /> Wrong
+        <AiFillCloseCircle color="#DF0000" />{" "}
+        <span className="text-[#DF0000]"> Wrong</span>
       </>
     );
     options.forEach((el) => {
@@ -43,7 +44,8 @@ const ResultPage = ({ id }) => {
         if (el.isTrue === true) {
           output = (
             <>
-              <AiFillCheckCircle color="#008844" /> Correct
+              <AiFillCheckCircle color="#008844" />
+              <span className="text-[#008844]"> Correct</span>
             </>
           );
         }

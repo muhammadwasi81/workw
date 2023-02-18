@@ -12,11 +12,11 @@ const CustomNotes = ({
   return (
     <ReactQuill
       onChange={onChange}
-      modules={modules}
-      formats={formats}
       className={className}
       placeholder={placeholder}
       defaultValue={defaultValue}
+      modules={modules}
+      formats={formats}
     />
   );
 };

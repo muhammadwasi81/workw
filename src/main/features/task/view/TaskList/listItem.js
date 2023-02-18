@@ -142,7 +142,7 @@ function TaskListItem({
                 disabled={isRatingDisable || progress !== 100}
                 onChange={(value) => setRating(value)}
                 value={ratingAssign}
-              />
+              /> 
             </div>
           </div>
         </div>

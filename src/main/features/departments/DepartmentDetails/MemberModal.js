@@ -15,15 +15,14 @@ import {
 } from "../store/actions";
 import "./style.css";
 
-function MemberModal({ isOpen = false }) {
+function MemberModal({ isOpen = false, data }) {
+  console.log(data, "membersss");
   const dispatch = useDispatch();
   const departMemberId = useParams().id;
-  console.log(departMemberId, "department id");
   const modalRequest = useSelector(
     (state) => state.departmentSlice.addMemberModal
   );
   const { departmentMembers } = useSelector((state) => state.departmentSlice);
-  console.log(departmentMembers, "deaprtment membersss");
   const employees = useSelector((state) => state.sharedSlice.employees);
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
@@ -31,11 +30,6 @@ function MemberModal({ isOpen = false }) {
 
   let ModalOpen = modalRequest.status;
   let type = modalRequest.memberType;
-
-  useEffect(() => {
-    // ModalOpen && dispatch(getWorkBoardMemberAction(userId));
-    dispatch(getDepartmentMemberAction(departMemberId));
-  }, [ModalOpen]);
 
   useEffect(() => {
     fetchEmployees("", 0);
@@ -49,17 +43,13 @@ function MemberModal({ isOpen = false }) {
     dispatch(addMember(false));
   };
 
-  const handleChange = (id) => {
-    let memberId = id.toString();
-    console.log(memberId, "memberIddd");
-    const data = {
-      id: departMemberId,
+  const handleChange = (myId) => {
+    let memberId = myId.toString();
+    const addMembers = {
+      id: data.id,
       memberId: memberId,
-      memberType: type,
     };
-    console.log(type, "memberType");
-    dispatch(addDepartmentMemberAction(data));
-    dispatch(getDepartmentMemberAction(departMemberId));
+    dispatch(addDepartmentMemberAction(addMembers));
   };
 
   useEffect(() => {
@@ -119,7 +109,7 @@ function MemberModal({ isOpen = false }) {
           },
         ]}
       />
-      <ApproverListItem className="AddMemberModal" data={departmentMembers} />
+      <ApproverListItem className="AddMemberModal" data={data?.members} />
     </Modal>
   );
 }

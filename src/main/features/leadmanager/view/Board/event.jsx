@@ -1,22 +1,21 @@
-import React from 'react';
+import React from "react";
 // import { Tag } from "antd";
-import moment from 'moment';
-import { ScheduleTypeEnum } from '../../../schedule/enum/enum';
-import plane from '../../../../../content/NewContent/Schedule/plane.svg';
-import calendar from '../../../../../content/NewContent/Schedule/calendar.svg';
-import task from '../../../../../content/NewContent/Schedule/task.svg';
+import moment from "moment";
+import { ScheduleTypeEnum } from "../../../schedule/enum/enum";
+import plane from "../../../../../content/NewContent/Schedule/plane.svg";
+import calendar from "../../../../../content/NewContent/Schedule/calendar.svg";
+import task from "../../../../../content/NewContent/Schedule/task.svg";
 // import "../styles/event.css";
 function Event({ data, handleScheduleDetailComposer, showTag = false }) {
   // const data = eventInfo?.event._def.extendedProps;
-  // console.log(data, "dataaaa");
   return (
     <div
       className="event hover:!border-primary-color cursor-pointer transition-all w-full"
       onClick={() => handleScheduleDetailComposer(data)}
     >
       <div className="left">
-        <p>{moment(data?.startDate).format('DD MMM')}</p>
-        <span>{moment(data?.startDate).format('dddd')}</span>
+        <p>{moment(data?.startDate).format("DD MMM")}</p>
+        <span>{moment(data?.startDate).format("dddd")}</span>
       </div>
       <div className="right w-full">
         <div className="flex justify-between items-center ">

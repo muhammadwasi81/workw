@@ -28,8 +28,6 @@ function UserDetails() {
     setIsToggle(!isToggle);
   };
 
-  console.log(isToggle, "IS TOGGLE")
-
   return (
     <div className="userDetailsWrapper">
       <div className="userDetails">
@@ -54,7 +52,11 @@ function UserDetails() {
           />
         </div>
       </div>
-      <UserDetailsDropDown id={id} isToggle={isToggle} onClickClose={handleToggle} />
+      <UserDetailsDropDown
+        id={id}
+        isToggle={isToggle}
+        onClickClose={handleToggle}
+      />
     </div>
   );
 }

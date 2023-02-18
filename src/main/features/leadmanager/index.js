@@ -12,6 +12,10 @@ import { useDispatch, useNavigate, useSelector } from "react-redux";
 import { getAllLeadManager } from "./store/actions";
 import useDebounce from "../../../utils/Shared/helper/use-debounce";
 import Spinner from "../../sharedComponents/spinner/spinner";
+import { resetLeadManagerDetail } from "./store/slice";
+import BoardComposer from "./view/Composer/BoardComposer";
+import { Drawer } from "antd";
+import { handleComposer } from "./store/slice";
 
 function LeadManager() {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -29,7 +33,12 @@ function LeadManager() {
   const leadManagerData = useSelector(
     (state) => state.leadMangerSlice.leadManagersData
   );
-  const loading = useSelector((state) => state.leadMangerSlice.loading);
+  const [table, setTable] = useState(1);
+  console.log(table, "tablee");
+  const { loading, success, isComposerOpen, isEditComposer } = useSelector(
+    (state) => state.leadMangerSlice
+  );
+
   useEffect(() => {
     const promise = dispatch(
       getAllLeadManager({
@@ -55,6 +64,9 @@ function LeadManager() {
     }
     setSort(1);
   };
+  const handleEditComposer = () => {
+    dispatch(handleComposer({ isOpen: false, isEdit: false }));
+  };
   return (
     <TabbableContainer>
       <Header dictionary={LeadManagerDictionaryList} direction={Direction} />
@@ -74,6 +86,15 @@ function LeadManager() {
           data={leadManagerData}
           onChange={handleColumnSorting}
         />
+        <Drawer
+          open={isComposerOpen}
+          width={"786px"}
+          onClose={handleEditComposer}
+          title={"Update Lead Manager"}
+          className={"shared_drawer drawerSecondary"}
+        >
+          <BoardComposer isEdit={isEditComposer} loading={loading} />
+        </Drawer>
       </ContBody>
     </TabbableContainer>
   );

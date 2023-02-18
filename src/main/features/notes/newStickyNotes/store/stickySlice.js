@@ -1,5 +1,5 @@
-import { createSlice, isPending, isRejected, current } from '@reduxjs/toolkit';
-import { createGuid, STRINGS } from '../../../../../utils/base';
+import { createSlice, isPending, isRejected, current } from "@reduxjs/toolkit";
+import { createGuid, STRINGS } from "../../../../../utils/base";
 import {
   addSticky,
   deleteStickyAction,
@@ -8,27 +8,27 @@ import {
   getStickyNoteTitleAction,
   getStickyNoteDescAction,
   getStickyAttachmentAction,
-} from './actions';
+} from "./actions";
 
 const defaultSticky = {
   id: 1,
-  title: '',
-  description: '',
-  privacyId: '',
+  title: "",
+  description: "",
+  privacyId: "",
   isOpen: false,
-  colorCode: '',
+  colorCode: "",
   attachments: [],
   // search:"",
 };
 
 export const stickySlice = createSlice({
-  name: 'StickNoteSlice',
+  name: "StickNoteSlice",
   initialState: {
     open: false,
     listArray: [],
     colorPicker: true,
-    bgColor: '',
-    openSticky: '',
+    bgColor: "",
+    openSticky: "",
   },
   reducers: {
     closeSticky: (state) => {
@@ -78,7 +78,6 @@ export const stickySlice = createSlice({
     },
     addImage: (state, action) => {
       const values = action.payload;
-      // const id=createGuid();
       const sticky = state.listArray.find((item) => item.id === values.id);
       sticky.attachments.push(values.images);
     },
@@ -104,10 +103,8 @@ export const stickySlice = createSlice({
     },
     targetStickyDescription: (state, action) => {
       const val = action.payload;
-      console.log(val, 'valueee');
       const listObj = state.listArray.find((list) => list.id === val.id);
       listObj.description = val.value;
-      console.log(listObj.description, 'description');
     },
   },
 

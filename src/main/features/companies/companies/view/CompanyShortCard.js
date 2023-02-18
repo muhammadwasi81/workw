@@ -4,31 +4,29 @@ import styled from "styled-components";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { companyDictionaryList } from "../../companies/localization/index";
 
-const CompanyShortCard = ({ team }) => {
-  console.log(team.name, "teammm");
+const CompanyShortCard = ({ company }) => {
   const navigate = useNavigate();
   const { userLanguage } = useContext(LanguageChangeContext);
   const { companyDictionary } = companyDictionaryList[userLanguage];
   const labels = companyDictionary.CompanyList;
-
-  console.log(team, "TEAMMMM !!!!");
+  console.log("company", company);
 
   return (
     <Parent>
       <ImageBox
         BackgroundImage={
-          team.logo
-            ? team.logo
+          company.logo
+            ? company.logo
             : "https://images.pexels.com/photos/268533/pexels-photo-268533.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
         }
       />
       <ContentBox>
-        <Heading>{team?.name}</Heading>
+        <Heading>{company.name}</Heading>
         <Text>
-          <b>{labels.email}: </b>&nbsp; {team?.email}{" "}
+          <b>{labels.email}: </b>&nbsp; {company.email}{" "}
         </Text>
         <Text>
-          <b> {labels.website}: </b>&nbsp; {team?.website}{" "}
+          <b> {labels.website}: </b>&nbsp; {company.website}{" "}
         </Text>
         <ButtonsBox>
           <ActionButton BackgroundColor="#db5252">
@@ -36,7 +34,7 @@ const CompanyShortCard = ({ team }) => {
           </ActionButton>
           <ActionButton
             onClick={() => {
-              navigate(`info/basicInfo/${team.id}`);
+              navigate(`info/basicInfo/${company.id}`);
             }}
             BackgroundColor="var(--currentThemeColor) !important"
           >

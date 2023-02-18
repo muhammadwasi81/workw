@@ -5,7 +5,12 @@ import {
 import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";
-import { BrowserRouter as Router, Navigate, Route, Routes as ReactRoutes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Navigate,
+  Route,
+  Routes as ReactRoutes,
+} from "react-router-dom";
 import Auth from "./main/features/auth/view";
 import IndivisualSignup from "./main/features/auth/view/signUp/IndivisualSignup";
 import OrganizationalSignup from "./main/features/auth/view/signUp/OrganizationalSignup";
@@ -40,6 +45,7 @@ import ApplyRequisition from "./main/features/requisition/view/publicRoutes/Appl
 import SetupPassword from "./main/features/auth/view/SetupPassword";
 import { servicesUrls } from "./utils/services/baseURLS";
 import { InitializeCallingSocket } from "./main/features/calling/services/socket";
+import { ExternalProject } from "./main/features/publicRoutes/projects/view/index";
 
 const App = () => {
   const { userLanguageChange } = useContext(LanguageChangeContext);
@@ -50,6 +56,7 @@ const App = () => {
   );
   const userSlice = useSelector((state) => state.userSlice);
   const dispatch = useDispatch();
+  console.log(userSlice, "USER DATA");
   const isLoggedIn = !!userSlice.token;
   useEffect(() => {
     let defaultLanguage = window.localStorage.getItem("rcml-lang");
@@ -111,14 +118,9 @@ const App = () => {
                 path={ROUTES.AUTH.SIGN_UP}
                 element={<OrganizationalSignup isLoggedIn={isLoggedIn} />}
               />
-              <Route
-                path={ROUTES.AUTH.VERIFICATION}
-                element={<Verified />}
-              />
-              <Route
-                path={'/verification'}
-                element={<Verifying />}
-              />
+
+              <Route path={ROUTES.AUTH.VERIFICATION} element={<Verified />} />
+              <Route path={"/verification"} element={<Verifying />} />
               <Route
                 path={ROUTES.AUTH.SETUP_PASSWORD}
                 element={<SetupPassword />}
@@ -126,6 +128,10 @@ const App = () => {
               <Route
                 path={`${ROUTES.FORMS.SUBMIT_FORM}/:id`}
                 element={<SubmitForm />}
+              />
+              <Route
+                path={`${ROUTES.EXTERNAL_PROJECT.REGISTER}`}
+                element={<ExternalProject />}
               />
               <Route path={`${ROUTES.JOBS.PUBLIC}`} element={<PublicJobs />} />
               {/*****Public Route******/}
@@ -146,9 +152,7 @@ const App = () => {
                     element={<route.component />}
                   />
                 ))}
-                <Route
-                  path={"*"}
-                  element={<Navigate to={ROUTES.HOME} />} />
+                <Route path={"*"} element={<Navigate to={ROUTES.HOME} />} />
               </Route>
               <Route
                 path={"*"}

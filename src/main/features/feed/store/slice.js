@@ -4,7 +4,7 @@ import {
   isPending,
   isRejected,
   current,
-} from "@reduxjs/toolkit";
+} from '@reduxjs/toolkit';
 import {
   onFeedCreateSubmitAction,
   onPostTitleTextChange,
@@ -28,24 +28,24 @@ import {
   favoriteFeed,
   sharePostOnFeed,
   resetComposeFeed,
-} from "./actions";
-import { PollType, PostPrivacyType, PostType } from "../utils/constants";
-import { filter } from "lodash";
+} from './actions';
+import { PollType, PostPrivacyType, PostType } from '../utils/constants';
+import { filter } from 'lodash';
 
 const composeInitialState = {
   showComposer: false,
   loading: false,
   privacyType: PostPrivacyType.PUBLIC,
   type: PostType.DEFAULT,
-  title: "",
-  pollTitle: "",
+  title: '',
+  pollTitle: '',
   mentions: [],
   tags: [],
   attachments: [],
   poll: {
     options: [
-      { type: PollType.DEFAULT, value: "", attachment: null },
-      { type: PollType.DEFAULT, value: "", attachment: null },
+      { type: PollType.DEFAULT, value: '', attachment: null },
+      { type: PollType.DEFAULT, value: '', attachment: null },
     ],
   },
 };
@@ -56,7 +56,7 @@ const allFeedInitialState = {
 };
 
 export const feedSlice = createSlice({
-  name: "feedSlice",
+  name: 'feedSlice',
   initialState: {
     loading: false,
     allFeed: { ...allFeedInitialState },
@@ -91,7 +91,7 @@ export const feedSlice = createSlice({
         const feed = state.allFeed.posts.find(
           (feed) => feed.id === referenceId
         );
-        if (reactionMode && reactionMode === "click") {
+        if (reactionMode && reactionMode === 'click') {
           // feed.myReaction===myReaction
           if (feed.myReaction === reactionType) {
             feed.myReaction = 0;

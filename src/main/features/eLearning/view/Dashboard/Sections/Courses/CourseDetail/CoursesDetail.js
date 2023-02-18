@@ -116,8 +116,9 @@ function CoursesDetail() {
 													membersData={assignMembers ? assignMembers : []}
 													text={"Members"}
 													image={"https://joeschmoe.io/api/v1/random"}
-												/>
-												<div className="addMemberBtn" onClick={() => disptach(addAssignMember({status: true, type: AssignMemEnum.courses}))} >+</div>
+						                       />
+						                    <div className="addMemberBtn" onClick={() => 
+											disptach(addAssignMember({status: true, type: AssignMemEnum.courses}))} >+</div>
 											</div>
 											<AssignMemberModal />
 										</>

@@ -16,6 +16,7 @@ import {
   addDepartmentMemberService,
   getDepartmentMemberService,
 } from "../services/service";
+import { addDepartmentMember } from "../store/slice";
 
 export const getAllDepartments = createAsyncThunk(
   "Department/getAllDepartment",
@@ -26,7 +27,6 @@ export const getAllDepartments = createAsyncThunk(
     if (!response.responseCode) {
       message.error("Something went wrong");
     }
-    // console.log("response data from actions", response.data);
     return response.data;
   }
 );
@@ -129,9 +129,12 @@ export const addDepartmentMemberAction = createAsyncThunk(
   async (data, { dispatch, getState, rejectWithValue }) => {
     const res = await addDepartmentMemberService(data);
 
+    console.log(res, "responseee");
     if (res.responseCode) {
       if (res.responseCode === responseCode.Success)
-        message.success("Member Added successfully!");
+        dispatch(addDepartmentMember(res.data));
+      message.success("Member Added successfully!");
+      return res;
     } else {
       message.error(res.statusText);
       return rejectWithValue(res.statusText);

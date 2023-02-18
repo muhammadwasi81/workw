@@ -6,7 +6,7 @@ export const defaultApprovers = [
   { label: 'Asset', _id: 6, type: 5 },
   { label: 'Salary', _id: 7, type: 6 },
   { label: 'Payroll', _id: 8, type: 7 },
-  { label: 'ExpenseFinance', _id: 8, type: 8 },
+  { label: 'Expense Finance', _id: 8, type: 8 },
   { label: 'Travel Agent', _id: 4, type: 9 },
   { label: 'Reward', _id: 9, type: 10 },
   { label: 'Resignation HR', _id: 10, type: 11 },

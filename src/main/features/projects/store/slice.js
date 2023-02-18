@@ -1,4 +1,4 @@
-import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
+import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
 import {
   addProject,
   getAllProjects,
@@ -10,7 +10,7 @@ import {
   getAllProjectMemberAction,
   addProjectMemberAction,
   deleteProjectMemberAction,
-} from "./actions";
+} from './actions';
 
 const initialState = {
   projects: [],
@@ -28,7 +28,7 @@ const initialState = {
 };
 
 const projectSlice = createSlice({
-  name: "projects",
+  name: 'projects',
   initialState,
   reducers: {
     resetProjectDetail(state, { payload }) {
@@ -36,6 +36,7 @@ const projectSlice = createSlice({
     },
     addMember: (state, { payload }) => {
       state.addMemberModal = payload;
+      console.log(payload,"mypayload");
     },
     updateProjectById(state, { payload }) {
       state.projectDetail = state.projects.find((list) => list.id === payload);
@@ -79,6 +80,12 @@ const projectSlice = createSlice({
       });
       state.projects = deleteProjectMembers;
     },
+    handleFavoriteProjects(state, { payload }) {
+      const favProjects = state.projects.find(
+        (project) => project.id === payload.id
+      );
+      favProjects.isPinnedPost = !favProjects.isPinnedPost;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -117,13 +124,23 @@ const projectSlice = createSlice({
         state.memberData = action.payload.data;
       })
       .addCase(addProjectMemberAction.fulfilled, (state, { payload }) => {
-        if (payload.data.length > 0) {
-          state.memberData = [...state.memberData, payload.data[0]];
-          return state;
+        if (state.projectDetail) {
+          if (payload.data?.length) {
+            let newMembers = [...state.projectDetail.members, payload.data[0]];
+            state.projectDetail = {
+              ...state.projectDetail,
+              members: newMembers,
+            };
+          }
         }
       })
       .addCase(deleteProjectMemberAction.fulfilled, (state, { payload }) => {
-        state.removeMemberSucess = true;
+        let newMembers = state.projectDetail.members.filter(
+          (member) => member.memberId !== payload
+        );
+
+        state.projectDetail = { ...state.projectDetail, members: newMembers };
+        // state.removeMemberSucess = true;
       });
 
     builder
@@ -163,5 +180,6 @@ export const {
   addMember,
   deleteProjectMember,
   addProjectMember,
+  handleFavoriteProjects,
 } = projectSlice.actions;
 export default projectSlice.reducer;

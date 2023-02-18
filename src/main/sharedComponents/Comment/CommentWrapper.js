@@ -27,7 +27,6 @@ function CommentWrapper({
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.userSlice);
   useEffect(() => {
-    console.log("this works");
     const newResponse = initailComments?.map((it) => {
       return {
         ...it,
@@ -116,7 +115,7 @@ function CommentWrapper({
                   initialMentions={initialMentions}
                   mentionedUser={mentionedUser}
                   module={module}
-                  likeClass={likeClass}
+                  likeClass={`${likeClass}`}
                   handleLike={handleAddReaction}
                   comment={{
                     content: comment,

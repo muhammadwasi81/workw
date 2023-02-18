@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { getAllApproval } from "../../store/action";
 import { useSelector } from "react-redux";
 import { setApprovalStatus } from "../../../../../store/appReducer/responsiveSlice";
+// import { setApprovalStatus } from "../../../../../store/appReducer/responsiveSlice";
 
 const defaultFilter = {
     pageNo: 0,
@@ -17,14 +18,19 @@ const defaultFilter = {
 export default function Approvals() {
     const dispatch = useDispatch();
     const [filter, setFilter] = useState(defaultFilter);
-    const [approvalStatus, setApprovalStatus] = useState(true)
+    const [myApprovalStatus, setMyApprovalStatus] = useState(true)
     // const approvalStatus = useSelector(state => state.responsiveSlice.approvalStatus);
     const approvalList = useSelector(state => state.approvalSlice.approvalList);
     useEffect(() => {
         let isMyApproval = true;    
-        if (approvalStatus)
+        if (myApprovalStatus)
             dispatch(getAllApproval({isMyApproval, filter}));
-    }, [approvalStatus]);
+    }, [myApprovalStatus]);
+
+    function handleCloseApprovalModal(status = false) {
+        dispatch(setApprovalStatus(false))
+    }
+
     return (
         <div className="approval_list_cont" >
             <div className="approval_header" >
@@ -32,7 +38,7 @@ export default function Approvals() {
                 <div className="approval_header_child2" >
                     <div>Refresh</div>
                     <NavLink to={ROUTES.APPROVALS.DEFAULT} >
-                        <div onClick={() => dispatch(setApprovalStatus(false))} >
+                        <div onClick={handleCloseApprovalModal} >
                             See All
                         </div>
                     </NavLink>

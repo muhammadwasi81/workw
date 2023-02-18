@@ -13,11 +13,16 @@
   direction: rtl;
 }
 
-.header .left,
-.header .right {
+.header .left
+ {
   align-items: stretch;
   display: grid;
   place-items: center;
+}
+
+.header .right {
+  display: flex;
+  grid-column-gap:8px ;
 }
 
 .header .left {

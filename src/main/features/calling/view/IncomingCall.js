@@ -1,28 +1,39 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import Tune from '../../../../../content/audio/recivecalltune.mp3'
-import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
-import { handleIncomingCall } from "../../store/slice";
+import Tune from '../../../../content/audio/recivecalltune.mp3'
+import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
+import { InitializeCallingSocket } from "../services/socket";
+import { handleIncomingCall } from "../store/slice";
 
 export default function IncomingCall() {
 	const incomingCallData = useSelector(state => state.callingSlice.incomingCallData);
+	const userDetail = incomingCallData?.data?.callInitializer && incomingCallData?.data?.callInitializer
 	const dispatch = useDispatch();
 
-	const handleOpenCall = (callURL) => {
+	const handleOpenCallWindow = (callURL) => {
 		const strWindowFeatures =
-		  "location=yes,height=800,width=800,scrollbars=yes,status=yes";
+			"location=yes,height=800,width=800,scrollbars=yes,status=yes";
 		window.open(callURL, "_blank", strWindowFeatures);
-		console.log(callURL, "callURL")
 		dispatch(handleIncomingCall(null));
+	};
 
+	const handleAccept = (callURL) => {
+		const callingSocket = InitializeCallingSocket.getInstance();
+		callingSocket.acceptCall(userDetail?.id);
+		handleOpenCallWindow(callURL)
 	}
-	const userDetail = incomingCallData?.data?.callInitializer && incomingCallData?.data?.callInitializer
-console.log(incomingCallData)
+	const handleDecline = () => {
+		const callingSocket = InitializeCallingSocket.getInstance();
+		callingSocket.declineCall(userDetail?.id);
+		dispatch(handleIncomingCall(null))
+	}
+
 	return (
 		<>
 			{
-				incomingCallData && <div className="app-modal">
+				incomingCallData &&
+				<div className="app-modal">
 					<div className="call-dialog">
 						<div className="caller-det">
 							<Avatar
@@ -43,20 +54,20 @@ console.log(incomingCallData)
 							<div className="call-options">
 								{/* {mode === STRINGS.TYPES.CALL.MODE.VIDEO && ( */}
 								<div className="call-opt-btn gr"
-									onClick={() => handleOpenCall(incomingCallData.data.CallURL)}
+									onClick={() => handleAccept(incomingCallData.data.CallURL)}
 								//  onClick={() => this.acceptCall(STRINGS.TYPES.CALL.MODE.VIDEO_ANSWER)}
 								>
 									<i className="ic-facetime" style={{ width: "14px", height: "14px" }} />
 								</div>
 								{/* )} */}
 								<div className="call-opt-btn gr"
-									onClick={() => handleOpenCall(incomingCallData.data.CallURL)}
+									onClick={() => handleAccept(incomingCallData.data.CallURL)}
 								//  onClick={() => this.acceptCall(STRINGS.TYPES.CALL.MODE.ANSWER)}
 								>
 									<i className="ic-phone" />
 								</div>
 								<div className="call-opt-btn hang-up rd"
-									onClick={() => dispatch(handleIncomingCall(null))}
+									onClick={() => handleDecline()}
 								//  onClick={this.declineCall}
 								>
 									<i className="ic-phone" />

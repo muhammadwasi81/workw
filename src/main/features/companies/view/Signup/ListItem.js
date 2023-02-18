@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import UserInfo from "../../../../sharedComponents/UserShortInfo/UserInfo";
 import SublineDesigWithTime from "../../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
 import {
@@ -7,11 +7,11 @@ import {
 } from "../../../../sharedComponents/Card/CardStyle";
 import { FeaturesEnumList } from "../../../../../utils/Shared/enums/featuresEnums";
 import { useDispatch } from "react-redux";
+import { ResendSignupEmailAction } from "../../companies/store/action";
 
 
 function ListItem({item, onClick, id}) {
   const dispatch = useDispatch()
-
   const {
     firstName,
     lastName,
@@ -43,14 +43,14 @@ function ListItem({item, onClick, id}) {
           </div>
           <div className="right">
             <button 
-              className="ThemeBtn" 
+              className="ThemeBtn"
               style={{
                 paddingLeft: '16px',
                 paddingRight: '16px',
                 paddingTop: '5px',
                 paddingBottom: '5px'
                 }}
-                // onClick={() => dispatch()}
+                onClick={() => dispatch(ResendSignupEmailAction(id))}
                 >
                   Resend
             </button>

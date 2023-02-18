@@ -37,6 +37,13 @@ export const FeaturesEnum = {
   OrganizationalChart:35,
   MyTeam:36,
   JobBoard:37,
+  Form:38,
+  Resignation:39,
+  BusinessPolicy:40,
+  ChartofAccount:41,
+  Voucher:42,
+  Quotation:43,
+  Company:44,
 }
 
 export const  FeaturePermissionEnum =
@@ -83,52 +90,64 @@ export const  FeaturePermissionEnum =
   BusinessLogo:40,
   FiscalYear:41,
   PayrollGroup:42,
-  CompanyPolicies:43,
-  TaxSlabsGroup:44,
-  eLearningCategory:45,
-  Subsidiary:46,
-  SubsidiaryOffice:47,
-  ComplainCategory:48,
-  DefaultHiringCriteria:49,
-  Designation:50,
-  Appraisal:51,
-  OfficeTimings:52,
-  LeaveTypes:53,
-  ExpenseHeader:54,
-  SalaryHeader:55,
-  EmailConfiguration:56,
-  ViewAppraisal:57,
-  CreateAppraisal:58,
-  ViewDepartment:59,
-  CreateDepartment:60,
-  ViewLeave:61,
-  CreateLeave:62,
-  ViewLoan:63,
-  CreateLoan:64,
-  ViewHoliday:65,
-  CreateHoliday:66,
-  ViewCareer:67,
-  CreateCareer:68,
-  ViewSalary:69,
-  CreateSalary:70,
-  ViewAttendanceCheckIn:71,
-  ViewRequisition:72,
-  CreateRequisition:73,
-  ViewPayroll:74,
-  CreatePayroll:75,
-  ViewRewards:76,
-  CreateRewards:77,
-  ViewComplains:78,
-  CreateComplains:79,
-  ViewWarnings:80,
-  CreateWarnings:81,
-  ViewBonus:82,
-  CreateBonus:83,
-  ViewPromotion:84,
-  CreatePromotion:85,
-  ViewOrganizationalChart:86,
-  ViewMyTeam:87,
-  ViewJobBoard:88,
+  TaxSlabsGroup:43,
+  eLearningCategory:44,
+  Subsidiary:45,
+  SubsidiaryOffice:46,
+  ComplainCategory:47,
+  DefaultHiringCriteria:48,
+  Designation:49,
+  Appraisal:50,
+  OfficeTimings:51,
+  LeaveTypes:52,
+  ExpenseHeader:53,
+  SalaryHeader:54,
+  EmailConfiguration:55,
+  ViewAppraisal:56,
+  CreateAppraisal:57,
+  ViewDepartment:58,
+  CreateDepartment:59,
+  ViewLeave:60,
+  CreateLeave:61,
+  ViewLoan:62,
+  CreateLoan:63,
+  ViewHoliday:64,
+  CreateHoliday:65,
+  ViewCareer:66,
+  CreateCareer:67,
+  ViewSalary:68,
+  CreateSalary:69,
+  ViewAttendanceCheckIn:70,
+  ViewRequisition:71,
+  CreateRequisition:72,
+  ViewPayroll:73,
+  CreatePayroll:74,
+  ViewRewards:75,
+  CreateRewards:76,
+  ViewComplains:77,
+  CreateComplains:78,
+  ViewWarnings:79,
+  CreateWarnings:80,
+  ViewBonus:81,
+  CreateBonus:82,
+  ViewPromotion:83,
+  CreatePromotion:84,
+  ViewOrganizationalChart:85,
+  ViewMyTeam:86,
+  ViewJobBoard:87,
+  ViewForm:88,
+  CreateForm:89,
+  ViewResignation:90,
+  CreateResignation:91,
+  ViewBusinessPolicy:92,
+  CreateBusinessPolicy:93,
+  ViewChartOfAccount:94,
+  CreateChartOfAccount:95,
+  ViewVouchers:96,
+  CreateVouchers:97,
+  ViewQuotation:98,
+  CreateQuotation:99,
+  ViewCompany:100,
 }
 
 export const FeaturePermissionEnumList=[
@@ -392,9 +411,69 @@ export const FeaturePermissionEnumList=[
     name:"Create Workboard",
     featureId:FeaturesEnum.Workboard
   },
+  {
+    id:FeaturePermissionEnum.ViewChartOfAccount,
+    name:"View Chart Of Account",
+    featureId:FeaturesEnum.ChartofAccount
+  },
+  {
+    id:FeaturePermissionEnum.CreateChartOfAccount,
+    name:"Create Chart Of Account",
+    featureId:FeaturesEnum.ChartofAccount
+  },
+  {
+    id:FeaturePermissionEnum.ViewVouchers,
+    name:"View Vouchers",
+    featureId:FeaturesEnum.Voucher
+  },
+  {
+    id:FeaturePermissionEnum.CreateVouchers,
+    name:"Create Vouchers",
+    featureId:FeaturesEnum.Voucher
+  },
+  {
+    id:FeaturePermissionEnum.ViewBusinessPolicy,
+    name:"View Business Policy",
+    featureId:FeaturesEnum.BusinessPolicy
+  },
+  {
+    id:FeaturePermissionEnum.ViewPayroll,
+    name:"View Payroll",
+    featureId:FeaturesEnum.Payroll
+  },
+  {
+    id:FeaturePermissionEnum.CreatePayroll,
+    name:"Create Payroll",
+    featureId:FeaturesEnum.Payroll
+  },
+  {
+    id:FeaturePermissionEnum.ViewQuotation,
+    name:"View Quotation",
+    featureId:FeaturesEnum.Quotation
+  },
+  {
+    id:FeaturePermissionEnum.CreateQuotation,
+    name:"Create Quotation",
+    featureId:FeaturesEnum.Quotation
+  },
+  {
+    id:FeaturePermissionEnum.ViewCompany,
+    name:"View Company",
+    featureId:FeaturesEnum.Company
+  },
+  {
+    id:FeaturePermissionEnum.ViewResignation,
+    name:"View Resignation",
+    featureId:FeaturesEnum.Resignation
+  },
+  {
+    id:FeaturePermissionEnum.CreateResignation,
+    name:"Create Resignation",
+    featureId:FeaturesEnum.Resignation
+  },
+
   
 ]
-
 
 export const FeaturesEnumList = [
   {

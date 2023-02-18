@@ -345,6 +345,7 @@ const NavMenuList = () => {
       icon: chartAccountIcon,
       isActive: true,
       key: label.navMenuLabel.finance,
+      featureId:FeaturesEnum.ChartofAccount
     },
     {
       name: label.navMenuLabel.Quotation,
@@ -353,6 +354,7 @@ const NavMenuList = () => {
       icon: quotationIcon,
       isActive: true,
       key: label.navMenuLabel.finance,
+      featureId:FeaturesEnum.Quotation
     },
     // {
     //   name: label.navMenuLabel.QuotationClient,
@@ -393,6 +395,7 @@ const NavMenuList = () => {
       icon: payrollIcon,
       isActive: true,
       key: label.navMenuLabel.finance,
+      featureId:FeaturesEnum.Payroll
     },
     {
       name: label.navMenuLabel.salary,
@@ -436,6 +439,7 @@ const NavMenuList = () => {
       to: ROUTES.RESIGNATION.RESIGNATION,
       isActive: true,
       key: label.navMenuLabel.hr,
+      featureId:FeaturesEnum.Resignation
     },
     {
       name: label.navMenuLabel.requisition,
@@ -454,6 +458,7 @@ const NavMenuList = () => {
       to: `${ROUTES.ASSETS.ROOT}`,
       isActive: true,
       key: label.navMenuLabel.inventory,
+      featureId:FeaturesEnum.Asset,
       featureId:FeaturesEnum.Asset
     },
     // TODO:// CREATE ASSETS
@@ -490,6 +495,7 @@ const NavMenuList = () => {
       to: ROUTES.COMPANIES.ROOT,
       isActive: true,
       key: label.navMenuLabel.workWiseCompanies,
+      featureId:FeaturesEnum.Company
     },
 
     // {

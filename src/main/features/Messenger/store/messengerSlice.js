@@ -6,6 +6,7 @@ import {
   searchConversation,
   sendChatMessage,
   getAllChatMessage,
+  getAllEmployeeWithChat,
 } from "./actions";
 
 const defaultCurrentMessenger = {
@@ -32,6 +33,7 @@ const initialState = {
     //    },
     // }
   ],
+  ConversationsWithEmployee: [],
   loader: false,
   success: false,
 };
@@ -115,14 +117,17 @@ export const messengerSlice = createSlice({
 
   extraReducers: (builder) => {
     builder
-      .addCase(searchConversation.fulfilled, (state, { payload }) => {
-        state.Conversations = payload.data;
-      })
+      // .addCase(searchConversation.fulfilled, (state, { payload }) => {
+      //   state.Conversations = payload.data;
+      // })
       .addCase(getAllChatMessage.fulfilled, (state, { payload }) => {
         state.MessengerList[payload.chatId] = payload.data;
       })
       .addCase(getAllChats.fulfilled, (state, { payload }) => {
         state.Conversations = payload;
+      })
+      .addCase(getAllEmployeeWithChat.fulfilled, (state, { payload }) => {
+        state.ConversationsWithEmployee = payload;
       })
       .addCase(createChat.fulfilled, (state, { payload }) => {
         state.Conversations = state.Conversations.find(

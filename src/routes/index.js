@@ -10,7 +10,9 @@ import Spinner from "../main/sharedComponents/spinner/spinner";
 import SideChatBar from "../main/features/SideChatbar/index";
 import FcmNotification from "../main/features/notifiation/view/FCM/fcmNotification";
 import MainNotification from "../main/sharedComponents/Notification/Notification";
-import IncomingCall from "../main/features/calling/view/components/IncomingCall";
+import IncomingCall from "../main/features/calling/view/IncomingCall";
+import OutgoingCall from "../main/features/calling/view/outgoingCall";
+
 const PrivateRoute = () => {
   const { token } = useSelector((state) => state.userSlice);
   const isLoggedIn = !!token;
@@ -70,6 +72,7 @@ export default function Routes({ isLoggedIn, isMobileView, activityCount }) {
       
       {isLoggedIn  && <FcmNotification />}
       {isLoggedIn  && <IncomingCall />}
+      {isLoggedIn  && <OutgoingCall />}
       {isLoggedIn  && <MainNotification />}
 
     </React.Fragment>

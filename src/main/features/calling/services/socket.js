@@ -41,7 +41,6 @@ export class InitializeCallingSocket {
 		await this.connection.on("notify-CallInitializer", (data) => {
 			// FOR RINGING
 			this.#dispatch(handleOutgoingCallRinging(data.userId))
-			console.log(message, "message_message");
 		})
 		await this.connection.on("notify-call-declined", (data) => {
 			console.log(data, "message_message", "notify-call-declined");

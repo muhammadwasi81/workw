@@ -134,7 +134,8 @@ const TeamCard = ({ teams }) => {
           <> {designation || "No Designation"}</>{" "}
         </Text>
         <ButtonsBox>
-          <ActionButton
+          {/**enable if remove API is available to remove */}
+          {/* <ActionButton
             onClick={() => {
               //Route will be set accordingly
               console.log("delete console");
@@ -142,7 +143,7 @@ const TeamCard = ({ teams }) => {
             BackgroundColor="#db5252"
           >
             {"Remove"}
-          </ActionButton>
+          </ActionButton> */}
           <ActionButton
             onClick={() => {
               //Route will be set accordingly

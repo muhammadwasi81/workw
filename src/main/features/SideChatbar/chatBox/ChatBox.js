@@ -8,14 +8,12 @@ const ChatBox = ({ children, chat }) => {
         const { BOOLEAN } = CHATBOX_ENUM;
         let classes = "";
         classes += (isMinimize === BOOLEAN.TRUE ? " minimizeChatBox" :
-            isMinimize === BOOLEAN.FALSE ? " minimizeCloseChatBox"
-                : "");
+            isMinimize === BOOLEAN.FALSE ? " minimizeCloseChatBox" : "");
         classes += (isExtend === BOOLEAN.TRUE ? " extendChatBox" :
-        isExtend === BOOLEAN.FALSE ? " extendCloseChatBox"
-                : "");
-                return classes
+            isExtend === BOOLEAN.FALSE ? " extendCloseChatBox" : "");
+        return classes
     }
-    
+
     let classes = getConditionalClasses();
     return (
         <div className={`ChatBox${classes}`} >

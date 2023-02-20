@@ -2392,6 +2392,15 @@ a.item-card:hover {
   z-index: 999;
   overflow: hidden;
 }
+.app-modal-without-block {
+  position: fixed;
+  right: 0;
+  top: 0;
+  /* width: 100%; */
+  /* height: 100%; */
+  z-index: 999;
+  overflow: hidden;
+}
 
 .app-modal.content-center {
   display: flex;
@@ -6516,7 +6525,36 @@ i.ic-magnifying {
   margin: 240px auto 0;
   padding: 30px 15px 15px;
 }
+.outgoing-call{
+  width: 300px;
+  display: flex;
+  height: min-content;
+  background: #272727;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 8px;
+  margin: 10px;
+  padding: 12px 7px 12px;
+}
+.outgoing-call .section-2 {
+  color: white;
+  flex: 1;
+  padding-left: 8px;
+}
+.outgoing-call .section-2 .caller-name{
+  font-weight: bolder;
+  font-size: 15px;
+}
+.outgoing-call .section-2 .call-status{
+  font-size: 12px;
+}
 
+.outgoing-call .call-footer .call-opt-btn {
+  width: 36px;
+  height: 36px;
+}
+.outgoing-call .call-footer{
+  padding: 0;
+}
 .call-dialog>.call-footer>.call-options>.call-opt-btn {
   width: 36px;
   height: 36px;

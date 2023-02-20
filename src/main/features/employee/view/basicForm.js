@@ -155,7 +155,7 @@ const BasicInfo = ({ mode, id }) => {
       if (!grades.length) dispatch(getAllGrades());
       if (!officeTimingGroups?.length) dispatch(getAllOfficeTimingGroups());
       if (!accessRoles.length) dispatch(getAllAccessRoles());
-      if (!department.length) dispatch(getAllDepartments());
+      // if (!department.length) dispatch(getAllDepartments());
     }
     return () => {
       dispatch(resetBasicdetails());

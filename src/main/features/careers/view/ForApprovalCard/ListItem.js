@@ -110,7 +110,7 @@ function ListItem({ item, onClickApproval }) {
           <div className="cardSectionItem">
             <div className="cardSection__title">Manager</div>
             <div className="cardSection__body">
-              {manager && (
+              {/* {manager && (
                 <Avatar
                   isAvatarGroup={true}
                   isTag={false}
@@ -119,7 +119,7 @@ function ListItem({ item, onClickApproval }) {
                   text={"manager"}
                   image={"https://joeschmoe.io/api/v1/random"}
                 />
-              )}
+              )} */}
             </div>
           </div>
           <div className="cardSectionItem">

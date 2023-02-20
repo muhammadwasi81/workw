@@ -18,7 +18,7 @@ import WhiteCard from "../UI/WhiteCard";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getProjectById } from "../store/actions";
-import { Collapse, Drawer } from "antd";
+import { Collapse, Drawer, Modal, Form } from "antd";
 import Composer from "../UI/Composer";
 import { useState } from "react";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
@@ -39,7 +39,7 @@ import { handleComposeEmail } from "../../leadmanager/store/slice";
 import ComposeEmail from "../../leadmanager/view/Email/ComposeEmail";
 import CustomNotes from "../../notes/singleNotes/singleNotes";
 import { Menu, Dropdown, Space } from "antd";
-import { CopyOutlined, EllipsisOutlined } from "@ant-design/icons";
+import { CopyOutlined, EllipsisOutlined, EyeOutlined } from "@ant-design/icons";
 import {
   saveProjectStickyAction,
   saveStickyTitleAction,
@@ -53,6 +53,13 @@ import ProjectSummary from "../view/ProjectSummary";
 import Schedules from "../../schedule/index";
 import { addMember } from "../store/slice";
 import MemberModal from "../UI/MemberModal";
+import FeatureSelect from "../../../sharedComponents/FeatureSelect/Index";
+import { FeaturesEnum } from "../../../../utils/Shared/enums/enums";
+import {
+  addProjectFeatureAction,
+  removeProjectFeatureAction,
+  getProjectFeatureAction,
+} from "../store/actions";
 const { Panel } = Collapse;
 
 function ProjectDetails() {
@@ -60,12 +67,12 @@ function ProjectDetails() {
   const dispatch = useDispatch();
   const detail = useSelector((state) => state.projectSlice.projectDetail);
   const sticky = useSelector((state) => state.projectSlice.stickyArray);
-  console.log(sticky, "sticky array");
-  const [features, setFeatures] = useState([]);
+  const [projectfeatures, setFeatures] = useState([]);
+  console.log(projectfeatures, "project featuress");
   const [description, setDescription] = useState(null);
   const descriptionDebounce = useDebounce(description, 500);
-  console.log(descriptionDebounce, "description");
   const [openColor, setOpenColor] = useState(true);
+  const [form] = Form.useForm();
 
   const [title, setTitle] = useState(null);
   const titleDebounce = useDebounce(title, 500);
@@ -73,10 +80,14 @@ function ProjectDetails() {
 
   const { userLanguage } = useContext(LanguageChangeContext);
   const { projectsDictionary } = projectsDictionaryList[userLanguage];
-  const { updateTextBtn, labels } = projectsDictionary;
+  const { updateTextBtn, labels, features } = projectsDictionary;
   const [open, setOpen] = useState(false);
   const { projectId } = params;
+  const [openFeature, setOpenFeature] = useState(false);
 
+  const featureHandler = () => {
+    setOpenFeature(true);
+  };
   useEffect(() => {
     dispatch(getProjectById(projectId));
   }, [projectId]);
@@ -95,6 +106,12 @@ function ProjectDetails() {
       };
     });
     setFeatures(temp);
+
+    // form.setFieldsValue({
+    //   features: detail?.features.map((item) => {
+    //     return { featureId: item.featureId };
+    //   }),
+    // });
   }, [detail]);
 
   const panes = [
@@ -247,6 +264,26 @@ function ProjectDetails() {
       ]}
     />
   );
+  useEffect(() => {
+    dispatch(getProjectFeatureAction(projectId));
+  }, []);
+  const onFeatureHandler = (featureId, checked) => {
+    if (checked) {
+      const payload = {
+        featureId: featureId,
+        projectId: projectId,
+      };
+      console.log(projectfeatures, "projectt featuress");
+      dispatch(addProjectFeatureAction([payload]));
+    } else {
+      dispatch(
+        removeProjectFeatureAction({
+          id: projectId,
+          featureId: featureId,
+        })
+      );
+    }
+  };
   return (
     <>
       <TabContainer>
@@ -256,7 +293,7 @@ function ProjectDetails() {
             <div className="rounded-xl basis-9/12 flex flex-col gap-5 overflow-scroll">
               <CoverImage image={detail?.image || ProjectCover} />
               <CoverDetail detail={detail} />
-              <Tab panes={features} id={projectId} features={panes} />
+              <Tab panes={projectfeatures} id={projectId} features={panes} />
             </div>
             <div className="basis-1/4 gap-5 flex flex-col overflow-scroll">
               <Budget data={detail} />
@@ -294,6 +331,13 @@ function ProjectDetails() {
                     <div className="font-bold flex items-center gap-2 mb-2">
                       <ProjectSummary />
                       <span>{"View Summary"}</span>
+                    </div>
+                    <div
+                      className="text-black text-sm font-bold flex items-center gap-2 mb-2"
+                      onClick={featureHandler}
+                    >
+                      <EyeOutlined />
+                      Features
                     </div>
                   </Panel>
                 </Collapse>
@@ -339,8 +383,29 @@ function ProjectDetails() {
           id={projectId}
         />
       </Drawer>
-      {/* <ComposeEmail /> */}
       {visible && <MemberModal data={detail} />}
+      {openFeature && (
+        <Modal
+          title=""
+          centered
+          className="modal-body"
+          footer={false}
+          open={openFeature}
+          onOk={() => setOpenFeature(false)}
+          onCancel={() => setOpenFeature(false)}
+          closable={false}
+          width={900}
+        >
+          {projectfeatures && (
+            <FeatureSelect
+              features={projectfeatures}
+              form={form}
+              notIncludeFeature={FeaturesEnum.Travel}
+              onChange={onFeatureHandler}
+            />
+          )}
+        </Modal>
+      )}
     </>
   );
 }

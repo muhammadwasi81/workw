@@ -17,9 +17,8 @@ const userPaymentSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getAllPayment.fulfilled, (state, { payload }) => {
-        console.log(payload, "get all payment data");
         state.loadingData = false;
-        state.billing = payload.data;
+        state.payment = payload.data;
       })
       .addMatcher(isPending(...[getAllPayment]), (state) => {
         state.loadingData = true;

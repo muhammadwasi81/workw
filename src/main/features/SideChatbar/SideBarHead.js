@@ -28,14 +28,14 @@ export const SideBarHead = ({ sideBarStatus }) => {
   const loading = useSelector((state) => state.callingSlice.loading);
   const success = useSelector((state) => state.callingSlice.success);
   const roomId = useSelector((state) => state.callingSlice.roomId);
-  const CALL_URL_PREFIX = "https://call.workw.com/";
-  useEffect(() => {
-    if (success && roomId && !loading) {
-      const strWindowFeatures =
-        "location=yes,height=800,width=800,scrollbars=yes,status=yes";
-      window.open(CALL_URL_PREFIX + roomId, "_blank", strWindowFeatures);
-    }
-  }, [success, roomId]);
+  // const CALL_URL_PREFIX = "https://call.workw.com/";
+  // useEffect(() => {
+  //   if (success && roomId && !loading) {
+  //     const strWindowFeatures =
+  //       "location=yes,height=800,width=800,scrollbars=yes,status=yes";
+  //     window.open(CALL_URL_PREFIX + roomId, "_blank", strWindowFeatures);
+  //   }
+  // }, [success, roomId]);
   return (
     <>
       <div className={`sideBarHead`}>

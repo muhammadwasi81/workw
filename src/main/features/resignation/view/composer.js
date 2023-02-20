@@ -5,7 +5,6 @@ import TextInput from "../../../sharedComponents/Input/TextInput";
 import { useSelector, useDispatch } from "react-redux";
 import {
   getAllEmployees,
-  getRewardCategory,
 } from "../../../../utils/Shared/store/actions";
 import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
 import { resignationDictionaryList } from "../localization/index";
@@ -59,7 +58,6 @@ const Composer = (props) => {
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [value, setValue] = useState([]);
 
-  const { rewardCategories } = useSelector((state) => state.sharedSlice);
   const { createLoader } = useSelector((state) => state.resignationSlice);
   const { success } = useSelector((state) => state.rewardSlice);
   const employees = useSelector((state) => state.sharedSlice.employees);
@@ -70,10 +68,6 @@ const Composer = (props) => {
   };
   useEffect(() => {
     fetchEmployees("", 0);
-  }, []);
-
-  useEffect(() => {
-    dispatch(getRewardCategory());
   }, []);
 
   const handleMember = (val) => {
@@ -104,7 +98,6 @@ const Composer = (props) => {
       dispatch(emptyEmployeesData());
       setIsFirstTimeDataLoaded(false);
     }
-    dispatch(getRewardCategory());
   }, []);
 
   const handleImageUpload = (data) => {

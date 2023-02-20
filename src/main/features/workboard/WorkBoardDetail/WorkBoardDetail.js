@@ -18,6 +18,7 @@ import WBDCoverImage from "./WBDCoverImage";
 import WorkBoardDescription from "./WorkBoardDescription";
 import MemberModal from "../Modal/MemberModal";
 import LabelModal from "../Modal/LabelModal/LabelModal";
+import Avatar from "../../../sharedComponents/Avatar/avatar";
 import { useDispatch } from "react-redux";
 import { openDateModal, openMembersModal } from "../store/slice";
 import { useSelector } from "react-redux";
@@ -33,8 +34,9 @@ import { LanguageChangeContext } from "../../../../utils/localization/localConte
 import { WorkBoardDictionary } from "../localization";
 
 function WorkBoardDetail({ todoDetail }) {
-  console.log(todoDetail, "todoDetail");
+  console.log(todoDetail?.members, "todoDetail");
   // const [members, setMembers] = useState([]);
+  const [visible, setVisible] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const dispatch = useDispatch();
   const addMemberCardId = useSelector(
@@ -43,7 +45,7 @@ function WorkBoardDetail({ todoDetail }) {
   const workboardsListData = useSelector(
     (state) => state.trelloSlice.workboardsList
   );
-  console.log(workboardsListData?.members);
+ 
   const [todoData, setTodoData] = useState(todoDetail);
 
   useEffect(() => {
@@ -93,6 +95,11 @@ function WorkBoardDetail({ todoDetail }) {
       })
     );
   };
+  const handleOpenMembers = (e) => {
+    setVisible(true);
+    e.preventDefault();
+    e.stopPropagation();
+  }
 
   const showDateModal = () => {
     dispatch(
@@ -127,12 +134,15 @@ function WorkBoardDetail({ todoDetail }) {
             </div>
             <div className="w-full sm:basis-3/12 mt-5 sm:mt-[50px]">
               <div className="flex flex-col gap-5">
-                <MemberCollapse
+              <div className="members"> 
+								</div>
+									
+                {/* <MemberCollapse
                   handleAdd={addMembers}
                   data={workboardsListData?.members}
                   isMember={true}
                   ghost={false}
-                />
+                /> */}
                 <TrelloThemeButton
                   text={labels.label}
                   icon={<TagOutlined />}

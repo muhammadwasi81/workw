@@ -22,6 +22,7 @@ import {
   updateWorkBoardTodoTitle,
   getWorkBoardMemberAction,
   addWorkBoardMember,
+  addWorkBoardTodoMember,
 } from "./action";
 
 const initialComposerData = {
@@ -495,6 +496,11 @@ const trelloSlice = createSlice({
       .addCase(getWorkBoardMemberAction.fulfilled, (state, action) => {
         state.workBoardMembers = action.payload ? action.payload : [];
       })
+      .addCase(addWorkBoardTodoMember.fulfilled, (state, action) => {
+        
+
+      })
+      
       .addCase(addWorkBoardMember.fulfilled, (state, { payload }) => {})
       .addMatcher(
         isPending(

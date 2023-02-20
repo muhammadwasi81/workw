@@ -235,6 +235,25 @@ export const addWorkBoardMemberService = (data) => {
       return error;
     });
 };
+
+export const addWorkBoardTodoMemberService = (data) => {
+  const id = data.id;
+  let memberId = data.memberId;
+  console.log(data, "data");
+  return MasterConfig.post(`api/WorkBoardTodo/AddWorkBoardTodoMember?id=${id}`, memberId)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((error) => {
+      return error;
+    });
+};
+
+
+
+
+
+
 export const getWorkBoardMemberService = (id) => {
   return MasterConfig.get(`api/WorkBoard/GetAllWorkBoardMember?id=${id}`)
     .then((res) => {

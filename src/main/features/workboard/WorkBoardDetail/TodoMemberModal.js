@@ -4,56 +4,65 @@ import { message, Modal } from "antd";
 import { useSelector } from "react-redux";
 import CustomSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 import ApproverListItem from "../../../sharedComponents/AppComponents/Approvals/components/approverList";
-
+import {addWorkBoardTodoMember} from "../store/action";
+// import {
+//   addBookMember,
+//   getAllBookMember,
+//   getAllLeadManagerMember,
+//   addLeadManagereMember,
+//   deleteLeadManagerById,
+// } from "../../store/actions";
 import { useParams } from "react-router-dom";
 import { addMember } from "../store/slice";
 import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
 import { getAllEmployees } from "../../../../utils/Shared/store/actions";
-import { getWorkBoardMemberAction, addWorkBoardMember } from "../store/action";
-import { NoDataFound } from "./index";
+//import { deleteLeadManagerMember } from "../../store/slice";
+import { data } from "jquery";
 
-function MemberModal({ isOpen = false }) {
+function MemberModal({ isOpen = false, data }) {
   const dispatch = useDispatch();
-  const userId = useSelector((state) => state.userSlice.user.id);
-  const modalRequest = useSelector((state) => state.trelloSlice.addMemberModal);
-  const { workBoardMembers } = useSelector((state) => state.trelloSlice);
 
+  const modalRequest = useSelector(
+    (state) => state.leadMangerSlice.addMemberModal
+  );
+
+  console.log(modalRequest,"modalRequest");
   const employees = useSelector((state) => state.sharedSlice.employees);
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [value, setValue] = useState([]);
 
   let ModalOpen = modalRequest.status;
-  let type = modalRequest.memberType;
-
-  useEffect(() => {
-    ModalOpen && dispatch(getWorkBoardMemberAction(userId));
-    // dispatch(getWorkBoardMemberAction(userId));
-  }, [ModalOpen]);
 
   useEffect(() => {
     fetchEmployees("", 0);
   }, []);
 
   const fetchEmployees = (text, pgNo) => {
-    dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
+   dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
   };
 
   const handleClose = () => {
     dispatch(addMember(false));
   };
 
-  const handleChange = (id) => {
-    let memberId = id.toString();
-    console.log(memberId, "memberIddd");
-    const data = {
-      id: userId,
+  const handleChange = (myId) => {
+    let memberId = myId.toString();
+    const membersData = {
+      id: data.id,
       memberId: memberId,
-      memberType: type,
     };
-    console.log(type, "memberType");
-    dispatch(addWorkBoardMember(data));
-    dispatch(getWorkBoardMemberAction(userId));
+   
+
+    let a = data.members.filter((item) => {
+      return item.member.id === membersData.memberId;
+    });
+    let b = a[0] ? a[0].memberId : "";
+    if (membersData.memberId === b) {
+      return message.error("Member Already Added");
+    } else {
+      dispatch(addWorkBoardTodoMember(membersData));
+    }
   };
 
   useEffect(() => {
@@ -63,11 +72,14 @@ function MemberModal({ isOpen = false }) {
     }
   }, [employees]);
 
-  const [newState, setNewState] = useState({
-    members: [],
-    memberType: null,
-  });
-
+  const handleDeleteMember = (myId) => {
+    let memberId = myId.toString();
+    const membersData = {
+      id: data.id,
+      memberId: memberId,
+    };
+    //dispatch(deleteLeadManagerById(membersData));
+  };
   return (
     <Modal
       open={ModalOpen}
@@ -92,13 +104,13 @@ function MemberModal({ isOpen = false }) {
           return (
             <>
               <Avatar
-                name={opt.name}
-                src={opt.image}
+                name={opt?.name}
+                src={opt?.image || "https://joeschmoe.io/api/v1/random"}
                 round={true}
                 width={"30px"}
                 height={"30px"}
               />
-              {opt.name}
+              {opt?.name}
             </>
           );
         }}
@@ -113,11 +125,11 @@ function MemberModal({ isOpen = false }) {
           },
         ]}
       />
-      {workBoardMembers?.length > 0 ? (
-        <ApproverListItem className="AddMemberModal" data={workBoardMembers} />
-      ) : (
-        <NoDataFound />
-      )}
+      <ApproverListItem
+        className="AddMemberModal"
+        data={data.members}
+        handleDelete={handleDeleteMember}
+      />
     </Modal>
   );
 }

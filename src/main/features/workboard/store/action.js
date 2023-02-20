@@ -30,6 +30,7 @@ import {
   uploadWorkBoardTodoImageService,
   getWorkBoardMemberService,
   addWorkBoardMemberService,
+  addWorkBoardTodoMemberService,
 } from "../services/services";
 
 export const addWorkBoard = createAsyncThunk(
@@ -440,6 +441,21 @@ export const addWorkBoardMember = createAsyncThunk(
     }
   }
 );
+
+export const addWorkBoardTodoMember = createAsyncThunk(
+  "addWorkBoardTodoMember",
+  async (data, { dispatch, getState, rejectWithValue }) => {
+    const res = await addWorkBoardTodoMemberService(data);
+    if (res.data?.responseCode === responseCode.Success) {
+      message.success("Todo Member Added");
+      return res;
+    } else {
+      message.error(res.data.message);
+      return rejectWithValue(res.data.message);
+    }
+  }
+);
+
 
 export const getWorkBoardMemberAction = createAsyncThunk(
   "getWorkBoardMemberAction",

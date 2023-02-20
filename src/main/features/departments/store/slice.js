@@ -1,4 +1,4 @@
-import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
+import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
 import {
   getAllDepartments,
   addDepartment,
@@ -9,7 +9,7 @@ import {
   removeDepartmentAppraisalQuestion,
   addDepartmentMemberAction,
   getDepartmentMemberAction,
-} from "./actions";
+} from './actions';
 
 const initialState = {
   departments: [],
@@ -28,7 +28,7 @@ const initialState = {
 };
 
 const departmentSlice = createSlice({
-  name: "departments",
+  name: 'departments',
   initialState,
   reducers: {
     addMember: (state, { payload }) => {
@@ -66,7 +66,7 @@ const departmentSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getAllDepartments.fulfilled, (state, { payload }) => {
-        // console.log(payload);
+        console.log(payload, 'getAllDepartments');
         state.departments = payload ? payload : [];
         state.loader = false;
       })
@@ -83,7 +83,7 @@ const departmentSlice = createSlice({
         state.isCreateComposer = false;
       })
       .addCase(getDepartmentById.fulfilled, (state, { payload }) => {
-        console.log("GetDepartmentById payload", payload.data);
+        console.log('GetDepartmentById payload', payload.data);
         state.departmentDetail = payload.data;
         state.loader = false;
       })
@@ -152,7 +152,7 @@ const departmentSlice = createSlice({
       .addMatcher(
         isPending(...[updateDepartmentAppraisalQuestion]),
         (state) => {
-          console.log("its pending update");
+          console.log('its pending update');
           state.createLoader = true;
         }
       )
@@ -166,7 +166,7 @@ const departmentSlice = createSlice({
         state.loader = false;
       })
       .addMatcher(isPending(...[addDepartmentAppraisalQuestion]), (state) => {
-        console.log("its pending add department appraisa question");
+        console.log('its pending add department appraisa question');
         // state.createLoader = true;
       });
   },

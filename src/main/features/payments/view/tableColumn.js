@@ -1,10 +1,10 @@
 export const tableColumn = () => {
   //Width will be set Accordingly
   return [
-    { title: "Bill No.", dataIndex: "name" },
+    { title: "Bill No.", dataIndex: "billingId" },
     {
       title: "Amount",
-      dataIndex: "incomingPort",
+      dataIndex: "paidAmount",
     },
     {
       title: "Card Last 4",
@@ -16,7 +16,7 @@ export const tableColumn = () => {
     },
     {
       title: "Business Name",
-      dataIndex: "outgoingServerAddress",
+      dataIndex: "businessName",
     },
   ];
 };

@@ -20,6 +20,7 @@ const TopBar = ({
   style,
   width,
   options = null,
+  searchEnable = true,
 }) => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { sharedLabels, Direction } = dictionaryList[userLanguage];
@@ -32,17 +33,21 @@ const TopBar = ({
   classes += Direction === "rtl" ? "rtl" : "";
   return (
     <div className={classes} style={style}>
+      {/* {searchEnable && } */}
       <div className="topBar__inner">
-        <div className="searchBox">
-          <SearchInput
-            icon={<SearchOutlined />}
-            placeholder={sharedLabels.Search}
-            size="larger"
-            onChange={(e) => {
-              onSearch(e.target.value);
-            }}
-          />
-        </div>
+        {searchEnable && (
+          <div className="searchBox">
+            <SearchInput
+              icon={<SearchOutlined />}
+              placeholder={sharedLabels.Search}
+              size="larger"
+              onChange={(e) => {
+                onSearch(e.target.value);
+              }}
+            />
+          </div>
+        )}
+
         <div className="topBar__buttons">
           {buttons.map(({ name, onClick, icon, to }, index) => (
             <Button

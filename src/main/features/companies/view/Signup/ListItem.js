@@ -1,35 +1,29 @@
-import { Image, Tag } from "antd";
-import React, { useContext, useState } from "react";
+import React, { useEffect, useState } from "react";
 import UserInfo from "../../../../sharedComponents/UserShortInfo/UserInfo";
 import SublineDesigWithTime from "../../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
-import StatusTag from "../../../../sharedComponents/Tag/StatusTag";
-import moment from "moment";
 import {
-  ItemContent,
   ItemHeader,
   SingleItem,
 } from "../../../../sharedComponents/Card/CardStyle";
-import { useEffect } from "react";
-// import Avatar from "../../../../sharedComponents/Avatar/avatar";
-// import { useDispatch } from "react-redux";
-// import { data } from "jquery";
-// import Attachments from "../../travel/view/UI/Attachments";
-// import "./style/reward.css";
+import { FeaturesEnumList } from "../../../../../utils/Shared/enums/featuresEnums";
+import { useDispatch } from "react-redux";
+import { ResendSignupEmailAction } from "../../companies/store/action";
 
 
 function ListItem({item, onClick, id}) {
-
+  const dispatch = useDispatch()
   const {
     firstName,
     lastName,
     email,
     title,
+    features,
   } = item ? item : "";
 
-  // const localTime = moment
-  //   .utc(createDate)
-  //   .local()
-  //   .format();
+  let splited = features.split(',')
+  var nums = splited.map(function(str) {
+  return parseInt(str); });
+
   return (
     <>
       <SingleItem onClick={onClick}>
@@ -42,25 +36,37 @@ function ListItem({item, onClick, id}) {
               Subline={
                 <SublineDesigWithTime
                   designation={email}
-            //      time={moment(localTime).fromNow()}
+              // time={moment(localTime).fromNow()}
                 />
               }
             />
           </div>
           <div className="right">
             <button 
-              className="ThemeBtn" 
+              className="ThemeBtn"
               style={{
                 paddingLeft: '16px',
                 paddingRight: '16px',
                 paddingTop: '5px',
                 paddingBottom: '5px'
-                }}>
+                }}
+                onClick={() => dispatch(ResendSignupEmailAction(id))}
+                >
                   Resend
             </button>
           </div>
         </ItemHeader>
-        <ItemContent className="flex"></ItemContent>
+        <div className="tagsContainer">
+              {
+                FeaturesEnumList.map((item) => {
+                  if (nums.includes(item.value)) {
+                    return (
+                      <span className="featureTag">{item.label}</span>
+                    )
+                  }
+                })
+            }
+        </div>
         <div className="cardSections">
           <div className="cardSectionItem">
             <div className="cardSection__title">

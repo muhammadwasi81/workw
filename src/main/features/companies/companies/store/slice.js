@@ -4,12 +4,16 @@ import {
   getRewardsAction,
   getAllLoanAction,
   getAllSignupAction,
+  getCompanyByIdAction,
 } from "./action";
 
 const initialState = {
   signup: [],
   teams: [],
   companies: [],
+  company: {
+    basicInfo: {},
+  },
   team: {
     rewardsdetails: [],
     loandetails: [],
@@ -28,6 +32,9 @@ const companySlice = createSlice({
         state.companies = payload;
         state.loader = false;
         state.success = true;
+      })
+      .addCase(getCompanyByIdAction.fulfilled, (state, { payload }) => {
+        state.company.basicInfo = payload;
       })
       .addCase(getRewardsAction.fulfilled, (state, { payload }) => {
         state.team.rewardsdetails = payload;

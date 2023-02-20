@@ -19,6 +19,21 @@ export const getAllCompanyService = async (search) => {
     return ResponseResultError(e);
   }
 };
+
+export const getCompanyByIdService = async (id) => {
+  try {
+    const {
+      data: { responseCode, data, message },
+    } = await Config.get(`api/Business/GetBusinessById?id=${id}`);
+
+    if (responseCode === responseCodeEnum.Success)
+      return ResponseResultSuccess(data);
+    return ResponseResultError(message);
+  } catch (e) {
+    return ResponseResultError(e);
+  }
+};
+
 export const getAllRewardService = async (id) => {
   console.log(id, "REQUEST");
   try {

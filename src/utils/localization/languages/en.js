@@ -441,6 +441,7 @@ const en = {
     Appraisal: "Appraisal",
     Family: "Family",
     Attachments: "Attachments",
+    My_Team: "My Team",
   },
   administration: {
     basicInfo: "Basic Info",

@@ -1,3 +1,5 @@
+//import { featuresEnum } from "../../../main/features/companies/companies/util/enums";
+
 export const userTypeEnum = {
   SuperAdmin: 1,
   Admin: 2,
@@ -220,3 +222,4 @@ export const ReactionModuleEnum = {
   LeadManagerDetailContact: 9,
   ScheduleComment: 10,
 };
+

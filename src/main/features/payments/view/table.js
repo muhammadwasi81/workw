@@ -5,17 +5,11 @@ import { AdminTable } from "../../../../components/HrMenu/Administration/StyledC
 // import { getAllEmailConfigurations } from "../store/actions";
 import { tableColumn } from "./tableColumn";
 
-export default function BillingTable({}) {
-  const dispatch = useDispatch();
-
-  //   useEffect(() => {
-  //     dispatch(getAllEmailConfigurations());
-  //   }, []);
-
+export default function PaymentTable({ data }) {
   return (
     <AdminTable
       columns={tableColumn()}
-      dataSource={[]}
+      dataSource={data ? data : []}
       pagination={false}
       rowKey="id"
       size="small"

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Button, Collapse, Divider, Popover, Form, Modal } from "antd";
 import {
   CalendarOutlined,
@@ -12,17 +12,51 @@ import { FeaturesEnum } from "../../../../../utils/Shared/enums/enums";
 import { toggleInfoModal } from "../../store/slice";
 import { useDispatch, useSelector } from "react-redux";
 import { LaptopOutlined } from "@ant-design/icons";
+import {
+  addGroupFeaturesAction,
+  removeGroupFeaturesAction,
+  getGroupFeaturesAction,
+} from "../../store/actions";
+import { useParams } from "react-router-dom";
+import { groupsDictionaryList } from "../../localization/index";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 
 const { Panel } = Collapse;
 function GroupsInfo({ ghost = true }) {
+  const { userLanguage } = useContext(LanguageChangeContext);
+
+  const { Direction, groupsDictionary } = groupsDictionaryList[userLanguage];
+  const { labels, placeHolders, errors, features } = groupsDictionary;
   const dispatch = useDispatch();
   const [openFeature, setOpenFeature] = useState(false);
   const detail = useSelector((state) => state.groupSlice.groupDetail);
+  console.log(detail?.features, "detaill");
   const [form] = Form.useForm();
+  const { groupId } = useParams();
+
   const featureHandler = () => {
     setOpenFeature(true);
   };
 
+  useEffect(() => {
+    dispatch(getGroupFeaturesAction(groupId));
+  }, []);
+  const onFeatureHandler = (featureId, checked) => {
+    if (checked) {
+      const payload = {
+        featureId: featureId,
+        groupId: groupId,
+      };
+      dispatch(addGroupFeaturesAction([payload]));
+    } else {
+      dispatch(
+        removeGroupFeaturesAction({
+          id: groupId,
+          featureId: featureId,
+        })
+      );
+    }
+  };
   return (
     <>
       <Collapse
@@ -91,9 +125,10 @@ function GroupsInfo({ ghost = true }) {
           width={900}
         >
           <FeatureSelect
-            features={"Features"}
+            features={features}
             form={form}
             notIncludeFeature={FeaturesEnum.Travel}
+            onChange={onFeatureHandler}
           />
         </Modal>
       )}

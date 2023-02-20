@@ -270,7 +270,6 @@ const BasicInfo = ({ mode, id }) => {
       });
     }
   };
-
   let classes = 'employeeForm basicInfo ';
   classes += Direction === 'ltr' ? 'ltr' : 'rtl';
 

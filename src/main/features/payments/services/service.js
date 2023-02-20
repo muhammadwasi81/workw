@@ -1,8 +1,8 @@
 import AxiosConfig from "../../../../utils/services/AxiosConfig";
 
-export const getAllPaymentService = () => {
+export const getAllPaymentService = (payload) => {
   //TODO: url will be changed
-  return AxiosConfig.get(`api/Mailbox/GetAllBusinessEmailConfiguration`)
+  return AxiosConfig.post(`api/Payment/GetAllPayment`, payload)
     .then((res) => {
       return res.data;
     })

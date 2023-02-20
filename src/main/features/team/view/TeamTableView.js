@@ -15,7 +15,7 @@ function TeamTableView() {
   const columns = [
     {
       title: labels.name,
-      dataIndex: "name",
+      dataIndex: "firstName",
       key: "name",
       className: "name",
     },

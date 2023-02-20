@@ -10,6 +10,7 @@ import {
   getAllCheckInAction,
   getAppraisalsAction,
   getDeviceInfoAction,
+  addTeamMemberAction,
 } from "./action";
 
 const initialState = {
@@ -23,7 +24,7 @@ const initialState = {
     warningdetails: [],
     leavedetails: [],
     checkIndetails: [],
-    devicedetails:[],
+    devicedetails: [],
   },
 
   loader: false,
@@ -42,12 +43,15 @@ const teamSlice = createSlice({
         state.success = true;
         // console.log(payload, "payload");
       })
-      .addCase(getDeviceInfoAction.fulfilled, (state, {payload} ) => {
+      .addCase(addTeamMemberAction.fulfilled, (state, { payload }) => {
+        state.teams = [...state.teams, payload];
+        state.loader = false;
+        state.success = true;
+      })
+      .addCase(getDeviceInfoAction.fulfilled, (state, { payload }) => {
         state.team.devicedetails = payload;
         state.loader = false;
         state.success = true;
-        console.log(state.team.devicedetails,"chal jaoooooo");
-
       })
       .addCase(getRewardsAction.fulfilled, (state, { payload }) => {
         state.team.rewardsdetails = payload;
@@ -94,6 +98,14 @@ const teamSlice = createSlice({
         state.loader = false;
         state.success = true;
         console.log(payload, "CheckIn");
+      })
+      .addMatcher(isPending(...[addTeamMemberAction]), (state) => {
+        console.log("pending adding state");
+        state.loader = true;
+      })
+      .addMatcher(isRejected(...[addTeamMemberAction]), (state) => {
+        console.log("rejected adding state");
+        state.loader = false;
       });
   },
 });

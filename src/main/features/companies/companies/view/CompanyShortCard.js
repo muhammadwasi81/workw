@@ -9,7 +9,6 @@ const CompanyShortCard = ({ company }) => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { companyDictionary } = companyDictionaryList[userLanguage];
   const labels = companyDictionary.CompanyList;
-  console.log("company", company);
 
   return (
     <Parent>

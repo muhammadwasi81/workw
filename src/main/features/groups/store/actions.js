@@ -180,7 +180,7 @@ export const addGroupFavoriteMarkAction = createAsyncThunk(
   }
 );
 
-export const addGroupFeaturesAction = createAsyncThunk(
+export const addGroupFeatures = createAsyncThunk(
   "addGroupFeature",
   async (data, { dispatch, rejectWithValue }) => {
     const res = await addGroupFeaturesService(data);
@@ -219,7 +219,7 @@ export const removeGroupFeaturesAction = createAsyncThunk(
   }
 );
 
-export const getGroupFeaturesAction = createAsyncThunk(
+export const getGroupFeatures = createAsyncThunk(
   "getGroupFeature",
   async (id, { dispatch, rejectWithValue }) => {
     const res = await getGroupFeaturesService(id);

@@ -119,7 +119,7 @@ export const removeGroupFeaturesService = ({ id, featureId }) => {
 };
 
 export const getGroupFeaturesService = (id) => {
-  return MasterConfig.get(`api/Group/GetAllGroupFeatureAsync?id=${id}`)
+  return MasterConfig.get(`api/Group/GetAllGroupFeature?id=${id}`)
     .then((res) => {
       return res.data;
     })

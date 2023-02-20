@@ -130,7 +130,7 @@ function FeatureSelect({ features, form, notIncludeFeature, onChange }) {
               <div className="radioBtn">
                 <Form.Item name={item.featureName} valuePropName="checked">
                   <Switch
-                    defaultChecked={[features]?.some(
+                    defaultChecked={features.some(
                       (feature) => feature.featureId === item.id
                     )}
                     onChange={(checked) => {

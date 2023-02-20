@@ -159,7 +159,7 @@ const Composer = (props) => {
         featureId: featureId,
         projectId: projectId,
       };
-      setFeature(payload);
+      setFeature([payload]);
     }
   };
   return (

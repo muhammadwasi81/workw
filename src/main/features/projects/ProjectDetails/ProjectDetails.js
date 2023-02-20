@@ -49,30 +49,21 @@ import useDebounce from "../../../../utils/Shared/helper/use-debounce";
 import StickyColor from "../UI/StickyColor";
 import { formats, modules } from "./utils";
 import { DownOutlined } from "@ant-design/icons";
-import ProjectSummary from "../view/ProjectSummary";
 import Schedules from "../../schedule/index";
 import { addMember } from "../store/slice";
 import MemberModal from "../UI/MemberModal";
-import FeatureSelect from "../../../sharedComponents/FeatureSelect/Index";
-import { FeaturesEnum } from "../../../../utils/Shared/enums/enums";
-import {
-  addProjectFeatureAction,
-  removeProjectFeatureAction,
-  getProjectFeatureAction,
-} from "../store/actions";
-const { Panel } = Collapse;
+
+import ProjectInformation from "../UI/ProjectInformation";
 
 function ProjectDetails() {
   const params = useParams();
   const dispatch = useDispatch();
   const detail = useSelector((state) => state.projectSlice.projectDetail);
   const sticky = useSelector((state) => state.projectSlice.stickyArray);
-  const [projectfeatures, setFeatures] = useState([]);
-  console.log(projectfeatures, "project featuress");
+  const [projectfeatures, setprojectFeatures] = useState([]);
   const [description, setDescription] = useState(null);
   const descriptionDebounce = useDebounce(description, 500);
   const [openColor, setOpenColor] = useState(true);
-  const [form] = Form.useForm();
 
   const [title, setTitle] = useState(null);
   const titleDebounce = useDebounce(title, 500);
@@ -83,11 +74,7 @@ function ProjectDetails() {
   const { updateTextBtn, labels, features } = projectsDictionary;
   const [open, setOpen] = useState(false);
   const { projectId } = params;
-  const [openFeature, setOpenFeature] = useState(false);
 
-  const featureHandler = () => {
-    setOpenFeature(true);
-  };
   useEffect(() => {
     dispatch(getProjectById(projectId));
   }, [projectId]);
@@ -105,13 +92,7 @@ function ProjectDetails() {
         content: featuresComp[feat.featureId],
       };
     });
-    setFeatures(temp);
-
-    // form.setFieldsValue({
-    //   features: detail?.features.map((item) => {
-    //     return { featureId: item.featureId };
-    //   }),
-    // });
+    setprojectFeatures(temp);
   }, [detail]);
 
   const panes = [
@@ -264,26 +245,7 @@ function ProjectDetails() {
       ]}
     />
   );
-  useEffect(() => {
-    dispatch(getProjectFeatureAction(projectId));
-  }, []);
-  const onFeatureHandler = (featureId, checked) => {
-    if (checked) {
-      const payload = {
-        featureId: featureId,
-        projectId: projectId,
-      };
-      console.log(projectfeatures, "projectt featuress");
-      dispatch(addProjectFeatureAction([payload]));
-    } else {
-      dispatch(
-        removeProjectFeatureAction({
-          id: projectId,
-          featureId: featureId,
-        })
-      );
-    }
-  };
+
   return (
     <>
       <TabContainer>
@@ -306,42 +268,9 @@ function ProjectDetails() {
                 />
               </WhiteCard>
               <WhiteCard>
-                <Collapse
-                  expandIcon={({ isActive }) => (
-                    <DownOutlined
-                      rotate={isActive ? 0 : 180}
-                      className="!text-lg !font-bold !text-primary-color"
-                    />
-                  )}
-                  ghost={true}
-                  expandIconPosition={"end"}
-                  defaultActiveKey={["0"]}
-                >
-                  <Panel
-                    showArrow={true}
-                    header={
-                      <div>
-                        <span className="text-base font-bold text-primary-color">
-                          Information
-                        </span>
-                      </div>
-                    }
-                    className="custom_member_collapse"
-                  >
-                    <div className="font-bold flex items-center gap-2 mb-2">
-                      <ProjectSummary />
-                      <span>{"View Summary"}</span>
-                    </div>
-                    <div
-                      className="text-black text-sm font-bold flex items-center gap-2 mb-2"
-                      onClick={featureHandler}
-                    >
-                      <EyeOutlined />
-                      Features
-                    </div>
-                  </Panel>
-                </Collapse>
+                <ProjectInformation />
               </WhiteCard>
+
               <div className="singleNote_container">
                 <div className="singleNote_header">
                   <div className="leftNote_Icon">
@@ -384,28 +313,6 @@ function ProjectDetails() {
         />
       </Drawer>
       {visible && <MemberModal data={detail} />}
-      {openFeature && (
-        <Modal
-          title=""
-          centered
-          className="modal-body"
-          footer={false}
-          open={openFeature}
-          onOk={() => setOpenFeature(false)}
-          onCancel={() => setOpenFeature(false)}
-          closable={false}
-          width={900}
-        >
-          {projectfeatures && (
-            <FeatureSelect
-              features={projectfeatures}
-              form={form}
-              notIncludeFeature={FeaturesEnum.Travel}
-              onChange={onFeatureHandler}
-            />
-          )}
-        </Modal>
-      )}
     </>
   );
 }

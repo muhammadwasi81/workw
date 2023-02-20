@@ -7,7 +7,8 @@ import {
   addGroupMemberAction,
   getAllGroupMemberAction,
   deleteGroupMemberAction,
-  addGroupFeaturesAction,
+  addGroupFeatures,
+  getGroupFeatures,
   removeGroupFeaturesAction,
 } from "./actions";
 
@@ -28,6 +29,7 @@ const initialState = {
   open: false,
   drawerOpen: false,
   removeMemberSucess: false,
+  groupFeatures: [],
 };
 
 const groupSlice = createSlice({
@@ -143,7 +145,12 @@ const groupSlice = createSlice({
 
         state.groupDetail = { ...state.groupDetail, members: newMembers };
       })
-      .addCase(addGroupFeaturesAction.fulfilled, (state, { payload }) => {})
+      .addCase(addGroupFeatures.fulfilled, (state, { payload }) => {
+        state.groupFeatures = payload.data.length > 0 ? payload.data : [];
+      })
+      .addCase(getGroupFeatures.fulfilled, (state, { payload }) => {
+        state.groupFeatures = payload.data;
+      })
       .addCase(removeGroupFeaturesAction.fulfilled, (state, { payload }) => {})
       .addMatcher(isPending(...[deleteGroupMemberAction]), (state) => {
         state.removeMemberSucess = false;

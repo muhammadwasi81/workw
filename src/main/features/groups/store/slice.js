@@ -7,6 +7,8 @@ import {
   addGroupMemberAction,
   getAllGroupMemberAction,
   deleteGroupMemberAction,
+  addGroupFeaturesAction,
+  removeGroupFeaturesAction,
 } from "./actions";
 
 const initialState = {
@@ -89,6 +91,9 @@ const groupSlice = createSlice({
       const favGroups = state.groups.find((group) => group.id === payload.id);
       favGroups.isPinnedPost = !favGroups.isPinnedPost;
     },
+    removeGroupFeatures(state, { payload }) {
+      console.log(payload, "payload");
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -138,6 +143,8 @@ const groupSlice = createSlice({
 
         state.groupDetail = { ...state.groupDetail, members: newMembers };
       })
+      .addCase(addGroupFeaturesAction.fulfilled, (state, { payload }) => {})
+      .addCase(removeGroupFeaturesAction.fulfilled, (state, { payload }) => {})
       .addMatcher(isPending(...[deleteGroupMemberAction]), (state) => {
         state.removeMemberSucess = false;
       })
@@ -180,5 +187,6 @@ export const {
   addGroupMember,
   handleOpenComposer,
   handleFavoriteMark,
+  removeGroupFeatures,
 } = groupSlice.actions;
 export default groupSlice.reducer;

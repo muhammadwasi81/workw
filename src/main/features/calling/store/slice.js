@@ -1,5 +1,15 @@
 import { createSlice, current, isPending, isRejected } from "@reduxjs/toolkit";
+import { callingWindowOptions, handleOpenCallWindow } from "../../../../utils/base";
+import { servicesUrls } from "../../../../utils/services/baseURLS";
+import { OUTGOING_CALL_STATUS } from "../constant/enum";
 import { createRoom, instantCall } from "./action";
+
+const defaultOutgoingData = {
+	isOpen: false,
+	status: OUTGOING_CALL_STATUS.NO_STATUS,
+	members: [],
+	roomId: ""
+}
 
 const initialState = {
 	isCreateRoomModalOpen: false,
@@ -7,7 +17,8 @@ const initialState = {
 	success: false,
 	error: false,
 	roomId: "",
-	incomingCallData: null
+	incomingCallData: null,
+	outgoingCallData: { ...defaultOutgoingData }
 };
 const callingSlice = createSlice({
 	name: "calling",
@@ -23,6 +34,31 @@ const callingSlice = createSlice({
 		handleIncomingCall(state, { payload }) {
 			state.incomingCallData = payload;
 		},
+		handleOutgoingCall(state, { payload }) {
+			state.outgoingCallData = payload;
+		},
+		handleOutgoingCallAccepted(state, { payload }) {
+			const callReceiverId = payload;
+			if (state.outgoingCallData.members.some(member => member.id === callReceiverId)) {
+				handleOpenCallWindow(servicesUrls.callingSocket + state.outgoingCallData.roomId, callingWindowOptions);
+				state.outgoingCallData = { ...defaultOutgoingData }
+			}
+		},
+		handleOutgoingCallDeclined(state, { payload }) {
+			const callReceiverId = payload;
+			if (state.outgoingCallData.members.some(member => member.id === callReceiverId)) {
+				state.outgoingCallData = { ...defaultOutgoingData }
+			}
+		},
+		handleOutgoingCallRinging(state, { payload }) {
+			const callReceiverId = payload;
+			if (state.outgoingCallData.members.some(member => member.id === callReceiverId)) {
+				state.outgoingCallData = { 
+					...state.outgoingCallData,
+					status: OUTGOING_CALL_STATUS.RINGING
+				 }
+			}
+		}
 	},
 	extraReducers: builder => {
 		builder
@@ -51,6 +87,13 @@ const callingSlice = createSlice({
 	},
 });
 
-export const { handleCreateRoomModal, handleIncomingCall } = callingSlice.actions;
+export const {
+	handleCreateRoomModal,
+	handleIncomingCall,
+	handleOutgoingCall,
+	handleOutgoingCallAccepted,
+	handleOutgoingCallDeclined,
+	handleOutgoingCallRinging
+} = callingSlice.actions;
 
 export default callingSlice.reducer;

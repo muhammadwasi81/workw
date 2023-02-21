@@ -4,6 +4,7 @@ import { ResponseType } from "../../../../../utils/api/ResponseResult";
 import { openNotification } from "../../../../../utils/Shared/store/slice";
 import {
   getAllCompanyService,
+  getCompanyByIdService,
   getAllRewardService,
   getAllLoanService,
   getAllComplainService,
@@ -26,6 +27,26 @@ export const getCompanyAction = createAsyncThunk(
             // message: "Team added Successfully!",
             type: "success",
             //   duration: 2
+          })
+        );
+        return response.data;
+      default:
+        return;
+    }
+  }
+);
+
+export const getCompanyByIdAction = createAsyncThunk(
+  "getCompanyByIdAction",
+  async (payload, { rejectWithValue, dispatch }) => {
+    const response = await getCompanyByIdService(payload);
+    switch (response.type) {
+      case ResponseType.ERROR:
+        return rejectWithValue(response.errorMessage);
+      case ResponseType.SUCCESS:
+        dispatch(
+          openNotification({
+            type: "success",
           })
         );
         return response.data;

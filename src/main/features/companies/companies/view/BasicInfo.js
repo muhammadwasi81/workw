@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import TextInput from "../../../../sharedComponents/Input/TextInput";
 import SingleUpload from "../../../../sharedComponents/Upload/singleUpload";
+import { getCompanyByIdAction } from "../store/action";
 
 function BaiscInfo() {
   const dispatch = useDispatch();
@@ -16,13 +17,21 @@ function BaiscInfo() {
   const { companyDetail } = companyDictionary;
   const [profileImage, setProfileImage] = useState(null);
 
+  const {
+    company: { basicInfo },
+  } = useSelector((state) => state.companySlice);
+  const { id } = useParams();
   const handleImageUpload = (data) => {
     setProfileImage(data);
   };
 
+  useEffect(() => {
+    dispatch(getCompanyByIdAction(id));
+  }, []);
   const onFinish = (values) => {
     console.log(values);
   };
+
   // useEffect(() => {
   //   if (success) {
   //     form.resetFields();
@@ -32,6 +41,19 @@ function BaiscInfo() {
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+
+  useEffect(() => {
+    if (Object.keys(basicInfo).length > 0) {
+      form.setFieldsValue({
+        name: basicInfo?.name,
+        logo: basicInfo?.logo,
+        email: basicInfo?.email,
+        address: basicInfo?.address,
+        ownerId: "",
+        phoneNo: basicInfo?.phoneNo,
+      });
+    }
+  }, [basicInfo]);
 
   return (
     <Form
@@ -43,9 +65,7 @@ function BaiscInfo() {
       wrapperCol={{
         span: 24,
       }}
-      initialValues={{
-        remember: true,
-      }}
+      // initialValues={initialValues}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
       autoComplete="off"
@@ -67,10 +87,11 @@ function BaiscInfo() {
           >
             <TextInput placeholder={companyDetail.enterCompanyName} />
           </Form.Item>
+
           <Form.Item
             className="emailInput"
             label={companyDetail.companyEmail}
-            name="companyEmail"
+            name="email"
             labelPosition="top"
             rules={[
               {
@@ -83,7 +104,7 @@ function BaiscInfo() {
           </Form.Item>
           <Form.Item
             label={companyDetail.ownerName}
-            name="name"
+            name="ownerName"
             labelPosition="top"
             rules={[
               {
@@ -119,7 +140,7 @@ function BaiscInfo() {
           </Form.Item>
           <Form.Item
             label={companyDetail.phoneNumber}
-            name="phoneNumber"
+            name="phoneNo"
             labelPosition="top"
             rules={[
               {

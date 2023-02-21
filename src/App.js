@@ -44,8 +44,9 @@ import ApplyJob from "./main/features/careers/view/PublicRoute/ApplyJob";
 import ApplyRequisition from "./main/features/requisition/view/publicRoutes/ApplyRequisition";
 import SetupPassword from "./main/features/auth/view/SetupPassword";
 import { servicesUrls } from "./utils/services/baseURLS";
-import { InitializeSocket } from "./utils/InitCallingSocket";
+import { InitializeCallingSocket } from "./main/features/calling/services/socket";
 import { ExternalProject } from "./main/features/publicRoutes/projects/view/index";
+
 const App = () => {
   const { userLanguageChange } = useContext(LanguageChangeContext);
 
@@ -68,14 +69,8 @@ const App = () => {
   useEffect(() => {
     themeHandler(window.localStorage.getItem("darkMode") === "1");
     isLoggedIn && InitMessengerSocket(dispatch, userSlice);
-    isLoggedIn &&
-      InitializeSocket.getInstance(
-        dispatch,
-        servicesUrls.callingSocket,
-        userSlice
-      );
-    // dispatch(openNotification({ message: "hello", duration: null }));
-  }, []);
+    isLoggedIn && InitializeCallingSocket.getInstance(dispatch, servicesUrls.callingSocket, userSlice);
+  }, [isLoggedIn]);
   const [activityCount /*setActivityCount*/] = useState(null);
 
   const themeHandler = (status) => {
@@ -94,10 +89,6 @@ const App = () => {
     dispatch(setMobileScreenStatus(isMobileAndTab));
   }, [isMobileAndTab, dispatch]);
 
-  // const isLoggedIn = true;
-  // if (isLoggedIn) Socket(); // i will add this line in <Route/> component. from "./routes"; line 26
-  // console.log("app js", isLoggedIn);
-  // console.log("Routes", ROUTES.ROOT);
   return (
     <>
       {/* <div className="!overflow-x-scroll">

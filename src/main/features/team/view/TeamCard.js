@@ -1,8 +1,8 @@
-import React, { useContext } from 'react';
-import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
-import { teamDictionaryList } from '../localization/index';
-import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import React, { useContext } from "react";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { teamDictionaryList } from "../localization/index";
+import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const Parent = styled.div`
   display: flex;
@@ -76,7 +76,7 @@ const ButtonsBox = styled.div`
 `;
 
 const ActionButton = styled.button`
-  background-color: ${(props) => props.BackgroundColor || 'palevioletred'};
+  background-color: ${(props) => props.BackgroundColor || "palevioletred"};
   color: #fff;
   font-size: 14px;
   padding: 17px;
@@ -107,31 +107,50 @@ export const CardGrid = styled.div`
   }
 `;
 
-const TeamCard = ({ teams: { image, name, designation, email, id } }) => {
+const TeamCard = ({ teams }) => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { teamDictionary } = teamDictionaryList[userLanguage];
   const labels = teamDictionary.sharedLabels;
 
-  console.log(image,"imageeeeeeee");
+  const { firstName, lastName, email, image, designation } = teams;
+
   const navigate = useNavigate();
+
   return (
     <Parent>
       <ImageBox
-        src={image ? image : 'http://www.miletap.com/img/title.png'}
+        src={image ? image : "http://www.miletap.com/img/title.png"}
         alt="logo"
         loading="lazy"
       />
 
       <ContentBox>
-        <Heading>{name}</Heading>
+        <Heading>
+          {firstName}
+          {lastName}
+        </Heading>
         <Text>{email}</Text>
         <Text>
-          <> {designation || 'No Designation'}</>{' '}
+          <> {designation || "No Designation"}</>{" "}
         </Text>
         <ButtonsBox>
+          {/**enable if remove API is available to remove */}
+          {/* <ActionButton
+            onClick={() => {
+              //Route will be set accordingly
+              console.log("delete console");
+            }}
+            BackgroundColor="#db5252"
+          >
+            {"Remove"}
+          </ActionButton> */}
           <ActionButton
             onClick={() => {
-              navigate(`info/check-in/${id}`);
+              //Route will be set accordingly
+              //TODO: change hard code ID
+              navigate(
+                `/teams/info/check-in/77546782-aa7a-4984-9388-5fd044c0fb11`
+              );
             }}
             BackgroundColor="var(--currentThemeColor) !important"
           >

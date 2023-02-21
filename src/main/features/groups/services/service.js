@@ -95,9 +95,10 @@ export const addGroupFavoriteMarkService = (payload) => {
 
 export const addGroupFeaturesService = (data) => {
   console.log(data, "data");
-  const id = data.find((feature) => feature.groupId)?.groupId;
+  // const id = data.find((feature) => feature.groupId)?.groupId;
+  const id = data.id;
 
-  return MasterConfig.post(`api/Group/AddGroupFeatures?id=${id}`, data)
+  return MasterConfig.post(`api/Group/AddGroupFeatures?id=${id}`, data.payload)
     .then((res) => {
       return res.data;
     })
@@ -108,7 +109,7 @@ export const addGroupFeaturesService = (data) => {
 
 export const removeGroupFeaturesService = ({ id, featureId }) => {
   return MasterConfig.delete(
-    `api/Group/RemoveGroupFeatureAsync?id=${id}&featureId=${featureId}`
+    `api/Group/RemoveGroupFeature?id=${id}&featureId=${featureId}`
   )
     .then((res) => {
       return res.data;

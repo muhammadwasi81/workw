@@ -27,7 +27,6 @@ function ProjectInformation({ ghost = true }) {
 
   const { projectId } = useParams();
   const { projectFeature } = useSelector((state) => state.projectSlice);
-  console.log(projectFeature, "projectfeature");
   const detail = useSelector((state) => state.projectSlice.projectDetail);
 
   const featureHandler = () => {
@@ -57,8 +56,12 @@ function ProjectInformation({ ghost = true }) {
         projectId: projectId,
       };
       let newPayload = [...features, payload];
-      console.log(newPayload, "newpayload");
-      dispatch(addProjectFeature(newPayload));
+      const newee = newPayload.map((item) => {
+        return {
+          featureId: item.featureId,
+        };
+      });
+      dispatch(addProjectFeature({ id: projectId, payload: newee }));
     } else {
       dispatch(
         removeProjectFeatureAction({
@@ -118,7 +121,7 @@ function ProjectInformation({ ghost = true }) {
           width={900}
         >
           <FeatureSelect
-            features={detail?.features}
+            features={projectFeature}
             form={form}
             notIncludeFeature={FeaturesEnum.Travel}
             onChange={onFeatureHandler}

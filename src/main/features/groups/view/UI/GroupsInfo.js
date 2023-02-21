@@ -26,7 +26,7 @@ function GroupsInfo({ ghost = true }) {
   const { userLanguage } = useContext(LanguageChangeContext);
 
   const { Direction, groupsDictionary } = groupsDictionaryList[userLanguage];
-  const { labels, placeHolders, errors, features } = groupsDictionary;
+  const { labels, placeHolders, errors } = groupsDictionary;
   const dispatch = useDispatch();
   const [openFeature, setOpenFeature] = useState(false);
   const detail = useSelector((state) => state.groupSlice.groupDetail);
@@ -34,7 +34,7 @@ function GroupsInfo({ ghost = true }) {
   const { groupFeatures } = useSelector((state) => state.groupSlice);
   console.log(groupFeatures, "group featuree");
 
-  const [feature, setFeature] = useState([]);
+  const [features, setFeatures] = useState([]);
   const [form] = Form.useForm();
   const { groupId } = useParams();
 
@@ -48,7 +48,7 @@ function GroupsInfo({ ghost = true }) {
 
   useEffect(() => {
     let newFeatures;
-    if (groupFeatures.length > 0) {
+    if (groupFeatures.length) {
       newFeatures = groupFeatures.map((item) => {
         return {
           featureId: item.featureId,
@@ -57,7 +57,7 @@ function GroupsInfo({ ghost = true }) {
       });
     }
 
-    setFeature(newFeatures);
+    setFeatures(newFeatures);
   }, [groupFeatures]);
 
   const onFeatureHandler = (featureId, checked) => {
@@ -66,17 +66,22 @@ function GroupsInfo({ ghost = true }) {
         featureId: featureId,
         groupId: groupId,
       };
-      let newPayload = [...feature, payload];
-      dispatch(addGroupFeatures(newPayload));
+      let newPayload = [...features, payload];
+      const newFeature = newPayload.map((item) => {
+        return {
+          featureId: item.featureId,
+        };
+      });
+      dispatch(addGroupFeatures({ id: groupId, payload: newFeature }));
     } else {
       //TODO: remove from state and fields
-      let featureValue = form.getFieldValue("features");
-      featureValue = featureValue.filter(
-        (filter) => filter.featureId !== featureId
-      );
-      form.setFieldsValue({
-        features: [...featureValue],
-      });
+      // let featureValue = form.getFieldValue("features");
+      // featureValue = featureValue.filter(
+      //   (filter) => filter.featureId !== featureId
+      // );
+      // form.setFieldsValue({
+      //   features: [...featureValue],
+      // });
       dispatch(
         removeGroupFeaturesAction({
           id: groupId,
@@ -153,7 +158,7 @@ function GroupsInfo({ ghost = true }) {
           width={900}
         >
           <FeatureSelect
-            features={detail?.features}
+            features={groupFeatures}
             form={form}
             notIncludeFeature={FeaturesEnum.Travel}
             onChange={onFeatureHandler}

@@ -35,8 +35,6 @@ import NewsFeed from "../../feed/ui";
 import Task from "../../task/view/Task";
 import Expenses from "../../expense";
 import Documents from "../../documents/view/documents";
-import { handleComposeEmail } from "../../leadmanager/store/slice";
-import ComposeEmail from "../../leadmanager/view/Email/ComposeEmail";
 import CustomNotes from "../../notes/singleNotes/singleNotes";
 import { Menu, Dropdown, Space } from "antd";
 import { CopyOutlined, EllipsisOutlined, EyeOutlined } from "@ant-design/icons";
@@ -48,7 +46,6 @@ import {
 import useDebounce from "../../../../utils/Shared/helper/use-debounce";
 import StickyColor from "../UI/StickyColor";
 import { formats, modules } from "./utils";
-import { DownOutlined } from "@ant-design/icons";
 import Schedules from "../../schedule/index";
 import { addMember } from "../store/slice";
 import MemberModal from "../UI/MemberModal";

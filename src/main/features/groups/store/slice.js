@@ -94,7 +94,10 @@ const groupSlice = createSlice({
       favGroups.isPinnedPost = !favGroups.isPinnedPost;
     },
     removeGroupFeatures(state, { payload }) {
-      console.log(payload, "payload");
+      console.log(payload, "payload delete");
+      state.groupFeatures = state.groupFeatures.filter(
+        (feature) => feature.id !== payload.id
+      );
     },
   },
   extraReducers: (builder) => {

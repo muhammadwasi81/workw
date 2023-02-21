@@ -44,8 +44,6 @@ const Composer = (props) => {
   const { Direction, rewardDictionary } = rewardDictionaryList[userLanguage];
   const { user } = useSelector((state) => state.userSlice)
 
-  console.log(user, "USER")
-
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const [profileImage, setProfileImage] = useState(null);

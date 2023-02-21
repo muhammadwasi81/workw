@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, useState } from "react";
 import { useMediaQuery } from "react-responsive";
-import { Button, Drawer } from "antd";
+import { Button, Drawer, message } from "antd";
 import {
   ContBody,
   TabbableContainer,
@@ -28,13 +28,14 @@ import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
 import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 //import { getIconByFeaturesType } from "../../../../utils/Shared/helper/helpers";
 import {getApprovalsTypeByFeaturesType} from "../../../sharedComponents/AppComponents/Approvals/helper/helpers"
+import PermissionModal from "../../../sharedComponents/permissionModal";
+import { FeaturePermissionEnum } from "../../../../utils/Shared/enums/featuresEnums";
 
 const Reward = (props) => {
   const { visible } = props;
   const { userLanguage } = useContext(LanguageChangeContext);
   const { rewardDictionary } = rewardDictionaryList[userLanguage];
-
-  // const { sharedLabels, rewardsDictionary } = dictionaryList[userLanguage];
+  const {user} = useSelector((state) => state.userSlice);
 
   const isTablet = useMediaQuery({ maxWidth: 800 });
   const [detailId, setDetailId] = useState(false);
@@ -54,12 +55,6 @@ const Reward = (props) => {
   const onClose = () => {
     setDetailId(null);
   };
-
-  // var currentDateTime = new Date();
-  // var a = 'Tue, Jan 22 2022 10:00:00 GMT+0500 (Pakistan Standard Time)'
-  // var resultInSeconds = a.getTime()
-  // console.log(currentDateTime, "SIMPLE");
-  // console.log(resultInSeconds, "CURRENT DATE AND TIMEA")
 
 
   useEffect(() => {
@@ -97,6 +92,19 @@ const Reward = (props) => {
       renderButton: [1],
     },
   ];
+
+  const CreatePermission = FeaturePermissionEnum.CreateRewards
+
+  function Permission() {
+    const userPermissions = user.permissions
+    if (userPermissions.includes(CreatePermission)) {
+      return dispatch(handleOpenComposer(true))
+    } else {
+      return message.error("You Don't Have Permission")
+    } 
+  }
+
+
   return (
     <>
       <TabbableContainer className=""> 
@@ -107,16 +115,17 @@ const Reward = (props) => {
             {
               buttonText: rewardDictionary.createReward,
 
+              // render: (userPermission()),
               render: (
                 <SideDrawer
-                  title={rewardDictionary.createReward}
-                  buttonText={rewardDictionary.createReward}
-                  handleClose={() => dispatch(handleOpenComposer(false))}
-                  handleOpen={() => dispatch(handleOpenComposer(true))}
-                  isOpen={drawerOpen}
-                  children={<Composer />} 
-                />
-              ),
+                title={rewardDictionary.createReward}
+                buttonText={rewardDictionary.createReward}
+                handleClose={() => dispatch(handleOpenComposer(false))}
+                handleOpen={Permission}
+                isOpen={drawerOpen}
+                children={<Composer />} 
+              />
+              )
             },
           ]}
         />

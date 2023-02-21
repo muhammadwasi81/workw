@@ -32,10 +32,14 @@ function Menu() {
   const [data, setData] = useState(groupedMenuItems);
   let currentCategory = "";
 
+  // console.log(navHrMenuData.filter(x=>getUserPermissions().includes(x.featureId)), "DATA 321 !!!!")
+
   function getUserPermissions(){
     return FeaturePermissionEnumList.map((x)=>{
-      user.permissions.includes(x.id)
-      return x.featureId})
+      if (user.permissions.includes(x.id)) {
+        return x.featureId 
+      }
+    })
   }
   useEffect(() => {
     
@@ -127,8 +131,6 @@ function Menu() {
                 {/* <span>{key}</span> */}
                 <ReactDragListView {...dragProps}>
                   {data[key].map(({ name, to: path, icon, permissionId }, index) => {
-                    console.log(data[key], "SECOND !!!")
-                    // eslint-disable-next-line no-lone-blocks
 
                     return !navBarStatus ? (
                       <Tooltip

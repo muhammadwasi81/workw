@@ -65,6 +65,26 @@ export const getAllLoanService = async (id) => {
   }
 };
 
+export const ResendSignupEmailService = (id) => {
+  return Config.get(`api/Signup/ResendSignupEmail?id=${id}`)
+    .then((res) => {
+      return res;
+    })
+    .catch((res) => {
+      return res;
+    });
+};
+
+export const GetSignupByIdService = (id) => {
+  return Config.get(`api/Signup/GetSignupById?id=${id}`)
+    .then((res) => {
+      return res;
+    })
+    .catch((res) => {
+      return res;
+    });
+};
+
 export const getAllComplainService = async (id) => {
   // console.log(request, "REQUEST");
   try {

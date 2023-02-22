@@ -1,4 +1,4 @@
-import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
+import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import {
   addProject,
   getAllProjects,
@@ -10,7 +10,9 @@ import {
   getAllProjectMemberAction,
   addProjectMemberAction,
   deleteProjectMemberAction,
-} from './actions';
+  addProjectFeature,
+  getProjectFeature,
+} from "./actions";
 
 const initialState = {
   projects: [],
@@ -25,10 +27,11 @@ const initialState = {
   addMemberModal: false,
   memberData: [],
   removeMemberSucess: false,
+  projectFeature: [],
 };
 
 const projectSlice = createSlice({
-  name: 'projects',
+  name: "projects",
   initialState,
   reducers: {
     resetProjectDetail(state, { payload }) {
@@ -36,7 +39,7 @@ const projectSlice = createSlice({
     },
     addMember: (state, { payload }) => {
       state.addMemberModal = payload;
-      console.log(payload,"mypayload");
+      console.log(payload, "mypayload");
     },
     updateProjectById(state, { payload }) {
       state.projectDetail = state.projects.find((list) => list.id === payload);
@@ -141,6 +144,12 @@ const projectSlice = createSlice({
 
         state.projectDetail = { ...state.projectDetail, members: newMembers };
         // state.removeMemberSucess = true;
+      })
+      .addCase(addProjectFeature.fulfilled, (state, { payload }) => {
+        state.projectFeature = payload.data.length > 0 ? payload.data : [];
+      })
+      .addCase(getProjectFeature.fulfilled, (state, { payload }) => {
+        state.projectFeature = payload.data;
       });
 
     builder

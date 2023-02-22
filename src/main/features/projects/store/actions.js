@@ -142,7 +142,7 @@ export const removeProjectFeatureAction = createAsyncThunk(
   }
 );
 
-export const addProjectFeatureAction = createAsyncThunk(
+export const addProjectFeature = createAsyncThunk(
   "addProjectFeature",
   async (id, { dispatch }) => {
     const res = await addProjectFeatureService(id);
@@ -287,7 +287,7 @@ export const addProjectFavoriteAction = createAsyncThunk(
   }
 );
 
-export const getProjectFeatureAction = createAsyncThunk(
+export const getProjectFeature = createAsyncThunk(
   "getProjectFeature",
   async (id, { dispatch }) => {
     const res = await getProjectFeatureService(id);

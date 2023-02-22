@@ -663,7 +663,10 @@ const BasicInfo = ({ mode, id }) => {
                 const userSelectedRoles = value.map((role) => {
                   return {
                     // value: role,
-                    value: accessRoles.find((x) => x.name === role)?.id,
+                    // value: accessRoles.find((x) => x.name === role)?.id,
+                    value: accessRoles.find((x) => x.name === role)?.id
+                      ? accessRoles.find((x) => x.name === role)?.id
+                      : role,
                   };
                 });
                 console.log(userSelectedRoles, 'userSelectedRoles');

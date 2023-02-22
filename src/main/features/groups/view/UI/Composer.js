@@ -16,7 +16,7 @@ import {
   defaultUiid,
   FeaturesEnum,
 } from "../../../../../utils/Shared/enums/enums";
-import FeatureSelect from "../../../../sharedComponents/FeatureSelect/Index";
+import Features from "../../../../sharedComponents/FeatureSelect/Index";
 import PrivacyOptions from "../../../../sharedComponents/PrivacyOptionsDropdown/PrivacyOptions";
 import { addGroupFeaturesAction } from "../../store/actions";
 import { useParams } from "react-router-dom";
@@ -210,10 +210,10 @@ const Composer = (props) => {
           </>
         )}
         {!update && (
-          <FeatureSelect
-            features={feature}
-            form={form}
-            notIncludeFeature={FeaturesEnum.Travel}
+          <Features
+            // features={feature}
+            // form={form}
+            // notIncludeFeature={FeaturesEnum.Travel}
             onChange={onFeatureHandler}
           />
         )}

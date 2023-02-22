@@ -22,12 +22,10 @@ function ProjectInformation({ ghost = true }) {
   const [openFeature, setOpenFeature] = useState(false);
   const [features, setFeatures] = useState([]);
 
-  const [form] = Form.useForm();
   const dispatch = useDispatch();
 
   const { projectId } = useParams();
   const { projectFeature } = useSelector((state) => state.projectSlice);
-  const detail = useSelector((state) => state.projectSlice.projectDetail);
 
   const featureHandler = () => {
     setOpenFeature(true);
@@ -56,12 +54,12 @@ function ProjectInformation({ ghost = true }) {
         projectId: projectId,
       };
       let newPayload = [...features, payload];
-      const newee = newPayload.map((item) => {
+      const newFeature = newPayload.map((item) => {
         return {
           featureId: item.featureId,
         };
       });
-      dispatch(addProjectFeature({ id: projectId, payload: newee }));
+      dispatch(addProjectFeature({ id: projectId, payload: newFeature }));
     } else {
       dispatch(
         removeProjectFeatureAction({
@@ -121,9 +119,9 @@ function ProjectInformation({ ghost = true }) {
           width={900}
         >
           <FeatureSelect
-            features={projectFeature}
-            form={form}
-            notIncludeFeature={FeaturesEnum.Travel}
+            // features={projectFeature}
+            // form={form}
+            // notIncludeFeature={FeaturesEnum.Travel}
             onChange={onFeatureHandler}
           />
         </Modal>

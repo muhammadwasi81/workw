@@ -33,7 +33,6 @@ function GroupsInfo({ ghost = true }) {
 
   const { groupFeatures } = useSelector((state) => state.groupSlice);
 
-  console.log(groupFeatures, "groupFeatures");
   const [features, setFeatures] = useState([]);
   const [form] = Form.useForm();
   const { groupId } = useParams();
@@ -67,7 +66,6 @@ function GroupsInfo({ ghost = true }) {
         groupId: groupId,
       };
       let newPayload = [...features, payload];
-      console.log(features, "features");
       const newFeature = newPayload.map((item) => {
         return {
           featureId: item.featureId,
@@ -75,14 +73,8 @@ function GroupsInfo({ ghost = true }) {
       });
       dispatch(addGroupFeatures({ id: groupId, payload: newFeature }));
     } else {
-      //TODO: remove from state and fields
-      // let featureValue = form.getFieldValue("features");
-      // featureValue = featureValue.filter(
-      //   (filter) => filter.featureId !== featureId
-      // );
-      // form.setFieldsValue({
-      //   features: [...featureValue],
-      // });
+      //TODO: remove from state and field
+
       dispatch(
         removeGroupFeaturesAction({
           id: groupId,

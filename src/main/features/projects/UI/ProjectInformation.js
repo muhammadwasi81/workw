@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ProjectSummary from "../view/ProjectSummary";
 import {
   addProjectFeature,
-  removeProjectFeatureAction,
+  removeProjectFeature,
   getProjectFeature,
 } from "../store/actions";
 import FeatureSelect from "../../../sharedComponents/FeatureSelect/Index";
@@ -59,12 +59,11 @@ function ProjectInformation({ ghost = true }) {
           featureId: item.featureId,
         };
       });
-      console.log(newFeature, "new Featuree");
 
       dispatch(addProjectFeature({ id: projectId, payload: newFeature }));
     } else {
       dispatch(
-        removeProjectFeatureAction({
+        removeProjectFeature({
           id: projectId,
           featureId: featureId,
         })

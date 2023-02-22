@@ -16,7 +16,7 @@ import {
   defaultUiid,
   FeaturesEnum,
 } from "../../../../../utils/Shared/enums/enums";
-import FeatureSelect from "../../../../sharedComponents/FeatureSelect/Index";
+import Features from "../../../../sharedComponents/FeatureSelect/Index";
 import PrivacyOptions from "../../../../sharedComponents/PrivacyOptionsDropdown/PrivacyOptions";
 import { addGroupFeaturesAction } from "../../store/actions";
 import { useParams } from "react-router-dom";
@@ -40,6 +40,7 @@ const Composer = (props) => {
   const [form] = Form.useForm();
   const [profileImage, setProfileImage] = useState("");
   const { detail, update = false, id } = props;
+  console.log(detail, "Detailll");
   const [privacyId, setPrivacyId] = useState(1);
   const [memberList, setMemberList] = useState([]);
   const { groupId } = useParams();
@@ -107,11 +108,11 @@ const Composer = (props) => {
 
   useEffect(() => {
     if (update) {
-      const featureValues = detail.features.map((item) => ({
+      const featureValues = detail?.features.map((item) => ({
         [item.featureName]: true,
       }));
       form.setFieldsValue({
-        features: detail.features.map((item) => {
+        features: detail?.features.map((item) => {
           return { featureId: item.featureId };
         }),
         name: detail.name,
@@ -134,7 +135,7 @@ const Composer = (props) => {
         featureId: featureId,
         groupId: groupId,
       };
-      setFeature(payload);
+      setFeature([payload]);
     }
   };
   return (
@@ -209,10 +210,10 @@ const Composer = (props) => {
           </>
         )}
         {!update && (
-          <FeatureSelect
-            features={features}
-            form={form}
-            notIncludeFeature={FeaturesEnum.Travel}
+          <Features
+            // features={feature}
+            // form={form}
+            // notIncludeFeature={FeaturesEnum.Travel}
             onChange={onFeatureHandler}
           />
         )}

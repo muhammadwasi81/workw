@@ -1,3 +1,4 @@
+import { identity } from "@fullcalendar/react";
 import MasterConfig from "../../../../utils/services/MasterConfig";
 const API_PREFIX = "api/Project/";
 
@@ -61,9 +62,13 @@ export const removeProjectFeatureService = ({ id, featureId }) => {
     });
 };
 
-export const addProjectFeatureService = (features) => {
-  const id = features.find((feature) => feature.projectId)?.projectId;
-  return MasterConfig.post(`${API_PREFIX}AddProjectFeature?id=${id}`, features)
+export const addProjectFeatureService = (data) => {
+  // const id = features.find((feature) => feature.projectId)?.projectId;
+  const id = data.id;
+  return MasterConfig.post(
+    `${API_PREFIX}AddProjectFeature?id=${id}`,
+    data.payload
+  )
     .then((res) => {
       return res.data;
     })

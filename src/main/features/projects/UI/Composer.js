@@ -46,6 +46,7 @@ const Composer = (props) => {
   const [privacyId, setPrivacyId] = useState(1);
   const [feature, setFeature] = useState([]);
 
+  console.log(feature, "feature");
   const { projectId } = useParams();
   const onPrivacyChange = (value) => {
     setPrivacyId(value);
@@ -267,11 +268,7 @@ const Composer = (props) => {
           </>
         )}
 
-        <FeatureSelect
-          // features={feature}
-          // form={form}
-          onChange={onFeatureHandler}
-        />
+        <FeatureSelect checked={feature} onChange={onFeatureHandler} />
 
         <Form.Item>
           <div className="flex items-center gap-2">

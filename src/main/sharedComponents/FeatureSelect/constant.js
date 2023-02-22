@@ -25,8 +25,8 @@ export const getFeatureDetails = ({
       icon: getFeatureIcon(x.value),
       description: x.description,
       featureName: x.label,
-      isChecked: checked.includes(x.value),
-      isDisabled: disabled.includes(x.value),
+      isChecked: checked.some((y) => y.featureId === x.value),
+      isDisabled: disabled.some((y) => y.featureId === x.value),
     };
   });
 };

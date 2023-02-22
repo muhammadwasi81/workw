@@ -32,8 +32,8 @@ function GroupsInfo({ ghost = true }) {
   const detail = useSelector((state) => state.groupSlice.groupDetail);
 
   const { groupFeatures } = useSelector((state) => state.groupSlice);
-  console.log(groupFeatures, "group featuree");
 
+  console.log(groupFeatures, "groupFeatures");
   const [features, setFeatures] = useState([]);
   const [form] = Form.useForm();
   const { groupId } = useParams();
@@ -48,7 +48,7 @@ function GroupsInfo({ ghost = true }) {
 
   useEffect(() => {
     let newFeatures;
-    if (groupFeatures.length) {
+    if (groupFeatures.length >= 0) {
       newFeatures = groupFeatures.map((item) => {
         return {
           featureId: item.featureId,
@@ -67,6 +67,7 @@ function GroupsInfo({ ghost = true }) {
         groupId: groupId,
       };
       let newPayload = [...features, payload];
+      console.log(features, "features");
       const newFeature = newPayload.map((item) => {
         return {
           featureId: item.featureId,
@@ -157,12 +158,7 @@ function GroupsInfo({ ghost = true }) {
           closable={false}
           width={900}
         >
-          <FeatureSelect
-            features={groupFeatures}
-            form={form}
-            notIncludeFeature={FeaturesEnum.Travel}
-            onChange={onFeatureHandler}
-          />
+          <FeatureSelect checked={groupFeatures} onChange={onFeatureHandler} />
         </Modal>
       )}
     </>

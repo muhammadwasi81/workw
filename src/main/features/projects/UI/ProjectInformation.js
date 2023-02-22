@@ -36,7 +36,7 @@ function ProjectInformation({ ghost = true }) {
   }, []);
   useEffect(() => {
     let newFeatures;
-    if (projectFeature.length > 0) {
+    if (projectFeature.length >= 0) {
       newFeatures = projectFeature.map((item) => {
         return {
           featureId: item.featureId,
@@ -44,7 +44,6 @@ function ProjectInformation({ ghost = true }) {
         };
       });
     }
-
     setFeatures(newFeatures);
   }, [projectFeature]);
   const onFeatureHandler = (featureId, checked) => {
@@ -53,12 +52,15 @@ function ProjectInformation({ ghost = true }) {
         featureId: featureId,
         projectId: projectId,
       };
+
       let newPayload = [...features, payload];
       const newFeature = newPayload.map((item) => {
         return {
           featureId: item.featureId,
         };
       });
+      console.log(newFeature, "new Featuree");
+
       dispatch(addProjectFeature({ id: projectId, payload: newFeature }));
     } else {
       dispatch(
@@ -118,12 +120,7 @@ function ProjectInformation({ ghost = true }) {
           closable={false}
           width={900}
         >
-          <FeatureSelect
-            // features={projectFeature}
-            // form={form}
-            // notIncludeFeature={FeaturesEnum.Travel}
-            onChange={onFeatureHandler}
-          />
+          <FeatureSelect checked={projectFeature} onChange={onFeatureHandler} />
         </Modal>
       )}
     </>

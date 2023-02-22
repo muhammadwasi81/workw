@@ -139,10 +139,6 @@ function WorkBoardDescription({
             </span>
         
           </div>
-              
-                  
-       
-    
       </div>
 
       <div className="flex gap-5 flex-col w-full">

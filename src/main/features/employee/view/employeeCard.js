@@ -116,9 +116,10 @@ function EmployeeCard({ employees: { image, name, email, designation, id } }) {
   return (
     <Parent>
       <ImageBox
-        src={image ? image : 'http://www.miletap.com/img/title.png'}
+        src={
+          image ? image : 'https://cdn-icons-png.flaticon.com/512/21/21104.png'
+        }
         alt="logo"
-        loading="lazy"
       />
       <ContentBox>
         <Heading>{name}</Heading>

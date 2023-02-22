@@ -42,9 +42,10 @@ const BasicInfo = ({ mode, id }) => {
   const [form] = Form.useForm();
   const [selectedAccessRole, setSelectedAccessRole] = useState([]);
   const [userSelectedAccessRole, setUserSelectedAccessRole] = useState([]);
+
   const initialState = {
     coverImageId: '',
-    userTypeId: '',
+    userTypeId: userTypeEnum.Employee,
     titleId: 1,
     firstName: '',
     lastName: '',
@@ -90,6 +91,9 @@ const BasicInfo = ({ mode, id }) => {
     userLanguage
   ];
   const {
+    employee: { basicdetails },
+  } = useSelector((state) => state.employeeSlice);
+  const {
     sharedSlice: { employees },
   } = useSelector((state) => state);
 
@@ -100,10 +104,32 @@ const BasicInfo = ({ mode, id }) => {
     }
   }, [employees]);
 
-  const {
-    employee: { basicdetails },
-  } = useSelector((state) => state.employeeSlice);
   console.log(basicdetails, 'basicDetails');
+
+  useEffect(() => {
+    const filteredRoles = accessRoles.filter((role) => {
+      if (basicdetails.userTypeId === userTypeEnum.Admin) {
+        return role.roleTypeId === userTypeEnum.Admin;
+      } else if (basicdetails.userTypeId === userTypeEnum.Employee) {
+        return role.roleTypeId === userTypeEnum.Employee;
+      }
+      return false;
+    });
+
+    const selectedRoleIds = form.getFieldValue('accessRoles');
+    const unselectedRoles = filteredRoles.filter(
+      (role) => !selectedRoleIds?.includes(role?.id)
+    );
+
+    setSelectedAccessRole(
+      unselectedRoles.map((role) => {
+        return {
+          value: role.id,
+          label: role.name,
+        };
+      })
+    );
+  }, [basicdetails.userTypeId]);
 
   const labels = employeesDictionary.EmployeeForm;
   const placeholder = employeesDictionary.placeholders;
@@ -162,10 +188,7 @@ const BasicInfo = ({ mode, id }) => {
     setProfileImage(fileData[0].originFileObj);
   };
   console.log(accessRoles, 'accessRoles');
-  // const getAccessRoleName = (accessRoleId) => {
-  //   const accessRole = accessRoles.find((role) => role.name === accessRoleId);
-  //   return accessRole ? accessRole.name : '';
-  // };
+
   useEffect(() => {
     if (isEdit) {
       setInitialValues({
@@ -275,6 +298,7 @@ const BasicInfo = ({ mode, id }) => {
     }
   };
   console.log(selectedAccessRole, 'selectedAccessRole');
+
   let classes = 'employeeForm basicInfo ';
   classes += Direction === 'ltr' ? 'ltr' : 'rtl';
 
@@ -590,7 +614,6 @@ const BasicInfo = ({ mode, id }) => {
                 })}
               value={basicdetails.userTypeId}
               onChange={(value) => {
-                // console.log(value, 'filteredRoles');
                 // Filter accessRoles based on selected user type
                 let filteredRoles = accessRoles.filter((role) => {
                   if (value === userTypeEnum.Admin) {
@@ -605,8 +628,6 @@ const BasicInfo = ({ mode, id }) => {
                 const unselectedRoles = filteredRoles.filter(
                   (role) => !selectedRoleIds.includes(role.id)
                 );
-                // console.log(unselectedRoles, 'unselectedRoles');
-                // console.log(selectedRoleIds, 'selectedRoleIds');
                 setSelectedAccessRole(
                   unselectedRoles.map((role) => {
                     return {
@@ -662,8 +683,6 @@ const BasicInfo = ({ mode, id }) => {
                 console.log(value, 'selected value');
                 const userSelectedRoles = value.map((role) => {
                   return {
-                    // value: role,
-                    // value: accessRoles.find((x) => x.name === role)?.id,
                     value: accessRoles.find((x) => x.name === role)?.id
                       ? accessRoles.find((x) => x.name === role)?.id
                       : role,

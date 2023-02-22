@@ -117,7 +117,9 @@ function EmployeeCard({ employees: { image, name, email, designation, id } }) {
     <Parent>
       <ImageBox
         src={
-          image ? image : 'https://cdn-icons-png.flaticon.com/512/21/21104.png'
+          image
+            ? image
+            : 'https://konnect.im/static/media/user_default.22b0811e.jpg'
         }
         alt="logo"
       />

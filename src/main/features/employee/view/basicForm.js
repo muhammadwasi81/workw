@@ -41,9 +41,10 @@ const BasicInfo = ({ mode, id }) => {
   const isEdit = mode === 'edit';
   const [form] = Form.useForm();
   const [selectedAccessRole, setSelectedAccessRole] = useState([]);
+  const [userSelectedAccessRole, setUserSelectedAccessRole] = useState([]);
   const initialState = {
     coverImageId: '',
-    userTypeId: [],
+    userTypeId: '',
     titleId: 1,
     firstName: '',
     lastName: '',
@@ -88,7 +89,6 @@ const BasicInfo = ({ mode, id }) => {
   const { employeesDictionary, Direction } = employeeDictionaryList[
     userLanguage
   ];
-  console.log(designations, 'designations');
   const {
     sharedSlice: { employees },
   } = useSelector((state) => state);
@@ -141,11 +141,6 @@ const BasicInfo = ({ mode, id }) => {
     dispatch(getAllBranch());
     dispatch(getAllBranchOffice());
     dispatch(getAllAccessRoles());
-    dispatch(getAllDesignation());
-    dispatch(getAllGrades());
-    dispatch(getAllOfficeTimingGroups());
-    dispatch(getCountries());
-    dispatch(getCities());
 
     if (isEdit) {
       dispatch(getUserBasicInfo(id));
@@ -155,7 +150,7 @@ const BasicInfo = ({ mode, id }) => {
       if (!grades.length) dispatch(getAllGrades());
       if (!officeTimingGroups?.length) dispatch(getAllOfficeTimingGroups());
       if (!accessRoles.length) dispatch(getAllAccessRoles());
-      // if (!department.length) dispatch(getAllDepartments());
+      if (!department.length) getAllDepartments();
     }
     return () => {
       dispatch(resetBasicdetails());
@@ -166,7 +161,11 @@ const BasicInfo = ({ mode, id }) => {
     console.log('handleImageUpload', fileData);
     setProfileImage(fileData[0].originFileObj);
   };
-
+  console.log(accessRoles, 'accessRoles');
+  // const getAccessRoleName = (accessRoleId) => {
+  //   const accessRole = accessRoles.find((role) => role.name === accessRoleId);
+  //   return accessRole ? accessRole.name : '';
+  // };
   useEffect(() => {
     if (isEdit) {
       setInitialValues({
@@ -177,6 +176,9 @@ const BasicInfo = ({ mode, id }) => {
         accessRoles: basicdetails?.accessRoles?.map((role) => {
           return role.accessRole;
         }),
+        // accessRoles: basicdetails?.accessRoles?.map((role) => {
+        //   return getAccessRoleName(role.accessRole);
+        // }),
         officeTimingId:
           basicdetails.officeTimingId === STRINGS.DEFAULTS.guid
             ? ''
@@ -240,15 +242,16 @@ const BasicInfo = ({ mode, id }) => {
       const isValidation = await form.validateFields();
       if (isValidation) {
         let payload = form.getFieldsValue();
-        let roles = selectedAccessRole.map((role) => {
+        let payloadRoles = userSelectedAccessRole.map((role) => {
           return {
             id: role.value,
           };
         });
+        console.log(payloadRoles, 'PAYLOAD ROLES');
         if (payload) {
           payload = {
             ...payload,
-            accessRoles: roles,
+            accessRoles: payloadRoles,
             image,
             id: id,
             birthDate: moment(form.getFieldValue('birthDate')._ds).format(),
@@ -256,6 +259,7 @@ const BasicInfo = ({ mode, id }) => {
             probationPeriod: parseInt(payload.probationPeriod),
             noticePeriod: isEdit ? 30 : parseInt(payload.noticePeriod),
           };
+          console.log(payload, 'payload');
           dispatch(
             updateEmployeeAction({
               data: payload,
@@ -270,6 +274,7 @@ const BasicInfo = ({ mode, id }) => {
       });
     }
   };
+  console.log(selectedAccessRole, 'selectedAccessRole');
   let classes = 'employeeForm basicInfo ';
   classes += Direction === 'ltr' ? 'ltr' : 'rtl';
 
@@ -354,7 +359,6 @@ const BasicInfo = ({ mode, id }) => {
         <Form.Item name="nic" label={labels.CNICNumber}>
           <Input placeholder={placeholder.cnicNo}></Input>
         </Form.Item>
-
         <Form.Item
           rules={[{ required: true }]}
           name="designationId"
@@ -369,7 +373,6 @@ const BasicInfo = ({ mode, id }) => {
             defaultValue={initialValues.designationId}
           />
         </Form.Item>
-
         <Form.Item name="managerId" label={labels.Manager}>
           <Select
             showSearch={true}
@@ -434,6 +437,7 @@ const BasicInfo = ({ mode, id }) => {
           }}
           canFetchNow={cities && cities.length > 0}
           fetchData={fetchCityData}
+          value={isEdit ? basicdetails.city : basicdetails.cityId}
           optionComponent={(opt) => {
             return (
               <>
@@ -566,13 +570,12 @@ const BasicInfo = ({ mode, id }) => {
           <Form.Item
             name="userTypeId"
             label={labels.UserType}
-            rules={[{ required: true, message: 'Please select user type' }]}
+            rules={[{ required: true }]}
           >
             <Select
               size="large"
               getPopupContainer={(trigger) => trigger.parentNode}
-              placeholder={'Select User Type'}
-              value={basicdetails.userTypeId}
+              placeholder={placeholder.selectUserType}
               options={userTypeList
                 .filter(
                   (x) =>
@@ -585,8 +588,9 @@ const BasicInfo = ({ mode, id }) => {
                     label: item.name,
                   };
                 })}
+              value={basicdetails.userTypeId}
               onChange={(value) => {
-                console.log(value, 'filteredRoles');
+                // console.log(value, 'filteredRoles');
                 // Filter accessRoles based on selected user type
                 let filteredRoles = accessRoles.filter((role) => {
                   if (value === userTypeEnum.Admin) {
@@ -601,8 +605,8 @@ const BasicInfo = ({ mode, id }) => {
                 const unselectedRoles = filteredRoles.filter(
                   (role) => !selectedRoleIds.includes(role.id)
                 );
-                console.log(unselectedRoles, 'unselectedRoles');
-                console.log(selectedRoleIds, 'selectedRoleIds');
+                // console.log(unselectedRoles, 'unselectedRoles');
+                // console.log(selectedRoleIds, 'selectedRoleIds');
                 setSelectedAccessRole(
                   unselectedRoles.map((role) => {
                     return {
@@ -654,6 +658,17 @@ const BasicInfo = ({ mode, id }) => {
                   .toLowerCase()
                   .includes(input.toLowerCase())
               }
+              onChange={(value) => {
+                console.log(value, 'selected value');
+                const userSelectedRoles = value.map((role) => {
+                  return {
+                    // value: role,
+                    value: accessRoles.find((x) => x.name === role)?.id,
+                  };
+                });
+                console.log(userSelectedRoles, 'userSelectedRoles');
+                setUserSelectedAccessRole(userSelectedRoles);
+              }}
               options={selectedAccessRole.map((role) => {
                 return {
                   value: role.value,
@@ -662,8 +677,8 @@ const BasicInfo = ({ mode, id }) => {
               })}
             >
               {selectedAccessRole.map((role) => (
-                <Option key={role.id} value={role.id}>
-                  {role.name}
+                <Option key={role.value} value={role.value}>
+                  {role.label}
                 </Option>
               ))}
             </Select>

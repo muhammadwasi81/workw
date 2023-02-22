@@ -24,12 +24,16 @@ import Header from "../../../layout/header/index";
 import { handleOpenComposer } from "../store/slice";
 import { ROUTES } from "../../../../utils/routes";
 import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
+import { FeaturePermissionEnum } from "../../../../utils/Shared/enums/featuresEnums";
 
 const Promotion = (props) => {
   const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
   const { promotionDictionary } = promotionDictionaryList[userLanguage];
   const { tables } = promotionDictionary;
+  const {user} = useSelector((state) => state.userSlice);
+  const CreatePermission = FeaturePermissionEnum.CreatePromotion
+  const userPermissions = user.permissions
 
   const [promotionId, setPromotionId] = useState("");
 
@@ -73,7 +77,7 @@ const Promotion = (props) => {
     <TabbableContainer className="max-width-1190">
       <Header
         items={items}
-        buttons={[
+        buttons={userPermissions.includes(CreatePermission) ?[
           {
             buttonText: "Create Promotions",
             render: (
@@ -87,7 +91,7 @@ const Promotion = (props) => {
               />
             ),
           },
-        ]}
+        ] : []}
       />
       <TopBar
         onSearch={(value) => {

@@ -25,6 +25,7 @@ import { handleOpenExpenseComposer } from "./store/slice";
 // import OpenCreateExpense from "./view/CreateExpense/OpenCreateExpense";
 import SideDrawer from "../../sharedComponents/Drawer/SideDrawer";
 import { getAllExpense } from "./store/actions";
+import { FeaturePermissionEnum } from "../../../utils/Shared/enums/featuresEnums";
 
 function Expenses({
   referenceId = defaultUiid,
@@ -48,6 +49,9 @@ function Expenses({
     referenceType,
     referenceId,
   });
+  const {user} = useSelector((state) => state.userSlice);
+  const CreatePermission = FeaturePermissionEnum.CreateExpense
+  const userPermissions = user.permissions
 
   useEffect(() => {
     dispatch(getAllExpense(filter));
@@ -78,7 +82,7 @@ function Expenses({
     <TabbableContainer>
       <Header
         items={items}
-        buttons={[
+        buttons={userPermissions.includes(CreatePermission) ? [
           {
             buttonText: ExpenseDictionaryList.createTextBtn,
             render: (
@@ -98,7 +102,7 @@ function Expenses({
               />
             ),
           },
-        ]}
+        ] : []}
         width={width}
         backButton={false}
       />

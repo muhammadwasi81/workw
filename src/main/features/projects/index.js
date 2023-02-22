@@ -21,6 +21,7 @@ import { handleComposer } from './store/slice';
 import Composer from './UI/Composer';
 import Header from '../../layout/header/index';
 import { PlusOutlined } from '@ant-design/icons';
+import { FeaturePermissionEnum } from '../../../utils/Shared/enums/featuresEnums';
 
 const Projects = () => {
   const [search, setSearch] = useState('');
@@ -36,6 +37,9 @@ const Projects = () => {
   ];
   const { createTextBtn, topBar } = projectsDictionary;
   const { projects, loader } = useSelector((state) => state.projectSlice);
+  const {user} = useSelector((state) => state.userSlice);
+  const CreatePermission = FeaturePermissionEnum.CreateProject
+  const userPermissions = user.permissions
 
   useEffect(() => {
     dispatch(
@@ -78,7 +82,7 @@ const Projects = () => {
       <TabbableContainer>
         <Header
           items={items}
-          buttons={[
+          buttons={userPermissions.includes(CreatePermission) ? [
             {
               buttonText: 'createTextBtn',
               render: (
@@ -93,7 +97,7 @@ const Projects = () => {
                 </Button>
               ),
             },
-          ]}
+          ] : []}
         />
         <ProjectTopBar
           handleView={(isTable) => {

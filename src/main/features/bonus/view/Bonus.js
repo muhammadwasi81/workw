@@ -24,6 +24,7 @@ import { ROUTES } from '../../../../utils/routes';
 import { useMediaQuery } from 'react-responsive';
 import SideDrawer from '../../../sharedComponents/Drawer/SideDrawer';
 import { NoDataFound } from '../../../sharedComponents/NoDataIcon';
+import { FeaturePermissionEnum } from '../../../../utils/Shared/enums/featuresEnums';
 
 const initialFormData = {
   memberId: '',
@@ -37,6 +38,9 @@ const Bonus = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { bonusDictionary, Direction } = bonusDictionaryList[userLanguage];
   const {tables} = bonusDictionary;
+  const {user} = useSelector((state) => state.userSlice);
+  const CreatePermission = FeaturePermissionEnum.CreateBonus
+  const userPermissions = user.permissions
 
   const [tableView, setTableView] = useState(false);
 
@@ -79,7 +83,7 @@ const Bonus = (props) => {
     <TabbableContainer className="max-width-1190">
       <Header
         items={items}
-        buttons={[
+        buttons={userPermissions.includes(CreatePermission) ?[
           {
             buttonText: 'Create Bonus',
             render: (
@@ -93,7 +97,7 @@ const Bonus = (props) => {
               />
             ),
           },
-        ]}
+        ]: []}
       />
       <TopBar
         onSearch={(value) => {

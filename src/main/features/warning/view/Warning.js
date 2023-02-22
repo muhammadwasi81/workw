@@ -24,11 +24,15 @@ import Header from "../../../layout/header/index";
 import { handleOpenComposer } from "../store/slice";
 import { ROUTES } from "../../../../utils/routes";
 import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
+import { FeaturePermissionEnum } from "../../../../utils/Shared/enums/featuresEnums";
 
 const Warning = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { warningDictionary } = warningDictionaryList[userLanguage];
   const {tables} = warningDictionary;
+  const {user} = useSelector((state) => state.userSlice);
+  const CreatePermission = FeaturePermissionEnum.CreateWarnings
+  const userPermissions = user.permissions
 
   const [detailId, setDetailId] = useState(false);
   const [tableView, setTableView] = useState(false);
@@ -67,7 +71,7 @@ const Warning = (props) => {
     <TabbableContainer className="max-width-1190">
       <Header
         items={items}
-        buttons={[
+        buttons={userPermissions.includes(CreatePermission) ? [
           {
             buttonText: "Create Warning",
             render: (
@@ -81,7 +85,7 @@ const Warning = (props) => {
               />
             ),
           },
-        ]}
+        ] : []}
       />
       <TopBar
         onSearch={(value) => {

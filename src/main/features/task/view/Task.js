@@ -26,6 +26,7 @@ import SideDrawer from '../../../sharedComponents/Drawer/SideDrawer';
 
 import '../view/style/task.css';
 import { NoDataFound } from '../../../sharedComponents/NoDataIcon';
+import { FeaturePermissionEnum } from '../../../../utils/Shared/enums/featuresEnums';
 
 function Task({
   referenceId = defaultUiid,
@@ -57,6 +58,9 @@ function Task({
     drawerOpen,
     // loading,
   } = useSelector((state) => state.taskSlice);
+  const {user} = useSelector((state) => state.userSlice);
+  const CreatePermission = FeaturePermissionEnum.CreateTask
+  const userPermissions = user.permissions
 
   useEffect(() => {
     dispatch(
@@ -83,7 +87,7 @@ function Task({
     <TabbableContainer>
       <Header
         items={items}
-        buttons={[
+        buttons={userPermissions.includes(CreatePermission) ? [
           {
             buttonText: taskDictionaryList.createTextBtn,
             render: (
@@ -103,7 +107,7 @@ function Task({
               />
             ),
           },
-        ]}
+        ] : []}
         width={width}
         backButton={backButton}
       />

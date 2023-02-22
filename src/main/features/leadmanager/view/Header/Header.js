@@ -10,6 +10,7 @@ import {
   resetLeadManagerDetail,
 } from "../../store/slice";
 import { MailOutlined } from "@ant-design/icons";
+import { FeaturePermissionEnum } from "../../../../../utils/Shared/enums/featuresEnums";
 // import { handleBoardComposer } from "../store/slice";
 
 const initialComposerData = {
@@ -28,6 +29,9 @@ function Header({ dictionary, direction }) {
   const { loading, success, isComposerOpen, isEditComposer } = useSelector(
     (state) => state.leadMangerSlice
   );
+  const {user} = useSelector((state) => state.userSlice);
+  const CreatePermission = FeaturePermissionEnum.CreateLeadManagerGroup
+  const userPermissions = user.permissions
 
   const items = [
     {
@@ -75,7 +79,7 @@ function Header({ dictionary, direction }) {
       ),
     },
   ];
-  return <LayoutHeader items={items} buttons={buttons} />;
+  return <LayoutHeader items={items} buttons={userPermissions.includes(CreatePermission) ? buttons : []} />;
 }
 
 export default Header;

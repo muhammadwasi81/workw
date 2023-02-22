@@ -7,9 +7,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { handleBoardComposer, resetComposerDetail } from "../store/slice";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { WorkBoardDictionary } from "../localization";
+import { FeaturePermissionEnum } from "../../../../utils/Shared/enums/featuresEnums";
 
 function Header({ width, routeLink, backButton }) {
   const dispatch = useDispatch();
+  const {user} = useSelector((state) => state.userSlice);
+  const CreatePermission = FeaturePermissionEnum.CreateWorkboard
+  const userPermissions = user.permissions
 
   const success = useSelector((state) => state.trelloSlice.success);
   const loading = useSelector((state) => state.trelloSlice.loader);
@@ -55,7 +59,7 @@ function Header({ width, routeLink, backButton }) {
   return (
     <LayoutHeader
       items={items}
-      buttons={buttons}
+      buttons={userPermissions.includes(CreatePermission) ? buttons : []}
       width={width}
       backButton={backButton}
     />

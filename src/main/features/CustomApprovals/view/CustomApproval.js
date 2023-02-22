@@ -22,12 +22,16 @@ import { handleOpenComposer } from "../store/slice";
 import { ROUTES } from "../../../../utils/routes";
 import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
 import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
+import { FeaturePermissionEnum } from "../../../../utils/Shared/enums/featuresEnums";
 
 const CustomApproval = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { customApprovalDictionary } = customApprovalDictionaryList[
     userLanguage
   ];
+  const {user} = useSelector((state) => state.userSlice);
+  const CreatePermission = FeaturePermissionEnum.CreateCustomApproval
+  const userPermissions = user.permissions
 
   const [tableView, setTableView] = useState(false);
 
@@ -76,7 +80,7 @@ const CustomApproval = (props) => {
       <TabbableContainer className="">
         <Header
           items={items}
-          buttons={[
+          buttons={userPermissions.includes(CreatePermission) ? [
             {
               buttonText: customApprovalDictionary.create,
               render: (
@@ -90,7 +94,7 @@ const CustomApproval = (props) => {
                 />
               ),
             },
-          ]}
+          ] : []}
         />
         <TopBar
           onSearch={(value) => {

@@ -22,6 +22,7 @@ import { handleOpenComposer } from "../store/slice";
 import { ROUTES } from "../../../../utils/routes";
 import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
 import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
+import { FeaturePermissionEnum } from "../../../../utils/Shared/enums/featuresEnums";
 
 const Leave = () => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -32,6 +33,9 @@ const Leave = () => {
   const [visible, setVisible] = useState(false);
   const [filter, setFilter] = useState({ filterType: 0, search: "" });
   const [detailId, setDetailId] = useState(false);
+  const {user} = useSelector((state) => state.userSlice);
+  const CreatePermission = FeaturePermissionEnum.CreateLeave
+  const userPermissions = user.permissions
 
   const dispatch = useDispatch();
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -66,7 +70,7 @@ const Leave = () => {
         <Header
           items={items}
           backButton={false}
-          buttons={[
+          buttons={userPermissions.includes(CreatePermission) ? [
             {
               buttonText: leaveDictionary.createleave,
               render: (
@@ -80,7 +84,7 @@ const Leave = () => {
                 />
               ),
             },
-          ]}
+          ] : []}
        
         />
         <TopBar

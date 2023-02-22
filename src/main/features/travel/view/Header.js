@@ -4,11 +4,16 @@ import { ROUTES } from "../../../../utils/routes";
 import LayoutHeader from "../../../layout/header";
 import { buttonsEnum } from "../enums/enums";
 import NewTravelComposer from "./TravelComposer/NewTravelComposer";
+import { FeaturePermissionEnum } from "../../../../utils/Shared/enums/featuresEnums";
+import { useSelector } from "react-redux";
 
 function Header(props) {
   const { label, backButton, route, referenceId, referenceType } = props;
   const [visible, setVisible] = useState(false);
   const { success } = props;
+  const {user} = useSelector((state) => state.userSlice);
+  const CreatePermission = FeaturePermissionEnum.CreateTravel
+  const userPermissions = user.permissions
   const items = [
     {
       name: label.travels,
@@ -42,7 +47,7 @@ function Header(props) {
   ];
   console.log(success, "success");
   return (
-    <LayoutHeader items={items} buttons={buttons} backButton={backButton} />
+    <LayoutHeader items={items} buttons={userPermissions.includes(CreatePermission) ? buttons : []} backButton={backButton} />
   );
 }
 

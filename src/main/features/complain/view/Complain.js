@@ -24,11 +24,15 @@ import TopBar from "../../../sharedComponents/topBar/topBar";
 import { handleOpenComposer } from "../store/slice";
 import { ROUTES } from "../../../../utils/routes";
 import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
+import { FeaturePermissionEnum } from "../../../../utils/Shared/enums/featuresEnums";
 
 const Complain = () => {
   const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
   const { complainDictionary } = complainDictionaryList[userLanguage];
+  const {user} = useSelector((state) => state.userSlice);
+  const CreatePermission = FeaturePermissionEnum.CreateRewards
+  const userPermissions = user.permissions
   // const {
   //   createComplain,
   //   Direction,
@@ -112,7 +116,7 @@ const Complain = () => {
     <TabbableContainer className="max-width-1190">
       <Header
         items={items}
-        buttons={[
+        buttons={userPermissions.includes(CreatePermission) ? [
           {
             buttonText: complainDictionary.createComplain,
             render: (
@@ -126,7 +130,7 @@ const Complain = () => {
               />
             ),
           },
-        ]}
+        ]: []}
       />
       <TopBar
         onSearch={(value) => {

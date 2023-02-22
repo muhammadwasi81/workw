@@ -45,7 +45,6 @@ const Composer = (props) => {
   const [profileImage, setProfileImage] = useState(null);
   const [privacyId, setPrivacyId] = useState(1);
   const [feature, setFeature] = useState([]);
-  console.log(feature, "featuree composerr");
 
   const { projectId } = useParams();
   const onPrivacyChange = (value) => {
@@ -159,7 +158,7 @@ const Composer = (props) => {
         featureId: featureId,
         projectId: projectId,
       };
-      setFeature(payload);
+      setFeature([payload]);
     }
   };
   return (
@@ -241,28 +240,6 @@ const Composer = (props) => {
               name={"externals"}
               label={labels.externals}
               direction={Direction}
-              // rules={[
-              //   {
-              //     validator: (_, value) => {
-              //       if (validateEmail(value[value.length - 1])) {
-              //         form.setFieldsValue({
-              //           externals: value,
-              //         });
-              //         return Promise.resolve();
-              //       } else {
-              //         message.error("Please add correct email.");
-              //         form.setFieldsValue({
-              //           externals: form
-              //             .getFieldValue("externals")
-              //             .slice(0, form.getFieldValue("externals").length - 1),
-              //         });
-              //         return Promise.reject(
-              //           new Error("Please add correct email.")
-              //         );
-              //       }
-              //     },
-              //   },
-              // ]}
             >
               <Select
                 mode="tags"
@@ -291,8 +268,8 @@ const Composer = (props) => {
         )}
 
         <FeatureSelect
-          features={feature}
-          form={form}
+          // features={feature}
+          // form={form}
           onChange={onFeatureHandler}
         />
 

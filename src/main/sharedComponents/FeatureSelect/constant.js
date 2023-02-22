@@ -21,10 +21,10 @@ export const getFeatureDetails = ({
   return featureDetils.map((x) => {
     return {
       name: x.label,
-      featureName: x.value,
+      id: x.value,
       icon: getFeatureIcon(x.value),
       description: x.description,
-      id: x.label,
+      featureName: x.label,
       isChecked: checked.includes(x.value),
       isDisabled: disabled.includes(x.value),
     };
@@ -32,4 +32,10 @@ export const getFeatureDetails = ({
 };
 function getFeatureIcon(feature) {
   if (feature === FeaturesEnum.Feed) return feedIcon;
+  if (feature === FeaturesEnum.Task) return taskIcon;
+  if (feature === FeaturesEnum.Schedule) return schedulesIcon;
+  if (feature === FeaturesEnum.Workboard) return todoBoard;
+  if (feature === FeaturesEnum.Travel) return travelIcon;
+  if (feature === FeaturesEnum.Document) return documentIcon;
+  if (feature === FeaturesEnum.Expense) return expensesIcon;
 }

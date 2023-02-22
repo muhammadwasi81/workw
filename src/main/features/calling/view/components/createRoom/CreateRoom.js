@@ -6,11 +6,11 @@ import "./styles/createRoom.css";
 // import { HomeOutlined, BranchesOutlined } from "@ant-design/icons";
 // import MemberModal from "../../../workboard/Modal/MemberModal";
 import CustomModal from "../../../../workboard/Modal/CustomModal";
-import AddMember from "../../Modal/AddMember";
+import AddMember from "../Modal/AddMember";
 // import { validateEmail } from "../../../../../utils/Shared/helper/validateEmail";
 // import { v4 as id } from "uuid";
 import MultipleAvatars from "../../../../../sharedComponents/Avatar/MultipleAvatars";
-import ExternalMember from "../../Modal/ExternalMember";
+import ExternalMember from "../Modal/ExternalMember";
 import { createRoom } from "../../../store/action";
 
 export default function CreateRoom() {

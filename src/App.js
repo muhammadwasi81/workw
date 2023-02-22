@@ -5,7 +5,12 @@ import {
 import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";
-import { BrowserRouter as Router, Navigate, Route, Routes as ReactRoutes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Navigate,
+  Route,
+  Routes as ReactRoutes,
+} from "react-router-dom";
 import Auth from "./main/features/auth/view";
 import IndivisualSignup from "./main/features/auth/view/signUp/IndivisualSignup";
 import OrganizationalSignup from "./main/features/auth/view/signUp/OrganizationalSignup";
@@ -39,7 +44,8 @@ import ApplyJob from "./main/features/careers/view/PublicRoute/ApplyJob";
 import ApplyRequisition from "./main/features/requisition/view/publicRoutes/ApplyRequisition";
 import SetupPassword from "./main/features/auth/view/SetupPassword";
 import { servicesUrls } from "./utils/services/baseURLS";
-import { InitializeSocket } from "./utils/InitCallingSocket";
+import { InitializeCallingSocket } from "./main/features/calling/services/socket";
+import { ExternalProject } from "./main/features/publicRoutes/projects/view/index";
 
 const App = () => {
   const { userLanguageChange } = useContext(LanguageChangeContext);
@@ -50,7 +56,7 @@ const App = () => {
   );
   const userSlice = useSelector((state) => state.userSlice);
   const dispatch = useDispatch();
-  console.log(userSlice, "USER DATA")
+  console.log(userSlice, "USER DATA");
   const isLoggedIn = !!userSlice.token;
   useEffect(() => {
     let defaultLanguage = window.localStorage.getItem("rcml-lang");
@@ -63,9 +69,8 @@ const App = () => {
   useEffect(() => {
     themeHandler(window.localStorage.getItem("darkMode") === "1");
     isLoggedIn && InitMessengerSocket(dispatch, userSlice);
-    isLoggedIn && InitializeSocket.getInstance(dispatch, servicesUrls.callingSocket, userSlice);
-    // dispatch(openNotification({ message: "hello", duration: null }));
-  }, []);
+    isLoggedIn && InitializeCallingSocket.getInstance(dispatch, servicesUrls.callingSocket, userSlice);
+  }, [isLoggedIn]);
   const [activityCount /*setActivityCount*/] = useState(null);
 
   const themeHandler = (status) => {
@@ -84,10 +89,6 @@ const App = () => {
     dispatch(setMobileScreenStatus(isMobileAndTab));
   }, [isMobileAndTab, dispatch]);
 
-  // const isLoggedIn = true;
-  // if (isLoggedIn) Socket(); // i will add this line in <Route/> component. from "./routes"; line 26
-  // console.log("app js", isLoggedIn);
-  // console.log("Routes", ROUTES.ROOT);
   return (
     <>
       {/* <div className="!overflow-x-scroll">
@@ -117,14 +118,9 @@ const App = () => {
                 path={ROUTES.AUTH.SIGN_UP}
                 element={<OrganizationalSignup isLoggedIn={isLoggedIn} />}
               />
-              <Route
-                path={ROUTES.AUTH.VERIFICATION}
-                element={<Verified />}
-              />
-              <Route
-                path={'/verification'}
-                element={<Verifying />}
-              />
+
+              <Route path={ROUTES.AUTH.VERIFICATION} element={<Verified />} />
+              <Route path={"/verification"} element={<Verifying />} />
               <Route
                 path={ROUTES.AUTH.SETUP_PASSWORD}
                 element={<SetupPassword />}
@@ -132,6 +128,10 @@ const App = () => {
               <Route
                 path={`${ROUTES.FORMS.SUBMIT_FORM}/:id`}
                 element={<SubmitForm />}
+              />
+              <Route
+                path={`${ROUTES.EXTERNAL_PROJECT.REGISTER}`}
+                element={<ExternalProject />}
               />
               <Route path={`${ROUTES.JOBS.PUBLIC}`} element={<PublicJobs />} />
               {/*****Public Route******/}
@@ -152,9 +152,7 @@ const App = () => {
                     element={<route.component />}
                   />
                 ))}
-                <Route
-                  path={"*"}
-                  element={<Navigate to={ROUTES.HOME} />} />
+                <Route path={"*"} element={<Navigate to={ROUTES.HOME} />} />
               </Route>
               <Route
                 path={"*"}

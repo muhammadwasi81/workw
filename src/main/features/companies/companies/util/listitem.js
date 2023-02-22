@@ -3,7 +3,8 @@ import React from "react";
 import {
   InfoCircleOutlined,
   DashboardOutlined,
-  MailOutlined
+  MailOutlined,
+  IdcardOutlined,
 } from "@ant-design/icons";
 
 export const listitem = [
@@ -39,5 +40,16 @@ export const listitem = [
     displayName: "dashBoard",
     classObj: "button",
     to: (id) => `/companies/info/dashboard/${id}`,
-  }
+  },
+  {
+    IconName: (
+      <IdcardOutlined
+        style={{ fontSize: 20, margin: "15px" }}
+        color={"var(--currentThemeColor)"}
+      />
+    ),
+    displayName: "billing",
+    classObj: "button",
+    to: (id) => `/companies/info/billing/${id}`,
+  },
 ];

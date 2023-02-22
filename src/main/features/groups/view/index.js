@@ -19,6 +19,7 @@ import Header from "../../../layout/header/index";
 import GridView from "./GridView/GridView";
 import Spinner from "../../../sharedComponents/spinner/spinner";
 import useDebounce from "../../../../utils/Shared/helper/use-debounce";
+import { handleOpenComposer } from "../store/slice";
 
 const Groups = (props) => {
   const dispatch = useDispatch();
@@ -30,7 +31,7 @@ const Groups = (props) => {
   const value = useDebounce(search, 500);
 
   const [tableView, setTableView] = useState(false);
-  const { groups, success, getDataLoading } = useSelector(
+  const { groups, success, getDataLoading, drawerOpen } = useSelector(
     (state) => state.groupSlice
   );
 
@@ -66,8 +67,11 @@ const Groups = (props) => {
                 <SideDrawer
                   title={createTextBtn}
                   buttonText={createTextBtn}
-                  isAccessDrawer={true}
-                  success={success}
+                  // isAccessDrawer={true}
+                  // success={success}
+                  handleClose={() => dispatch(handleOpenComposer(false))}
+                  handleOpen={() => dispatch(handleOpenComposer(true))}
+                  isOpen={drawerOpen}
                 >
                   <Composer />
                 </SideDrawer>

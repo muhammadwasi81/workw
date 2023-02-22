@@ -6,11 +6,11 @@ import {
 import Config from "../../../../../utils/services/MasterConfig";
 import { responseCode as responseCodeEnum } from "../../../../../services/enums/responseCode";
 
-export const getAllTeamsService = async (request) => {
+export const getAllCompanyService = async (search) => {
   try {
     const {
       data: { responseCode, data, message },
-    } = await Config.get(`api/Business/GetAllBusiness`);
+    } = await Config.post(`api/Business/GetAllBusiness?search=${search}`);
 
     if (responseCode === responseCodeEnum.Success)
       return ResponseResultSuccess(data);
@@ -19,6 +19,21 @@ export const getAllTeamsService = async (request) => {
     return ResponseResultError(e);
   }
 };
+
+export const getCompanyByIdService = async (id) => {
+  try {
+    const {
+      data: { responseCode, data, message },
+    } = await Config.get(`api/Business/GetBusinessById?id=${id}`);
+
+    if (responseCode === responseCodeEnum.Success)
+      return ResponseResultSuccess(data);
+    return ResponseResultError(message);
+  } catch (e) {
+    return ResponseResultError(e);
+  }
+};
+
 export const getAllRewardService = async (id) => {
   console.log(id, "REQUEST");
   try {
@@ -71,7 +86,10 @@ export const getAllSignupService = async (payload) => {
   try {
     const {
       data: { responseCode, data, message },
-    } = await Config.get(`api/Signup/GetAllSignupByWaitingForEmailConfirmation`,payload);
+    } = await Config.get(
+      `api/Signup/GetAllSignupByWaitingForEmailConfirmation`,
+      payload
+    );
     console.log(data, "REQUEST REWARD RESPONSE");
 
     if (responseCode === responseCodeEnum.Success)

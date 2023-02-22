@@ -365,6 +365,7 @@ const urdu = {
     Assets_Category: " اثاثوں کا زمرہ",
     Default_Approvals: "طے شدہ منظوری",
     Job_Description: "کام کی تفصیل",
+    Billing: "بلنگ",
     Rewards: "انعامات",
     Form: {
       Description: "تفصیل",

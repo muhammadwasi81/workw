@@ -20,7 +20,7 @@ import "../WorkBoardDetail/style.css";
 import MemberModal from "./TodoMemberModal";
 import Avatar from "../../../sharedComponents/Avatar/avatar";
 import { message, Modal } from "antd";
-import {addWorkBoardTodoMember} from "../store/action";
+import { addMember } from "../store/slice";
 
 function WorkBoardDescription({
   dueDate,
@@ -31,20 +31,19 @@ function WorkBoardDescription({
   const { userLanguage } = useContext(LanguageChangeContext);
   const [visible, setVisible] = useState(false);
   const { workBoardMembers } = useSelector((state) => state.trelloSlice);
-  console.log(workBoardMembers,"workBoardMembersworkBoardMembers");
+  const { workboardDetail } = useSelector((state)=> state.trelloSlice);
+  const { workboardsList } = useSelector((state) => state.trelloSlice)
+
   const { WorkBoardDictionaryList, Direction } = WorkBoardDictionary[
     userLanguage
   ];
   const { labels, placeholder } = WorkBoardDictionaryList;
-  console.log(workBoardMembers,"todoDatatodoData");
   const dispatch = useDispatch();
 
   const handleOpenMembers = () => {
-    // e.preventDefault();
-    // e.stopPropagation();
+    dispatch(addMember({ status: true }));
     setVisible(true);
     console.log(visible,"visiblee");
-    // dispatch(addWorkBoardTodoMember({}));
   }
   return (
     <>
@@ -68,18 +67,7 @@ function WorkBoardDescription({
           </span>
         </div>
       </div>
-
-       <div className="flex gap-2 items-center">
-          <div className="flex flex-col justify-between gap-20">
-            <span className="text-gray-500">Members:</span>
-          </div>
-           <div onClick={handleOpenMembers}>
-              <span className="p-2 px-3 cursor-pointer hover:bg-neutral-200 transition flex items-center bg-neutral-100 rounded-sm">
-                <PlusOutlined className="!text-gray-600" />
-              </span>
-            </div>
-       </div>
-
+  <div className="flex flex-row gap-16">
       <div className="flex gap-2">
         {dueDate && dueDate.length > 0 && (
           <div className="flex flex-col ">
@@ -89,13 +77,12 @@ function WorkBoardDescription({
             <CheckDate todoData={todoData} />
           </div>
         )}
-        {todoData.labels && todoData.labels.length > 0 && (
+      
           <div className="flex flex-col">
 
            <div className="flex flex-row justify-between gap-20">
               <span className="text-gray-500">{labels.label}</span>
            </div>
-
            
             <div className="flex gap-2 items-center" onClick={showLabelModal}>
               {todoData.labels.map((label) => (
@@ -112,8 +99,31 @@ function WorkBoardDescription({
             </div>
             
           </div>
-        )}
+      
       </div>
+
+      <div className="flex flex-col">
+        <div className="flex flex-row justify-between gap-20">
+            <span className="text-gray-500">Members </span>
+          </div>
+          <div className="flex gap-2 items-center">
+                <Avatar
+                  isAvatarGroup={true}
+                  isTag={false}
+                  heading={"Members"}
+                  membersData={todoData?.members}
+                  text={"Danish"}
+                  image={"https://joeschmoe.io/api/v1/random"}
+                />
+              <div onClick={handleOpenMembers}>
+                <span className="p-2 px-3 cursor-pointer hover:bg-neutral-200 transition flex items-center bg-neutral-100 rounded-sm">
+                  <PlusOutlined className="!text-gray-600" />
+                </span>
+              </div>
+            </div>
+      </div>
+    </div>
+
 
       {/* <div className="flex gap-2 w-full">
 				<AlignLeftOutlined className="!text-gray-500 text-lg" />

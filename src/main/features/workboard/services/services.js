@@ -220,14 +220,13 @@ export const removeWorkBoardTodoLabelService = (data) => {
 export const addWorkBoardMemberService = (data) => {
   const id = data.id;
   let memberId = data.memberId;
-  let memberType = data.memberType;
-  console.log(data, "data");
-  return MasterConfig.post(`api/WorkBoard/AddWorkBoardMember?id=${id}`, [
+  let member = [
     {
       memberId: memberId,
-      memberType: memberType,
+      memberType: 1,
     },
-  ])
+  ];
+  return MasterConfig.post(`api/WorkBoard/AddWorkBoardMember?id=${id}`, member)
     .then((res) => {
       return res.data;
     })
@@ -237,10 +236,15 @@ export const addWorkBoardMemberService = (data) => {
 };
 
 export const addWorkBoardTodoMemberService = (data) => {
-  const id = data.id;
-  let memberId = data.memberId;
-  console.log(data, "data");
-  return MasterConfig.post(`api/WorkBoardTodo/AddWorkBoardTodoMember?id=${id}`, memberId)
+  console.log(data,"datataa");
+  const id = data.membersData.id;
+  let memberId = data.membersData.memberId;
+  let member = [
+    {
+      memberId: memberId,
+    },
+  ];
+  return MasterConfig.post(`api/WorkBoardTodo/AddWorkBoardTodoMember?id=${id}`, member)
     .then((res) => {
       return res.data;
     })
@@ -249,13 +253,37 @@ export const addWorkBoardTodoMemberService = (data) => {
     });
 };
 
-
-
-
-
-
 export const getWorkBoardMemberService = (id) => {
   return MasterConfig.get(`api/WorkBoard/GetAllWorkBoardMember?id=${id}`)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((error) => {
+      return error;
+    });
+};
+
+export const removeWorkBoardMemberService = (data) => {
+  const id = data.id;
+  const memberId = data.memberId;
+  return MasterConfig.post(`api/WorkBoard/RemoveWorkBoardMember?id=${id}`, [
+    memberId,
+  ])
+    .then((res) => { 
+      return res.data;
+    })
+    .catch((error) => {
+      return error;
+    });
+};
+
+export const removeWorkBoardTodoMemberService = (data) => {
+
+  const id = data.id;
+  const memberId = data.memberId;
+  return MasterConfig.post(`api/WorkBoardTodo/RemoveWorkBoardTodoMember?id=${id}`, [
+    memberId,
+  ])
     .then((res) => {
       return res.data;
     })

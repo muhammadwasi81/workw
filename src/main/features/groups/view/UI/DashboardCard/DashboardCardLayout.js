@@ -1,13 +1,14 @@
-import { memo } from 'react';
-import { Card } from 'antd';
-import Avatar from '../../../../../sharedComponents/Avatar/avatar';
-import PublicPrivateIcon from '../../../../../sharedComponents/PublicPrivateIcon/PublicPrivateIcon';
-import { useDispatch } from 'react-redux';
-import QuickOptions from '../../../quickOptions/index';
-import { StarFilled, StarOutlined } from '@ant-design/icons';
-import { handleFavoriteMark } from '../../../store/slice';
-import { addGroupFavoriteMarkAction } from '../../../store/actions';
-import PropTypes from 'prop-types';
+import { memo } from "react";
+import { Card } from "antd";
+import Avatar from "../../../../../sharedComponents/Avatar/avatar";
+import PublicPrivateIcon from "../../../../../sharedComponents/PublicPrivateIcon/PublicPrivateIcon";
+import { useDispatch } from "react-redux";
+import QuickOptions from "../../../quickOptions/index";
+import { StarFilled, StarOutlined } from "@ant-design/icons";
+import { handleFavoriteMark } from "../../../store/slice";
+import { addGroupFavoriteMarkAction } from "../../../store/actions";
+import PropTypes from "prop-types";
+import { CommentOutlined } from "@ant-design/icons";
 
 function DashboardCardLayout({
   data = {},
@@ -53,7 +54,7 @@ function DashboardCardLayout({
           title={data.name}
           description={
             <div className="flex items-center gap-1 w-full">
-              <PublicPrivateIcon id={data.privacyId} />{' '}
+              <PublicPrivateIcon id={data.privacyId} />{" "}
               <div className="flex items-center justify-between w-full">
                 <span className="text-ellipsis whitespace-nowrap overflow-hidden w-[150px]">
                   {data.description}
@@ -67,27 +68,25 @@ function DashboardCardLayout({
             <Avatar
               isAvatarGroup={true}
               isTag={false}
-              heading={'Members'}
+              heading={"Members"}
               membersData={data.members}
             />
           </div>
-          <div className="flex  justify-between">
-            <div className="flex justify-between m-2">
-              <div className={`halfHeader `}>
-                <img src={chatIcon} alt="chatIcon" loading="lazy" width={20} />
-              </div>
-              <div
-                onClick={(e) => handleFavorite(e)}
-                className="relative bottom-2 right-1 mr-1 mt-1"
-              >
-                {data.isPinnedPost ? (
-                  <StarFilled className="!text-[18px] !text-yellow-400 cursor-pointer" />
-                ) : (
-                  <StarOutlined className="!text-[18px] cursor-pointer !text-[#707070]" />
-                )}
-              </div>
-              <QuickOptions data={data} onClick={(e) => menuHandler(e)} />
+          <div className="flex">
+            <div className="relative bottom-1 right-1 mr-1 mt-1">
+              <CommentOutlined className="!text-[18px] cursor-pointer !text-[#707070]" />
             </div>
+            <div
+              onClick={(e) => handleFavorite(e)}
+              className="relative bottom-1 mr-1 mt-1"
+            >
+              {data.isPinnedPost ? (
+                <StarFilled className="!text-[18px] !text-yellow-400 cursor-pointer" />
+              ) : (
+                <StarOutlined className="!text-[18px] cursor-pointer !text-[#707070]" />
+              )}
+            </div>
+            <QuickOptions data={data} onClick={(e) => menuHandler(e)} />
           </div>
         </div>
       </Card>

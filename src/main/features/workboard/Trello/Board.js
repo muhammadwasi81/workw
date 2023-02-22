@@ -264,16 +264,17 @@ function Board() {
           ) : (
 
             <>
-            <Button
-                onClick={showModal}
-                icon={<PlusOutlined />}
-                className="ml-[990px] ant-btn ant-btn-default ant-btn-sm ant-btn-background-ghost 
-                !bg-transparent !flex !items-center !border-none !text-[#5e6c84] 
-                hover:!text-[#172b4d] hover:!bg-[#091e4214] !text-sm w-full"
-                ghost={true}
-                size="small">AddTodo
-              </Button>
-
+             <div className="float-right">
+                <Button
+                  onClick={showModal}
+                  icon={<PlusOutlined />}
+                  className="ant-btn ant-btn-default ant-btn-sm ant-btn-background-ghost 
+                  !bg-transparent !items-center !flex !border-none !text-[#5e6c84] 
+                  hover:!text-[#172b4d] hover:!bg-[#091e4214] !text-sm w-full"
+                  ghost={true}
+                  size="small">Add Todo
+                </Button>
+              </div>
 
                <Modal 
                   footer={null}
@@ -292,7 +293,7 @@ function Board() {
                         onChange={handleChange}
                       />
                    </div>
-                   <span className="text-gray-500 font-bold ml-[3px]">Todo Text</span>
+                   <span className="text-gray-500 font-bold ml-[3px]">Todo Title</span>
                   <TableTodo onSave={addCard}/>
                </Modal>
             

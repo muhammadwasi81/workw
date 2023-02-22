@@ -3,18 +3,18 @@ import { ResponseType } from "../../../../../utils/api/ResponseResult";
 // import { jsonToFormData, STRINGS } from "../../../../../../utils/base";
 import { openNotification } from "../../../../../utils/Shared/store/slice";
 import {
-  getAllTeamsService,
+  getAllCompanyService,
+  getCompanyByIdService,
   getAllRewardService,
   getAllLoanService,
   getAllComplainService,
   getAllSignupService,
 } from "../services/service";
 
-export const getTeamsAction = createAsyncThunk(
-  "teamSlice/getTeamsAction",
+export const getCompanyAction = createAsyncThunk(
+  "getCompanyAction",
   async (payload, { rejectWithValue, dispatch }) => {
-    const response = await getAllTeamsService(payload);
-    // console.log(response, "TEAM SERVICE");
+    const response = await getAllCompanyService(payload);
     switch (response.type) {
       case ResponseType.ERROR:
         return rejectWithValue(response.errorMessage);
@@ -24,6 +24,26 @@ export const getTeamsAction = createAsyncThunk(
             // message: "Team added Successfully!",
             type: "success",
             //   duration: 2
+          })
+        );
+        return response.data;
+      default:
+        return;
+    }
+  }
+);
+
+export const getCompanyByIdAction = createAsyncThunk(
+  "getCompanyByIdAction",
+  async (payload, { rejectWithValue, dispatch }) => {
+    const response = await getCompanyByIdService(payload);
+    switch (response.type) {
+      case ResponseType.ERROR:
+        return rejectWithValue(response.errorMessage);
+      case ResponseType.SUCCESS:
+        dispatch(
+          openNotification({
+            type: "success",
           })
         );
         return response.data;
@@ -106,7 +126,7 @@ export const getAllSignupAction = createAsyncThunk(
   async (payload, { rejectWithValue, dispatch }) => {
     const response = await getAllSignupService(payload);
     console.log(response, "getAllSignupAction");
-   
+
     switch (response.type) {
       case ResponseType.ERROR:
         return rejectWithValue(response.errorMessage);

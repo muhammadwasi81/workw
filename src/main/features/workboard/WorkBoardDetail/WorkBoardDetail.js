@@ -134,20 +134,12 @@ function WorkBoardDetail({ todoDetail }) {
             </div>
             <div className="w-full sm:basis-3/12 mt-5 sm:mt-[50px]">
               <div className="flex flex-col gap-5">
-              <div className="members"> 
-								</div>
 									
-                {/* <MemberCollapse
-                  handleAdd={addMembers}
-                  data={workboardsListData?.members}
-                  isMember={true}
-                  ghost={false}
-                /> */}
-                <TrelloThemeButton
+                {/* <TrelloThemeButton
                   text={labels.label}
                   icon={<TagOutlined />}
                   onClick={showLabelModal}
-                />
+                /> */}
                 {/* <TrelloThemeButton
 									text={"Check List"}
 									icon={<CheckSquareOutlined />}
@@ -174,12 +166,6 @@ function WorkBoardDetail({ todoDetail }) {
           </div>
         </div>
       </div>
-
-      {/* <MemberModal
-				onSave={onSave}
-				showModal={showModal}
-				isModalVisible={isModalVisible}
-			/> */}
       <LabelModal
         showLabelModal={showLabelModal}
         isLabelModalVisible={isLabelModalVisible}

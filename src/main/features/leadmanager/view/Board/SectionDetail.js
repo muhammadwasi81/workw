@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react';
+import { useState, useContext, useEffect } from "react";
 import {
   Avatar,
   Button,
@@ -9,38 +9,38 @@ import {
   Radio,
   Tag,
   Tooltip,
-} from 'antd';
-import { FaGlobe, FaUserAlt, FaUserPlus } from 'react-icons/fa';
+} from "antd";
+import { FaGlobe, FaUserAlt, FaUserPlus } from "react-icons/fa";
 import {
   EnvironmentFilled,
   MailFilled,
   PhoneFilled,
   PlusCircleFilled,
-} from '@ant-design/icons';
-import { useDispatch, useSelector } from 'react-redux';
-import './sectionDetail.css';
-import CommentWrapper from '../../../../sharedComponents/Comment/CommentWrapper';
-import UploadBgImg from '../../../workboard/WorkBoardDetail/UploadBgImg';
+} from "@ant-design/icons";
+import { useDispatch, useSelector } from "react-redux";
+import "./sectionDetail.css";
+import CommentWrapper from "../../../../sharedComponents/Comment/CommentWrapper";
+import UploadBgImg from "../../../workboard/WorkBoardDetail/UploadBgImg";
 import {
   getAllLeadManagerContactDetail,
   updateLeadManagerDetail,
   getAllScheduleAction,
-} from '../../store/actions';
-import { getNameForImage, jsonToFormData } from '../../../../../utils/base';
-import SectionDetailSkeleton from '../../UI/Skeleton/SectionDetailSkeleton';
-import { DEFAULT_GUID } from '../../../../../utils/constants';
-import { LeadManagerDictionary } from '../../localization';
-import { LanguageChangeContext } from '../../../../../utils/localization/localContext/LocalContext';
-import AvatarGroup from '../../../../sharedComponents/Avatar/AvatarGroup';
-import CreateSchedule from '../../../schedule/view/createSchedule';
-import Calender from '../../../../../content/NewContent/leadManager/svg/Calender-ic.svg';
-import RefreshIcon from '../../../../../content/NewContent/leadManager/svg/refresh.svg';
-import './event.css';
-import Event from './event';
-import EventDetail from '../../../schedule/view/eventDetail';
-import { toggleEventDetailComposer } from '../../../schedule/store/slice';
-import { useParams } from 'react-router-dom';
-import { ScheduleReferenceTypeEnum } from '../../enum/enum';
+} from "../../store/actions";
+import { getNameForImage, jsonToFormData } from "../../../../../utils/base";
+import SectionDetailSkeleton from "../../UI/Skeleton/SectionDetailSkeleton";
+import { DEFAULT_GUID } from "../../../../../utils/constants";
+import { LeadManagerDictionary } from "../../localization";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+import AvatarGroup from "../../../../sharedComponents/Avatar/AvatarGroup";
+import CreateSchedule from "../../../schedule/view/createSchedule";
+import Calender from "../../../../../content/NewContent/leadManager/svg/Calender-ic.svg";
+import RefreshIcon from "../../../../../content/NewContent/leadManager/svg/refresh.svg";
+import "./event.css";
+import Event from "./event";
+import EventDetail from "../../../schedule/view/eventDetail";
+import { toggleEventDetailComposer } from "../../../schedule/store/slice";
+import { useParams } from "react-router-dom";
+import { ScheduleReferenceTypeEnum } from "../../enum/enum";
 
 const { Panel } = Collapse;
 
@@ -58,7 +58,7 @@ function SectionDetail(props) {
   const [image, setImage] = useState(
     data?.image
       ? data.image
-      : 'https://gocrm.io/wp-content/uploads/2020/09/lead-management.jpg'
+      : "https://gocrm.io/wp-content/uploads/2020/09/lead-management.jpg"
   );
   const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -95,7 +95,7 @@ function SectionDetail(props) {
       updateLeadManagerDetail(
         jsonToFormData({
           image: {
-            id: typeof image === 'object' ? DEFAULT_GUID : data.imageId,
+            id: typeof image === "object" ? DEFAULT_GUID : data.imageId,
             file: image ? image : null,
           },
           ...values,
@@ -110,7 +110,7 @@ function SectionDetail(props) {
   }
 
   const handleRefresh = (e) => {
-    console.log('refresh');
+    console.log("refresh");
     e.preventDefault();
     e.stopPropagation();
     dispatch(
@@ -142,7 +142,7 @@ function SectionDetail(props) {
               <div
                 className="bg-gray-500 absolute text-white w-full bottom-0 left-0 flex justify-center py-3 bg-opacity-90 rounded-b-2xl cursor-pointer hover:bg-opacity-95 transition hover:font-semibold"
                 onClick={() => {
-                  console.log('upload');
+                  console.log("upload");
                 }}
               >
                 {labels.uplpadImage}
@@ -152,13 +152,13 @@ function SectionDetail(props) {
           <div className="flex justify-end gap-2 items-center">
             <AvatarGroup
               membersData={data?.members}
-              nestedObjProperty={'member'}
+              nestedObjProperty={"member"}
             />
             <Tooltip title="Select Assign Members">
               <PlusCircleFilled
                 className="!text-[20px] !cursor-pointer !text-primary-color"
                 onClick={() => {
-                  handleSelectedMembers('', data?.members);
+                  handleSelectedMembers("", data?.members);
                   handleMemberModal(data.id);
                   setLeadSectionId(data.sectionId);
                 }}
@@ -204,10 +204,10 @@ function SectionDetail(props) {
             <Form.Item
               name="emailAddress"
               label={<span className="text-primary-color">{detail.email}</span>}
-              rules={[{ required: true }, { type: 'email' }]}
+              rules={[{ required: true }, { type: "email" }]}
             >
               <Input
-                type={'email'}
+                type={"email"}
                 prefix={<MailFilled className="!text-gray-500" />}
                 placeholder={placeHolder.leadEmailAddress}
               />
@@ -252,7 +252,7 @@ function SectionDetail(props) {
           <div className="bg-neutral-100 p-2 rounded-lg h-fit">
             <Collapse
               bordered={false}
-              defaultActiveKey={['1']}
+              defaultActiveKey={["1"]}
               ghost={true}
               expandIconPosition="end"
               className="site-collapse-custom-collapse !overflow-hidden"
@@ -325,7 +325,7 @@ function SectionDetail(props) {
           <div className="bg-neutral-100 p-2 rounded-lg h-fit">
             <Collapse
               bordered={false}
-              defaultActiveKey={['1']}
+              defaultActiveKey={["1"]}
               ghost={true}
               expandIconPosition="end"
               className="site-collapse-custom-collapse !overflow-hidden"
@@ -415,7 +415,7 @@ function SectionDetail(props) {
         </section>
       </div>
       <Drawer
-        title={'Create Schedule'}
+        title={"Create Schedule"}
         width="768"
         onClose={() => {
           setIsOpen(false);

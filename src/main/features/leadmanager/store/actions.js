@@ -88,6 +88,7 @@ export const updateLeadManager = createAsyncThunk(
   "updateLeadManager",
   async (data, { dispatch, getState, rejectWithValue }) => {
     const res = await updateLeadManagerService(data);
+    console.log(res, "Responsee");
     if (res.responseCode === responseCode.Success) {
       dispatch(
         openNotification({

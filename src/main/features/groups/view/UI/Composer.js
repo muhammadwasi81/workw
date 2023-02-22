@@ -18,6 +18,8 @@ import {
 } from "../../../../../utils/Shared/enums/enums";
 import FeatureSelect from "../../../../sharedComponents/FeatureSelect/Index";
 import PrivacyOptions from "../../../../sharedComponents/PrivacyOptionsDropdown/PrivacyOptions";
+import { addGroupFeaturesAction } from "../../store/actions";
+import { useParams } from "react-router-dom";
 
 const initialState = {
   id: "",
@@ -33,15 +35,16 @@ const Composer = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, groupsDictionary } = groupsDictionaryList[userLanguage];
   const { labels, placeHolders, errors, features } = groupsDictionary;
-  const { loader } = useSelector((state) => state.groupSlice);
+  const { loader, createLoader } = useSelector((state) => state.groupSlice);
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const [profileImage, setProfileImage] = useState("");
   const { detail, update = false, id } = props;
-  // const [state, setState] = useState(initialState);
   const [privacyId, setPrivacyId] = useState(1);
   const [memberList, setMemberList] = useState([]);
+  const { groupId } = useParams();
 
+  const [feature, setFeature] = useState([]);
   const onPrivacyChange = (value) => {
     setPrivacyId(value);
   };
@@ -122,6 +125,18 @@ const Composer = (props) => {
     }
   }, [detail]);
 
+  const onFeatureHandler = (featureId, checked) => {
+    if (checked) {
+      form.setFieldsValue({
+        features: [...form.getFieldValue("features"), { featureId: featureId }],
+      });
+      const payload = {
+        featureId: featureId,
+        groupId: groupId,
+      };
+      setFeature(payload);
+    }
+  };
   return (
     <>
       <Form
@@ -198,6 +213,7 @@ const Composer = (props) => {
             features={features}
             form={form}
             notIncludeFeature={FeaturesEnum.Travel}
+            onChange={onFeatureHandler}
           />
         )}
 
@@ -213,7 +229,7 @@ const Composer = (props) => {
               className="ThemeBtn"
               block
               htmlType="submit"
-              // loading={loader}
+              loading={createLoader}
               // onClick={onFinish}
             >
               {update

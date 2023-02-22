@@ -2288,3 +2288,11 @@ export const getEnumValue = (objEnum, enumTypeId) => {
   const result = objEnum.filter((item) => item.value === enumTypeId);
   return result.label;
 };
+
+
+
+export const callingWindowOptions = "location=yes,height=800,width=800,scrollbars=yes,status=yes";
+
+export const handleOpenCallWindow = (callURL, windowOptions) => {
+  window.open(callURL, "_blank", windowOptions);
+};

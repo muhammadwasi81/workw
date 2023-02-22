@@ -6,13 +6,13 @@ import {
 import Config from "../../../../utils/services/MasterConfig";
 import { responseCode as responseCodeEnum } from "../../../../services/enums/responseCode";
 
-export const getAllTeamsService = async (request) => {
+export const getAllTeamsService = async (userId) => {
   // let request = getAllTeam_TD(data);
   // console.log(request, "REQUEST TEAM");
   try {
     const {
       data: { responseCode, data, message },
-    } = await Config.get(`api/Employee/GetAllEmployeeShort`);
+    } = await Config.get(`api/Employee/GetAllTeamByUserId?userId=${userId}`);
     // console.log(responseCode, "REQUEST TEAM RESPONSE");
 
     if (responseCode === responseCodeEnum.Success)
@@ -43,7 +43,9 @@ export const getAllCoursesService = async (id) => {
   try {
     const {
       data: { responseCode, data, message },
-    } = await Config.get(`api/ELearning/GetELearningCourseCurriculumTopicAttemptByMe?userId=${id}`);
+    } = await Config.get(
+      `api/ELearning/GetELearningCourseCurriculumTopicAttemptByMe?userId=${id}`
+    );
     console.log(responseCode, "response code");
     if (responseCode === responseCodeEnum.Success)
       return ResponseResultSuccess(data);
@@ -67,9 +69,6 @@ export const getAllAppraisalService = async (id) => {
     return ResponseResultError(e);
   }
 };
-
-
-
 
 export const getAllLoanService = async (id) => {
   // console.log(request, "REQUEST");
@@ -172,4 +171,19 @@ export const getDeviceInfoService = async (payload) => {
   // } catch (err) {
   //   return err;
   // }
+};
+
+export const addTeamMemberService = async (payload) => {
+  try {
+    const {
+      data: { responseCode, data, message },
+    } = await Config.put(
+      `api/Employee/updateManager?userId=${payload.userId}&managerId=${payload.managerId}`
+    );
+    console.log(data, "AddUserEmergencyContact service");
+    if (responseCode === 1001) return ResponseResultSuccess(data);
+    return ResponseResultError(message);
+  } catch (e) {
+    return ResponseResultError(e);
+  }
 };

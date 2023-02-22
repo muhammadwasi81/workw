@@ -45,12 +45,14 @@ function ListItem({ item, onClick, onClickMyCareer }) {
   const mangerArrFunc = (manager) => {
     let newArr = [];
     let innerObj = {};
-    if (manager) {
-      innerObj = { member: manager };
-      newArr.push(innerObj);
+    if (Object.keys(manager).length > 0) {
+      innerObj = { user: manager };
+      newArr.push(manager);
     }
     return newArr;
   };
+
+  console.log(item, "item");
 
   return (
     <>
@@ -123,12 +125,14 @@ function ListItem({ item, onClick, onClickMyCareer }) {
           <div className="cardSectionItem">
             <div className="cardSection__title">{labels.manager}</div>
             <div className="cardSection__body">
-              {manager && (
+              {Object.keys(manager).length > 0 && (
                 <Avatar
                   isAvatarGroup={true}
                   isTag={false}
                   heading={"Managers"}
-                  membersData={manager ? mangerArrFunc(manager) : []}
+                  // membersData={mangerArrFunc(manager)}
+                  // membersData={manager ? [manager] : []}
+                  membersData={[]}
                   text={"manager"}
                   image={"https://joeschmoe.io/api/v1/random"}
                 />

@@ -35,9 +35,9 @@ function BoardTopBar({ handleView, handleSearch, onEmailClick = () => {} }) {
         },
       ]}
       buttons={[]}
-      // filter={{
-      // 	onFilter: () => {},
-      // }}
+      filter={{
+        onFilter: () => {},
+      }}
       segment={{
         onSegment: (value) => {
           handleView(value);

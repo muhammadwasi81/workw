@@ -4,14 +4,13 @@ import { message, Modal } from "antd";
 import { useSelector } from "react-redux";
 import CustomSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 import ApproverListItem from "../../../sharedComponents/AppComponents/Approvals/components/approverList";
-import {addWorkBoardTodoMember} from "../store/action";
-// import {
-//   addBookMember,
-//   getAllBookMember,
-//   getAllLeadManagerMember,
-//   addLeadManagereMember,
-//   deleteLeadManagerById,
-// } from "../../store/actions";
+import 
+{
+  addWorkBoardTodoMemberAction,
+  removeToDoMemebr,
+} 
+  from "../store/action";
+import { NoDataFound } from "../Dashboard";
 import { useParams } from "react-router-dom";
 import { addMember } from "../store/slice";
 import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
@@ -20,11 +19,10 @@ import { getAllEmployees } from "../../../../utils/Shared/store/actions";
 import { data } from "jquery";
 
 function MemberModal({ isOpen = false, data }) {
+  console.log(data,"dataaa");
   const dispatch = useDispatch();
 
-  const modalRequest = useSelector(
-    (state) => state.leadMangerSlice.addMemberModal
-  );
+  const modalRequest = useSelector((state) => state.trelloSlice.addMemberModal);
 
   console.log(modalRequest,"modalRequest");
   const employees = useSelector((state) => state.sharedSlice.employees);
@@ -61,7 +59,7 @@ function MemberModal({ isOpen = false, data }) {
     if (membersData.memberId === b) {
       return message.error("Member Already Added");
     } else {
-      dispatch(addWorkBoardTodoMember(membersData));
+      dispatch(addWorkBoardTodoMemberAction({membersData}));
     }
   };
 
@@ -78,7 +76,7 @@ function MemberModal({ isOpen = false, data }) {
       id: data.id,
       memberId: memberId,
     };
-    //dispatch(deleteLeadManagerById(membersData));
+    dispatch(removeToDoMemebr(membersData));
   };
   return (
     <Modal
@@ -125,11 +123,17 @@ function MemberModal({ isOpen = false, data }) {
           },
         ]}
       />
-      <ApproverListItem
-        className="AddMemberModal"
-        data={data.members}
-        handleDelete={handleDeleteMember}
-      />
+      {data.members?.length > 0 ? (
+        <ApproverListItem
+          className="AddMemberModal"
+          data={data.members}
+          handleDelete={handleDeleteMember}
+        />
+      ):
+      (
+       <NoDataFound></NoDataFound>
+      )}
+
     </Modal>
   );
 }

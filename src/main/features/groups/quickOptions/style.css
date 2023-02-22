@@ -1,13 +1,12 @@
-.menuIcon img {
+/* .menuIcon img {
   height: 17px;
   padding-right: 3px;
   box-shadow: 0 3px 10px rgba(184, 173, 173, 0.2);
+} */
+.three-dot {
+  color: #707070;
+  text-shadow: 10px 10px 10px #707070 !important;
 }
-
-.menuIcon {
-  cursor: pointer;
-}
-
 .docsPopover .ant-popover-inner-content {
   padding: 5px;
 }

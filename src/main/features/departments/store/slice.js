@@ -45,6 +45,23 @@ const departmentSlice = createSlice({
     handleParentId: (state, { payload }) => {
       state.parentId = payload;
     },
+    addDepartmentMember: (state, { payload }) => {
+      //TODO: replace the response with existing id object
+      const newDepartMember = state.departments.map((item, i) => {
+        if (item.id === payload[0].departmentId) {
+          let members = [...item.members, payload[0]];
+          let newItem = {
+            ...item,
+            members,
+          };
+          return newItem;
+        } else {
+          return item;
+        }
+      });
+
+      state.departments = newDepartMember;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -99,10 +116,23 @@ const departmentSlice = createSlice({
           state.success = true;
         }
       )
-      .addCase(addDepartmentMemberAction.fulfilled, (state, { payload }) => {})
+      .addCase(addDepartmentMemberAction.fulfilled, (state, { payload }) => {
+        if (state.departmentDetail) {
+          //TODO: check if response is empty
+          if (payload.data?.length) {
+            let newMembers = [
+              ...state.departmentDetail.members,
+              payload.data[0],
+            ];
+            state.departmentDetail = {
+              ...state.departmentDetail,
+              members: newMembers,
+            };
+          }
+        }
+      })
 
       .addCase(getDepartmentMemberAction.fulfilled, (state, { payload }) => {
-        console.log(payload);
         state.departmentMembers = payload.length > 0 ? payload : [];
       })
       .addMatcher(isPending(...[addDepartment]), (state) => {
@@ -147,5 +177,6 @@ export const {
   toggleCreateComposer,
   handleParentId,
   addMember,
+  addDepartmentMember,
 } = departmentSlice.actions;
 export default departmentSlice.reducer;

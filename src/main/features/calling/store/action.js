@@ -2,7 +2,9 @@ import { addDeviceService, createRoomService, instantCallService } from "../serv
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { responseCode } from "../../../../services/enums/responseCode";
 import { openNotification } from "../../../../utils/Shared/store/slice";
-import { handleCreateRoomModal } from "./slice";
+import { handleCreateRoomModal, handleOutgoingCall } from "./slice";
+import { servicesUrls } from "../../../../utils/services/baseURLS";
+import { callingWindowOptions } from "../../../../utils/base";
 
 export const createRoom = createAsyncThunk(
 	"createRoom",
@@ -18,6 +20,13 @@ export const createRoom = createAsyncThunk(
 				})
 			);
 			dispatch(handleCreateRoomModal());
+			dispatch(handleOutgoingCall({
+				isOpen: true,
+				status: 0,
+				members: data.members.map(member => member.user),
+				roomId: res.data.roomId
+			}))
+			// window.open(servicesUrls.callingSocket + res.data.roomId, "_blank", callingWindowOptions);
 			return res;
 		} else {
 			dispatch(

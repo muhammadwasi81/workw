@@ -16,6 +16,7 @@ import { jsonToFormData } from "../../../../utils/base";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import PrivacyOptions from "../../../sharedComponents/PrivacyOptionsDropdown/PrivacyOptions";
+import { useParams } from "react-router-dom";
 
 const { RangePicker } = DatePicker;
 
@@ -43,7 +44,10 @@ const Composer = (props) => {
   const [form] = Form.useForm();
   const [profileImage, setProfileImage] = useState(null);
   const [privacyId, setPrivacyId] = useState(1);
+  const [feature, setFeature] = useState([]);
+  console.log(feature, "featuree composerr");
 
+  const { projectId } = useParams();
   const onPrivacyChange = (value) => {
     setPrivacyId(value);
   };
@@ -69,7 +73,6 @@ const Composer = (props) => {
   const { detail, update, id } = props;
   const onFinish = () => {
     const values = form.getFieldsValue(true);
-
     let startDate = "";
     let endDate = "";
     if (values.startEndDate) {
@@ -147,7 +150,18 @@ const Composer = (props) => {
       // setProfileImage(detail.image);
     }
   }, [detail]);
-
+  const onFeatureHandler = (featureId, checked) => {
+    if (checked) {
+      form.setFieldsValue({
+        features: [...form.getFieldValue("features"), { featureId: featureId }],
+      });
+      const payload = {
+        featureId: featureId,
+        projectId: projectId,
+      };
+      setFeature(payload);
+    }
+  };
   return (
     <>
       <Form
@@ -276,7 +290,11 @@ const Composer = (props) => {
           </>
         )}
 
-        <FeatureSelect features={features} form={form} />
+        <FeatureSelect
+          features={feature}
+          form={form}
+          onChange={onFeatureHandler}
+        />
 
         <Form.Item>
           <div className="flex items-center gap-2">

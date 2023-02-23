@@ -98,7 +98,10 @@ export const addGroupFeaturesService = (data) => {
   // const id = data.find((feature) => feature.groupId)?.groupId;
   const id = data.id;
 
-  return MasterConfig.post(`api/Group/AddGroupFeatures?id=${id}`, data.payload)
+  return MasterConfig.post(
+    `api/Group/AddGroupFeatures?groupId=${id}`,
+    data.payload
+  )
     .then((res) => {
       return res.data;
     })

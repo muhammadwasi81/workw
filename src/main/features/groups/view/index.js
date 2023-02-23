@@ -21,6 +21,7 @@ import Spinner from "../../../sharedComponents/spinner/spinner";
 import useDebounce from "../../../../utils/Shared/helper/use-debounce";
 import { handleOpenComposer } from "../store/slice";
 import { FeaturePermissionEnum } from "../../../../utils/Shared/enums/featuresEnums";
+import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
 
 const Groups = (props) => {
   const dispatch = useDispatch();
@@ -35,7 +36,7 @@ const Groups = (props) => {
 
 
   const [tableView, setTableView] = useState(false);
-  const { groups, success, getDataLoading, drawerOpen } = useSelector(
+  const { groups, success, getDataLoading, drawerOpen, loader } = useSelector(
     (state) => state.groupSlice
   );
 
@@ -100,28 +101,23 @@ const Groups = (props) => {
           }}
         />
         <ContBody className="!block" direction={Direction}>
-          {getDataLoading ? (
-            <Spinner />
-          ) : groups?.length > 0 ? (
-            tableView ? (
-              <Table
-                columns={tableColumn(groupsDictionary)}
-                dragable={true}
-                data={groups}
-              />
-            ) : (
-              <>
-                <GridView
-                  data={groups ? groups : []}
-                  loading={getDataLoading}
-                  dispatch={dispatch}
-                  handleClickNavigation={handleClickNavigation}
-                  dictionary={groupsDictionary}
-                />
-              </>
-            )
+          {tableView && (
+            <Table
+              columns={tableColumn(groupsDictionary)}
+              dragable={true}
+              data={groups}
+            />
+          )}
+          {groups.length > 0 && !loader && !tableView ? (
+            <GridView
+              data={groups ? groups : []}
+              loading={getDataLoading}
+              dispatch={dispatch}
+              handleClickNavigation={handleClickNavigation}
+              dictionary={groupsDictionary}
+            />
           ) : (
-            "Data not found"
+            !loader && !tableView && <NoDataFound />
           )}
         </ContBody>
       </TabbableContainer>

@@ -46,7 +46,6 @@ const Composer = (props) => {
   const [privacyId, setPrivacyId] = useState(1);
   const [feature, setFeature] = useState([]);
 
-  console.log(feature, "feature");
   const { projectId } = useParams();
   const onPrivacyChange = (value) => {
     setPrivacyId(value);

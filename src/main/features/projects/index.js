@@ -1,29 +1,29 @@
-import { useEffect, useContext, useState } from 'react';
+import { useEffect, useContext, useState } from "react";
 import {
   ContBody,
   TabbableContainer,
-} from '../../sharedComponents/AppComponents/MainFlexContainer';
-import { projectsDictionaryList } from './localization/index';
-import { LanguageChangeContext } from '../../../utils/localization/localContext/LocalContext';
-import ListItem from './UI/ListItem';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { getAllProjects } from './store/actions';
-import { CardWrapper2 } from '../../sharedComponents/Card/CardStyle';
-import { tableColumn } from './UI/TableColumn';
-import { Table } from '../../sharedComponents/customTable';
-import ProjectTopBar from './view/ProjectTopBar/ProjectTopBar';
-import useDebounce from '../../../utils/Shared/helper/use-debounce';
-import { NoDataFound } from '../../sharedComponents/NoDataIcon';
-import { ROUTES } from '../../../utils/routes';
-import { Button, Drawer } from 'antd';
-import { handleComposer } from './store/slice';
-import Composer from './UI/Composer';
-import Header from '../../layout/header/index';
-import { PlusOutlined } from '@ant-design/icons';
+} from "../../sharedComponents/AppComponents/MainFlexContainer";
+import { projectsDictionaryList } from "./localization/index";
+import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
+import ListItem from "./UI/ListItem";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { getAllProjects } from "./store/actions";
+import { CardWrapper2 } from "../../sharedComponents/Card/CardStyle";
+import { tableColumn } from "./UI/TableColumn";
+import { Table } from "../../sharedComponents/customTable";
+import ProjectTopBar from "./view/ProjectTopBar/ProjectTopBar";
+import useDebounce from "../../../utils/Shared/helper/use-debounce";
+import { NoDataFound } from "../../sharedComponents/NoDataIcon";
+import { ROUTES } from "../../../utils/routes";
+import { Button, Drawer } from "antd";
+import { handleComposer } from "./store/slice";
+import Composer from "./UI/Composer";
+import Header from "../../layout/header/index";
+import { PlusOutlined } from "@ant-design/icons";
 
 const Projects = () => {
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const [tableView, setTableView] = useState(false);
   const [sortBy, setSortBy] = useState(1);
   const [pageSize, setPageSize] = useState(20);
@@ -61,7 +61,7 @@ const Projects = () => {
     setPageSize(pageSize);
     setPageNo(current);
     const { order } = sorter;
-    if (order === 'ascend') {
+    if (order === "ascend") {
       setSortBy(2);
       return;
     }
@@ -80,7 +80,7 @@ const Projects = () => {
           items={items}
           buttons={[
             {
-              buttonText: 'createTextBtn',
+              buttonText: "createTextBtn",
               render: (
                 <Button
                   className="ThemeBtn"
@@ -126,13 +126,13 @@ const Projects = () => {
           )}
           <Drawer
             open={isComposerOpen}
-            width={'786px'}
+            width={"786px"}
             onClose={handleEditComposer}
-            title={isEditComposer ? 'Update Project' : 'Create Project'}
-            className={'shared_drawer drawerSecondary'}
+            title={isEditComposer ? "Update Project" : "Create Project"}
+            className={"shared_drawer drawerSecondary"}
           >
             <Composer
-              buttonText={isEditComposer ? 'Update Project' : 'Create Project'}
+              buttonText={isEditComposer ? "Update Project" : "Create Project"}
               detail={projectDetail}
               update={isEditComposer}
               id={projectDetail?.id}

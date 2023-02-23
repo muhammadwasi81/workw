@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 
 function Header(props) {
 	const { createTextBtn } = props;
-	const success = useSelector(state => state.projectSlice.success);
+	const success = useSelector(state => state.projectSlice.success);z
 	return (
 		<Layout
 			buttons={[

@@ -12,6 +12,7 @@ function Avatar(props) {
   //       : props.heading === "Users"
   //       ? "user"
   //       : props.heading.split("s")[0].toLowerCase();
+
   const objProperty =
     props.heading === "Agents"
       ? "approver"
@@ -30,16 +31,14 @@ function Avatar(props) {
 
   return (
     <>
-      {props.membersData && props.membersData.length > 0 ?
-       (
+      {props.membersData && props.membersData.length > 0 ? (
         <AvatarGroup
           membersData={props.membersData}
           heading={props.heading}
           nestedObjProperty={objProperty}
           size={props.size}
         />
-      ) 
-      : (
+      ) : (
         <SingleItem data={props.membersData} />
       )}
     </>

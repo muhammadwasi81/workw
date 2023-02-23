@@ -110,16 +110,18 @@ function ListItem({ item, onClickApproval }) {
           <div className="cardSectionItem">
             <div className="cardSection__title">Manager</div>
             <div className="cardSection__body">
-              {/* {manager && (
+              {manager && (
                 <Avatar
                   isAvatarGroup={true}
                   isTag={false}
-                  heading={"Managers"}
-                  membersData={manager ? mangerArrFunc(manager) : []}
-                  text={"manager"}
+                  heading={"Users"}
+                  membersData={[{ user: manager }]}
+                  // membersData={manager ? [manager] : []}
+                  // membersData={[]}
+                  text={"user"}
                   image={"https://joeschmoe.io/api/v1/random"}
                 />
-              )} */}
+              )}
             </div>
           </div>
           <div className="cardSectionItem">

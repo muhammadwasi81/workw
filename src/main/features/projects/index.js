@@ -140,20 +140,20 @@ const Projects = () => {
             !loader && !tableView && <NoDataFound />
           )}
 
-          {/* <Drawer
+          <Drawer
             open={isComposerOpen}
             width={"786px"}
             onClose={handleEditComposer}
-            title={isEditComposer ? "Update Project" : "Create Project"}
+            title={"Update Project"}
             className={"shared_drawer drawerSecondary"}
           >
             <Composer
-              buttonText={isEditComposer ? "Update Project" : "Create Project"}
+              buttonText={"Update Project"}
               detail={projectDetail}
               update={isEditComposer}
               id={projectDetail?.id}
             />
-          </Drawer> */}
+          </Drawer>
         </ContBody>
       </TabbableContainer>
     </>

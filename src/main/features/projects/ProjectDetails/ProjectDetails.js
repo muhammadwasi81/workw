@@ -51,11 +51,13 @@ import { addMember } from "../store/slice";
 import MemberModal from "../UI/MemberModal";
 
 import ProjectInformation from "../UI/ProjectInformation";
-
+import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
+import { handleOpenComposer } from "../store/slice";
 function ProjectDetails() {
   const params = useParams();
   const dispatch = useDispatch();
   const detail = useSelector((state) => state.projectSlice.projectDetail);
+  const { drawerOpen } = useSelector((state) => state.projectSlice);
   const sticky = useSelector((state) => state.projectSlice.stickyArray);
   const [projectfeatures, setprojectFeatures] = useState([]);
   const [description, setDescription] = useState(null);
@@ -309,6 +311,7 @@ function ProjectDetails() {
           id={projectId}
         />
       </Drawer>
+
       {visible && <MemberModal data={detail} />}
     </>
   );

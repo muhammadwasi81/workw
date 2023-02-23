@@ -66,7 +66,7 @@ function SectionDetail(props) {
   const { detail, labels, placeHolder } = LeadManagerDictionaryList;
   const scheduleSuccess = useSelector((state) => state.scheduleSlice.success);
   const { meetingDetail } = useSelector((state) => state.leadMangerSlice);
-  console.log('meetingDetail', meetingDetail);
+  console.log("meetingDetail", meetingDetail);
   useEffect(() => {
     dispatch(
       getAllScheduleAction({
@@ -178,50 +178,58 @@ function SectionDetail(props) {
                 <Radio value={2}>{detail.individual}</Radio>
               </Radio.Group>
             </Form.Item>
-            <div className='flex gap-x-1.5'>
-                <div className='w-full'>
-                  <Form.Item
-                    label={<span className="text-primary-color">{detail.name}</span>}
-                    name="name"
-                    rules={[{ required: true }]}
-                  >
-                    <Input
-                      prefix={<FaUserAlt className="text-gray-500" />}
-                      placeholder={placeHolder.writeName}
-                    />
-                  </Form.Item>
-                </div>
-                <div className='w-full'>
-                  <Form.Item
-                      name="phoneNumber"
-                      label={
-                        <span className="text-primary-color">{detail.phoneNumber}</span>
-                      }
-                      rules={[{ required: true }]}
-                    >
-                      <Input
-                        prefix={<PhoneFilled rotate={90} className="!text-gray-500" />}
-                        placeholder={placeHolder.leadPhoneNumber}
-                        type="number"
-                      />
-                    </Form.Item>
-                </div>
-            </div>
-            <div className='flex gap-x-1.5'>
-              <div className='w-full'>
+            <div className="flex gap-x-1.5">
+              <div className="w-full">
                 <Form.Item
-                  name="emailAddress"
-                  label={<span className="text-primary-color">{detail.email}</span>}
-                  rules={[{ required: true }, { type: 'email' }]}
+                  label={
+                    <span className="text-primary-color">{detail.name}</span>
+                  }
+                  name="name"
+                  rules={[{ required: true }]}
                 >
                   <Input
-                    type={'email'}
+                    prefix={<FaUserAlt className="text-gray-500" />}
+                    placeholder={placeHolder.writeName}
+                  />
+                </Form.Item>
+              </div>
+              <div className="w-full">
+                <Form.Item
+                  name="phoneNumber"
+                  label={
+                    <span className="text-primary-color">
+                      {detail.phoneNumber}
+                    </span>
+                  }
+                  rules={[{ required: true }]}
+                >
+                  <Input
+                    prefix={
+                      <PhoneFilled rotate={90} className="!text-gray-500" />
+                    }
+                    placeholder={placeHolder.leadPhoneNumber}
+                    type="number"
+                  />
+                </Form.Item>
+              </div>
+            </div>
+            <div className="flex gap-x-1.5">
+              <div className="w-full">
+                <Form.Item
+                  name="emailAddress"
+                  label={
+                    <span className="text-primary-color">{detail.email}</span>
+                  }
+                  rules={[{ type: "email" }]}
+                >
+                  <Input
+                    type={"email"}
                     prefix={<MailFilled className="!text-gray-500" />}
                     placeholder={placeHolder.leadEmailAddress}
                   />
                 </Form.Item>
               </div>
-              <div className='w-full'>
+              <div className="w-full">
                 <Form.Item
                   name="address"
                   label={
@@ -242,7 +250,6 @@ function SectionDetail(props) {
               label={
                 <span className="text-primary-color">{detail.website}</span>
               }
-              rules={[{ required: true }]}
             >
               <Input
                 prefix={<FaGlobe className="!text-gray-500" />}

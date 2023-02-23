@@ -32,7 +32,6 @@ function GroupsInfo({ ghost = true }) {
   const detail = useSelector((state) => state.groupSlice.groupDetail);
 
   const { groupFeatures } = useSelector((state) => state.groupSlice);
-  console.log(groupFeatures, "group featuree");
 
   const [features, setFeatures] = useState([]);
   const [form] = Form.useForm();
@@ -48,7 +47,7 @@ function GroupsInfo({ ghost = true }) {
 
   useEffect(() => {
     let newFeatures;
-    if (groupFeatures.length) {
+    if (groupFeatures.length >= 0) {
       newFeatures = groupFeatures.map((item) => {
         return {
           featureId: item.featureId,
@@ -74,14 +73,8 @@ function GroupsInfo({ ghost = true }) {
       });
       dispatch(addGroupFeatures({ id: groupId, payload: newFeature }));
     } else {
-      //TODO: remove from state and fields
-      // let featureValue = form.getFieldValue("features");
-      // featureValue = featureValue.filter(
-      //   (filter) => filter.featureId !== featureId
-      // );
-      // form.setFieldsValue({
-      //   features: [...featureValue],
-      // });
+      //TODO: remove from state and field
+
       dispatch(
         removeGroupFeaturesAction({
           id: groupId,
@@ -157,12 +150,7 @@ function GroupsInfo({ ghost = true }) {
           closable={false}
           width={900}
         >
-          <FeatureSelect
-            features={groupFeatures}
-            form={form}
-            notIncludeFeature={FeaturesEnum.Travel}
-            onChange={onFeatureHandler}
-          />
+          <FeatureSelect checked={groupFeatures} onChange={onFeatureHandler} />
         </Modal>
       )}
     </>

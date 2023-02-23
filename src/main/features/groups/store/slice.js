@@ -17,7 +17,6 @@ const initialState = {
   loadingData: false,
   loader: false,
   createLoader: false,
-
   groupDetail: null,
   success: false,
   error: false,
@@ -94,9 +93,8 @@ const groupSlice = createSlice({
       favGroups.isPinnedPost = !favGroups.isPinnedPost;
     },
     removeGroupFeatures(state, { payload }) {
-      console.log(payload, "payload delete");
       state.groupFeatures = state.groupFeatures.filter(
-        (feature) => feature.id !== payload.id
+        (feature) => feature.featureId !== payload.featureId
       );
     },
   },
@@ -145,7 +143,6 @@ const groupSlice = createSlice({
         let newMembers = state.groupDetail.members.filter(
           (member) => member.memberId !== payload
         );
-
         state.groupDetail = { ...state.groupDetail, members: newMembers };
       })
       .addCase(addGroupFeatures.fulfilled, (state, { payload }) => {

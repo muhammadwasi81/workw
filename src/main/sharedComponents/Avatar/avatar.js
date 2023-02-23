@@ -12,6 +12,7 @@ function Avatar(props) {
   //       : props.heading === "Users"
   //       ? "user"
   //       : props.heading.split("s")[0].toLowerCase();
+
   const objProperty =
     props.heading === "member"
       ? "approver"

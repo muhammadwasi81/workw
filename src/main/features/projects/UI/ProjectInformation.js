@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ProjectSummary from "../view/ProjectSummary";
 import {
   addProjectFeature,
-  removeProjectFeatureAction,
+  removeProjectFeature,
   getProjectFeature,
 } from "../store/actions";
 import FeatureSelect from "../../../sharedComponents/FeatureSelect/Index";
@@ -36,7 +36,7 @@ function ProjectInformation({ ghost = true }) {
   }, []);
   useEffect(() => {
     let newFeatures;
-    if (projectFeature.length > 0) {
+    if (projectFeature.length >= 0) {
       newFeatures = projectFeature.map((item) => {
         return {
           featureId: item.featureId,
@@ -44,7 +44,6 @@ function ProjectInformation({ ghost = true }) {
         };
       });
     }
-
     setFeatures(newFeatures);
   }, [projectFeature]);
   const onFeatureHandler = (featureId, checked) => {
@@ -53,16 +52,18 @@ function ProjectInformation({ ghost = true }) {
         featureId: featureId,
         projectId: projectId,
       };
+
       let newPayload = [...features, payload];
       const newFeature = newPayload.map((item) => {
         return {
           featureId: item.featureId,
         };
       });
+
       dispatch(addProjectFeature({ id: projectId, payload: newFeature }));
     } else {
       dispatch(
-        removeProjectFeatureAction({
+        removeProjectFeature({
           id: projectId,
           featureId: featureId,
         })
@@ -118,12 +119,7 @@ function ProjectInformation({ ghost = true }) {
           closable={false}
           width={900}
         >
-          <FeatureSelect
-            // features={projectFeature}
-            // form={form}
-            // notIncludeFeature={FeaturesEnum.Travel}
-            onChange={onFeatureHandler}
-          />
+          <FeatureSelect checked={projectFeature} onChange={onFeatureHandler} />
         </Modal>
       )}
     </>

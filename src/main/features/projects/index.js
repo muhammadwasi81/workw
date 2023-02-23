@@ -17,12 +17,13 @@ import useDebounce from "../../../utils/Shared/helper/use-debounce";
 import { NoDataFound } from "../../sharedComponents/NoDataIcon";
 import { ROUTES } from "../../../utils/routes";
 import { Button, Drawer } from "antd";
-import { handleComposer, handleOpenComposer } from "./store/slice";
+import { handleComposer } from "./store/slice";
 import Composer from "./UI/Composer";
 import Header from "../../layout/header/index";
 import { PlusOutlined } from "@ant-design/icons";
+import { FeaturePermissionEnum } from "../../../utils/Shared/enums/featuresEnums";
 import SideDrawer from "../../sharedComponents/Drawer/SideDrawer";
-
+import { handleOpenComposer } from "./store/slice";
 const Projects = () => {
   const [search, setSearch] = useState("");
   const [tableView, setTableView] = useState(false);
@@ -37,6 +38,8 @@ const Projects = () => {
   ];
   const { createTextBtn, topBar } = projectsDictionary;
   const { projects, loader } = useSelector((state) => state.projectSlice);
+  const { user } = useSelector((state) => state.userSlice);
+  const userPermissions = user.permissions;
 
   useEffect(() => {
     dispatch(
@@ -82,33 +85,37 @@ const Projects = () => {
       <TabbableContainer>
         <Header
           items={items}
-          buttons={[
-            {
-              buttonText: "createTextBtn",
-              icon: <PlusOutlined className="relative bottom-1" />,
-              render: (
-                // <Button
-                //   className="ThemeBtn"
-                //   onClick={() => {
-                //     dispatch(handleComposer({ isOpen: true, isEdit: false }));
-                //   }}
-                // >
-                //   <PlusOutlined className="relative bottom-1" />
-                //   {createTextBtn}
-                // </Button>
+          buttons={
+            userPermissions.includes(FeaturePermissionEnum.CreateProject)
+              ? [
+                  {
+                    buttonText: "createTextBtn",
+                    icon: <PlusOutlined className="relative bottom-1" />,
+                    render: (
+                      // <Button
+                      //   className="ThemeBtn"
+                      //   onClick={() => {
+                      //     dispatch(handleComposer({ isOpen: true, isEdit: false }));
+                      //   }}
+                      // >
+                      //   <PlusOutlined className="relative bottom-1" />
+                      //   {createTextBtn}
+                      // </Button>
 
-                <SideDrawer
-                  title={createTextBtn}
-                  buttonText={createTextBtn}
-                  handleClose={() => dispatch(handleOpenComposer(false))}
-                  handleOpen={() => dispatch(handleOpenComposer(true))}
-                  isOpen={drawerOpen}
-                >
-                  <Composer />
-                </SideDrawer>
-              ),
-            },
-          ]}
+                      <SideDrawer
+                        title={createTextBtn}
+                        buttonText={createTextBtn}
+                        handleClose={() => dispatch(handleOpenComposer(false))}
+                        handleOpen={() => dispatch(handleOpenComposer(true))}
+                        isOpen={drawerOpen}
+                      >
+                        <Composer />
+                      </SideDrawer>
+                    ),
+                  },
+                ]
+              : []
+          }
         />
         <ProjectTopBar
           handleView={(isTable) => {

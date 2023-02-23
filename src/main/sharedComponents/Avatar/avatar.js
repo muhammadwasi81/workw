@@ -13,7 +13,7 @@ function Avatar(props) {
   //       ? "user"
   //       : props.heading.split("s")[0].toLowerCase();
   const objProperty =
-    props.heading === "Agents"
+    props.heading === "member"
       ? "approver"
       : props.heading.slice(0, props.heading.length - 1).toLowerCase();
 
@@ -27,19 +27,17 @@ function Avatar(props) {
   // 	props.membersData[0][objProperty] !== null &&
   // 	props.membersData[0][objProperty] !== undefined &&
   // 	props.membersData[0][objProperty]?.image;
-
+  console.log(props.membersData);
   return (
     <>
-      {props.membersData && props.membersData.length > 0 ?
-       (
+      {props.membersData && props.membersData.length > 0 ? (
         <AvatarGroup
           membersData={props.membersData}
           heading={props.heading}
           nestedObjProperty={objProperty}
           size={props.size}
         />
-      ) 
-      : (
+      ) : (
         <SingleItem data={props.membersData} />
       )}
     </>

@@ -1,12 +1,12 @@
-import { createAsyncThunk, isRejectedWithValue } from "@reduxjs/toolkit";
-import { responseCode } from "../../../../services/enums/responseCode";
+import { createAsyncThunk, isRejectedWithValue } from '@reduxjs/toolkit';
+import { responseCode } from '../../../../services/enums/responseCode';
 import {
   responseMessage,
   responseMessageType,
-} from "../../../../services/slices/notificationSlice";
-import { openNotification } from "../../../../utils/Shared/store/slice";
-import { updateUserEmployeeContactService } from "../../emergencyInfo/service/service";
-import { removeFamilyMember, deleteEmployeeAttachment } from "./slice";
+} from '../../../../services/slices/notificationSlice';
+import { openNotification } from '../../../../utils/Shared/store/slice';
+import { updateUserEmployeeContactService } from '../../emergencyInfo/service/service';
+import { removeFamilyMember, deleteEmployeeAttachment } from './slice';
 
 import {
   addEmployeeService,
@@ -20,18 +20,18 @@ import {
   addEmployeeDetailAttachmentService,
   getAllEmployeeDetailAttachmentService,
   removeEmployeeDetailAttachmentService,
-} from "../services/service";
+} from '../services/service';
 
 export const addEmployee = createAsyncThunk(
-  "addEmployee",
+  'addEmployee',
   async ({ data, resetAllFields }, { dispatch, getState, rejectWithValue }) => {
     const res = await addEmployeeService(data);
 
     if (res?.responseCode === responseCode.Success) {
       dispatch(
         openNotification({
-          message: "Employee Added Successfully",
-          type: "success",
+          message: 'Employee Added Successfully',
+          type: 'success',
           duration: 2,
         })
       );
@@ -43,7 +43,7 @@ export const addEmployee = createAsyncThunk(
       dispatch(
         openNotification({
           message: res.message,
-          type: "error",
+          type: 'error',
           duration: 2,
         })
       );
@@ -53,16 +53,16 @@ export const addEmployee = createAsyncThunk(
 );
 
 export const addEmployeeFamily = createAsyncThunk(
-  "addEmployeeFamily",
+  'addEmployeeFamily',
   async (data, { dispatch, getState, rejectWithValue }) => {
-    console.log(data, "in actions");
+    console.log(data, 'in actions');
     const res = await addEmployeeFamilyService(data);
 
     if (res?.responseCode === responseCode.Success) {
       dispatch(
         openNotification({
-          message: "Employee Family Added Successfully",
-          type: "success",
+          message: 'Employee Family Added Successfully',
+          type: 'success',
           duration: 2,
         })
       );
@@ -71,7 +71,7 @@ export const addEmployeeFamily = createAsyncThunk(
       dispatch(
         openNotification({
           message: res.message,
-          type: "error",
+          type: 'error',
           duration: 2,
         })
       );
@@ -81,16 +81,16 @@ export const addEmployeeFamily = createAsyncThunk(
 );
 
 export const updateEmployeeFamily = createAsyncThunk(
-  "updateEmployeeFamily",
+  'updateEmployeeFamily',
   async (data, { dispatch, getState, rejectWithValue }) => {
-    console.log(data, "in actions");
+    console.log(data, 'in actions');
     const res = await updateEmployeeFamilyService(data);
 
     if (res?.responseCode === responseCode.Success) {
       dispatch(
         openNotification({
-          message: "Employee Family updated Successfully",
-          type: "success",
+          message: 'Employee Family updated Successfully',
+          type: 'success',
           duration: 2,
         })
       );
@@ -99,7 +99,7 @@ export const updateEmployeeFamily = createAsyncThunk(
       dispatch(
         openNotification({
           message: res.message,
-          type: "error",
+          type: 'error',
           duration: 2,
         })
       );
@@ -109,10 +109,10 @@ export const updateEmployeeFamily = createAsyncThunk(
 );
 
 export const getAllEmployeeFamilyAction = createAsyncThunk(
-  "getAllEmployeeFamily",
+  'getAllEmployeeFamily',
   async (id, { dispatch, rejectWithValue }) => {
     const res = await getAllEmployeeFamilyService(id);
-    console.log(res.data, "get all family ");
+    console.log(res.data, 'get all family ');
     if (res.responseCode === responseCode.Success) {
       return res;
     } else {
@@ -127,10 +127,10 @@ export const getAllEmployeeFamilyAction = createAsyncThunk(
 );
 
 export const removeEmployeeFamily = createAsyncThunk(
-  "removeEmployeeFamily",
+  'removeEmployeeFamily',
   async (id, { dispatch, rejectWithValue }) => {
     const res = await removeEmployeeFamilyService(id);
-    console.log(res, "remove family ");
+    console.log(res, 'remove family ');
     if (res.responseCode === responseCode.Success) {
       dispatch(removeFamilyMember(id));
       return res;
@@ -146,9 +146,9 @@ export const removeEmployeeFamily = createAsyncThunk(
 );
 
 export const getAllEmployees = createAsyncThunk(
-  "getAllEmployees",
+  'getAllEmployees',
   async (data, { dispatch, getState, rejectWithValue }) => {
-    console.log(data, "dataaa");
+    // console.log(data, "dataaa");
     const res = await getAllEmployeesService(data);
     if (res.responseCode === responseCode.Success) {
       return res;
@@ -164,10 +164,10 @@ export const getAllEmployees = createAsyncThunk(
 );
 
 export const getEmployeeByIdAction = createAsyncThunk(
-  "getEmployeeById",
+  'getEmployeeById',
   async (id, { dispatch, rejectWithValue }) => {
     const res = await getEmployeeByIdService(id);
-    console.log(res.data, "getEmployeeByIdAction");
+    console.log(res.data, 'getEmployeeByIdAction');
     if (res.responseCode === responseCode.Success) {
       return res;
     } else {
@@ -182,16 +182,16 @@ export const getEmployeeByIdAction = createAsyncThunk(
 );
 
 export const updateEmployeeAction = createAsyncThunk(
-  "updateEmployee",
+  'updateEmployee',
   async ({ data, resetAllFields }, { dispatch, getState, rejectWithValue }) => {
-    console.log(data, "action");
+    console.log(data, 'action');
     const res = await updateEmployeeService(data);
-    console.log(res, "updateEmployeeAction");
+    console.log(res, 'updateEmployeeAction');
     if (res.responseCode === responseCode.Success) {
       dispatch(
         openNotification({
-          message: "Employee Updated Successfully",
-          type: "success",
+          message: 'Employee Updated Successfully',
+          type: 'success',
           duration: 2,
         })
       );
@@ -203,7 +203,7 @@ export const updateEmployeeAction = createAsyncThunk(
       dispatch(
         openNotification({
           message: res.message,
-          type: "error",
+          type: 'error',
           duration: 2,
         })
       );
@@ -213,16 +213,16 @@ export const updateEmployeeAction = createAsyncThunk(
 );
 
 export const addEmployeeDetailAttachment = createAsyncThunk(
-  "addEmployeeDetailAttachment",
+  'addEmployeeDetailAttachment',
   async (data, { dispatch, getState, rejectWithValue }) => {
-    console.log(data, "in actions");
+    console.log(data, 'in actions');
     const res = await addEmployeeDetailAttachmentService(data);
 
     if (res?.responseCode === responseCode.Success) {
       dispatch(
         openNotification({
-          message: "Employee Attachment Added Successfully",
-          type: "success",
+          message: 'Employee Attachment Added Successfully',
+          type: 'success',
           duration: 2,
         })
       );
@@ -231,7 +231,7 @@ export const addEmployeeDetailAttachment = createAsyncThunk(
       dispatch(
         openNotification({
           message: res.message,
-          type: "error",
+          type: 'error',
           duration: 2,
         })
       );
@@ -241,10 +241,10 @@ export const addEmployeeDetailAttachment = createAsyncThunk(
 );
 
 export const getAllEmployeeDetailAttachment = createAsyncThunk(
-  "getAllEmployeeDetailAttachment",
+  'getAllEmployeeDetailAttachment',
   async (id, { dispatch, rejectWithValue }) => {
     const res = await getAllEmployeeDetailAttachmentService(id);
-    console.log(res.data, "getAllEmployeeDetailAttachmentService");
+    console.log(res.data, 'getAllEmployeeDetailAttachmentService');
     if (res.responseCode === responseCode.Success) {
       return res;
     } else {
@@ -259,10 +259,10 @@ export const getAllEmployeeDetailAttachment = createAsyncThunk(
 );
 
 export const removeEmployeeDetailAttachment = createAsyncThunk(
-  "removeEmployeeDetailAttachment",
+  'removeEmployeeDetailAttachment',
   async (id, { dispatch, rejectWithValue }) => {
     const res = await removeEmployeeDetailAttachmentService(id);
-    console.log(res.data, "removeEmployeeDetailAttachmentService");
+    console.log(res.data, 'removeEmployeeDetailAttachmentService');
     if (res.responseCode === responseCode.Success) {
       dispatch(deleteEmployeeAttachment(id));
       return res;

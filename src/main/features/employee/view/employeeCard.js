@@ -107,11 +107,10 @@ export const CardGrid = styled.div`
 `;
 
 function EmployeeCard({ employees: { image, name, email, designation, id } }) {
+  console.log('EmployeeCard', image);
   const navigate = useNavigate();
   const { userLanguage } = useContext(LanguageChangeContext);
   const { sharedLabels } = dictionaryList[userLanguage];
-
-  console.log(image, 'Image');
 
   return (
     <Parent>

@@ -34,14 +34,16 @@ import { getAllBranchOffice } from '../../subsidiaryOffice/store/actions';
 import { updateEmployeeAction } from '../store/actions';
 import CustomSelect from '../../../sharedComponents/Select/Select';
 import { getAllDepartments } from '../../departments/store/actions';
+import { getEmployeeByIdAction } from './../store/actions';
 
 const { Option } = Select;
 
-const BasicInfo = ({ mode, id }) => {
+const BasicInfo = ({ mode, id, profileImage, handleImageUpload }) => {
   const isEdit = mode === 'edit';
   const [form] = Form.useForm();
   const [selectedAccessRole, setSelectedAccessRole] = useState([]);
   const [userSelectedAccessRole, setUserSelectedAccessRole] = useState([]);
+  const [updateProfileImage, setUpdateProfileImage] = useState(null);
 
   const initialState = {
     coverImageId: '',
@@ -70,7 +72,6 @@ const BasicInfo = ({ mode, id }) => {
     employmentTypeId: [],
   };
 
-  const [profileImage, setProfileImage] = useState(null);
   const [showSubsidary, setShowSubsidary] = useState(false);
   const [department, setDepartment] = useState([]);
   const [initialValues, setInitialValues] = useState(initialState);
@@ -94,6 +95,9 @@ const BasicInfo = ({ mode, id }) => {
     employee: { basicdetails },
   } = useSelector((state) => state.employeeSlice);
   const {
+    employee: { profileDetails },
+  } = useSelector((state) => state.employeeSlice);
+  const {
     sharedSlice: { employees },
   } = useSelector((state) => state);
 
@@ -104,7 +108,11 @@ const BasicInfo = ({ mode, id }) => {
     }
   }, [employees]);
 
-  console.log(basicdetails, 'basicDetails');
+  console.log(profileDetails, 'PROFILE DETAILS OBJECT');
+
+  useEffect(() => {
+    dispatch(getEmployeeByIdAction(id));
+  }, [id]);
 
   useEffect(() => {
     const filteredRoles = accessRoles.filter((role) => {
@@ -120,7 +128,6 @@ const BasicInfo = ({ mode, id }) => {
     const unselectedRoles = filteredRoles.filter(
       (role) => !selectedRoleIds?.includes(role?.id)
     );
-
     setSelectedAccessRole(
       unselectedRoles.map((role) => {
         return {
@@ -183,25 +190,29 @@ const BasicInfo = ({ mode, id }) => {
     };
   }, []);
 
-  const handleImageUpload = (fileData) => {
-    console.log('handleImageUpload', fileData);
-    setProfileImage(fileData[0].originFileObj);
-  };
   console.log(accessRoles, 'accessRoles');
+
+  const handleUpdateImageUpload = (fileData) => {
+    console.log('handleImageUpload', fileData);
+    setUpdateProfileImage(fileData[0].originFileObj);
+  };
+
+  let image = {
+    // id: STRINGS.DEFAULTS.guid || profileDetails?.imageId,
+    id: !updateProfileImage ? profileDetails?.imageId : STRINGS.DEFAULTS.guid,
+    file: updateProfileImage,
+  };
 
   useEffect(() => {
     if (isEdit) {
       setInitialValues({
         ...basicdetails,
-        image,
+        image: image,
         birthDate: basicdetails.birthDate ? moment(basicdetails.birthDate) : '',
         joinDate: moment(basicdetails.joinDate),
         accessRoles: basicdetails?.accessRoles?.map((role) => {
           return role.accessRole;
         }),
-        // accessRoles: basicdetails?.accessRoles?.map((role) => {
-        //   return getAccessRoleName(role.accessRole);
-        // }),
         officeTimingId:
           basicdetails.officeTimingId === STRINGS.DEFAULTS.guid
             ? ''
@@ -254,10 +265,6 @@ const BasicInfo = ({ mode, id }) => {
       })
     );
   };
-  let image = {
-    file: profileImage,
-    id: STRINGS.DEFAULTS.guid,
-  };
 
   const handleUpdateInfo = async () => {
     form.submit();
@@ -275,7 +282,7 @@ const BasicInfo = ({ mode, id }) => {
           payload = {
             ...payload,
             accessRoles: payloadRoles,
-            image,
+            image: image,
             id: id,
             birthDate: moment(form.getFieldValue('birthDate')._ds).format(),
             joinDate: moment(form.getFieldValue('joinDate')._ds).format(),
@@ -318,12 +325,20 @@ const BasicInfo = ({ mode, id }) => {
           }}
         >
           <SingleUpload
-            handleImageUpload={handleImageUpload}
+            handleImageUpload={
+              isEdit ? handleUpdateImageUpload : handleImageUpload
+            }
             position="flex-start"
             uploadText={labels.upload}
             multiple={false}
-            url={basicdetails?.image?.url}
+            url={basicdetails.image || ''}
           />
+          {/* <FileUploader
+            fileList={isEdit ? updateProfileImage : profileImage}
+            uploadButton={<div>Upload</div>}
+            handleUpload={isEdit ? handleUpdateImageUpload : handleImageUpload}
+            isMultiple={false}
+          /> */}
         </Form.Item>
         <Form.Item
           rules={[{ required: true }]}
@@ -624,10 +639,21 @@ const BasicInfo = ({ mode, id }) => {
                   return false;
                 });
 
+                if (value === userTypeEnum.Employee) {
+                  form.setFieldsValue({
+                    accessRoles: [],
+                  });
+                } else if (value === userTypeEnum.Admin) {
+                  form.setFieldsValue({
+                    accessRoles: [],
+                  });
+                }
+
                 const selectedRoleIds = form.getFieldValue('accessRoles');
                 const unselectedRoles = filteredRoles.filter(
                   (role) => !selectedRoleIds.includes(role.id)
                 );
+
                 setSelectedAccessRole(
                   unselectedRoles.map((role) => {
                     return {

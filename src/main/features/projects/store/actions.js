@@ -22,7 +22,11 @@ import {
   responseMessageType,
 } from "../../../../services/slices/notificationSlice";
 import { jsonToFormData, STRINGS } from "../../../../utils/base";
-import { deleteProjectMember, addProjectMember } from "../store/slice";
+import {
+  deleteProjectMember,
+  addProjectMember,
+  deleteProjectFeature,
+} from "../store/slice";
 
 const addSticky_SD = (data) => {
   return {
@@ -124,13 +128,15 @@ export const getProjectById = createAsyncThunk(
   }
 );
 
-export const removeProjectFeatureAction = createAsyncThunk(
+export const removeProjectFeature = createAsyncThunk(
   "removeProjectFeature",
-  async (id, { dispatch }) => {
-    const res = await removeProjectFeatureService(id);
+  async (data, { dispatch }) => {
+    const res = await removeProjectFeatureService(data);
     if (res.responseCode) {
       if (res.responseCode === responseCode.Success)
-        responseMessage({ dispatch, data: res });
+        // responseMessage({ dispatch, data: res });
+        dispatch(deleteProjectFeature(data));
+      return data;
     } else {
       responseMessage({
         dispatch: dispatch,

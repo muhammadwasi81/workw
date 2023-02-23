@@ -11,6 +11,7 @@ import {
   saveStickyprojectAction,
   addProjectFeature,
   getProjectFeature,
+  removeProjectFeature,
 } from "./actions";
 
 const initialState = {
@@ -88,6 +89,11 @@ const projectSlice = createSlice({
       );
       favProjects.isPinnedPost = !favProjects.isPinnedPost;
     },
+    deleteProjectFeature(state, { payload }) {
+      state.projectFeature = state.projectFeature.filter(
+        (feature) => feature.featureId !== payload.featureId
+      );
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -143,12 +149,12 @@ const projectSlice = createSlice({
         // state.removeMemberSucess = true;
       })
       .addCase(addProjectFeature.fulfilled, (state, { payload }) => {
-        state.projectFeature = payload.data.length > 0 ? payload.data : [];
+        state.projectFeature = payload.data;
       })
       .addCase(getProjectFeature.fulfilled, (state, { payload }) => {
         state.projectFeature = payload.data;
-      });
-
+      })
+      .addCase(removeProjectFeature.fulfilled, (state, { payload }) => {});
     builder
       .addMatcher(isPending(...[deleteProjectMemberAction]), (state) => {
         state.removeMemberSucess = false;
@@ -187,5 +193,6 @@ export const {
   deleteProjectMember,
   addProjectMember,
   handleFavoriteProjects,
+  deleteProjectFeature,
 } = projectSlice.actions;
 export default projectSlice.reducer;

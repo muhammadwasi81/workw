@@ -25,7 +25,6 @@ function AvatarGroup(props) {
     e.stopPropagation();
     setIsModalOpen(false);
   };
-  // console.log(props, "avatar group");
 
   return (
     <div onClick={(e) => showModal(e)} className="inline-flex">

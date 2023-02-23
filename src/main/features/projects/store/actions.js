@@ -8,14 +8,13 @@ import {
   getProjectByIdService,
   removeProjectFeatureService,
   updateProjectService,
-  saveProjectStickyNotesService,
-  saveStickyNotesTitleService,
   getAllProjectStickyService,
   getAllProjectMemberService,
   addProjectMemberService,
   deleteProjectMemberService,
   addProjectFavoriteService,
   getProjectFeatureService,
+  saveStickyNoteProject
 } from "../services/service";
 import { message } from "antd";
 import {
@@ -165,32 +164,14 @@ export const addProjectFeature = createAsyncThunk(
   }
 );
 
-export const saveProjectStickyAction = createAsyncThunk(
-  "saveProject",
-  async (data, { dispatch }) => {
-    let request = addSticky_SD(data);
-    const formdataRequest = jsonToFormData(request);
-    const res = await saveProjectStickyNotesService(formdataRequest);
-    if (res.responseCode) {
-      if (res.responseCode === responseCode.Success)
-        message.success("Save Notes Successfully!");
-      responseMessage({ dispatch, data: res });
-    } else {
-      responseMessage({
-        dispatch: dispatch,
-        type: responseMessageType.ApiFailure,
-      });
-    }
-    return res;
-  }
-);
 
-export const saveStickyTitleAction = createAsyncThunk(
-  "saveProjectTitle",
+
+export const saveStickyprojectAction = createAsyncThunk(
+  'saveProjectTitle',
   async (data, { dispatch }) => {
-    let request = addSticky_SD(data);
-    const formdataRequest = jsonToFormData(request);
-    const res = await saveStickyNotesTitleService(formdataRequest);
+    const formdataRequest = jsonToFormData(data);
+    const res = await saveStickyNoteProject(formdataRequest);
+    console.log(res,"responseeeee");
     if (res.responseCode) {
       if (res.responseCode === responseCode.Success)
         message.success("save title notes");
@@ -209,6 +190,7 @@ export const getProjectStickyAction = createAsyncThunk(
   "getSticky",
   async (data, { dispatch }) => {
     const res = await getAllProjectStickyService(data);
+    console.log("response",res);
     if (res.responseCode) {
       if (res.responseCode === responseCode.Success)
         message.success("save title notes");

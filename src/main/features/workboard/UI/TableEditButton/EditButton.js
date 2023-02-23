@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { CloseOutlined } from "@ant-design/icons";
-import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import { WorkBoardDictionary } from "../localization";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+import { WorkBoardDictionary } from "../../localization";
 
 function EditButton({ handleSave, saveLabel, handleDelete, handleCancel }) {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -18,22 +18,6 @@ function EditButton({ handleSave, saveLabel, handleDelete, handleCancel }) {
       >
         {saveLabel}
     </div>
-      {handleDelete && (
-        <div
-          tabIndex="0"
-          className="Edit-Button  cursor-pointer w-fit rounded-sm outline-none p-1 px-2 hover:bg-opacity-70 text-white bg-red-500"
-          onClick={handleDelete}
-        >
-          {labels.delete}
-        </div>
-      )}
-      <div
-        tabIndex="0"
-        className="Edit-Button-Cancel flex items-center cursor-pointer opacity-80 outline-none hover:opacity-100"
-        onClick={handleCancel}
-      >
-        <CloseOutlined className="!text-gray-500 hover:!text-gray-600 text-base font-bold" />
-      </div>
     </div>
   );
 }

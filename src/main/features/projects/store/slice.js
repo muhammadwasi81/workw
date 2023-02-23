@@ -4,12 +4,11 @@ import {
   getAllProjects,
   getProjectById,
   updateProject,
-  saveProjectStickyAction,
-  saveStickyTitleAction,
   getProjectStickyAction,
   getAllProjectMemberAction,
   addProjectMemberAction,
   deleteProjectMemberAction,
+  saveStickyprojectAction,
   addProjectFeature,
   getProjectFeature,
   removeProjectFeature,
@@ -118,17 +117,15 @@ const projectSlice = createSlice({
         state.loader = false;
         state.success = true;
       })
-      .addCase(saveProjectStickyAction.fulfilled, (state, { payload }) => {
+      .addCase(saveStickyprojectAction.fulfilled, (state, { payload }) => {
         state.loader = false;
         state.success = true;
-        state.stickyArray = payload;
+        state.stickyArray = [payload.data];
       })
       .addCase(getProjectStickyAction.fulfilled, (state, { payload }) => {
         state.stickyArray = payload;
       })
-      .addCase(saveStickyTitleAction.fulfilled, (state, { payload }) => {
-        state.stickyArray = payload;
-      })
+      
       .addCase(getAllProjectMemberAction.fulfilled, (state, action) => {
         state.memberData = action.payload.data;
       })

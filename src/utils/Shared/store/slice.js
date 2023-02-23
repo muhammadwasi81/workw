@@ -40,6 +40,7 @@ const initialState = {
   employees: [],
   employeeShort: [],
   isDarkMode: localStorage.getItem("darkMode") === "1",
+  itemDetailModal: false,
 };
 
 const sharedSlice = createSlice({
@@ -55,6 +56,10 @@ const sharedSlice = createSlice({
     darkModeHandler: (state, { payload }) => {
       console.log("slice", payload);
       state.isDarkMode = payload;
+    },
+    handleItemDetailModal: (state, { payload }) => {
+      console.log(payload, "payload");
+      state.itemDetailModal = payload;
     },
   },
   extraReducers: (builder) => {
@@ -172,5 +177,6 @@ export const {
   openNotification,
   emptyEmployeesData,
   darkModeHandler,
+  handleItemDetailModal,
 } = sharedSlice.actions;
 export default sharedSlice.reducer;

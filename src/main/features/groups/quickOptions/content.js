@@ -1,16 +1,27 @@
 import { Drawer } from "antd";
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { handleItemDetailModal } from "../../../../utils/Shared/store/slice";
+import ItemDetailModal from "../../../sharedComponents/ItemDetails";
+import {
+  addGroupMemberAction,
+  deleteGroupMemberAction,
+} from "../store/actions";
 import { getGroupDetailById, handleComposer, addMember } from "../store/slice";
 
 import MemberModal from "../view/Modal/MemberModal";
 
 const ContentOptions = ({ handleClose, data }) => {
+  const params = useParams();
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
   const { isComposerOpen, groupDetail, isEditComposer } = useSelector(
     (state) => state.groupSlice
   );
+  const { groupDetailid } = params;
+
+  console.log(data, "dataaa");
 
   const handleUpdate = (e) => {
     e.preventDefault();
@@ -20,12 +31,39 @@ const ContentOptions = ({ handleClose, data }) => {
     dispatch(handleComposer({ isOpen: true, isEdit: true }));
     handleClose(false);
   };
+  // const handleOpenMembers = (e) => {
+  //   e.preventDefault();
+  //   e.stopPropagation();
+  //   setVisible(true);
+  //   dispatch(addMember({ status: true }));
+  //   handleClose(false);
+  // };
+
   const handleOpenMembers = (e) => {
     e.preventDefault();
     e.stopPropagation();
     setVisible(true);
-    dispatch(addMember({ status: true }));
+    dispatch(handleItemDetailModal(true));
     handleClose(false);
+  };
+
+  const addFunc = (id) => {
+    let memberId = id.toString();
+    const members = {
+      id: data.id,
+      memberId: memberId,
+    };
+    dispatch(addGroupMemberAction(members));
+  };
+
+  const onDelete = (id) => {
+    const memberId = id.toString();
+    const delmembers = {
+      id: data.id || groupDetailid,
+      memberId: memberId,
+    };
+
+    dispatch(deleteGroupMemberAction(delmembers));
   };
 
   return (
@@ -45,7 +83,17 @@ const ContentOptions = ({ handleClose, data }) => {
           {/* <BsChatSquareText className="text-md text-[#5B626A]" /> */}
           <span>Members</span>
         </div>
-        {visible && <MemberModal data={data} />}
+        {/* {visible && <MemberModal data={data} />} */}
+        {visible && (
+          //props will be passed for all functions that will be used
+          <ItemDetailModal
+            data={data?.members} //Data
+            isDeleteDisabled={false} //Pass true to hide delete icon
+            addEnabled={true} //Pass false to hide select member
+            addFunc={addFunc}
+            onDelete={onDelete}
+          />
+        )}
       </div>
     </>
   );

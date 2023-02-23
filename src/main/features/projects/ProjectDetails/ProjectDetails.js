@@ -39,8 +39,8 @@ import CustomNotes from "../../notes/singleNotes/singleNotes";
 import { Menu, Dropdown, Space } from "antd";
 import { CopyOutlined, EllipsisOutlined, EyeOutlined } from "@ant-design/icons";
 import {
-  saveProjectStickyAction,
-  saveStickyTitleAction,
+  saveStickyprojectAction,
+  //saveStickyTitleAction,
   getProjectStickyAction,
 } from "../store/actions";
 import useDebounce from "../../../../utils/Shared/helper/use-debounce";
@@ -63,6 +63,9 @@ function ProjectDetails() {
   const [description, setDescription] = useState(null);
   const descriptionDebounce = useDebounce(description, 500);
   const [openColor, setOpenColor] = useState(true);
+
+  const userId = useSelector((state) => state.userSlice.user.id);
+  const [form] = Form.useForm();
 
   const [title, setTitle] = useState(null);
   const titleDebounce = useDebounce(title, 500);
@@ -196,7 +199,7 @@ function ProjectDetails() {
 
   const descHandler = (value) => {
     dispatch(
-      saveProjectStickyAction({
+      saveStickyprojectAction({
         description: value,
         title: "sanjna",
         colorCode: 1,
@@ -208,19 +211,16 @@ function ProjectDetails() {
     if (descriptionDebounce) descHandler(descriptionDebounce);
   }, [descriptionDebounce]);
 
-  const setTitleValue = (value) => {
+  const stickyDescriptionHandler = (value) => {
     dispatch(
-      saveStickyTitleAction({
-        title: value,
-        description: "some",
-        colorCode: 1,
+      saveStickyprojectAction({
+        description: value,
+        userId,
+       
       })
     );
-  };
+  }
 
-  useEffect(() => {
-    if (titleDebounce) setTitleValue(titleDebounce);
-  }, [titleDebounce]);
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText("");
@@ -284,7 +284,7 @@ function ProjectDetails() {
                 </div>
                 <div className="textArea_container bg-white">
                   <CustomNotes
-                    onChange={(value) => setDescription(value)}
+                    onChange={(value) => stickyDescriptionHandler(value)}
                     modules={modules}
                     formats={formats}
                     className={"stickyNoteItem-textarea"}

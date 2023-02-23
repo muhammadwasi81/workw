@@ -38,7 +38,7 @@ import { getEmployeeByIdAction } from './../store/actions';
 
 const { Option } = Select;
 
-const BasicInfo = ({ mode, id, profileImage, handleImageUpload }) => {
+const BasicInfo = ({ mode, id, handleImageUpload }) => {
   const isEdit = mode === 'edit';
   const [form] = Form.useForm();
   const [selectedAccessRole, setSelectedAccessRole] = useState([]);
@@ -47,7 +47,7 @@ const BasicInfo = ({ mode, id, profileImage, handleImageUpload }) => {
 
   const initialState = {
     coverImageId: '',
-    userTypeId: userTypeEnum.Employee,
+    userTypeId: '',
     titleId: 1,
     firstName: '',
     lastName: '',
@@ -92,11 +92,9 @@ const BasicInfo = ({ mode, id, profileImage, handleImageUpload }) => {
     userLanguage
   ];
   const {
-    employee: { basicdetails },
+    employee: { basicdetails, profileDetails },
   } = useSelector((state) => state.employeeSlice);
-  const {
-    employee: { profileDetails },
-  } = useSelector((state) => state.employeeSlice);
+
   const {
     sharedSlice: { employees },
   } = useSelector((state) => state);
@@ -111,7 +109,7 @@ const BasicInfo = ({ mode, id, profileImage, handleImageUpload }) => {
   console.log(profileDetails, 'PROFILE DETAILS OBJECT');
 
   useEffect(() => {
-    dispatch(getEmployeeByIdAction(id));
+    isEdit && dispatch(getEmployeeByIdAction(id));
   }, [id]);
 
   useEffect(() => {
@@ -128,6 +126,7 @@ const BasicInfo = ({ mode, id, profileImage, handleImageUpload }) => {
     const unselectedRoles = filteredRoles.filter(
       (role) => !selectedRoleIds?.includes(role?.id)
     );
+
     setSelectedAccessRole(
       unselectedRoles.map((role) => {
         return {
@@ -136,7 +135,7 @@ const BasicInfo = ({ mode, id, profileImage, handleImageUpload }) => {
         };
       })
     );
-  }, [basicdetails.userTypeId]);
+  }, [basicdetails.userTypeId, accessRoles, form, initialValues.userTypeId]);
 
   const labels = employeesDictionary.EmployeeForm;
   const placeholder = employeesDictionary.placeholders;
@@ -333,12 +332,6 @@ const BasicInfo = ({ mode, id, profileImage, handleImageUpload }) => {
             multiple={false}
             url={basicdetails.image || ''}
           />
-          {/* <FileUploader
-            fileList={isEdit ? updateProfileImage : profileImage}
-            uploadButton={<div>Upload</div>}
-            handleUpload={isEdit ? handleUpdateImageUpload : handleImageUpload}
-            isMultiple={false}
-          /> */}
         </Form.Item>
         <Form.Item
           rules={[{ required: true }]}
@@ -629,6 +622,7 @@ const BasicInfo = ({ mode, id, profileImage, handleImageUpload }) => {
                 })}
               value={basicdetails.userTypeId}
               onChange={(value) => {
+                console.log(value, 'selected value in user type');
                 // Filter accessRoles based on selected user type
                 let filteredRoles = accessRoles.filter((role) => {
                   if (value === userTypeEnum.Admin) {
@@ -648,7 +642,6 @@ const BasicInfo = ({ mode, id, profileImage, handleImageUpload }) => {
                     accessRoles: [],
                   });
                 }
-
                 const selectedRoleIds = form.getFieldValue('accessRoles');
                 const unselectedRoles = filteredRoles.filter(
                   (role) => !selectedRoleIds.includes(role.id)

@@ -9,7 +9,6 @@ import { useSelector } from "react-redux";
 
 function Header({ dictionary, direction }) {
   const {user} = useSelector((state) => state.userSlice);
-  const CreatePermission = FeaturePermissionEnum.CreateCourse
   const userPermissions = user.permissions
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, elearningDictionary } = elearningDictionaryList[
@@ -38,7 +37,7 @@ function Header({ dictionary, direction }) {
       render: <CreateLearningDropdown />,
     },
   ];
-  return <LayoutHeader backButton={false} items={items} buttons={userPermissions.includes(CreatePermission) ? buttons : []} />;
+  return <LayoutHeader backButton={false} items={items} buttons={userPermissions.includes(FeaturePermissionEnum.CreateCourse) ? buttons : []} />;
 }
 
 export default Header;

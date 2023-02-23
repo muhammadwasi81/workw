@@ -31,7 +31,6 @@ const Groups = (props) => {
   const [search, setSearch] = useState("");
   const value = useDebounce(search, 500);
   const {user} = useSelector((state) => state.userSlice);
-  const CreatePermission = FeaturePermissionEnum.CreateGroup
   const userPermissions = user.permissions
 
 
@@ -65,7 +64,7 @@ const Groups = (props) => {
       <TabbableContainer className="">
         <Header
           items={items}
-          buttons={userPermissions.includes(CreatePermission) ? [
+          buttons={userPermissions.includes(FeaturePermissionEnum.CreateGroup) ? [
             {
               buttonText: createTextBtn,
               render: (

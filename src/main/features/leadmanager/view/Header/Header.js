@@ -30,7 +30,6 @@ function Header({ dictionary, direction }) {
     (state) => state.leadMangerSlice
   );
   const {user} = useSelector((state) => state.userSlice);
-  const CreatePermission = FeaturePermissionEnum.CreateLeadManagerGroup
   const userPermissions = user.permissions
 
   const items = [
@@ -79,7 +78,7 @@ function Header({ dictionary, direction }) {
       ),
     },
   ];
-  return <LayoutHeader items={items} buttons={userPermissions.includes(CreatePermission) ? buttons : []} />;
+  return <LayoutHeader items={items} buttons={userPermissions.includes(FeaturePermissionEnum.CreateLeadManagerGroup) ? buttons : []} />;
 }
 
 export default Header;

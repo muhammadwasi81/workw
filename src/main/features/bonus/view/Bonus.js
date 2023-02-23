@@ -39,7 +39,6 @@ const Bonus = (props) => {
   const { bonusDictionary, Direction } = bonusDictionaryList[userLanguage];
   const {tables} = bonusDictionary;
   const {user} = useSelector((state) => state.userSlice);
-  const CreatePermission = FeaturePermissionEnum.CreateBonus
   const userPermissions = user.permissions
 
   const [tableView, setTableView] = useState(false);
@@ -83,7 +82,7 @@ const Bonus = (props) => {
     <TabbableContainer className="max-width-1190">
       <Header
         items={items}
-        buttons={userPermissions.includes(CreatePermission) ?[
+        buttons={userPermissions.includes(FeaturePermissionEnum.CreateBonus) ?[
           {
             buttonText: 'Create Bonus',
             render: (

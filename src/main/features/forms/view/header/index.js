@@ -13,7 +13,6 @@ const Index = () => {
   const { documentDictionary } = documentDictionaryList[userLanguage];
   const { forms, createForms } = documentDictionary;
   const {user} = useSelector((state) => state.userSlice);
-  const CreatePermission = FeaturePermissionEnum.CreateForm
   const userPermissions = user.permissions
   return (
     <Header
@@ -24,7 +23,7 @@ const Index = () => {
           renderButton: [1],
         },
       ]}
-      buttons={userPermissions.includes(CreatePermission) ? [
+      buttons={userPermissions.includes(FeaturePermissionEnum.CreateForm) ? [
         {
           render: (
             <Link to={ROUTES.FORMS.CREATE_FORM}>

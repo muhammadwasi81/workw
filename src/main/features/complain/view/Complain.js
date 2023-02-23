@@ -31,7 +31,6 @@ const Complain = () => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { complainDictionary } = complainDictionaryList[userLanguage];
   const {user} = useSelector((state) => state.userSlice);
-  const CreatePermission = FeaturePermissionEnum.CreateRewards
   const userPermissions = user.permissions
   // const {
   //   createComplain,
@@ -116,7 +115,7 @@ const Complain = () => {
     <TabbableContainer className="max-width-1190">
       <Header
         items={items}
-        buttons={userPermissions.includes(CreatePermission) ? [
+        buttons={userPermissions.includes(FeaturePermissionEnum.CreateComplains) ? [
           {
             buttonText: complainDictionary.createComplain,
             render: (

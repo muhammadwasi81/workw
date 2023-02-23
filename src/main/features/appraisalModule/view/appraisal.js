@@ -40,7 +40,6 @@ function Appraisals() {
     forApprovals: <TeamAppraisals />,
   };
   const {user} = useSelector((state) => state.userSlice);
-  const CreatePermission = FeaturePermissionEnum.CreateAppraisal
   const userPermissions = user.permissions
   const items = [
     {
@@ -101,7 +100,7 @@ function Appraisals() {
       <TabbableContainer>
         <Header
           items={items}
-          buttons={userPermissions.includes(CreatePermission) ? [
+          buttons={userPermissions.includes(FeaturePermissionEnum.CreateAppraisal) ? [
             {
               buttonText: createAppraisals,
               render: (

@@ -12,7 +12,6 @@ import { FeaturePermissionEnum } from "../../../../utils/Shared/enums/featuresEn
 function Header({ width, routeLink, backButton }) {
   const dispatch = useDispatch();
   const {user} = useSelector((state) => state.userSlice);
-  const CreatePermission = FeaturePermissionEnum.CreateWorkboard
   const userPermissions = user.permissions
 
   const success = useSelector((state) => state.trelloSlice.success);
@@ -59,7 +58,7 @@ function Header({ width, routeLink, backButton }) {
   return (
     <LayoutHeader
       items={items}
-      buttons={userPermissions.includes(CreatePermission) ? buttons : []}
+      buttons={userPermissions.includes(FeaturePermissionEnum.CreateWorkboard) ? buttons : []}
       width={width}
       backButton={backButton}
     />

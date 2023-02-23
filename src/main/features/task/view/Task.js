@@ -59,7 +59,6 @@ function Task({
     // loading,
   } = useSelector((state) => state.taskSlice);
   const {user} = useSelector((state) => state.userSlice);
-  const CreatePermission = FeaturePermissionEnum.CreateTask
   const userPermissions = user.permissions
 
   useEffect(() => {
@@ -82,12 +81,11 @@ function Task({
       renderButton: buttonsEnum.dashboard,
     },
   ];
-  // console.log("list", list);
   return (
     <TabbableContainer>
       <Header
         items={items}
-        buttons={userPermissions.includes(CreatePermission) ? [
+        buttons={userPermissions.includes(FeaturePermissionEnum.CreateTask) ? [
           {
             buttonText: taskDictionaryList.createTextBtn,
             render: (

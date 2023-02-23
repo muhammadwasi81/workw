@@ -32,7 +32,6 @@ const Promotion = (props) => {
   const { promotionDictionary } = promotionDictionaryList[userLanguage];
   const { tables } = promotionDictionary;
   const {user} = useSelector((state) => state.userSlice);
-  const CreatePermission = FeaturePermissionEnum.CreatePromotion
   const userPermissions = user.permissions
 
   const [promotionId, setPromotionId] = useState("");
@@ -77,7 +76,7 @@ const Promotion = (props) => {
     <TabbableContainer className="max-width-1190">
       <Header
         items={items}
-        buttons={userPermissions.includes(CreatePermission) ?[
+        buttons={userPermissions.includes(FeaturePermissionEnum.CreatePromotion) ?[
           {
             buttonText: "Create Promotions",
             render: (

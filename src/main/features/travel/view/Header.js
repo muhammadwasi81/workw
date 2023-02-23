@@ -12,7 +12,6 @@ function Header(props) {
   const [visible, setVisible] = useState(false);
   const { success } = props;
   const {user} = useSelector((state) => state.userSlice);
-  const CreatePermission = FeaturePermissionEnum.CreateTravel
   const userPermissions = user.permissions
   const items = [
     {
@@ -47,7 +46,7 @@ function Header(props) {
   ];
   console.log(success, "success");
   return (
-    <LayoutHeader items={items} buttons={userPermissions.includes(CreatePermission) ? buttons : []} backButton={backButton} />
+    <LayoutHeader items={items} buttons={userPermissions.includes(FeaturePermissionEnum.CreateTravel) ? buttons : []} backButton={backButton} />
   );
 }
 

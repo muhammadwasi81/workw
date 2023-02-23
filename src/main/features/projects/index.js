@@ -38,7 +38,6 @@ const Projects = () => {
   const { createTextBtn, topBar } = projectsDictionary;
   const { projects, loader } = useSelector((state) => state.projectSlice);
   const {user} = useSelector((state) => state.userSlice);
-  const CreatePermission = FeaturePermissionEnum.CreateProject
   const userPermissions = user.permissions
 
   useEffect(() => {
@@ -82,7 +81,7 @@ const Projects = () => {
       <TabbableContainer>
         <Header
           items={items}
-          buttons={userPermissions.includes(CreatePermission) ? [
+          buttons={userPermissions.includes(FeaturePermissionEnum.CreateProject) ? [
             {
               buttonText: 'createTextBtn',
               render: (

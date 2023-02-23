@@ -30,7 +30,6 @@ const CustomApproval = (props) => {
     userLanguage
   ];
   const {user} = useSelector((state) => state.userSlice);
-  const CreatePermission = FeaturePermissionEnum.CreateCustomApproval
   const userPermissions = user.permissions
 
   const [tableView, setTableView] = useState(false);
@@ -80,7 +79,7 @@ const CustomApproval = (props) => {
       <TabbableContainer className="">
         <Header
           items={items}
-          buttons={userPermissions.includes(CreatePermission) ? [
+          buttons={userPermissions.includes(FeaturePermissionEnum.CreateCustomApproval) ? [
             {
               buttonText: customApprovalDictionary.create,
               render: (

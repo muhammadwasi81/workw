@@ -18,7 +18,6 @@ const Index = () => {
   const { sharedLabels } = dictionaryList[userLanguage];
   const label = dictionaryList[userLanguage];
   const {user} = useSelector((state) => state.userSlice);
-  const CreatePermission = FeaturePermissionEnum.CreateEmployees
   const userPermissions = user.permissions
 
   const items = [
@@ -38,7 +37,7 @@ const Index = () => {
   ];
   return (
     <TabbableContainer>
-      <Header items={items} buttons={userPermissions.includes(CreatePermission) ? buttons : []} />
+      <Header items={items} buttons={userPermissions.includes(FeaturePermissionEnum.CreateEmployees) ? buttons : []} />
       <ContBody>
         <EmployeeRoutes />
       </ContBody>

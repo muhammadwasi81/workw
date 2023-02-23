@@ -39,7 +39,6 @@ const Resignation = (props) => {
   const [tableView, setTableView] = useState(false);
   const [detailId, setDetailId] = useState(false);
   const {user} = useSelector((state) => state.userSlice);
-  const CreatePermission = FeaturePermissionEnum.CreateResignation
   const userPermissions = user.permissions
 
   const { drawerOpen, items, loader } = useSelector(
@@ -83,7 +82,7 @@ const Resignation = (props) => {
       <TabbableContainer>
         <Header
           items={headerButtuns}
-          buttons={userPermissions.includes(CreatePermission) ? [
+          buttons={userPermissions.includes(FeaturePermissionEnum.CreateResignation) ? [
             {
               buttonText: "Create Resignation",
               render: (

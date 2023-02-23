@@ -34,7 +34,6 @@ const Leave = () => {
   const [filter, setFilter] = useState({ filterType: 0, search: "" });
   const [detailId, setDetailId] = useState(false);
   const {user} = useSelector((state) => state.userSlice);
-  const CreatePermission = FeaturePermissionEnum.CreateLeave
   const userPermissions = user.permissions
 
   const dispatch = useDispatch();
@@ -70,7 +69,7 @@ const Leave = () => {
         <Header
           items={items}
           backButton={false}
-          buttons={userPermissions.includes(CreatePermission) ? [
+          buttons={userPermissions.includes(FeaturePermissionEnum.CreateLeave) ? [
             {
               buttonText: leaveDictionary.createleave,
               render: (

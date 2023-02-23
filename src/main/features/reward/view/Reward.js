@@ -28,7 +28,6 @@ const Reward = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { rewardDictionary } = rewardDictionaryList[userLanguage];
   const {user} = useSelector((state) => state.userSlice);
-  const CreatePermission = FeaturePermissionEnum.CreateRewards
   const userPermissions = user.permissions
 
   const [detailId, setDetailId] = useState(false);
@@ -91,7 +90,7 @@ const Reward = (props) => {
 
         <Header
           items={items}
-          buttons={userPermissions.includes(CreatePermission) ? [
+          buttons={userPermissions.includes(FeaturePermissionEnum.CreateRewards) ? [
             {
               buttonText: rewardDictionary.createReward,
               render: (  

@@ -50,7 +50,6 @@ function Expenses({
     referenceId,
   });
   const {user} = useSelector((state) => state.userSlice);
-  const CreatePermission = FeaturePermissionEnum.CreateExpense
   const userPermissions = user.permissions
 
   useEffect(() => {
@@ -82,7 +81,7 @@ function Expenses({
     <TabbableContainer>
       <Header
         items={items}
-        buttons={userPermissions.includes(CreatePermission) ? [
+        buttons={userPermissions.includes(FeaturePermissionEnum.CreateExpense) ? [
           {
             buttonText: ExpenseDictionaryList.createTextBtn,
             render: (

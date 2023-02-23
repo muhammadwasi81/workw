@@ -31,7 +31,6 @@ const Warning = (props) => {
   const { warningDictionary } = warningDictionaryList[userLanguage];
   const {tables} = warningDictionary;
   const {user} = useSelector((state) => state.userSlice);
-  const CreatePermission = FeaturePermissionEnum.CreateWarnings
   const userPermissions = user.permissions
 
   const [detailId, setDetailId] = useState(false);
@@ -71,7 +70,7 @@ const Warning = (props) => {
     <TabbableContainer className="max-width-1190">
       <Header
         items={items}
-        buttons={userPermissions.includes(CreatePermission) ? [
+        buttons={userPermissions.includes(FeaturePermissionEnum.CreateWarnings) ? [
           {
             buttonText: "Create Warning",
             render: (

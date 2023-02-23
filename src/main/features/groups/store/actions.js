@@ -14,7 +14,11 @@ import {
 } from "../services/service";
 import { responseCode } from "../../../../services/enums/responseCode";
 import { openNotification } from "../../../../utils/Shared/store/slice";
-import { addGroupMember, deleteGroupMember } from "../store/slice";
+import {
+  addGroupMember,
+  deleteGroupMember,
+  removeGroupFeatures,
+} from "../store/slice";
 
 export const getAllGroup = createAsyncThunk(
   "getAllGroup",
@@ -180,7 +184,7 @@ export const addGroupFavoriteMarkAction = createAsyncThunk(
   }
 );
 
-export const addGroupFeaturesAction = createAsyncThunk(
+export const addGroupFeatures = createAsyncThunk(
   "addGroupFeature",
   async (data, { dispatch, rejectWithValue }) => {
     const res = await addGroupFeaturesService(data);
@@ -202,10 +206,11 @@ export const addGroupFeaturesAction = createAsyncThunk(
 
 export const removeGroupFeaturesAction = createAsyncThunk(
   "removeGroupFeature",
-  async (id, { dispatch, rejectWithValue }) => {
-    const res = await removeGroupFeaturesService(id);
+  async (data, { dispatch, rejectWithValue }) => {
+    const res = await removeGroupFeaturesService(data);
     if (res.responseCode === responseCode.Success) {
-      return res;
+      dispatch(removeGroupFeatures(data));
+      return data;
     } else {
       dispatch(
         openNotification({
@@ -219,7 +224,7 @@ export const removeGroupFeaturesAction = createAsyncThunk(
   }
 );
 
-export const getGroupFeaturesAction = createAsyncThunk(
+export const getGroupFeatures = createAsyncThunk(
   "getGroupFeature",
   async (id, { dispatch, rejectWithValue }) => {
     const res = await getGroupFeaturesService(id);

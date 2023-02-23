@@ -64,12 +64,11 @@ const Groups = (props) => {
           buttons={[
             {
               buttonText: createTextBtn,
+
               render: (
                 <SideDrawer
                   title={createTextBtn}
                   buttonText={createTextBtn}
-                  // isAccessDrawer={true}
-                  // success={success}
                   handleClose={() => dispatch(handleOpenComposer(false))}
                   handleOpen={() => dispatch(handleOpenComposer(true))}
                   isOpen={drawerOpen}

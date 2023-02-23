@@ -29,12 +29,16 @@ const initialState = {
   memberData: [],
   removeMemberSucess: false,
   projectFeature: [],
+  drawerOpen: false,
 };
 
 const projectSlice = createSlice({
   name: "projects",
   initialState,
   reducers: {
+    handleOpenComposer: (state, { payload }) => {
+      state.drawerOpen = payload;
+    },
     resetProjectDetail(state, { payload }) {
       state.projectDetail = null;
     },
@@ -105,6 +109,7 @@ const projectSlice = createSlice({
       })
       .addCase(addProject.fulfilled, (state, { payload }) => {
         state.projects.unshift(payload.data);
+        state.drawerOpen = false;
         state.loader = false;
         state.success = true;
       })
@@ -115,6 +120,7 @@ const projectSlice = createSlice({
       })
       .addCase(updateProject.fulfilled, (state, { payload }) => {
         state.projectDetail = payload.data;
+        state.drawerOpen = false;
         state.loader = false;
         state.success = true;
       })
@@ -189,6 +195,7 @@ const projectSlice = createSlice({
 });
 
 export const {
+  handleOpenComposer,
   resetProjectDetail,
   updateProjectById,
   handleComposer,

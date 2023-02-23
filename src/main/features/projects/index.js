@@ -17,10 +17,11 @@ import useDebounce from "../../../utils/Shared/helper/use-debounce";
 import { NoDataFound } from "../../sharedComponents/NoDataIcon";
 import { ROUTES } from "../../../utils/routes";
 import { Button, Drawer } from "antd";
-import { handleComposer } from "./store/slice";
+import { handleComposer, handleOpenComposer } from "./store/slice";
 import Composer from "./UI/Composer";
 import Header from "../../layout/header/index";
 import { PlusOutlined } from "@ant-design/icons";
+import SideDrawer from "../../sharedComponents/Drawer/SideDrawer";
 
 const Projects = () => {
   const [search, setSearch] = useState("");
@@ -67,9 +68,12 @@ const Projects = () => {
     }
     setSortBy(1);
   };
-  const { isComposerOpen, projectDetail, isEditComposer } = useSelector(
-    (state) => state.projectSlice
-  );
+  const {
+    isComposerOpen,
+    projectDetail,
+    isEditComposer,
+    drawerOpen,
+  } = useSelector((state) => state.projectSlice);
   const handleEditComposer = () => {
     dispatch(handleComposer({ isOpen: false, isEdit: false }));
   };
@@ -81,16 +85,27 @@ const Projects = () => {
           buttons={[
             {
               buttonText: "createTextBtn",
+              icon: <PlusOutlined className="relative bottom-1" />,
               render: (
-                <Button
-                  className="ThemeBtn"
-                  onClick={() => {
-                    dispatch(handleComposer({ isOpen: true, isEdit: false }));
-                  }}
+                // <Button
+                //   className="ThemeBtn"
+                //   onClick={() => {
+                //     dispatch(handleComposer({ isOpen: true, isEdit: false }));
+                //   }}
+                // >
+                //   <PlusOutlined className="relative bottom-1" />
+                //   {createTextBtn}
+                // </Button>
+
+                <SideDrawer
+                  title={createTextBtn}
+                  buttonText={createTextBtn}
+                  handleClose={() => dispatch(handleOpenComposer(false))}
+                  handleOpen={() => dispatch(handleOpenComposer(true))}
+                  isOpen={drawerOpen}
                 >
-                  <PlusOutlined className="relative bottom-1" />
-                  {createTextBtn}
-                </Button>
+                  <Composer />
+                </SideDrawer>
               ),
             },
           ]}
@@ -124,7 +139,8 @@ const Projects = () => {
           ) : (
             !loader && !tableView && <NoDataFound />
           )}
-          <Drawer
+
+          {/* <Drawer
             open={isComposerOpen}
             width={"786px"}
             onClose={handleEditComposer}
@@ -137,7 +153,7 @@ const Projects = () => {
               update={isEditComposer}
               id={projectDetail?.id}
             />
-          </Drawer>
+          </Drawer> */}
         </ContBody>
       </TabbableContainer>
     </>

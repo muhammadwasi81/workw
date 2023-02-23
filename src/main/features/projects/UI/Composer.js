@@ -267,7 +267,9 @@ const Composer = (props) => {
           </>
         )}
 
-        <FeatureSelect checked={feature} onChange={onFeatureHandler} />
+        {!update && (
+          <FeatureSelect checked={feature} onChange={onFeatureHandler} />
+        )}
 
         <Form.Item>
           <div className="flex items-center gap-2">
@@ -283,7 +285,8 @@ const Composer = (props) => {
               htmlType="submit"
               loading={loading}
             >
-              {props.buttonText}
+              {/* {props.buttonText} */}
+              {update ? "Update Project" : "Create Project"}
             </Button>
           </div>
         </Form.Item>

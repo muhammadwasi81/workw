@@ -61,11 +61,9 @@ function ProjectDetails() {
   const [description, setDescription] = useState(null);
   const descriptionDebounce = useDebounce(description, 500);
   const [openColor, setOpenColor] = useState(true);
-<<<<<<< HEAD
+
   const userId = useSelector((state) => state.userSlice.user.id);
   const [form] = Form.useForm();
-=======
->>>>>>> e006190e5975c330c73f8c7c475f1e8b4134a563
 
   const [title, setTitle] = useState(null);
   const titleDebounce = useDebounce(title, 500);

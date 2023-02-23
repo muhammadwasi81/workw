@@ -399,10 +399,9 @@ const trelloSlice = createSlice({
           payload.data
         );
       })
-      .addCase(
-        updateWorkBoardSectionColorCode.fulfilled,
-        (state, { payload }) => {
-          state.loader = false;
+      .addCase(updateWorkBoardSectionColorCode.fulfilled,(state, { payload }) => {
+          // state.loader = false;
+          console.log(payload,"payloaddd section colorr");
         }
       )
       .addCase(updateWorkBoardSectionTitle.fulfilled, (state, { payload }) => {

@@ -12,6 +12,8 @@ import { HiOutlineClipboardList } from "react-icons/hi";
 // import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
 import DescriptionInput from "../UI/DescriptionInput";
 import CommentComposer from "../../../sharedComponents/Comment/Composer";
+import CommentWrapper from "../../../sharedComponents/Comment/CommentWrapper";
+
 import CheckDate from "../UI/CheckDate";
 import TodoTitleInput from "../UI/TodoTitleInput";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
@@ -21,6 +23,7 @@ import MemberModal from "./TodoMemberModal";
 import Avatar from "../../../sharedComponents/Avatar/avatar";
 import { message, Modal } from "antd";
 import { addMember } from "../store/slice";
+import CommentAttachment from "./CommentAttachment";
 
 function WorkBoardDescription({
   dueDate,
@@ -28,6 +31,8 @@ function WorkBoardDescription({
   todoDetail,
   showLabelModal,
 }) {
+
+  console.log("tododataaa",todoData);
   const { userLanguage } = useContext(LanguageChangeContext);
   const [visible, setVisible] = useState(false);
   const { workBoardMembers } = useSelector((state) => state.trelloSlice);
@@ -137,7 +142,6 @@ function WorkBoardDescription({
             <span className="text-black font-extrabold ">
               {labels.attachments}
             </span>
-        
           </div>
       </div>
 
@@ -146,11 +150,11 @@ function WorkBoardDescription({
           <UnorderedListOutlined className="!text-gray-500 text-lg" />
           <span className="text-black font-extrabold ">{labels.activity}</span>
         </div>
+         
         <div className="flex flex-row justify-between gap-2">
           <div className="w-full">
-             <CommentComposer isAttachment={false} />
+             <CommentAttachment ></CommentAttachment>
           </div>
-            <PaperClipOutlined className="!text-gray-500 !text-[20px] mt-3" />
         </div>
 
       </div>

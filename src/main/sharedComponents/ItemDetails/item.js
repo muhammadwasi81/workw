@@ -16,8 +16,6 @@ function Item({ item, handleDelete, isDeleteDisabled = true, onDelete }) {
     onDelete(id);
   };
 
-  console.log(item, "sss");
-
   return (
     <div className="approverBox">
       <div className="imageBox">

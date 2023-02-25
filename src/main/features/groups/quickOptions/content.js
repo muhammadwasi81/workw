@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { handleItemDetailModal } from "../../../../utils/Shared/store/slice";
-import ItemDetailModal from "../../../sharedComponents/ItemDetails";
+import DetailModal from "../../../sharedComponents/ItemDetails";
 import {
   addGroupMemberAction,
   deleteGroupMemberAction,
@@ -20,8 +20,6 @@ const ContentOptions = ({ handleClose, data }) => {
     (state) => state.groupSlice
   );
   const { groupDetailid } = params;
-
-  console.log(data, "dataaa");
 
   const handleUpdate = (e) => {
     e.preventDefault();
@@ -84,17 +82,18 @@ const ContentOptions = ({ handleClose, data }) => {
           <span>Members</span>
         </div>
         {/* {visible && <MemberModal data={data} />} */}
-        {visible && (
+        {
           //props will be passed for all functions that will be used
-          <ItemDetailModal
+          <DetailModal
             data={data?.members} //Data
             isDeleteDisabled={false} //Pass true to hide delete icon
             addEnabled={true} //Pass false to hide select member
             addFunc={addFunc}
             onDelete={onDelete}
-            isSearch={false} //Pass true if you want to search the list
+            isSearch={true} //Pass true if you want to search the list
+            openModal={true}
           />
-        )}
+        }
       </div>
     </>
   );

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Modal, Input } from "antd";
+import { Modal, Input, List } from "antd";
 import { useSelector } from "react-redux";
 import CustomSelect from "../AntdCustomSelects/SharedSelects/MemberSelect";
 import ApproverListItem from "../AppComponents/Approvals/components/approverList";
@@ -18,6 +18,7 @@ import ListItem from "./itemListing";
 
 const { Search } = Input;
 function ItemDetailModal({
+  openModal = false,
   isSearch = false,
   isOpen = false,
   data,
@@ -46,11 +47,13 @@ function ItemDetailModal({
     setMyData(data);
   }, []);
 
+  useEffect(() => {
+    setMyData(data);
+  }, [data]);
+
   const fetchEmployees = (text, pgNo) => {
     dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
   };
-
-  console.log(data, "members");
 
   const handleClose = () => {
     dispatch(handleItemDetailModal(false));
@@ -91,9 +94,6 @@ function ItemDetailModal({
     const filteredData = data.filter((item) =>
       item.member?.name.includes(e.target.value)
     );
-
-    console.log(filteredData);
-
     setMyData(filteredData);
   };
 
@@ -106,82 +106,123 @@ function ItemDetailModal({
 
   //   dispatch(deleteGroupMemberAction(delmembers));
   // };
-  return (
-    <Modal
-      open={itemDetailModal}
-      onOk={(e) => {}}
-      onCancel={handleClose}
-      footer={false}
-      closeIcon={<div />}
-      className="ApproverModal"
-      width={"360px"}
-      destroyOnClose={true}
-      // afterClose={afterClose}
-      forceRender={true}
-    >
-      {addEnabled && (
-        <CustomSelect
-          style={{ marginBottom: "0px" }}
-          data={firstTimeEmpData}
-          selectedData={addFunc}
-          canFetchNow={isFirstTimeDataLoaded}
-          fetchData={fetchEmployees}
-          placeholder={"Select Member"}
-          isObject={true}
-          loadDefaultData={false}
-          optionComponent={(opt) => {
-            return (
-              <>
-                <Avatar
-                  name={opt.name}
-                  src={opt.image}
-                  round={true}
-                  width={"30px"}
-                  height={"30px"}
-                />
-                {opt.name}
-              </>
-            );
-          }}
-          dataVal={value}
-          name="members"
-          showSearch={true}
-          resetField={true}
-          // direction={Direction}
-          rules={[
-            {
-              required: true,
-              message: "Please Select Member",
-            },
-          ]}
+  if (openModal) {
+    return (
+      <Modal
+        open={itemDetailModal}
+        onOk={(e) => {}}
+        onCancel={handleClose}
+        footer={false}
+        closeIcon={<div />}
+        className="ApproverModal"
+        width={"360px"}
+        destroyOnClose={true}
+        // afterClose={afterClose}
+        forceRender={true}
+      >
+        {addEnabled && (
+          <CustomSelect
+            style={{ marginBottom: "0px" }}
+            data={firstTimeEmpData}
+            selectedData={addFunc}
+            canFetchNow={isFirstTimeDataLoaded}
+            fetchData={fetchEmployees}
+            placeholder={"Select Member"}
+            isObject={true}
+            loadDefaultData={false}
+            optionComponent={(opt) => {
+              return (
+                <>
+                  <Avatar
+                    name={opt.name}
+                    src={opt.image}
+                    round={true}
+                    width={"30px"}
+                    height={"30px"}
+                  />
+                  {opt.name}
+                </>
+              );
+            }}
+            dataVal={value}
+            name="members"
+            showSearch={true}
+            resetField={true}
+            // direction={Direction}
+            rules={[
+              {
+                required: true,
+                message: "Please Select Member",
+              },
+            ]}
+          />
+        )}
+
+        {isSearch && (
+          <Input
+            placeholder="input search text"
+            allowClear
+            onChange={onSearch}
+            // style={{
+            //   width: 200,
+            // }}
+            size={"medium"}
+            style={{ marginBottom: "1rem" }}
+          />
+        )}
+
+        <ListItem
+          ListData={myData}
+          deleteDisabled={isDeleteDisabled}
+          onDelete={onDelete}
         />
-      )}
 
-      {isSearch && (
-        <Input
-          placeholder="input search text"
-          allowClear
-          onChange={onSearch}
-          // style={{
-          //   width: 200,
-          // }}
-          size={"medium"}
-          style={{ marginBottom: "1rem" }}
-        />
-      )}
-
-      <ListItem
-        ListData={myData}
-        deleteDisabled={isDeleteDisabled}
-        onDelete={onDelete}
-      />
-
-      {/* <ApproverListItem
+        {/* <ApproverListItem
         className="AddMemberModal"
         data={data?.members}
         handleDelete={handleDeleteMember}
       /> */}
-    </Modal>
+      </Modal>
+    );
+  }
+
+  return (
+    <List
+      itemLayout="horizontal"
+      dataSource={data}
+      className={"max-h-[300px] overflow-y-auto"}
+      renderItem={(item) => {
+        return (
+          <List.Item>
+            <List.Item.Meta
+              avatar={
+                <Avatar
+                  name={item.member?.name}
+                  src={item.member?.image}
+                  round={true}
+                  width={"30px"}
+                  height={"30px"}
+                  isZoom={true}
+                />
+              }
+              title={
+                <span className=" text-black font-bold">
+                  {item?.member?.name}
+                </span>
+              }
+              description={
+                <span className="text-gray-500 text-xs ">
+                  {item.member?.designation
+                    ? item.member?.designation
+                    : "No designation"}
+                </span>
+              }
+            />
+            {/* <FaUserLock className="text-xl text-primary-color" /> */}
+          </List.Item>
+        );
+      }}
+    />
   );
 }
 

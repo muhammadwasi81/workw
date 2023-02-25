@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Modal } from "antd";
+import { Modal, Input } from "antd";
 import { useSelector } from "react-redux";
 import CustomSelect from "../AntdCustomSelects/SharedSelects/MemberSelect";
 import ApproverListItem from "../AppComponents/Approvals/components/approverList";
@@ -16,7 +16,9 @@ import { getAllEmployees } from "../../../utils/Shared/store/actions";
 import { useParams } from "react-router-dom";
 import ListItem from "./itemListing";
 
+const { Search } = Input;
 function ItemDetailModal({
+  isSearch = false,
   isOpen = false,
   data,
   isDeleteDisabled = false,
@@ -85,6 +87,16 @@ function ItemDetailModal({
     }
   }, [employees]);
 
+  const onSearch = (e) => {
+    const filteredData = data.filter((item) =>
+      item.member?.name.includes(e.target.value)
+    );
+
+    console.log(filteredData);
+
+    setMyData(filteredData);
+  };
+
   // const handleDeleteMember = (myid) => {
   //   const memberId = myid.toString();
   //   const delmembers = {
@@ -145,8 +157,21 @@ function ItemDetailModal({
         />
       )}
 
+      {isSearch && (
+        <Input
+          placeholder="input search text"
+          allowClear
+          onChange={onSearch}
+          // style={{
+          //   width: 200,
+          // }}
+          size={"medium"}
+          style={{ marginBottom: "1rem" }}
+        />
+      )}
+
       <ListItem
-        ListData={data}
+        ListData={myData}
         deleteDisabled={isDeleteDisabled}
         onDelete={onDelete}
       />

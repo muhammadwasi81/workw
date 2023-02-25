@@ -4,11 +4,11 @@ import {
   getAllProjects,
   getProjectById,
   updateProject,
-  getProjectStickyAction,
+  getProjectSticky,
   getAllProjectMemberAction,
   addProjectMemberAction,
   deleteProjectMemberAction,
-  saveStickyprojectAction,
+  saveStickyproject,
   addProjectFeature,
   getProjectFeature,
   removeProjectFeature,
@@ -21,7 +21,6 @@ const initialState = {
   success: false,
   error: false,
   projectDetail: null,
-  stickyArray: [],
   isComposerOpen: false,
   isEditComposer: false,
   addMemberModal: false,
@@ -29,6 +28,7 @@ const initialState = {
   removeMemberSucess: false,
   projectFeature: [],
   drawerOpen: false,
+  projectSticky: {},
 };
 
 const projectSlice = createSlice({
@@ -97,6 +97,9 @@ const projectSlice = createSlice({
         (feature) => feature.featureId !== payload.featureId
       );
     },
+    targetStickyDescription(state, { payload }) {
+      const value = payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -122,15 +125,18 @@ const projectSlice = createSlice({
         state.loader = false;
         state.success = true;
       })
-      .addCase(saveStickyprojectAction.fulfilled, (state, { payload }) => {
+      .addCase(saveStickyproject.fulfilled, (state, { payload }) => {
+        console.log(payload.data, "payloadddd");
+
         state.loader = false;
         state.success = true;
-        state.stickyArray = [payload.data];
+        state.projectSticky = payload.data;
       })
-      .addCase(getProjectStickyAction.fulfilled, (state, { payload }) => {
-        state.stickyArray = payload;
+      .addCase(getProjectSticky.fulfilled, (state, { payload }) => {
+        console.log(payload, "payloadd");
+        state.projectSticky = payload.data;
       })
-      
+
       .addCase(getAllProjectMemberAction.fulfilled, (state, action) => {
         state.memberData = action.payload.data;
       })
@@ -200,5 +206,6 @@ export const {
   addProjectMember,
   handleFavoriteProjects,
   deleteProjectFeature,
+  targetStickyDescription,
 } = projectSlice.actions;
 export default projectSlice.reducer;

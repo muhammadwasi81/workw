@@ -8,8 +8,8 @@ import {
   getEducationAction,
   updateUserCoverImgAction,
   updateUserProfileImgAction,
-  saveSticyNotesAction,
-  getSticyNotesAction,
+  saveSticyNotes,
+  getSticyNotes,
 } from "./action";
 
 const initialState = {
@@ -21,7 +21,7 @@ const initialState = {
   loader: false,
   coverImg: {},
   profileImg: {},
-  stickyNote: [],
+  profileSticky: {},
 };
 
 const employeeProfileSlice = createSlice({
@@ -77,13 +77,12 @@ const employeeProfileSlice = createSlice({
         state.profileImg = payload;
         state.loader = false;
       })
-      .addCase(saveSticyNotesAction.fulfilled, (state, { payload }) => {
-        console.log(payload.data, "payloadd savee");
-        state.stickyNote = [payload.data];
+      .addCase(saveSticyNotes.fulfilled, (state, { payload }) => {
+        console.log(payload, "payload");
+        state.profileSticky = payload.data;
       })
-      .addCase(getSticyNotesAction.fulfilled, (state, { payload }) => {
-        console.log(payload.data, "payload");
-        state.stickyNote = payload.data;
+      .addCase(getSticyNotes.fulfilled, (state, { payload }) => {
+        state.profileSticky = payload.data;
       })
       .addMatcher(isPending(...[getAllEmployeeAction]), (state) => {
         state.loader = true;

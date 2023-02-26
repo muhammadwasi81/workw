@@ -9,6 +9,7 @@ import { useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getAllChats, getAllEmployeeWithChat } from "../Messenger/store/actions";
 import ChatBoxCont from "./chatBox/ChatBoxCont";
+import MinimizedDocuments from "../documents/view/minimizedDocuments";
 export const Index = () => {
 	const sideBarStatus = useSelector(
 		state => state.sideBarChatSlice.sideBarChatStatus
@@ -43,6 +44,7 @@ export const Index = () => {
 					<SideBarSearch />
 				</SideChatBar>
 				<ChatBoxCont isHide={isHide} />
+				<MinimizedDocuments />
 			</div>
 		</>
 	);

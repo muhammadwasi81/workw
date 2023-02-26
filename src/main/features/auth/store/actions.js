@@ -18,7 +18,7 @@ const addFcmDeviceOnServer = async (data) => {
 		"osVersion": "1.0.0",
 		"device": "Web"
 	}
-	const response = await addDeviceService(payload);
+	const response = await addDeviceService(payload) ;
 	if (response.responseCode === responseCode.Success)
 		return response.data;
 	else
@@ -28,12 +28,14 @@ const addFcmDeviceOnServer = async (data) => {
 export const loginUser = createAsyncThunk(
 	"auth/login",
 	async (userData, { dispatch, getState }) => {
-		const res = await loginService(userData);
+		let payload = {
+			email: userData.email,
+			password: userData.password
+		}
+		const res = await loginService(payload);
 		if (res.data) {
 			const { data } = res;
-			if (data.responseCode !== responseCode.Success)
-				message.error(data.message);
-			if (res) {
+			if (data.responseCode === responseCode.Success){
 				// save device token on server for Fcm Notifications...
 				await dispatch(
 					setUser({
@@ -56,6 +58,9 @@ export const loginUser = createAsyncThunk(
 					}
 				}
 				document.cookie = `token=${data.data.accessToken}; domain=.workw.com; path=/;`;
+			}
+			else{
+				message.error(data.message);
 			}
 		} else {
 			message.error(STRINGS.SERVER_ERROR);

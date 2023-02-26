@@ -21,6 +21,7 @@ import { ROUTES } from "../../../../utils/routes";
 import "../view/styles/style.css";
 import { Table } from "../../../sharedComponents/customTable";
 import { tableColumn } from "./TableColumn";
+import { FeaturePermissionEnum } from "../../../../utils/Shared/enums/featuresEnums";
 
 function Careers() {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -35,6 +36,8 @@ function Careers() {
   const [search, setSearch] = useState("");
   const { labels, Careers } = CareerDictionaryList;
   const [view, setView] = useState("List");
+  const { user } = useSelector((state) => state.userSlice)
+  const userPermissions = user.permissions
 
   const items = [
     {
@@ -97,7 +100,7 @@ function Careers() {
       <TabbableContainer>
         <Header
           items={items}
-          buttons={[
+          buttons={userPermissions.includes(FeaturePermissionEnum.CreateCareer) ? [
             {
               buttonText: CareerDictionaryList.createTextBtn,
               render: (
@@ -109,7 +112,7 @@ function Careers() {
                 </Button>
               ),
             },
-          ]}
+          ] : []}
         />
         <TopBar
           segment={(val) => segmentChange(val)}

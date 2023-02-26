@@ -18,7 +18,7 @@ import WhiteCard from "../UI/WhiteCard";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getProjectById } from "../store/actions";
-import { Collapse, Drawer } from "antd";
+import { Collapse, Drawer, Modal, Form } from "antd";
 import Composer from "../UI/Composer";
 import { useState } from "react";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
@@ -35,37 +35,35 @@ import NewsFeed from "../../feed/ui";
 import Task from "../../task/view/Task";
 import Expenses from "../../expense";
 import Documents from "../../documents/view/documents";
-import { handleComposeEmail } from "../../leadmanager/store/slice";
-import ComposeEmail from "../../leadmanager/view/Email/ComposeEmail";
 import CustomNotes from "../../notes/singleNotes/singleNotes";
 import { Menu, Dropdown, Space } from "antd";
-import { CopyOutlined, EllipsisOutlined } from "@ant-design/icons";
+import { CopyOutlined, EllipsisOutlined, EyeOutlined } from "@ant-design/icons";
 import {
-  saveProjectStickyAction,
-  saveStickyTitleAction,
+  saveStickyprojectAction,
+  //saveStickyTitleAction,
   getProjectStickyAction,
 } from "../store/actions";
 import useDebounce from "../../../../utils/Shared/helper/use-debounce";
 import StickyColor from "../UI/StickyColor";
 import { formats, modules } from "./utils";
-import { DownOutlined } from "@ant-design/icons";
-import ProjectSummary from "../view/ProjectSummary";
 import Schedules from "../../schedule/index";
 import { addMember } from "../store/slice";
 import MemberModal from "../UI/MemberModal";
-const { Panel } = Collapse;
+
+import ProjectInformation from "../UI/ProjectInformation";
 
 function ProjectDetails() {
   const params = useParams();
   const dispatch = useDispatch();
   const detail = useSelector((state) => state.projectSlice.projectDetail);
   const sticky = useSelector((state) => state.projectSlice.stickyArray);
-  console.log(sticky, "sticky array");
-  const [features, setFeatures] = useState([]);
+  const [projectfeatures, setprojectFeatures] = useState([]);
   const [description, setDescription] = useState(null);
   const descriptionDebounce = useDebounce(description, 500);
-  console.log(descriptionDebounce, "description");
   const [openColor, setOpenColor] = useState(true);
+
+  const userId = useSelector((state) => state.userSlice.user.id);
+  const [form] = Form.useForm();
 
   const [title, setTitle] = useState(null);
   const titleDebounce = useDebounce(title, 500);
@@ -73,7 +71,7 @@ function ProjectDetails() {
 
   const { userLanguage } = useContext(LanguageChangeContext);
   const { projectsDictionary } = projectsDictionaryList[userLanguage];
-  const { updateTextBtn, labels } = projectsDictionary;
+  const { updateTextBtn, labels, features } = projectsDictionary;
   const [open, setOpen] = useState(false);
   const { projectId } = params;
 
@@ -94,7 +92,7 @@ function ProjectDetails() {
         content: featuresComp[feat.featureId],
       };
     });
-    setFeatures(temp);
+    setprojectFeatures(temp);
   }, [detail]);
 
   const panes = [
@@ -199,7 +197,7 @@ function ProjectDetails() {
 
   const descHandler = (value) => {
     dispatch(
-      saveProjectStickyAction({
+      saveStickyprojectAction({
         description: value,
         title: "sanjna",
         colorCode: 1,
@@ -211,19 +209,16 @@ function ProjectDetails() {
     if (descriptionDebounce) descHandler(descriptionDebounce);
   }, [descriptionDebounce]);
 
-  const setTitleValue = (value) => {
+  const stickyDescriptionHandler = (value) => {
     dispatch(
-      saveStickyTitleAction({
-        title: value,
-        description: "some",
-        colorCode: 1,
+      saveStickyprojectAction({
+        description: value,
+        userId,
+       
       })
     );
-  };
+  }
 
-  useEffect(() => {
-    if (titleDebounce) setTitleValue(titleDebounce);
-  }, [titleDebounce]);
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText("");
@@ -247,6 +242,7 @@ function ProjectDetails() {
       ]}
     />
   );
+
   return (
     <>
       <TabContainer>
@@ -256,7 +252,7 @@ function ProjectDetails() {
             <div className="rounded-xl basis-9/12 flex flex-col gap-5 overflow-scroll">
               <CoverImage image={detail?.image || ProjectCover} />
               <CoverDetail detail={detail} />
-              <Tab panes={features} id={projectId} features={panes} />
+              <Tab panes={projectfeatures} id={projectId} features={panes} />
             </div>
             <div className="basis-1/4 gap-5 flex flex-col overflow-scroll">
               <Budget data={detail} />
@@ -269,35 +265,9 @@ function ProjectDetails() {
                 />
               </WhiteCard>
               <WhiteCard>
-                <Collapse
-                  expandIcon={({ isActive }) => (
-                    <DownOutlined
-                      rotate={isActive ? 0 : 180}
-                      className="!text-lg !font-bold !text-primary-color"
-                    />
-                  )}
-                  ghost={true}
-                  expandIconPosition={"end"}
-                  defaultActiveKey={["0"]}
-                >
-                  <Panel
-                    showArrow={true}
-                    header={
-                      <div>
-                        <span className="text-base font-bold text-primary-color">
-                          Information
-                        </span>
-                      </div>
-                    }
-                    className="custom_member_collapse"
-                  >
-                    <div className="font-bold flex items-center gap-2 mb-2">
-                      <ProjectSummary />
-                      <span>{"View Summary"}</span>
-                    </div>
-                  </Panel>
-                </Collapse>
+                <ProjectInformation />
               </WhiteCard>
+
               <div className="singleNote_container">
                 <div className="singleNote_header">
                   <div className="leftNote_Icon">
@@ -312,7 +282,7 @@ function ProjectDetails() {
                 </div>
                 <div className="textArea_container bg-white">
                   <CustomNotes
-                    onChange={(value) => setDescription(value)}
+                    onChange={(value) => stickyDescriptionHandler(value)}
                     modules={modules}
                     formats={formats}
                     className={"stickyNoteItem-textarea"}
@@ -339,7 +309,6 @@ function ProjectDetails() {
           id={projectId}
         />
       </Drawer>
-      {/* <ComposeEmail /> */}
       {visible && <MemberModal data={detail} />}
     </>
   );

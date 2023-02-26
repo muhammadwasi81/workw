@@ -23,8 +23,10 @@ import { useParams } from 'react-router';
 const { Option } = Select;
 
 const BankForm = ({ mode, id }) => {
+  console.log(id, 'id');
   const isEdit = mode === 'edit';
-  const param = useParams();
+  const params = useParams();
+  console.log(params.id, 'param');
   const [bankDetails, setBankDetails] = useState([]);
   const { userLanguage } = useContext(LanguageChangeContext);
   const { sharedLabels } = dictionaryList[userLanguage];
@@ -58,9 +60,9 @@ const BankForm = ({ mode, id }) => {
   const placeholder = employeesDictionary.placeholders;
   const [form] = Form.useForm();
 
-  useEffect(() => {
-    dispatch(getAllBankDetailByUser(param.id));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getAllBankDetailByUser(params.id));
+  // }, []);
 
   Object.defineProperty(form, 'values', {
     value: function() {
@@ -111,7 +113,7 @@ const BankForm = ({ mode, id }) => {
         setInitialValues(initialState);
         const payloadObject = {
           ...isValidation,
-          userId: param.id,
+          userId: params.id,
         };
         dispatch(addUserBankInfoAction(payloadObject));
       }
@@ -230,7 +232,7 @@ const BankForm = ({ mode, id }) => {
     console.log(payload, 'payload');
     const payloadObj = {
       payload,
-      id: param.id,
+      id: params.id,
     };
     dispatch(updateUserBankInfoAction(payloadObj));
     setBankDetails((preValues) => [...preValues, payload]);

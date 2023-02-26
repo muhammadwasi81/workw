@@ -4,11 +4,15 @@ import { ResponseType } from "../../../../../utils/api/ResponseResult";
 import { openNotification } from "../../../../../utils/Shared/store/slice";
 import {
   getAllCompanyService,
+  getCompanyByIdService,
   getAllRewardService,
   getAllLoanService,
   getAllComplainService,
   getAllSignupService,
+  ResendSignupEmailService,
+  GetSignupByIdService,
 } from "../services/service";
+import { message } from "antd";
 
 export const getCompanyAction = createAsyncThunk(
   "getCompanyAction",
@@ -23,6 +27,26 @@ export const getCompanyAction = createAsyncThunk(
             // message: "Team added Successfully!",
             type: "success",
             //   duration: 2
+          })
+        );
+        return response.data;
+      default:
+        return;
+    }
+  }
+);
+
+export const getCompanyByIdAction = createAsyncThunk(
+  "getCompanyByIdAction",
+  async (payload, { rejectWithValue, dispatch }) => {
+    const response = await getCompanyByIdService(payload);
+    switch (response.type) {
+      case ResponseType.ERROR:
+        return rejectWithValue(response.errorMessage);
+      case ResponseType.SUCCESS:
+        dispatch(
+          openNotification({
+            type: "success",
           })
         );
         return response.data;
@@ -74,6 +98,36 @@ export const getAllLoanAction = createAsyncThunk(
       default:
         return;
     }
+  }
+);
+
+
+export const ResendSignupEmailAction = createAsyncThunk(
+  "Signup/ getAllLoanAction",
+  async (id, { dispatch, setState, rejectWithValue }) => {
+    const response = await ResendSignupEmailService(id);
+    if (response.data.responseCode === 1001) {
+      message.success("Request Sent");
+      return response;
+    } else {
+      message.error(response.data.message);
+      return rejectWithValue(response.data.message);
+    }
+    return response;
+  }
+);
+
+export const GetSignupById = createAsyncThunk(
+  "Signup/GetSignupById",
+  async (id, { dispatch, setState, rejectWithValue }) => {
+    const response = await GetSignupByIdService(id);
+    if (response.data.responseCode === 1001) {
+      return response;
+    } else {
+      message.error(response.data.message);
+      return rejectWithValue(response.data.message);
+    }
+    return response;
   }
 );
 

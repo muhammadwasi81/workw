@@ -16,8 +16,10 @@ import {
   defaultUiid,
   FeaturesEnum,
 } from "../../../../../utils/Shared/enums/enums";
-import FeatureSelect from "../../../../sharedComponents/FeatureSelect/Index";
+import Features from "../../../../sharedComponents/FeatureSelect/Index";
 import PrivacyOptions from "../../../../sharedComponents/PrivacyOptionsDropdown/PrivacyOptions";
+import { addGroupFeaturesAction } from "../../store/actions";
+import { useParams } from "react-router-dom";
 
 const initialState = {
   id: "",
@@ -38,10 +40,11 @@ const Composer = (props) => {
   const [form] = Form.useForm();
   const [profileImage, setProfileImage] = useState("");
   const { detail, update = false, id } = props;
-  // const [state, setState] = useState(initialState);
   const [privacyId, setPrivacyId] = useState(1);
   const [memberList, setMemberList] = useState([]);
+  const { groupId } = useParams();
 
+  const [feature, setFeature] = useState([]);
   const onPrivacyChange = (value) => {
     setPrivacyId(value);
   };
@@ -104,11 +107,11 @@ const Composer = (props) => {
 
   useEffect(() => {
     if (update) {
-      const featureValues = detail.features.map((item) => ({
+      const featureValues = detail?.features.map((item) => ({
         [item.featureName]: true,
       }));
       form.setFieldsValue({
-        features: detail.features.map((item) => {
+        features: detail?.features.map((item) => {
           return { featureId: item.featureId };
         }),
         name: detail.name,
@@ -122,6 +125,18 @@ const Composer = (props) => {
     }
   }, [detail]);
 
+  const onFeatureHandler = (featureId, checked) => {
+    if (checked) {
+      form.setFieldsValue({
+        features: [...form.getFieldValue("features"), { featureId: featureId }],
+      });
+      const payload = {
+        featureId: featureId,
+        groupId: groupId,
+      };
+      setFeature([payload]);
+    }
+  };
   return (
     <>
       <Form
@@ -193,13 +208,7 @@ const Composer = (props) => {
             )}
           </>
         )}
-        {!update && (
-          <FeatureSelect
-            features={features}
-            form={form}
-            notIncludeFeature={FeaturesEnum.Travel}
-          />
-        )}
+        {!update && <Features checked={feature} onChange={onFeatureHandler} />}
 
         <Form.Item>
           <div className="flex items-center gap-2">

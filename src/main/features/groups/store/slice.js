@@ -7,6 +7,9 @@ import {
   addGroupMemberAction,
   getAllGroupMemberAction,
   deleteGroupMemberAction,
+  addGroupFeatures,
+  getGroupFeatures,
+  removeGroupFeaturesAction,
 } from "./actions";
 
 const initialState = {
@@ -14,7 +17,6 @@ const initialState = {
   loadingData: false,
   loader: false,
   createLoader: false,
-
   groupDetail: null,
   success: false,
   error: false,
@@ -26,6 +28,7 @@ const initialState = {
   open: false,
   drawerOpen: false,
   removeMemberSucess: false,
+  groupFeatures: [],
 };
 
 const groupSlice = createSlice({
@@ -89,6 +92,11 @@ const groupSlice = createSlice({
       const favGroups = state.groups.find((group) => group.id === payload.id);
       favGroups.isPinnedPost = !favGroups.isPinnedPost;
     },
+    removeGroupFeatures(state, { payload }) {
+      state.groupFeatures = state.groupFeatures.filter(
+        (feature) => feature.featureId !== payload.featureId
+      );
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -135,9 +143,15 @@ const groupSlice = createSlice({
         let newMembers = state.groupDetail.members.filter(
           (member) => member.memberId !== payload
         );
-
         state.groupDetail = { ...state.groupDetail, members: newMembers };
       })
+      .addCase(addGroupFeatures.fulfilled, (state, { payload }) => {
+        state.groupFeatures = payload.data.length > 0 ? payload.data : [];
+      })
+      .addCase(getGroupFeatures.fulfilled, (state, { payload }) => {
+        state.groupFeatures = payload.data;
+      })
+      .addCase(removeGroupFeaturesAction.fulfilled, (state, { payload }) => {})
       .addMatcher(isPending(...[deleteGroupMemberAction]), (state) => {
         state.removeMemberSucess = false;
       })
@@ -180,5 +194,6 @@ export const {
   addGroupMember,
   handleOpenComposer,
   handleFavoriteMark,
+  removeGroupFeatures,
 } = groupSlice.actions;
 export default groupSlice.reducer;

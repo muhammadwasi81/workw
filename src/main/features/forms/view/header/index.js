@@ -5,12 +5,15 @@ import { Button } from "antd";
 import { Link } from "react-router-dom";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { documentDictionaryList } from "../../localization/index";
+import { FeaturePermissionEnum } from "../../../../../utils/Shared/enums/featuresEnums";
+import { useSelector } from "react-redux";
 
 const Index = () => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { documentDictionary } = documentDictionaryList[userLanguage];
-
   const { forms, createForms } = documentDictionary;
+  const {user} = useSelector((state) => state.userSlice);
+  const userPermissions = user.permissions
   return (
     <Header
       items={[
@@ -20,15 +23,15 @@ const Index = () => {
           renderButton: [1],
         },
       ]}
-      buttons={[
+      buttons={userPermissions.includes(FeaturePermissionEnum.CreateForm) ? [
         {
           render: (
             <Link to={ROUTES.FORMS.CREATE_FORM}>
-              <Button className="headerBtn">{createForms}</Button>
+               <Button className="headerBtn">{createForms}</Button>
             </Link>
           ),
         },
-      ]}
+      ] : []}
     />
   );
 };

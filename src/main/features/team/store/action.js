@@ -13,6 +13,7 @@ import {
   getAllCoursesService,
   getAllAppraisalService,
   getDeviceInfoService,
+  addTeamMemberService,
 } from "../services/service";
 
 export const getTeamsAction = createAsyncThunk(
@@ -83,7 +84,6 @@ export const getAppraisalsAction = createAsyncThunk(
     }
   }
 );
-
 
 export const getCourseAction = createAsyncThunk(
   "teamSlice/getCourseAction",
@@ -220,9 +220,8 @@ export const getAllCheckInAction = createAsyncThunk(
   }
 );
 
-
 export const getDeviceInfoAction = createAsyncThunk(
-  'teamSlice/getDeviceInfoAction',
+  "teamSlice/getDeviceInfoAction",
   async (id, { dispatch, rejectWithValue }) => {
     const response = await getDeviceInfoService(id);
     switch (response.type) {
@@ -231,9 +230,33 @@ export const getDeviceInfoAction = createAsyncThunk(
       case ResponseType.SUCCESS:
         dispatch(
           openNotification({
-           // message: "Team added Successfully!",
+            // message: "Team added Successfully!",
             type: "success",
             //   duration: 2
+          })
+        );
+        return response.data;
+      default:
+        return;
+    }
+  }
+);
+
+export const addTeamMemberAction = createAsyncThunk(
+  "teamSlice/addTeamMemberAction",
+  async (payload, { rejectWithValue, dispatch }) => {
+    console.log(payload, "sssa");
+    const response = await addTeamMemberService(payload);
+    console.log(response, "addUser addTeamMemberAction");
+    switch (response.type) {
+      case ResponseType.ERROR:
+        return rejectWithValue(response.errorMessage);
+      case ResponseType.SUCCESS:
+        dispatch(
+          openNotification({
+            message: `Team Member added Successfully`,
+            type: "success",
+            duration: 2,
           })
         );
         return response.data;

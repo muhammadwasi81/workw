@@ -11,6 +11,8 @@ import { WorkBoardReferenceTypeEnum } from "../enum";
 import { getAllWorkBoard } from "../store/action";
 import { tableColumn } from "./tableColumns";
 import WorkBoardCard from "./WorkBoardCard";
+import { PlusOutlined } from "@ant-design/icons";
+import { Button } from "antd";
 
 function WorkBoardDashboard({
   isTableView,
@@ -52,6 +54,7 @@ function WorkBoardDashboard({
 
   return (
     <>
+    
       {isTableView && (
         <Table
           columns={tableColumn()}
@@ -66,7 +69,7 @@ function WorkBoardDashboard({
           // onPageChange={onPageChange}
         />
       )}
-
+ 
       {workboardsListData?.length > 0 && !loader && !isTableView ? (
         <CardWrapper2>
           {workboardsListData.map((data) => (

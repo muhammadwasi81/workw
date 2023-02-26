@@ -17,17 +17,29 @@ import {
   GlobalOutlined,
   SafetyCertificateOutlined,
 } from "@ant-design/icons";
+import { FeaturePermissionEnumList,FeaturesEnumList } from "../../../../../utils/Shared/enums/featuresEnums";
 const { Panel } = Collapse;
 
 function Menu() {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, navMenuLabel } = dictionaryList[userLanguage];
   const { pathname } = useLocation();
-  let { navHrMenuData } = NavMenuList();
+  let { menuItems } = NavMenuList();
   const { navBarStatus } = useSelector((state) => state.responsiveSlice);
-  const groupedMenuItems = groupByKey(navHrMenuData, "key");
+  const {user} = useSelector((state) => state.userSlice);
+ 
+  const groupedMenuItems = groupByKey(menuItems.filter(x=>getUserPermissions().includes(x.featureId)), "key");
   const [data, setData] = useState(groupedMenuItems);
   let currentCategory = "";
+
+  function getUserPermissions(){
+    return FeaturePermissionEnumList.map((x)=>{
+      if (user.permissions.includes(x.id)) {
+        return x.featureId 
+      }
+    })
+  }
+
   useEffect(() => {
     setData(groupedMenuItems);
   }, [Direction, navMenuLabel]);
@@ -108,11 +120,8 @@ function Menu() {
               )}
             >
               <Panel header={key} key="1" extra={renderIcons[key]}>
-                {/* <span>{key}</span> */}
                 <ReactDragListView {...dragProps}>
-                  {data[key].map(({ name, to: path, icon }, index) => {
-                    // eslint-disable-next-line no-lone-blocks
-
+                  {data[key].map(({ name, to: path, icon}, index) => {
                     return !navBarStatus ? (
                       <Tooltip
                         title={name}

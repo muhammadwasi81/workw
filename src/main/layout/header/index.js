@@ -111,7 +111,7 @@ function Header({ items, buttons, backButton, width, isSchedule = false }) {
           </div>
         )}
         <div className="buttons">
-          {filterButtons.map((button, index) => renderButton(button, index))}
+          {filterButtons && filterButtons.map((button, index) => renderButton(button, index))}
         </div>
         {/* <div className="dropDown">
 					<Dropdown

@@ -14,6 +14,7 @@ import { tableColumn } from "../TableColumn";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { documentDictionaryList } from "../localization/index";
 import { Skeleton } from "antd";
+import { FeaturePermissionEnum } from "../../../../utils/Shared/enums/featuresEnums";
 
 const Forms = ({ dictionary }) => {
   const [filter, setFilter] = useState({ filterType: 0, search: "" });
@@ -24,8 +25,8 @@ const Forms = ({ dictionary }) => {
   const { documentDictionary } = documentDictionaryList[userLanguage];
   const dispatch = useDispatch();
 
+
   useEffect(() => {
-    console.log("useEffect works for get all forms");
     dispatch(
       getAllForms({
         filter,

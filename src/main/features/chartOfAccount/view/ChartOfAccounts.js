@@ -14,6 +14,7 @@ import { Button } from "antd/lib/radio";
 import { ROUTES } from "../../../../utils/routes";
 import { charOfAccountDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { FeaturePermissionEnum } from "../../../../utils/Shared/enums/featuresEnums";
 
 export default function ChartOfAccounts() {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -25,6 +26,8 @@ export default function ChartOfAccounts() {
     (state) => state.chartOfAccountsSlice
   );
   const [openDrawer, setOpenDrawer] = useState(false);
+  const { user } = useSelector((state) => state.userSlice)
+  const userPermissions = user.permissions
 
   useEffect(() => {
     if (success) {
@@ -34,13 +37,13 @@ export default function ChartOfAccounts() {
   return (
     <TabbableContainer>
       <Header
-        items={[
+        items={ userPermissions.includes(FeaturePermissionEnum.CreateChartOfAccount) ? [
           {
             name: chartOfAccountDictionary.chartOfAccount,
             to: ROUTES.FINANCE.CHART_OF_ACCOUNT.ROOT,
             renderButton: [1],
           },
-        ]}
+        ] : []}
         buttons={[
           {
             buttonText: chartOfAccountDictionary.createAccount,

@@ -20,6 +20,7 @@ import GridView from "./GridView/GridView";
 import Spinner from "../../../sharedComponents/spinner/spinner";
 import useDebounce from "../../../../utils/Shared/helper/use-debounce";
 import { handleOpenComposer } from "../store/slice";
+import { FeaturePermissionEnum } from "../../../../utils/Shared/enums/featuresEnums";
 import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
 
 const Groups = (props) => {
@@ -30,6 +31,9 @@ const Groups = (props) => {
   const { createTextBtn, topBar } = groupsDictionary;
   const [search, setSearch] = useState("");
   const value = useDebounce(search, 500);
+  const {user} = useSelector((state) => state.userSlice);
+  const userPermissions = user.permissions
+
 
   const [tableView, setTableView] = useState(false);
   const { groups, success, getDataLoading, drawerOpen, loader } = useSelector(
@@ -61,7 +65,7 @@ const Groups = (props) => {
       <TabbableContainer className="">
         <Header
           items={items}
-          buttons={[
+          buttons={userPermissions.includes(FeaturePermissionEnum.CreateGroup) ? [
             {
               buttonText: createTextBtn,
               render: (
@@ -78,7 +82,7 @@ const Groups = (props) => {
                 </SideDrawer>
               ),
             },
-          ]}
+          ] : []}
         />
         <TopBar
           onSearch={(value) => {

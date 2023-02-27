@@ -21,7 +21,6 @@ const { Search } = Input;
 function ItemDetailModal({
   openModal = false,
   isSearch = false,
-  isOpen = false,
   data,
   isDeleteDisabled = false,
   addEnabled = false,
@@ -38,7 +37,6 @@ function ItemDetailModal({
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [value, setValue] = useState([]);
   const params = useParams();
-  const [open, setOpen] = useState(isOpen);
   const [myData, setMyData] = useState([]);
   const { groupDetailid } = params;
   // let ModalOpen = modalRequest.status;

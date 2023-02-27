@@ -85,13 +85,13 @@ const ContentOptions = ({ handleClose, data }) => {
         {
           //props will be passed for all functions that will be used
           <DetailModal
-            data={data?.members} //Data
+            data={data?.members} //Data of members will pass here in array
             isDeleteDisabled={false} //Pass true to hide delete icon
             addEnabled={true} //Pass false to hide select member
-            addFunc={addFunc}
-            onDelete={onDelete}
+            addFunc={addFunc} // define and pass addMember action of particular members
+            onDelete={onDelete} // define and pass onDeletemember actions of particular members
             isSearch={false} //Pass true if you want to search the list
-            openModal={true}
+            openModal={true} // pass true if you want to open member details in modal other wise it display in listing
           />
         }
       </div>

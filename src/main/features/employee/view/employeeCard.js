@@ -107,18 +107,20 @@ export const CardGrid = styled.div`
 `;
 
 function EmployeeCard({ employees: { image, name, email, designation, id } }) {
+  console.log('EmployeeCard', image);
   const navigate = useNavigate();
   const { userLanguage } = useContext(LanguageChangeContext);
   const { sharedLabels } = dictionaryList[userLanguage];
 
-  console.log(image, 'Image');
-
   return (
     <Parent>
       <ImageBox
-        src={image ? image : 'http://www.miletap.com/img/title.png'}
+        src={
+          image
+            ? image
+            : 'https://konnect.im/static/media/user_default.22b0811e.jpg'
+        }
         alt="logo"
-        loading="lazy"
       />
       <ContentBox>
         <Heading>{name}</Heading>

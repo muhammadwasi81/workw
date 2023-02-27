@@ -24,12 +24,14 @@ import Header from "../../../layout/header/index";
 import { handleOpenComposer } from "../store/slice";
 import { ROUTES } from "../../../../utils/routes";
 import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
+import { FeaturePermissionEnum } from "../../../../utils/Shared/enums/featuresEnums";
 
 const Warning = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { warningDictionary } = warningDictionaryList[userLanguage];
   const { tables } = warningDictionary;
-
+  const { user } = useSelector((state) => state.userSlice);
+  const userPermissions = user.permissions;
   const [detailId, setDetailId] = useState(false);
   const [tableView, setTableView] = useState(false);
   const isTablet = useMediaQuery({ maxWidth: 800 });
@@ -74,21 +76,25 @@ const Warning = (props) => {
     <TabbableContainer className="max-width-1190">
       <Header
         items={items}
-        buttons={[
-          {
-            buttonText: "Create Warning",
-            render: (
-              <SideDrawer
-                title={warningDictionary.createWarning}
-                buttonText={warningDictionary.createWarning}
-                handleClose={() => dispatch(handleOpenComposer(false))}
-                handleOpen={() => dispatch(handleOpenComposer(true))}
-                isOpen={drawerOpen}
-                children={<Composer />}
-              />
-            ),
-          },
-        ]}
+        buttons={
+          userPermissions.includes(FeaturePermissionEnum.CreateWarnings)
+            ? [
+                {
+                  buttonText: "Create Warning",
+                  render: (
+                    <SideDrawer
+                      title={warningDictionary.createWarning}
+                      buttonText={warningDictionary.createWarning}
+                      handleClose={() => dispatch(handleOpenComposer(false))}
+                      handleOpen={() => dispatch(handleOpenComposer(true))}
+                      isOpen={drawerOpen}
+                      children={<Composer />}
+                    />
+                  ),
+                },
+              ]
+            : []
+        }
       />
       <TopBar
         onSearch={(value) => {

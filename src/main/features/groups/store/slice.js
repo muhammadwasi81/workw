@@ -88,7 +88,6 @@ const groupSlice = createSlice({
       state.groups = deleteGroupMembers;
     },
     handleFavoriteMark(state, { payload }) {
-      console.log(payload, "payload in slice");
       const favGroups = state.groups.find((group) => group.id === payload.id);
       favGroups.isPinnedPost = !favGroups.isPinnedPost;
     },
@@ -121,8 +120,8 @@ const groupSlice = createSlice({
         state.groupDetail = payload.data;
         state.createLoader = false;
         state.drawerOpen = false;
-        // state.success = true;
-        return state;
+        state.success = true;
+        // return state;
       })
       .addCase(addGroupMemberAction.fulfilled, (state, { payload }) => {
         if (state.groupDetail) {

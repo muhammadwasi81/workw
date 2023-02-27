@@ -1,15 +1,11 @@
 import React, { useEffect, useContext, useState } from "react";
-import { useMediaQuery } from "react-responsive";
-import { Button, Drawer } from "antd";
 import {
   ContBody,
   TabbableContainer,
 } from "../../../sharedComponents/AppComponents/MainFlexContainer";
-import { Skeleton, Modal } from "antd";
-// import { dictionaryList } from "../../../../utils/localization/languages";
+import { Skeleton } from "antd";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { rewardDictionaryList } from "../localization/index";
-
 import ListItem from "./ListItem";
 import Composer from "./Composer";
 import DetailedView from "./DetailedView";
@@ -22,23 +18,19 @@ import { Table } from "../../../sharedComponents/customTable";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 import Header from "../../../layout/header/index";
 import { handleOpenComposer } from "../store/slice";
-import { emptyEmployeesData } from "../../../../utils/Shared/store/slice";
 import { ROUTES } from "../../../../utils/routes";
 import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
 import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
-//import { getIconByFeaturesType } from "../../../../utils/Shared/helper/helpers";
-import {getApprovalsTypeByFeaturesType} from "../../../sharedComponents/AppComponents/Approvals/helper/helpers"
+import { FeaturePermissionEnum } from "../../../../utils/Shared/enums/featuresEnums";
 
 const Reward = (props) => {
   const { visible } = props;
   const { userLanguage } = useContext(LanguageChangeContext);
   const { rewardDictionary } = rewardDictionaryList[userLanguage];
+  const {user} = useSelector((state) => state.userSlice);
+  const userPermissions = user.permissions
 
-  // const { sharedLabels, rewardsDictionary } = dictionaryList[userLanguage];
-
-  const isTablet = useMediaQuery({ maxWidth: 800 });
   const [detailId, setDetailId] = useState(false);
-
   const [sort, setSort] = useState(1);
   const [page, setPage] = useState(20);
   const [pageNo, setPageNo] = useState(1);
@@ -46,7 +38,7 @@ const Reward = (props) => {
   const [filter, setFilter] = useState({ filterType: 0, search: "" });
 
   const dispatch = useDispatch();
-  const { rewards, loader, rewardDetail, drawerOpen } = useSelector(
+  const { rewards, loader, drawerOpen } = useSelector(
     (state) => state.rewardSlice
   );
   const [searchFilterValues, setSearchFilterValues] = useState();
@@ -54,12 +46,6 @@ const Reward = (props) => {
   const onClose = () => {
     setDetailId(null);
   };
-
-  // var currentDateTime = new Date();
-  // var a = 'Tue, Jan 22 2022 10:00:00 GMT+0500 (Pakistan Standard Time)'
-  // var resultInSeconds = a.getTime()
-  // console.log(currentDateTime, "SIMPLE");
-  // console.log(resultInSeconds, "CURRENT DATE AND TIMEA")
 
 
   useEffect(() => {
@@ -97,17 +83,17 @@ const Reward = (props) => {
       renderButton: [1],
     },
   ];
+
   return (
     <>
       <TabbableContainer className=""> 
 
         <Header
           items={items}
-          buttons={[
+          buttons={userPermissions.includes(FeaturePermissionEnum.CreateRewards) ? [
             {
               buttonText: rewardDictionary.createReward,
-
-              render: (
+              render: (  
                 <SideDrawer
                   title={rewardDictionary.createReward}
                   buttonText={rewardDictionary.createReward}
@@ -115,10 +101,10 @@ const Reward = (props) => {
                   handleOpen={() => dispatch(handleOpenComposer(true))}
                   isOpen={drawerOpen}
                   children={<Composer />} 
-                />
-              ),
+              /> 
+              )
             },
-          ]}
+          ] : []}
         />
         <TopBar
           onSearch={(value) => {

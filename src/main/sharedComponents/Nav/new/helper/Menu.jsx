@@ -24,28 +24,25 @@ function Menu() {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, navMenuLabel } = dictionaryList[userLanguage];
   const { pathname } = useLocation();
-  let { navHrMenuData } = NavMenuList();
+  let { menuItems } = NavMenuList();
   const { navBarStatus } = useSelector((state) => state.responsiveSlice);
   const {user} = useSelector((state) => state.userSlice);
  
-  const groupedMenuItems = groupByKey(navHrMenuData.filter(x=>getUserPermissions().includes(x.featureId)), "key");
+  const groupedMenuItems = groupByKey(menuItems.filter(x=>getUserPermissions().includes(x.featureId)), "key");
   const [data, setData] = useState(groupedMenuItems);
   let currentCategory = "";
 
   function getUserPermissions(){
     return FeaturePermissionEnumList.map((x)=>{
-      user.permissions.includes(x.id)
-      return x.featureId})
+      if (user.permissions.includes(x.id)) {
+        return x.featureId 
+      }
+    })
   }
+
   useEffect(() => {
-    
     setData(groupedMenuItems);
   }, [Direction, navMenuLabel]);
-
-  // console.log(groupedMenuItems,'====groupedMenuItems===',user,'====user===',navHrMenuData,'====navHrMenuData===');
-  // console.log(FeaturePermissionEnumList.map((x)=>{
-  //           user.permissions.includes(x.id)
-  //           return x.featureId}),'==FeaturePermissionEnumList===');
 
   const activeTab = (isActive, path) => {
     
@@ -111,7 +108,6 @@ function Menu() {
   return (
     <div className="menu">
       {Object.keys(data).map((key, ObjIndex) => {
-          // if ([1,5,7,5,6,8,9,10,11].includes(item.value)) {
         return (
           <>
             <Collapse
@@ -124,12 +120,8 @@ function Menu() {
               )}
             >
               <Panel header={key} key="1" extra={renderIcons[key]}>
-                {/* <span>{key}</span> */}
                 <ReactDragListView {...dragProps}>
-                  {data[key].map(({ name, to: path, icon, permissionId }, index) => {
-                    console.log(data[key], "SECOND !!!")
-                    // eslint-disable-next-line no-lone-blocks
-
+                  {data[key].map(({ name, to: path, icon}, index) => {
                     return !navBarStatus ? (
                       <Tooltip
                         title={name}

@@ -9,10 +9,7 @@ import { useParams } from "react-router-dom";
 import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
 import { getAllEmployees } from "../../../../utils/Shared/store/actions";
 import { addMember, deleteProjectMember } from "../store/slice";
-import {
-  addProjectMemberAction,
-  deleteProjectMemberAction,
-} from "../store/actions";
+import {addProjectMemberAction,deleteProjectMemberAction} from "../store/actions";
 
 function MemberModal({ isOpen = false, data }) {
   const dispatch = useDispatch();

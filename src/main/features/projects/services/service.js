@@ -1,15 +1,6 @@
-import { identity } from "@fullcalendar/react";
 import MasterConfig from "../../../../utils/services/MasterConfig";
 const API_PREFIX = "api/Project/";
 
-const getAllSticky_SD = (data) => {
-  return {
-    pageNo: data.pageNo ? data.pageNo : 1,
-    pageSize: data.pageSize ? data.pageSize : 20,
-    search: data.search ? data.search : "",
-    filterSortBy: data.filterSortBy ? data.filterSortBy : 1,
-  };
-};
 export const getAllProjectsService = (data) => {
   return MasterConfig.post(`${API_PREFIX}GetAllProject`, data)
     .then((res) => {
@@ -77,21 +68,9 @@ export const addProjectFeatureService = (data) => {
     });
 };
 
-export const saveProjectStickyNotesService = (data) => {
+export const saveStickyNoteProject = (data) => {
   return MasterConfig.post(`api/StickyNotes/SaveProjectStickyNotes`, data)
     .then((res) => {
-      console.log(res.data, "project sticky");
-      return res.data;
-    })
-    .catch((err) => {
-      return err;
-    });
-};
-
-export const saveStickyNotesTitleService = (data) => {
-  return MasterConfig.post(`api/StickyNotes/SaveTitleProjectStickyNotes`, data)
-    .then((res) => {
-      console.log(res.data, "project sticky title");
       return res.data;
     })
     .catch((err) => {
@@ -100,10 +79,9 @@ export const saveStickyNotesTitleService = (data) => {
 };
 
 export const getAllProjectStickyService = (data) => {
-  let request = getAllSticky_SD(data);
-  return MasterConfig.post(`api/StickyNotes/GetAllProjectStickyNotes`, request)
+  console.log(data, "requesttttt");
+  return MasterConfig.get(`api/StickyNotes/GetProjectStickyNotes`, data)
     .then((res) => {
-      console.log(res.data, "get project sticky");
       return res.data;
     })
     .catch((err) => {

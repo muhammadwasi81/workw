@@ -22,10 +22,14 @@ import { Drawer, Button } from "antd";
 import { ROUTES } from "../../../utils/routes";
 import SideDrawer from "../../sharedComponents/Drawer/SideDrawer";
 import { handleOpenComposer } from "./store/slice";
+import { FeaturePermissionEnum } from "../../../utils/Shared/enums/featuresEnums";
 
 function Loan() {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { loanDictionaryList, Direction } = LoanDictionary[userLanguage];
+  const {user} = useSelector((state) => state.userSlice);
+  const CreatePermission = FeaturePermissionEnum.CreateLoan
+  const userPermissions = user.permissions
   const dispatch = useDispatch();
   const { loanList, listItem, isCreateComposer, drawerOpen } = useSelector(
     (state) => state.loanSlice
@@ -59,7 +63,7 @@ function Loan() {
     <TabbableContainer>
       <Header
         items={items}
-        buttons={[
+        buttons={userPermissions.includes(CreatePermission) ? [
           {
             buttonText: loanDictionaryList.createLoan,
             render: (
@@ -73,7 +77,7 @@ function Loan() {
               />
             ),
           },
-        ]}
+        ] : []}
       />
       <TopBar
         onSearch={onSearch}

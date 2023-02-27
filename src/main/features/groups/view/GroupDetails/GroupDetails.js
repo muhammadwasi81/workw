@@ -39,6 +39,7 @@ import { addMember } from "../../store/slice";
 import { getAllGroupMemberAction } from "../../store/actions";
 import MemberModal from "../Modal/MemberModal";
 import MySchedules from "../../../schedule/view/ScheduleDetail/SchedulesDetail";
+import { GroupFeaturePermissionEnum, GroupFeaturePermissionEnumList } from "../../../../../utils/Shared/enums/groupFeatureEnum";
 
 function GroupDetails() {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -67,6 +68,16 @@ function GroupDetails() {
     };
   }, []);
 
+  let featurePermissions = detail?.features.map((item) => item.featureId)
+
+  function getUserPermissions(){
+    return GroupFeaturePermissionEnumList.map((x)=>{
+      if (featurePermissions?.includes(x.id)) {
+        return x.featureId 
+      }
+    })
+  }
+  // let testArray = [2,3,4]
   useEffect(() => {
     let temp = detail?.features.map((feat) => {
       return {
@@ -74,7 +85,8 @@ function GroupDetails() {
         content: featuresComp[feat.featureId],
       };
     });
-    setFeatures(temp);
+    let payload = temp && temp.filter((item) =>  getUserPermissions().includes(item.featureId))
+    setFeatures(payload);
   }, [detail]);
 
   const defaultRoute = ROUTES.GROUP.DEFAULT + "/" + id;

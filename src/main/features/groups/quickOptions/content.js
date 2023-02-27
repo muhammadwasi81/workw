@@ -90,7 +90,7 @@ const ContentOptions = ({ handleClose, data }) => {
             addEnabled={true} //Pass false to hide select member
             addFunc={addFunc}
             onDelete={onDelete}
-            isSearch={true} //Pass true if you want to search the list
+            isSearch={false} //Pass true if you want to search the list
             openModal={true}
           />
         }

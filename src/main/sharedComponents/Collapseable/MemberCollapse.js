@@ -14,6 +14,7 @@ function MemberCollapse({
   isEmail = false,
   isMember = false,
   onEmailClick = () => {},
+  onDelete = () => {},
 }) {
   const onChange = (key) => {
     // console.log(key);
@@ -77,6 +78,7 @@ function MemberCollapse({
           addEnabled={false} //Pass false to hide select member
           isSearch={false} //Pass true if you want to search the list
           openModal={false}
+          onDelete={onDelete}
         />
         {/* <List
           itemLayout="horizontal"

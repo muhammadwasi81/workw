@@ -4,6 +4,7 @@ import { Modal, Input, List } from "antd";
 import { useSelector } from "react-redux";
 import CustomSelect from "../AntdCustomSelects/SharedSelects/MemberSelect";
 import ApproverListItem from "../AppComponents/Approvals/components/approverList";
+import { DeleteFilled } from "@ant-design/icons";
 // import {
 //   getAllGroupMemberAction,
 //   addGroupMemberAction,
@@ -105,6 +106,12 @@ function ItemDetailModal({
   //   };
 
   //   dispatch(deleteGroupMemberAction(delmembers));
+
+  const DeleteInItemDetail = (e, id) => {
+    e.preventDefault();
+    e.stopPropagation();
+    onDelete(id);
+  };
   // };
   if (openModal) {
     return (
@@ -218,7 +225,13 @@ function ItemDetailModal({
                 </span>
               }
             />
-            {/* <FaUserLock className="text-xl text-primary-color" /> */}
+            {!isDeleteDisabled && (
+              <DeleteFilled
+                className=""
+                style={{ color: "#000000" }}
+                onClick={(e) => DeleteInItemDetail(e, item.member.id)}
+              />
+            )}
           </List.Item>
         );
       }}

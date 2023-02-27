@@ -1,4 +1,4 @@
-import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
+import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import {
   getEmployeeSalary,
   getCities,
@@ -15,14 +15,14 @@ import {
   getComplainCategory,
   getAllEmployees,
   getAllEmployeeShort,
-} from './actions';
+} from "./actions";
 
 const initialState = {
   countries: [],
   cities: [],
   designations: [],
-  employeeSalary: '',
-  employeeBasicSalary: '',
+  employeeSalary: "",
+  employeeBasicSalary: "",
   userTypes: [],
   userTitles: [],
   genders: [],
@@ -39,11 +39,12 @@ const initialState = {
   notification: {},
   employees: [],
   employeeShort: [],
-  isDarkMode: localStorage.getItem('darkMode') === '1',
+  isDarkMode: localStorage.getItem("darkMode") === "1",
+  itemDetailModal: false,
 };
 
 const sharedSlice = createSlice({
-  name: 'shared',
+  name: "shared",
   initialState,
   reducers: {
     openNotification: (state, { payload }) => {
@@ -54,6 +55,10 @@ const sharedSlice = createSlice({
     },
     darkModeHandler: (state, { payload }) => {
       state.isDarkMode = payload;
+    },
+    handleItemDetailModal: (state, { payload }) => {
+      console.log(payload, "payload");
+      state.itemDetailModal = payload;
     },
   },
   extraReducers: (builder) => {
@@ -169,5 +174,6 @@ export const {
   openNotification,
   emptyEmployeesData,
   darkModeHandler,
+  handleItemDetailModal,
 } = sharedSlice.actions;
 export default sharedSlice.reducer;

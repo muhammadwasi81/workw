@@ -1,4 +1,4 @@
-import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
+import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
 import {
   getEmployeeSalary,
   getCities,
@@ -15,14 +15,14 @@ import {
   getComplainCategory,
   getAllEmployees,
   getAllEmployeeShort,
-} from "./actions";
+} from './actions';
 
 const initialState = {
   countries: [],
   cities: [],
   designations: [],
-  employeeSalary: "",
-  employeeBasicSalary: "",
+  employeeSalary: '',
+  employeeBasicSalary: '',
   userTypes: [],
   userTitles: [],
   genders: [],
@@ -39,11 +39,11 @@ const initialState = {
   notification: {},
   employees: [],
   employeeShort: [],
-  isDarkMode: localStorage.getItem("darkMode") === "1",
+  isDarkMode: localStorage.getItem('darkMode') === '1',
 };
 
 const sharedSlice = createSlice({
-  name: "shared",
+  name: 'shared',
   initialState,
   reducers: {
     openNotification: (state, { payload }) => {
@@ -53,7 +53,6 @@ const sharedSlice = createSlice({
       state.employees = [];
     },
     darkModeHandler: (state, { payload }) => {
-      console.log("slice", payload);
       state.isDarkMode = payload;
     },
   },
@@ -64,8 +63,6 @@ const sharedSlice = createSlice({
         state.loadingData = false;
       })
       .addCase(getEmployeeSalary.fulfilled, (state, { payload }) => {
-        console.log("fulfilled");
-        console.log(payload);
         state.employeeSalary = payload.data;
         // let x = payload.data.map((element, i) => {
         //   return element.netSalary;

@@ -22,7 +22,9 @@ import {
   updateWorkBoardTodoTitle,
   getWorkBoardMemberAction,
   addWorkBoardMember,
+  addWorkBoardTodoMemberAction,
   removeWorkBoardMember,
+  removeToDoMemebr,
 } from "./action";
 
 const initialComposerData = {
@@ -338,6 +340,7 @@ const trelloSlice = createSlice({
 
       state.workboardsList = newMembers;
     },
+    
     deleteWorkBoardMember(state, { payload }) {
       const deleteBoardMembers = state.workboardsList.map((item, i) => {
         if (item.id === payload.id) {
@@ -396,10 +399,9 @@ const trelloSlice = createSlice({
           payload.data
         );
       })
-      .addCase(
-        updateWorkBoardSectionColorCode.fulfilled,
-        (state, { payload }) => {
-          state.loader = false;
+      .addCase(updateWorkBoardSectionColorCode.fulfilled,(state, { payload }) => {
+          // state.loader = false;
+          console.log(payload,"payloaddd section colorr");
         }
       )
       .addCase(updateWorkBoardSectionTitle.fulfilled, (state, { payload }) => {
@@ -531,8 +533,31 @@ const trelloSlice = createSlice({
       .addCase(getWorkBoardMemberAction.fulfilled, (state, action) => {
         state.workBoardMembers = action.payload ? action.payload : [];
       })
-
+      
       .addCase(addWorkBoardMember.fulfilled, (state, { payload }) => {})
+
+      .addCase(addWorkBoardTodoMemberAction.fulfilled, (state, { payload }) => {
+        if (state.todoDetail) {
+          if (payload.data?.length) {
+            let newMembers = [...state.todoDetail.members, payload.data[0]];
+            state.todoDetail = {
+              ...state.todoDetail,
+              members: newMembers,
+            };
+          }
+        }
+      })
+      .addCase(removeToDoMemebr.fulfilled, (state, { payload }) => {
+
+        console.log(payload,"hajra");
+        let newMembers = state.todoDetail.members.filter(
+          (member) => member.memberId !== payload
+        );
+
+        state.todoDetail = { ...state.todoDetail, members: newMembers };
+        //state.removeMemberSucess = true;
+      })
+
       .addCase(removeWorkBoardMember.fulfilled, (state, { payload }) => {
         state.removeMemberSucess = true;
       })
@@ -572,6 +597,11 @@ const trelloSlice = createSlice({
       .addMatcher(isRejected(...[removeWorkBoardMember]), (state) => {
         state.removeMemberSucess = false;
       });
+
+      // .addMatcher(isRejected(...[removeWorkBoardTodoMemberAction]), (state) => {
+      //   state.removeMemberSucess = false;
+      // });
+
   },
 });
 
@@ -603,6 +633,7 @@ export const {
   addMember,
   addWorkBoardMembers,
   deleteWorkBoardMember,
+  deleteWorkBoardTodoMember,
 } = trelloSlice.actions;
 
 export default trelloSlice.reducer;

@@ -23,6 +23,7 @@ import { tableColumn } from './TableColumn';
 import { NoDataFound } from '../../../sharedComponents/NoDataIcon';
 import SideDrawer from '../../../sharedComponents/Drawer/SideDrawer';
 import { ROUTES } from "../../../../utils/routes";
+import { FeaturePermissionEnum } from '../../../../utils/Shared/enums/featuresEnums';
 
 const Requisition = () => {
   const dispatch = useDispatch();
@@ -32,6 +33,8 @@ const Requisition = () => {
   const [tableView, setTableView] = useState(false);
   const [detailId, setDetailId] = useState(false);
   const [visible, setVisible] = useState(false);
+  const { user } = useSelector((state) => state.userSlice)
+  const userPermissions = user.permissions
 
   const [filter, setFilter] = useState({
     filterType: 0,
@@ -80,7 +83,7 @@ const Requisition = () => {
       <TabbableContainer>
         <Header
           items={headerItem}
-          buttons={[
+          buttons={userPermissions.includes(FeaturePermissionEnum.CreateRequisition) ?[
             {
               buttonText: requisitionDictionary.createRequisition,
               render: (
@@ -94,7 +97,7 @@ const Requisition = () => {
                 />
               ),
             },
-          ]}
+          ] : []}
         />
         <TopBar
           onSearch={(value) => {

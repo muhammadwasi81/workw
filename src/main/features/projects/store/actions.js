@@ -8,14 +8,13 @@ import {
   getProjectByIdService,
   removeProjectFeatureService,
   updateProjectService,
-  saveProjectStickyNotesService,
-  saveStickyNotesTitleService,
   getAllProjectStickyService,
   getAllProjectMemberService,
   addProjectMemberService,
   deleteProjectMemberService,
   addProjectFavoriteService,
   getProjectFeatureService,
+  saveStickyNoteProject
 } from "../services/service";
 import { message } from "antd";
 import {
@@ -23,7 +22,11 @@ import {
   responseMessageType,
 } from "../../../../services/slices/notificationSlice";
 import { jsonToFormData, STRINGS } from "../../../../utils/base";
-import { deleteProjectMember, addProjectMember } from "../store/slice";
+import {
+  deleteProjectMember,
+  addProjectMember,
+  deleteProjectFeature,
+} from "../store/slice";
 
 const addSticky_SD = (data) => {
   return {
@@ -125,13 +128,15 @@ export const getProjectById = createAsyncThunk(
   }
 );
 
-export const removeProjectFeatureAction = createAsyncThunk(
+export const removeProjectFeature = createAsyncThunk(
   "removeProjectFeature",
-  async (id, { dispatch }) => {
-    const res = await removeProjectFeatureService(id);
+  async (data, { dispatch }) => {
+    const res = await removeProjectFeatureService(data);
     if (res.responseCode) {
       if (res.responseCode === responseCode.Success)
-        responseMessage({ dispatch, data: res });
+        // responseMessage({ dispatch, data: res });
+        dispatch(deleteProjectFeature(data));
+      return data;
     } else {
       responseMessage({
         dispatch: dispatch,
@@ -159,32 +164,14 @@ export const addProjectFeature = createAsyncThunk(
   }
 );
 
-export const saveProjectStickyAction = createAsyncThunk(
-  "saveProject",
-  async (data, { dispatch }) => {
-    let request = addSticky_SD(data);
-    const formdataRequest = jsonToFormData(request);
-    const res = await saveProjectStickyNotesService(formdataRequest);
-    if (res.responseCode) {
-      if (res.responseCode === responseCode.Success)
-        message.success("Save Notes Successfully!");
-      responseMessage({ dispatch, data: res });
-    } else {
-      responseMessage({
-        dispatch: dispatch,
-        type: responseMessageType.ApiFailure,
-      });
-    }
-    return res;
-  }
-);
 
-export const saveStickyTitleAction = createAsyncThunk(
-  "saveProjectTitle",
+
+export const saveStickyprojectAction = createAsyncThunk(
+  'saveProjectTitle',
   async (data, { dispatch }) => {
-    let request = addSticky_SD(data);
-    const formdataRequest = jsonToFormData(request);
-    const res = await saveStickyNotesTitleService(formdataRequest);
+    const formdataRequest = jsonToFormData(data);
+    const res = await saveStickyNoteProject(formdataRequest);
+    console.log(res,"responseeeee");
     if (res.responseCode) {
       if (res.responseCode === responseCode.Success)
         message.success("save title notes");
@@ -203,6 +190,7 @@ export const getProjectStickyAction = createAsyncThunk(
   "getSticky",
   async (data, { dispatch }) => {
     const res = await getAllProjectStickyService(data);
+    console.log("response",res);
     if (res.responseCode) {
       if (res.responseCode === responseCode.Success)
         message.success("save title notes");

@@ -21,6 +21,7 @@ import { tableColumn } from "./TableColumn";
 import { ROUTES } from "../../../../utils/routes";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { resignationDictionaryList } from "../localization";
+import { FeaturePermissionEnum } from "../../../../utils/Shared/enums/featuresEnums";
 
 const Resignation = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -37,6 +38,8 @@ const Resignation = (props) => {
   });
   const [tableView, setTableView] = useState(false);
   const [detailId, setDetailId] = useState(false);
+  const {user} = useSelector((state) => state.userSlice);
+  const userPermissions = user.permissions
 
   const { drawerOpen, items, loader } = useSelector(
     (state) => state.resignationSlice
@@ -79,9 +82,9 @@ const Resignation = (props) => {
       <TabbableContainer>
         <Header
           items={headerButtuns}
-          buttons={[
+          buttons={userPermissions.includes(FeaturePermissionEnum.CreateResignation) ? [
             {
-              buttonText: resignationDictionary.createReward,
+              buttonText: "Create Resignation",
               render: (
                 <Button
                   className="ThemeBtn"
@@ -91,7 +94,7 @@ const Resignation = (props) => {
                 </Button>
               ),
             },
-          ]}
+          ] : []}
         />
         <TopBar
           onSearch={(value) => {

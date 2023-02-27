@@ -4,14 +4,14 @@ import {
   getAllProjects,
   getProjectById,
   updateProject,
-  saveProjectStickyAction,
-  saveStickyTitleAction,
   getProjectStickyAction,
   getAllProjectMemberAction,
   addProjectMemberAction,
   deleteProjectMemberAction,
+  saveStickyprojectAction,
   addProjectFeature,
   getProjectFeature,
+  removeProjectFeature,
 } from "./actions";
 
 const initialState = {
@@ -89,6 +89,11 @@ const projectSlice = createSlice({
       );
       favProjects.isPinnedPost = !favProjects.isPinnedPost;
     },
+    deleteProjectFeature(state, { payload }) {
+      state.projectFeature = state.projectFeature.filter(
+        (feature) => feature.featureId !== payload.featureId
+      );
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -112,17 +117,15 @@ const projectSlice = createSlice({
         state.loader = false;
         state.success = true;
       })
-      .addCase(saveProjectStickyAction.fulfilled, (state, { payload }) => {
+      .addCase(saveStickyprojectAction.fulfilled, (state, { payload }) => {
         state.loader = false;
         state.success = true;
-        state.stickyArray = payload;
+        state.stickyArray = [payload.data];
       })
       .addCase(getProjectStickyAction.fulfilled, (state, { payload }) => {
         state.stickyArray = payload;
       })
-      .addCase(saveStickyTitleAction.fulfilled, (state, { payload }) => {
-        state.stickyArray = payload;
-      })
+      
       .addCase(getAllProjectMemberAction.fulfilled, (state, action) => {
         state.memberData = action.payload.data;
       })
@@ -146,12 +149,12 @@ const projectSlice = createSlice({
         // state.removeMemberSucess = true;
       })
       .addCase(addProjectFeature.fulfilled, (state, { payload }) => {
-        state.projectFeature = payload.data.length > 0 ? payload.data : [];
+        state.projectFeature = payload.data;
       })
       .addCase(getProjectFeature.fulfilled, (state, { payload }) => {
         state.projectFeature = payload.data;
-      });
-
+      })
+      .addCase(removeProjectFeature.fulfilled, (state, { payload }) => {});
     builder
       .addMatcher(isPending(...[deleteProjectMemberAction]), (state) => {
         state.removeMemberSucess = false;
@@ -190,5 +193,6 @@ export const {
   deleteProjectMember,
   addProjectMember,
   handleFavoriteProjects,
+  deleteProjectFeature,
 } = projectSlice.actions;
 export default projectSlice.reducer;

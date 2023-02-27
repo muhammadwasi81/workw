@@ -4,8 +4,12 @@ import CreateLearningDropdown from "../../components/createLearningDropdown";
 import { elearningDictionaryList } from "../../localization/index";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { ROUTES } from "../../../../../utils/routes";
+import { FeaturePermissionEnum } from "../../../../../utils/Shared/enums/featuresEnums";
+import { useSelector } from "react-redux";
 
 function Header({ dictionary, direction }) {
+  const {user} = useSelector((state) => state.userSlice);
+  const userPermissions = user.permissions
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, elearningDictionary } = elearningDictionaryList[
     userLanguage
@@ -33,7 +37,7 @@ function Header({ dictionary, direction }) {
       render: <CreateLearningDropdown />,
     },
   ];
-  return <LayoutHeader backButton={false} items={items} buttons={buttons} />;
+  return <LayoutHeader backButton={false} items={items} buttons={userPermissions.includes(FeaturePermissionEnum.CreateCourse) ? buttons : []} />;
 }
 
 export default Header;

@@ -13,13 +13,10 @@ import contactManagerIcon from "../../../content/svg/menu/newNavBarIcon/Lead Man
 import schedulesIcon from "../../../content/svg/menu/newNavBarIcon/Schedules.svg";
 import expensesIcon from "../../../content/svg/menu/newNavBarIcon/Expenses.svg";
 import travelIcon from "../../../content/svg/menu/newNavBarIcon/Travel.svg";
-import documentsIcon from "../../../content/svg/menu/newNavBarIcon/Docs-Archives.svg";
 import eLearningIcon from "../../../content/svg/menu/newNavBarIcon/E Learning.svg";
-import inventory from "../../../content/svg/menu/newNavBarIcon/Inventory.svg";
 import customApprovalIcon from "../../../content/svg/menu/newNavBarIcon/Custom Approval.svg";
 import promotionIcon from "../../../content/svg/menu/newNavBarIcon/promotionIcon.svg";
 import teamIcon from "../../../content/svg/menu/newNavBarIcon/My Team.svg";
-import orgChartIcon from "../../../content/svg/menu/newNavBarIcon/Org Chart.svg";
 import payrollIcon from "../../../content/svg/menu/newNavBarIcon/PayrolIcon.svg";
 import employeeIcon from "../../../content/svg/menu/newNavBarIcon/Employees.svg";
 import administrator from "../../../content/svg/menu/newNavBarIcon/Administration.svg";
@@ -27,7 +24,6 @@ import appraisalsIcon from "../../../content/svg/menu/newNavBarIcon/Appraisals.s
 import leavesIcon from "../../../content/svg/menu/newNavBarIcon/Leaves.svg";
 import companyIcon from "../../../content/svg/menu/newNavBarIcon/companies.svg";
 import loanIcon from "../../../content/svg/menu/newNavBarIcon/Loan.svg";
-import holiday_event from "../../../content/svg/menu/newNavBarIcon/Holidays.svg";
 import career from "../../../content/svg/menu/newNavBarIcon/Career.svg";
 import resignation from "../../../content/svg/menu/newNavBarIcon/resignation.svg";
 import rewardIcon from "../../../content/svg/menu/rewardIcon.svg";
@@ -49,51 +45,14 @@ import quotationIcon from "../../../content/svg/menu/newNavBarIcon/quotationsIco
 import chartAccountIcon from "../../../content/svg/menu/newNavBarIcon/chartAccountsIcon.svg";
 
 import { DOMAIN_PREFIX } from "../../../utils/routes";
-import { useSelector } from "react-redux";
-//import { FeaturesEnum } from "../../../utils/Shared/enums/featuresEnums";
-import { FeaturesEnum, FeaturePermissionEnum } from "../../../utils/Shared/enums/featuresEnums";
+import { FeaturesEnum } from "../../../utils/Shared/enums/featuresEnums";
 
 const NavMenuList = () => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const label = dictionaryList[userLanguage];
-  const { Direction } = dictionaryList[userLanguage];
+  // const { Direction } = dictionaryList[userLanguage];
 
-  const navMenuData = [
-    {
-      name: label.navMenuLabel.feed,
-      counter: 0,
-      to: DOMAIN_PREFIX,
-      icon: newsIcon,
-      isActive: 1,
-      featureId:FeaturesEnum.Feed
-    },
-    {
-      name: label.navMenuLabel.expense,
-      counter: 0,
-      to: `${ROUTES.EXPENSES.EXPENSES}?f=my`,
-      icon: expensesIcon,
-      isActive: 10,
-      key: label.navMenuLabel.hr,
-      
-    },
-    {
-      name: label.navMenuLabel.travel,
-      counter: 0,
-      to: `${ROUTES.TRAVELS}`,
-      icon: travelIcon,
-      isActive: 11,
-      key: label.navMenuLabel.hr,
-    },
-    {
-      name: label.navMenuLabel.travel,
-      counter: 0,
-      to: `${ROUTES.TRAVELS}?f=trv`,
-      icon: travelIcon,
-      isActive: 11,
-      // featureId:FeaturesEnum.
-    },
-  ];
-  const navHrMenuData = [
+  const menuItems = [
     {
       name: label.navMenuLabel.feed,
       counter: 0,
@@ -110,6 +69,7 @@ const NavMenuList = () => {
       icon: schedulesIcon,
       isActive: true,
       key: label.navMenuLabel.menu,
+      featureId:FeaturesEnum.Schedule
     },
     {
       name: label.navMenuLabel.messenger,
@@ -292,7 +252,6 @@ const NavMenuList = () => {
       key: label.navMenuLabel.hr,
       featureId:FeaturesEnum.Rewards
     },
-    // *****BY SANJNA****
     {
       name: label.navMenuLabel.teams,
       counter: 0,
@@ -371,6 +330,7 @@ const NavMenuList = () => {
       icon: voucherIcon,
       isActive: true,
       key: label.navMenuLabel.finance,
+      featureId:FeaturesEnum.Voucher
     },
     {
       name: label.navMenuLabel.transaction,
@@ -413,7 +373,7 @@ const NavMenuList = () => {
       icon: businessPolicy,
       isActive: true,
       key: label.navMenuLabel.menu,
-      featureId:FeaturesEnum
+      featureId:FeaturesEnum.BusinessPolicy
     },
     {
       name: label.navMenuLabel.form,
@@ -422,6 +382,7 @@ const NavMenuList = () => {
       icon: coaIcon,
       isActive: true,
       key: label.navMenuLabel.menu,
+      featureId:FeaturesEnum.Form
     },
     {
       name: label.navMenuLabel.loan,
@@ -459,7 +420,6 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.inventory,
       featureId:FeaturesEnum.Asset,
-      featureId:FeaturesEnum.Asset
     },
     // TODO:// CREATE ASSETS
     {
@@ -497,16 +457,9 @@ const NavMenuList = () => {
       key: label.navMenuLabel.workWiseCompanies,
       featureId:FeaturesEnum.Company
     },
-
-    // {
-    //   name: label.navMenuLabel.businessPolicy,
-    //   counter: 0,
-    //   to: ROUTES.BUSINESS_POLICY.DEFAULT,
-    //   icon: reportIcon,
-    //   isActive: true,
-    //   key: label.navMenuLabel.menu,
-    // },
   ];
-  return { navMenuData, navHrMenuData };
+  return { 
+    menuItems,  
+  };
 };
 export default NavMenuList;

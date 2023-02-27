@@ -13,6 +13,8 @@ import { WorkBoardDictionary } from "./localization";
 import { getAllWorkBoard } from "./store/action";
 import Header from "./UI/Header";
 import WorkBoardTopBar from "./UI/WorkBoardTopBar";
+import { PlusOutlined } from "@ant-design/icons";
+import { Button } from "antd";
 
 function WorkBoard({
 	referenceType = WorkBoardReferenceTypeEnum.General,
@@ -87,6 +89,9 @@ function WorkBoard({
 					topBar={topBar}
 					width={width}
 				/>
+				<div>
+		     
+						</div>
 				<ContBody className={`!block ${width}`}>
 					<WorkBoardDashboard
 						isTableView={isTableView}

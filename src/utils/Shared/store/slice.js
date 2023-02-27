@@ -54,7 +54,6 @@ const sharedSlice = createSlice({
       state.employees = [];
     },
     darkModeHandler: (state, { payload }) => {
-      console.log("slice", payload);
       state.isDarkMode = payload;
     },
     handleItemDetailModal: (state, { payload }) => {
@@ -69,8 +68,6 @@ const sharedSlice = createSlice({
         state.loadingData = false;
       })
       .addCase(getEmployeeSalary.fulfilled, (state, { payload }) => {
-        console.log("fulfilled");
-        console.log(payload);
         state.employeeSalary = payload.data;
         // let x = payload.data.map((element, i) => {
         //   return element.netSalary;

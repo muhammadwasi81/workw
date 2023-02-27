@@ -40,7 +40,6 @@ const Composer = (props) => {
   const [form] = Form.useForm();
   const [profileImage, setProfileImage] = useState("");
   const { detail, update = false, id } = props;
-  console.log(detail, "Detailll");
   const [privacyId, setPrivacyId] = useState(1);
   const [memberList, setMemberList] = useState([]);
   const { groupId } = useParams();
@@ -209,14 +208,7 @@ const Composer = (props) => {
             )}
           </>
         )}
-        {!update && (
-          <Features
-            // features={feature}
-            // form={form}
-            // notIncludeFeature={FeaturesEnum.Travel}
-            onChange={onFeatureHandler}
-          />
-        )}
+        {!update && <Features checked={feature} onChange={onFeatureHandler} />}
 
         <Form.Item>
           <div className="flex items-center gap-2">

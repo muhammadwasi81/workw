@@ -10,11 +10,15 @@ import { PlusOutlined } from '@ant-design/icons';
 import EmployeeRoutes from './routes/employeeRoutes';
 import { buttonsEnum } from './enum/enum';
 import Header from '../../layout/header';
+import { FeaturePermissionEnum } from '../../../utils/Shared/enums/featuresEnums';
+import { useSelector } from 'react-redux';
 
 const Index = () => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { sharedLabels } = dictionaryList[userLanguage];
   const label = dictionaryList[userLanguage];
+  const {user} = useSelector((state) => state.userSlice);
+  const userPermissions = user.permissions
 
   const items = [
     {
@@ -33,7 +37,7 @@ const Index = () => {
   ];
   return (
     <TabbableContainer>
-      <Header items={items} buttons={buttons} />
+      <Header items={items} buttons={userPermissions.includes(FeaturePermissionEnum.CreateEmployees) ? buttons : []} />
       <ContBody>
         <EmployeeRoutes />
       </ContBody>

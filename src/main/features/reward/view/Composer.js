@@ -42,6 +42,7 @@ const initialState = {
 const Composer = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, rewardDictionary } = rewardDictionaryList[userLanguage];
+  const { user } = useSelector((state) => state.userSlice)
 
   const dispatch = useDispatch();
   const [form] = Form.useForm();
@@ -101,8 +102,6 @@ const Composer = (props) => {
   const handleImageUpload = (data) => {
     setProfileImage(data);
   };
-
-  console.log(profileImage, "IMAGE ONE TO ONE")
 
   const onFinish = (values) => {
     let approvers = [];

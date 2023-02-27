@@ -77,19 +77,10 @@ export const addProjectFeatureService = (data) => {
     });
 };
 
-export const saveProjectStickyNotesService = (data) => {
-  return MasterConfig.post(`api/StickyNotes/SaveProjectStickyNotes`, data)
-    .then((res) => {
-      console.log(res.data, "project sticky");
-      return res.data;
-    })
-    .catch((err) => {
-      return err;
-    });
-};
 
-export const saveStickyNotesTitleService = (data) => {
-  return MasterConfig.post(`api/StickyNotes/SaveTitleProjectStickyNotes`, data)
+
+export const saveStickyNoteProject = (data) => {
+  return MasterConfig.post(`api/StickyNotes/SaveProjectStickyNotes`, data)
     .then((res) => {
       console.log(res.data, "project sticky title");
       return res.data;
@@ -100,8 +91,8 @@ export const saveStickyNotesTitleService = (data) => {
 };
 
 export const getAllProjectStickyService = (data) => {
-  let request = getAllSticky_SD(data);
-  return MasterConfig.post(`api/StickyNotes/GetAllProjectStickyNotes`, request)
+  console.log(data,"requesttttt");
+  return MasterConfig.get(`api/StickyNotes/GetProjectStickyNotes`, data)
     .then((res) => {
       console.log(res.data, "get project sticky");
       return res.data;

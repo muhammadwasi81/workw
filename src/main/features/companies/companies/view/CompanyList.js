@@ -1,31 +1,31 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Skeleton } from "antd";
-import TopBar from "../../../../sharedComponents/topBar/topBar";
-import "../Styles/company.css";
-import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
-import { companyDictionaryList } from "../localization/index";
-import { getCompanyAction } from "../store/action";
-import CompanyCard from "./CompanyCard";
-import CompanyTableView from "./TeamTableView";
-import Header from "../../view/Header/Header";
+import React, { useContext, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Skeleton } from 'antd';
+import TopBar from '../../../../sharedComponents/topBar/topBar';
+import '../Styles/company.css';
+import { LanguageChangeContext } from '../../../../../utils/localization/localContext/LocalContext';
+import { companyDictionaryList } from '../localization/index';
+import { getCompanyAction } from '../store/action';
+import CompanyCard from './CompanyCard';
+import CompanyTableView from './TeamTableView';
+import Header from '../../view/Header/Header';
 import {
   ContBody,
   TabbableContainer,
-} from "../../../../sharedComponents/AppComponents/MainFlexContainer";
-import CompanyShortCard, { CardGrid } from "./CompanyShortCard";
+} from '../../../../sharedComponents/AppComponents/MainFlexContainer';
+import CompanyShortCard, { CardGrid } from './CompanyShortCard';
 
 function CompanyList() {
-  const [view, setView] = useState("List");
+  const [view, setView] = useState('List');
   const dispatch = useDispatch();
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const { userLanguage } = useContext(LanguageChangeContext);
   const { companyDictionary, Direction } = companyDictionaryList[userLanguage];
   const labels = companyDictionary.sharedLabels;
   const { companies, loader } = useSelector((state) => state.companySlice);
 
   useEffect(() => {
-    console.log(search, "search");
+    // console.log(search, "search");
     dispatch(getCompanyAction(search));
   }, [search]);
 
@@ -33,14 +33,14 @@ function CompanyList() {
   //   console.log(value, "value");
   //   dispatch(getCompanyAction(value));
   // };
-  let classes = "teamListContainer ";
-  classes += Direction === "ltr" ? "ltr" : "rtl";
+  let classes = 'teamListContainer ';
+  classes += Direction === 'ltr' ? 'ltr' : 'rtl';
   if (loader) {
     return (
       <div className={classes}>
         {[...Array(40)].map(() => (
           <>
-            <Skeleton.Avatar shape={"circle"} size={"large"} />
+            <Skeleton.Avatar shape={'circle'} size={'large'} />
             <Skeleton loading={true} active></Skeleton>
           </>
         ))}
@@ -52,9 +52,9 @@ function CompanyList() {
         <TabbableContainer>
           <Header />
           <ContBody>
-            <div style={{ flexDirection: "column", width: "100%" }}>
+            <div style={{ flexDirection: 'column', width: '100%' }}>
               <TopBar
-                style={{ margin: 0, width: "100%" }}
+                style={{ margin: 0, width: '100%' }}
                 onSearch={(val) => setSearch(val)}
                 segment={{
                   onSegment: (value) => {
@@ -64,7 +64,7 @@ function CompanyList() {
                   label2: labels.table,
                 }}
               />
-              {view === "List" ? (
+              {view === 'List' ? (
                 // <div className={classes}>
                 //   {teams.map((team, index) => {
                 //     return <CompanyCard teams={team} key={index} />;

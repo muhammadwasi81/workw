@@ -1,5 +1,16 @@
-.ModalInner  {
+.DocumentModal {
+    border-radius: 8px;
+    overflow: hidden;
+}
+.DocumentModal .ant-modal-body{
+    padding: 0;
+}
+.DocumentModal .ant-modal-close-x{
+ display: none;
+}
+.ModalInner .doc-modal-content {
     height: 80vh;
+    margin-top: 15px;
 }
 .DocumentModal img {
     margin: 0 auto;
@@ -8,9 +19,29 @@
 .DocumentModal .ant-modal-footer {
     display: none;
 }
+.ModalInner .doc-modal-header {
+    display: flex;
+    justify-content: space-between;
+    height: 40px;
+    background-color: var(--currentThemeColor);
+}
+.ModalInner .doc-modal-header .doc-modal-title{
+    color: #eaeaea;
+    font-size: 15px;
+    font-weight: bold;
+    padding-top: 9px;
+    padding-left: 25px;
+}
+.ModalInner .doc-modal-header .doc-modal-actions{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding-right: 15px;
+}
+
 
 @media (min-width: 320px) and (max-width: 720px) {
-    .ModalInner  {
+    .ModalInner .doc-modal-content {
         height: 40vh;
     }   
 }

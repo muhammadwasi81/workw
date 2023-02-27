@@ -16,15 +16,12 @@ import { getUserWorkExperience } from "../experienceInfo/store/actions";
 import { getEmployeeByIdAction } from "./store/action";
 import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
 import { profileDictionaryList } from "./localization/index";
-// import Courses from "../team/view/Courses";
 import ActivityLog from "../team/view/ActivityLog";
 import Education from "../team/view/Education";
 import Leaves from "../team/view/Leaves";
 import Experience from "../team/view/Experience";
 import CheckIn from "../team/view/CheckIn";
 import ProfileCover from "../projects/UI/ProfileCover";
-import SingleNotes from "../notes/singleNotes/singleNotes";
-import AppraisalTable from "./appraisals";
 import AwardsTable from "./awards";
 import SalaryTable from "./salary";
 import { useSelector } from "react-redux";
@@ -33,7 +30,9 @@ import { CopyOutlined, EllipsisOutlined } from "@ant-design/icons";
 import { Menu, Dropdown, Space } from "antd";
 import Courses from "../eLearning/view/Dashboard/Sections/Courses/Courses";
 import TeamAppraisal from "../appraisalModule/view/components/TeamAppraisal/index";
-import { saveSticyNotesAction, getSticyNotesAction } from "./store/action";
+import { saveSticyNotes, getSticyNotes } from "./store/action";
+import useDebounce from "../../../utils/Shared/helper/use-debounce";
+import { formats, modules } from "./utils/index";
 
 const Profile = () => {
   const param = useParams();
@@ -43,14 +42,16 @@ const Profile = () => {
   const { pathname } = location;
   const { id } = param;
   const [defaultPath, setDefaultPath] = useState("");
-  // const { education } = useSelector((state) => state.employeeProfileSlice);
   const { userLanguage } = useContext(LanguageChangeContext);
   const { profileDictionary } = profileDictionaryList[userLanguage];
+  const [description, setDescription] = useState(null);
+  const descriptionDebounce = useDebounce(description, 500);
   const {
     user: { id: userId },
   } = useSelector((state) => state.userSlice);
 
-  const { stickyNote } = useSelector((state) => state.employeeProfileSlice);
+  const { profileSticky } = useSelector((state) => state.employeeProfileSlice);
+  console.log(profileSticky, "profilesticky");
   const onChange = (key) => {
     navigate(key);
   };
@@ -59,25 +60,21 @@ const Profile = () => {
     setDefaultPath(pathname.split("_")[0]);
   }, [pathname]);
 
-  const modules = {
-    toolbar: [
-      ["bold", "italic", "underline"],
-      [{ list: "ordered" }, { list: "bullet" }],
-      [],
-    ],
-  };
-  const formats = {
-    toolbar: [
-      [{ font: [] }],
-      [{ header: [1, 2, 3, 4, 5, 6, false] }],
-      ["bold", "italic", "underline", "link", "image"],
-      [{ list: "ordered" }, { list: "bullet" }],
-      [{ script: "sub" }, { script: "super" }],
-      [{ direction: "rtl" }],
-      [{ align: ["center"] }],
-      [{ color: [] }, { background: [] }],
-      ["clean"],
-    ],
+  useEffect(() => {
+    dispatch(getSticyNotes());
+  }, []);
+
+  useEffect(() => {
+    if (descriptionDebounce) setDescriptionValue(descriptionDebounce);
+  }, [descriptionDebounce]);
+
+  const setDescriptionValue = (value) => {
+    dispatch(
+      saveSticyNotes({
+        id: id,
+        description: value,
+      })
+    );
   };
   const copyToClipboard = () => {
     navigator.clipboard.writeText("");
@@ -103,13 +100,6 @@ const Profile = () => {
     />
   );
 
-  useEffect(() => {
-    dispatch(getSticyNotesAction({}));
-  }, []);
-  const descHandler = (value) => {
-    dispatch(saveSticyNotesAction({ description: value }));
-  };
-
   const panes = [
     {
       featureName: profileDictionary.feed,
@@ -124,7 +114,7 @@ const Profile = () => {
             backButton={false}
             routeLink={ROUTES.USER.DEFAULT + id}
           />
-          <div className="singleNote_container w-[500px]">
+          <div className="singleNote_container ">
             <div className="singleNote_header">
               <div className="leftNote_Icon">
                 <Dropdown menu={menu}>
@@ -136,15 +126,17 @@ const Profile = () => {
                 </Dropdown>
               </div>
             </div>
-            <div className="textArea_container bg-white">
-              <CustomNotes
-                onChange={(value) => descHandler(value)}
-                className={"stickyNoteItem-textarea"}
-                placeholder={"Take a Note"}
-                defaultValue={stickyNote?.description}
-                modules={modules}
-                formats={formats}
-              />
+            <div className="textArea_container bg-white w-[300px]">
+              {profileSticky.id && (
+                <CustomNotes
+                  onChange={(value) => setDescription(value)}
+                  modules={modules}
+                  formats={formats}
+                  className={"stickyNoteItem-textarea"}
+                  placeholder={"Take a Note"}
+                  defaultValue={profileSticky?.description}
+                />
+              )}
             </div>
           </div>
         </div>

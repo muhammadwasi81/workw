@@ -57,12 +57,12 @@ const MyTeam = () => {
     dispatch(addTeamMemberAction(payload));
   };
 
-  if (loader)
-    return [...Array(40)].map((_, index) => (
-      <div className={` teamListContainer`}>
-        <Skeleton key={index} loading={true} active />
-      </div>
-    ));
+  // if (loader)
+  //   return [...Array(40)].map((_, index) => (
+  //     <div className={` teamListContainer`}>
+  //       <Skeleton key={index} loading={true} active />
+  //     </div>
+  //   ));
 
   // if (teams.length === 0) return <NoDataFound />;
 

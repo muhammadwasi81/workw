@@ -31,8 +31,10 @@ import {
   getWorkBoardMemberService,
   addWorkBoardMemberService,
   removeWorkBoardMemberService,
+  addWorkBoardTodoMemberService,
+  removeWorkBoardTodoMemberService,
 } from "../services/services";
-import { addWorkBoardMembers, deleteWorkBoardMember } from "../store/slice";
+import { addWorkBoardMembers, deleteWorkBoardMember , deleteWorkBoardTodoMember ,addWorkBoardTodoMember} from "../store/slice";
 export const addWorkBoard = createAsyncThunk(
   "addWorkBoard",
   async (data, { dispatch, getState, rejectWithValue }) => {
@@ -443,6 +445,22 @@ export const addWorkBoardMember = createAsyncThunk(
   }
 );
 
+
+export const addWorkBoardTodoMemberAction = createAsyncThunk(
+  "addWorkBoardTodoMember",
+  async (data, { dispatch, getState, rejectWithValue }) => {
+    const res = await addWorkBoardTodoMemberService(data);
+    if (res.responseCode === responseCode.Success) {
+     // dispatch(addWorkBoardTodoMember(res.data));
+      message.success("Todo Member Added");
+      return res;
+    } else {
+      message.error(res.data.message);
+      return rejectWithValue(res.data.message);
+    }
+  }
+);
+
 export const getWorkBoardMemberAction = createAsyncThunk(
   "getWorkBoardMemberAction",
   async (args) => {
@@ -463,6 +481,20 @@ export const removeWorkBoardMember = createAsyncThunk(
     if (res.responseCode === responseCode.Success) {
       dispatch(deleteWorkBoardMember(data));
       return data;
+    } else {
+      message.error(res.data.message);
+      return rejectWithValue(res.data.message);
+    }
+  }
+);
+
+
+export const removeToDoMemebr = createAsyncThunk(
+  "removetodomember",
+  async (data, { dispatch, getState, rejectWithValue }) => {
+    const res = await removeWorkBoardTodoMemberService(data);
+    if (res.responseCode === responseCode.Success) {
+      return data.memberId;
     } else {
       message.error(res.data.message);
       return rejectWithValue(res.data.message);

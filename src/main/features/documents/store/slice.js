@@ -53,6 +53,7 @@ const initialState = {
     },
   ],
   defaultFiles: [],
+  minimzedDocuments: [],
 };
 
 const documentSlice = createSlice({
@@ -113,6 +114,27 @@ const documentSlice = createSlice({
     handleUpdateFolderMemberId: (state, { payload }) => {
       state.composersInitState.updateFolderMemberId = payload.id;
     },
+    handleAddMinimizeDocument: (state, { payload }) => {
+      let dcoumentItem = {
+        isOpen: false,
+        id: payload.id,
+        document: {
+          ...payload
+        }
+      };
+      state.minimzedDocuments = [...state.minimzedDocuments, dcoumentItem];
+    },
+    handleRemoveMinimizeDocument: (state, { payload }) => {
+      let id = payload.id;
+      state.minimzedDocuments = state.minimzedDocuments.filter(item => item.id !== id);
+    },
+    toggleMinimizeDocument: (state, { payload: { id, status } }) => {
+      let index = state.minimzedDocuments.findIndex(item => item.id === id);
+      state.minimzedDocuments[index] = {
+        ...state.minimzedDocuments[index],
+        isOpen: status
+      }
+    }
   },
 
   extraReducers: (builder) => {
@@ -211,5 +233,8 @@ export const {
   handleChangeView,
   handleUpdateFolder,
   handleUpdateFolderMemberId,
+  handleAddMinimizeDocument,
+  handleRemoveMinimizeDocument,
+  toggleMinimizeDocument
 } = documentSlice.actions;
 export default documentSlice.reducer;

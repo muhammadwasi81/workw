@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import TopBar from "../../../sharedComponents/topBar/topBar";
+import { Button } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
 
 function WorkBoardTopBar({ handleView, topBar, width, handleSearch }) {
 	const [filter, setFilter] = useState({
@@ -8,6 +10,7 @@ function WorkBoardTopBar({ handleView, topBar, width, handleSearch }) {
 	const [tableView, setTableView] = useState(false);
 	handleView(tableView);
 	return (
+		<>
 		<TopBar
 			width={width}
 			onSearch={handleSearch}
@@ -37,7 +40,9 @@ function WorkBoardTopBar({ handleView, topBar, width, handleSearch }) {
 				label1: topBar.list,
 				label2: topBar.table,
 			}}
+
 		/>
+	</>
 	);
 }
 

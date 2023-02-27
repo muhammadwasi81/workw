@@ -127,8 +127,7 @@ export const updateUserProfileImgService = async (data) => {
 };
 
 export const saveProfileStickyNote = async (data) => {
-  const formData = jsonToFormData(data);
-  return MasterConfig.post(`/api/StickyNotes/SaveProfileStickyNotes`, formData)
+  return MasterConfig.post(`/api/StickyNotes/SaveProfileStickyNotes`, data)
     .then((res) => {
       return res;
     })

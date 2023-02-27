@@ -4,11 +4,11 @@ import {
   getAllProjects,
   getProjectById,
   updateProject,
-  getProjectStickyAction,
+  getProjectSticky,
   getAllProjectMemberAction,
   addProjectMemberAction,
   deleteProjectMemberAction,
-  saveStickyprojectAction,
+  saveStickyproject,
   addProjectFeature,
   getProjectFeature,
   removeProjectFeature,
@@ -21,25 +21,28 @@ const initialState = {
   success: false,
   error: false,
   projectDetail: null,
-  stickyArray: [],
   isComposerOpen: false,
   isEditComposer: false,
   addMemberModal: false,
   memberData: [],
   removeMemberSucess: false,
   projectFeature: [],
+  drawerOpen: false,
+  projectSticky: {},
 };
 
 const projectSlice = createSlice({
   name: "projects",
   initialState,
   reducers: {
+    handleOpenComposer: (state, { payload }) => {
+      state.drawerOpen = payload;
+    },
     resetProjectDetail(state, { payload }) {
       state.projectDetail = null;
     },
     addMember: (state, { payload }) => {
       state.addMemberModal = payload;
-      console.log(payload, "mypayload");
     },
     updateProjectById(state, { payload }) {
       state.projectDetail = state.projects.find((list) => list.id === payload);
@@ -94,6 +97,9 @@ const projectSlice = createSlice({
         (feature) => feature.featureId !== payload.featureId
       );
     },
+    targetStickyDescription(state, { payload }) {
+      const value = payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -104,6 +110,7 @@ const projectSlice = createSlice({
       })
       .addCase(addProject.fulfilled, (state, { payload }) => {
         state.projects.unshift(payload.data);
+        state.drawerOpen = false;
         state.loader = false;
         state.success = true;
       })
@@ -114,18 +121,22 @@ const projectSlice = createSlice({
       })
       .addCase(updateProject.fulfilled, (state, { payload }) => {
         state.projectDetail = payload.data;
+        state.drawerOpen = false;
         state.loader = false;
         state.success = true;
       })
-      .addCase(saveStickyprojectAction.fulfilled, (state, { payload }) => {
+      .addCase(saveStickyproject.fulfilled, (state, { payload }) => {
+        console.log(payload.data, "payloadddd");
+
         state.loader = false;
         state.success = true;
-        state.stickyArray = [payload.data];
+        state.projectSticky = payload.data;
       })
-      .addCase(getProjectStickyAction.fulfilled, (state, { payload }) => {
-        state.stickyArray = payload;
+      .addCase(getProjectSticky.fulfilled, (state, { payload }) => {
+        console.log(payload, "payloadd");
+        state.projectSticky = payload.data;
       })
-      
+
       .addCase(getAllProjectMemberAction.fulfilled, (state, action) => {
         state.memberData = action.payload.data;
       })
@@ -186,6 +197,7 @@ const projectSlice = createSlice({
 });
 
 export const {
+  handleOpenComposer,
   resetProjectDetail,
   updateProjectById,
   handleComposer,
@@ -194,5 +206,6 @@ export const {
   addProjectMember,
   handleFavoriteProjects,
   deleteProjectFeature,
+  targetStickyDescription,
 } = projectSlice.actions;
 export default projectSlice.reducer;

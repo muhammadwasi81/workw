@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ROUTES } from "../../../../utils/routes";
 import {
   ContBody,
@@ -6,7 +6,12 @@ import {
 } from "../../../sharedComponents/AppComponents/MainFlexContainer";
 import Tab from "../../../sharedComponents/Tab";
 import LayoutHeader from "../../../layout/header/index";
-import { EditOutlined } from "@ant-design/icons";
+import {
+  EditOutlined,
+  CopyOutlined,
+  EllipsisOutlined,
+  EyeOutlined,
+} from "@ant-design/icons";
 import Travel from "../../travel/view/Travel";
 import "../styles/projects.css";
 import Budget from "../UI/Budget";
@@ -17,13 +22,20 @@ import ProjectCover from "../../../../content/png/project_cover_img.png";
 import WhiteCard from "../UI/WhiteCard";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getProjectById } from "../store/actions";
-import { Collapse, Drawer, Modal, Form } from "antd";
+import {
+  getProjectById,
+  saveStickyproject,
+  getProjectSticky,
+} from "../store/actions";
+import { Collapse, Drawer, Modal, Form, Menu, Dropdown, Space } from "antd";
 import Composer from "../UI/Composer";
-import { useState } from "react";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { projectsDictionaryList } from "../localization";
-import { resetProjectDetail } from "../store/slice";
+import {
+  resetProjectDetail,
+  targetStickyDescription,
+  addMember,
+} from "../store/slice";
 import WorkBoard from "../../workboard";
 import { TravelReferenceTypeEnum } from "../enum/enums";
 import { PostReferenceType } from "../../feed/utils/constants";
@@ -36,37 +48,26 @@ import Task from "../../task/view/Task";
 import Expenses from "../../expense";
 import Documents from "../../documents/view/documents";
 import CustomNotes from "../../notes/singleNotes/singleNotes";
-import { Menu, Dropdown, Space } from "antd";
-import { CopyOutlined, EllipsisOutlined, EyeOutlined } from "@ant-design/icons";
-import {
-  saveStickyprojectAction,
-  //saveStickyTitleAction,
-  getProjectStickyAction,
-} from "../store/actions";
 import useDebounce from "../../../../utils/Shared/helper/use-debounce";
 import StickyColor from "../UI/StickyColor";
 import { formats, modules } from "./utils";
 import Schedules from "../../schedule/index";
-import { addMember } from "../store/slice";
 import MemberModal from "../UI/MemberModal";
-
 import ProjectInformation from "../UI/ProjectInformation";
+import { STRINGS } from "../../../../utils/base";
 
 function ProjectDetails() {
   const params = useParams();
   const dispatch = useDispatch();
   const detail = useSelector((state) => state.projectSlice.projectDetail);
-  const sticky = useSelector((state) => state.projectSlice.stickyArray);
+  const { projectSticky } = useSelector((state) => state.projectSlice);
+  console.log(projectSticky, "sticky array");
   const [projectfeatures, setprojectFeatures] = useState([]);
   const [description, setDescription] = useState(null);
   const descriptionDebounce = useDebounce(description, 500);
+
   const [openColor, setOpenColor] = useState(true);
 
-  const userId = useSelector((state) => state.userSlice.user.id);
-  const [form] = Form.useForm();
-
-  const [title, setTitle] = useState(null);
-  const titleDebounce = useDebounce(title, 500);
   const [visible, setVisible] = useState(false);
 
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -192,34 +193,21 @@ function ProjectDetails() {
     dispatch(addMember({ status: true }));
   };
   useEffect(() => {
-    dispatch(getProjectStickyAction({}));
+    dispatch(getProjectSticky());
   }, []);
 
-  const descHandler = (value) => {
+  useEffect(() => {
+    if (descriptionDebounce) setDescriptionValue(descriptionDebounce);
+  }, [descriptionDebounce]);
+
+  const setDescriptionValue = (value) => {
     dispatch(
-      saveStickyprojectAction({
+      saveStickyproject({
+        id: projectId,
         description: value,
-        title: "sanjna",
-        colorCode: 1,
       })
     );
   };
-
-  useEffect(() => {
-    if (descriptionDebounce) descHandler(descriptionDebounce);
-  }, [descriptionDebounce]);
-
-  const stickyDescriptionHandler = (value) => {
-    dispatch(
-      saveStickyprojectAction({
-        description: value,
-        userId,
-       
-      })
-    );
-  }
-
-
   const copyToClipboard = () => {
     navigator.clipboard.writeText("");
   };
@@ -242,6 +230,8 @@ function ProjectDetails() {
       ]}
     />
   );
+
+  console.log(projectSticky);
 
   return (
     <>
@@ -281,14 +271,16 @@ function ProjectDetails() {
                   </div>
                 </div>
                 <div className="textArea_container bg-white">
-                  <CustomNotes
-                    onChange={(value) => stickyDescriptionHandler(value)}
-                    modules={modules}
-                    formats={formats}
-                    className={"stickyNoteItem-textarea"}
-                    placeholder={"Take a Note"}
-                    defaultValue={description}
-                  />
+                  {projectSticky?.id && (
+                    <CustomNotes
+                      onChange={(value) => setDescription(value)}
+                      modules={modules}
+                      formats={formats}
+                      className={"stickyNoteItem-textarea"}
+                      placeholder={"Take a Note"}
+                      defaultValue={projectSticky?.description}
+                    />
+                  )}
                 </div>
               </div>
             </div>
@@ -309,6 +301,7 @@ function ProjectDetails() {
           id={projectId}
         />
       </Drawer>
+
       {visible && <MemberModal data={detail} />}
     </>
   );

@@ -1,3 +1,4 @@
+import { identity } from "@fullcalendar/react";
 import MasterConfig from "../../../../utils/services/MasterConfig";
 const API_PREFIX = "api/Project/";
 
@@ -61,9 +62,13 @@ export const removeProjectFeatureService = ({ id, featureId }) => {
     });
 };
 
-export const addProjectFeatureService = (features) => {
-  const id = features.find((feature) => feature.projectId)?.projectId;
-  return MasterConfig.post(`${API_PREFIX}AddProjectFeature?id=${id}`, features)
+export const addProjectFeatureService = (data) => {
+  // const id = features.find((feature) => feature.projectId)?.projectId;
+  const id = data.id;
+  return MasterConfig.post(
+    `${API_PREFIX}AddProjectFeature?id=${id}`,
+    data.payload
+  )
     .then((res) => {
       return res.data;
     })
@@ -72,19 +77,10 @@ export const addProjectFeatureService = (features) => {
     });
 };
 
-export const saveProjectStickyNotesService = (data) => {
+
+
+export const saveStickyNoteProject = (data) => {
   return MasterConfig.post(`api/StickyNotes/SaveProjectStickyNotes`, data)
-    .then((res) => {
-      console.log(res.data, "project sticky");
-      return res.data;
-    })
-    .catch((err) => {
-      return err;
-    });
-};
-
-export const saveStickyNotesTitleService = (data) => {
-  return MasterConfig.post(`api/StickyNotes/SaveTitleProjectStickyNotes`, data)
     .then((res) => {
       console.log(res.data, "project sticky title");
       return res.data;
@@ -95,8 +91,8 @@ export const saveStickyNotesTitleService = (data) => {
 };
 
 export const getAllProjectStickyService = (data) => {
-  let request = getAllSticky_SD(data);
-  return MasterConfig.post(`api/StickyNotes/GetAllProjectStickyNotes`, request)
+  console.log(data,"requesttttt");
+  return MasterConfig.get(`api/StickyNotes/GetProjectStickyNotes`, data)
     .then((res) => {
       console.log(res.data, "get project sticky");
       return res.data;

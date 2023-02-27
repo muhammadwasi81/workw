@@ -19,6 +19,7 @@ import { tableColumn } from "./tableColumn";
 import { Table } from "../../../sharedComponents/customTable";
 import { current } from "@reduxjs/toolkit";
 import DetailedView from "./components/DetailedView";
+import { FeaturePermissionEnum } from "../../../../utils/Shared/enums/featuresEnums";
 
 function Appraisals() {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -38,7 +39,8 @@ function Appraisals() {
     myAppraisals: <TeamAppraisals />,
     forApprovals: <TeamAppraisals />,
   };
-
+  const {user} = useSelector((state) => state.userSlice);
+  const userPermissions = user.permissions
   const items = [
     {
       name: Appraisals,
@@ -98,7 +100,7 @@ function Appraisals() {
       <TabbableContainer>
         <Header
           items={items}
-          buttons={[
+          buttons={userPermissions.includes(FeaturePermissionEnum.CreateAppraisal) ? [
             {
               buttonText: createAppraisals,
               render: (
@@ -111,7 +113,7 @@ function Appraisals() {
                 </Button>
               ),
             },
-          ]}
+          ] : []}
         />
         <TopBar
           onSearch={(val) => setSearch(val)}

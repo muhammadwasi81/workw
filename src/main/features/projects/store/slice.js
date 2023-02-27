@@ -1,16 +1,18 @@
-import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
+import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import {
   addProject,
   getAllProjects,
   getProjectById,
   updateProject,
-  saveProjectStickyAction,
-  saveStickyTitleAction,
   getProjectStickyAction,
   getAllProjectMemberAction,
   addProjectMemberAction,
   deleteProjectMemberAction,
-} from './actions';
+  saveStickyprojectAction,
+  addProjectFeature,
+  getProjectFeature,
+  removeProjectFeature,
+} from "./actions";
 
 const initialState = {
   projects: [],
@@ -25,10 +27,11 @@ const initialState = {
   addMemberModal: false,
   memberData: [],
   removeMemberSucess: false,
+  projectFeature: [],
 };
 
 const projectSlice = createSlice({
-  name: 'projects',
+  name: "projects",
   initialState,
   reducers: {
     resetProjectDetail(state, { payload }) {
@@ -36,7 +39,7 @@ const projectSlice = createSlice({
     },
     addMember: (state, { payload }) => {
       state.addMemberModal = payload;
-      console.log(payload,"mypayload");
+      console.log(payload, "mypayload");
     },
     updateProjectById(state, { payload }) {
       state.projectDetail = state.projects.find((list) => list.id === payload);
@@ -86,6 +89,11 @@ const projectSlice = createSlice({
       );
       favProjects.isPinnedPost = !favProjects.isPinnedPost;
     },
+    deleteProjectFeature(state, { payload }) {
+      state.projectFeature = state.projectFeature.filter(
+        (feature) => feature.featureId !== payload.featureId
+      );
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -109,17 +117,15 @@ const projectSlice = createSlice({
         state.loader = false;
         state.success = true;
       })
-      .addCase(saveProjectStickyAction.fulfilled, (state, { payload }) => {
+      .addCase(saveStickyprojectAction.fulfilled, (state, { payload }) => {
         state.loader = false;
         state.success = true;
-        state.stickyArray = payload;
+        state.stickyArray = [payload.data];
       })
       .addCase(getProjectStickyAction.fulfilled, (state, { payload }) => {
         state.stickyArray = payload;
       })
-      .addCase(saveStickyTitleAction.fulfilled, (state, { payload }) => {
-        state.stickyArray = payload;
-      })
+      
       .addCase(getAllProjectMemberAction.fulfilled, (state, action) => {
         state.memberData = action.payload.data;
       })
@@ -141,8 +147,14 @@ const projectSlice = createSlice({
 
         state.projectDetail = { ...state.projectDetail, members: newMembers };
         // state.removeMemberSucess = true;
-      });
-
+      })
+      .addCase(addProjectFeature.fulfilled, (state, { payload }) => {
+        state.projectFeature = payload.data;
+      })
+      .addCase(getProjectFeature.fulfilled, (state, { payload }) => {
+        state.projectFeature = payload.data;
+      })
+      .addCase(removeProjectFeature.fulfilled, (state, { payload }) => {});
     builder
       .addMatcher(isPending(...[deleteProjectMemberAction]), (state) => {
         state.removeMemberSucess = false;
@@ -181,5 +193,6 @@ export const {
   deleteProjectMember,
   addProjectMember,
   handleFavoriteProjects,
+  deleteProjectFeature,
 } = projectSlice.actions;
 export default projectSlice.reducer;

@@ -13,9 +13,9 @@ import { toggleInfoModal } from "../../store/slice";
 import { useDispatch, useSelector } from "react-redux";
 import { LaptopOutlined } from "@ant-design/icons";
 import {
-  addGroupFeaturesAction,
+  addGroupFeatures,
   removeGroupFeaturesAction,
-  getGroupFeaturesAction,
+  getGroupFeatures,
 } from "../../store/actions";
 import { useParams } from "react-router-dom";
 import { groupsDictionaryList } from "../../localization/index";
@@ -26,11 +26,14 @@ function GroupsInfo({ ghost = true }) {
   const { userLanguage } = useContext(LanguageChangeContext);
 
   const { Direction, groupsDictionary } = groupsDictionaryList[userLanguage];
-  const { labels, placeHolders, errors, features } = groupsDictionary;
+  const { labels, placeHolders, errors } = groupsDictionary;
   const dispatch = useDispatch();
   const [openFeature, setOpenFeature] = useState(false);
   const detail = useSelector((state) => state.groupSlice.groupDetail);
-  console.log(detail?.features, "detaill");
+
+  const { groupFeatures } = useSelector((state) => state.groupSlice);
+
+  const [features, setFeatures] = useState([]);
   const [form] = Form.useForm();
   const { groupId } = useParams();
 
@@ -39,16 +42,39 @@ function GroupsInfo({ ghost = true }) {
   };
 
   useEffect(() => {
-    dispatch(getGroupFeaturesAction(groupId));
+    dispatch(getGroupFeatures(groupId));
   }, []);
+
+  useEffect(() => {
+    let newFeatures;
+    if (groupFeatures.length >= 0) {
+      newFeatures = groupFeatures.map((item) => {
+        return {
+          featureId: item.featureId,
+          groupId: item.groupId,
+        };
+      });
+    }
+
+    setFeatures(newFeatures);
+  }, [groupFeatures]);
+
   const onFeatureHandler = (featureId, checked) => {
     if (checked) {
       const payload = {
         featureId: featureId,
         groupId: groupId,
       };
-      dispatch(addGroupFeaturesAction([payload]));
+      let newPayload = [...features, payload];
+      const newFeature = newPayload.map((item) => {
+        return {
+          featureId: item.featureId,
+        };
+      });
+      dispatch(addGroupFeatures({ id: groupId, payload: newFeature }));
     } else {
+      //TODO: remove from state and field
+
       dispatch(
         removeGroupFeaturesAction({
           id: groupId,
@@ -124,12 +150,7 @@ function GroupsInfo({ ghost = true }) {
           closable={false}
           width={900}
         >
-          <FeatureSelect
-            features={features}
-            form={form}
-            notIncludeFeature={FeaturesEnum.Travel}
-            onChange={onFeatureHandler}
-          />
+          <FeatureSelect checked={groupFeatures} onChange={onFeatureHandler} />
         </Modal>
       )}
     </>

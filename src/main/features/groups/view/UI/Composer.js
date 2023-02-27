@@ -16,7 +16,7 @@ import {
   defaultUiid,
   FeaturesEnum,
 } from "../../../../../utils/Shared/enums/enums";
-import FeatureSelect from "../../../../sharedComponents/FeatureSelect/Index";
+import Features from "../../../../sharedComponents/FeatureSelect/Index";
 import PrivacyOptions from "../../../../sharedComponents/PrivacyOptionsDropdown/PrivacyOptions";
 import { addGroupFeaturesAction } from "../../store/actions";
 import { useParams } from "react-router-dom";
@@ -107,11 +107,11 @@ const Composer = (props) => {
 
   useEffect(() => {
     if (update) {
-      const featureValues = detail.features.map((item) => ({
+      const featureValues = detail?.features.map((item) => ({
         [item.featureName]: true,
       }));
       form.setFieldsValue({
-        features: detail.features.map((item) => {
+        features: detail?.features.map((item) => {
           return { featureId: item.featureId };
         }),
         name: detail.name,
@@ -134,7 +134,7 @@ const Composer = (props) => {
         featureId: featureId,
         groupId: groupId,
       };
-      setFeature(payload);
+      setFeature([payload]);
     }
   };
   return (
@@ -208,14 +208,7 @@ const Composer = (props) => {
             )}
           </>
         )}
-        {!update && (
-          <FeatureSelect
-            features={features}
-            form={form}
-            notIncludeFeature={FeaturesEnum.Travel}
-            onChange={onFeatureHandler}
-          />
-        )}
+        {!update && <Features checked={feature} onChange={onFeatureHandler} />}
 
         <Form.Item>
           <div className="flex items-center gap-2">

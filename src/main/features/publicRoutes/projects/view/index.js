@@ -5,10 +5,19 @@ import { ROUTES } from "../../../../../utils/routes";
 import { useSelector } from "react-redux";
 import MainBannerContent from "./ExternalPageContent/MainBannerContent";
 import Signup from "./signup/Signup";
+import { LoadingOutlined } from "@ant-design/icons";
 
 export const ExternalProject = () => {
+  const { verificationSuccess, verificationLoader } = useSelector(
+    (state) => state.projectExternalSlice
+  );
   return (
     <>
+      {/* {verificationLoader ? (
+        <div className="loaderBody">
+          <LoadingOutlined className="verificationLoader" />
+        </div>
+      ) : verificationSuccess ? ( */}
       <div className="lg-area">
         <div className="lg-area-color-layer" />
         <Row gutter={{ xs: 0, sm: 0, lg: 24 }} className="main-landing-row">
@@ -32,6 +41,9 @@ export const ExternalProject = () => {
           </Col>
         </Row>
       </div>
+      {/* ) : (
+        <div style={{ width: "100%" }} className="verificationScreen"></div>
+      )} */}
     </>
   );
 };

@@ -41,7 +41,7 @@ export const ProjectFeaturePermissionEnum = {
     CreateProjectStickyNote:28
 }
 
-export const GroupFeatureEnumList = [
+export const ProjectFeaturePermissionEnumList = [
   {
     id: ProjectFeaturePermissionEnum.ViewFeed,
     name: "View Feed",

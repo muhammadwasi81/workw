@@ -88,14 +88,13 @@ function GroupDetails() {
 
   let featurePermissions = detail?.features.map((item) => item.featureId)
 
-  function getUserPermissions(){
-    return GroupFeaturePermissionEnumList.map((x)=>{
-      if (featurePermissions?.includes(x.id)) {
-        return x.featureId 
-      }
-    })
-  }
-  // let testArray = [2,3,4]
+  // function getUserPermissions(){
+  //   return GroupFeaturePermissionEnumList.map((x)=>{
+  //     if (featurePermissions?.includes(x.id)) {
+  //       return x.featureId 
+  //     }
+  //   })
+  // }
   useEffect(() => {
     let temp = detail?.features.map((feat) => {
       return {
@@ -103,7 +102,7 @@ function GroupDetails() {
         content: featuresComp[feat.featureId],
       };
     });
-    let payload = temp && temp.filter((item) =>  getUserPermissions().includes(item.featureId))
+    let payload = temp && temp.filter((item) =>  featurePermissions.includes(item.featureId))
     setFeatures(payload);
   }, [detail]);
 

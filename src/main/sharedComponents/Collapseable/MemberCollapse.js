@@ -4,6 +4,7 @@ import { DownOutlined, MailOutlined, PlusOutlined } from "@ant-design/icons";
 import Avatar from "../Avatar/avatarOLD";
 
 import "./memberCollapse.css";
+import ItemDetailModal from "../ItemDetails";
 const { Panel } = Collapse;
 
 function MemberCollapse({
@@ -13,6 +14,7 @@ function MemberCollapse({
   isEmail = false,
   isMember = false,
   onEmailClick = () => {},
+  onDelete = () => {},
 }) {
   const onChange = (key) => {
     // console.log(key);
@@ -70,7 +72,15 @@ function MemberCollapse({
         }
         key="1"
       >
-        <List
+        <ItemDetailModal
+          data={data} //Data
+          isDeleteDisabled={true} //Pass true to hide delete icon
+          addEnabled={false} //Pass false to hide select member
+          isSearch={false} //Pass true if you want to search the list
+          openModal={false}
+          onDelete={onDelete}
+        />
+        {/* <List
           itemLayout="horizontal"
           dataSource={data}
           className={"max-h-[300px] overflow-y-auto"}
@@ -101,11 +111,11 @@ function MemberCollapse({
                     </span>
                   }
                 />
-                {/* <FaUserLock className="text-xl text-primary-color" /> */}
+               
               </List.Item>
             );
           }}
-        />
+        /> */}
       </Panel>
     </Collapse>
   );

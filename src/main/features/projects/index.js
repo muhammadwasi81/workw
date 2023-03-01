@@ -1,30 +1,31 @@
-import { useEffect, useContext, useState } from 'react';
+import { useEffect, useContext, useState } from "react";
 import {
   ContBody,
   TabbableContainer,
-} from '../../sharedComponents/AppComponents/MainFlexContainer';
-import { projectsDictionaryList } from './localization/index';
-import { LanguageChangeContext } from '../../../utils/localization/localContext/LocalContext';
-import ListItem from './UI/ListItem';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { getAllProjects } from './store/actions';
-import { CardWrapper2 } from '../../sharedComponents/Card/CardStyle';
-import { tableColumn } from './UI/TableColumn';
-import { Table } from '../../sharedComponents/customTable';
-import ProjectTopBar from './view/ProjectTopBar/ProjectTopBar';
-import useDebounce from '../../../utils/Shared/helper/use-debounce';
-import { NoDataFound } from '../../sharedComponents/NoDataIcon';
-import { ROUTES } from '../../../utils/routes';
-import { Button, Drawer } from 'antd';
-import { handleComposer } from './store/slice';
-import Composer from './UI/Composer';
-import Header from '../../layout/header/index';
-import { PlusOutlined } from '@ant-design/icons';
-import { FeaturePermissionEnum } from '../../../utils/Shared/enums/featuresEnums';
-
+} from "../../sharedComponents/AppComponents/MainFlexContainer";
+import { projectsDictionaryList } from "./localization/index";
+import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
+import ListItem from "./UI/ListItem";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { getAllProjects } from "./store/actions";
+import { CardWrapper2 } from "../../sharedComponents/Card/CardStyle";
+import { tableColumn } from "./UI/TableColumn";
+import { Table } from "../../sharedComponents/customTable";
+import ProjectTopBar from "./view/ProjectTopBar/ProjectTopBar";
+import useDebounce from "../../../utils/Shared/helper/use-debounce";
+import { NoDataFound } from "../../sharedComponents/NoDataIcon";
+import { ROUTES } from "../../../utils/routes";
+import { Button, Drawer } from "antd";
+import { handleComposer } from "./store/slice";
+import Composer from "./UI/Composer";
+import Header from "../../layout/header/index";
+import { PlusOutlined } from "@ant-design/icons";
+import { FeaturePermissionEnum } from "../../../utils/Shared/enums/featuresEnums";
+import SideDrawer from "../../sharedComponents/Drawer/SideDrawer";
+import { handleOpenComposer } from "./store/slice";
 const Projects = () => {
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const [tableView, setTableView] = useState(false);
   const [sortBy, setSortBy] = useState(1);
   const [pageSize, setPageSize] = useState(20);
@@ -37,8 +38,8 @@ const Projects = () => {
   ];
   const { createTextBtn, topBar } = projectsDictionary;
   const { projects, loader } = useSelector((state) => state.projectSlice);
-  const {user} = useSelector((state) => state.userSlice);
-  const userPermissions = user.permissions
+  const { user } = useSelector((state) => state.userSlice);
+  const userPermissions = user.permissions;
 
   useEffect(() => {
     dispatch(
@@ -64,15 +65,18 @@ const Projects = () => {
     setPageSize(pageSize);
     setPageNo(current);
     const { order } = sorter;
-    if (order === 'ascend') {
+    if (order === "ascend") {
       setSortBy(2);
       return;
     }
     setSortBy(1);
   };
-  const { isComposerOpen, projectDetail, isEditComposer } = useSelector(
-    (state) => state.projectSlice
-  );
+  const {
+    isComposerOpen,
+    projectDetail,
+    isEditComposer,
+    drawerOpen,
+  } = useSelector((state) => state.projectSlice);
   const handleEditComposer = () => {
     dispatch(handleComposer({ isOpen: false, isEdit: false }));
   };
@@ -81,22 +85,37 @@ const Projects = () => {
       <TabbableContainer>
         <Header
           items={items}
-          buttons={userPermissions.includes(FeaturePermissionEnum.CreateProject) ? [
-            {
-              buttonText: 'createTextBtn',
-              render: (
-                <Button
-                  className="ThemeBtn"
-                  onClick={() => {
-                    dispatch(handleComposer({ isOpen: true, isEdit: false }));
-                  }}
-                >
-                  <PlusOutlined className="relative bottom-1" />
-                  {createTextBtn}
-                </Button>
-              ),
-            },
-          ] : []}
+          buttons={
+            userPermissions.includes(FeaturePermissionEnum.CreateProject)
+              ? [
+                  {
+                    buttonText: "createTextBtn",
+                    icon: <PlusOutlined className="relative bottom-1" />,
+                    render: (
+                      // <Button
+                      //   className="ThemeBtn"
+                      //   onClick={() => {
+                      //     dispatch(handleComposer({ isOpen: true, isEdit: false }));
+                      //   }}
+                      // >
+                      //   <PlusOutlined className="relative bottom-1" />
+                      //   {createTextBtn}
+                      // </Button>
+
+                      <SideDrawer
+                        title={createTextBtn}
+                        buttonText={createTextBtn}
+                        handleClose={() => dispatch(handleOpenComposer(false))}
+                        handleOpen={() => dispatch(handleOpenComposer(true))}
+                        isOpen={drawerOpen}
+                      >
+                        <Composer />
+                      </SideDrawer>
+                    ),
+                  },
+                ]
+              : []
+          }
         />
         <ProjectTopBar
           handleView={(isTable) => {
@@ -127,15 +146,16 @@ const Projects = () => {
           ) : (
             !loader && !tableView && <NoDataFound />
           )}
+
           <Drawer
             open={isComposerOpen}
-            width={'786px'}
+            width={"786px"}
             onClose={handleEditComposer}
-            title={isEditComposer ? 'Update Project' : 'Create Project'}
-            className={'shared_drawer drawerSecondary'}
+            title={"Update Project"}
+            className={"shared_drawer drawerSecondary"}
           >
             <Composer
-              buttonText={isEditComposer ? 'Update Project' : 'Create Project'}
+              buttonText={"Update Project"}
               detail={projectDetail}
               update={isEditComposer}
               id={projectDetail?.id}

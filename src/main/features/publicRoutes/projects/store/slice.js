@@ -8,6 +8,7 @@ const initialState = {
   verificationSuccess: false,
   verificationLoader: false,
   isError: false,
+  successPassword: false,
 };
 
 export const projectExternalSlice = createSlice({
@@ -21,23 +22,28 @@ export const projectExternalSlice = createSlice({
       .addCase(
         getVerifyProjectExternalMember.fulfilled,
         (state, { payload }) => {
-          // state.projectExternal = payload;
-          // state.verificationLoader = false;
-          // let resCode = payload.responseCode;
-          // if (resCode === 1001) {
-          //   state.isSuccess = true;
-          //   state.verificationSuccess = true;
-          // } else {
-          //   state.isSuccess = false;
-          //   state.verificationSuccess = false;
-          // }
-          state.projectExternal = payload;
-          state.isSuccess = true;
           state.verificationLoader = false;
+          let resCode = payload.responseCode;
+          if (resCode === 1001) {
+            state.isSuccess = true;
+            state.verificationSuccess = true;
+          } else {
+            state.isSuccess = false;
+            state.verificationSuccess = false;
+          }
         }
       )
       .addCase(setNewPassword.fulfilled, (state, { payload }) => {
-        state.isSuccess = true;
+        let resCode = payload.responseCode;
+
+        if (resCode === 1001) {
+          state.successPassword = true;
+        } else {
+          state.successPassword = false;
+        }
+      })
+      .addMatcher(isPending(...[setNewPassword]), (state) => {
+        state.successPassword = false;
       })
       .addMatcher(isPending(...[getVerifyProjectExternalMember]), (state) => {
         state.verificationLoader = true;
@@ -45,6 +51,9 @@ export const projectExternalSlice = createSlice({
       .addMatcher(isRejected(...[getVerifyProjectExternalMember]), (state) => {
         state.isError = true;
         state.verificationLoader = false;
+      })
+      .addMatcher(isRejected(...[setNewPassword]), (state) => {
+        state.successPassword = false;
       });
   },
 });

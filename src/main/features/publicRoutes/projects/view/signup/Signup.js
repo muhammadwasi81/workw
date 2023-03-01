@@ -24,37 +24,25 @@ function Signup() {
   const stoken = usertoken[1];
   const [reset, setReset] = useState(false);
 
-  useEffect(() => {
-    if (stoken) dispatch(getVerifyProjectExternalMember(stoken));
-  }, [stoken]);
-
   let rules = [
     {
       required: true,
       message: "This field is required",
     },
   ];
-  const { token } = useSelector((state) => state.userSlice);
+  const { successPassword } = useSelector(
+    (state) => state.projectExternalSlice
+  );
+  console.log(successPassword, "succcc");
 
   const handleSignUpSubmit = async (values) => {
-    console.log(values, "valuess");
-    let permission = await Notification.requestPermission();
-    let deviceToken = null;
-    if (permission === "granted") {
-      console.log("Notification permission granted.");
-      let firebaseToken = await getFirebaseToken();
-      // set send token api here...
-      deviceToken = firebaseToken;
-      console.log(firebaseToken, "firebaseToken");
-    }
-    dispatch(loginUser({ ...values, deviceToken }));
-    // let payload = {
-    //   token: stoken,
-    //   password: values.password,
-    // };
-    // dispatch(setNewPassword(payload));
-    return;
-    //navigate("/");
+    let payload = {
+      token: stoken,
+      password: values.password,
+    };
+    dispatch(setNewPassword(payload));
+
+    // navigate("/");
   };
   // useEffect(() => {
   //   if (token) {

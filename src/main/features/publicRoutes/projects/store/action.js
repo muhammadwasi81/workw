@@ -37,9 +37,8 @@ export const setNewPassword = createAsyncThunk(
           let firebaseToken = await getFirebaseToken();
           // set send token api here...
           deviceToken = firebaseToken;
-          console.log(firebaseToken, "firebaseToken");
         }
-        return;
+
         dispatch(
           loginUser({
             ...{

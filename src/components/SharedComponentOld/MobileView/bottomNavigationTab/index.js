@@ -56,7 +56,7 @@ const Index = () => {
           IconSize={18}
           badge={true}
           style={{ backgroundColor: '#1b5669' }}
-        ></SharedButton>
+        />
         <div>Notification</div>
       </div>
 
@@ -71,7 +71,7 @@ const Index = () => {
           IconSize={18}
           badge={true}
           style={{ backgroundColor: '#1b5669' }}
-        ></SharedButton>
+        />{' '}
         <div>Approvals</div>
       </div>
 
@@ -89,7 +89,7 @@ const Index = () => {
           IconSize={18}
           badge={true}
           style={{ backgroundColor: '#1b5669' }}
-        ></SharedButton>
+        />{' '}
         <div>Messenger</div>
       </div>
 

@@ -24,7 +24,6 @@ import MemberModal from "./TodoMemberModal";
 import Avatar from "../../../sharedComponents/Avatar/avatar";
 import { message, Modal } from "antd";
 import { addMember } from "../store/slice";
-import CommentAttachment from "./CommentAttachment";
 import { initializeApp } from "firebase/app";
 
 function WorkBoardDescription({

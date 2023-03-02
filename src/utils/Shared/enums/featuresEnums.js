@@ -859,6 +859,7 @@ export const FeaturePermissionEnumList = [
 //     id: FeaturePermissionEnum.ViewOrganizationalChart,
 //     name: "View Org Chart",
 //     featureId: FeaturesEnum.OrganizationalChart,
+
 //   },
 //   {
 //     id: FeaturePermissionEnum.ViewSchedule,

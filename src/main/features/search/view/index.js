@@ -4,6 +4,7 @@ import { ROUTES } from "../../../../utils/routes";
 import { ContBody, TabbableContainer } from '../../../sharedComponents/AppComponents/MainFlexContainer'
 import GroupContainer from '../components/groupsConatiner/GroupContainer';
 import "../styles/style.css"
+import { RiSurgicalMaskLine } from 'react-icons/ri';
 
 function Index() {
 
@@ -22,6 +23,8 @@ function Index() {
         />
         <ContBody>
           <div className='SearchMainContainer'>
+            <GroupContainer />
+            <GroupContainer />
             <GroupContainer />
           </div>
         </ContBody>

@@ -11,7 +11,6 @@ import ProjectSummary from "../view/ProjectSummary";
 import "./style.css";
 
 function CoverDetail({ detail }) {
-  console.log(detail, "detail");
   const { userLanguage } = useContext(LanguageChangeContext);
   const { projectsDictionary } = projectsDictionaryList[userLanguage];
   const { labels } = projectsDictionary;

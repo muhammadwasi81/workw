@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { Modal, Input, List } from "antd";
-import { useSelector } from "react-redux";
-import CustomSelect from "../AntdCustomSelects/SharedSelects/MemberSelect";
-import ApproverListItem from "../AppComponents/Approvals/components/approverList";
-import { DeleteFilled } from "@ant-design/icons";
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Modal, Input, List } from 'antd';
+import { useSelector } from 'react-redux';
+import CustomSelect from '../AntdCustomSelects/SharedSelects/MemberSelect';
+import ApproverListItem from '../AppComponents/Approvals/components/approverList';
+import { DeleteFilled } from '@ant-design/icons';
 // import {
 //   getAllGroupMemberAction,
 //   addGroupMemberAction,
 // } from "../../store/actions";
 // import { addMember, deleteGroupMember } from "../../store/slice";
-import { handleItemDetailModal } from "../../../utils/Shared/store/slice";
-import Avatar from "../Avatar/avatarOLD";
-import { getAllEmployees } from "../../../utils/Shared/store/actions";
+import { handleItemDetailModal } from '../../../utils/Shared/store/slice';
+import Avatar from '../Avatar/avatarOLD';
+import { getAllEmployees } from '../../../utils/Shared/store/actions';
 // import { deleteGroupMemberAction } from "../../store/actions";
-import { useParams } from "react-router-dom";
-import ListItem from "./itemListing";
+import { useParams } from 'react-router-dom';
+import ListItem from './itemListing';
 
 const { Search } = Input;
 function ItemDetailModal({
@@ -26,6 +26,7 @@ function ItemDetailModal({
   addEnabled = false,
   addFunc = () => {},
   onDelete = () => {},
+  children,
 }) {
   const dispatch = useDispatch();
   // const modalRequest = useSelector((state) => state.groupSlice.addMemberModal);
@@ -42,7 +43,7 @@ function ItemDetailModal({
   // let ModalOpen = modalRequest.status;
 
   useEffect(() => {
-    fetchEmployees("", 0);
+    fetchEmployees('', 0);
     setMyData(data);
   }, []);
 
@@ -120,19 +121,19 @@ function ItemDetailModal({
         footer={false}
         closeIcon={<div />}
         className="ApproverModal"
-        width={"360px"}
+        width={'360px'}
         destroyOnClose={true}
         // afterClose={afterClose}
         forceRender={true}
       >
         {addEnabled && (
           <CustomSelect
-            style={{ marginBottom: "0px" }}
+            style={{ marginBottom: '0px' }}
             data={firstTimeEmpData}
             selectedData={addFunc}
             canFetchNow={isFirstTimeDataLoaded}
             fetchData={fetchEmployees}
-            placeholder={"Select Member"}
+            placeholder={'Select Member'}
             isObject={true}
             loadDefaultData={false}
             optionComponent={(opt) => {
@@ -142,8 +143,8 @@ function ItemDetailModal({
                     name={opt.name}
                     src={opt.image}
                     round={true}
-                    width={"30px"}
-                    height={"30px"}
+                    width={'30px'}
+                    height={'30px'}
                   />
                   {opt.name}
                 </>
@@ -157,7 +158,7 @@ function ItemDetailModal({
             rules={[
               {
                 required: true,
-                message: "Please Select Member",
+                message: 'Please Select Member',
               },
             ]}
           />
@@ -171,8 +172,8 @@ function ItemDetailModal({
             // style={{
             //   width: 200,
             // }}
-            size={"medium"}
-            style={{ marginBottom: "1rem" }}
+            size={'medium'}
+            style={{ marginBottom: '1rem' }}
           />
         )}
 
@@ -187,6 +188,7 @@ function ItemDetailModal({
         data={data?.members}
         handleDelete={handleDeleteMember}
       /> */}
+        {children}
       </Modal>
     );
   }
@@ -195,7 +197,7 @@ function ItemDetailModal({
     <List
       itemLayout="horizontal"
       dataSource={data}
-      className={"max-h-[300px] overflow-y-auto"}
+      className={'max-h-[300px] overflow-y-auto'}
       renderItem={(item) => {
         return (
           <List.Item>
@@ -205,8 +207,8 @@ function ItemDetailModal({
                   name={item.member?.name}
                   src={item.member?.image}
                   round={true}
-                  width={"30px"}
-                  height={"30px"}
+                  width={'30px'}
+                  height={'30px'}
                   isZoom={true}
                 />
               }
@@ -219,14 +221,14 @@ function ItemDetailModal({
                 <span className="text-gray-500 text-xs ">
                   {item.member?.designation
                     ? item.member?.designation
-                    : "No designation"}
+                    : 'No designation'}
                 </span>
               }
             />
             {!isDeleteDisabled && (
               <DeleteFilled
                 className=""
-                style={{ color: "#000000" }}
+                style={{ color: '#000000' }}
                 onClick={(e) => DeleteInItemDetail(e, item.member.id)}
               />
             )}

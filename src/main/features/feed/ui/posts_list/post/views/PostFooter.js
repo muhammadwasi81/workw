@@ -1,25 +1,26 @@
-import React, { useContext } from "react";
-import CommentIcon from "../../../../../../../content/NewContent/NewsFeed/svg/comment.svg";
-import Reactions from "../../../../../../sharedComponents/reactionBox/index";
-import { useDispatch } from "react-redux";
-import { addFeedReaction, feedSlice } from "../../../../store/slice";
-import { useNavigate } from "react-router-dom";
-import CommentWrapper from "../../../../../../sharedComponents/Comment/CommentWrapper";
-import { LanguageChangeContext } from "../../../../../../../utils/localization/localContext/LocalContext";
-import { FeedDictionary } from "../../../../localization";
-import { ROUTES } from "../../../../../../../utils/routes";
-import { ReactionType } from "../../../../utils/constants";
+import React, { useContext } from 'react';
+import CommentIcon from '../../../../../../../content/NewContent/NewsFeed/svg/comment.svg';
+import Reactions from '../../../../../../sharedComponents/reactionBox/index';
+import { useDispatch } from 'react-redux';
+import { addFeedReaction, feedSlice } from '../../../../store/slice';
+import { useNavigate } from 'react-router-dom';
+import CommentWrapper from '../../../../../../sharedComponents/Comment/CommentWrapper';
+import { LanguageChangeContext } from '../../../../../../../utils/localization/localContext/LocalContext';
+import { FeedDictionary } from '../../../../localization';
+import { ROUTES } from '../../../../../../../utils/routes';
+import { ReactionType } from '../../../../utils/constants';
 
 import {
   reactionColor,
   reactionDescription,
   reactions,
-} from "../../../reactions/reactions";
-import { addReaction } from "../../../../store/actions";
-import { useState } from "react";
-import { RiShareForwardLine } from "react-icons/ri";
-import { Popover } from "antd";
-import PostShareContent from "./PostShareContent";
+} from '../../../reactions/reactions';
+import { addReaction, getAllReactionsAction } from '../../../../store/actions';
+import { useState } from 'react';
+import PostShareContent from './PostShareContent';
+import { handleItemDetailModal } from '../../../../../../../utils/Shared/store/slice';
+import ItemDetailModal from '../../../../../../sharedComponents/ItemDetails';
+import { useSelector } from 'react-redux';
 
 const PostFooter = ({
   attachments,
@@ -36,8 +37,12 @@ const PostFooter = ({
   isDetailViewOpen = true,
   isDetail = false,
 }) => {
+  const {
+    postCompose: { reactionMembersData },
+  } = useSelector((state) => state.feedSlice);
   const dispatch = useDispatch();
   let navigate = useNavigate();
+  const [visible, setVisible] = useState(false);
   const [showComments, setShowComments] = useState(false);
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Post, Direction } = FeedDictionary[userLanguage];
@@ -56,7 +61,7 @@ const PostFooter = ({
       dispatch(
         addFeedReaction({
           referenceId: id,
-          reactionMode: "click",
+          reactionMode: 'click',
           ReactionType: myReaction,
           isDetail,
         })
@@ -74,7 +79,7 @@ const PostFooter = ({
     dispatch(
       addFeedReaction({
         referenceId: id,
-        reactionMode: "click",
+        reactionMode: 'click',
         reactionType: myReaction,
         isDetail,
       })
@@ -88,6 +93,22 @@ const PostFooter = ({
     );
   };
 
+  console.log(reactionMembersData, 'reactionMembersData');
+
+  const handleOpenMembers = (e) => {
+    console.log('handleOpenMembers');
+    e.preventDefault();
+    e.stopPropagation();
+    setVisible(true);
+    dispatch(
+      getAllReactionsAction({
+        id: id,
+        module: reactionModule,
+      })
+    );
+    dispatch(handleItemDetailModal(true));
+  };
+
   return (
     <div className="post-footer">
       <div className="post-count h-[20px]">
@@ -98,7 +119,32 @@ const PostFooter = ({
               alt={reactionDescription[myReaction]}
             />
           </span>
-          <a href={reactionCount}>{reactionCount}</a>
+          <span
+            className="cursor-pointer"
+            onClick={(e) => handleOpenMembers(e)}
+          >
+            {reactionCount}
+          </span>
+          <ItemDetailModal
+            isDeleteDisabled={false}
+            isSearch={false}
+            addEnabled={false}
+            openModal={true}
+            onCancel={() => {
+              setVisible(false);
+              dispatch(handleItemDetailModal(false));
+            }}
+            children={reactionMembersData.map((x) => (
+              <div className="flex items-center">
+                <div className="ml-2 font-semibold">{x.user.name}</div>
+                <img
+                  className="w-[30px] h-[30px] rounded-full cursor-pointer ml-auto"
+                  src={reactions[x.reactionType]}
+                  alt="profile"
+                />
+              </div>
+            ))}
+          />
         </div>
         {commentCount > 0 && (
           <div
@@ -109,7 +155,7 @@ const PostFooter = ({
           >
             <div className="hover:underline cursor-pointer">
               {commentCount} &nbsp;
-              {commentCount === 1 ? " Comment" : Comments}
+              {commentCount === 1 ? ' Comment' : Comments}
             </div>
           </div>
         )}
@@ -142,8 +188,8 @@ const PostFooter = ({
                   className={
                     ReactionType.Like === myReaction ||
                     ReactionType.NoReaction === myReaction
-                      ? "w-[20px] h-[30px]"
-                      : " w-[30px] h-[30px]"
+                      ? 'w-[20px] h-[30px]'
+                      : ' w-[30px] h-[30px]'
                   }
                   src={reactions[myReaction]}
                   alt={reactionDescription[myReaction]}
@@ -165,7 +211,7 @@ const PostFooter = ({
           }}
         >
           <div>
-            <img src={CommentIcon} alt="" />
+            <img src={CommentIcon} alt="commentIcon" />
           </div>
           <div> {Comment}</div>
         </div>

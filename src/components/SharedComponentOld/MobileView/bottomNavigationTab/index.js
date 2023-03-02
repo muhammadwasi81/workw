@@ -17,7 +17,7 @@ import { sideBarOpen } from '../../../MainMenu/SideChatbar/store/sideBarChatSlic
 import { useDispatch, useSelector } from 'react-redux';
 import { Popover } from 'antd';
 import Notification from './notification/';
-import Approvals from './approvals/';
+import Approvals from './approvals/index';
 
 const Index = () => {
   const [darkMode, setDarkMode] = useState(

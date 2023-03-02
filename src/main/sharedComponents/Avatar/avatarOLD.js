@@ -1,12 +1,12 @@
-import React from "react";
-import ZoomImage from "../ZoomImage";
-import { getNameForImage, STRINGS } from "../../../utils/base";
-import { Badge } from "antd";
+import React from 'react';
+import ZoomImage from '../ZoomImage';
+import { getNameForImage, STRINGS } from '../../../utils/base';
+import { Badge } from 'antd';
 
 export default function Avatar({
-  src = "",
+  src = '',
   size,
-  name = "",
+  name = '',
   active,
   width,
   height,
@@ -16,6 +16,7 @@ export default function Avatar({
   id,
   style,
   counter,
+  customClass,
 }) {
   const handleRoute = () => {
     window.location.href = `${STRINGS.ROUTES.USER.TIMELINE.DEFAULT}/${id}`;
@@ -26,13 +27,13 @@ export default function Avatar({
       <Badge count={counter}>
         <div
           onClick={id !== undefined ? handleRoute : null}
-          className={`avatar ${round && "round"}`}
+          className={`avatar ${round && 'round'} ${customClass}`}
           style={{
             width: size !== undefined ? size : width,
             minWidth: size !== undefined ? size : width,
             height: size !== undefined ? size : height,
             maxHeight: size !== undefined ? size : height,
-            position: position !== undefined ? "inherit" : "relative",
+            position: position !== undefined ? 'inherit' : 'relative',
           }}
         >
           {src ? (
@@ -52,7 +53,7 @@ export default function Avatar({
   } catch (e) {
     return (
       <div
-        className={`avatar ${round ? "round" : ""}`}
+        className={`avatar ${round ? 'round' : ''}`}
         style={{
           width: width,
           minWidth: width,

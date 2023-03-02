@@ -347,6 +347,7 @@ const NavMenuList = () => {
       icon: reportIcon,
       isActive: true,
       key: label.navMenuLabel.finance,
+      featureId:FeaturesEnum.Report
     },
     {
       name: label.navMenuLabel.payroll,

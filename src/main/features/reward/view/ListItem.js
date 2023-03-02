@@ -18,7 +18,6 @@ import { data } from "jquery";
 import Attachments from "../../travel/view/UI/Attachments";
 import "./style/reward.css";
 
-
 function ListItem(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { rewardDictionary } = rewardDictionaryList[userLanguage];
@@ -107,7 +106,7 @@ function ListItem(props) {
               {rewardDictionary.rewardTo}
             </div>
             <div className="cardSection__body">
-              {members && (
+              {console.log(members, "ggegegeg") && members && (
                 <Avatar
                   isAvatarGroup={true}
                   isTag={false}

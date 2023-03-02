@@ -55,7 +55,7 @@ export const ROUTES = {
     // VERIFICATION_INPROCESS: `${DOMAIN_PREFIX}/verifying`,
   },
   EXTERNAL_PROJECT: {
-    REGISTER: `${DOMAIN_PREFIX}/projectExternal`,
+    REGISTER: `${DOMAIN_PREFIX}/ProjectExternal`,
   },
   BUDGET: {
     DEFAULT: `${DOMAIN_PREFIX}/budgets`,

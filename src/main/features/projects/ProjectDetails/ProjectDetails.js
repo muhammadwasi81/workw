@@ -55,6 +55,7 @@ import Schedules from "../../schedule/index";
 import MemberModal from "../UI/MemberModal";
 import ProjectInformation from "../UI/ProjectInformation";
 import { STRINGS } from "../../../../utils/base";
+import { ProjectFeaturePermissionEnumList } from "../../../../utils/Shared/enums/projectFeatureEnum";
 
 function ProjectDetails() {
   const params = useParams();
@@ -86,6 +87,8 @@ function ProjectDetails() {
     };
   }, []);
 
+  let featurePermissions = detail?.features.map((item) => item.featureId)
+
   useEffect(() => {
     let temp = detail?.features.map((feat) => {
       return {
@@ -93,7 +96,8 @@ function ProjectDetails() {
         content: featuresComp[feat.featureId],
       };
     });
-    setprojectFeatures(temp);
+    let payload = temp && temp.filter((item) =>  featurePermissions.includes(item.featureId))
+    setprojectFeatures(payload);
   }, [detail]);
 
   const panes = [

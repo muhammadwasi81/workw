@@ -43,6 +43,7 @@ import { addMember } from "../../store/slice";
 import { getAllGroupMemberAction } from "../../store/actions";
 import MemberModal from "../Modal/MemberModal";
 import MySchedules from "../../../schedule/view/ScheduleDetail/SchedulesDetail";
+import { GroupFeaturePermissionEnum, GroupFeaturePermissionEnumList } from "../../../../../utils/Shared/enums/groupFeatureEnum";
 import ItemDetailModal from "../../../../sharedComponents/ItemDetails";
 import { handleItemDetailModal } from "../../../../../utils/Shared/store/slice";
 
@@ -85,6 +86,15 @@ function GroupDetails() {
     };
   }, []);
 
+  let featurePermissions = detail?.features.map((item) => item.featureId)
+
+  // function getUserPermissions(){
+  //   return GroupFeaturePermissionEnumList.map((x)=>{
+  //     if (featurePermissions?.includes(x.id)) {
+  //       return x.featureId 
+  //     }
+  //   })
+  // }
   useEffect(() => {
     let temp = detail?.features.map((feat) => {
       return {
@@ -92,7 +102,8 @@ function GroupDetails() {
         content: featuresComp[feat.featureId],
       };
     });
-    setFeatures(temp);
+    let payload = temp && temp.filter((item) =>  featurePermissions.includes(item.featureId))
+    setFeatures(payload);
   }, [detail]);
 
   const defaultRoute = ROUTES.GROUP.DEFAULT + "/" + id;

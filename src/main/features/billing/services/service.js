@@ -1,9 +1,11 @@
-import AxiosConfig from "../../../../utils/services/AxiosConfig";
-
-export const getAllBillingService = () => {
+import MasterConfig from "../../../../utils/services/MasterConfig";
+export const getAllBillingService = (payload) => {
+  console.log(payload, "PAYLOAD");
   //TODO: url will be changed
-  return AxiosConfig.get(`api/Mailbox/GetAllBusinessEmailConfiguration`)
+  return MasterConfig.post(`/api/Payment/GetAllBilling`, payload)
     .then((res) => {
+      console.log(res, "resssss");
+
       return res.data;
     })
     .catch((err) => {

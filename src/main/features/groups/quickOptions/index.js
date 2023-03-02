@@ -36,7 +36,7 @@ const QuickOptions = ({ data, onClick = () => {} }) => {
           <div onClick={onClick}>
             {/* <img src={menuIcon} /> */}
             <MoreOutlined
-              className="three-dot !text-[22px] cursor-pointer !text-[#707070] "
+              className="three-dot !text-[22px] cursor-pointer !text-[#707070]"
               width={20}
             />
           </div>

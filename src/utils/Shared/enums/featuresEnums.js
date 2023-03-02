@@ -43,6 +43,7 @@ export const FeaturesEnum = {
   Voucher: 42,
   Quotation: 43,
   Company: 44,
+  Report: 45
 };
 
 export const FeaturePermissionEnum = {
@@ -146,7 +147,8 @@ export const FeaturePermissionEnum = {
   ViewQuotation: 98,
   CreateQuotation: 99,
   ViewCompany: 100,
-  CreateArticle: 101
+  CreateArticle: 101,
+  ViewReport: 102
 };
 export const FeaturePermissionEnumList = [
   {
@@ -648,6 +650,11 @@ export const FeaturePermissionEnumList = [
     id: FeaturePermissionEnum.ViewCompany,
     name: "View Company",
     featureId: FeaturesEnum.Company,
+  },
+  {
+    id: FeaturePermissionEnum.ViewReport,
+    name: "View Feed",
+    featureId: FeaturesEnum.Report,
   },
 ];
 export const FeaturesEnumList = [

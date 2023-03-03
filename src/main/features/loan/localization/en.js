@@ -30,7 +30,7 @@ const en = {
     months: "months",
     datePicker: "Date Picker",
     loansToMe: "Loans To Me",
-    listL: "List",
+    list: "List",
     table: "Table",
     loanPurpose: {
       LoanPurpose: "Loan Purpose",

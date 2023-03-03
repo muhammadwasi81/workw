@@ -46,6 +46,7 @@ const quickAddSlice = createSlice({
       .addCase(addQuickEmployee.fulfilled, (state, { payload }) => {
         state.loader = false;
         state.success = true;
+        state.items = []
       })
       .addMatcher(isPending(...[addQuickEmployee]), (state) => {
         state.loader = true;

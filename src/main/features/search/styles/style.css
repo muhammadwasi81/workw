@@ -1,5 +1,4 @@
 .SearchMainContainer {
-    background-color: white;
     border-radius: 10px;
     min-width: 800px;
     margin: 0 auto;
@@ -20,11 +19,13 @@
     grid-template-columns: repeat(auto-fill,minmax(200px,1fr));
     height: -moz-fit-content;
     height: fit-content;
-    padding: 0px 25px 19px 18px;
+    background-color: white;
+    margin-bottom: 10px;
+    padding: 13px 25px 19px 18px;
+    border-radius: 8px;
 }
 .containerHeading {
     font-size: 20px;
-    margin-left: 18px;
     font-weight: 600;
     margin-top: 6px;
 }

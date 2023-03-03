@@ -58,6 +58,7 @@ import { STRINGS } from "../../../../utils/base";
 import {addProjectMemberAction , deleteProjectMemberAction } from "../store/actions";
 import ItemDetailModal from "../../../sharedComponents/ItemDetails";
 import { handleItemDetailModal } from "../../../../utils/Shared/store/slice";
+import { ProjectFeaturePermissionEnumList } from "../../../../utils/Shared/enums/projectFeatureEnum";
 
 function ProjectDetails() {
   const params = useParams();
@@ -89,6 +90,8 @@ function ProjectDetails() {
     };
   }, []);
 
+  let featurePermissions = detail?.features.map((item) => item.featureId)
+
   useEffect(() => {
     let temp = detail?.features.map((feat) => {
       return {
@@ -96,7 +99,8 @@ function ProjectDetails() {
         content: featuresComp[feat.featureId],
       };
     });
-    setprojectFeatures(temp);
+    let payload = temp && temp.filter((item) =>  featurePermissions.includes(item.featureId))
+    setprojectFeatures(payload);
   }, [detail]);
 
   const panes = [

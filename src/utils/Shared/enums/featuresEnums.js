@@ -43,6 +43,7 @@ export const FeaturesEnum = {
   Voucher: 42,
   Quotation: 43,
   Company: 44,
+  Report: 45
 };
 
 export const FeaturePermissionEnum = {
@@ -146,6 +147,8 @@ export const FeaturePermissionEnum = {
   ViewQuotation: 98,
   CreateQuotation: 99,
   ViewCompany: 100,
+  CreateArticle: 101,
+  ViewReport: 102
 };
 export const FeaturePermissionEnumList = [
   {
@@ -648,6 +651,11 @@ export const FeaturePermissionEnumList = [
     name: "View Company",
     featureId: FeaturesEnum.Company,
   },
+  {
+    id: FeaturePermissionEnum.ViewReport,
+    name: "View Feed",
+    featureId: FeaturesEnum.Report,
+  },
 ];
 // export const FeaturePermissionEnumList = [
 //   {
@@ -1042,171 +1050,3 @@ export const FeaturesEnumList = [
   { label: "Quotation", value: FeaturesEnum.Quotation },
   { label: "Company", value: FeaturesEnum.Company },
 ];
-
-// export const FeaturesEnumList = [
-//   {
-//     label: "Feed",
-//     value: FeaturesEnum.Feed,
-//     //psermissons:FeaturePermissionEnumList.filter(x=>x.featureId===FeaturesEnum.Feed)
-//   },
-//   {
-//     label: "Mailbox",
-//     value: FeaturesEnum.Mailbox,
-//   },
-//   {
-//     label: "Messenger",
-//     value: FeaturesEnum.Messenger,
-//   },
-//   {
-//     label: "Group",
-//     value: 4,
-//   },
-//   {
-//     label: "Project",
-//     value: 5,
-//   },
-//   {
-//     label: "Task",
-//     value: 6,
-//   },
-//   {
-//     label: "WorkBoard",
-//     value: 7,
-//   },
-//   {
-//     label: "Lead",
-//     value: 8,
-//   },
-//   {
-//     label: "Expense",
-//     value: 9,
-//   },
-//   {
-//     label: "Schedule",
-//     value: 10,
-//   },
-//   {
-//     label: "Travel",
-//     value: 11,
-//   },
-//   {
-//     label: "Document",
-//     value: 12,
-//   },
-//   {
-//     label: "ELearning",
-//     value: 13,
-//   },
-//   {
-//     label: "Assets",
-//     value: 14,
-//   },
-//   {
-//     label: "Custom Approval",
-//     value: 15,
-//   },
-//   {
-//     label: "Employee",
-//     value: 16,
-//   },
-//   {
-//     label: "Administration",
-//     value: 17,
-//   },
-//   {
-//     label: "Appraisal",
-//     value: 18,
-//   },
-//   {
-//     label: "Department",
-//     value: 19,
-//   },
-//   {
-//     label: "Leave",
-//     value: 20,
-//   },
-//   {
-//     label: "Loan",
-//     value: 21,
-//   },
-//   {
-//     label: "Holiday",
-//     value: 22,
-//   },
-//   {
-//     label: "Career",
-//     value: 23,
-//   },
-//   {
-//     label: "Audio Calling",
-//     value: 24,
-//   },
-//   {
-//     label: "Video Calling",
-//     value: 25,
-//   },
-//   {
-//     label: "Salary",
-//     value: 26,
-//   },
-//   {
-//     label: "Attendance",
-//     value: 27,
-//   },
-//   {
-//     label: "Requisition ",
-//     value: 28,
-//   },
-//   {
-//     label: "MileBoard",
-//     value: 29,
-//   },
-//   {
-//     label: "MileGrid",
-//     value: 30,
-//   },
-//   {
-//     label: "MilePad ",
-//     value: 31,
-//   },
-//   {
-//     label: "Payroll",
-//     value: 32,
-//   },
-//   {
-//     label: "Rewards ",
-//     value: 33,
-//   },
-//   {
-//     label: "Complains ",
-//     value: 34,
-//   },
-//   {
-//     label: "Warnings ",
-//     value: 35,
-//   },
-//   {
-//     label: "Bonus ",
-//     value: 36,
-//   },
-//   {
-//     label: "Promotion ",
-//     value: 37,
-//   },
-//   {
-//     label: "OrganizationalChart",
-//     value: 38,
-//   },
-//   {
-//     label: "MyTeam ",
-//     value: 39,
-//   },
-//   {
-//     label: "Grade",
-//     value: 40,
-//   },
-//   {
-//     label: "JobBoard",
-//     value: 41,
-//   },
-// ];

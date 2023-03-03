@@ -28,10 +28,18 @@ function ListItem(props) {
     referenceNo,
   } = props.item;
 
+  console.log(member, "APPROVERS");
+
   const localTime = moment
     .utc(createDate)
     .local()
     .format();
+  console.log(member, "mmmmmbbbeerrr");
+  console.log(approvers, "aapppprrrooo");
+
+  // const arr = [];
+  // arr.push(member);
+  // console.log(arr);
 
   return (
     <SingleItem onClick={props.onClick}>
@@ -50,7 +58,7 @@ function ListItem(props) {
           />
         </div>
         <div className="right">
-          <Tag className="IdTag">{bonusDictionary.ReferenceNum}</Tag>
+          <Tag className="IdTag">{referenceNo && referenceNo}</Tag>
           <StatusTag status={status && status}></StatusTag>
         </div>
       </ItemHeader>
@@ -63,6 +71,21 @@ function ListItem(props) {
           <div className="cardSection__title">{bonusDictionary.bonusTo}</div>
           <div className="cardSection__body">{member && member.name}</div>
         </div>
+        <div className="cardSectionItem">
+          <div className="cardSection__title">{bonusDictionary.members}</div>
+          <div className="cardSection__body cursor-pointer">
+            <img
+              src={member.image}
+              alt={member.name}
+              style={{
+                width: "20px",
+                height: "20px",
+                borderRadius: "50%",
+              }}
+            />
+          </div>
+        </div>
+
         <div className="cardSectionItem">
           <div className="cardSection__title">{bonusDictionary.approvers}</div>
           <div className="cardSection__body">

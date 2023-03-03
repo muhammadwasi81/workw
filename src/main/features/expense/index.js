@@ -144,8 +144,9 @@ function Expenses({
           },
           // label1: sharedLabels.List,
           // label2: sharedLabels.Table,
-          label1: "List",
-          label2: "Table",
+
+          label1: ExpenseDictionaryList.labels.list,
+          label2: ExpenseDictionaryList.labels.table,
         }}
       />
       <ContBody className={width}>{render[view]}</ContBody>

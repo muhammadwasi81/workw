@@ -300,15 +300,8 @@ function Board() {
 
             <Table
               columns={sectionTableColumn(WorkBoardDictionaryList)}
-              // dragable={true}
-              // handleChange={handleChange}
-              // onPageChange={onPageChange}
-              // onRow={onRow}
               data={sectionTableData}
-              // status={travelStatus}
               loading={loader}
-              // success={success}
-              // onActionClick={onActionClick}
             />
             </>
           )}

@@ -75,6 +75,16 @@ const MessengerBottom = ({ isOpenProfile, isChatBoxView, messengerDetail }) => {
     msgInpRef.current.focus();
   };
 
+  function sendVoiceComponent() {
+    return (
+      <div className="MessengerInputHandler sendVoiceIcon">
+        <div>
+          <VoiceNotes handleVoiceSend={handleVoiceSend} />
+        </div>
+      </div>
+    )  
+  }
+
   if (isChatBoxView) {
     return (
       <ChatBoxFooter
@@ -82,6 +92,7 @@ const MessengerBottom = ({ isOpenProfile, isChatBoxView, messengerDetail }) => {
         onSelectEmoji={onSelectEmoji}
         handleClickAttachment={handleClickAttachment}
         msgInpRef={msgInpRef}
+        sendVoice={sendVoiceComponent()}
         FileUploader={
           <FileUploader
             inputRef={fileInputRef}
@@ -97,7 +108,7 @@ const MessengerBottom = ({ isOpenProfile, isChatBoxView, messengerDetail }) => {
       <div className={"MessengerBottom " + (isOpenProfile ? "blur-bg" : "")}>
         <div className="MessengerInputHandler">
           <div>
-            <img
+            {/* <img
               className="actionBtn"
               src={faceIcon}
               alt=""
@@ -108,7 +119,7 @@ const MessengerBottom = ({ isOpenProfile, isChatBoxView, messengerDetail }) => {
               src={attachmentIcon}
               alt=""
               onClick={handleClickAttachment}
-            />
+            /> */}
           </div>
         </div>
         <div className="MessengerInputCont">
@@ -124,11 +135,12 @@ const MessengerBottom = ({ isOpenProfile, isChatBoxView, messengerDetail }) => {
             </div>
           </div>
         </div>
-        <div className="MessengerInputHandler">
+        {sendVoiceComponent()}
+        {/* <div className="MessengerInputHandler">
           <div>
             <VoiceNotes handleVoiceSend={handleVoiceSend} />
           </div>
-        </div>
+        </div> */}
       </div>
       <FileUploader
         inputRef={fileInputRef}

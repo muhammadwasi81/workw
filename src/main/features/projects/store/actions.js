@@ -14,30 +14,19 @@ import {
   deleteProjectMemberService,
   addProjectFavoriteService,
   getProjectFeatureService,
-  saveStickyNoteProject
+  saveStickyNoteProject,
 } from "../services/service";
 import { message } from "antd";
 import {
   responseMessage,
   responseMessageType,
 } from "../../../../services/slices/notificationSlice";
-import { jsonToFormData, STRINGS } from "../../../../utils/base";
 import {
   deleteProjectMember,
   addProjectMember,
   deleteProjectFeature,
 } from "../store/slice";
 
-const addSticky_SD = (data) => {
-  return {
-    // id: data.id ? data.id : 1,
-    title: data.title ? data.title : "",
-    description: data.description ? data.description : "",
-    privacyId: data.privacyId ? data.privacyId : 1,
-    colorCode: data.colorCode ? data.colorCode : "",
-    attachments: data.attachments ? data.attachments : [],
-  };
-};
 export const getAllProjects = createAsyncThunk(
   "getAllProject",
   async (data, { dispatch, getState, rejectWithValue }) => {
@@ -164,18 +153,13 @@ export const addProjectFeature = createAsyncThunk(
   }
 );
 
-
-
-export const saveStickyprojectAction = createAsyncThunk(
-  'saveProjectTitle',
+export const saveStickyproject = createAsyncThunk(
+  "saveStickyProject",
   async (data, { dispatch }) => {
-    const formdataRequest = jsonToFormData(data);
-    const res = await saveStickyNoteProject(formdataRequest);
-    console.log(res,"responseeeee");
+    const res = await saveStickyNoteProject(data);
     if (res.responseCode) {
       if (res.responseCode === responseCode.Success)
-        message.success("save title notes");
-      responseMessage({ dispatch, data: res });
+        responseMessage({ dispatch, data: res });
     } else {
       responseMessage({
         dispatch: dispatch,
@@ -186,15 +170,13 @@ export const saveStickyprojectAction = createAsyncThunk(
   }
 );
 
-export const getProjectStickyAction = createAsyncThunk(
+export const getProjectSticky = createAsyncThunk(
   "getSticky",
   async (data, { dispatch }) => {
     const res = await getAllProjectStickyService(data);
-    console.log("response",res);
     if (res.responseCode) {
       if (res.responseCode === responseCode.Success)
-        message.success("save title notes");
-      responseMessage({ dispatch, data: res });
+        responseMessage({ dispatch, data: res });
     } else {
       responseMessage({
         dispatch: dispatch,

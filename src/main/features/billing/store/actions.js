@@ -9,8 +9,9 @@ import { getAllBillingService } from "../services/service";
 export const getAllBilling = createAsyncThunk(
   "Billing/getAllBilling",
   async (args, { dispatch, getState }) => {
+    console.log(args);
     //TODO: will be set accordingly
-    const res = await getAllBillingService();
+    const res = await getAllBillingService(args);
 
     if (!res.responseCode) {
       responseMessage({

@@ -23,6 +23,7 @@ import { LanguageChangeContext } from "../../../../../utils/localization/localCo
 import { TravelDictionary } from "../../localization/index";
 
 function ListView(props) {
+  console.log(props, "propss");
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, TravelDictionaryList } = TravelDictionary[userLanguage];
   const { headings } = TravelDictionaryList;
@@ -55,7 +56,7 @@ function ListView(props) {
   return (
     <div className="gap-5 flex flex-col z-10 ">
       {props.data
-        ? props.data.map((data, index) => (
+        ? props.data?.map((data, index) => (
             <div
               className="flex bg-white flex-col gap-2 rounded-xl cursor-pointer overflow-hidden hover:shadow-lg duration-300"
               onClick={() => {
@@ -65,8 +66,8 @@ function ListView(props) {
               <div className="p-3 sm:p-5">
                 <CardProfileTopView
                   profileImgSrc={
-                    data.creator && data.creator.image.length > 0
-                      ? data.creator.image
+                    data.creator && data.creator?.image
+                      ? data.creator?.image
                       : ""
                   }
                   createDate={data.createDate}
@@ -172,7 +173,7 @@ function ListView(props) {
                     <div className="flex flex-col gap font-semibold">
                       <span className="">{headings.agents}</span>
                       <Avatar
-                        heading={"Agents"}
+                        heading={"Approvers"}
                         membersData={data.agents}
                         size={"small"}
                       />
@@ -182,7 +183,7 @@ function ListView(props) {
               </div>
             </div>
           ))
-        : null}
+        : "null"}
       {/* {props.loader &&
 				[0, 0, 0].map(() => (
 					<Skeleton

@@ -17,7 +17,11 @@ import { LanguageChangeContext } from "../../../../../utils/localization/localCo
 import { groupsDictionaryList } from "../../localization";
 // import Travel from "../../../travel/view/Travel";
 // import { FeaturesEnum } from "../../../../../utils/Shared/enums/enums";
-import { getGroupById } from "../../store/actions";
+import {
+  addGroupMemberAction,
+  deleteGroupMemberAction,
+  getGroupById,
+} from "../../store/actions";
 import { resetGroupDetail } from "../../store/slice";
 import { EditOutlined } from "@ant-design/icons";
 import Composer from "../UI/Composer";
@@ -39,6 +43,9 @@ import { addMember } from "../../store/slice";
 import { getAllGroupMemberAction } from "../../store/actions";
 import MemberModal from "../Modal/MemberModal";
 import MySchedules from "../../../schedule/view/ScheduleDetail/SchedulesDetail";
+import { GroupFeaturePermissionEnum, GroupFeaturePermissionEnumList } from "../../../../../utils/Shared/enums/groupFeatureEnum";
+import ItemDetailModal from "../../../../sharedComponents/ItemDetails";
+import { handleItemDetailModal } from "../../../../../utils/Shared/store/slice";
 
 function GroupDetails() {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -57,16 +64,37 @@ function GroupDetails() {
   }, [id]);
 
   const memberHandler = () => {
+    // setVisible(true);
+    // // const userTypes = memberType === 1 ? Members.user : Members.admin;
+    // dispatch(addMember({ status: true }));
+
     setVisible(true);
-    // const userTypes = memberType === 1 ? Members.user : Members.admin;
-    dispatch(addMember({ status: true }));
+    dispatch(handleItemDetailModal(true));
   };
+
+  // const handleOpenMembers = (e) => {
+  //   e.preventDefault();
+  //   e.stopPropagation();
+  //   setVisible(true);
+  //   dispatch(handleItemDetailModal(true));
+  //   handleClose(false);
+  // };
+
   useEffect(() => {
     return () => {
       dispatch(resetGroupDetail());
     };
   }, []);
 
+  let featurePermissions = detail?.features.map((item) => item.featureId)
+
+  // function getUserPermissions(){
+  //   return GroupFeaturePermissionEnumList.map((x)=>{
+  //     if (featurePermissions?.includes(x.id)) {
+  //       return x.featureId 
+  //     }
+  //   })
+  // }
   useEffect(() => {
     let temp = detail?.features.map((feat) => {
       return {
@@ -74,7 +102,8 @@ function GroupDetails() {
         content: featuresComp[feat.featureId],
       };
     });
-    setFeatures(temp);
+    let payload = temp && temp.filter((item) =>  featurePermissions.includes(item.featureId))
+    setFeatures(payload);
   }, [detail]);
 
   const defaultRoute = ROUTES.GROUP.DEFAULT + "/" + id;
@@ -176,6 +205,25 @@ function GroupDetails() {
     },
   ];
 
+  const onDelete = (userId) => {
+    const memberId = userId.toString();
+    const delmembers = {
+      id: id,
+      memberId: memberId,
+    };
+
+    dispatch(deleteGroupMemberAction(delmembers));
+  };
+
+  const addFunc = (id) => {
+    let memberId = id.toString();
+    const members = {
+      id: detail.id,
+      memberId: memberId,
+    };
+    dispatch(addGroupMemberAction(members));
+  };
+
   return (
     <>
       <TabContainer>
@@ -194,6 +242,7 @@ function GroupDetails() {
                   data={detail?.members}
                   isMember={true}
                   handleAdd={(e) => memberHandler(e)}
+                  onDelete={onDelete}
                 />
               </WhiteCard>
               <WhiteCard>
@@ -218,7 +267,18 @@ function GroupDetails() {
           id={id}
         />
       </Drawer>
-      {visible && <MemberModal data={detail} />}
+      {/* {visible && <MemberModal data={detail} />} */}
+      {visible && (
+        <ItemDetailModal
+          data={detail?.members} //Data
+          isDeleteDisabled={false} //Pass true to hide delete icon
+          addEnabled={true} //Pass false to hide select member
+          addFunc={addFunc}
+          onDelete={onDelete}
+          isSearch={true} //Pass true if you want to search the list
+          openModal={true}
+        />
+      )}
     </>
   );
 }

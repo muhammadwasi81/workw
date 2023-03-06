@@ -29,34 +29,40 @@ import { FeaturePermissionEnum } from "../../../../utils/Shared/enums/featuresEn
 const Warning = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { warningDictionary } = warningDictionaryList[userLanguage];
-  const {tables} = warningDictionary;
-  const {user} = useSelector((state) => state.userSlice);
-  const userPermissions = user.permissions
-
+  const { tables } = warningDictionary;
+  const { user } = useSelector((state) => state.userSlice);
+  const userPermissions = user.permissions;
   const [detailId, setDetailId] = useState(false);
   const [tableView, setTableView] = useState(false);
   const isTablet = useMediaQuery({ maxWidth: 800 });
   const [visible, setVisible] = useState(false);
+  // const [search, setSearch] = useState("");
 
   const [filter, setFilter] = useState({
     filterType: 0,
     search: "",
     sortBy: 1,
+    pageSize: 50,
   });
 
   const dispatch = useDispatch();
 
-  const { warnings, loader, warningDetail, drawerOpen} = useSelector(
+  const { warnings, loader, warningDetail, drawerOpen } = useSelector(
     (state) => state.warningSlice
   );
 
   useEffect(() => {
-    dispatch(getAllWarnings(filter));
+    dispatch(
+      getAllWarnings(
+        filter
+        // search:"",
+      )
+    );
   }, [filter]);
 
   const items = [
     {
-      name:warningDictionary.warning,
+      name: warningDictionary.warning,
       to: `${ROUTES.WARNINGS.ROOT}`,
       renderButton: [1],
     },
@@ -70,25 +76,30 @@ const Warning = (props) => {
     <TabbableContainer className="max-width-1190">
       <Header
         items={items}
-        buttons={userPermissions.includes(FeaturePermissionEnum.CreateWarnings) ? [
-          {
-            buttonText: "Create Warning",
-            render: (
-              <SideDrawer
-                title={warningDictionary.createWarning}
-                buttonText={warningDictionary.createWarning}
-                handleClose={() => dispatch(handleOpenComposer(false))}
-                handleOpen={() => dispatch(handleOpenComposer(true))}
-                isOpen={drawerOpen}
-                children={<Composer />}
-              />
-            ),
-          },
-        ] : []}
+        buttons={
+          userPermissions.includes(FeaturePermissionEnum.CreateWarnings)
+            ? [
+                {
+                  buttonText: "Create Warning",
+                  render: (
+                    <SideDrawer
+                      title={warningDictionary.createWarning}
+                      buttonText={warningDictionary.createWarning}
+                      handleClose={() => dispatch(handleOpenComposer(false))}
+                      handleOpen={() => dispatch(handleOpenComposer(true))}
+                      isOpen={drawerOpen}
+                      children={<Composer />}
+                    />
+                  ),
+                },
+              ]
+            : []
+        }
       />
       <TopBar
         onSearch={(value) => {
           console.log(value);
+          setFilter({ ...filter, search: value });
         }}
         buttons={[
           {
@@ -104,7 +115,7 @@ const Warning = (props) => {
             onClick: () => setFilter({ filterType: 2 }),
           },
           {
-            name:warningDictionary.warningToMe,
+            name: warningDictionary.warningToMe,
             onClick: () => setFilter({ filterType: 3 }),
           },
         ]}
@@ -124,7 +135,11 @@ const Warning = (props) => {
         {loader && <Skeleton avatar paragraph={{ rows: 4 }} />}
 
         {tableView && (
-          <Table columns={tableColumn(tables)} dragable={true} data={warnings} />
+          <Table
+            columns={tableColumn(tables)}
+            dragable={true}
+            data={warnings}
+          />
         )}
 
         {warnings?.length > 0 && !loader && !tableView ? (

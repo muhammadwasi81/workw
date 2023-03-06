@@ -203,7 +203,6 @@ const PostFooter = ({
               })),
             };
           }
-
           dispatch(
             feedSlice.actions.onSaveComment({
               comment: updatedComment,

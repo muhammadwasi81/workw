@@ -6,14 +6,19 @@
     display: flex;
     gap: 6px;
 }
-.minimized-document-container .document-minimized-header{
+.document-minimized-header{
     background-color: #c9a100;
     border-radius: 10px;
-    width: 150px;
+    width: 180px;
 }
-.minimized-document-container .document-minimized-header .ChatBoxName{
+.document-minimized-header .ChatBoxName{
     width: unset;
 }
-.minimized-document-container .document-minimized-header .minimized-icon{
+.document-minimized-header .minimized-icon{
     height: 20px;
+}
+
+.call-minimized{
+    z-index: 1;
+    background-color: #272727;
 }

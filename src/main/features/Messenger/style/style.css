@@ -563,7 +563,7 @@ animation:0.1s visibleDelay 0.4s forwards;
 
 .recordBlink {
   animation-name: visibleDelay;
-  animation-duration: 2s;
+  animation-duration: 1.5s;
   animation-iteration-count: infinite;
   /* animation-fill-mode: forwards; */
 }

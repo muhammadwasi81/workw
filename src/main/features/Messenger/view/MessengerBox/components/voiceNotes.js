@@ -41,7 +41,7 @@ function VoiceNotes({ handleVoiceSend }) {
         useReactMediaRecorder({ audio: true, onStart: onStartRecording, onStop: onStopRecording });
 
     return (
-        <div style={{
+        <div className="voiceIcon" style={{
             display: "flex", backgroundColor: "rgb(244, 244, 244)", borderRadius: "7px",
             height: "40px", alignItems: "center"
         }} >

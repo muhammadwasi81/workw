@@ -113,7 +113,10 @@ function AttachmentsCarrousel({ attachments }) {
 					{attachments.map((slide, ind) => {
 						return (
 							<SwiperSlide zoom={true} key={ind}>
-								<div className="flex justify-center items-center w-full">
+								<div className="flex justify-center items-center w-full" 
+								style={{
+									maxHeight: '70vh'
+								}}>
 									{getFile(slide)}
 									{/* {getFileExtention(slide.path) === "mov" ? (
 										<video

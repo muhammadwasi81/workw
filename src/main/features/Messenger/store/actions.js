@@ -153,6 +153,7 @@ export const sendChatMessage = createAsyncThunk(
 export const getAllChats = createAsyncThunk(
   "messenger/getAllChats",
   async (request, { rejectWithValue }) => {
+    console.log(request, "REQUEST")
     const response = await MessengerService.getAllChat(request);
     switch (response.type) {
       case ResponseType.ERROR:

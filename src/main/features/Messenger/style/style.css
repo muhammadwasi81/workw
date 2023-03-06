@@ -5,6 +5,16 @@
   position: absolute;
 }
 
+.fromSideBar .sendVoiceIcon  {
+  margin: 0px 8px 0px 0px;
+}
+.fromSideBar .voiceIcon {
+  height: 30px !important;
+}
+.fromSideBar .voiceIcon .actionBtn {
+  height: 14px !important;
+}
+
 .ConversationListCont {
   background: white;
   height: 100%;

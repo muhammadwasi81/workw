@@ -12,6 +12,13 @@
   width: 80px;
 }
 
+.attachmentModal .ant-modal-content {
+  height: 80vh;
+}
+.attachmentModal .ant-modal-body {
+  height: 80vh;
+}
+
 .appSideBarDefault-Mob {
   display: none !important;
 }

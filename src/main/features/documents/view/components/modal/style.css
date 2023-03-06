@@ -10,7 +10,7 @@
 }
 .ModalInner .doc-modal-content {
     height: 80vh;
-    margin-top: 15px;
+    /* margin-top: 15px; */
 }
 .DocumentModal img {
     margin: 0 auto;

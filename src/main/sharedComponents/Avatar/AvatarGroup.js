@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 // import PropTypes from "prop-types";
 
 function AvatarGroup(props) {
+  console.log(props, "propssse");
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
 

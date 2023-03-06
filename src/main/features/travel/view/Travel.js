@@ -43,6 +43,7 @@ function Travel({
   const { travels, loader, success, isAdded } = useSelector(
     (state) => state.travelSlice
   );
+  console.log(travels?.agents, "travelsss");
   const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
   const { TravelDictionaryList, Direction } = TravelDictionary[userLanguage];

@@ -1,33 +1,33 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import { ResponseType } from '../../../../../utils/api/ResponseResult';
-import { jsonToFormData, STRINGS } from '../../../../../utils/base';
-import { openNotification } from '../../../../../utils/Shared/store/slice';
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import { ResponseType } from "../../../../../utils/api/ResponseResult";
+import { jsonToFormData, STRINGS } from "../../../../../utils/base";
+import { openNotification } from "../../../../../utils/Shared/store/slice";
 import {
   addStickyNotesService,
   deleteStickyNoteService,
   getAllStickyNotesService,
   addStickyNote,
-} from '../services/service';
+} from "../services/service";
 import {
   deleteStickyNote,
   selectStickyNoteColor,
   targetTitleVal,
   targetStickyDescription,
-} from './stickySlice';
+} from "./stickySlice";
 
 const addSticky_SD = (data) => {
   return {
     id: data.id ? data.id : 1,
-    title: data.title ? data.title : '',
-    description: data.description ? data.description : '',
+    title: data.title ? data.title : "",
+    description: data.description ? data.description : "",
     privacyId: data.privacyId ? data.privacyId : 1,
-    colorCode: data.colorCode ? data.colorCode : '',
+    colorCode: data.colorCode ? data.colorCode : "",
     attachments: data.attachments ? data.attachments : [],
   };
 };
 
 export const addSticky = createAsyncThunk(
-  'stickySlice/addSticky',
+  "stickySlice/addSticky",
   async (payload, { rejectWithValue, dispatch }) => {
     let request = addSticky_SD(payload);
 
@@ -39,8 +39,7 @@ export const addSticky = createAsyncThunk(
       case ResponseType.SUCCESS:
         dispatch(
           openNotification({
-            message: 'Sticky Note added Successfully!',
-            type: 'success',
+            type: "success",
             duration: 2,
           })
         );
@@ -51,7 +50,7 @@ export const addSticky = createAsyncThunk(
   }
 );
 export const getColorCodeAction = createAsyncThunk(
-  'stickySlice/getColorCodeAction',
+  "stickySlice/getColorCodeAction",
   async (payload, { rejectWithValue, dispatch }) => {
     let request = addSticky_SD(payload);
     const formdataRequest = jsonToFormData(request);
@@ -69,16 +68,12 @@ export const getColorCodeAction = createAsyncThunk(
 );
 
 export const getStickyNoteTitleAction = createAsyncThunk(
-  'stickySlice/getStickyNoteTitleAction',
+  "stickySlice/getStickyNoteTitleAction",
   async (payload, { rejectWithValue, dispatch }) => {
-    console.log(payload, 'ACTIon tITLE value');
-
     let request = addSticky_SD(payload);
     const formdataRequest = jsonToFormData(request);
-    console.log(formdataRequest, 'Title ACTION');
 
     const response = await addStickyNotesService(formdataRequest);
-    console.log(response, 'Title RESPONSE');
     switch (response.type) {
       case ResponseType.ERROR:
         return rejectWithValue(response.errorMessage);
@@ -91,16 +86,12 @@ export const getStickyNoteTitleAction = createAsyncThunk(
 );
 
 export const getStickyNoteDescAction = createAsyncThunk(
-  'stickySlice/getStickyNoteDescAction',
+  "stickySlice/getStickyNoteDescAction",
   async (payload, { rejectWithValue, dispatch }) => {
-    // console.log(payload, "ACTIon Desc value")
-
     let request = addSticky_SD(payload);
     const formdataRequest = jsonToFormData(request);
-    // console.log(formdataRequest, "Desc ACTION")
 
     const response = await addStickyNotesService(formdataRequest);
-    // console.log(response,"DEsc RESPONSE")
     switch (response.type) {
       case ResponseType.ERROR:
         return rejectWithValue(response.errorMessage);
@@ -112,16 +103,12 @@ export const getStickyNoteDescAction = createAsyncThunk(
   }
 );
 export const getStickyAttachmentAction = createAsyncThunk(
-  'stickySlice/getStickyAttachmentAction',
+  "stickySlice/getStickyAttachmentAction",
   async (payload, { rejectWithValue, dispatch }) => {
-    console.log(payload, 'ACTIon images value');
-
     let request = addSticky_SD(payload);
     const formdataRequest = jsonToFormData(request);
-    console.log(formdataRequest, 'images ACTION');
 
     const response = await addStickyNotesService(formdataRequest);
-    console.log(response, 'images RESPONSE');
     switch (response.type) {
       case ResponseType.ERROR:
         return rejectWithValue(response.errorMessage);
@@ -134,9 +121,8 @@ export const getStickyAttachmentAction = createAsyncThunk(
 );
 
 export const getAllStickyNotesAction = createAsyncThunk(
-  'stickySlice/getAllStickyNotesAction',
+  "stickySlice/getAllStickyNotesAction",
   async (request, { rejectWithValue }) => {
-    // console.log(request, "GET REQUEST")
     const response = await getAllStickyNotesService(request);
     switch (response.type) {
       case ResponseType.ERROR:
@@ -150,11 +136,9 @@ export const getAllStickyNotesAction = createAsyncThunk(
 );
 
 export const deleteStickyAction = createAsyncThunk(
-  'stickySlice/deleteStickyAction',
+  "stickySlice/deleteStickyAction",
   async (request, { rejectWithValue, dispatch }) => {
-    // console.log(request, "DELETE REQUEST")
     const response = await deleteStickyNoteService(request);
-    // console.log(response, "delete RESPONSE");
     switch (response.type) {
       case ResponseType.ERROR:
         return rejectWithValue(response.errorMessage);

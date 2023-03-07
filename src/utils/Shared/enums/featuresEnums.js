@@ -657,6 +657,329 @@ export const FeaturePermissionEnumList = [
     featureId: FeaturesEnum.Report,
   },
 ];
+// export const FeaturePermissionEnumList = [
+//   {
+//     id: FeaturePermissionEnum.ViewFeed,
+//     name: "View Feed",
+//     featureId: FeaturesEnum.Feed,
+//   },
+//   {
+//     id: FeaturePermissionEnum.PostFeed,
+//     name: "Post Feed",
+//     featureId: FeaturesEnum.Feed,
+//   },
+//   {
+//     id: FeaturePermissionEnum.ViewMailbox,
+//     name: "View Mailbox",
+//     featureId: FeaturesEnum.Mailbox,
+//   },
+//   {
+//     id: FeaturePermissionEnum.ViewDocument,
+//     name: "View Document",
+//     featureId: FeaturesEnum.Document,
+//   },
+//   {
+//     id: FeaturePermissionEnum.ViewMessenger,
+//     name: "View Document",
+//     featureId: FeaturesEnum.Messenger,
+//   },
+//   {
+//     id: FeaturePermissionEnum.ViewRewards,
+//     name: "View Reward",
+//     featureId: FeaturesEnum.Rewards,
+//   },
+//   {
+//     id: FeaturePermissionEnum.CreateRewards,
+//     name: "Create Reward",
+//     featureId: FeaturesEnum.Rewards,
+//   },
+//   {
+//     id: FeaturePermissionEnum.ViewLoan,
+//     name: "View Loan",
+//     featureId: FeaturesEnum.Loan,
+//   },
+//   {
+//     id: FeaturePermissionEnum.CreateLoan,
+//     name: "Create Loan",
+//     featureId: FeaturesEnum.Loan,
+//   },
+//   {
+//     id: FeaturePermissionEnum.ViewCustomApproval,
+//     name: "View Custom Approval",
+//     featureId: FeaturesEnum.CustomApproval,
+//   },
+//   {
+//     id: FeaturePermissionEnum.CreateCustomApproval,
+//     name: "Create Custom Approval",
+//     featureId: FeaturesEnum.CustomApproval,
+//   },
+//   {
+//     id: FeaturePermissionEnum.ViewGroup,
+//     name: "View Group",
+//     featureId: FeaturesEnum.Group,
+//   },
+//   {
+//     id: FeaturePermissionEnum.CreateGroup,
+//     name: "Create Group",
+//     featureId: FeaturesEnum.Group,
+//   },
+//   {
+//     id: FeaturePermissionEnum.ViewComplains,
+//     name: "View Complains",
+//     featureId: FeaturesEnum.Complains,
+//   },
+//   {
+//     id: FeaturePermissionEnum.CreateComplains,
+//     name: "Create Complain",
+//     featureId: FeaturesEnum.Complains,
+//   },
+//   {
+//     id: FeaturePermissionEnum.ViewAsset,
+//     name: "View Asset",
+//     featureId: FeaturesEnum.Asset,
+//   },
+//   {
+//     id: FeaturePermissionEnum.CreateAsset,
+//     name: "Create Asset",
+//     featureId: FeaturesEnum.Asset,
+//   },
+//   {
+//     id: FeaturePermissionEnum.ViewAppraisal,
+//     name: "View Appraisal",
+//     featureId: FeaturesEnum.Appraisal,
+//   },
+//   {
+//     id: FeaturePermissionEnum.CreateAppraisal,
+//     name: "Create Appraisal",
+//     featureId: FeaturesEnum.Appraisal,
+//   },
+//   {
+//     id: FeaturePermissionEnum.ViewBonus,
+//     name: "View Bonus",
+//     featureId: FeaturesEnum.Bonus,
+//   },
+//   {
+//     id: FeaturePermissionEnum.CreateBonus,
+//     name: "Create Bonus",
+//     featureId: FeaturesEnum.Bonus,
+//   },
+//   {
+//     id: FeaturePermissionEnum.ViewCareer,
+//     name: "View Career",
+//     featureId: FeaturesEnum.Career,
+//   },
+//   {
+//     id: FeaturePermissionEnum.CreateCareer,
+//     name: "Create Career",
+//     featureId: FeaturesEnum.Career,
+//   },
+//   {
+//     id: FeaturePermissionEnum.ViewDepartment,
+//     name: "View Department",
+//     featureId: FeaturesEnum.Department,
+//   },
+//   {
+//     id: FeaturePermissionEnum.CreateDepartment,
+//     name: "Create Department",
+//     featureId: FeaturesEnum.Department,
+//   },
+//   {
+//     id: FeaturePermissionEnum.ViewElearning,
+//     name: "View eLearning",
+//     featureId: FeaturesEnum.ELearning,
+//   },
+//   {
+//     id: FeaturePermissionEnum.ViewEmployees,
+//     name: "View Employee",
+//     featureId: FeaturesEnum.Employees,
+//   },
+//   {
+//     id: FeaturePermissionEnum.CreateEmployees,
+//     name: "Create Employee",
+//     featureId: FeaturesEnum.Employees,
+//   },
+//   {
+//     id: FeaturePermissionEnum.ViewExpense,
+//     name: "View Expense",
+//     featureId: FeaturesEnum.Expense,
+//   },
+//   {
+//     id: FeaturePermissionEnum.CreateExpense,
+//     name: "Create Expense",
+//     featureId: FeaturesEnum.Expense,
+//   },
+//   {
+//     id: FeaturePermissionEnum.ViewJobBoard,
+//     name: "View Job Board",
+//     featureId: FeaturesEnum.JobBoard,
+//   },
+//   {
+//     id: FeaturePermissionEnum.ViewLeadManager,
+//     name: "View Lead Manager",
+//     featureId: FeaturesEnum.Lead,
+//   },
+//   {
+//     id: FeaturePermissionEnum.CreateLeadManagerGroup,
+//     name: "View Lead Manager Group",
+//     featureId: FeaturesEnum.Lead,
+//   },
+//   {
+//     id: FeaturePermissionEnum.ViewLeave,
+//     name: "View Leave",
+//     featureId: FeaturesEnum.Leave,
+//   },
+//   {
+//     id: FeaturePermissionEnum.CreateLeave,
+//     name: "Create Leave",
+//     featureId: FeaturesEnum.Leave,
+//   },
+//   {
+//     id: FeaturePermissionEnum.ViewProject,
+//     name: "View Project",
+//     featureId: FeaturesEnum.Project,
+//   },
+//   {
+//     id: FeaturePermissionEnum.CreateProject,
+//     name: "Create Project",
+//     featureId: FeaturesEnum.Project,
+//   },
+//   {
+//     id: FeaturePermissionEnum.ViewRequisition,
+//     name: "View Requisition",
+//     featureId: FeaturesEnum.Requisition,
+//   },
+//   {
+//     id: FeaturePermissionEnum.CreateRequisition,
+//     name: "Create Requisition",
+//     featureId: FeaturesEnum.Requisition,
+//   },
+//   {
+//     id: FeaturePermissionEnum.ViewPromotion,
+//     name: "View Promotion",
+//     featureId: FeaturesEnum.Promotion,
+//   },
+//   {
+//     id: FeaturePermissionEnum.CreatePromotion,
+//     name: "Create Promotion",
+//     featureId: FeaturesEnum.Promotion,
+//   },
+//   {
+//     id: FeaturePermissionEnum.ViewOrganizationalChart,
+//     name: "View Org Chart",
+//     featureId: FeaturesEnum.OrganizationalChart,
+
+//   },
+//   {
+//     id: FeaturePermissionEnum.ViewSchedule,
+//     name: "View Schedule",
+//     featureId: FeaturesEnum.Schedule,
+//   },
+//   {
+//     id: FeaturePermissionEnum.CreateSchedule,
+//     name: "Create Schedule",
+//     featureId: FeaturesEnum.Schedule,
+//   },
+//   {
+//     id: FeaturePermissionEnum.ViewTask,
+//     name: "View Task",
+//     featureId: FeaturesEnum.Task,
+//   },
+//   {
+//     id: FeaturePermissionEnum.CreateTask,
+//     name: "Create Task",
+//     featureId: FeaturesEnum.Task,
+//   },
+//   {
+//     id: FeaturePermissionEnum.ViewTravel,
+//     name: "View Travel",
+//     featureId: FeaturesEnum.Travel,
+//   },
+//   {
+//     id: FeaturePermissionEnum.CreateTravel,
+//     name: "Create Travel",
+//     featureId: FeaturesEnum.Travel,
+//   },
+//   {
+//     id: FeaturePermissionEnum.ViewWarnings,
+//     name: "View Warning",
+//     featureId: FeaturesEnum.Warnings,
+//   },
+//   {
+//     id: FeaturePermissionEnum.CreateWarnings,
+//     name: "Create Warning",
+//     featureId: FeaturesEnum.Warnings,
+//   },
+//   {
+//     id: FeaturePermissionEnum.ViewWorkboard,
+//     name: "View Workboard",
+//     featureId: FeaturesEnum.Workboard,
+//   },
+//   {
+//     id: FeaturePermissionEnum.CreateWorkboard,
+//     name: "Create Workboard",
+//     featureId: FeaturesEnum.Workboard,
+//   },
+//   {
+//     id: FeaturePermissionEnum.ViewChartOfAccount,
+//     name: "View Chart Of Account",
+//     featureId: FeaturesEnum.ChartofAccount,
+//   },
+//   {
+//     id: FeaturePermissionEnum.CreateChartOfAccount,
+//     name: "Create Chart Of Account",
+//     featureId: FeaturesEnum.ChartofAccount,
+//   },
+//   {
+//     id: FeaturePermissionEnum.ViewVouchers,
+//     name: "View Vouchers",
+//     featureId: FeaturesEnum.Voucher,
+//   },
+//   {
+//     id: FeaturePermissionEnum.CreateVouchers,
+//     name: "Create Vouchers",
+//     featureId: FeaturesEnum.Voucher,
+//   },
+//   {
+//     id: FeaturePermissionEnum.ViewBusinessPolicy,
+//     name: "View Business Policy",
+//     featureId: FeaturesEnum.BusinessPolicy,
+//   },
+//   {
+//     id: FeaturePermissionEnum.ViewPayroll,
+//     name: "View Payroll",
+//     featureId: FeaturesEnum.Payroll,
+//   },
+//   {
+//     id: FeaturePermissionEnum.CreatePayroll,
+//     name: "Create Payroll",
+//     featureId: FeaturesEnum.Payroll,
+//   },
+//   {
+//     id: FeaturePermissionEnum.ViewQuotation,
+//     name: "View Quotation",
+//     featureId: FeaturesEnum.Quotation,
+//   },
+//   {
+//     id: FeaturePermissionEnum.CreateQuotation,
+//     name: "Create Quotation",
+//     featureId: FeaturesEnum.Quotation,
+//   },
+//   {
+//     id: FeaturePermissionEnum.ViewCompany,
+//     name: "View Company",
+//     featureId: FeaturesEnum.Company,
+//   },
+//   {
+//     id: FeaturePermissionEnum.ViewResignation,
+//     name: "View Resignation",
+//     featureId: FeaturesEnum.Resignation,
+//   },
+//   {
+//     id: FeaturePermissionEnum.CreateResignation,
+//     name: "Create Resignation",
+//     featureId: FeaturesEnum.Resignation,
+//   },
+// ];
 export const FeaturesEnumList = [
   {
     label: "Feed",

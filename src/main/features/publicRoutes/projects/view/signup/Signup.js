@@ -6,14 +6,9 @@ import { MailOutlined, LockOutlined } from "@ant-design/icons";
 import TextInput from "../../../../../sharedComponents/Input/TextInput";
 import { useDispatch, useSelector } from "react-redux";
 import { Form } from "antd";
-import {
-  getVerifyProjectExternalMember,
-  setNewPassword,
-} from "../../store/action";
+import { setNewPassword } from "../../store/action";
 import PasswordInput from "../../../../../sharedComponents/Input/PasswordInput";
 import { useNavigate } from "react-router-dom";
-import { loginUser } from "../../../../auth/store/actions";
-import { getFirebaseToken } from "../../../../../../firebase/initFirebase";
 
 function Signup() {
   const dispatch = useDispatch();
@@ -22,7 +17,6 @@ function Signup() {
   const id = useLocation();
   const usertoken = id.search.split("=");
   const stoken = usertoken[1];
-  const [reset, setReset] = useState(false);
 
   let rules = [
     {
@@ -33,7 +27,6 @@ function Signup() {
   const { successPassword } = useSelector(
     (state) => state.projectExternalSlice
   );
-  console.log(successPassword, "succcc");
 
   const handleSignUpSubmit = async (values) => {
     let payload = {
@@ -41,13 +34,8 @@ function Signup() {
       password: values.password,
     };
     dispatch(setNewPassword(payload));
-
-    // navigate("/");
   };
-  // useEffect(() => {
-  //   if (token) {
-  //   }
-  // }, [token]);
+
   return (
     <>
       <Form

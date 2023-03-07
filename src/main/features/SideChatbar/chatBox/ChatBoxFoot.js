@@ -11,11 +11,12 @@ const ChatBoxFoot = ({
     FileUploader, 
     handleClickAttachment, 
     onSelectEmoji, 
-    msgInpRef 
+    msgInpRef,
+    sendVoice, 
 }) => {
     const [isOpenEmoji, setIsOpenEmoji] = useState(false);
     return (
-        <div className="ChatBoxFoot" >
+        <div className="ChatBoxFoot fromSideBar" >
             <div className="ChatBoxInputHandler" >
                 <div>
                     <SharedButton
@@ -48,6 +49,7 @@ const ChatBoxFoot = ({
                         }} />
                 </div>
             </div>
+            <div className="">{sendVoice}</div>
             <div className="" >
                 <div>
                     <SharedButton

@@ -595,6 +595,16 @@ export const API = {
           token: localStorage.getItem(STRINGS.STORAGE.token),
         },
       }),
+    addComment: (data) =>
+      $.ajax({
+        url: `${API_URL}/workboard/addcomment`,
+        method: 'POST',
+        data: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+          token: localStorage.getItem(STRINGS.STORAGE.token),
+        },
+      }),
   },
   CHAT: {
     getChats: (page, search) =>
@@ -1323,6 +1333,7 @@ export const API = {
         }),
     },
   },
+
   COMMENTS: {
     addComment: (data) =>
       $.ajax({

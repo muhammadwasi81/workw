@@ -26,7 +26,7 @@ import {
   travelDuration,
 } from '../utils';
 
-function CreateSchedule({ scheduleDetail = {}, referenceType, referenceId }) {
+function CreateSchedule({ scheduleDetail = {}, referenceType, referenceId, date = '' }) {
   const [venue, setVenue] = useState('Venue');
   const [quillError, setQuillError] = useState(false);
   const [files, setFiles] = useState([]);
@@ -49,6 +49,15 @@ function CreateSchedule({ scheduleDetail = {}, referenceType, referenceId }) {
       setFirstTimeEmpData(employees);
     }
   }, [employees]);
+
+  useEffect(()=> {
+    if(date){
+      // const startD = moment(scheduleDetail.startDate)
+      form.setFieldsValue({      
+        startDate: moment(date),           
+      });
+    }
+  },[date])
 
   useEffect(() => {
     fetchEmployees('', 0);

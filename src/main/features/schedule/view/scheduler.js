@@ -6,18 +6,22 @@ import interactionPlugin from "@fullcalendar/interaction";
 import "../styles/style.css";
 import "../styles/calender.css";
 // import Event from "./event";
-import { Calendar } from "antd";
+import { Calendar, Drawer } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleEventDetailComposer } from "../store/slice";
 import EventDetail from "./eventDetail";
 import moment from "moment";
 import { getAllSchedule } from "../store/action";
+import CreateSchedule from "./createSchedule";
 
 function Scheduler({ feed = false, referenceId }) {
   const [calenderView, setCalendarView] = useState("");
   const [todayDate, setTodayDate] = useState(new Date());
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+  const [showDrawer, setShowDrawer] = useState(false);
   const schedules = useSelector((state) => state.scheduleSlice.schedules);
+  const success = useSelector((state) => state.scheduleSlice.success);
+  const [composerDate, setComposerDate] = useState("");
   console.log(schedules, "scheduless");
   const calendarRef = useRef();
   let isPanelChange = false;
@@ -28,6 +32,13 @@ function Scheduler({ feed = false, referenceId }) {
   useEffect(() => {
     fetchAllSchedule(todayDate, todayDate);
   }, []);
+
+  useEffect(() => {
+    if (success) {
+      //Drawer close on success
+      setShowDrawer(false);
+    }
+  }, [success]);
 
   const fetchAllSchedule = (startVal, endVal) => {
     const startDate = moment(startVal)
@@ -87,8 +98,39 @@ function Scheduler({ feed = false, referenceId }) {
     //TODO: Here we will open composer according to the date
   };
 
+  const onClickDateFunc = (d) => {
+    console.log("date", d);
+    setShowDrawer(true);
+
+    setComposerDate(d.date);
+  };
+
   return (
     <>
+      <Drawer
+        title={
+          <h1
+            style={{
+              fontSize: "20px",
+              margin: 0,
+              // textAlign: Direction === "ltr" ? "" : "end",
+            }}
+          >
+            {"Create Schedule"}
+          </h1>
+        }
+        // placement={Direction === "rtl" ? "left" : "right"}
+        width="768"
+        onClose={() => {
+          setShowDrawer(false);
+        }}
+        visible={showDrawer}
+        destroyOnClose={true}
+        className="detailedViewComposer drawerSecondary"
+      >
+        <CreateSchedule date={composerDate} />
+      </Drawer>
+
       <EventDetail />
       <div className={`schedulerCalender ${calenderView}`}>
         <FullCalendar
@@ -209,7 +251,7 @@ function Scheduler({ feed = false, referenceId }) {
           //   locales={allLocales}
           //   locale="ja"
           // datesSet={(args) => console.log("###datesSet:", args)}
-          // dateClick={onSelectFunc}
+          dateClick={(e) => onClickDateFunc(e)}
         />
         <div className="flex justify-center">
           <div

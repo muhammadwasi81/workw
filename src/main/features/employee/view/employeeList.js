@@ -7,6 +7,8 @@ import { Skeleton } from 'antd';
 import { dictionaryList } from '../../../../utils/localization/languages';
 import TopBar from '../../../sharedComponents/topBar/topBar';
 import EmployeeTableView from './employeeTableView';
+import { getAllEmployeeShort } from '../../../../utils/Shared/store/actions';
+import { NoDataFound } from '../../../sharedComponents/NoDataIcon';
 
 function EmployeeList() {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -15,15 +17,24 @@ function EmployeeList() {
   const { sharedLabels } = dictionaryList[userLanguage];
   const { employees, loader } = useSelector((state) => state.employeeSlice);
   const [view, setView] = useState('List');
+  const [search, setSearch] = useState('');
+
+  const filteredEmployees = employees.filter((employee) =>
+    employee.name.toLowerCase().includes(search.toLowerCase())
+  );
+  useEffect(() => {
+    dispatch(getAllEmployees());
+  }, []);
 
   useEffect(() => {
-    const controller = new AbortController();
-    const signal = controller.signal;
-    dispatch(getAllEmployees(signal));
-    return () => {
-      controller.abort();
-    };
-  }, []);
+    dispatch(
+      getAllEmployeeShort({
+        pageNo: 1,
+        pageSize: 20,
+        search: search,
+      })
+    );
+  }, [search]);
 
   let classes = 'empolyeesListContainer';
   classes += Direction === ' ltr' ? ' ltr' : ' rtl';
@@ -41,15 +52,7 @@ function EmployeeList() {
           <div style={{ flexDirection: 'column', width: '100%' }}>
             <TopBar
               style={{ margin: 0, width: '100%' }}
-              onSearch={(value) => {
-                console.log(value);
-              }}
-              filter={{
-                onFilter: () => {
-                  console.log('filter');
-                },
-              }}
-              buttons={[]}
+              onSearch={(val) => setSearch(val)}
               segment={{
                 onSegment: (value) => {
                   setView(value);
@@ -58,14 +61,18 @@ function EmployeeList() {
                 label2: sharedLabels.Table,
               }}
             />
-            {view === 'List' ? (
-              <CardGrid>
-                {employees.map((employee, index) => {
-                  return <EmployeeCard employees={employee} key={index} />;
-                })}
-              </CardGrid>
+            {filteredEmployees.length > 0 ? (
+              view === 'List' ? (
+                <CardGrid>
+                  {filteredEmployees.map((employee, index) => {
+                    return <EmployeeCard employees={employee} key={index} />;
+                  })}
+                </CardGrid>
+              ) : (
+                <EmployeeTableView />
+              )
             ) : (
-              <EmployeeTableView />
+              <NoDataFound />
             )}
           </div>
         </>
@@ -73,6 +80,5 @@ function EmployeeList() {
     </>
   );
 }
-// }
 
 export default EmployeeList;

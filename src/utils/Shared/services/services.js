@@ -131,9 +131,13 @@ export const getAllComplainCategoryService = () => {
     });
 };
 
-export const getAllEmployeeShortService = (pageNo = 0, search = '') => {
+export const getAllEmployeeShortService = (
+  pageNo = 1,
+  pageSize = 20,
+  search = ''
+) => {
   return MasterConfig.get(
-    `api/Employee/GetAllEmployeeShort?pageNo=${pageNo}&search=${search}`
+    `/api/Employee/GetAllEmployeeShort?pageNo=${pageNo}&pageSize=${pageSize}&search=${search}`
   )
     .then((res) => {
       return res.data;

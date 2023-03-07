@@ -1,20 +1,20 @@
-import { useEffect, useState, useContext } from "react";
-import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
-import Composer from "./BusinessPolicyComposer";
-import { Form, Collapse, Skeleton } from "antd";
-import { useDispatch, useSelector } from "react-redux";
-import "../style/businessPolicy.css";
-import "../style/style.css";
-import { getAllBusinessPolicy, removeBusinessPolicy } from "../store/action";
-import { AdminContainer } from "../../../../components/HrMenu/Administration/StyledComponents/admin";
-import "../style/businessPolicy.css";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
-import { FormContainer } from "./../../../sharedComponents/StyledComponents/adminForm";
-import { FormHeader } from "../../../../components/HrMenu/Administration/StyledComponents/adminForm";
-import { handleEdit } from "../store/slice";
+import { useEffect, useState, useContext } from 'react';
+import SideDrawer from '../../../sharedComponents/Drawer/SideDrawer';
+import Composer from './BusinessPolicyComposer';
+import { Form, Collapse, Skeleton } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import '../style/businessPolicy.css';
+import '../style/style.css';
+import { getAllBusinessPolicy, removeBusinessPolicy } from '../store/action';
+import { AdminContainer } from '../../../../components/HrMenu/Administration/StyledComponents/admin';
+import '../style/businessPolicy.css';
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { FormContainer } from './../../../sharedComponents/StyledComponents/adminForm';
+import { FormHeader } from '../../../../components/HrMenu/Administration/StyledComponents/adminForm';
+import { handleEdit } from '../store/slice';
 
-import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import { dictionaryList } from "../../../../utils/localization/languages";
+import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
+import { dictionaryList } from '../../../../utils/localization/languages';
 
 const { Panel } = Collapse;
 
@@ -27,9 +27,9 @@ const BusinessPolicy = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
   const [isDefault, setIsDefault] = useState(false);
   const [isEdited, setIsEdited] = useState(false);
-  const [defaultData, setDefaultData] = useState("");
+  const [defaultData, setDefaultData] = useState('');
   const [form] = Form.useForm();
-  const [id, setId] = useState("");
+  const [id, setId] = useState('');
   const dispatch = useDispatch();
 
   const { loader: loading, success, businessPolicies, editData } = useSelector(
@@ -41,7 +41,7 @@ const BusinessPolicy = () => {
   }, []);
 
   const handleCollapse = (key) => {
-    console.log(key, "key");
+    console.log(key, 'key');
   };
 
   const handleRemove = (e, id) => {

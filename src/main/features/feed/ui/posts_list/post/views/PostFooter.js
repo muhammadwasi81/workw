@@ -135,8 +135,24 @@ const PostFooter = ({
               dispatch(handleItemDetailModal(false));
             }}
             children={reactionMembersData.map((x) => (
-              <div className="flex items-center">
-                <div className="ml-2 font-semibold">{x.user.name}</div>
+              <div className="flex items-center mb-2">
+                <div>
+                  <img
+                    src={x.user.image}
+                    alt={x.user.name}
+                    style={{
+                      borderRadius: '50%',
+                      height: '40px',
+                      width: '40px',
+                      cursor: 'pointer',
+                    }}
+                  />
+                </div>
+                <div className="ml-2 font-semibold">
+                  <span>{x.user.name}</span>
+                  <br />
+                  {x.user.email}
+                </div>
                 <img
                   className="w-[30px] h-[30px] rounded-full cursor-pointer ml-auto"
                   src={reactions[x.reactionType]}

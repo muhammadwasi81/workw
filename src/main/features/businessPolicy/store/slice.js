@@ -13,7 +13,7 @@ const initialState = {
   success: false,
   error: false,
   editData: null,
-  createLoader:false
+  createLoader: false,
 };
 
 const businessPolicySlice = createSlice({
@@ -65,22 +65,16 @@ const businessPolicySlice = createSlice({
       //   state.loader = false;
       //   state.error = true;
       // })
-      .addMatcher(
-        isPending(...[addBusinessPolicy]),
-        (state) => {
-          //state.loader = true;
-          state.success = false;
-          state.createLoader = true;
-        }
-      )
-      .addMatcher(
-        isPending(...[getAllBusinessPolicy]),
-        (state) => {
-          state.loader = true;
-          state.success = false;
-          //state.createLoader = true;
-        }
-      )
+      .addMatcher(isPending(...[addBusinessPolicy]), (state) => {
+        //state.loader = true;
+        state.success = false;
+        state.createLoader = true;
+      })
+      .addMatcher(isPending(...[getAllBusinessPolicy]), (state) => {
+        state.loader = true;
+        state.success = false;
+        //state.createLoader = true;
+      })
       .addMatcher(
         isRejected(...[addBusinessPolicy, getAllBusinessPolicy]),
         (state) => {

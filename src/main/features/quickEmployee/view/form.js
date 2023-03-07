@@ -1,14 +1,17 @@
-import { Button, Form, message, Select } from "antd";
-import React, { useEffect, useState } from "react";
-import TextInput from "../../../sharedComponents/Input/TextInput";
-import { useSelector, useDispatch } from "react-redux";
-import { userTypeList } from "../../../../utils/Shared/enums/enums";
-import { addInList } from "../store/slice";
+import { Button, Form, message, Select } from 'antd';
+import React, { useEffect, useState } from 'react';
+import TextInput from '../../../sharedComponents/Input/TextInput';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  userTypeEnum,
+  userTypeList,
+} from '../../../../utils/Shared/enums/enums';
+import { addInList } from '../store/slice';
 const { Option } = Select;
 
 const initialState = {
-  id: "",
-  name: "",
+  id: '',
+  name: '',
 };
 
 const QuickForm = () => {
@@ -29,7 +32,7 @@ const QuickForm = () => {
     if (items.length > 0) {
       items.map((item) => {
         if (email === item.email || phoneNumber === item.phoneNumber) {
-          message.error("Email or Phone Number already exist");
+          message.error('Email or Phone Number already exist');
           error = true;
         }
       });
@@ -47,13 +50,13 @@ const QuickForm = () => {
   }, [success]);
 
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    console.log('Failed:', errorInfo);
   };
 
   return (
     <div className="quickAddForm">
       <div className="formHeader">
-        <h2>Add Quick Employee</h2>
+        <h2 className="font-semibold">Add Quick Employee</h2>
       </div>
       <Form
         form={form}
@@ -73,76 +76,68 @@ const QuickForm = () => {
       >
         <div className="row">
           <Form.Item
-            label={"Firsr Name"}
+            label={'First Name'}
             name="firstName"
             labelPosition="top"
             rules={[
               {
                 required: true,
-                message: "Please Enter First Name",
+                message: 'Please Enter First Name',
               },
             ]}
           >
-            <TextInput placeholder={"Enter First Name"} />
+            <TextInput placeholder={'Enter First Name'} />
           </Form.Item>
           <Form.Item
-            label={"Last Name"}
+            label={'Last Name'}
             name="lastName"
             labelPosition="top"
             rules={[
               {
                 required: true,
-                message: "Please Enter Last Name",
+                message: 'Please Enter Last Name',
               },
             ]}
           >
-            <TextInput placeholder={"Enter Last Name"} />
+            <TextInput placeholder={'Enter Last Name'} />
           </Form.Item>
           <Form.Item
-            label={"Email"}
+            label={'Email'}
             name="email"
             labelPosition="top"
             rules={[
               {
                 required: true,
-                message: "Please Enter Email",
+                message: 'Please Enter Email',
               },
             ]}
           >
-            <TextInput placeholder={"Enter Email"} type="email" />
+            <TextInput placeholder={'Enter Email'} type="email" />
           </Form.Item>
-          {/* <Form.Item
-                        name="userTypeId"
-                        rules={[{ required: true }]}
-                        label={"Type"}
-                    >
-                        <Select
-                            onChange={(value) => {
-                                setUserTypeValue(value);
-                            }}
-                            size="large"
-                            placeholder={"Select User Type"}
-                            getPopupContainer={(trigger) => trigger.parentNode}
-                        >
-                            {userType.map((type) => (
-                                <Option key={type.id} value={type.id}>
-                                    {type.name}
-                                </Option>
-                            ))}
-                        </Select>
-                    </Form.Item> */}
           <Form.Item
             name="userTypeId"
             rules={[{ required: true }]}
-            label={"Type"}
+            label={'Type'}
           >
             <Select
               onChange={(value) => {
                 setUserTypeValue(value);
               }}
               size="large"
-              placeholder={"Select User Type"}
+              placeholder={'Select User Type'}
               getPopupContainer={(trigger) => trigger.parentNode}
+              options={userTypeList
+                .filter(
+                  (x) =>
+                    x.id === userTypeEnum.Employee ||
+                    x.id === userTypeEnum.Admin
+                )
+                .map((item) => {
+                  return {
+                    value: item.id,
+                    label: item.name,
+                  };
+                })}
             >
               {userTypeList.map((type) => (
                 <Option key={type.id} value={type.id}>
@@ -152,17 +147,17 @@ const QuickForm = () => {
             </Select>
           </Form.Item>
           <Form.Item
-            label={"Phone Number"}
+            label={'Phone Number'}
             name="phoneNumber"
             labelPosition="top"
             rules={[
               {
                 required: true,
-                message: "Please Enter Phone Number",
+                message: 'Please Enter Phone Number',
               },
             ]}
           >
-            <TextInput placeholder={"Enter Phone Number"} />
+            <TextInput placeholder={'Enter Phone Number'} />
           </Form.Item>
         </div>
         <div className="formButtons">
@@ -174,10 +169,9 @@ const QuickForm = () => {
               block
               htmlType="submit"
               // loading={loader}
-              title={"Quick Add"}
+              title={'Quick Add'}
             >
-              {" "}
-              {"Quick Add"}{" "}
+              {'Quick Add'}
             </Button>
           </Form.Item>
         </div>

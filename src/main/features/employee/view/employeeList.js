@@ -22,6 +22,7 @@ function EmployeeList() {
   const filteredEmployees = employees.filter((employee) =>
     employee.name.toLowerCase().includes(search.toLowerCase())
   );
+
   useEffect(() => {
     dispatch(getAllEmployees());
   }, []);

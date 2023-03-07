@@ -1,20 +1,20 @@
-import { useRef, useEffect, useState } from 'react';
-import FullCalendar from '@fullcalendar/react';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGridPlugin from '@fullcalendar/timegrid';
-import interactionPlugin from '@fullcalendar/interaction';
-import '../styles/style.css';
-import '../styles/calender.css';
+import { useRef, useEffect, useState } from "react";
+import FullCalendar from "@fullcalendar/react";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import timeGridPlugin from "@fullcalendar/timegrid";
+import interactionPlugin from "@fullcalendar/interaction";
+import "../styles/style.css";
+import "../styles/calender.css";
 // import Event from "./event";
-import { Calendar } from 'antd';
-import { useSelector, useDispatch } from 'react-redux';
-import { toggleEventDetailComposer } from '../store/slice';
-import EventDetail from './eventDetail';
-import moment from 'moment';
-import { getAllSchedule } from '../store/action';
+import { Calendar } from "antd";
+import { useSelector, useDispatch } from "react-redux";
+import { toggleEventDetailComposer } from "../store/slice";
+import EventDetail from "./eventDetail";
+import moment from "moment";
+import { getAllSchedule } from "../store/action";
 
 function Scheduler({ feed = false, referenceId }) {
-  const [calenderView, setCalendarView] = useState('');
+  const [calenderView, setCalendarView] = useState("");
   const [todayDate, setTodayDate] = useState(new Date());
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const schedules = useSelector((state) => state.scheduleSlice.schedules);
@@ -31,17 +31,17 @@ function Scheduler({ feed = false, referenceId }) {
 
   const fetchAllSchedule = (startVal, endVal) => {
     const startDate = moment(startVal)
-      .startOf('month')
+      .startOf("month")
       .format();
     const endDate = moment(endVal)
-      .endOf('month')
+      .endOf("month")
       .format();
 
     dispatch(
       getAllSchedule({
         pageNo: 1,
         pageSize: 20,
-        search: '',
+        search: "",
         sortBy: 1,
         referenceId: referenceId,
         referenceType: 0,
@@ -52,7 +52,7 @@ function Scheduler({ feed = false, referenceId }) {
   };
 
   const handleDateChange = (date) => {
-    if (!moment(date).isSame(moment(todayDate), 'month')) {
+    if (!moment(date).isSame(moment(todayDate), "month")) {
       setTodayDate(new Date(calendarRef.current.getApi().getDate()));
       fetchAllSchedule(
         calendarRef.current.getApi().getDate(),
@@ -62,9 +62,10 @@ function Scheduler({ feed = false, referenceId }) {
   };
 
   const onChange = (value) => {
-    const date = value.format('YYYY-MM-DD');
+    console.log(value, "sss");
+    const date = value.format("YYYY-MM-DD");
     handleDateChange(date);
-    calendarRef.current.getApi().gotoDate(new Date(value.format('YYYY-MM-DD')));
+    calendarRef.current.getApi().gotoDate(new Date(value.format("YYYY-MM-DD")));
     if (isPanelChange) {
       setIsCalendarOpen(true);
       isPanelChange = false;
@@ -81,47 +82,54 @@ function Scheduler({ feed = false, referenceId }) {
     };
   });
 
+  const onSelectFunc = (d) => {
+    console.log(d, "ssss");
+    //TODO: Here we will open composer according to the date
+  };
+
   return (
     <>
       <EventDetail />
       <div className={`schedulerCalender ${calenderView}`}>
         <FullCalendar
           ref={calendarRef}
+          selectable={true}
+          select={onSelectFunc}
           customButtons={{
             myCustomButton: {
-              text: '',
+              text: "",
               click: () => {
                 setIsCalendarOpen(!isCalendarOpen);
               },
             },
             next: {
-              text: 'Next',
+              text: "Next",
               click: function(value) {
                 calendarRef.current.getApi().next();
                 const date = moment(
                   calendarRef.current.getApi().getDate()
-                ).format('YYYY-MM-DD');
+                ).format("YYYY-MM-DD");
                 handleDateChange(date);
               },
             },
             prev: {
-              text: 'Prev',
+              text: "Prev",
               click: function(value) {
                 calendarRef.current.getApi().prev();
                 const date = moment(
                   calendarRef.current.getApi().getDate()
-                ).format('YYYY-MM-DD');
+                ).format("YYYY-MM-DD");
                 handleDateChange(date);
               },
             },
           }}
           headerToolbar={
             feed
-              ? { start: 'title myCustomButton' }
+              ? { start: "title myCustomButton" }
               : {
-                  left: 'timeGridDay prev next today',
-                  center: 'title,myCustomButton',
-                  right: 'timeGridWeek dayGridMonth',
+                  left: "timeGridDay prev next today",
+                  center: "title,myCustomButton",
+                  right: "timeGridWeek dayGridMonth",
                 }
           }
           eventClick={(info) => {
@@ -140,51 +148,51 @@ function Scheduler({ feed = false, referenceId }) {
             );
           }}
           datesSet={(val) => {
-            if (val.view.type !== 'timeGridDay') {
+            if (val.view.type !== "timeGridDay") {
               setCalendarView(val.view.type);
             } else {
-              setCalendarView('');
+              setCalendarView("");
             }
           }}
           // nowIndicator={true}
           // eventMaxStack={3}
-          selectable={true}
           dayHeaders={true}
           allDaySlot={true}
-          allDayText={'All Day'}
+          allDayText={"All Day"}
           // allDaySlot={true}
           // allDay={true}
           dayMaxEventRows={true}
           editable={true}
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-          initialView={!feed ? 'timeGridWeek' : 'timeGridDay'}
+          initialView={!feed ? "timeGridWeek" : "timeGridDay"}
           events={
             data
             // "https://fullcalendar.io/api/demo-feeds/events.json"
           }
           eventResize={() => {}}
-          slotDuration={'00:15:00'}
-          slotLabelFormat={{ hour: 'numeric', minute: 'numeric' }}
+          onSelect={(e) => onSelectFunc(e)}
+          slotDuration={"00:15:00"}
+          slotLabelFormat={{ hour: "numeric", minute: "numeric" }}
           views={{
             // allDaySlot: true,
             month: {
               // allDaySlot: true,
-              type: 'dayGridMonth',
-              buttonText: 'Month',
+              type: "dayGridMonth",
+              buttonText: "Month",
               dayMaxEventRows: 2,
             },
             week: {
               // allDaySlot: true,
-              type: 'dayGridWeek',
+              type: "dayGridWeek",
               duration: { days: 7 },
-              buttonText: 'Week',
+              buttonText: "Week",
               eventMaxStack: 2,
             },
             day: {
               // allDaySlot: true,
-              type: 'timeGrid',
+              type: "timeGrid",
               duration: { days: 1 },
-              buttonText: 'Day',
+              buttonText: "Day",
               eventMaxStack: 3,
             },
             // schedules: {
@@ -201,11 +209,11 @@ function Scheduler({ feed = false, referenceId }) {
           //   locales={allLocales}
           //   locale="ja"
           // datesSet={(args) => console.log("###datesSet:", args)}
-          //   dateClick={handleDateClick}
+          // dateClick={onSelectFunc}
         />
         <div className="flex justify-center">
           <div
-            className={isCalendarOpen ? 'site-calendar open' : 'site-calendar '}
+            className={isCalendarOpen ? "site-calendar open" : "site-calendar "}
           >
             <Calendar
               fullscreen={false}
@@ -213,6 +221,7 @@ function Scheduler({ feed = false, referenceId }) {
               onPanelChange={() => {
                 isPanelChange = true;
               }}
+              onSelect={onSelectFunc}
             />
           </div>
         </div>

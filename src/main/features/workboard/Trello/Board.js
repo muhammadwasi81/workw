@@ -39,10 +39,13 @@ import { DownOutlined } from '@ant-design/icons';
 import { Select } from 'antd';
 import {addWorkBoardSectionTodo} from "../store/action";
 import { event } from "jquery";
+import TodoTitleInput from "../UI/TodoTitleInput";
 
 function Board() {
   const [addingList, setAddingList] = useState(false);
+  const [tableInput, setTableInput] = useState(false);
 
+  console.log(tableInput,"tableInputtableInput");
   const workboardDetail = useSelector(
     (state) => state.trelloSlice.workboardDetail
   );
@@ -198,10 +201,31 @@ function Board() {
       setSelectedId(LabeledValue);
         console.log(selectedId,"LabeledValue");
     }
+    const onRow = (record, rowIndex) => {    
+      return {
+        onClick: (event) => {
+          setTableInput(true);
+          const { id } = record;
+          console.log("recordddd",rowIndex);
+          //navigate(`${ROUTES.WORKBOARD.BOARD}${id}`);
+        }, // click row
+        // onDoubleClick: (event) => {}, // double click row
+        // onContextMenu: (event) => {}, // right button click row
+        // onMouseEnter: (event) => {}, // mouse enter row
+        // onMouseLeave: (event) => {}, // mouse leave row
+      };
+    };
    
 
   return (
     <>
+    { tableInput &&
+       <TodoTitleInput
+          title={sectionTableData && sectionTableData.title}
+          id={sectionTableData && sectionTableData.id}
+          sectionId={sectionTableData && sectionTableData.sectionId}
+      />
+    }
       <TabbableContainer className="">
         <LayoutHeader items={items} />
 
@@ -283,7 +307,7 @@ function Board() {
                   open={isModalOpen} onCancel={handleCancel} onOk={handleOk}
                   >
                 
-                <span className="text-gray-500 font-bold ml-[3px]">Todo Section </span>
+                  <span className="text-gray-500 font-bold ml-[3px]">Todo Section </span>
                    <div className="List-Title !cusrsor-pointer p-2 break-words font-bold w-full">
                      <CustomSelect
                         showSearch={true}
@@ -292,7 +316,7 @@ function Board() {
                         placeholder="Please select Todo Section"
                         onChange={handleChange}
                       />
-                   </div>
+                    </div>
                    <span className="text-gray-500 font-bold ml-[3px]">Todo Title</span>
                   <TableTodo onSave={addCard}/>
                </Modal>
@@ -302,6 +326,7 @@ function Board() {
               columns={sectionTableColumn(WorkBoardDictionaryList)}
               data={sectionTableData}
               loading={loader}
+              onRow={onRow}
             />
             </>
           )}

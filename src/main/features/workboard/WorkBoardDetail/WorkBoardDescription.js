@@ -103,8 +103,7 @@ function WorkBoardDescription({
               <span className="p-2 px-3 cursor-pointer hover:bg-neutral-200 transition flex items-center bg-neutral-100 rounded-sm">
                 <PlusOutlined className="!text-gray-600" />
               </span>
-            </div>
-            
+            </div>            
           </div>
       
       </div>

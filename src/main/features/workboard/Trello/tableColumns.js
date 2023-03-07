@@ -12,6 +12,7 @@ export const sectionTableColumn = (WorkBoardDictionaryList) => {
       dataIndex: "title",
       ellipsis: true,
       sort: true,
+      onclick
     },
     {
       title: WorkBoardDictionaryList.labels.section,

@@ -40,6 +40,7 @@ function WorkBoardDashboard({
   // }, []);
 
   const onRow = (record, rowIndex) => {
+    
     return {
       onClick: (event) => {
         const { id } = record;
@@ -65,7 +66,7 @@ function WorkBoardDashboard({
           // status={travelStatus}
           // loadding={loader}
           // success={success}
-          // onActionClick={onActionClick}
+           //onActionClick={onActionClick}
           // onPageChange={onPageChange}
         />
       )}

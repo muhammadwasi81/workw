@@ -10,6 +10,10 @@ const defaultOutgoingData = {
 	members: [],
 	roomId: ""
 }
+const defaultCallingWindow = {
+	roomId: "",
+	isOpen: false
+}
 
 const initialState = {
 	isCreateRoomModalOpen: false,
@@ -18,7 +22,8 @@ const initialState = {
 	error: false,
 	roomId: "",
 	incomingCallData: null,
-	outgoingCallData: { ...defaultOutgoingData }
+	outgoingCallData: { ...defaultOutgoingData },
+	callingWindows: []
 };
 const callingSlice = createSlice({
 	name: "calling",
@@ -38,9 +43,17 @@ const callingSlice = createSlice({
 			state.outgoingCallData = payload;
 		},
 		handleOutgoingCallAccepted(state, { payload }) {
-			const callReceiverId = payload;
+			const callReceiverId = payload.userId;
+			const authToken = payload.token;
 			if (state.outgoingCallData.members.some(member => member.id === callReceiverId)) {
-				handleOpenCallWindow(servicesUrls.callingSocket + state.outgoingCallData.roomId, callingWindowOptions);
+				// handleOpenCallWindow(servicesUrls.callingSocket + state.outgoingCallData.roomId, callingWindowOptions);
+				
+				state.callingWindows = [
+					{
+						callUrl: `${servicesUrls.callingSocket}${state.outgoingCallData.roomId}?token=${authToken}`,
+						isOpen: true
+					}
+				]
 				state.outgoingCallData = { ...defaultOutgoingData }
 			}
 		},
@@ -53,12 +66,23 @@ const callingSlice = createSlice({
 		handleOutgoingCallRinging(state, { payload }) {
 			const callReceiverId = payload;
 			if (state.outgoingCallData.members.some(member => member.id === callReceiverId)) {
-				state.outgoingCallData = { 
+				state.outgoingCallData = {
 					...state.outgoingCallData,
 					status: OUTGOING_CALL_STATUS.RINGING
-				 }
+				}
 			}
-		}
+		},
+		handleAddCallWindow(state, { payload }) {
+			state.callingWindows = [payload];
+		},
+		handleRemoveCallWindow(state, { payload }) {
+			state.callingWindows = [];
+		},
+		toggleCallWindow(state, { payload }) {
+			let status = payload;
+			if (!!state.callingWindows.length)
+				state.callingWindows[0].isOpen = status;
+		},
 	},
 	extraReducers: builder => {
 		builder
@@ -93,7 +117,10 @@ export const {
 	handleOutgoingCall,
 	handleOutgoingCallAccepted,
 	handleOutgoingCallDeclined,
-	handleOutgoingCallRinging
+	handleOutgoingCallRinging,
+	handleAddCallWindow,
+	handleRemoveCallWindow,
+	toggleCallWindow
 } = callingSlice.actions;
 
 export default callingSlice.reducer;

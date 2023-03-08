@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import CallWindow from "../../calling/view/CallWindow";
 import MessengerBottom from "../../Messenger/view/MessengerBox/body/MessengerBottom";
 import MessengerList from "../../Messenger/view/MessengerBox/body/MessengerList";
 import { CHATBOX_ENUM } from "../utils/constant";
@@ -9,6 +10,7 @@ import './style/index.css';
 
 const ChatBoxCont = (props) => {
     const currentChatBoxes = useSelector(state => state.MessengerSlice.currentChatBoxes);
+    const callingWindows = useSelector(state => state.callingSlice.callingWindows);
     const { BOOLEAN } = CHATBOX_ENUM;
     return (
         <div className="ChatBoxCont">
@@ -28,6 +30,10 @@ const ChatBoxCont = (props) => {
                             messengerDetail={chat} />
                     </ChatBox>
                 )
+                )
+            }
+            {
+                callingWindows.map((callItem, index) => <CallWindow item={callItem} />
                 )
             }
         </div>

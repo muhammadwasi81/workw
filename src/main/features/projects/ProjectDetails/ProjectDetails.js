@@ -55,6 +55,9 @@ import Schedules from "../../schedule/index";
 import MemberModal from "../UI/MemberModal";
 import ProjectInformation from "../UI/ProjectInformation";
 import { STRINGS } from "../../../../utils/base";
+import {addProjectMemberAction , deleteProjectMemberAction } from "../store/actions";
+import ItemDetailModal from "../../../sharedComponents/ItemDetails";
+import { handleItemDetailModal } from "../../../../utils/Shared/store/slice";
 import { ProjectFeaturePermissionEnumList } from "../../../../utils/Shared/enums/projectFeatureEnum";
 
 function ProjectDetails() {
@@ -235,6 +238,25 @@ function ProjectDetails() {
     />
   );
 
+  const onDelete = (userId) => {
+    const memberId = userId.toString();
+    const delmembers = {
+      id: projectId,
+      memberId: memberId,
+    };
+
+    dispatch(deleteProjectMemberAction(delmembers));
+  };
+
+  const addFunc = (id) => {
+    let memberId = id.toString();
+    const members = {
+      id: detail.id,
+      memberId: memberId,
+    };
+    dispatch(addProjectMemberAction(members));
+  };
+
   console.log(projectSticky);
 
   return (
@@ -306,7 +328,18 @@ function ProjectDetails() {
         />
       </Drawer>
 
-      {visible && <MemberModal data={detail} />}
+      {/* {visible && <MemberModal data={detail} />} */}
+      {visible && (
+        <ItemDetailModal
+          data={detail?.members} //Data
+          isDeleteDisabled={false} //Pass true to hide delete icon
+          addEnabled={true} //Pass false to hide select member
+          addFunc={addFunc}
+          onDelete={onDelete}
+          isSearch={true} //Pass true if you want to search the list
+          openModal={true}
+        />
+      )}
     </>
   );
 }

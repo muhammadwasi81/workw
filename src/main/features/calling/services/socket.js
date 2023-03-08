@@ -1,5 +1,6 @@
 import io from "socket.io-client";
-import { handleIncomingCall, handleOutgoingCallAccepted, handleOutgoingCallDeclined, handleOutgoingCallRinging } from "../store/slice";
+import { servicesUrls } from "../../../../utils/services/baseURLS";
+import { handleAddCallWindow, handleIncomingCall, handleOutgoingCallAccepted, handleOutgoingCallDeclined, handleOutgoingCallRinging } from "../store/slice";
 
 export class InitializeCallingSocket {
 	connection;
@@ -7,10 +8,12 @@ export class InitializeCallingSocket {
 	#dispatch;
 	#navigate;
 	user;
-
+	#authToken;
 	constructor(dispatch, baseURL, userSlice) {
+		console.log(userSlice)
 		this.#dispatch = dispatch;
 		this.user = userSlice.user;
+		this.#authToken = userSlice.token;
 		this.initializeConnection(baseURL);
 	}
 
@@ -48,7 +51,12 @@ export class InitializeCallingSocket {
 		})
 		await this.connection.on("notify-call-accepted", (data) => {
 			console.log(data, "message_message", "notify-call-accepted");
-			this.#dispatch(handleOutgoingCallAccepted(data.userId))
+			// this.#dispatch(handleAddCallWindow({
+			// 	callUrl: servicesUrls.callingSocket + res.data.roomId,
+			// 	isOpen: true
+			// }));
+			this.#dispatch(handleOutgoingCallAccepted({userId: data.userId, token: this.#authToken}))
+			
 		})
 	}
 

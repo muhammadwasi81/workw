@@ -360,11 +360,7 @@ function CreateExpense({ referenceId = DEFAULT_GUID, feature = "" }) {
           </Checkbox>
         </Form.Item>
       </div>
-      <Form.Item
-        name="approver"
-        label={labels.approvers}
-        rules={[{ required: true }]}
-      >
+      <Form.Item name="approver" label={labels.approvers}>
         <MemberSelect
           isObject={true}
           data={firstTimeEmpData}

@@ -129,7 +129,7 @@ const StickyContainer = () => {
             />
           </div>
           <div className={`noteList-container ${!minimize ? "hide" : ""}`}>
-            {notesList.length > 0 ? (
+            {notesList.length >= 0 ? (
               notesList.map((item) => (
                 <CustomCard
                   item={item}

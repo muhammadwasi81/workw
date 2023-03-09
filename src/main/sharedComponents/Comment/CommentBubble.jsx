@@ -1,8 +1,7 @@
-import moment from "moment";
-import React from "react";
-import { renderTitleWithMentions } from "../../../utils/base";
-import Avatar from "../Avatar/avatarOLD";
-import DotesIcon from "./assets/dotes.svg";
+import moment from 'moment';
+import { renderTitleWithMentions } from '../../../utils/base';
+import Avatar from '../Avatar/avatarOLD';
+
 function CommentBubble({
   user,
   content,
@@ -12,31 +11,43 @@ function CommentBubble({
   attachmentCount,
   attachmentFile,
   type,
+  comments,
 }) {
-  console.log(content, mentionedUser, "content");
-  const { name, designation = "", userImage: image = "" } = user;
+  const { name, designation = '', userImage: image = '' } = user;
   let ts = moment.utc(date);
-  ts.local().format("D-MMM-Y");
-  // console.log('attachments',attachments);
-  // console.log('content',content);
+  ts.local().format('D-MMM-Y');
+
   return (
-    <div style={{ display: "flex", width: "100%" }}>
-      {type != 2 && <Avatar src={image} name={name} size={30} round={true} />}
-      {type == 2 && (
+    <div style={{ display: 'flex', width: '100%' }}>
+      {type !== 2 && (
+        <Avatar
+          src={comments[0]?.creator?.image || image}
+          name={comments[0]?.creator?.name || name}
+          size={30}
+          round={true}
+        />
+      )}
+      {type === 2 && (
         <div className="commentName">
-          <Avatar src={image} name={name} size={25} round={true} />
-          <div className="nameText">{name}</div>
+          <Avatar
+            src={comments[0]?.creator?.image}
+            name={comments[0]?.creator?.name}
+            size={25}
+            round={true}
+          />
+          <div className="nameText">{comments[0]?.creator?.name || name}</div>
         </div>
       )}
       <div className="CommentBubble">
-        {type != 2 && (
+        {type !== 2 && (
           <div className="CommentHeader">
             <div className="CommentHeaderDet">
-              <div className="name">{name}</div>
-              <div className="designation">{designation}</div>
+              <div className="name">{comments[0]?.creator?.name || name}</div>
+              <div className="designation">
+                {comments[0]?.creator?.designation || designation}
+              </div>
             </div>
             <div className="CommentHeaderIcon">
-              {/* <img src={DotesIcon} alt="" /> */}
               <span className="time">{moment(ts).fromNow()}</span>
             </div>
           </div>
@@ -52,7 +63,7 @@ function CommentBubble({
             <div className="rounded-[20px] overflow-hidden w-auto inline-block">
               <img
                 src={path}
-                altt={attachmentName}
+                alt={attachmentName}
                 className="max-w-[210px] aspect-[9/6]"
               />
             </div>

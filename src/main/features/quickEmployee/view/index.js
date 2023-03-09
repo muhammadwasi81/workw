@@ -18,9 +18,8 @@ const QuickAdd = (props) => {
   );
 
   const handleAddQuick = () => {
-    console.log(items, "sdsa");
     dispatch(addQuickEmployee(items));
-    if (success) dispatch(clearItem());
+    // success && dispatch(clearItem());
   };
 
   const handleClose = () => {
@@ -42,6 +41,7 @@ const QuickAdd = (props) => {
         destroyOnClose={true}
         className="QuickAddModal"
         footer={false}
+        onCancel={handleClose}
       >
         {editData === null ? <Form /> : <UpdateForm />}
         {items && items.length > 0 ? (

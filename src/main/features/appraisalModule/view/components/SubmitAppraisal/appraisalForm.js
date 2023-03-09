@@ -22,6 +22,8 @@ import MemberSelect from "../../../../../sharedComponents/AntdCustomSelects/Shar
 import ModalTag from "./modalTag";
 import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
 import { appraisalDictionaryList } from "../../../localization/index";
+import { getAllPreviousAppraisalAction } from "../../../store/action";
+import { handleOpenModal } from "../../../store/slice";
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -64,7 +66,7 @@ const AppraisalForm = (props) => {
   const [bonus, setbonus] = useState(2);
   const [bonusType, setBonusType] = useState(1);
   const [increment, setIncrement] = useState(2);
-  const [modalOpen, setModalOpen] = useState(false);
+  // const [modalOpen, setModalOpen] = useState(false);
   const [data, setData] = useState("");
   const [incrementType, setIncrementType] = useState(1);
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
@@ -79,6 +81,7 @@ const AppraisalForm = (props) => {
   };
 
   const appraisalQuestion = useSelector((state) => state.appraisalSlice);
+  // const { modalOpen } = useSelector((state) => state.appraisalModuleSlice);
   const { grades } = useSelector((state) => state.gradeSlice);
   const { employeeSalary } = useSelector((state) => state.sharedSlice);
   console.log(employeeSalary, "employee salary");
@@ -232,13 +235,17 @@ const AppraisalForm = (props) => {
     setIncrementType(e.target.value);
   };
 
-  const modalOpenFunc = (type) => {
-    setModalOpen(true);
-    setData(type);
+  const modalOpenFunc = async (type) => {
+    if (!props.disabled) {
+      // setModalOpen(true);
+      dispatch(handleOpenModal(true));
+      setData(type);
+    }
   };
 
   const modalCloseFunc = () => {
-    setModalOpen(false);
+    // setModalOpen(false);
+    dispatch(handleOpenModal(false));
   };
 
   const onChangeQuestionRating = (e, i, questionId) => {
@@ -255,9 +262,10 @@ const AppraisalForm = (props) => {
   return (
     <>
       <ModalTag
-        showModal={modalOpen}
+        // showModal={modalOpen}
         handleCancel={modalCloseFunc}
         data={data}
+        userId={props.userId}
       />
       <div className="appraisalFormBody drop-shadow">
         <Form
@@ -293,13 +301,13 @@ const AppraisalForm = (props) => {
             >
               {rewards}
             </Tag>
-            <Tag
+            {/* <Tag
               onClick={() => modalOpenFunc("course")}
               className="statusTag"
               style={{ backgroundColor: "rgb(26 86 105)", cursor: "pointer" }}
             >
               {courses}
-            </Tag>
+            </Tag> */}
           </div>
           <div className="inputBox-form  mt-2">
             <span>{Promotion}</span>

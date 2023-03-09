@@ -131,7 +131,7 @@ function AddAprrovalModal({ data, module }) {
       </Modal> */}
       <DetailModal
         data={approversData} //Data of members will pass here in array
-        isDeleteDisabled={false} //Pass true to hide delete icon
+        isDeleteDisabled={true} //Pass true to hide delete icon
         addEnabled={true} //Pass false to hide select member
         addFunc={handleChange} // define and pass addMember action of particular members
         onDelete={false} // define and pass onDeletemember actions of particular members

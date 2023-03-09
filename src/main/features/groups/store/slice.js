@@ -130,8 +130,12 @@ const groupSlice = createSlice({
         state.success = true;
       })
       .addCase(updateGroup.fulfilled, (state, { payload }) => {
-        state.groupDetail = payload.data;
-        // state.drawerOpen = false;
+        let newData = payload.data;
+        state.groupDetail = {
+          ...state.groupDetail,
+          name: newData.name,
+          description: newData.description,
+        };
         state.isComposerOpen = false;
         state.createLoader = false;
         state.success = true;

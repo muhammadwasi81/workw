@@ -62,10 +62,9 @@ function GroupDetails() {
   const { isComposerOpen, isEditComposer } = useSelector(
     (state) => state.groupSlice
   );
-  console.log(isComposerOpen, "iscomposerOpen");
   const [features, setFeatures] = useState([]);
-  const [open, setOpen] = useState(false);
   const { groupId: id } = params;
+  const { groupFeatures } = useSelector((state) => state.groupSlice);
 
   useEffect(() => {
     dispatch(getGroupById(id));
@@ -94,7 +93,7 @@ function GroupDetails() {
     };
   }, []);
 
-  let featurePermissions = detail?.features.map((item) => item.featureId);
+  let featurePermissions = groupFeatures.map((item) => item.featureId);
 
   // function getUserPermissions(){
   //   return GroupFeaturePermissionEnumList.map((x)=>{
@@ -104,7 +103,7 @@ function GroupDetails() {
   //   })
   // }
   useEffect(() => {
-    let temp = detail?.features.map((feat) => {
+    let temp = groupFeatures.map((feat) => {
       return {
         ...feat,
         content: featuresComp[feat.featureId],
@@ -114,7 +113,7 @@ function GroupDetails() {
       temp &&
       temp.filter((item) => featurePermissions.includes(item.featureId));
     setFeatures(payload);
-  }, [detail]);
+  }, []);
 
   const defaultRoute = ROUTES.GROUP.DEFAULT + "/" + id;
   const featuresComp = {

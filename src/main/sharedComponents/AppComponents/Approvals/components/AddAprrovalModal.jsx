@@ -1,88 +1,94 @@
-import { Modal } from 'antd';
-import React from 'react'
-import { useEffect } from 'react';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { getAllEmployees } from '../../../../../utils/Shared/store/actions';
+import { Modal } from "antd";
+import React from "react";
+import { useEffect } from "react";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { getAllEmployees } from "../../../../../utils/Shared/store/actions";
 import Avatar from "../../../Avatar/avatarOLD";
-import {  getAllDefaultApproversAction } from "../../../../features/defaultApprovers/store/action";
-import CustomSelect from '../../../AntdCustomSelects/SharedSelects/MemberSelect';
-import { useSelector } from 'react-redux';
-import { addApproversAction } from '../action/action';
-import ApproverListItem from './approverList';
+import { getAllDefaultApproversAction } from "../../../../features/defaultApprovers/store/action";
+import CustomSelect from "../../../AntdCustomSelects/SharedSelects/MemberSelect";
+import { useSelector } from "react-redux";
+import { addApproversAction } from "../action/action";
+import ApproverListItem from "./approverList";
+import DetailModal from "../../../../sharedComponents/ItemDetails";
 
 const payloadData = {
-    pageNo: 1,
-    pageSize: 20,
-    search: '',
+  pageNo: 1,
+  pageSize: 20,
+  search: "",
+};
+
+function AddAprrovalModal({ data, module }) {
+  const dispatch = useDispatch();
+  const [value, setValue] = useState([]);
+  const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
+  const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
+  const [currentType, setCurrentType] = useState("");
+
+  let approverIdArray = data.map((item) => {
+    return item.approverId;
+  });
+  let approverId = approverIdArray.toString();
+  let approvalTypeArray = data.map((item) => {
+    return item.approvalType;
+  });
+  let approvalType = approvalTypeArray.toString();
+
+  let referenceIdArray = data.map((item) => {
+    return item.referenceId;
+  });
+  let referenceId = referenceIdArray.toString();
+
+  const employees = useSelector((state) => state.sharedSlice.employees);
+  const { loader, approversData } = useSelector((state) => state.approverSlice);
+  console.log(approversData, "lllll");
+
+  const selectedData = (data) => {
+    setValue(data);
   };
 
+  //   const filterType = (type) => {
+  //     return approversData.filter((item) => item.type === type);
+  //   };
 
-function AddAprrovalModal({ visible, handleOk, handleCancel, data, module }) {
-    const dispatch = useDispatch()
-    const [value, setValue] = useState([]);
-    const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
-    const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
-    const [currentType, setCurrentType] = useState('');
-    
-  let approverIdArray = data.map((item) => { return item.approverId })
-  let approverId = approverIdArray.toString()
-  let approvalTypeArray = data.map((item) => { return item.approvalType })
-  let approvalType = approvalTypeArray.toString()
+  useEffect(() => {
+    dispatch(getAllDefaultApproversAction(payloadData));
+  }, []);
 
-  let referenceIdArray = data.map((item) => { return item.referenceId })
-  let referenceId = referenceIdArray.toString()
+  useEffect(() => {
+    if (employees.length > 0 && !isFirstTimeDataLoaded) {
+      setIsFirstTimeDataLoaded(true);
+      setFirstTimeEmpData(employees);
+    }
+  }, [employees]);
 
-    const employees = useSelector((state) => state.sharedSlice.employees);
-    const { loader, approversData } = useSelector((state) => state.approverSlice);
+  const fetchEmployees = (text, pgNo) => {
+    dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
+  };
 
-    const selectedData = (data) => {
-        setValue(data);
-      };
-    
-    //   const filterType = (type) => {
-    //     return approversData.filter((item) => item.type === type);
-    //   };
+  useEffect(() => {
+    fetchEmployees("", 0);
+  }, []);
 
-      useEffect(() => {
-        dispatch(getAllDefaultApproversAction(payloadData));
-      }, []);
-    
-      useEffect(() => {
-        if (employees.length > 0 && !isFirstTimeDataLoaded) {
-          setIsFirstTimeDataLoaded(true);
-          setFirstTimeEmpData(employees);
-        }
-      }, [employees]);
-    
-      const fetchEmployees = (text, pgNo) => {
-          dispatch(getAllEmployees({text, pgNo, pgSize: 20, })) 
-      };
-    
-      useEffect(() => {
-            fetchEmployees('', 0);
-      }, []);
-    
-      const handleChange = (e) => {
-        const payload = {
-          memberId: [e],
-          type: currentType,
-          module: module,
-          referenceId: referenceId,
-          approverId: approverId,
-          approvalType: approvalType
-    
-        };
-        dispatch(addApproversAction(payload));
-      };
+  const handleChange = (e) => {
+    const payload = {
+      memberId: [e],
+      type: currentType,
+      module: module,
+      referenceId: referenceId,
+      approverId: approverId,
+      approvalType: approvalType,
+    };
+    dispatch(addApproversAction(payload));
+  };
 
   return (
     <>
-        <Modal
-            open={visible}
-            onOk={handleOk}
-            onCancel={handleCancel}
-            className="modalWrapper"
+      {/* <Modal
+        open={visible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        className="modalWrapper"
       >
         <div className="flex flex-col space-y-5">
           <div className="flex flex-col space-y-2">
@@ -105,8 +111,8 @@ function AddAprrovalModal({ visible, handleOk, handleCancel, data, module }) {
                       name={opt.name}
                       src={opt.image}
                       round={true}
-                      width={'30px'}
-                      height={'30px'}
+                      width={"30px"}
+                      height={"30px"}
                     />
                     {opt.name}
                   </>
@@ -119,12 +125,21 @@ function AddAprrovalModal({ visible, handleOk, handleCancel, data, module }) {
             />
           </div>
         </div>
-        <div className='defaultApprovalsListing'>
-            <ApproverListItem data={approversData} />
+        <div className="defaultApprovalsListing">
+          <ApproverListItem data={approversData} />
         </div>
-      </Modal> 
+      </Modal> */}
+      <DetailModal
+        data={approversData} //Data of members will pass here in array
+        isDeleteDisabled={false} //Pass true to hide delete icon
+        addEnabled={true} //Pass false to hide select member
+        addFunc={handleChange} // define and pass addMember action of particular members
+        onDelete={false} // define and pass onDeletemember actions of particular members
+        isSearch={false} //Pass true if you want to search the list
+        openModal={true} // pass true if you want to open member details in modal other wise it display in listing
+      />
     </>
-  )
+  );
 }
 
-export default AddAprrovalModal
+export default AddAprrovalModal;

@@ -2,19 +2,33 @@ import React, { useState } from "react";
 import { PlusSquareOutlined, ReloadOutlined } from "@ant-design/icons";
 import Approval from "./Approval";
 import { useDispatch } from "react-redux";
-import '../../../../features/defaultApprovers/styles.css'
+import "../../../../features/defaultApprovers/styles.css";
 import AddAprrovalModal from "./AddAprrovalModal";
+import { handleItemDetailModal } from "../../../../../utils/Shared/store/slice";
 
-function ApprovalWrapper({ title, data, module, approverType, onStatusChange, onListStatus, }) {
-  const dispatch = useDispatch()
-  const [isModalOpen, setIsModalOpen] = useState(false)
+function ApprovalWrapper({
+  title,
+  data,
+  module,
+  approverType,
+  onStatusChange,
+  onListStatus,
+}) {
+  const dispatch = useDispatch();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const handleOk = () => {
-        setIsModalOpen(false);
-      };
-    const handleCancel = () => {
-      setIsModalOpen(false);
-    };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+  const handleOpenApprovers = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsModalOpen(true);
+    dispatch(handleItemDetailModal(true));
+  };
 
   return (
     <>
@@ -27,7 +41,9 @@ function ApprovalWrapper({ title, data, module, approverType, onStatusChange, on
             </li>
             <li className="list__item">
               <PlusSquareOutlined
-                onClick={() => { setIsModalOpen(true) }}
+                onClick={(e) => {
+                  handleOpenApprovers(e);
+                }}
               />
             </li>
           </ul>
@@ -66,17 +82,7 @@ function ApprovalWrapper({ title, data, module, approverType, onStatusChange, on
           }
         )}
       </div>
-      {
-        isModalOpen &&
-        <AddAprrovalModal 
-          visible={isModalOpen}
-          handleOk={handleOk}
-          handleCancel={handleCancel}
-          data={data}
-          module={module}
-        />
-
-      }
+      {isModalOpen && <AddAprrovalModal data={data} module={module} />}
     </>
   );
 }

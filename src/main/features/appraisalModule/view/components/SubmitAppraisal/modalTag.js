@@ -7,10 +7,13 @@ import { CardWrapper } from "../../../../../sharedComponents/Card/CardStyle";
 // import ShortCard from "./shortAppraisalCardNew";
 import ShortCard from "../TeamAppraisal/shortAppraisalCardNew";
 import { getAllWarnings } from "../../../../warning/store/actions";
-import { getAllRewards } from "../../../../reward/store/actions";
+import { getAllRewards, GetRewardById } from "../../../../reward/store/actions";
 import RewardItem from "../../../../reward/view/ListItem";
 import WarningItem from "../../../../warning/view/ListItem";
-import { Spin } from "antd";
+import {
+  getAllWarningAction,
+  getRewardsAction,
+} from "../../../../team/store/action";
 
 const ModalTag = ({ handleCancel, data, userId }) => {
   const dispatch = useDispatch();
@@ -20,6 +23,9 @@ const ModalTag = ({ handleCancel, data, userId }) => {
   const Reward = useSelector((state) => state.rewardSlice);
   const Warning = useSelector((state) => state.warningSlice);
   const { modalOpen } = useSelector((state) => state.appraisalModuleSlice);
+  const { warningDetails, rewardDetails, loader } = useSelector(
+    (state) => state.teamSlice
+  );
 
   useEffect(() => {
     //TODO: call api according to the data like prev appraisals, warnings etc
@@ -29,10 +35,10 @@ const ModalTag = ({ handleCancel, data, userId }) => {
         dispatch(getAllPreviousAppraisalAction(userId));
         break;
       case "warning":
-        dispatch(getAllWarnings({ filterType: 3 }));
+        dispatch(getAllWarningAction(userId));
         break;
       case "rewards":
-        dispatch(getAllRewards({ filterType: 3 }));
+        dispatch(getRewardsAction(userId));
         break;
       case "course":
         // dispatch(getAllWarnings({ filterType: 3 }));
@@ -48,13 +54,12 @@ const ModalTag = ({ handleCancel, data, userId }) => {
         return (
           <>
             {previousAppraisalLoader ? (
-              <Spin
-                tip="Loading"
-                size="large"
-                className="flex justify-center align-center"
-              >
-                <div className="content" />
-              </Spin>
+              <Skeleton
+                avatar
+                paragraph={{
+                  rows: 4,
+                }}
+              />
             ) : (
               <>
                 {appraisals.length ? (
@@ -74,17 +79,16 @@ const ModalTag = ({ handleCancel, data, userId }) => {
       case "rewards": {
         return (
           <>
-            {Reward.loader ? (
-              <Spin
-                tip="Loading"
-                size="large"
-                className="flex justify-center align-center"
-              >
-                <div className="content" />
-              </Spin>
+            {loader ? (
+              <Skeleton
+                avatar
+                paragraph={{
+                  rows: 4,
+                }}
+              />
             ) : (
               <>
-                {Reward?.rewards?.length > 0 ? (
+                {rewardDetails?.length > 0 ? (
                   <CardWrapper>
                     {Reward.rewards.map((item, index) => (
                       <RewardItem
@@ -107,17 +111,16 @@ const ModalTag = ({ handleCancel, data, userId }) => {
       case "warning": {
         return (
           <>
-            {Warning.loader ? (
-              <Spin
-                tip="Loading"
-                size="large"
-                className="flex justify-center align-center"
-              >
-                <div className="content" />
-              </Spin>
+            {loader ? (
+              <Skeleton
+                avatar
+                paragraph={{
+                  rows: 4,
+                }}
+              />
             ) : (
               <>
-                {Warning?.warnings?.length > 0 ? (
+                {warningDetails?.length > 0 ? (
                   <CardWrapper>
                     {Warning?.warnings?.map((item, index) => (
                       <WarningItem

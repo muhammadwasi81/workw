@@ -81,7 +81,7 @@ function CommentWrapper({
         placeHolder={placeHolder}
         module={module}
         commentRequestSuccess={(comment) => {
-          setComments((preValue) => [...preValue, comment]);
+          setComments((preValue) => [comment, ...preValue]);
           commentRequestSuccess && commentRequestSuccess(comment);
         }}
         setShowComments={setShowComments}

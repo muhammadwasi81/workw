@@ -1,5 +1,5 @@
-import MasterConfig from '../../../../utils/services/MasterConfig';
-const API_PREFIX = '/api/Group/';
+import MasterConfig from "../../../../utils/services/MasterConfig";
+const API_PREFIX = "/api/Group/";
 
 export const getAllGroupService = (data) => {
   return MasterConfig.post(`${API_PREFIX}GetAllGroup`, data)
@@ -82,12 +82,49 @@ export const deleteGroupMemberService = (data) => {
 };
 
 export const addGroupFavoriteMarkService = (payload) => {
-  console.log(payload, 'payload');
   return MasterConfig.get(
     `api/Group/AddGroupFavouriteMark?groupId=${payload.id}&isPinned=${payload.isPinned}`
   )
     .then((res) => {
-      console.log(res, 'addGroupFavoruiteMarkServices');
+      return res.data;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+export const addGroupFeaturesService = (data) => {
+  console.log(data, "data");
+  // const id = data.find((feature) => feature.groupId)?.groupId;
+  const id = data.id;
+
+  return MasterConfig.post(
+    `api/Group/AddGroupFeatures?groupId=${id}`,
+    data.payload
+  )
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+export const removeGroupFeaturesService = ({ id, featureId }) => {
+  return MasterConfig.delete(
+    `api/Group/RemoveGroupFeature?id=${id}&featureId=${featureId}`
+  )
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+export const getGroupFeaturesService = (id) => {
+  return MasterConfig.get(`api/Group/GetAllGroupFeature?id=${id}`)
+    .then((res) => {
       return res.data;
     })
     .catch((err) => {

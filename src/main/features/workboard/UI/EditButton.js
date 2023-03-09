@@ -17,7 +17,7 @@ function EditButton({ handleSave, saveLabel, handleDelete, handleCancel }) {
         onClick={handleSave}
       >
         {saveLabel}
-      </div>
+    </div>
       {handleDelete && (
         <div
           tabIndex="0"

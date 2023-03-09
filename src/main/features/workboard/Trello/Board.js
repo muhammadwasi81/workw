@@ -1,6 +1,6 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
-import { Button } from "antd";
+import { Button ,Modal} from "antd";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import AddList from "./AddList/AddList";
 import { useSelector, useDispatch } from "react-redux";
@@ -27,11 +27,18 @@ import {
 import CardDetailModal from "./Modal/CardDetailModal";
 import DateModal from "../Modal/DateModal";
 import BoardTopBar from "./BoardTopBar/TopBar";
+import CustomSelect from "../../../sharedComponents/Select/Select";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { WorkBoardDictionary } from "../localization";
 // import Spinner from "../../../sharedComponents/spinner/spinner";
 import { Table } from "../../../sharedComponents/customTable";
 import { sectionTableColumn } from "./tableColumns";
+import CardEditor from "../Trello/Card/CardEditor";
+import TableTodo from "../UI/TableEditButton/TableEditButton";
+import { DownOutlined } from '@ant-design/icons';
+import { Select } from 'antd';
+import {addWorkBoardSectionTodo} from "../store/action";
+import { event } from "jquery";
 
 function Board() {
   const [addingList, setAddingList] = useState(false);
@@ -39,9 +46,13 @@ function Board() {
   const workboardDetail = useSelector(
     (state) => state.trelloSlice.workboardDetail
   );
+  
   const sectionTableData = useSelector(
     (state) => state.trelloSlice.sectionTableData
   );
+
+  console.log(sectionTableData,"sectionTableData");
+  console.log(workboardDetail?.section?.sectionId,"workboardDetailsectionID");
 
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -135,6 +146,59 @@ function Board() {
   ];
   const { topBar, labels } = WorkBoardDictionaryList;
   const [isTableView, setIsTableView] = useState(false);
+  const [isModalOpen , setIsModalOpen] = useState(false);
+  const [selectedId,setSelectedId] = useState();
+ 
+  const [listData, setListData] = useState({
+		editingTitle: false,
+	  title: workboardDetail?.section?.name,
+		addingCard: false,
+	});
+  
+  console.log(listData,"listDatalistData");
+  
+
+
+  const toggleAddingCard = (e) =>
+		setListData(prevState => ({
+			...prevState,
+		})
+    //dispatch(addWorkBoardSectionTodo({sectionId:workboardDetail?.sectionId,title}));
+);
+    const addCard = async cardText => {
+      
+      setIsModalOpen(false);
+      toggleAddingCard();
+      if (cardText.trim().length) {
+        dispatch(
+          addWorkBoardSectionTodo({
+            sectionId:selectedId,
+            title: cardText,
+          })
+        );
+        // dispatch(addListCard({ cardText, cardId, listId: section.id }));
+      }
+    };
+
+   
+  
+    const handleOk = () => {
+      setIsModalOpen(false);
+    };
+    const handleCancel = () => {
+      setIsModalOpen(false);
+    };
+    const showModal = () =>{
+      setIsModalOpen(true);
+    }
+
+    const handleChange = (LabeledValue) => {
+      console.log(selectedId,"88888");
+
+      setSelectedId(LabeledValue);
+        console.log(selectedId,"LabeledValue");
+    }
+   
 
   return (
     <>
@@ -198,19 +262,50 @@ function Board() {
               </Droppable>
             </DragDropContext>
           ) : (
+
+            <>
+             <div className="float-right">
+                <Button
+                  onClick={showModal}
+                  icon={<PlusOutlined />}
+                  className="ant-btn ant-btn-default ant-btn-sm ant-btn-background-ghost 
+                  !bg-transparent !items-center !flex !border-none !text-[#5e6c84] 
+                  hover:!text-[#172b4d] hover:!bg-[#091e4214] !text-sm w-full"
+                  ghost={true}
+                  size="small">Add Todo
+                </Button>
+              </div>
+
+               <Modal 
+                  footer={null}
+                  closable={false}
+                  title={false}
+                  open={isModalOpen} onCancel={handleCancel} onOk={handleOk}
+                  >
+                
+                <span className="text-gray-500 font-bold ml-[3px]">Todo Section </span>
+                   <div className="List-Title !cusrsor-pointer p-2 break-words font-bold w-full">
+                     <CustomSelect
+                        showSearch={true}
+                        data={workboardDetail?.sections}
+                        size="large"
+                        placeholder="Please select Todo Section"
+                        onChange={handleChange}
+                      />
+                   </div>
+                   <span className="text-gray-500 font-bold ml-[3px]">Todo Title</span>
+                  <TableTodo onSave={addCard}/>
+               </Modal>
+            
+
             <Table
               columns={sectionTableColumn(WorkBoardDictionaryList)}
-              // dragable={true}
-              // handleChange={handleChange}
-              // onPageChange={onPageChange}
-              // onRow={onRow}
               data={sectionTableData}
-              // status={travelStatus}
               loading={loader}
-              // success={success}
-              // onActionClick={onActionClick}
             />
+            </>
           )}
+
         </ContBody>
       </TabbableContainer>
       <CardDetailModal />

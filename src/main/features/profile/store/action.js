@@ -148,7 +148,7 @@ export const updateUserProfileImgAction = createAsyncThunk(
   }
 );
 
-export const saveSticyNotesAction = createAsyncThunk(
+export const saveSticyNotes = createAsyncThunk(
   `SaveStickyNote`,
   async (data) => {
     try {
@@ -156,7 +156,6 @@ export const saveSticyNotesAction = createAsyncThunk(
       if (!response.data) {
         message.error(response.data.message);
       }
-      message.success(`Sticky Notes added Successfully!!`);
       return response.data;
     } catch (error) {
       throw new Error(`Error in Sticky Notes: ${error}`, {
@@ -166,20 +165,16 @@ export const saveSticyNotesAction = createAsyncThunk(
   }
 );
 
-export const getSticyNotesAction = createAsyncThunk(
-  `getStickyNote`,
-  async (data) => {
-    try {
-      const response = await getProfileStickyNote(data);
-      if (!response.data) {
-        message.error(response.data.message);
-      }
-      message.success(`get  Successfully!!`);
-      return response.data;
-    } catch (error) {
-      throw new Error(`Error in Sticky Notes: ${error}`, {
-        cause: error,
-      });
+export const getSticyNotes = createAsyncThunk(`getStickyNote`, async (data) => {
+  try {
+    const response = await getProfileStickyNote(data);
+    if (!response.data) {
+      message.error(response.data.message);
     }
+    return response.data;
+  } catch (error) {
+    throw new Error(`Error in Sticky Notes: ${error}`, {
+      cause: error,
+    });
   }
-);
+});

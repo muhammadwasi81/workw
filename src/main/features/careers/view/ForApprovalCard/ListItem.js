@@ -114,9 +114,11 @@ function ListItem({ item, onClickApproval }) {
                 <Avatar
                   isAvatarGroup={true}
                   isTag={false}
-                  heading={"Managers"}
-                  membersData={manager ? mangerArrFunc(manager) : []}
-                  text={"manager"}
+                  heading={"Users"}
+                  membersData={[{ user: manager }]}
+                  // membersData={manager ? [manager] : []}
+                  // membersData={[]}
+                  text={"user"}
                   image={"https://joeschmoe.io/api/v1/random"}
                 />
               )}

@@ -19,6 +19,21 @@ export const getAllCompanyService = async (search) => {
     return ResponseResultError(e);
   }
 };
+
+export const getCompanyByIdService = async (id) => {
+  try {
+    const {
+      data: { responseCode, data, message },
+    } = await Config.get(`api/Business/GetBusinessById?id=${id}`);
+
+    if (responseCode === responseCodeEnum.Success)
+      return ResponseResultSuccess(data);
+    return ResponseResultError(message);
+  } catch (e) {
+    return ResponseResultError(e);
+  }
+};
+
 export const getAllRewardService = async (id) => {
   console.log(id, "REQUEST");
   try {
@@ -48,6 +63,26 @@ export const getAllLoanService = async (id) => {
   } catch (e) {
     return ResponseResultError(e);
   }
+};
+
+export const ResendSignupEmailService = (id) => {
+  return Config.get(`api/Signup/ResendSignupEmail?id=${id}`)
+    .then((res) => {
+      return res;
+    })
+    .catch((res) => {
+      return res;
+    });
+};
+
+export const GetSignupByIdService = (id) => {
+  return Config.get(`api/Signup/GetSignupById?id=${id}`)
+    .then((res) => {
+      return res;
+    })
+    .catch((res) => {
+      return res;
+    });
 };
 
 export const getAllComplainService = async (id) => {

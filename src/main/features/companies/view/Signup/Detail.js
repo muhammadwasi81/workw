@@ -1,50 +1,40 @@
-import { Image, Tag } from "antd";
-import React, { useContext, useState } from "react";
+import React, { useEffect, useState } from "react";
 import UserInfo from "../../../../sharedComponents/UserShortInfo/UserInfo";
 import SublineDesigWithTime from "../../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
-import StatusTag from "../../../../sharedComponents/Tag/StatusTag";
-import moment from "moment";
 import {
-  ItemContent,
   ItemHeader,
   SingleItem,
 } from "../../../../sharedComponents/Card/CardStyle";
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { FeaturesEnumList } from "../../../../../utils/Shared/enums/featuresEnums";
 import { useDispatch } from "react-redux";
-import { getAllSignupAction } from "../../companies/store/action";
-// import Avatar from "../../../../sharedComponents/Avatar/avatar";
-// import { useDispatch } from "react-redux";
-// import { data } from "jquery";
-// import Attachments from "../../travel/view/UI/Attachments";
-// import "./style/reward.css";
+import { GetSignupById, ResendSignupEmailAction } from "../../companies/store/action";
+import { useSelector } from "react-redux";
+import '../../styles/dashboard.css'
 
 
-function SignupDetail({id}) {
-    const dispatch = useDispatch()
-    const { signup } = useSelector((state) => state.companySlice)
-    let detailItem = signup.map((item) => item.id ) 
-    useEffect(() => {
-        dispatch(getAllSignupAction())
-    },[])
+function SignupDetail({onClick, id}) {
+  const dispatch = useDispatch()
+  const { signupDetail } = useSelector((state) => state.companySlice)
+  const {
+    firstName,
+    lastName,
+    email,
+    title,
+    features,
+  } = signupDetail ? signupDetail : "";
 
-    console.log(signup, "SIGNUPssss")
-    console.log(id, 'IDDDD')
-    console.log(detailItem, "DETAIL ITEMM !!!")
-//   const {
-//     firstName,
-//     lastName,
-//     email,
-//     title,
-//   } = item ? item : "";
 
-  // const localTime = moment
-  //   .utc(createDate)
-  //   .local()
-  //   .format();
+  useEffect(() => {
+    dispatch(GetSignupById(id))
+  },[])
+
+  let splited = features && features.split(',')
+  var nums = splited && splited.map(function(str) {
+  return parseInt(str); });
+
   return (
     <>
-      {/* <SingleItem onClick={onClick}>
+      <SingleItem onClick={onClick}>
         <div className="" id={id}></div>
         <ItemHeader>
           <div className="left">
@@ -54,25 +44,37 @@ function SignupDetail({id}) {
               Subline={
                 <SublineDesigWithTime
                   designation={email}
-            //      time={moment(localTime).fromNow()}
+              // time={moment(localTime).fromNow()}
                 />
               }
             />
           </div>
           <div className="right">
             <button 
-              className="ThemeBtn" 
+              className="ThemeBtn"
               style={{
                 paddingLeft: '16px',
                 paddingRight: '16px',
                 paddingTop: '5px',
                 paddingBottom: '5px'
-                }}>
+                }}
+                onClick={() => dispatch(ResendSignupEmailAction(id))}
+                >
                   Resend
             </button>
           </div>
         </ItemHeader>
-        <ItemContent className="flex"></ItemContent>
+        <div className="tagsContainer">
+              {
+                signupDetail && FeaturesEnumList.map((item) => {
+                  if (nums.includes(item.value)) {
+                    return (
+                      <span className="featureTag">{item.label}</span>
+                    )
+                  }
+                })
+            }
+        </div>
         <div className="cardSections">
           <div className="cardSectionItem">
             <div className="cardSection__title">
@@ -85,7 +87,7 @@ function SignupDetail({id}) {
             <div className="cardSection__body layout">{lastName}</div>
           </div>
         </div>
-      </SingleItem> */}
+      </SingleItem>
     </>
   );
 }

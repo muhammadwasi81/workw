@@ -1,0 +1,24 @@
+.minimized-document-container{
+    position: absolute;
+    bottom: 3px;
+    left: 220px;
+    z-index: 1;
+    display: flex;
+    gap: 6px;
+}
+.document-minimized-header{
+    background-color: #c9a100;
+    border-radius: 10px;
+    width: 180px;
+}
+.document-minimized-header .ChatBoxName{
+    width: unset;
+}
+.document-minimized-header .minimized-icon{
+    height: 20px;
+}
+
+.call-minimized{
+    z-index: 1;
+    background-color: #272727;
+}

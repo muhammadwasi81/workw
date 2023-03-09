@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import moment from "moment";
 import {
@@ -42,15 +42,17 @@ function ListItem({ item, onClick, onClickMyCareer }) {
   const { labels } = CareerDictionaryList;
   const skillsArray = skills?.split(",");
 
-  const mangerArrFunc = (manager) => {
-    let newArr = [];
-    let innerObj = {};
-    if (manager) {
-      innerObj = { member: manager };
-      newArr.push(innerObj);
-    }
-    return newArr;
-  };
+  // const mangerArrFunc = (manager) => {
+  //   let newArr = [];
+  //   let innerObj = {};
+
+  //   innerObj = { user: manager };
+  //   newArr.push(innerObj);
+
+  //   setManagerState(newArr);
+  // };
+
+  // console.log(item, "item");
 
   return (
     <>
@@ -123,32 +125,35 @@ function ListItem({ item, onClick, onClickMyCareer }) {
           <div className="cardSectionItem">
             <div className="cardSection__title">{labels.manager}</div>
             <div className="cardSection__body">
-              {manager && (
+              {
                 <Avatar
                   isAvatarGroup={true}
                   isTag={false}
-                  heading={"Managers"}
-                  membersData={manager ? mangerArrFunc(manager) : []}
-                  text={"manager"}
+                  heading={"Users"}
+                  membersData={[{ user: manager }]}
+                  // membersData={manager ? [manager] : []}
+                  // membersData={[]}
+                  text={"user"}
                   image={"https://joeschmoe.io/api/v1/random"}
                 />
-              )}
+              }
             </div>
           </div>
           <div className="cardSectionItem">
             <div className="cardSection__title">{labels.members}</div>
             <div className="cardSection__body">
               {" "}
-              {members && (
-                <Avatar
-                  isAvatarGroup={true}
-                  isTag={false}
-                  heading={labels.members}
-                  membersData={members ? members : []}
-                  text={"member"}
-                  image={"https://joeschmoe.io/api/v1/random"}
-                />
-              )}
+              {console.log(members, labels.members, "mmeerrrrrrr") &&
+                members && (
+                  <Avatar
+                    isAvatarGroup={true}
+                    isTag={false}
+                    heading={labels.members}
+                    membersData={members ? members : []}
+                    text={"member"}
+                    image={"https://joeschmoe.io/api/v1/random"}
+                  />
+                )}
             </div>
           </div>
           <div className="cardSectionItem">

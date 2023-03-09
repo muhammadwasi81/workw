@@ -1,7 +1,7 @@
 // import AxiosConfig from "../../../../utils/services/AxiosConfig";
-import { jsonToFormData } from "../../../../utils/base";
-import MasterConfig from "../../../../utils/services/MasterConfig";
-const API_PREFIX = "api/Employee/";
+import { jsonToFormData } from '../../../../utils/base';
+import MasterConfig from '../../../../utils/services/MasterConfig';
+const API_PREFIX = 'api/Employee/';
 
 export const addEmployeeService = (data) => {
   const formData = jsonToFormData(data);
@@ -15,7 +15,7 @@ export const addEmployeeService = (data) => {
 };
 
 export const addEmployeeFamilyService = (data) => {
-  console.log(data, "in service");
+  console.log(data, 'in service');
   const formData = jsonToFormData(data);
   return MasterConfig.post(`${API_PREFIX}AddEmployeeFamily`, formData)
     .then((res) => {
@@ -27,7 +27,7 @@ export const addEmployeeFamilyService = (data) => {
 };
 
 export const updateEmployeeFamilyService = (data) => {
-  console.log(data, "in service");
+  console.log(data, 'in service');
   const formData = jsonToFormData(data);
   return MasterConfig.put(`${API_PREFIX}UpdateEmployeeFamily`, formData)
     .then((res) => {
@@ -41,7 +41,7 @@ export const updateEmployeeFamilyService = (data) => {
 export const getAllEmployeeFamilyService = (id) => {
   return MasterConfig.get(`/api/Employee/GetAllEmployeeFamily?userId=${id}`)
     .then((res) => {
-      console.log(res.data, "getEmployeeByIdService");
+      console.log(res.data, 'getEmployeeByIdService');
       return res.data;
     })
     .catch((err) => {
@@ -52,7 +52,7 @@ export const getAllEmployeeFamilyService = (id) => {
 export const removeEmployeeFamilyService = (id) => {
   return MasterConfig.delete(`/api/Employee/RemoveEmployeeFamily?id=${id}`)
     .then((res) => {
-      console.log(res.data, "getEmployeeByIdService");
+      console.log(res.data, 'getEmployeeByIdService');
       return res.data;
     })
     .catch((err) => {
@@ -61,10 +61,10 @@ export const removeEmployeeFamilyService = (id) => {
 };
 
 export const getAllEmployeesService = (search) => {
-  console.log(search, "search");
+  // console.log(search, "search");
   return MasterConfig.get(`${API_PREFIX}GetAllEmployeeShort?search=${search}`)
     .then((res) => {
-      console.log(res.data, "getAllEmployeesService");
+      console.log(res.data, 'getAllEmployeesService');
       return res.data;
     })
     .catch((err) => {
@@ -75,7 +75,7 @@ export const getAllEmployeesService = (search) => {
 export const getEmployeeByIdService = (id) => {
   return MasterConfig.get(`/api/Employee/GetEmployeeById?id=${id}`)
     .then((res) => {
-      console.log(res.data, "getEmployeeByIdService");
+      console.log(res.data, 'getEmployeeByIdService');
       return res.data;
     })
     .catch((err) => {
@@ -85,7 +85,7 @@ export const getEmployeeByIdService = (id) => {
 
 export const updateEmployeeService = (data) => {
   const formData = jsonToFormData(data);
-  console.log(formData, "service");
+  console.log(formData, 'service');
   return MasterConfig.put(`${API_PREFIX}UpdateEmployee`, formData)
     .then((res) => {
       return res.data;
@@ -111,7 +111,7 @@ export const getAllEmployeeDetailAttachmentService = (id) => {
     `/api/Employee/GetAllEmployeeDetailAttachment?id=${id}`
   )
     .then((res) => {
-      console.log(res.data, "getAllEmployeeAttachment");
+      console.log(res.data, 'getAllEmployeeAttachment');
       return res.data;
     })
     .catch((err) => {
@@ -124,7 +124,7 @@ export const removeEmployeeDetailAttachmentService = (id) => {
     `/api/Employee/RemoveEmployeeDetailAttachment?id=${id}`
   )
     .then((res) => {
-      console.log(res.data, "getAllEmployeeAttachment");
+      console.log(res.data, 'getAllEmployeeAttachment');
       return res.data;
     })
     .catch((err) => {

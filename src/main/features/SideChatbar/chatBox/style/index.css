@@ -115,6 +115,9 @@
   animation-duration: 0.3s;
   animation-fill-mode: forwards;
 }
+.minimizeChatBox .ChatBoxName{
+    width: calc(100% - 50px);
+}
 
 .minimizeCloseChatBox {
   animation-name: minimizeCloseChatBox;

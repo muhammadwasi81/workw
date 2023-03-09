@@ -16,7 +16,7 @@ export const getAllDesignation = createAsyncThunk(
   'Designation/getAllDesignation',
   async (args, { dispatch }) => {
     const res = await getAllDesignationsService();
-    console.log('GET ALL DESIGNATION ACTION', res);
+    // console.log('GET ALL DESIGNATION ACTION', res);
     if (!res.responseCode) {
       responseMessage({
         dispatch: dispatch,

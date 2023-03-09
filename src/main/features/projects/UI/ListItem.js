@@ -1,21 +1,22 @@
-import { useState } from 'react';
-import ProjectDefaultImage from '../../../../content/png/project_cover_img.png';
-import Avatar from '../../../sharedComponents/Avatar/avatar';
-import { Card, Popover } from 'antd';
-import { useNavigate } from 'react-router-dom';
-import { ROUTES } from '../../../../utils/routes';
-import menuIcon from '../../../../content/NewContent/Documents/3dots.svg';
-import MemberModal from './MemberModal';
+import { useState } from "react";
+import ProjectDefaultImage from "../../../../content/png/project_cover_img.png";
+import Avatar from "../../../sharedComponents/Avatar/avatar";
+import { Card, Popover } from "antd";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../../../../utils/routes";
+import menuIcon from "../../../../content/NewContent/Documents/3dots.svg";
+import MemberModal from "./MemberModal";
 import {
   updateProjectById,
   handleComposer,
   addMember,
   handleFavoriteProjects,
-} from '../store/slice';
-import { useDispatch } from 'react-redux';
-import { StarFilled, StarOutlined } from '@ant-design/icons';
-import { addProjectFavoriteAction } from './../store/actions';
-import './style.css';
+} from "../store/slice";
+import { useDispatch } from "react-redux";
+import { StarFilled, StarOutlined } from "@ant-design/icons";
+import { addProjectFavoriteAction } from "./../store/actions";
+import "./style.css";
+import QuickOptions from "../quickOptions";
 const { Meta } = Card;
 
 const ListItem = (props) => {
@@ -28,27 +29,7 @@ const ListItem = (props) => {
     id,
     isPinnedPost,
   } = props.item;
-  console.log(props.item, 'props.item');
   const navigate = useNavigate();
-  const [open, setOpen] = useState(false);
-  const [visible, setVisible] = useState(false);
-
-  const handleUpdate = () => {
-    dispatch(updateProjectById(id));
-    dispatch(handleComposer({ isOpen: true, isEdit: true }));
-  };
-  const memberHandler = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setVisible(true);
-    dispatch(addMember({ status: true }));
-  };
-  const handleOpenChange = (newOpen) => {
-    setOpen(newOpen);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   const handlePinnedPost = (e) => {
     e.preventDefault();
@@ -56,11 +37,15 @@ const ListItem = (props) => {
     dispatch(addProjectFavoriteAction({ id: id, isPinned: !isPinnedPost }));
     dispatch(handleFavoriteProjects({ id: id, isPinned: !isPinnedPost }));
   };
+  const menuHandler = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
 
   return (
     <>
       <Card
-        className={'Card2'}
+        className={"Card2"}
         cover={
           <img
             alt="example"
@@ -88,7 +73,7 @@ const ListItem = (props) => {
             <Avatar
               isAvatarGroup={true}
               isTag={false}
-              heading={'Members'}
+              heading={"Members"}
               membersData={members}
             />
           </div>
@@ -109,39 +94,10 @@ const ListItem = (props) => {
               e.stopPropagation();
             }}
           >
-            <Popover
-              content={
-                <div className="flex flex-col">
-                  <div
-                    className="flex gap-2 items-center btn cursor-pointer hover:bg-[#f6f6f6] transition-all p-2 py-1 rounded-[6px]"
-                    onClick={handleUpdate}
-                  >
-                    <span>Update</span>
-                  </div>
-                  <div
-                    className="flex gap-3 items-center btn cursor-pointer hover:bg-[#f6f6f6] transition-all p-2 py-1 rounded-[6px]"
-                    onClick={(e) => memberHandler(e)}
-                  >
-                    <span>Members</span>
-                  </div>
-                </div>
-              }
-              title={null}
-              trigger="click"
-              placement="rightTop"
-              open={open}
-              handleClose={handleClose}
-              onOpenChange={handleOpenChange}
-              overlayClassName="docsPopover"
-            >
-              <div className="menuIcon">
-                <img src={menuIcon} alt="menuIcon" loading="lazy" />
-              </div>
-            </Popover>
+            <QuickOptions data={props.item} onClick={(e) => menuHandler(e)} />
           </div>
         </div>
       </Card>
-      {visible && <MemberModal />}
     </>
   );
 };

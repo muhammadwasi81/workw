@@ -10,7 +10,7 @@ export const getAllPayment = createAsyncThunk(
   "Payment/getAllPayment",
   async (args, { dispatch, getState }) => {
     //TODO: will be set accordingly
-    const res = await getAllPaymentService();
+    const res = await getAllPaymentService(args);
 
     if (!res.responseCode) {
       responseMessage({

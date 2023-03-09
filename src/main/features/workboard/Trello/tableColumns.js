@@ -8,14 +8,14 @@ import Avatar from "../../../sharedComponents/Avatar/avatar";
 export const sectionTableColumn = (WorkBoardDictionaryList) => {
   return [
     {
-      title: WorkBoardDictionaryList.labels.section,
-      dataIndex: "workBoardSection",
+      title: WorkBoardDictionaryList.labels.title,
+      dataIndex: "title",
       ellipsis: true,
       sort: true,
     },
     {
-      title: WorkBoardDictionaryList.labels.title,
-      dataIndex: "title",
+      title: WorkBoardDictionaryList.labels.section,
+      dataIndex: "workBoardSection",
       ellipsis: true,
       sort: true,
     },

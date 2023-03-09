@@ -29,6 +29,11 @@ export const searchConversationService = (search, pageNo) => {
 		.catch(err => err);
 };
 
+
+
+
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++
 // New Services here
 const getAllChat = async (payload) => {
 	let request = messengerDTO.getAllConversations(payload);
@@ -36,6 +41,19 @@ const getAllChat = async (payload) => {
 		const {
 			data: { responseCode, data, message },
 		} = await Config.post(`api/chat/getAllConversation`, request);
+		if (responseCode === responseCodeEnum.Success) return ResponseResultSuccess(data);
+		return ResponseResultError(message);
+	} catch (e) {
+		return ResponseResultError(e);
+	}
+};
+
+const getAllEmployeeWithChat = async (payload) => {
+	let request = messengerDTO.getAllConversations(payload);
+	try {
+		const {
+			data: { responseCode, data, message },
+		} = await Config.post(`api/chat/SearchConversation`, request);
 		if (responseCode === responseCodeEnum.Success) return ResponseResultSuccess(data);
 		return ResponseResultError(message);
 	} catch (e) {
@@ -113,5 +131,6 @@ export const MessengerService = {
 	sendMessage,
 	getAllChatMessage,
 	updateMessageDeliver,
-	updateMessageSeen
+	updateMessageSeen,
+	getAllEmployeeWithChat
 }

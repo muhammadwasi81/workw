@@ -4,12 +4,12 @@ import AntTooltip from "../Tooltip/AntTooltip";
 import { useMediaQuery } from "react-responsive";
 
 const SharedButton = ({
-  type="primary",
-  shape="circle",
+  type = "primary",
+  shape = "circle",
   icon,
-  IconSize=12,
+  IconSize = 12,
   title,
-  size="small",
+  size = "small",
   style,
   onClick,
   IconColor,
@@ -23,8 +23,13 @@ const SharedButton = ({
   htmlType,
   loading,
   href,
+  isHide = false
 }) => {
   const isTablet = useMediaQuery({ maxWidth: 650 });
+
+  if (isHide)
+    return <></>
+
   return (
     <Button
       onClick={() => onClick()}

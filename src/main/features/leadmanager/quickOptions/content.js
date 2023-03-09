@@ -13,6 +13,7 @@ import MemberModal from "../view/Modal/MemberModal";
 const ContentOptions = ({ handleClose, data }) => {
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
+  console.log(data,"dataaaaaaaaa");
 
   const handleUpdate = (e) => {
     e.preventDefault();

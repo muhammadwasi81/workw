@@ -7,8 +7,9 @@ import SideBarSearch from "./SideBarSearch";
 import "./style.css";
 import { useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { getAllChats } from "../Messenger/store/actions";
+import { getAllChats, getAllEmployeeWithChat } from "../Messenger/store/actions";
 import ChatBoxCont from "./chatBox/ChatBoxCont";
+import MinimizedDocuments from "../documents/view/minimizedDocuments";
 export const Index = () => {
 	const sideBarStatus = useSelector(
 		state => state.sideBarChatSlice.sideBarChatStatus
@@ -16,7 +17,7 @@ export const Index = () => {
 	const sideBarChatIsDefault = useSelector(
 		state => state.sideBarChatSlice.sideBarChatIsDefault
 	);
-	const conversations = useSelector(state => state.MessengerSlice.Conversations);
+	const conversations = useSelector(state => state.MessengerSlice.ConversationsWithEmployee);
 	const [isHide, setIsHide] = useState(false);
 	const location = useLocation();
 	const dispatch = useDispatch();
@@ -26,7 +27,7 @@ export const Index = () => {
 		} else setIsHide(false);
 	}, [location]);
 	useEffect(() => {
-		dispatch(getAllChats());
+		dispatch(getAllEmployeeWithChat());
 	}, [])
 
 	let isMobileView = window.innerWidth < 800;
@@ -43,6 +44,7 @@ export const Index = () => {
 					<SideBarSearch />
 				</SideChatBar>
 				<ChatBoxCont isHide={isHide} />
+				<MinimizedDocuments />
 			</div>
 		</>
 	);

@@ -1,16 +1,18 @@
-import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
+import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import {
   addProject,
   getAllProjects,
   getProjectById,
   updateProject,
-  saveProjectStickyAction,
-  saveStickyTitleAction,
-  getProjectStickyAction,
+  getProjectSticky,
   getAllProjectMemberAction,
   addProjectMemberAction,
   deleteProjectMemberAction,
-} from './actions';
+  saveStickyproject,
+  addProjectFeature,
+  getProjectFeature,
+  removeProjectFeature,
+} from "./actions";
 
 const initialState = {
   projects: [],
@@ -19,24 +21,28 @@ const initialState = {
   success: false,
   error: false,
   projectDetail: null,
-  stickyArray: [],
   isComposerOpen: false,
   isEditComposer: false,
   addMemberModal: false,
   memberData: [],
   removeMemberSucess: false,
+  projectFeature: [],
+  drawerOpen: false,
+  projectSticky: {},
 };
 
 const projectSlice = createSlice({
-  name: 'projects',
+  name: "projects",
   initialState,
   reducers: {
+    handleOpenComposer: (state, { payload }) => {
+      state.drawerOpen = payload;
+    },
     resetProjectDetail(state, { payload }) {
       state.projectDetail = null;
     },
     addMember: (state, { payload }) => {
       state.addMemberModal = payload;
-      console.log(payload,"mypayload");
     },
     updateProjectById(state, { payload }) {
       state.projectDetail = state.projects.find((list) => list.id === payload);
@@ -86,6 +92,14 @@ const projectSlice = createSlice({
       );
       favProjects.isPinnedPost = !favProjects.isPinnedPost;
     },
+    deleteProjectFeature(state, { payload }) {
+      state.projectFeature = state.projectFeature.filter(
+        (feature) => feature.featureId !== payload.featureId
+      );
+    },
+    targetStickyDescription(state, { payload }) {
+      const value = payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -96,6 +110,7 @@ const projectSlice = createSlice({
       })
       .addCase(addProject.fulfilled, (state, { payload }) => {
         state.projects.unshift(payload.data);
+        state.drawerOpen = false;
         state.loader = false;
         state.success = true;
       })
@@ -106,20 +121,22 @@ const projectSlice = createSlice({
       })
       .addCase(updateProject.fulfilled, (state, { payload }) => {
         state.projectDetail = payload.data;
+        state.drawerOpen = false;
         state.loader = false;
         state.success = true;
       })
-      .addCase(saveProjectStickyAction.fulfilled, (state, { payload }) => {
+      .addCase(saveStickyproject.fulfilled, (state, { payload }) => {
+        console.log(payload.data, "payloadddd");
+
         state.loader = false;
         state.success = true;
-        state.stickyArray = payload;
+        state.projectSticky = payload.data;
       })
-      .addCase(getProjectStickyAction.fulfilled, (state, { payload }) => {
-        state.stickyArray = payload;
+      .addCase(getProjectSticky.fulfilled, (state, { payload }) => {
+        console.log(payload, "payloadd");
+        state.projectSticky = payload.data;
       })
-      .addCase(saveStickyTitleAction.fulfilled, (state, { payload }) => {
-        state.stickyArray = payload;
-      })
+
       .addCase(getAllProjectMemberAction.fulfilled, (state, action) => {
         state.memberData = action.payload.data;
       })
@@ -141,8 +158,14 @@ const projectSlice = createSlice({
 
         state.projectDetail = { ...state.projectDetail, members: newMembers };
         // state.removeMemberSucess = true;
-      });
-
+      })
+      .addCase(addProjectFeature.fulfilled, (state, { payload }) => {
+        state.projectFeature = payload.data;
+      })
+      .addCase(getProjectFeature.fulfilled, (state, { payload }) => {
+        state.projectFeature = payload.data;
+      })
+      .addCase(removeProjectFeature.fulfilled, (state, { payload }) => {});
     builder
       .addMatcher(isPending(...[deleteProjectMemberAction]), (state) => {
         state.removeMemberSucess = false;
@@ -174,6 +197,7 @@ const projectSlice = createSlice({
 });
 
 export const {
+  handleOpenComposer,
   resetProjectDetail,
   updateProjectById,
   handleComposer,
@@ -181,5 +205,7 @@ export const {
   deleteProjectMember,
   addProjectMember,
   handleFavoriteProjects,
+  deleteProjectFeature,
+  targetStickyDescription,
 } = projectSlice.actions;
 export default projectSlice.reducer;

@@ -10,6 +10,7 @@ import {
   resetLeadManagerDetail,
 } from "../../store/slice";
 import { MailOutlined } from "@ant-design/icons";
+import { FeaturePermissionEnum } from "../../../../../utils/Shared/enums/featuresEnums";
 // import { handleBoardComposer } from "../store/slice";
 
 const initialComposerData = {
@@ -28,6 +29,8 @@ function Header({ dictionary, direction }) {
   const { loading, success, isComposerOpen, isEditComposer } = useSelector(
     (state) => state.leadMangerSlice
   );
+  const { user } = useSelector((state) => state.userSlice);
+  const userPermissions = user.permissions;
 
   const items = [
     {
@@ -61,8 +64,8 @@ function Header({ dictionary, direction }) {
               // labels={labels}
             />
           }
-          title={"Create Lead Manager"}
-          buttonText={"Create Lead Manager"}
+          title={"Create Lead Group"}
+          buttonText={"Create Lead Group"}
           isAccessDrawer={true}
           // openDrawer={isComposerOpen}
           success={success}
@@ -75,7 +78,16 @@ function Header({ dictionary, direction }) {
       ),
     },
   ];
-  return <LayoutHeader items={items} buttons={buttons} />;
+  return (
+    <LayoutHeader
+      items={items}
+      buttons={
+        userPermissions.includes(FeaturePermissionEnum.CreateLeadManagerGroup)
+          ? buttons
+          : []
+      }
+    />
+  );
 }
 
 export default Header;

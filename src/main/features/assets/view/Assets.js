@@ -20,6 +20,7 @@ import {
 } from '../../createAssets/store/slice';
 import { assetsDictionaryList } from '../localization/index';
 import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
+import { FeaturePermissionEnum } from '../../../../utils/Shared/enums/featuresEnums';
 
 const Assets = () => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -29,6 +30,8 @@ const Assets = () => {
   const { assetItemList, drawerDeAllocOpen, drawerAllocOpen } = useSelector(
     (state) => state.AssetItemSlice
   );
+  const { user } = useSelector((state) => state.userSlice)
+  const userPermission = user.permissions
 
   const [search, setSearch] = useState('');
   const [filterType, setFilterType] = useState(0);
@@ -66,7 +69,7 @@ const Assets = () => {
     dispatch(getAllAssetItems({ payloadData, filterType, search }));
   }, [filterType, search]);
 
-  const buttons = [
+  const buttons = userPermission.includes(FeaturePermissionEnum.CreateAsset) ? [
     {
       buttonText: assetsDictionary.assetsAllocation,
       render: (
@@ -93,7 +96,7 @@ const Assets = () => {
         />
       ),
     },
-  ];
+  ] : [];
 
   const render = {
     List: <AssetsList data={assetItemList} />,

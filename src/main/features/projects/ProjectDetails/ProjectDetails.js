@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ROUTES } from "../../../../utils/routes";
 import {
   ContBody,
@@ -6,7 +6,12 @@ import {
 } from "../../../sharedComponents/AppComponents/MainFlexContainer";
 import Tab from "../../../sharedComponents/Tab";
 import LayoutHeader from "../../../layout/header/index";
-import { EditOutlined } from "@ant-design/icons";
+import {
+  EditOutlined,
+  CopyOutlined,
+  EllipsisOutlined,
+  EyeOutlined,
+} from "@ant-design/icons";
 import Travel from "../../travel/view/Travel";
 import "../styles/projects.css";
 import Budget from "../UI/Budget";
@@ -17,13 +22,20 @@ import ProjectCover from "../../../../content/png/project_cover_img.png";
 import WhiteCard from "../UI/WhiteCard";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getProjectById } from "../store/actions";
-import { Collapse, Drawer } from "antd";
+import {
+  getProjectById,
+  saveStickyproject,
+  getProjectSticky,
+} from "../store/actions";
+import { Collapse, Drawer, Modal, Form, Menu, Dropdown, Space } from "antd";
 import Composer from "../UI/Composer";
-import { useState } from "react";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { projectsDictionaryList } from "../localization";
-import { resetProjectDetail } from "../store/slice";
+import {
+  resetProjectDetail,
+  targetStickyDescription,
+  addMember,
+} from "../store/slice";
 import WorkBoard from "../../workboard";
 import { TravelReferenceTypeEnum } from "../enum/enums";
 import { PostReferenceType } from "../../feed/utils/constants";
@@ -35,45 +47,36 @@ import NewsFeed from "../../feed/ui";
 import Task from "../../task/view/Task";
 import Expenses from "../../expense";
 import Documents from "../../documents/view/documents";
-import { handleComposeEmail } from "../../leadmanager/store/slice";
-import ComposeEmail from "../../leadmanager/view/Email/ComposeEmail";
 import CustomNotes from "../../notes/singleNotes/singleNotes";
-import { Menu, Dropdown, Space } from "antd";
-import { CopyOutlined, EllipsisOutlined } from "@ant-design/icons";
-import {
-  saveProjectStickyAction,
-  saveStickyTitleAction,
-  getProjectStickyAction,
-} from "../store/actions";
 import useDebounce from "../../../../utils/Shared/helper/use-debounce";
 import StickyColor from "../UI/StickyColor";
 import { formats, modules } from "./utils";
-import { DownOutlined } from "@ant-design/icons";
-import ProjectSummary from "../view/ProjectSummary";
 import Schedules from "../../schedule/index";
-import { addMember } from "../store/slice";
 import MemberModal from "../UI/MemberModal";
-const { Panel } = Collapse;
+import ProjectInformation from "../UI/ProjectInformation";
+import { STRINGS } from "../../../../utils/base";
+import {addProjectMemberAction , deleteProjectMemberAction } from "../store/actions";
+import ItemDetailModal from "../../../sharedComponents/ItemDetails";
+import { handleItemDetailModal } from "../../../../utils/Shared/store/slice";
+import { ProjectFeaturePermissionEnumList } from "../../../../utils/Shared/enums/projectFeatureEnum";
 
 function ProjectDetails() {
   const params = useParams();
   const dispatch = useDispatch();
   const detail = useSelector((state) => state.projectSlice.projectDetail);
-  const sticky = useSelector((state) => state.projectSlice.stickyArray);
-  console.log(sticky, "sticky array");
-  const [features, setFeatures] = useState([]);
+  const { projectSticky } = useSelector((state) => state.projectSlice);
+  console.log(projectSticky, "sticky array");
+  const [projectfeatures, setprojectFeatures] = useState([]);
   const [description, setDescription] = useState(null);
   const descriptionDebounce = useDebounce(description, 500);
-  console.log(descriptionDebounce, "description");
+
   const [openColor, setOpenColor] = useState(true);
 
-  const [title, setTitle] = useState(null);
-  const titleDebounce = useDebounce(title, 500);
   const [visible, setVisible] = useState(false);
 
   const { userLanguage } = useContext(LanguageChangeContext);
   const { projectsDictionary } = projectsDictionaryList[userLanguage];
-  const { updateTextBtn, labels } = projectsDictionary;
+  const { updateTextBtn, labels, features } = projectsDictionary;
   const [open, setOpen] = useState(false);
   const { projectId } = params;
 
@@ -87,6 +90,8 @@ function ProjectDetails() {
     };
   }, []);
 
+  let featurePermissions = detail?.features.map((item) => item.featureId)
+
   useEffect(() => {
     let temp = detail?.features.map((feat) => {
       return {
@@ -94,7 +99,8 @@ function ProjectDetails() {
         content: featuresComp[feat.featureId],
       };
     });
-    setFeatures(temp);
+    let payload = temp && temp.filter((item) =>  featurePermissions.includes(item.featureId))
+    setprojectFeatures(payload);
   }, [detail]);
 
   const panes = [
@@ -194,37 +200,21 @@ function ProjectDetails() {
     dispatch(addMember({ status: true }));
   };
   useEffect(() => {
-    dispatch(getProjectStickyAction({}));
+    dispatch(getProjectSticky());
   }, []);
 
-  const descHandler = (value) => {
-    dispatch(
-      saveProjectStickyAction({
-        description: value,
-        title: "sanjna",
-        colorCode: 1,
-      })
-    );
-  };
-
   useEffect(() => {
-    if (descriptionDebounce) descHandler(descriptionDebounce);
+    if (descriptionDebounce) setDescriptionValue(descriptionDebounce);
   }, [descriptionDebounce]);
 
-  const setTitleValue = (value) => {
+  const setDescriptionValue = (value) => {
     dispatch(
-      saveStickyTitleAction({
-        title: value,
-        description: "some",
-        colorCode: 1,
+      saveStickyproject({
+        id: projectId,
+        description: value,
       })
     );
   };
-
-  useEffect(() => {
-    if (titleDebounce) setTitleValue(titleDebounce);
-  }, [titleDebounce]);
-
   const copyToClipboard = () => {
     navigator.clipboard.writeText("");
   };
@@ -247,6 +237,28 @@ function ProjectDetails() {
       ]}
     />
   );
+
+  const onDelete = (userId) => {
+    const memberId = userId.toString();
+    const delmembers = {
+      id: projectId,
+      memberId: memberId,
+    };
+
+    dispatch(deleteProjectMemberAction(delmembers));
+  };
+
+  const addFunc = (id) => {
+    let memberId = id.toString();
+    const members = {
+      id: detail.id,
+      memberId: memberId,
+    };
+    dispatch(addProjectMemberAction(members));
+  };
+
+  console.log(projectSticky);
+
   return (
     <>
       <TabContainer>
@@ -256,7 +268,7 @@ function ProjectDetails() {
             <div className="rounded-xl basis-9/12 flex flex-col gap-5 overflow-scroll">
               <CoverImage image={detail?.image || ProjectCover} />
               <CoverDetail detail={detail} />
-              <Tab panes={features} id={projectId} features={panes} />
+              <Tab panes={projectfeatures} id={projectId} features={panes} />
             </div>
             <div className="basis-1/4 gap-5 flex flex-col overflow-scroll">
               <Budget data={detail} />
@@ -269,35 +281,9 @@ function ProjectDetails() {
                 />
               </WhiteCard>
               <WhiteCard>
-                <Collapse
-                  expandIcon={({ isActive }) => (
-                    <DownOutlined
-                      rotate={isActive ? 0 : 180}
-                      className="!text-lg !font-bold !text-primary-color"
-                    />
-                  )}
-                  ghost={true}
-                  expandIconPosition={"end"}
-                  defaultActiveKey={["0"]}
-                >
-                  <Panel
-                    showArrow={true}
-                    header={
-                      <div>
-                        <span className="text-base font-bold text-primary-color">
-                          Information
-                        </span>
-                      </div>
-                    }
-                    className="custom_member_collapse"
-                  >
-                    <div className="font-bold flex items-center gap-2 mb-2">
-                      <ProjectSummary />
-                      <span>{"View Summary"}</span>
-                    </div>
-                  </Panel>
-                </Collapse>
+                <ProjectInformation />
               </WhiteCard>
+
               <div className="singleNote_container">
                 <div className="singleNote_header">
                   <div className="leftNote_Icon">
@@ -311,14 +297,16 @@ function ProjectDetails() {
                   </div>
                 </div>
                 <div className="textArea_container bg-white">
-                  <CustomNotes
-                    onChange={(value) => setDescription(value)}
-                    modules={modules}
-                    formats={formats}
-                    className={"stickyNoteItem-textarea"}
-                    placeholder={"Take a Note"}
-                    defaultValue={description}
-                  />
+                  {projectSticky?.id && (
+                    <CustomNotes
+                      onChange={(value) => setDescription(value)}
+                      modules={modules}
+                      formats={formats}
+                      className={"stickyNoteItem-textarea"}
+                      placeholder={"Take a Note"}
+                      defaultValue={projectSticky?.description}
+                    />
+                  )}
                 </div>
               </div>
             </div>
@@ -339,8 +327,19 @@ function ProjectDetails() {
           id={projectId}
         />
       </Drawer>
-      {/* <ComposeEmail /> */}
-      {visible && <MemberModal data={detail} />}
+
+      {/* {visible && <MemberModal data={detail} />} */}
+      {visible && (
+        <ItemDetailModal
+          data={detail?.members} //Data
+          isDeleteDisabled={false} //Pass true to hide delete icon
+          addEnabled={true} //Pass false to hide select member
+          addFunc={addFunc}
+          onDelete={onDelete}
+          isSearch={true} //Pass true if you want to search the list
+          openModal={true}
+        />
+      )}
     </>
   );
 }

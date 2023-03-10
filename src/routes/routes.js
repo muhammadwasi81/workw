@@ -211,10 +211,10 @@ export const routes = {
       path: `${ROUTES.WARNINGS.DEFAULT}`,
       component: lazy(() => import("../main/features/warning/view/index")),
     },
-    {
-      path: `${ROUTES.HR.WARNINGS.APPROVALS}`,
-      component: lazy(() => import("../components/HrMenu/Warnings/Approvals/")),
-    },
+    // {
+    //   path: `${ROUTES.HR.WARNINGS.APPROVALS}`,
+    //   component: lazy(() => import("../components/HrMenu/Warnings/Approvals/")),
+    // },
     {
       path: `${ROUTES.COMPLAINS.DEFAULT}`,
       component: lazy(() => import("../main/features/complain/view/index")),

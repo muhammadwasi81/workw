@@ -4,6 +4,7 @@ import moment from 'moment';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useDispatch, useSelector } from 'react-redux';
+
 import {
   DeploymentUnitOutlined,
   CalendarOutlined,
@@ -139,6 +140,27 @@ function CreateSchedule({ scheduleDetail = {}, referenceType, referenceId, date 
     }
   }, [scheduleDetail]);
 
+  console.log(moment(), 'momentt')
+
+  const disabledDate = (current) => {
+    // Can not select days before today and today
+    return current.isBefore(moment().subtract(1,"day"))
+  };
+  
+  const range = (start, end) => {
+    const result = [];
+    for (let i = start; i < end; i++) {
+      result.push(i);
+    }
+    return result;
+  };
+
+  // const disabledDateTime = () => ({
+  //   disabledHours: () => range(0, 24).splice(moment().hour(), 24),
+  //   disabledMinutes: () => range(30, 60),
+  //   // disabledSeconds: () => [55, 56],
+  // });
+
   return (
     <div className="createSchedule">
       <Form
@@ -245,6 +267,8 @@ function CreateSchedule({ scheduleDetail = {}, referenceType, referenceId, date 
           >
             <DatePicker
               format="YYYY-MM-DD HH:mm"
+              disabledDate={disabledDate}
+      // disabledTime={disabledDateTime}
               showTime={{
                 defaultValue: moment('00:00:00', 'HH:mm'),
               }}

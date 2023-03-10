@@ -129,11 +129,12 @@ const StickyContainer = () => {
             />
           </div>
           <div className={`noteList-container ${!minimize ? "hide" : ""}`}>
-            {notesList.length >= 0 ? (
+            {notesList.length ? (
               notesList.map((item) => (
                 <CustomCard
                   item={item}
                   onDoubleClick={openClickedNote}
+                  index={item.id}
                   key={item.id}
                 />
               ))

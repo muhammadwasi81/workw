@@ -30,8 +30,8 @@ const Complain = () => {
   const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
   const { complainDictionary } = complainDictionaryList[userLanguage];
-  const {user} = useSelector((state) => state.userSlice);
-  const userPermissions = user.permissions
+  const { user } = useSelector((state) => state.userSlice);
+  const userPermissions = user.permissions;
   // const {
   //   createComplain,
   //   Direction,
@@ -53,6 +53,7 @@ const Complain = () => {
     filterType: 0,
     search: "",
     sortBy: 1,
+    pageSize: 50,
   });
   const [complainId, setComplainId] = useState("");
 
@@ -115,21 +116,25 @@ const Complain = () => {
     <TabbableContainer className="max-width-1190">
       <Header
         items={items}
-        buttons={userPermissions.includes(FeaturePermissionEnum.CreateComplains) ? [
-          {
-            buttonText: complainDictionary.createComplain,
-            render: (
-              <SideDrawer
-                title={complainDictionary.createComplain}
-                buttonText={complainDictionary.createComplain}
-                handleClose={() => dispatch(handleOpenComposer(false))}
-                handleOpen={() => dispatch(handleOpenComposer(true))}
-                isOpen={drawerOpen}
-                children={<Composer />}
-              />
-            ),
-          },
-        ]: []}
+        buttons={
+          userPermissions.includes(FeaturePermissionEnum.CreateComplains)
+            ? [
+                {
+                  buttonText: complainDictionary.createComplain,
+                  render: (
+                    <SideDrawer
+                      title={complainDictionary.createComplain}
+                      buttonText={complainDictionary.createComplain}
+                      handleClose={() => dispatch(handleOpenComposer(false))}
+                      handleOpen={() => dispatch(handleOpenComposer(true))}
+                      isOpen={drawerOpen}
+                      children={<Composer />}
+                    />
+                  ),
+                },
+              ]
+            : []
+        }
       />
       <TopBar
         onSearch={(value) => {

@@ -35,13 +35,21 @@ import { Table } from "../../../sharedComponents/customTable";
 import { sectionTableColumn } from "./tableColumns";
 import CardEditor from "../Trello/Card/CardEditor";
 import TableTodo from "../UI/TableEditButton/TableEditButton";
-import { DownOutlined } from '@ant-design/icons';
-import { Select } from 'antd';
 import {addWorkBoardSectionTodo} from "../store/action";
-import { event } from "jquery";
-import TodoTitleInput from "../UI/TodoTitleInput";
+import TableEntryItem from "../Trello/EntryItem";
+import CreateEntryHead from "../Trello/EntryItemHead";
 
 function Board() {
+  
+const initialEntry = {
+title:"",
+workBoardSection:"",
+description:"",
+labels:"",
+createDate:"",
+}
+//const initialEntries = Array(4).fill(initialEntry);
+  
   const [addingList, setAddingList] = useState(false);
   const [tableInput, setTableInput] = useState(false);
 
@@ -151,6 +159,8 @@ function Board() {
   const [isTableView, setIsTableView] = useState(false);
   const [isModalOpen , setIsModalOpen] = useState(false);
   const [selectedId,setSelectedId] = useState();
+
+  const [entries, setEntries] = useState(initialEntry);
  
   const [listData, setListData] = useState({
 		editingTitle: false,
@@ -195,6 +205,21 @@ function Board() {
       setIsModalOpen(true);
     }
 
+    const handleRemoveRow = (index) => {
+      console.log(index);
+      let filteredRows = [...entries];
+      filteredRows.splice(index, 1);
+      setEntries(filteredRows);
+    };
+    const handleChange1 = (value, name, index) => {
+      console.log("value",index);
+      let tempEntries = [...entries];
+      tempEntries[index] = {
+        ...tempEntries[index],
+        [name]: value,
+      };
+      setEntries(tempEntries);
+    };
     const handleChange = (LabeledValue) => {
       console.log(selectedId,"88888");
 
@@ -204,7 +229,7 @@ function Board() {
     const onRow = (record, rowIndex) => {    
       return {
         onClick: (event) => {
-          setTableInput(true);
+          //setTableInput(true);
           const { id } = record;
           console.log("recordddd",rowIndex);
           //navigate(`${ROUTES.WORKBOARD.BOARD}${id}`);
@@ -215,17 +240,13 @@ function Board() {
         // onMouseLeave: (event) => {}, // mouse leave row
       };
     };
+    const onActionClick = (row) => {
+      console.log("onactionclick", row);
+    };
    
 
   return (
     <>
-    { tableInput &&
-       <TodoTitleInput
-          title={sectionTableData && sectionTableData.title}
-          id={sectionTableData && sectionTableData.id}
-          sectionId={sectionTableData && sectionTableData.sectionId}
-      />
-    }
       <TabbableContainer className="">
         <LayoutHeader items={items} />
 
@@ -300,7 +321,7 @@ function Board() {
                 </Button>
               </div>
 
-               <Modal 
+                <Modal 
                   footer={null}
                   closable={false}
                   title={false}
@@ -319,16 +340,39 @@ function Board() {
                     </div>
                    <span className="text-gray-500 font-bold ml-[3px]">Todo Title</span>
                   <TableTodo onSave={addCard}/>
-               </Modal>
+               </Modal>  
             
+              
 
-            <Table
-              columns={sectionTableColumn(WorkBoardDictionaryList)}
+
+            {/* <Table
+              columns={sectionTableColumn(sectionTableData,onActionClick,WorkBoardDictionaryList)}
               data={sectionTableData}
               loading={loader}
               onRow={onRow}
-            />
-            </>
+            /> */}
+              <div className="createEntryTable mt-6">
+                    <div className="bg-white p-4 rounded-md overflow-x-auto">
+                    <table>
+                    <CreateEntryHead/>
+                      <tbody>
+                        {sectionTableData.map((item, ind) => {
+                          return (
+                            <TableEntryItem
+                              key={ind}
+                              index={ind}
+                              // accounts={sectionTableData}
+                              handleChange={handleChange1}
+                              handleRemoveRow={handleRemoveRow}
+                              itemValue={item}
+                            />
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                </>
           )}
 
         </ContBody>

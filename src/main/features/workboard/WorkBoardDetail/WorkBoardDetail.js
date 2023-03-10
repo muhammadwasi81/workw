@@ -34,7 +34,7 @@ import { LanguageChangeContext } from "../../../../utils/localization/localConte
 import { WorkBoardDictionary } from "../localization";
 
 function WorkBoardDetail({ todoDetail }) {
-  console.log(todoDetail?.members, "todoDetail");
+  console.log(todoDetail, "todoDetail");
   // const [members, setMembers] = useState([]);
   const [visible, setVisible] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);

@@ -44,7 +44,7 @@ const Warning = (props) => {
     sortBy: 1,
     pageSize: 50,
   });
-
+  console.log(filter, "filterrrr");
   const dispatch = useDispatch();
 
   const { warnings, loader, warningDetail, drawerOpen } = useSelector(
@@ -52,12 +52,7 @@ const Warning = (props) => {
   );
 
   useEffect(() => {
-    dispatch(
-      getAllWarnings(
-        filter
-        // search:"",
-      )
-    );
+    dispatch(getAllWarnings(filter));
   }, [filter]);
 
   const items = [
@@ -116,7 +111,7 @@ const Warning = (props) => {
           },
           {
             name: warningDictionary.warningToMe,
-            onClick: () => setFilter({ filterType: 3 }),
+            onClick: () => setFilter({ filterType: 3, pageNo: 1 }),
           },
         ]}
         segment={{

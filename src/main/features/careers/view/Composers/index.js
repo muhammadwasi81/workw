@@ -453,17 +453,7 @@ const Composer = (props) => {
             }}
           />
         </Form.Item>
-        <Form.Item
-          name="approvers"
-          label={labels.approvers}
-          showSearch={true}
-          rules={[
-            {
-              required: true,
-              message: "Please Select Approver",
-            },
-          ]}
-        >
+        <Form.Item name="approvers" label={labels.approvers} showSearch={true}>
           <MemberSelect
             name="approvers"
             mode="multiple"

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import Tune from '../../../../content/audio/callertune.mp3'
@@ -11,6 +11,7 @@ import { handleIncomingCall, handleOutgoingCall } from "../store/slice";
 
 export default function OutgoingCall() {
 	const outgoingCallData = useSelector(state => state.callingSlice.outgoingCallData);
+	const videoRef = useRef();
 	const dispatch = useDispatch();
 	const callMember = outgoingCallData.members[0]
 	useEffect(() => {
@@ -18,6 +19,11 @@ export default function OutgoingCall() {
 			handleOpenCallWindow(servicesUrls.callingSocket + outgoingCallData.roomId, callingWindowOptions);
 			handleClose();
 		}
+		outgoingCallData.isOpen &&
+			outgoingCallData.members.length === 1 && getMedia();
+
+		outgoingCallData.isOpen === false &&
+			outgoingCallData.members.length === 1 && stopVideo();
 	}, [outgoingCallData]);
 
 	const handleClose = () => {
@@ -29,7 +35,36 @@ export default function OutgoingCall() {
 		}))
 	}
 
-	console.log(outgoingCallData)
+	async function getMedia() {
+		let stream = null;
+
+		try {
+			stream = await navigator?.mediaDevices?.getUserMedia?.({ video: true });
+			let video = videoRef.current;
+			video.srcObject = stream;
+			video.play();
+			/* use the stream */
+		} catch (err) {
+			console.log(err)
+			/* handle the error */
+		}
+	}
+
+
+	async function stopVideo() {
+		let stream = null;
+
+		try {
+			stream = await navigator?.mediaDevices?.getUserMedia?.({ video: true });
+			stream.getTracks().forEach(function (track) {
+				track.stop();
+			});
+			/* use the stream */
+		} catch (err) {
+			console.log(err)
+			/* handle the error */
+		}
+	}
 
 	return (
 		<>
@@ -70,6 +105,11 @@ export default function OutgoingCall() {
 							</div>
 						</div>
 					</div>
+
+					<div>
+						<video ref={videoRef} />
+					</div>
+
 				</div>
 			}
 

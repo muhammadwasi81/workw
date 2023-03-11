@@ -104,9 +104,7 @@ function PromotionDetail(props) {
             </div>
             <div className="right">
               <Tag className="IdTag">{referenceNo}</Tag>
-              <StatusTag
-                status={updatedStatus ? updatedStatus.Approvers : status}
-              ></StatusTag>
+              <StatusTag status={status}></StatusTag>
               {userId === creator.id ? (
                 status != Declined && status != Resend && status != Approved ? (
                   <Button

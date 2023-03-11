@@ -46,6 +46,7 @@ import SetupPassword from "./main/features/auth/view/SetupPassword";
 import { servicesUrls } from "./utils/services/baseURLS";
 import { InitializeCallingSocket } from "./main/features/calling/services/socket";
 import { ExternalProject } from "./main/features/publicRoutes/projects/view/index";
+import Scheduler from "./main/features/publicRoutes/Schedule/Scheduler";
 
 const App = () => {
   const { userLanguageChange } = useContext(LanguageChangeContext);
@@ -69,7 +70,12 @@ const App = () => {
   useEffect(() => {
     themeHandler(window.localStorage.getItem("darkMode") === "1");
     isLoggedIn && InitMessengerSocket(dispatch, userSlice);
-    isLoggedIn && InitializeCallingSocket.getInstance(dispatch, servicesUrls.callingSocket, userSlice);
+    isLoggedIn &&
+      InitializeCallingSocket.getInstance(
+        dispatch,
+        servicesUrls.callingSocket,
+        userSlice
+      );
   }, [isLoggedIn]);
   const [activityCount /*setActivityCount*/] = useState(null);
 
@@ -132,6 +138,10 @@ const App = () => {
               <Route
                 path={`${ROUTES.EXTERNAL_PROJECT.REGISTER}`}
                 element={<ExternalProject />}
+              />
+              <Route
+                path={`${ROUTES.EXTERNAL_PROJECT_SCHEDULER.REGISTER}`}
+                element={<Scheduler />}
               />
               <Route path={`${ROUTES.JOBS.PUBLIC}`} element={<PublicJobs />} />
               {/*****Public Route******/}

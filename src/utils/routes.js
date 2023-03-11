@@ -54,8 +54,12 @@ export const ROUTES = {
     SETUP_PASSWORD: `${DOMAIN_PREFIX}/SetupNewPassword`,
     // VERIFICATION_INPROCESS: `${DOMAIN_PREFIX}/verifying`,
   },
+
   EXTERNAL_PROJECT: {
     REGISTER: `${DOMAIN_PREFIX}/projectExternal`,
+  },
+  EXTERNAL_PROJECT_SCHEDULER: {
+    REGISTER: `${DOMAIN_PREFIX}/bookAppointment`,
   },
   BUDGET: {
     DEFAULT: `${DOMAIN_PREFIX}/budgets`,

@@ -1,13 +1,14 @@
-import React from 'react';
-import { Drawer } from 'antd';
+import React from "react";
+import { Drawer } from "antd";
 
-import { CardWrapper2 } from '../../../../sharedComponents/Card/CardStyle';
-import { handleComposer } from '../../store/slice';
+import { CardWrapper2 } from "../../../../sharedComponents/Card/CardStyle";
+import { handleComposer, handleOpenComposer } from "../../store/slice";
 
-import DashboardCardLayout from '../UI/DashboardCard/DashboardCardLayout';
-import ChatIcon from '../../../../../content/NewContent/groups/ChatIcon.svg';
-import Composer from '../../view/UI/Composer';
-import { useDispatch, useSelector } from 'react-redux';
+import DashboardCardLayout from "../UI/DashboardCard/DashboardCardLayout";
+import ChatIcon from "../../../../../content/NewContent/groups/ChatIcon.svg";
+import Composer from "../../view/UI/Composer";
+import { useDispatch, useSelector } from "react-redux";
+import SideDrawer from "../../../../sharedComponents/Drawer/SideDrawer";
 
 function GridView({
   data,
@@ -16,9 +17,13 @@ function GridView({
   handleClickNavigation,
   dictionary,
 }) {
-  const { isComposerOpen, groupDetail, isEditComposer } = useSelector(
-    (state) => state.groupSlice
-  );
+  const {
+    isComposerOpen,
+    groupDetail,
+    isEditComposer,
+    drawerOpen,
+  } = useSelector((state) => state.groupSlice);
+  console.log(isComposerOpen, "isComposerOpen");
   const handleEditComposer = () => {
     dispatch(handleComposer({ isOpen: false, isEdit: false }));
   };
@@ -29,7 +34,7 @@ function GridView({
           <DashboardCardLayout
             data={list}
             defaultImg={
-              'https://st.depositphotos.com/1062085/4008/v/600/depositphotos_40089703-stock-illustration-businessman-in-the-office-flat.jpg'
+              "https://st.depositphotos.com/1062085/4008/v/600/depositphotos_40089703-stock-illustration-businessman-in-the-office-flat.jpg"
             }
             loading={loading}
             onClick={() => {
@@ -41,14 +46,14 @@ function GridView({
         ))}
       <Drawer
         open={isComposerOpen}
-        width={'786px'}
+        width={"786px"}
         onClose={handleEditComposer}
-        title={'Update group'}
-        className={'shared_drawer drawerSecondary'}
+        title={"Update group"}
+        className={"shared_drawer drawerSecondary"}
         destroyOnClose={true}
       >
         <Composer
-          buttonText={'updateTextBtn'}
+          buttonText={"updateTextBtn"}
           detail={groupDetail}
           update={isEditComposer}
           id={groupDetail?.id}

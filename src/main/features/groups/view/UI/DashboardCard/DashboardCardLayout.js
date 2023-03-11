@@ -9,6 +9,7 @@ import { handleFavoriteMark } from "../../../store/slice";
 import { addGroupFavoriteMarkAction } from "../../../store/actions";
 import PropTypes from "prop-types";
 import { CommentOutlined } from "@ant-design/icons";
+import { useSelector } from "react-redux";
 
 function DashboardCardLayout({
   data = {},
@@ -20,6 +21,9 @@ function DashboardCardLayout({
   dictionary = {},
   chatIcon,
 }) {
+  const { groupMembers } = useSelector((state) => state.groupSlice);
+  console.log(groupMembers, "group members");
+
   const dispatch = useDispatch();
   const { Meta } = Card;
   const menuHandler = (e) => {

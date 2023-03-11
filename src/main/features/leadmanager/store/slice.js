@@ -357,9 +357,16 @@ const leadMangerSlice = createSlice({
         state.contactDataUpdating = false;
       })
       .addCase(getAllScheduleAction.fulfilled, (state, { payload }) => {
-        state.isMeetingDetailLoading = false;
-        state.success = true;
-        state.meetingDetail = payload.data;
+        console.log(payload, "payloaddd");
+        // state.meetingDetail = payload.data.length > 0 ? payload.data : [];
+        // state.isMeetingDetailLoading = false;
+        // state.success = true;
+        console.log(payload.data, "payloaddd");
+        if (payload.data.length > 0) {
+          // state.meetingDetail = [...state.meetingDetail, payload.data];
+          state.meetingDetail = payload.data;
+          return state;
+        }
         //////////////////////////////////
       })
       .addCase(deleteLeadManagerById.fulfilled, (state, { payload }) => {

@@ -67,7 +67,7 @@ function Schedules({ referenceId = defaultUiid }) {
               text={`${window.location.origin}${ROUTES.SCHEDULES.DEFAULT}`}
               onCopy={copyfunc}
             >
-              <Button>Copy Link</Button>
+              <Button>Calendar Link</Button>
             </CopyToClipboard>
           </div>
         </div>

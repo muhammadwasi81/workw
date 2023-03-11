@@ -1,24 +1,31 @@
-import React from 'react';
-import EventWrapper from './eventWrapper';
-import Scheduler from './scheduler';
-import { Calendar as AntCalendar, Badge } from 'antd';
-import '../styles/calender.css';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from "react";
+import EventWrapper from "./eventWrapper";
+import Scheduler from "./scheduler";
+import { Calendar as AntCalendar, Badge, Avatar } from "antd";
+import "../styles/calender.css";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getAllCurrentSchedule,
   getAllEventSchedule,
   getAllUpcomingSchedule,
-} from '../store/action';
-import { defaultUiid } from '../../../../utils/Shared/enums/enums';
-import { useEffect } from 'react';
-import moment from 'moment';
+} from "../store/action";
+import { defaultUiid } from "../../../../utils/Shared/enums/enums";
+import { useEffect } from "react";
+import moment from "moment";
+import MemberSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
+import { getNameForImage } from "../../../../utils/base";
+import { getAllEmployees } from "../../../../utils/Shared/store/actions";
 
 function Calendar({ referenceId }) {
   const dispatch = useDispatch();
+  const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
+  const [employeesData, setEmployeesData] = useState([]);
+  const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
+  const [defaultData, setDefaultData] = useState([]);
   const eventSchedules = useSelector(
     (state) => state.scheduleSlice.eventSchedules
   );
-  console.log('eventSchedules', eventSchedules);
+  console.log("eventSchedules", eventSchedules);
   const currentSchedules = useSelector(
     (state) => state.scheduleSlice.currentSchedules
   );
@@ -26,11 +33,27 @@ function Calendar({ referenceId }) {
     (state) => state.scheduleSlice.upcomingSchedules
   );
 
+  const {
+    sharedSlice: { employees },
+  } = useSelector((state) => state);
+
   const loading = useSelector((state) => state.scheduleSlice.loading);
 
   useEffect(() => {
     fetchAllEventSchedule(new Date(), new Date());
   }, []);
+
+  useEffect(() => {
+    if (employees.length > 0 && !isFirstTimeDataLoaded) {
+      setIsFirstTimeDataLoaded(true);
+      setFirstTimeEmpData(employees);
+      console.log(employees, "employees");
+    }
+  }, [employees]);
+
+  const fetchEmployees = (text, pgNo) => {
+    dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
+  };
 
   // useEffect(() => {
   // 	dateCellRender();
@@ -38,17 +61,17 @@ function Calendar({ referenceId }) {
 
   const fetchAllEventSchedule = (startVal, endVal) => {
     const startDate = moment(startVal)
-      .startOf('month')
+      .startOf("month")
       .format();
     const endDate = moment(endVal)
-      .endOf('month')
+      .endOf("month")
       .format();
 
     dispatch(
       getAllEventSchedule({
         pageNo: 1,
         pageSize: 20,
-        search: '',
+        search: "",
         sortBy: 1,
         referenceId: referenceId,
         referenceType: 0,
@@ -61,15 +84,16 @@ function Calendar({ referenceId }) {
   useEffect(() => {
     fetchCurrentDateScedules(new Date());
     fetchUpcomingScedules(new Date());
+    fetchEmployees("", 0);
   }, []);
 
   const fetchCurrentDateScedules = (value) => {
     const startDate = moment(value)
-      .startOf('day')
+      .startOf("day")
       .utc()
       .format();
     const endDate = moment(value)
-      .endOf('day')
+      .endOf("day")
       .utc()
       .format();
 
@@ -77,7 +101,7 @@ function Calendar({ referenceId }) {
       getAllCurrentSchedule({
         pageNo: 1,
         pageSize: 20,
-        search: '',
+        search: "",
         sortBy: 1,
         referenceId: referenceId,
         referenceType: 0,
@@ -89,17 +113,17 @@ function Calendar({ referenceId }) {
 
   const fetchUpcomingScedules = (value) => {
     const startDate = moment(value)
-      .add(1, 'days')
+      .add(1, "days")
       .format();
     const endDate = moment(value)
-      .add(8, 'days')
+      .add(8, "days")
       .format();
 
     dispatch(
       getAllUpcomingSchedule({
         pageNo: 1,
         pageSize: 20,
-        search: '',
+        search: "",
         sortBy: 1,
         referenceId: referenceId,
         referenceType: 0,
@@ -113,9 +137,9 @@ function Calendar({ referenceId }) {
     return (
       <ul className="schedule_badge">
         {eventSchedules.map((item) => {
-          const startDate = moment(item.startDate).format('YYYY-MM-DD');
-          const endDate = moment(item.endDate).format('YYYY-MM-DD');
-          const compareDate = moment(value).format('YYYY-MM-DD');
+          const startDate = moment(item.startDate).format("YYYY-MM-DD");
+          const endDate = moment(item.endDate).format("YYYY-MM-DD");
+          const compareDate = moment(value).format("YYYY-MM-DD");
 
           if (
             moment(compareDate).isBetween(startDate, endDate) ||
@@ -124,7 +148,7 @@ function Calendar({ referenceId }) {
           ) {
             return (
               <li key={item.id}>
-                <Badge status={'error'} />
+                <Badge status={"error"} />
               </li>
             );
           }
@@ -146,18 +170,45 @@ function Calendar({ referenceId }) {
             fetchCurrentDateScedules(val);
           }}
         />
+        <div className="events eventWrapper">
+          <MemberSelect
+            name="managerId"
+            mode="multiple"
+            formItem={false}
+            isObject={true}
+            data={firstTimeEmpData}
+            defaultData={defaultData}
+            canFetchNow={isFirstTimeDataLoaded}
+            fetchData={fetchEmployees}
+            placeholder={"Select"}
+            selectedData={(_, obj) => {
+              setEmployeesData([...obj]);
+            }}
+            optionComponent={(opt) => {
+              return (
+                <>
+                  <Avatar src={opt.image} className="!bg-black">
+                    {getNameForImage(opt.name)}
+                  </Avatar>
+                  {opt.name}
+                </>
+              );
+            }}
+          />
+        </div>
+
         <div className="events">
           <EventWrapper
             data={currentSchedules}
             loading={loading}
-            heading={'Today Events'}
+            heading={"Today Events"}
           />
         </div>
         <div className="events">
           <EventWrapper
             loading={loading}
             data={upcomingSchedules}
-            heading={'Upcoming Events'}
+            heading={"Upcoming Events"}
           />
         </div>
       </div>

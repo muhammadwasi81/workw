@@ -3,10 +3,12 @@ import {Tag } from "antd";
 import LabelModal from "../Modal/LabelModal/LabelModal";
 import { useSelector, useDispatch } from "react-redux";
 import useDebounce from "../../../../utils/Shared/helper/use-debounce";
+import Avatar from "../../../sharedComponents/Avatar/avatar";
+
 
 import { updateWorkBoardTodoTitle,updateWorkBoardTodoDesc } from "../store/action";
 
-const TableEntryItem = ({
+const EntryItemTable = ({
   index,
   accounts,
   handleChange,
@@ -15,12 +17,12 @@ const TableEntryItem = ({
 }) => {
 
   console.log(itemValue,"todoDetailtodoDetailgggg");
-  let defaultTitle = itemValue.title ;
-  let defaultDesc = itemValue.description;
+ 
   const dispatch = useDispatch();
-  const [titleValue,setTitle] = useState(defaultTitle);
-  const [descValue,setDescValue] = useState(defaultDesc);
+  const [titleValue,setTitle] = useState();
+  const [descValue,setDescValue] = useState();
   const [isLabelModalVisible, setIsLabelModalVisible] = useState(false);
+
   const tilteDebounce = useDebounce(titleValue, 500);
   const descriptionDebounce = useDebounce(descValue, 500);
 
@@ -53,54 +55,38 @@ const TableEntryItem = ({
      );
   };
 
-  // useEffect(() => {
-  //   if (tilteDebounce) handleInputChangeTitle(tilteDebounce);
-  // }, [tilteDebounce]);
-
-  // useEffect(() => {
-  //   if (descriptionDebounce) handleInputChangeDescription(descriptionDebounce);
-  // }, [descriptionDebounce]);
 
   return (
     <>
     <tr>
       <td>
         <input
-          name="title"
-          defaultValue={titleValue}
-          onChange={(e) => handleInputChangeTitle(e)}
+          name="name"
+          value={itemValue.name}
+          //onChange={(e) => handleInputChangeTitle(e)}
         />
-      </td>
-      <td> 
-        {itemValue.workBoardSection}
       </td>
       <td>
         <input
           name="description"
-          defaultValue={descValue}
-          onChange={(e)=>handleInputChangeDescription(e)}
+           value={itemValue.description}
+          //onChange={(e)=>handleInputChangeDescription(e)}
         />
       </td>
 
       
       <td> 
-      {itemValue.labels.map((label) =>
-      <Tag color={label.colorCode} className="!h-5" onClick={() => showLabelModal()}/>
-      )}
+      {/* {itemValue.members.map((member) =>
+      <Avatar membersData={member} heading={"Members"} />
+      )} */}
       </td>
 
       <td>
-        {itemValue.createDate}
+        {/* {itemValue.createDate} */}
         {/* {moment((createDate)=>itemValue.createDate.format("DD MMM YYYY"))}  */}
       </td>
     </tr>
-
-    <LabelModal
-      showLabelModal={showLabelModal}
-      isLabelModalVisible={isLabelModalVisible}
-      todoDetail={itemValue}
-   />
     </>
   );
 };
-export default TableEntryItem;
+export default EntryItemTable;

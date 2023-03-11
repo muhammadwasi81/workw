@@ -77,7 +77,10 @@ function RewardDetailCard(props) {
   };
 
   const isTablet = false;
-
+  const localTime = moment
+    .utc(createDate)
+    .local()
+    .format();
   return (
     <>
       {rewardDetail.id && (
@@ -90,7 +93,7 @@ function RewardDetailCard(props) {
                 Subline={
                   <SublineDesigWithTime
                     designation={creator.designation ? creator.designation : ""}
-                    time={moment(createDate).fromNow()}
+                    time={moment(localTime).fromNow()}
                   />
                 }
               />

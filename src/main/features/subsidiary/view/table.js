@@ -1,25 +1,36 @@
 import { Skeleton } from "antd";
-import { useEffect, useState ,useContext} from "react";
+import { useEffect, useState, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AdminTable } from "../../../../components/HrMenu/Administration/StyledComponents/adminTable";
-import { getAllBranch, getAllDefaultHiringCriteria, removeBranch, removeComplainCategory, removeDefaultHiringCriteria, removePayrollGroup } from "../store/actions";
-import { BranchDeleted, DefaultHiringCriteriaDeleted, PayrollGroupDeleted } from "../store/slice";
+import { AdminTable } from "../../../sharedComponents/Administration/StyledComponents/adminTable";
+import {
+  getAllBranch,
+  getAllDefaultHiringCriteria,
+  removeBranch,
+  removeComplainCategory,
+  removeDefaultHiringCriteria,
+  removePayrollGroup,
+} from "../store/actions";
+import {
+  BranchDeleted,
+  DefaultHiringCriteriaDeleted,
+  PayrollGroupDeleted,
+} from "../store/slice";
 import { tableColumn } from "./tableColumn";
 
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../utils/localization/languages";
 
-
 export default function TableView({
   handleEdit,
   removeButtons,
   actionRights = [],
-  setClearButton 
+  setClearButton,
 }) {
-
   const { userLanguage } = useContext(LanguageChangeContext);
-	const { administration,sharedLabels, Direction } = dictionaryList[userLanguage];
-		console.log("jkjll",administration);
+  const { administration, sharedLabels, Direction } = dictionaryList[
+    userLanguage
+  ];
+  console.log("jkjll", administration);
 
   const { items, loadingData } = useSelector((state) => state.subsidiarySlice);
 
@@ -28,23 +39,22 @@ export default function TableView({
     dispatch(getAllBranch());
   }, []);
 
-  const [id, setId] = useState()
+  const [id, setId] = useState();
 
   const onSuccess = (e) => {
-    setId(null)
-    dispatch(BranchDeleted(e))
-    setClearButton(true)
-  }
+    setId(null);
+    dispatch(BranchDeleted(e));
+    setClearButton(true);
+  };
 
   const onError = () => {
-    setId(null)
-  }
+    setId(null);
+  };
 
   const handleDelete = (e) => {
-    setId(e.id)
+    setId(e.id);
     dispatch(removeBranch(e)).then(() => onSuccess(e), onError);
-    
-  }
+  };
 
   return (
     <AdminTable
@@ -56,7 +66,7 @@ export default function TableView({
         actionRights,
         id,
         setClearButton,
-        sharedLabels,
+        sharedLabels
       )}
       dataSource={items}
       pagination={false}

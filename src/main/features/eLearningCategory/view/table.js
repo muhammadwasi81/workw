@@ -1,15 +1,14 @@
-import { Skeleton } from 'antd';
-import { removeData } from 'jquery';
-import { useEffect, useState ,useContext} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { AdminTable } from '../../../../components/HrMenu/Administration/StyledComponents/adminTable';
-import { getELearningCategory,removeELearningCategory} from '../store/action';
-import { ELearningCategoryDeleted } from '../store/slice';
-import { tableColumn } from './tableColumn';
+import { Skeleton } from "antd";
+import { removeData } from "jquery";
+import { useEffect, useState, useContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AdminTable } from "../../../sharedComponents/Administration/StyledComponents/adminTable";
+import { getELearningCategory, removeELearningCategory } from "../store/action";
+import { ELearningCategoryDeleted } from "../store/slice";
+import { tableColumn } from "./tableColumn";
 
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../utils/localization/languages";
-
 
 export default function ELearningCategoryTable({
   handleEdit,
@@ -17,13 +16,16 @@ export default function ELearningCategoryTable({
   actionRights = [],
   setClearButton,
 }) {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { administration, grade, sharedLabels, Direction } = dictionaryList[
+    userLanguage
+  ];
 
-   const { userLanguage } = useContext(LanguageChangeContext);
-	 const { administration,grade,sharedLabels, Direction } = dictionaryList[userLanguage];
+  const { ELearningCategory, loadingData } = useSelector(
+    (state) => state.eLearningCategorySlice
+  );
 
-  const {ELearningCategory, loadingData } = useSelector((state) => (state.eLearningCategorySlice));
-
-  console.log(ELearningCategory, "MAIN SLICE")
+  console.log(ELearningCategory, "MAIN SLICE");
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -52,7 +54,6 @@ export default function ELearningCategoryTable({
     <AdminTable
       // scroll={{ x: 1500, y: 300 }}
       columns={tableColumn(
-       
         grade,
         handleEdit,
         handleDelete,
@@ -60,7 +61,7 @@ export default function ELearningCategoryTable({
         actionRights,
         id,
         setClearButton,
-        sharedLabels,
+        sharedLabels
       )}
       dataSource={ELearningCategory}
       pagination={false}
@@ -77,7 +78,7 @@ export default function ELearningCategoryTable({
               loading={loadingData}
               round="true"
               shape="circle"
-              style={{ width: '100%', marginBottom: 2 }}
+              style={{ width: "100%", marginBottom: 2 }}
             />
           ),
         }

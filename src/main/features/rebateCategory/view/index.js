@@ -1,21 +1,21 @@
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { AdminContainer } from '../../../../components/HrMenu/Administration/StyledComponents/admin';
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AdminContainer } from "../../../sharedComponents/Administration/StyledComponents/admin";
 import {
   addRebateCategory,
   removeRebateCategoryAction,
   updateRebateCategory,
-} from '../store/actions';
-import RebateCategoryTable from './table.js';
-import RebateCategoryForm from './form';
-import { message } from 'antd';
+} from "../store/actions";
+import RebateCategoryTable from "./table.js";
+import RebateCategoryForm from "./form";
+import { message } from "antd";
 
 export default function AssetsCategory() {
   const initialState = {
-    name: '',
-    maxPercentage: '',
-    maxAmount: '',
-    rebateType: '',
+    name: "",
+    maxPercentage: "",
+    maxAmount: "",
+    rebateType: "",
   };
   const [rebateCategories, setRebateCategories] = useState(initialState);
   const [clearButton, setClearButton] = useState(false);
@@ -28,8 +28,8 @@ export default function AssetsCategory() {
   };
 
   const onSubmit = (e) => {
-    if (e.name === '' || e.description === '') {
-      message.error('Please fill required fields');
+    if (e.name === "" || e.description === "") {
+      message.error("Please fill required fields");
     } else {
       if (!e.id) {
         dispatch(addRebateCategory(e));

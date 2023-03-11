@@ -1,53 +1,57 @@
 import { Skeleton } from "antd";
 import { removeData } from "jquery";
-import { useEffect, useState ,useContext} from "react";
+import { useEffect, useState, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AdminTable } from "../../../../../components/HrMenu/Administration/StyledComponents/adminTable";
-import { getAllPayrollGroup, removeComplainCategory, removePayrollGroup } from "../store/actions";
+import { AdminTable } from "../../../../sharedComponents/Administration/StyledComponents/adminTable";
+import {
+  getAllPayrollGroup,
+  removeComplainCategory,
+  removePayrollGroup,
+} from "../store/actions";
 import { ComplainCategoryDeleted, PayrollGroupDeleted } from "../store/slice";
 import { tableColumn } from "./tableColumn";
 
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../../utils/localization/languages";
 
-
-
 export default function TableView({
   handleEdit,
   removeButtons,
   actionRights = [],
-  setClearButton 
+  setClearButton,
 }) {
-
   const { userLanguage } = useContext(LanguageChangeContext);
-	const { administration,sharedLabels,Direction } = dictionaryList[userLanguage];
-		console.log("jkjll",administration);
+  const { administration, sharedLabels, Direction } = dictionaryList[
+    userLanguage
+  ];
+  console.log("jkjll", administration);
 
-  const { groups, loadingData } = useSelector((state) => state.payrollGroupSlice);
+  const { groups, loadingData } = useSelector(
+    (state) => state.payrollGroupSlice
+  );
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllPayrollGroup());
   }, []);
 
-  const [id, setId] = useState()
+  const [id, setId] = useState();
 
   const onSuccess = (e) => {
     console.log(e.id);
-    setId(null)
-    dispatch(PayrollGroupDeleted(e))
-    setClearButton(true)
-  }
+    setId(null);
+    dispatch(PayrollGroupDeleted(e));
+    setClearButton(true);
+  };
 
   const onError = () => {
-    setId(null)
-  }
+    setId(null);
+  };
 
   const handleDelete = (e) => {
-    setId(e.id)
+    setId(e.id);
     dispatch(removePayrollGroup(e)).then(() => onSuccess(e), onError);
-    
-  }
+  };
 
   return (
     <AdminTable
@@ -59,7 +63,7 @@ export default function TableView({
         actionRights,
         id,
         setClearButton,
-        sharedLabels,
+        sharedLabels
       )}
       dataSource={groups}
       pagination={false}

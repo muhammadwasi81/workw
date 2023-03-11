@@ -1,18 +1,18 @@
-import { message } from 'antd';
-import { set } from 'lodash';
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { AdminContainer } from '../../../../components/HrMenu/Administration/StyledComponents/admin';
+import { message } from "antd";
+import { set } from "lodash";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AdminContainer } from "../../../sharedComponents//Administration/StyledComponents/admin";
 import {
   addSalaryHeader,
   removeSalaryHeader,
   updateSalaryHeader,
-} from '../store/actions';
-import SalaryHeaderForm from './form.js';
-import SalaryHeaderTable from './table.js';
+} from "../store/actions";
+import SalaryHeaderForm from "./form.js";
+import SalaryHeaderTable from "./table.js";
 
 export default function SalaryHeader() {
-  const initialState = { name: '', description: '' };
+  const initialState = { name: "", description: "" };
   const [salaryHeader, setSalaryHeader] = useState(initialState);
   const [clearButton, setClearButton] = useState(false);
 
@@ -24,8 +24,8 @@ export default function SalaryHeader() {
   };
 
   const onSubmit = (e) => {
-    if (e.description === '') {
-      message.error('Please fill all required fields');
+    if (e.description === "") {
+      message.error("Please fill all required fields");
     } else {
       if (!e.id) {
         dispatch(addSalaryHeader(e));

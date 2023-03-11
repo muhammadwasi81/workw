@@ -15,7 +15,6 @@ const MessengerHead = ({
   messengerDetail,
 }) => {
   const dispatch = useDispatch();
-  console.log(messengerDetail, "messengerDetailmessengerDetail");
   const { profileName, profileImage, chatId, chatType, members } = messengerDetail;
   useEffect(() => { }, []);
   const handleCall = () => {
@@ -26,7 +25,8 @@ const MessengerHead = ({
         admin: false,
         exteral: false,
         exteralEmail: null,
-        userId: member.id
+        userId: member.id,
+        user: member
       }))
     }
     dispatch(createRoom(payload));

@@ -179,11 +179,12 @@ function DetaileCard(props) {
           </div>
           <RemarksApproval
             module={ApprovalsModule.WarningApproval}
-            referenceId={warningDetail.id}
+            reference={warningDetail.id}
             status={status}
-            onStatusChanged={(statusChanged) => {
-              setUpdatedStatus(statusChanged);
-              console.log(statusChanged);
+            onStatusChanged={(status) => {
+              setUpdatedStatus((prev) => {
+                return { ...prev, ...status };
+              });
             }}
             data={approvers}
             title="Approvers"

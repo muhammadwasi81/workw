@@ -17,9 +17,9 @@ import {
 } from '../store/action';
 import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
 import { dictionaryList } from '../../../../utils/localization/languages';
-import { AdminTable } from '../../../../components/HrMenu/Administration/StyledComponents/adminTable';
+import { AdminTable } from '../../../sharedComponents/Administration/StyledComponents/adminTable';
 import { tableColumns } from './tableColumns';
-import { AdminContainer } from '../../../../components/HrMenu/Administration/StyledComponents/admin';
+import { AdminContainer } from '../../../sharedComponents/Administration/StyledComponents/admin';
 
 const initialFormData = {
   name: '',

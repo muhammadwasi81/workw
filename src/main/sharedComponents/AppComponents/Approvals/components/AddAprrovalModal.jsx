@@ -18,7 +18,7 @@ const payloadData = {
   search: "",
 };
 
-function AddAprrovalModal({ data, module }) {
+function AddAprrovalModal({ data, module, reference }) {
   const dispatch = useDispatch();
   const [value, setValue] = useState([]);
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
@@ -41,7 +41,7 @@ function AddAprrovalModal({ data, module }) {
 
   const employees = useSelector((state) => state.sharedSlice.employees);
   const { loader, approversData } = useSelector((state) => state.approverSlice);
-  console.log(approversData, "lllll");
+  console.log(data, "lllll");
 
   const selectedData = (data) => {
     setValue(data);
@@ -70,16 +70,17 @@ function AddAprrovalModal({ data, module }) {
     fetchEmployees("", 0);
   }, []);
 
-  const handleChange = (e) => {
+  const handleChange = (approverId) => {
+    console.log(approverId)
+    console.log(module);
+    console.log(reference)
     const payload = {
-      memberId: [e],
-      type: currentType,
+      approverId: approverId[0],
       module: module,
-      referenceId: referenceId,
-      approverId: approverId,
-      approvalType: approvalType,
-    };
+      referenceId: reference
+    }
     dispatch(addApproversAction(payload));
+  
   };
 
   return (
@@ -130,7 +131,8 @@ function AddAprrovalModal({ data, module }) {
         </div>
       </Modal> */}
       <DetailModal
-        data={approversData} //Data of members will pass here in array
+      //data daalo
+        data={data} //Data of members will pass here in array
         isDeleteDisabled={true} //Pass true to hide delete icon
         addEnabled={true} //Pass false to hide select member
         addFunc={handleChange} // define and pass addMember action of particular members

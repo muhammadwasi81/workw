@@ -77,7 +77,10 @@ function RewardDetailCard(props) {
   };
 
   const isTablet = false;
-
+  const localTime = moment
+    .utc(createDate)
+    .local()
+    .format();
   return (
     <>
       {rewardDetail.id && (
@@ -90,7 +93,7 @@ function RewardDetailCard(props) {
                 Subline={
                   <SublineDesigWithTime
                     designation={creator.designation ? creator.designation : ""}
-                    time={moment(createDate).fromNow()}
+                    time={moment(localTime).fromNow()}
                   />
                 }
               />
@@ -191,10 +194,12 @@ function RewardDetailCard(props) {
           </div>
           <RemarksApproval
             module={ApprovalsModule.RewardApproval}
+            reference={rewardDetail.id}
             status={status}
-            onStatusChanged={(statusChanged) => {
-              setUpdatedStatus(statusChanged);
-              console.log(statusChanged);
+            onStatusChanged={(status) => {
+              setUpdatedStatus((prev) => {
+                return { ...prev, ...status };
+              });
             }}
             data={approvers}
             title={rewardDictionary.approvers}

@@ -5,7 +5,11 @@ import { LanguageChangeContext } from "../../../../utils/localization/localConte
 import UserInfo from "../../../sharedComponents/UserShortInfo/UserInfo";
 import SublineDesigWithTime from "../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
 import StatusTag from "../../../sharedComponents/Tag/StatusTag";
-import { ItemContent, ItemHeader, SingleItem } from "../../../sharedComponents/Card/CardStyle";
+import {
+  ItemContent,
+  ItemHeader,
+  SingleItem,
+} from "../../../sharedComponents/Card/CardStyle";
 import Avatar from "../../../sharedComponents/Avatar/avatar";
 import moment from "moment";
 import DefaultAttachment from "../../../../content/NewContent/warning/warningsDefaultAttachment.svg";
@@ -14,7 +18,21 @@ function ListItem(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { warningDictionary } = warningDictionaryList[userLanguage];
 
-  const { creator, description, category, image = DefaultAttachment, createDate, members = [], approvers, status, referenceNo } = props.item;
+  const {
+    creator,
+    description,
+    category,
+    image = DefaultAttachment,
+    createDate,
+    members = [],
+    approvers,
+    status,
+    referenceNo,
+  } = props.item;
+  const localTime = moment
+    .utc(createDate)
+    .local()
+    .format();
   return (
     <SingleItem>
       <div
@@ -27,7 +45,12 @@ function ListItem(props) {
             <UserInfo
               avatarSrc={creator.image}
               name={creator.name}
-              Subline={<SublineDesigWithTime designation={creator.designation ? creator.designation : ""} time={moment(createDate).fromNow()} />}
+              Subline={
+                <SublineDesigWithTime
+                  designation={creator.designation ? creator.designation : ""}
+                  time={moment(localTime).fromNow()}
+                />
+              }
             />
           </div>
           <div className="right">
@@ -42,13 +65,21 @@ function ListItem(props) {
         </ItemContent>
         <div className="cardSections">
           <div className="cardSectionItem">
-            <div className="cardSection__title">{warningDictionary.category}</div>
-            <div className="cardSection__body"><Tag className="IdTag">{category ? category : "Default Category"}</Tag></div>
+            <div className="cardSection__title">
+              {warningDictionary.category}
+            </div>
+            <div className="cardSection__body">
+              <Tag className="IdTag">
+                {category ? category : "Default Category"}
+              </Tag>
+            </div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">{warningDictionary.warningTo}</div>
+            <div className="cardSection__title">
+              {warningDictionary.warningTo}
+            </div>
             <div className="cardSection__body">
-              {members &&
+              {members && (
                 <Avatar
                   isAvatarGroup={true}
                   isTag={false}
@@ -57,13 +88,15 @@ function ListItem(props) {
                   text={"Members"}
                   image={"https://joeschmoe.io/api/v1/random"}
                 />
-              }
+              )}
             </div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">{warningDictionary.approvers}</div>
+            <div className="cardSection__title">
+              {warningDictionary.approvers}
+            </div>
             <div className="cardSection__body">
-              {approvers &&
+              {approvers && (
                 <Avatar
                   isAvatarGroup={true}
                   isTag={false}
@@ -72,7 +105,7 @@ function ListItem(props) {
                   text={"Approvers"}
                   image={"https://joeschmoe.io/api/v1/random"}
                 />
-              }
+              )}
             </div>
           </div>
         </div>

@@ -18,7 +18,7 @@ const MessengerBox = () => {
   const isEmptyMessenger =
     messengerDetail.members.length === 0 &&
     messengerDetail.chatId === STRINGS.DEFAULTS.guid;
-
+console.log(messengerDetail, "messengerDetail")
   if (isEmptyMessenger) return <EmptyMessenger />;
   return (
     <div className="MessengerBox">

@@ -29,6 +29,7 @@ function PromotionDetail(props) {
   const { promotionDetail, loadingData } = useSelector(
     (state) => state.promotionSlice
   );
+  console.log(promotionDetail, "promotion detaill");
 
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, promotionDictionary } = promotionDictionaryList[
@@ -162,8 +163,13 @@ function PromotionDetail(props) {
           </div>
           <RemarksApproval
             module={ApprovalsModule.PromotionApproval}
+            reference={promotionDetail.id}
             status={status}
-            onStatusChanged={(statusChanged) => setUpdatedStatus(statusChanged)}
+            onStatusChanged={(status) =>
+              setUpdatedStatus((prev) => {
+                return { ...prev, ...status };
+              })
+            }
             data={approvers}
             title="Approvals"
           />

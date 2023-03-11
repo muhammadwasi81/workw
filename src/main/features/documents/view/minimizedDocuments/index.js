@@ -5,7 +5,6 @@ import './style.css';
 
 function MinimizedDocuments() {
     const documents = useSelector((state) => state.documentSlice.minimzedDocuments);
-    console.log(documents)
     return (
         <div className="minimized-document-container" >
             {

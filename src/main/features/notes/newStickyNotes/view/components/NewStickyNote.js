@@ -35,6 +35,8 @@ import ShareComponent from "./ShareComponent";
 import { handleOpenSticky } from "../../store/stickySlice";
 import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
 import { stickyNotesDictionaryList } from "../../localization/index";
+import { formats, modules } from "../../utils/index";
+
 const NewStickyNote = ({ item }) => {
   const [openColor, setOpenColor] = useState(true);
   const [openShare, setOpenShare] = useState(false);
@@ -133,26 +135,7 @@ const NewStickyNote = ({ item }) => {
   };
 
   // *******modules and formats for React quil******
-  const modules = {
-    toolbar: [
-      ["bold", "italic", "underline"],
-      [{ list: "ordered" }, { list: "bullet" }],
-      [],
-    ],
-  };
-  const formats = {
-    toolbar: [
-      [{ font: [] }],
-      [{ header: [1, 2, 3, 4, 5, 6, false] }],
-      ["bold", "italic", "underline", "link", "image"],
-      [{ list: "ordered" }, { list: "bullet" }],
-      [{ script: "sub" }, { script: "super" }],
-      [{ direction: "rtl" }],
-      [{ align: ["center"] }],
-      [{ color: [] }, { background: [] }],
-      ["clean"],
-    ],
-  };
+
   const imgSrc = item.attachments;
   // const { height, width } = useWindowDimensions();
   // console.log(width, height, "widthhh");
@@ -198,7 +181,7 @@ const NewStickyNote = ({ item }) => {
 
             {/* ******Drop Down menu (color, copy, share) on three dot****** */}
             <div className="leftNote_Icon">
-              <Dropdown menu={menu}>
+              <Dropdown menu={menu} overlay={menu} trigger={["click"]}>
                 <a onClick={(e) => e.preventDefault()}>
                   <Space>
                     <EllipsisOutlined className="threedot_Icon" />
@@ -257,6 +240,13 @@ const NewStickyNote = ({ item }) => {
                     src={item.path}
                     className="image"
                   />
+                  // <Attachments
+                  //   data={item.path}
+                  //   key={{ data: item.path }}
+                  //   toShow={1}
+                  //   onClick={() => {}}
+                  //   size={"50px"}
+                  // />
                 );
               })}
             </div>

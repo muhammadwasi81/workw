@@ -79,6 +79,14 @@ function NotificationBar() {
   };
   const openImg = useSelector((state) => state.newStickySlice.openImg);
 
+  function onKeyUp(e) {
+    if(e.keyCode === 13 && !e.shiftKey) {
+      navigate("search");
+      setIsSearch(false)
+      e.target.value = ""
+    }   
+  }
+
   return (
     <div className={classes}>
       <div className="notiBarIcon">
@@ -114,7 +122,11 @@ function NotificationBar() {
             onClick={handleSearch}
             className="cursor-pointer"
           />
-          <input type="text" className={!isSearch ? "d-none" : "globalSearchInput" } onKeyUp={(e) => {if(e.keyCode === 13 && !e.shiftKey) navigate("search")}}  />
+          <input 
+            type="text"
+            className={!isSearch ? "d-none" : "globalSearchInput" } 
+            onKeyUp={(e) => onKeyUp(e)}  
+          />
         </div>
       </div>
       <NotificationModal

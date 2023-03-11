@@ -14,6 +14,7 @@ import DescriptionInput from "../UI/DescriptionInput";
 import CommentComposer from "../../../sharedComponents/Comment/Composer";
 import CommentWrapper from "../../../sharedComponents/Comment/CommentWrapper";
 
+
 import CheckDate from "../UI/CheckDate";
 import TodoTitleInput from "../UI/TodoTitleInput";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
@@ -23,7 +24,7 @@ import MemberModal from "./TodoMemberModal";
 import Avatar from "../../../sharedComponents/Avatar/avatar";
 import { message, Modal } from "antd";
 import { addMember } from "../store/slice";
-import CommentAttachment from "./CommentAttachment";
+import { initializeApp } from "firebase/app";
 
 function WorkBoardDescription({
   dueDate,
@@ -35,6 +36,7 @@ function WorkBoardDescription({
   console.log("tododataaa",todoData);
   const { userLanguage } = useContext(LanguageChangeContext);
   const [visible, setVisible] = useState(false);
+  const [initailComments, setInitailComments] = useState([]);
   const { workBoardMembers } = useSelector((state) => state.trelloSlice);
   const { workboardDetail } = useSelector((state)=> state.trelloSlice);
   const { workboardsList } = useSelector((state) => state.trelloSlice)
@@ -153,7 +155,17 @@ function WorkBoardDescription({
          
         <div className="flex flex-row justify-between gap-2">
           <div className="w-full">
-             <CommentAttachment ></CommentAttachment>
+            <div className="comments">
+              <CommentWrapper
+                initailComments={initailComments}
+                commentRequestSuccess={(comment) => {
+                  setInitailComments([comment, ...initailComments ])
+                }}
+                referenceId={todoData.id}
+                module={4}
+                isCommentLoad={true}
+              />
+            </div>
           </div>
         </div>
 

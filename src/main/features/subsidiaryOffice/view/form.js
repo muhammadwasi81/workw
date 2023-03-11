@@ -9,7 +9,7 @@ import {
   FormInput,
   FormInputContainer,
   FormLabel,
-} from "../../../../components/HrMenu/Administration/StyledComponents/adminForm";
+} from "../../../sharedComponents/Administration/StyledComponents/adminForm";
 import { useSelector } from "react-redux";
 import { getAllBranch } from "../../subsidiary/store/actions";
 import { useDispatch } from "react-redux";

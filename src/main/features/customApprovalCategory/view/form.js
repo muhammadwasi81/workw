@@ -10,7 +10,7 @@ import {
   FormInputContainer,
   FormLabel,
   FormTextArea,
-} from "../../../../components/HrMenu/Administration/StyledComponents/adminForm";
+} from "../../../sharedComponents/Administration/StyledComponents/adminForm";
 import { customCategoryDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { useDispatch, useSelector } from "react-redux";

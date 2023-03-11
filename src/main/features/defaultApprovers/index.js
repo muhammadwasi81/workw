@@ -1,6 +1,6 @@
-import { useState, useEffect, useContext } from 'react';
-import { AdminContainer } from './../../sharedComponents/StyledComponents/admin';
-import { FormContainer } from './../../sharedComponents/StyledComponents/adminForm';
+import { useState, useEffect, useContext } from "react";
+import { AdminContainer } from "./../../sharedComponents/StyledComponents/admin";
+import { FormContainer } from "./../../sharedComponents/StyledComponents/adminForm";
 import {
   Collapse,
   Modal,
@@ -9,26 +9,26 @@ import {
   Skeleton,
   message,
   Popconfirm,
-} from 'antd';
-import { FormHeader } from '../../../components/HrMenu/Administration/StyledComponents/adminForm';
-import './styles.css';
-import { PlusCircleFilled } from '@ant-design/icons';
-import { NoDataFound } from './../../sharedComponents/NoDataIcon/index';
-import { useSelector, useDispatch } from 'react-redux';
-import { getAllEmployees } from './../../../utils/Shared/store/actions';
-import Avatar from '../../sharedComponents/Avatar/avatarOLD';
+} from "antd";
+import { FormHeader } from "../../sharedComponents/Administration/StyledComponents/adminForm";
+import "./styles.css";
+import { PlusCircleFilled } from "@ant-design/icons";
+import { NoDataFound } from "./../../sharedComponents/NoDataIcon/index";
+import { useSelector, useDispatch } from "react-redux";
+import { getAllEmployees } from "./../../../utils/Shared/store/actions";
+import Avatar from "../../sharedComponents/Avatar/avatarOLD";
 import {
   addDefaultApproversAction,
   getAllDefaultApproversAction,
   deleteDefaultApproversByIdAction,
-} from './store/action';
-import { handleApproversDelete } from './store/slice';
-import { defaultApprovers } from './utils';
-import CustomSelect from '../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect';
-import { customApprovalDictionaryList } from '../CustomApprovals/localization';
-import { LanguageChangeContext } from '../../../utils/localization/localContext/LocalContext';
-import { DeleteFilled } from '@ant-design/icons';
-import TableHead from './view/table/tableHead';
+} from "./store/action";
+import { handleApproversDelete } from "./store/slice";
+import { defaultApprovers } from "./utils";
+import CustomSelect from "../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
+import { customApprovalDictionaryList } from "../CustomApprovals/localization";
+import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
+import { DeleteFilled } from "@ant-design/icons";
+import TableHead from "./view/table/tableHead";
 
 const { Panel } = Collapse;
 
@@ -37,7 +37,7 @@ const DefaultApprovers = () => {
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [value, setValue] = useState([]);
-  const [currentType, setCurrentType] = useState('');
+  const [currentType, setCurrentType] = useState("");
 
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction } = customApprovalDictionaryList[userLanguage];
@@ -49,7 +49,7 @@ const DefaultApprovers = () => {
   const payloadData = {
     pageNo: 1,
     pageSize: 20,
-    search: '',
+    search: "",
     filterType: 3,
   };
 
@@ -79,9 +79,9 @@ const DefaultApprovers = () => {
     const isAlreadyAdded = approversData.find(
       (item) => item.memberId === e && item.type === currentType
     );
-    console.log(isAlreadyAdded, 'isAlreadyAdded');
+    console.log(isAlreadyAdded, "isAlreadyAdded");
     if (isAlreadyAdded) {
-      return message.error('Member Already Exists');
+      return message.error("Member Already Exists");
     }
     setValue([]);
     dispatch(addDefaultApproversAction({ memberId: [e], type: currentType }));
@@ -100,7 +100,7 @@ const DefaultApprovers = () => {
   }, [employees]);
 
   useEffect(() => {
-    fetchEmployees('', 0);
+    fetchEmployees("", 0);
   }, []);
 
   const fetchEmployees = (text, pgNo) => {
@@ -147,7 +147,7 @@ const DefaultApprovers = () => {
                                 style={{
                                   width: 100,
                                   height: 100,
-                                  margin: 'auto',
+                                  margin: "auto",
                                 }}
                               >
                                 <NoDataFound />
@@ -158,7 +158,7 @@ const DefaultApprovers = () => {
                                 ? filterType(item.type).map((item, index) => {
                                     return (
                                       <tr key={index}>
-                                        <td style={{ maxWidth: '15px' }}>
+                                        <td style={{ maxWidth: "15px" }}>
                                           <Avatar
                                             size={35}
                                             round={true}
@@ -174,10 +174,10 @@ const DefaultApprovers = () => {
                                         <td>
                                           <span className="font-semibold">
                                             {item?.member?.designation ||
-                                              'No Designation'}
+                                              "No Designation"}
                                           </span>
                                         </td>
-                                        <td style={{ maxWidth: '15px' }}>
+                                        <td style={{ maxWidth: "15px" }}>
                                           <Popconfirm
                                             title="Sure to delete ?"
                                             description="Are you sure to delete this item?"
@@ -193,7 +193,7 @@ const DefaultApprovers = () => {
                                             cancelText="cancel"
                                           >
                                             <DeleteFilled
-                                              style={{ color: '#1b5669' }}
+                                              style={{ color: "#1b5669" }}
                                             />
                                           </Popconfirm>
                                         </td>
@@ -234,8 +234,8 @@ const DefaultApprovers = () => {
                                       name={opt.name}
                                       src={opt.image}
                                       round={true}
-                                      width={'30px'}
-                                      height={'30px'}
+                                      width={"30px"}
+                                      height={"30px"}
                                     />
                                     {opt.name}
                                   </>
@@ -259,8 +259,8 @@ const DefaultApprovers = () => {
                                         name={item.member.name}
                                         src={item.member.image}
                                         round={true}
-                                        width={'30px'}
-                                        height={'30px'}
+                                        width={"30px"}
+                                        height={"30px"}
                                       />
                                       <span className="member-name font-semibold">
                                         &nbsp; &nbsp;{item.member.name}
@@ -274,7 +274,7 @@ const DefaultApprovers = () => {
                                   style={{
                                     width: 100,
                                     height: 200,
-                                    margin: 'auto',
+                                    margin: "auto",
                                   }}
                                 >
                                   <NoDataFound />

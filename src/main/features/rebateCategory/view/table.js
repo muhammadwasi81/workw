@@ -1,15 +1,15 @@
-import { Skeleton } from 'antd';
-import { useEffect, useState, useContext } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { AdminTable } from '../../../../components/HrMenu/Administration/StyledComponents/adminTable';
+import { Skeleton } from "antd";
+import { useEffect, useState, useContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AdminTable } from "../../../sharedComponents/Administration/StyledComponents/adminTable";
 import {
   getAllRebateCategories,
   removeRebateCategoryAction,
-} from '../store/actions';
-import { rebateCategoryDeleted } from '../store/slice';
-import { tableColumn } from './tableColumn';
-import { rebateCategoryDictionaryList } from '../localization/index';
-import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
+} from "../store/actions";
+import { rebateCategoryDeleted } from "../store/slice";
+import { tableColumn } from "./tableColumn";
+import { rebateCategoryDictionaryList } from "../localization/index";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 export default function RebateCategoryTable({
   handleEdit,
   removeButtons,
@@ -70,7 +70,7 @@ export default function RebateCategoryTable({
               loading={loadingData}
               round="true"
               shape="circle"
-              style={{ width: '100%', marginBottom: 2 }}
+              style={{ width: "100%", marginBottom: 2 }}
             />
           ),
         }

@@ -1,17 +1,15 @@
-import { Skeleton } from 'antd';
-import { removeData } from 'jquery';
-import { useEffect, useState ,useContext} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { AdminTable } from '../../../../components/HrMenu/Administration/StyledComponents/adminTable';
-import { getAllGrades, removeGrade } from '../store/actions';
+import { Skeleton } from "antd";
+import { removeData } from "jquery";
+import { useEffect, useState, useContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AdminTable } from "../../../sharedComponents/Administration/StyledComponents/adminTable";
+import { getAllGrades, removeGrade } from "../store/actions";
 
-
-import { gradeDeleted } from '../store/slice';
-import { tableColumn } from './tableColumn';
+import { gradeDeleted } from "../store/slice";
+import { tableColumn } from "./tableColumn";
 
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../utils/localization/languages";
-
 
 export default function GradeTable({
   handleEdit,
@@ -19,17 +17,17 @@ export default function GradeTable({
   actionRights = [],
   setClearButton,
 }) {
-
-   const { userLanguage } = useContext(LanguageChangeContext);
-	 const { administration,grade,sharedLabels, Direction } = dictionaryList[userLanguage];
-		console.log("jkjll",sharedLabels);
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { administration, grade, sharedLabels, Direction } = dictionaryList[
+    userLanguage
+  ];
+  console.log("jkjll", sharedLabels);
 
   const { grades, loadingData } = useSelector((state) => state.gradeSlice);
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllGrades());
-
   }, []);
 
   const [id, setId] = useState();
@@ -54,7 +52,6 @@ export default function GradeTable({
     <AdminTable
       // scroll={{ x: 1500, y: 300 }}
       columns={tableColumn(
-       
         grade,
         handleEdit,
         handleDelete,
@@ -62,7 +59,7 @@ export default function GradeTable({
         actionRights,
         id,
         setClearButton,
-        sharedLabels,
+        sharedLabels
       )}
       dataSource={grades}
       pagination={false}
@@ -79,7 +76,7 @@ export default function GradeTable({
               loading={loadingData}
               round="true"
               shape="circle"
-              style={{ width: '100%', marginBottom: 2 }}
+              style={{ width: "100%", marginBottom: 2 }}
             />
           ),
         }

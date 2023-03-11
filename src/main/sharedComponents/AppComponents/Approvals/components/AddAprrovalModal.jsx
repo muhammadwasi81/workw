@@ -41,7 +41,6 @@ function AddAprrovalModal({ data, module, reference }) {
 
   const employees = useSelector((state) => state.sharedSlice.employees);
   const { loader, approversData } = useSelector((state) => state.approverSlice);
-  console.log(data, "lllll");
 
   const selectedData = (data) => {
     setValue(data);
@@ -131,7 +130,6 @@ function AddAprrovalModal({ data, module, reference }) {
         </div>
       </Modal> */}
       <DetailModal
-      //data daalo
         data={data} //Data of members will pass here in array
         isDeleteDisabled={true} //Pass true to hide delete icon
         addEnabled={true} //Pass false to hide select member

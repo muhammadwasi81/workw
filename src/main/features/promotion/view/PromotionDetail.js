@@ -25,7 +25,7 @@ function PromotionDetail(props) {
   const { user } = useSelector((state) => state.userSlice);
   const { id } = props;
   const [updatedStatus, setUpdatedStatus] = useState();
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
   const { promotionDetail, loadingData } = useSelector(
     (state) => state.promotionSlice
   );
@@ -77,12 +77,12 @@ function PromotionDetail(props) {
     setIsOpen(false);
   };
 
-  const onFinish = (values) => { 
+  const onFinish = (values) => {
     let id = promotionDetail.id;
-    let reason = values.remarks
+    let reason = values.remarks;
     setIsOpen(false);
     // dispatch(cancelPromotion({ id: id, reason: reason }));
-  }
+  };
 
   return (
     <>
@@ -169,7 +169,11 @@ function PromotionDetail(props) {
           />
         </div>
       )}
-      <ConfirmationRemarkModal isOpen={isOpen} onCancel={onClose} onFinish={onFinish} />
+      <ConfirmationRemarkModal
+        isOpen={isOpen}
+        onCancel={onClose}
+        onFinish={onFinish}
+      />
     </>
   );
 }

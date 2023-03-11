@@ -14,10 +14,12 @@ import {
 
 const initialState = {
   groups: [],
+  groupMembers: [],
   loadingData: false,
   loader: false,
   createLoader: false,
   groupDetail: null,
+
   success: false,
   error: false,
   getDataLoading: false,
@@ -29,6 +31,7 @@ const initialState = {
   drawerOpen: false,
   removeMemberSucess: false,
   groupFeatures: [],
+  previousGroupDetail: {},
 };
 
 const groupSlice = createSlice({
@@ -101,6 +104,16 @@ const groupSlice = createSlice({
     builder
       .addCase(getAllGroup.fulfilled, (state, { payload }) => {
         state.groups = payload.data;
+        var t = [];
+        // t["123"] = "123sdd";
+        // t["12333213123"] = "12sss3sdd";
+        payload.data.forEach((element, index) => {
+          console.log(element);
+          t[element.id] = element.members;
+        });
+        state.groupMembers = t;
+        console.log(t, "sss");
+
         state.success = true;
         state.loader = false;
       })
@@ -117,11 +130,16 @@ const groupSlice = createSlice({
         state.success = true;
       })
       .addCase(updateGroup.fulfilled, (state, { payload }) => {
-        state.groupDetail = payload.data;
+        let newData = payload.data;
+        state.groupDetail = {
+          ...state.groupDetail,
+          name: newData.name,
+          description: newData.description,
+        };
+        state.isComposerOpen = false;
         state.createLoader = false;
-        state.drawerOpen = false;
         state.success = true;
-        // return state;
+        return state;
       })
       .addCase(addGroupMemberAction.fulfilled, (state, { payload }) => {
         if (state.groupDetail) {
@@ -145,7 +163,8 @@ const groupSlice = createSlice({
         state.groupDetail = { ...state.groupDetail, members: newMembers };
       })
       .addCase(addGroupFeatures.fulfilled, (state, { payload }) => {
-        state.groupFeatures = payload.data.length > 0 ? payload.data : [];
+        // state.groupFeatures = payload.data.length > 0 ? payload.data : [];
+        state.groupFeatures = payload.data;
       })
       .addCase(getGroupFeatures.fulfilled, (state, { payload }) => {
         state.groupFeatures = payload.data;

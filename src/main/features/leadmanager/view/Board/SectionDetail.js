@@ -110,7 +110,6 @@ function SectionDetail(props) {
   }
 
   const handleRefresh = (e) => {
-    console.log("refresh");
     e.preventDefault();
     e.stopPropagation();
     dispatch(

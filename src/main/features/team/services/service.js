@@ -7,13 +7,10 @@ import Config from "../../../../utils/services/MasterConfig";
 import { responseCode as responseCodeEnum } from "../../../../services/enums/responseCode";
 
 export const getAllTeamsService = async (userId) => {
-  // let request = getAllTeam_TD(data);
-  // console.log(request, "REQUEST TEAM");
   try {
     const {
       data: { responseCode, data, message },
     } = await Config.get(`api/Employee/GetAllTeamByUserId?userId=${userId}`);
-    // console.log(responseCode, "REQUEST TEAM RESPONSE");
 
     if (responseCode === responseCodeEnum.Success)
       return ResponseResultSuccess(data);

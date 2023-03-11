@@ -29,7 +29,6 @@ export const addWarning = createAsyncThunk(
   async (data, { dispatch, getState, rejectWithValue }) => {
     const res = await addWarningService(data);
     if (res.data?.responseCode === responseCode.Success) {
-      message.success("Warning Created");
       return res;
     } else {
       message.error(res.data.message);

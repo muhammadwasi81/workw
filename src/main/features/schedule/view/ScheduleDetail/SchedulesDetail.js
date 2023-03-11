@@ -50,11 +50,6 @@ function MySchedules() {
       featureName: "My Schedules",
       featureId: 0,
     },
-    // {
-    //   featureName: "Team Schedules",
-    //   featureId: 1,
-    //   content: <div>my contents</div>,
-    // },
     {
       featureName: "Team Schedules",
       featureId: 1,

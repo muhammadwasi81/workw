@@ -191,10 +191,12 @@ function RewardDetailCard(props) {
           </div>
           <RemarksApproval
             module={ApprovalsModule.RewardApproval}
+            reference={rewardDetail.id}
             status={status}
-            onStatusChanged={(statusChanged) => {
-              setUpdatedStatus(statusChanged);
-              console.log(statusChanged);
+            onStatusChanged={(status) => {
+              setUpdatedStatus((prev) => {
+                return { ...prev, ...status };
+              });
             }}
             data={approvers}
             title={rewardDictionary.approvers}

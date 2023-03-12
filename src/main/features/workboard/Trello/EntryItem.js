@@ -3,6 +3,7 @@ import {Tag } from "antd";
 import LabelModal from "../Modal/LabelModal/LabelModal";
 import { useSelector, useDispatch } from "react-redux";
 import useDebounce from "../../../../utils/Shared/helper/use-debounce";
+import moment from "moment";
 
 import { updateWorkBoardTodoTitle,updateWorkBoardTodoDesc } from "../store/action";
 
@@ -14,9 +15,12 @@ const TableEntryItem = ({
    itemValue,
 }) => {
 
-  console.log(itemValue,"todoDetailtodoDetailgggg");
+ 
   let defaultTitle = itemValue.title ;
   let defaultDesc = itemValue.description;
+  let date = itemValue.createDate;
+
+  console.log(date,"todoDetailtodoDetailgggg");
   const dispatch = useDispatch();
   const [titleValue,setTitle] = useState(defaultTitle);
   const [descValue,setDescValue] = useState(defaultDesc);
@@ -28,10 +32,7 @@ const TableEntryItem = ({
     setIsLabelModalVisible(!isLabelModalVisible);
     };
 
-    const handleInputChangeTitle = (e) => {
-      const {value} = e.target;
-      setTitle({...titleValue,[value]:value});
-     
+    const handleInputChangeTitle = (value) => {
         dispatch(
         updateWorkBoardTodoTitle({
         todoId: itemValue.id,
@@ -40,11 +41,7 @@ const TableEntryItem = ({
      );
     }
 
-  const handleInputChangeDescription = (e) => {
-    const {value} = e.target;
-      console.log( value, 'name value')
-      setDescValue({...descValue, [value]: value})
-
+  const handleInputChangeDescription = (value) => {
         dispatch(
             updateWorkBoardTodoDesc({
                todoId: itemValue.id, 
@@ -53,13 +50,13 @@ const TableEntryItem = ({
      );
   };
 
-  // useEffect(() => {
-  //   if (tilteDebounce) handleInputChangeTitle(tilteDebounce);
-  // }, [tilteDebounce]);
+  useEffect(() => {
+    if (tilteDebounce) handleInputChangeTitle(tilteDebounce);
+  }, [tilteDebounce]);
 
-  // useEffect(() => {
-  //   if (descriptionDebounce) handleInputChangeDescription(descriptionDebounce);
-  // }, [descriptionDebounce]);
+  useEffect(() => {
+    if (descriptionDebounce) handleInputChangeDescription(descriptionDebounce);
+  }, [descriptionDebounce]);
 
   return (
     <>
@@ -68,7 +65,7 @@ const TableEntryItem = ({
         <input
           name="title"
           defaultValue={titleValue}
-          onChange={(e) => handleInputChangeTitle(e)}
+          onChange={(e) => setTitle(e.target.value)}
         />
       </td>
       <td> 
@@ -78,7 +75,7 @@ const TableEntryItem = ({
         <input
           name="description"
           defaultValue={descValue}
-          onChange={(e)=>handleInputChangeDescription(e)}
+          onChange={(e)=> setDescValue(e.target.value)}
         />
       </td>
 
@@ -90,8 +87,7 @@ const TableEntryItem = ({
       </td>
 
       <td>
-        {itemValue.createDate}
-        {/* {moment((createDate)=>itemValue.createDate.format("DD MMM YYYY"))}  */}
+        {moment(date).format("DD MMM YYYY")}
       </td>
     </tr>
 

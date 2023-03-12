@@ -34,7 +34,7 @@ import {
   addWorkBoardTodoMemberService,
   removeWorkBoardTodoMemberService,
 } from "../services/services";
-import { addWorkBoardMembers, deleteWorkBoardMember , deleteWorkBoardTodoMember ,addWorkBoardTodoMember} from "../store/slice";
+import { addWorkBoardMembers, deleteWorkBoardMember , deleteWorkBoardTodoMember ,addWorkBoardTodoMember, deleteTodoItem} from "../store/slice";
 export const addWorkBoard = createAsyncThunk(
   "addWorkBoard",
   async (data, { dispatch, getState, rejectWithValue }) => {
@@ -394,6 +394,7 @@ export const removeWorkBoardTodo = createAsyncThunk(
   async (data, { dispatch, getState, rejectWithValue }) => {
     const res = await removeWorkBoardTodoService(data);
     if (res.responseCode === responseCode.Success) {
+      // deleteTodoItem({ id: data.id, sectionId: data.sectionId })
       return { id: data.id, sectionId: data.sectionId };
     } else {
       dispatch(

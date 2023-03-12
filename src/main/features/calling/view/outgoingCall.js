@@ -42,13 +42,13 @@ export default function OutgoingCall() {
 							<Avatar
 								round={true}
 								size={36}
-								name={callMember.name}
-								src={callMember.image}
+								name={callMember?.name}
+								src={callMember?.image}
 							/>
 						</div>
 
 						<div className="section-2">
-							<div className="caller-name">{callMember.name}</div>
+							<div className="caller-name">{callMember?.name}</div>
 							<div className="call-status">
 								{OUTGOING_CALL_STATUS_MESSAGE[outgoingCallData.status]}
 							</div>

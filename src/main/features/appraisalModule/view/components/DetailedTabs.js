@@ -16,13 +16,9 @@ function DetailTabs({ questions, tasks, RemarksApproval }) {
       featureName: "Questions",
       content: <QuestionList questions={questions} />,
     },
+
     {
       featureId: 2,
-      featureName: "Approvers",
-      content: <div>my dummy approvers</div>,
-    },
-    {
-      featureId: 3,
       featureName: "Tasks",
       content: <TaskList tasks={tasks} />,
     },

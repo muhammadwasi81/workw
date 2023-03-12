@@ -201,7 +201,6 @@ const Composer = (props) => {
           label={customApprovalDictionary.approvers}
           showSearch={true}
           direction={Direction}
-          rules={[{ required: true }]}
         >
           <CustomSelect
             style={{ marginBottom: "0px" }}
@@ -231,12 +230,6 @@ const Composer = (props) => {
             name="approvers"
             showSearch={true}
             direction={Direction}
-            rules={[
-              {
-                required: true,
-                message: "Please Select Approver",
-              },
-            ]}
           />
         </Form.Item>
 

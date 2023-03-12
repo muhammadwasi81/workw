@@ -35,7 +35,7 @@ function TeamList() {
   }, []);
 
   const searchHandler = (value) => {
-    dispatch(getTeamsAction({ search: value }));
+    // dispatch(getTeamsAction({ search: value }));
     console.log(value, "value");
   };
 

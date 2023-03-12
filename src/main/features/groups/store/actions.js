@@ -66,7 +66,7 @@ export const updateGroup = createAsyncThunk(
     if (res.responseCode === responseCode.Success) {
       dispatch(
         openNotification({
-          message: "Project Updated Successfully!",
+          message: "Group Updated Successfully!",
           type: "success",
           duration: 2,
         })

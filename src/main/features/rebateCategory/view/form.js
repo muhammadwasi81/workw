@@ -9,7 +9,7 @@ import {
   FormInput,
   FormInputContainer,
   FormLabel,
-} from "../../../../components/HrMenu/Administration/StyledComponents/adminForm";
+} from "../../../sharedComponents/Administration/StyledComponents/adminForm";
 import { rebateCategoryDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 export default function RebateCategoryForm({

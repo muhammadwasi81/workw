@@ -89,7 +89,6 @@ const Complain = () => {
   const onRow = (record, rowIndex) => {
     return {
       onClick: (event) => {
-        console.log(record.id, "ID");
         setComplainId(record.id);
         setVisible(true);
       },

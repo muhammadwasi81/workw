@@ -1,7 +1,7 @@
 import { Button, Form, Input, Select } from "antd";
 import React, { useContext, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { FormTextArea } from "../../../../components/HrMenu/Administration/StyledComponents/adminForm";
+import { FormTextArea } from "../../../sharedComponents/Administration/StyledComponents/adminForm";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { charOfAccountDictionaryList } from "../localization/index";
 

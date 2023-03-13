@@ -2,7 +2,7 @@ import { Skeleton } from "antd";
 import { removeData } from "jquery";
 import { useEffect, useState, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AdminTable } from "../../../../../components/HrMenu/Administration/StyledComponents/adminTable";
+import { AdminTable } from "../../../../sharedComponents/Administration/StyledComponents/adminTable";
 import {
   getAllWarningCategories,
   removeWarningCategory,

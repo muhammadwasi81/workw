@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AdminContainer } from "../../../../components/HrMenu/Administration/StyledComponents/admin";
+import { AdminContainer } from "../../../sharedComponents/Administration/StyledComponents/admin";
 import GradeForm from "./form.js";
 import GradeTable from "./table.js";
 import {

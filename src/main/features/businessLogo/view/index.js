@@ -1,17 +1,17 @@
-import { AdminContainer } from '../../../../components/HrMenu/Administration/StyledComponents/admin';
+import { AdminContainer } from "../../../sharedComponents/Administration/StyledComponents/admin";
 
 import {
   FormContainer,
   FormHeader,
-} from '../../../../components/HrMenu/Administration/StyledComponents/adminForm';
-import SingleUpload from '../../../sharedComponents/Upload/singleUpload';
-import { useState, useContext } from 'react';
-import { Form } from 'antd';
+} from "../../../sharedComponents/Administration/StyledComponents/adminForm";
+import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
+import { useState, useContext } from "react";
+import { Form } from "antd";
 
-import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
-import { dictionaryList } from '../../../../utils/localization/languages';
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { dictionaryList } from "../../../../utils/localization/languages";
 // import "../style/style.css";
-import './grade.css';
+import "./grade.css";
 
 const BusinessLogo = () => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -35,7 +35,7 @@ const BusinessLogo = () => {
               handleImageUpload={handleImageUpload}
               img="Add Image"
               position="flex-start"
-              uploadText={'Upload'}
+              uploadText={"Upload"}
             />
           </Form.Item>
         </div>
@@ -46,7 +46,7 @@ const BusinessLogo = () => {
               handleImageUpload={handleImageUpload}
               img="Add Image"
               position="flex-start"
-              uploadText={'Upload'}
+              uploadText={"Upload"}
             />
           </Form.Item>
         </div>
@@ -58,7 +58,7 @@ const BusinessLogo = () => {
               handleImageUpload={handleImageUpload}
               img="Add Image"
               position="flex-start"
-              uploadText={'Upload'}
+              uploadText={"Upload"}
             />
           </Form.Item>
         </div>

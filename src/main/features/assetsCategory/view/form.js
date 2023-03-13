@@ -6,7 +6,7 @@ import {
   FormInput,
   FormInputContainer,
   FormLabel,
-} from "../../../../components/HrMenu/Administration/StyledComponents/adminForm";
+} from "../../../sharedComponents/Administration/StyledComponents/adminForm";
 import { Input, Select } from "antd";
 import { FormButtonContainer } from "../../../sharedComponents/StyledComponents/adminForm";
 import { useDispatch, useSelector } from "react-redux";

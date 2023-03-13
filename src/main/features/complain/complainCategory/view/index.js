@@ -1,16 +1,19 @@
 import { message } from "antd";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AdminContainer } from "../../../../../components/HrMenu/Administration/StyledComponents/admin";
-import { addComplainCategory, removeComplainCategory, updateComplainCategory } from "../store/actions";
+import { AdminContainer } from "../../../../sharedComponents/Administration/StyledComponents/admin";
+import {
+  addComplainCategory,
+  removeComplainCategory,
+  updateComplainCategory,
+} from "../store/actions";
 import Form from "./form.js";
 import TableView from "./table.js";
 
 export default function ComplainCategory() {
   const initialState = { name: "", description: "" };
   const [complainCategory, setComplainCategory] = useState(initialState);
-  const [clearButton, setClearButton] = useState(false)
-
+  const [clearButton, setClearButton] = useState(false);
 
   const dispatch = useDispatch();
   const { loader } = useSelector((state) => state.complainCategorySlice);
@@ -21,12 +24,12 @@ export default function ComplainCategory() {
 
   const onSubmit = (e) => {
     if (e.name === "" || e.description === "") {
-      message.error("Please fill required fields")
+      message.error("Please fill required fields");
     } else {
       if (!e.id) {
         dispatch(addComplainCategory(e));
         setComplainCategory(initialState);
-        setClearButton(true)
+        setClearButton(true);
         return;
       }
       dispatch(updateComplainCategory(e));
@@ -36,7 +39,13 @@ export default function ComplainCategory() {
 
   return (
     <AdminContainer>
-      <Form clearButton={clearButton} setClearButton={setClearButton} data={complainCategory} onSubmit={onSubmit} loading={loader} />
+      <Form
+        clearButton={clearButton}
+        setClearButton={setClearButton}
+        data={complainCategory}
+        onSubmit={onSubmit}
+        loading={loader}
+      />
       <TableView
         handleEdit={setComplainCategory}
         setClearButton={setClearButton}

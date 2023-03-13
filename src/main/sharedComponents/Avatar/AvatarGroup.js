@@ -8,7 +8,6 @@ import ItemDetailModal from "../ItemDetails";
 // import PropTypes from "prop-types";
 
 function AvatarGroup(props) {
-  console.log(props, "propssse");
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
 

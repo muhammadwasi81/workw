@@ -17,6 +17,7 @@ import { Avatar } from "antd";
 import { getAllSchedule } from "../../store/action";
 import moment from "moment";
 import { defaultUiid } from "../../../../../utils/Shared/enums/enums";
+import { handleScheduleTab } from "../../store/slice";
 function MySchedules() {
   const dispatch = useDispatch();
   const [scheduleData, setScheduleData] = useState(null);
@@ -26,6 +27,9 @@ function MySchedules() {
   const employeesData = useSelector((state) => state.sharedSlice.employees);
   const employeesShortData = useSelector(
     (state) => state.sharedSlice.employeeShort
+  );
+  const { scheduleSearch, scheduleTabs } = useSelector(
+    (state) => state.scheduleSlice
   );
 
   useEffect(() => {
@@ -135,7 +139,7 @@ function MySchedules() {
         getAllSchedule({
           pageNo: 1,
           pageSize: 20,
-          search: "",
+          search: scheduleSearch,
           sortBy: 1,
           referenceId: defaultUiid,
           referenceType: 0,
@@ -149,7 +153,7 @@ function MySchedules() {
         getAllSchedule({
           pageNo: 1,
           pageSize: 20,
-          search: "",
+          search: scheduleSearch,
           sortBy: 1,
           referenceId: defaultUiid,
           referenceType: 0,
@@ -163,7 +167,7 @@ function MySchedules() {
         getAllSchedule({
           pageNo: 1,
           pageSize: 20,
-          search: "",
+          search: scheduleSearch,
           sortBy: 1,
           referenceId: defaultUiid,
           referenceType: 0,
@@ -174,8 +178,42 @@ function MySchedules() {
     }
   };
 
+  useEffect(() => {
+    if (scheduleTabs === "1") {
+      //Get all schedule for today
+      fetchAllSchedule(
+        moment()
+          .startOf("D")
+          .format(),
+        moment()
+          .endOf("D")
+          .format()
+      );
+    }
+    if (scheduleTabs === "0") {
+      //Get all schedule for past
+      fetchAllSchedule(
+        "",
+        moment()
+          .subtract(1, "days")
+          .format()
+      );
+    }
+    if (scheduleTabs === "2") {
+      //Get all schedule for upcoming
+      fetchAllSchedule(
+        moment()
+          .add(1, "days")
+          .format(),
+        ""
+      );
+    }
+  }, [scheduleSearch]);
+
   const onChangeTab = (e) => {
-    console.log("on change tab", e);
+    //TODO: dispatch another action for past/today/upcoming
+    dispatch(handleScheduleTab(e.toString()));
+
     //TODO: Here will call api when tabs change
     if (e.toString() === "1") {
       //Get all schedule for today

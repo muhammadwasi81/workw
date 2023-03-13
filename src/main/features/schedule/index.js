@@ -29,7 +29,7 @@ function Schedules({ referenceId = defaultUiid }) {
   const render = {
     cal: <Calendar referenceId={referenceId} />,
     sc: <MySchedules />,
-    si: <MySchedules />,
+    // si: <MySchedules />,
   };
   const handleShareLinkModal = () => {
     setIsShareLinkModalOpen(!isShareLinkModalOpen);

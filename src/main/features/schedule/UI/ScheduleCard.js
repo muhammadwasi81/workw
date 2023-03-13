@@ -56,35 +56,44 @@ function ScheduleCard({ sheduleType = "", setScheduleData = () => {} }) {
       );
     }
   };
-  // console.log("sheduleType", sheduleType);
+
   useEffect(() => {
-    if (sheduleType === "Today") {
-      fetchAllSchedule(
-        moment()
-          .startOf("D")
-          .format(),
-        moment()
-          .endOf("D")
-          .format()
-      );
-    }
-    if (sheduleType === "Past") {
-      fetchAllSchedule(
-        "",
-        moment()
-          .subtract(1, "days")
-          .format()
-      );
-    }
-    if (sheduleType === "Upcoming") {
-      fetchAllSchedule(
-        moment()
-          .add(1, "days")
-          .format(),
-        ""
-      );
-    }
-  }, [pageNo]);
+    fetchAllSchedule(
+      "",
+      moment()
+        .subtract(1, "days")
+        .format()
+    );
+  }, []);
+  // console.log("sheduleType", sheduleType);
+  // useEffect(() => {
+  //   if (sheduleType === "Today") {
+  //     fetchAllSchedule(
+  //       moment()
+  //         .startOf("D")
+  //         .format(),
+  //       moment()
+  //         .endOf("D")
+  //         .format()
+  //     );
+  //   }
+  //   if (sheduleType === "Past") {
+  //     fetchAllSchedule(
+  //       "",
+  //       moment()
+  //         .subtract(1, "days")
+  //         .format()
+  //     );
+  //   }
+  //   if (sheduleType === "Upcoming") {
+  //     fetchAllSchedule(
+  //       moment()
+  //         .add(1, "days")
+  //         .format(),
+  //       ""
+  //     );
+  //   }
+  // }, [pageNo]);
 
   const handleScheduleTypeData = (value) => {
     // console.log("value: ", value);
@@ -94,31 +103,37 @@ function ScheduleCard({ sheduleType = "", setScheduleData = () => {} }) {
     });
   };
   return (
-    <Scroll
-      isLoading={loading}
-      data={schedules}
-      fetchMoreData={(pageNo) => {
-        setPageNo(pageNo);
+    <div
+      style={{
+        height: "70vh",
       }}
-      loader={<>Loading schedules...</>}
-      endMessage={"No data..."}
     >
-      {schedules?.map((schedule) => (
-        <div
-          className="rounded-lg p-3 bg-white  flex flex-col gap-3 mb-2 hover:border-primary-color hover:border transition-all border"
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            handleScheduleTypeData(schedule);
-          }}
-        >
-          <div className="flex flex-col">
-            {/* <p className="text-[#757d86]">SAT,Jul 14,2022</p> */}
-            <ScheduleCardDetail schedule={schedule} />
+      <Scroll
+        isLoading={loading}
+        data={schedules}
+        fetchMoreData={(pageNo) => {
+          setPageNo(pageNo);
+        }}
+        loader={<>Loading schedules...</>}
+        endMessage={"No data..."}
+      >
+        {schedules?.map((schedule) => (
+          <div
+            className="rounded-lg p-3 bg-white  flex flex-col gap-3 mb-2 hover:border-primary-color hover:border transition-all border"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              handleScheduleTypeData(schedule);
+            }}
+          >
+            <div className="flex flex-col">
+              {/* <p className="text-[#757d86]">SAT,Jul 14,2022</p> */}
+              <ScheduleCardDetail schedule={schedule} />
+            </div>
           </div>
-        </div>
-      ))}
-    </Scroll>
+        ))}
+      </Scroll>
+    </div>
   );
 }
 

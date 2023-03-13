@@ -14,6 +14,9 @@ import {
   getAllEmployeeShort,
 } from "../../../../../utils/Shared/store/actions";
 import { Avatar } from "antd";
+import { getAllSchedule } from "../../store/action";
+import moment from "moment";
+import { defaultUiid } from "../../../../../utils/Shared/enums/enums";
 function MySchedules() {
   const dispatch = useDispatch();
   const [scheduleData, setScheduleData] = useState(null);
@@ -126,6 +129,85 @@ function MySchedules() {
     },
   ];
 
+  const fetchAllSchedule = (startDate, endDate) => {
+    if (startDate.length && endDate.length) {
+      dispatch(
+        getAllSchedule({
+          pageNo: 1,
+          pageSize: 20,
+          search: "",
+          sortBy: 1,
+          referenceId: defaultUiid,
+          referenceType: 0,
+          startDate,
+          endDate,
+        })
+      );
+    }
+    if (!startDate.length && endDate.length) {
+      dispatch(
+        getAllSchedule({
+          pageNo: 1,
+          pageSize: 20,
+          search: "",
+          sortBy: 1,
+          referenceId: defaultUiid,
+          referenceType: 0,
+          //   startDate,
+          endDate,
+        })
+      );
+    }
+    if (startDate.length && !endDate.length) {
+      dispatch(
+        getAllSchedule({
+          pageNo: 1,
+          pageSize: 20,
+          search: "",
+          sortBy: 1,
+          referenceId: defaultUiid,
+          referenceType: 0,
+          startDate,
+          //   endDate,
+        })
+      );
+    }
+  };
+
+  const onChangeTab = (e) => {
+    console.log("on change tab", e);
+    //TODO: Here will call api when tabs change
+    if (e.toString() === "1") {
+      //Get all schedule for today
+      fetchAllSchedule(
+        moment()
+          .startOf("D")
+          .format(),
+        moment()
+          .endOf("D")
+          .format()
+      );
+    }
+    if (e.toString() === "0") {
+      //Get all schedule for past
+      fetchAllSchedule(
+        "",
+        moment()
+          .subtract(1, "days")
+          .format()
+      );
+    }
+    if (e.toString() === "2") {
+      //Get all schedule for upcoming
+      fetchAllSchedule(
+        moment()
+          .add(1, "days")
+          .format(),
+        ""
+      );
+    }
+  };
+
   return (
     <div className="flex flex-col gap-3 overflow-hidden h-full">
       <div className="flex flex-1 gap-5 h-full">
@@ -133,7 +215,12 @@ function MySchedules() {
           <div className="bg-[#ffffff] mb-[1rem] rounded-[10px]">
             <Tab panes={newPanes} activeKey="0" />
           </div>
-          <Tab panes={panes} activeKey="1" />
+          <Tab
+            panes={panes}
+            activeKey="1"
+            onChangeTab={onChangeTab}
+            canChangeRoute={true}
+          />
         </div>
         <div className="basis-[70%] flex flex-col gap-[18px] min-h-0">
           <div className="rounded-lg p-2 px-5 bg-[white] font-bold text-black">

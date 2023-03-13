@@ -9,8 +9,8 @@ import {
   FormInputContainer,
   FormLabel,
   FormTextArea,
-} from "../../../../components/HrMenu/Administration/StyledComponents/adminForm";
-import { AdminContainer } from "../../../../components/HrMenu/Administration/StyledComponents/admin";
+} from "../../../sharedComponents/Administration/StyledComponents/adminForm";
+import { AdminContainer } from "../../../sharedComponents/Administration/StyledComponents/admin";
 import moment from "moment";
 import "./officeTiming.css";
 

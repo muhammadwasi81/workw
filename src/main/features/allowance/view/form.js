@@ -10,7 +10,7 @@ import {
   FormInputContainer,
   FormLabel,
   FormTextArea,
-} from "../../../../components/HrMenu/Administration/StyledComponents/adminForm";
+} from "../../../sharedComponents/Administration/StyledComponents/adminForm";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getAllGrades } from "../../grade/store/actions";

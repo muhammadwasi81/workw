@@ -1,15 +1,19 @@
 import { message } from "antd";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AdminContainer } from "../../../../../components/HrMenu/Administration/StyledComponents/admin";
-import { removeRewardCategory, addRewardCategory, updateRewardCategory } from "../store/actions";
+import { AdminContainer } from "../../../../sharedComponents/Administration/StyledComponents/admin";
+import {
+  removeRewardCategory,
+  addRewardCategory,
+  updateRewardCategory,
+} from "../store/actions";
 import RewardCategoryForm from "./form.js";
 import RewardCategoryTable from "./table.js";
 
 export default function RewardCategory() {
   const initialState = { name: "", description: "" };
   const [rewardCategory, setRewardCategory] = useState(initialState);
-  const [clearButton, setClearButton] = useState(false)
+  const [clearButton, setClearButton] = useState(false);
 
   const dispatch = useDispatch();
   const { loader } = useSelector((state) => state.rewardCategorySlice);
@@ -20,12 +24,12 @@ export default function RewardCategory() {
 
   const onSubmit = (e) => {
     if (e.name === "" || e.description === "") {
-      message.error("Please fill all required fields")
+      message.error("Please fill all required fields");
     } else {
       if (!e.id) {
         dispatch(addRewardCategory(e));
         setRewardCategory(initialState);
-        setClearButton(true)
+        setClearButton(true);
         return;
       }
       dispatch(updateRewardCategory(e));

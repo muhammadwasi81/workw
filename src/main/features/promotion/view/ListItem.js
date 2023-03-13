@@ -28,6 +28,10 @@ function ListItem(props) {
     referenceNo,
     grade,
   } = props.item;
+  const localTime = moment
+    .utc(createDate)
+    .local()
+    .format();
   return (
     <SingleItem>
       <div
@@ -41,11 +45,11 @@ function ListItem(props) {
         <div className="left">
           <UserInfo
             avatarSrc={creator?.image}
-           name={creator?.name}
+            name={creator?.name}
             Subline={
               <SublineDesigWithTime
                 designation={creator?.designation ? creator.designation : ""}
-                time={moment(createDate).fromNow()}
+                time={moment(localTime).fromNow()}
               />
             }
           />

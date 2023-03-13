@@ -12,7 +12,7 @@ import {
   FormInputContainer,
   FormLabel,
   FormTextArea,
-} from "../../../../../components/HrMenu/Administration/StyledComponents/adminForm";
+} from "../../../../sharedComponents/Administration/StyledComponents/adminForm";
 import { warningDictionaryList } from "../../localization/index";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 export default function WarningCategoryForm({

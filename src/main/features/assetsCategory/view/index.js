@@ -1,19 +1,19 @@
-import { useState } from 'react';
-import { AdminContainer } from '../../../../components/HrMenu/Administration/StyledComponents/admin';
-import AssetsCategoryForm from './form';
-import { message } from 'antd';
-import AssetsTableView from './table';
-import { useDispatch } from 'react-redux';
-import { addAssetCategory, updateAssetCategory } from '../store/actions.js';
+import { useState } from "react";
+import { AdminContainer } from "../../../sharedComponents/Administration/StyledComponents/admin";
+import AssetsCategoryForm from "./form";
+import { message } from "antd";
+import AssetsTableView from "./table";
+import { useDispatch } from "react-redux";
+import { addAssetCategory, updateAssetCategory } from "../store/actions.js";
 
 const AssetsCategory = () => {
   const dispatch = useDispatch();
 
   const initialState = {
-    name: '',
-    description: '',
-    accountName: '',
-    parentId: '',
+    name: "",
+    description: "",
+    accountName: "",
+    parentId: "",
   };
 
   const [clearButton, setClearButton] = useState(false);
@@ -21,7 +21,7 @@ const AssetsCategory = () => {
 
   const handleSubmit = (e) => {
     if (!e.name || !e.description) {
-      return message.error('Please fill all required fields');
+      return message.error("Please fill all required fields");
     }
     if (e.id) {
       dispatch(updateAssetCategory(e));
@@ -33,13 +33,13 @@ const AssetsCategory = () => {
         accountName: e.accountName,
         parentId: e.parentId,
       };
-      console.log(payload, 'payload');
+      console.log(payload, "payload");
       dispatch(addAssetCategory(payload));
       setAssets(initialState);
     }
   };
   const handleDelete = (e) => {
-    message.success('Deleted Successfully');
+    message.success("Deleted Successfully");
   };
   return (
     <>

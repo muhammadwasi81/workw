@@ -109,7 +109,7 @@ function WorkBoardDescription({
       </div>
 
       <div className="flex flex-col">
-        <div className="flex flex-row justify-between gap-20">
+         <div className="flex flex-row justify-between gap-20">
             <span className="text-gray-500">Members </span>
           </div>
           <div className="flex gap-2 items-center">

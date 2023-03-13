@@ -63,7 +63,6 @@ const TableEntryItem = ({
     <tr>
       <td>
         <input
-          name="title"
           defaultValue={titleValue}
           onChange={(e) => setTitle(e.target.value)}
         />
@@ -73,18 +72,17 @@ const TableEntryItem = ({
       </td>
       <td>
         <input
-          name="description"
-          defaultValue={descValue}
+          value={descValue}
           onChange={(e)=> setDescValue(e.target.value)}
         />
       </td>
 
       
-      <td> 
-      {itemValue.labels.map((label) =>
-      <Tag color={label.colorCode} className="!h-5" onClick={() => showLabelModal()}/>
-      )}
-      </td>
+       <td> 
+          {itemValue.labels.map((label) =>
+          <Tag color={label.colorCode} className="!h-5" onClick={() => showLabelModal()}/>
+          )}
+       </td>
 
       <td>
         {moment(date).format("DD MMM YYYY")}

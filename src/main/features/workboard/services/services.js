@@ -196,7 +196,7 @@ export const removeWorkBoardTodoImageService = (data) => {
 
 export const removeWorkBoardTodoService = (data) => {
   return MasterConfig.delete(
-    `${TODO_API_PREFIX}RemoveWorkBoardTodo?todoId=${data.id}`
+    `${TODO_API_PREFIX}RemoveWorkBoardTodo?id=${data.id}`
   )
     .then((res) => {
       return res.data;

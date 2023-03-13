@@ -229,9 +229,7 @@ createDate:"",
     const onRow = (record, rowIndex) => {    
       return {
         onClick: (event) => {
-          //setTableInput(true);
           const { id } = record;
-          console.log("recordddd",rowIndex);
           //navigate(`${ROUTES.WORKBOARD.BOARD}${id}`);
         }, // click row
         // onDoubleClick: (event) => {}, // double click row
@@ -239,9 +237,6 @@ createDate:"",
         // onMouseEnter: (event) => {}, // mouse enter row
         // onMouseLeave: (event) => {}, // mouse leave row
       };
-    };
-    const onActionClick = (row) => {
-      console.log("onactionclick", row);
     };
    
 
@@ -342,9 +337,6 @@ createDate:"",
                   <TableTodo onSave={addCard}/>
                </Modal>  
             
-              
-
-
             {/* <Table
               columns={sectionTableColumn(sectionTableData,onActionClick,WorkBoardDictionaryList)}
               data={sectionTableData}
@@ -361,9 +353,8 @@ createDate:"",
                             <TableEntryItem
                               key={ind}
                               index={ind}
-                              // accounts={sectionTableData}
-                              handleChange={handleChange1}
-                              handleRemoveRow={handleRemoveRow}
+                              // handleChange={handleChange1}
+                              // handleRemoveRow={handleRemoveRow}
                               itemValue={item}
                             />
                           );

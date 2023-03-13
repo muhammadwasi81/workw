@@ -65,13 +65,16 @@ function Card(props) {
               {...provided.draggableProps}
               {...provided.dragHandleProps}
               className="Card items-center relative bg-white m-[5px] p-[5px] rounded-sm border shadow-sm text-sm break-words m-h[18px] !cursor-pointer"
+              onClick={(e) => {
+                openDetail(); 
+              }}
             >
               <div className="flex mb-3 group">
                 <div
                   className="w-full flex flex-col group"
-                  onClick={(e) => {
-                    openDetail();
-                  }}
+                  // onClick={(e) => {
+                  //   openDetail();
+                  // }}
                 >
                   {todoText}
                   {todoData && todoData.image && (
@@ -97,10 +100,10 @@ function Card(props) {
                 </div>
                 <EditDropDown
                   className={"edit-icon"}
-                  startEditing={startEditing}
-                  // deleteList={deleteList}
-                  sectionId={sectionId}
-                  todoId={id}
+                   startEditing={startEditing}
+                   // deleteList={deleteList}
+                   sectionId={sectionId}
+                   todoId={id}
                 />
               </div>
               <div className="flex items-center justify-between">

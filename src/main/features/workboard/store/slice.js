@@ -489,9 +489,9 @@ const trelloSlice = createSlice({
         state.todoDetail.image = "";
       })
       .addCase(removeWorkBoardTodo.fulfilled, (state, { payload }) => {
-        console.log(payload,"mypayloadddd");
         state.loader = false;
         const { id, sectionId } = payload;
+        console.log(payload, "mypayloadddd");
         const workBoardSectionIndex = state.workboardDetail.sections.findIndex(
           (section) => section.id === sectionId
         );

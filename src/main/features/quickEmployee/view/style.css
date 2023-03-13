@@ -33,7 +33,10 @@
 }
 
 .QuickAddModal .ant-modal-close-x {
-    display: none;
+    line-height: 0;
+    text-align: right;
+    margin-right: 3px;
+    margin-top: 2px;
 }
 
 .QuickAddModal .custom_table {

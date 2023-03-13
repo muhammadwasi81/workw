@@ -1,8 +1,8 @@
-import { message } from 'antd';
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { AdminContainer } from '../../../../components/HrMenu/Administration/StyledComponents/admin';
+import { message } from "antd";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { AdminContainer } from "../../../sharedComponents/Administration/StyledComponents/admin";
 import {
   addBranch,
   addDefaultHiringCriteria,
@@ -12,12 +12,12 @@ import {
   removeDefaultHiringCriteria,
   updateBranch,
   updateDefaultHiringCriteria,
-} from '../store/actions';
-import Form from './form.js';
-import TableView from './table.js';
+} from "../store/actions";
+import Form from "./form.js";
+import TableView from "./table.js";
 
 export default function Subsidiary() {
-  const initialState = { branchTitle: '' };
+  const initialState = { branchTitle: "" };
   const [subsidiary, setSubsidiary] = useState(initialState);
   const [clearButton, setClearButton] = useState(false);
 
@@ -30,7 +30,7 @@ export default function Subsidiary() {
   };
 
   const onSubmit = (e) => {
-    if (e.branchTitle === '') {
+    if (e.branchTitle === "") {
       message.error("Title can't be empty");
     } else {
       if (!e.id) {

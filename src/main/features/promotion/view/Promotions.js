@@ -31,8 +31,8 @@ const Promotion = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { promotionDictionary } = promotionDictionaryList[userLanguage];
   const { tables } = promotionDictionary;
-  const {user} = useSelector((state) => state.userSlice);
-  const userPermissions = user.permissions
+  const { user } = useSelector((state) => state.userSlice);
+  const userPermissions = user.permissions;
 
   const [promotionId, setPromotionId] = useState("");
 
@@ -45,7 +45,6 @@ const Promotion = (props) => {
     search: "",
     sortBy: 1,
   });
-
   const { promotions, loader, promotionDetail, drawerOpen } = useSelector(
     (state) => state.promotionSlice
   );
@@ -68,7 +67,6 @@ const Promotion = (props) => {
       name: promotionDictionary.promotion,
       renderButton: [1],
       to: `${ROUTES.PROMOTION.ROOT}`,
-      
     },
   ];
 
@@ -76,21 +74,25 @@ const Promotion = (props) => {
     <TabbableContainer className="max-width-1190">
       <Header
         items={items}
-        buttons={userPermissions.includes(FeaturePermissionEnum.CreatePromotion) ?[
-          {
-            buttonText: "Create Promotions",
-            render: (
-              <SideDrawer
-                title={promotionDictionary.createPromotion}
-                buttonText={promotionDictionary.createPromotion}
-                handleClose={() => dispatch(handleOpenComposer(false))}
-                handleOpen={() => dispatch(handleOpenComposer(true))}
-                isOpen={drawerOpen}
-                children={<Composer />}
-              />
-            ),
-          },
-        ] : []}
+        buttons={
+          userPermissions.includes(FeaturePermissionEnum.CreatePromotion)
+            ? [
+                {
+                  buttonText: "Create Promotions",
+                  render: (
+                    <SideDrawer
+                      title={promotionDictionary.createPromotion}
+                      buttonText={promotionDictionary.createPromotion}
+                      handleClose={() => dispatch(handleOpenComposer(false))}
+                      handleOpen={() => dispatch(handleOpenComposer(true))}
+                      isOpen={drawerOpen}
+                      children={<Composer />}
+                    />
+                  ),
+                },
+              ]
+            : []
+        }
       />
       <TopBar
         onSearch={(value) => {
@@ -111,7 +113,7 @@ const Promotion = (props) => {
           },
           {
             name: promotionDictionary.promotionToMe,
-            onClick: () => setFilter({ filterType: 3 }),
+            onClick: () => setFilter({ filterType: 3, pageNo: 1 }),
           },
         ]}
         segment={{
@@ -130,7 +132,11 @@ const Promotion = (props) => {
         {loader && <Skeleton avatar paragraph={{ rows: 4 }} />}
 
         {tableView && (
-          <Table columns={tableColumn(tables)} dragable={true} data={promotions} />
+          <Table
+            columns={tableColumn(tables)}
+            dragable={true}
+            data={promotions}
+          />
         )}
 
         {promotions?.length > 0 && !loader && !tableView ? (

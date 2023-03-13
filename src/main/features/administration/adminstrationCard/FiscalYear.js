@@ -8,7 +8,7 @@ import {
   FormInput,
   FormInputContainer,
   FormLabel,
-} from "../../../../components/HrMenu/Administration/StyledComponents/adminForm";
+} from "../../../sharedComponents/Administration/StyledComponents/adminForm";
 import TextArea from "antd/lib/input/TextArea";
 
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";

@@ -25,10 +25,11 @@ function PromotionDetail(props) {
   const { user } = useSelector((state) => state.userSlice);
   const { id } = props;
   const [updatedStatus, setUpdatedStatus] = useState();
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
   const { promotionDetail, loadingData } = useSelector(
     (state) => state.promotionSlice
   );
+  console.log(promotionDetail, "promotion detaill");
 
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, promotionDictionary } = promotionDictionaryList[
@@ -77,12 +78,12 @@ function PromotionDetail(props) {
     setIsOpen(false);
   };
 
-  const onFinish = (values) => { 
+  const onFinish = (values) => {
     let id = promotionDetail.id;
-    let reason = values.remarks
+    let reason = values.remarks;
     setIsOpen(false);
     // dispatch(cancelPromotion({ id: id, reason: reason }));
-  }
+  };
 
   return (
     <>
@@ -103,9 +104,7 @@ function PromotionDetail(props) {
             </div>
             <div className="right">
               <Tag className="IdTag">{referenceNo}</Tag>
-              <StatusTag
-                status={updatedStatus ? updatedStatus.Approvers : status}
-              ></StatusTag>
+              <StatusTag status={status}></StatusTag>
               {userId === creator.id ? (
                 status != Declined && status != Resend && status != Approved ? (
                   <Button
@@ -162,14 +161,23 @@ function PromotionDetail(props) {
           </div>
           <RemarksApproval
             module={ApprovalsModule.PromotionApproval}
+            reference={promotionDetail.id}
             status={status}
-            onStatusChanged={(statusChanged) => setUpdatedStatus(statusChanged)}
+            onStatusChanged={(status) =>
+              setUpdatedStatus((prev) => {
+                return { ...prev, ...status };
+              })
+            }
             data={approvers}
             title="Approvals"
           />
         </div>
       )}
-      <ConfirmationRemarkModal isOpen={isOpen} onCancel={onClose} onFinish={onFinish} />
+      <ConfirmationRemarkModal
+        isOpen={isOpen}
+        onCancel={onClose}
+        onFinish={onFinish}
+      />
     </>
   );
 }

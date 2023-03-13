@@ -112,7 +112,7 @@ const TeamCard = ({ teams }) => {
   const { teamDictionary } = teamDictionaryList[userLanguage];
   const labels = teamDictionary.sharedLabels;
 
-  const { firstName, lastName, email, image, designation } = teams;
+  const { firstName, lastName, email, image, designation, id } = teams;
 
   const navigate = useNavigate();
 
@@ -149,7 +149,9 @@ const TeamCard = ({ teams }) => {
           </ActionButton> */}
           <ActionButton
             onClick={() => {
-              navigate(`/teams/info/check-in/${teams.id}`);
+              //Route will be set accordingly
+              //TODO: change hard code ID
+              navigate(`/teams/info/check-in/${id}`);
             }}
             BackgroundColor="var(--currentThemeColor) !important"
           >

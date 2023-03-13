@@ -30,7 +30,8 @@ function ItemDetailModal({
 }) {
   const dispatch = useDispatch();
   // const modalRequest = useSelector((state) => state.groupSlice.addMemberModal);
-  // const {}
+
+  const ApprovalSlice = useSelector((state) => state.ApproverSlice);
   const { employees, itemDetailModal } = useSelector(
     (state) => state.sharedSlice
   );
@@ -43,12 +44,28 @@ function ItemDetailModal({
   // let ModalOpen = modalRequest.status;
 
   useEffect(() => {
+    if (Object.keys(ApprovalSlice.approver).length) {
+      let appro = {
+        ...ApprovalSlice.approver,
+        member: ApprovalSlice.approver.approver,
+      };
+      setMyData((prev) => [...prev, appro]);
+    }
+  }, [ApprovalSlice]);
+
+  useEffect(() => {
     fetchEmployees('', 0);
     setMyData(data);
   }, []);
 
   useEffect(() => {
-    setMyData(data);
+    const daa = data.map((it) => {
+      return {
+        ...it,
+        member: it.member || it.approver,
+      };
+    });
+    setMyData(daa);
   }, [data]);
 
   const fetchEmployees = (text, pgNo) => {

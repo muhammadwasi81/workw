@@ -1,7 +1,7 @@
 import { Skeleton } from "antd";
 import { useEffect, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AdminTable } from "../../../../components/HrMenu/Administration/StyledComponents/adminTable";
+import { AdminTable } from "../../../sharedComponents/Administration/StyledComponents/adminTable";
 import { getAllEmailConfigurations } from "../store/actions";
 import { tableColumn } from "./tableColumn";
 import { emailConfiDictionaryList } from "../localization/index";
@@ -22,8 +22,8 @@ export default function EmailConfigurationTable({
     dispatch(getAllEmailConfigurations());
   }, []);
 
-  console.log(emailConfigurations, "EMAIL CONFIGURATION")
-  
+  console.log(emailConfigurations, "EMAIL CONFIGURATION");
+
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, emailConfiDictionary } = emailConfiDictionaryList[
     userLanguage

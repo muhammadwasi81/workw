@@ -109,6 +109,7 @@ const CommentComposer = ({
     }
     setShowComments(true);
   };
+
   const getEmployeeOnMentionSearch = async (value) => {
     if (value.includes('@')) {
       let filter = value.split('@').at(-1);

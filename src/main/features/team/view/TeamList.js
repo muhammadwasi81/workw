@@ -37,8 +37,14 @@ function TeamList() {
     dispatch(getTeamsAction(user.id));
   }, []);
 
+  const searchHandler = (value) => {
+    // dispatch(getTeamsAction({ search: value }));
+    console.log(value, 'value');
+  };
+
   let classes = 'teamListContainer ';
   classes += Direction === 'ltr' ? 'ltr' : 'rtl';
+
   if (loader)
     return [...Array(40)].map((_, index) => (
       <div className={`${classes} teamListContainer`}>

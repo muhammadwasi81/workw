@@ -6,11 +6,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import '../style/businessPolicy.css';
 import '../style/style.css';
 import { getAllBusinessPolicy, removeBusinessPolicy } from '../store/action';
-import { AdminContainer } from '../../../../components/HrMenu/Administration/StyledComponents/admin';
+import { AdminContainer } from '../../../sharedComponents/Administration/StyledComponents/admin';
 import '../style/businessPolicy.css';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { FormContainer } from './../../../sharedComponents/StyledComponents/adminForm';
-import { FormHeader } from '../../../../components/HrMenu/Administration/StyledComponents/adminForm';
+import { FormHeader } from '../../../sharedComponents/Administration/StyledComponents/adminForm';
 import { handleEdit } from '../store/slice';
 
 import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';

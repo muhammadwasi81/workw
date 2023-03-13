@@ -1,10 +1,10 @@
 import React from "react";
-import { AdminContainer } from "../../../../components/HrMenu/Administration/StyledComponents/admin";
+import { AdminContainer } from "../../../sharedComponents/Administration/StyledComponents/admin";
 
 import {
   FormContainer,
   FormHeader,
-} from "../../../../components/HrMenu/Administration/StyledComponents/adminForm";
+} from "../../../sharedComponents/Administration/StyledComponents/adminForm";
 import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
 import { useState, useContext } from "react";
 import { Button, Divider, Form } from "antd";
@@ -62,8 +62,6 @@ const BusinessLogo = ({ formData, setFormData, handleChangeTab }) => {
                 />
               </Form.Item>
             </div>
-
-
 
             <div className="flex justify-center horizontalLogo">
               <Form.Item area="true">

@@ -181,7 +181,7 @@ export function OrgChart(props) {
       .catch((err) => alert(err))
   }
   const accessVerify = async () => {
-    let result = await RightsVerification(STRINGS.USER_RIGHTS_TYPE.ORG_CHART)
+    let result = await RightsVerification(0)
     let { status, data, error } = result
     if (status) {
       setIsAccessVerify(data)

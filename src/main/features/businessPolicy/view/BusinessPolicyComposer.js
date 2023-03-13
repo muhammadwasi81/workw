@@ -1,11 +1,14 @@
-import { useContext } from 'react';
 import { Button, Form, Input, message, Select } from 'antd';
+import React, { useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ReactQuill from 'react-quill';
+import { FormTextArea } from '../../../sharedComponents/Administration/StyledComponents/adminForm';
 import * as S from '../../employee/Styles/employee.style';
 import { FormLabel } from './FormLabel';
 import { addBusinessPolicy, updateBusinessPolicy } from '../store/action';
 import 'react-quill/dist/quill.snow.css';
+import { handleEdit } from '../store/slice';
+
 import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
 import { dictionaryList } from '../../../../utils/localization/languages';
 
@@ -38,7 +41,6 @@ function BusinessPolicyComposer({ editData }) {
   const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
   const { administration, Direction } = dictionaryList[userLanguage];
-
   const { createLoader } = useSelector((state) => state.businessPolicySlice);
 
   const onFinish = (values) => {
@@ -52,7 +54,6 @@ function BusinessPolicyComposer({ editData }) {
       }
     }
   };
-
   return (
     <div className="ar_container">
       <Form

@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   FormContainer,
   FormHeader,
-} from "../../../../components/HrMenu/Administration/StyledComponents/adminForm";
+} from "../../../sharedComponents/Administration/StyledComponents/adminForm";
 import BillingTable from "./table";
 import { getAllBilling } from "../store/actions";
 

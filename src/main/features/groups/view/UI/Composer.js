@@ -84,19 +84,17 @@ const Composer = (props) => {
     };
 
     if (update) {
-      dispatch(
+      return dispatch(
         updateGroup(
           jsonToFormData({
             name: values.name,
             description: values.description,
             image,
             id,
-            features: values.features,
             privacyId,
           })
         )
       );
-      return;
     }
     dispatch(addGroup(jsonToFormData(objToSend)));
   };
@@ -182,6 +180,12 @@ const Composer = (props) => {
           style={{ marginTop: "-18px" }}
           label={labels.desc}
           name="description"
+          rules={[
+            {
+              required: true,
+              message: errors.desc,
+            },
+          ]}
         >
           <Input.TextArea placeholder={placeHolders.descPh} />
         </Form.Item>
@@ -223,7 +227,6 @@ const Composer = (props) => {
               block
               htmlType="submit"
               loading={createLoader}
-              // onClick={onFinish}
             >
               {update
                 ? groupsDictionary.updateTextBtn

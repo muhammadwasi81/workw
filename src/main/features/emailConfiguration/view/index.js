@@ -1,18 +1,22 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AdminContainer } from "../../../../components/HrMenu/Administration/StyledComponents/admin";
-import { addEmailConfiguration, removeEmailConfiguration, updateEmailConfiguration } from "../store/actions";
-import EmailConfigurationForm from "./form.js"
+import { AdminContainer } from "../../../sharedComponents/Administration/StyledComponents/admin";
+import {
+  addEmailConfiguration,
+  removeEmailConfiguration,
+  updateEmailConfiguration,
+} from "../store/actions";
+import EmailConfigurationForm from "./form.js";
 import EmailConfigurationTable from "./table.js";
 
 export default function EmailConfiguration() {
-  const initialState = { 
+  const initialState = {
     name: "",
     incomingPort: "",
     incomingServerAddress: "",
     outgoingPort: "",
-    outgoingServerAddress: "", 
-    provider: ""
+    outgoingServerAddress: "",
+    provider: "",
   };
   const [emailConfiguration, setemailConfiguration] = useState(initialState);
 
@@ -34,7 +38,11 @@ export default function EmailConfiguration() {
   };
   return (
     <AdminContainer>
-      <EmailConfigurationForm data={emailConfiguration} onSubmit={onSubmit} loading={loader} />
+      <EmailConfigurationForm
+        data={emailConfiguration}
+        onSubmit={onSubmit}
+        loading={loader}
+      />
       <EmailConfigurationTable
         handleEdit={setemailConfiguration}
         handleDelete={handleDelete}

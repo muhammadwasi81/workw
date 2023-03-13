@@ -23,7 +23,7 @@ function Header({ handleShareLinkModal, width, routeLink, backButton }) {
       renderButton: [1, 2],
     },
     {
-      name: "Schedule Interviews",
+      name: "Interviews Schedule",
       to: `?f=si`,
       renderButton: [1],
     },

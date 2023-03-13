@@ -24,6 +24,7 @@ function Scheduler({ feed = false, referenceId }) {
   const [composerDate, setComposerDate] = useState("");
   console.log(schedules, "scheduless");
   const calendarRef = useRef();
+  const { scheduleSearch } = useSelector((state) => state.scheduleSlice);
   let isPanelChange = false;
   const dispatch = useDispatch();
   // const renderEventContent = eventInfo => {
@@ -31,7 +32,7 @@ function Scheduler({ feed = false, referenceId }) {
   // };
   useEffect(() => {
     fetchAllSchedule(todayDate, todayDate);
-  }, []);
+  }, [scheduleSearch]);
 
   useEffect(() => {
     if (success) {
@@ -52,7 +53,7 @@ function Scheduler({ feed = false, referenceId }) {
       getAllSchedule({
         pageNo: 1,
         pageSize: 20,
-        search: "",
+        search: scheduleSearch,
         sortBy: 1,
         referenceId: referenceId,
         referenceType: 0,

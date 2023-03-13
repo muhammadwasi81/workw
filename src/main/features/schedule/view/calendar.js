@@ -33,6 +33,8 @@ function Calendar({ referenceId }) {
     (state) => state.scheduleSlice.upcomingSchedules
   );
 
+  const { scheduleSearch } = useSelector((state) => state.scheduleSlice);
+
   const {
     sharedSlice: { employees },
   } = useSelector((state) => state);
@@ -77,6 +79,7 @@ function Calendar({ referenceId }) {
         referenceType: 0,
         startDate,
         endDate,
+        search: scheduleSearch,
       })
     );
   };
@@ -86,6 +89,11 @@ function Calendar({ referenceId }) {
     fetchUpcomingScedules(new Date());
     fetchEmployees("", 0);
   }, []);
+
+  useEffect(() => {
+    fetchCurrentDateScedules(new Date());
+    fetchUpcomingScedules(new Date());
+  }, [scheduleSearch]);
 
   const fetchCurrentDateScedules = (value) => {
     const startDate = moment(value)
@@ -107,6 +115,7 @@ function Calendar({ referenceId }) {
         referenceType: 0,
         startDate,
         endDate,
+        search: scheduleSearch,
       })
     );
   };
@@ -123,7 +132,7 @@ function Calendar({ referenceId }) {
       getAllUpcomingSchedule({
         pageNo: 1,
         pageSize: 20,
-        search: "",
+        search: scheduleSearch,
         sortBy: 1,
         referenceId: referenceId,
         referenceType: 0,

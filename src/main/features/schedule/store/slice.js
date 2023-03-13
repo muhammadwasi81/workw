@@ -26,6 +26,7 @@ const scheduleSlice = createSlice({
     upcomingSchedules: [],
     drawerOpen: false,
     scheduleComposerData: null,
+    scheduleSearch: "",
   },
   reducers: {
     handleOpenComposer: (state, { payload }) => {
@@ -34,6 +35,9 @@ const scheduleSlice = createSlice({
     toggleEventDetailComposer: (state, { payload }) => {
       state.eventDetailComposer = !state.eventDetailComposer;
       state.scheduleComposerData = payload;
+    },
+    handleScheduleSearch: (state, { payload }) => {
+      state.scheduleSearch = payload;
     },
   },
   extraReducers: (builder) => {
@@ -193,4 +197,5 @@ export default scheduleSlice.reducer;
 export const {
   toggleEventDetailComposer,
   handleOpenComposer,
+  handleScheduleSearch,
 } = scheduleSlice.actions;

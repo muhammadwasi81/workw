@@ -376,10 +376,10 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
           <Input placeholder={placeholder.pEmail}></Input>
         </Form.Item>
         <Form.Item name="phoneNo" label={labels.PhoneNumber}>
-          <Input placeholder={placeholder.phNo}></Input>
+          <Input type="number" min={0} placeholder={placeholder.phNo}></Input>
         </Form.Item>
         <Form.Item name="nic" label={labels.CNICNumber}>
-          <Input placeholder={placeholder.cnicNo}></Input>
+          <Input type="number" min={0} placeholder={placeholder.cnicNo}></Input>
         </Form.Item>
         <Form.Item
           rules={[{ required: true }]}
@@ -572,7 +572,12 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
           </Select>
         </Form.Item>
         <Form.Item name="employeeNo" label={labels.EmpNo}>
-          <Input placeholder={placeholder.empNo} size="large" />
+          <Input
+            type="number"
+            min={0}
+            placeholder={placeholder.empNo}
+            size="large"
+          />
         </Form.Item>
         <Form.Item name="employmentTypeId" label={labels.EmploymentType}>
           <Select

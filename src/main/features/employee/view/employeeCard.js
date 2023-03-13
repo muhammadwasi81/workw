@@ -120,12 +120,13 @@ function EmployeeCard({ employees: { image, name, email, designation, id } }) {
             : 'https://konnect.im/static/media/user_default.22b0811e.jpg'
         }
         alt="logo"
+        loading="lazy"
       />
       <ContentBox>
         <Heading>{name}</Heading>
         <Text>{email}</Text>
         <Text>
-          <b> {designation || 'No Designation'}</b>
+          <strong>{designation || 'No Designation'}</strong>
         </Text>
         <ButtonsBox>
           <ActionButton BackgroundColor="#db5252">

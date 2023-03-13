@@ -38,7 +38,7 @@ const Resignation = (props) => {
   });
   const [tableView, setTableView] = useState(false);
   const [detailId, setDetailId] = useState(false);
-  const [search, setSearch] = useState('');
+  const [filteredItems, setFilteredItems] = useState([]);
   const { user } = useSelector((state) => state.userSlice);
   const userPermissions = user.permissions;
 
@@ -46,25 +46,25 @@ const Resignation = (props) => {
     (state) => state.resignationSlice
   );
 
-  console.log(items, 'ITEMS');
-
-  const filteredItems = items.filter((item) =>
-    item.user.name?.toLowerCase().includes(search?.toLowerCase())
-  );
-  console.log(filteredItems, 'FILTERED ITEMS');
+  const onSearch = (value) => {
+    const filtered = items.filter((item) => {
+      return (
+        item.description.toLowerCase().includes(value.toLowerCase()) ||
+        item.referenceNo.toLowerCase().includes(value.toLowerCase())
+      );
+    });
+    setFilteredItems(filtered);
+  };
 
   const onClose = () => {
     setDetailId(null);
   };
 
-  console.log(loader, 'LOADER');
-  console.log(items, 'ITEMS !!!');
-
   useEffect(() => {
     dispatch(getAllResignations(filter));
   }, [filter]);
 
-  const headerButtuns = [
+  const headerButtons = [
     {
       name: resignationDictionary.resignation,
       renderButton: [1],
@@ -89,7 +89,7 @@ const Resignation = (props) => {
     <>
       <TabbableContainer>
         <Header
-          items={headerButtuns}
+          items={headerButtons}
           buttons={
             userPermissions.includes(FeaturePermissionEnum.CreateResignation)
               ? [
@@ -110,7 +110,9 @@ const Resignation = (props) => {
         />
         <TopBar
           onSearch={(value) => {
+            console.log('New search value:', value);
             setFilter({ ...filter, search: value });
+            onSearch(value);
           }}
           buttons={[
             {

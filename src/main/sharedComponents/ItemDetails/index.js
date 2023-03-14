@@ -59,7 +59,7 @@ function ItemDetailModal({
   }, []);
 
   useEffect(() => {
-    const daa = data.map((it) => {
+    const daa = data?.map((it) => {
       return {
         ...it,
         member: it.member || it.approver,

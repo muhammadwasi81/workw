@@ -97,6 +97,8 @@ function Scheduler({ feed = false, referenceId }) {
   const onSelectFunc = (d) => {
     console.log(d, "ssss");
     //TODO: Here we will open composer according to the date
+    setShowDrawer(true);
+    setComposerDate(d.startStr);
   };
 
   const onClickDateFunc = (d) => {

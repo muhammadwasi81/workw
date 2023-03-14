@@ -28,6 +28,7 @@ const scheduleSlice = createSlice({
     scheduleComposerData: null,
     scheduleSearch: "",
     scheduleTabs: "0",
+    referenceType: 0,
   },
   reducers: {
     handleOpenComposer: (state, { payload }) => {
@@ -42,6 +43,10 @@ const scheduleSlice = createSlice({
     },
     handleScheduleTab: (state, { payload }) => {
       state.scheduleTabs = payload;
+    },
+    handleReferenceTypeChange: (state, { payload }) => {
+      console.log(payload);
+      state.referenceType = payload;
     },
   },
   extraReducers: (builder) => {
@@ -203,4 +208,5 @@ export const {
   handleOpenComposer,
   handleScheduleSearch,
   handleScheduleTab,
+  handleReferenceTypeChange,
 } = scheduleSlice.actions;

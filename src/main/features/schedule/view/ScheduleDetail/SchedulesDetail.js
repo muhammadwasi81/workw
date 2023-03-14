@@ -17,7 +17,10 @@ import { Avatar } from "antd";
 import { getAllSchedule } from "../../store/action";
 import moment from "moment";
 import { defaultUiid } from "../../../../../utils/Shared/enums/enums";
-import { handleScheduleTab } from "../../store/slice";
+import {
+  handleReferenceTypeChange,
+  handleScheduleTab,
+} from "../../store/slice";
 function MySchedules() {
   const dispatch = useDispatch();
   const [scheduleData, setScheduleData] = useState(null);
@@ -28,7 +31,7 @@ function MySchedules() {
   const employeesShortData = useSelector(
     (state) => state.sharedSlice.employeeShort
   );
-  const { scheduleSearch, scheduleTabs } = useSelector(
+  const { scheduleSearch, scheduleTabs, referenceType } = useSelector(
     (state) => state.scheduleSlice
   );
 
@@ -142,7 +145,7 @@ function MySchedules() {
           search: scheduleSearch,
           sortBy: 1,
           referenceId: defaultUiid,
-          referenceType: 0,
+          referenceType: parseInt(referenceType),
           startDate,
           endDate,
         })
@@ -156,7 +159,7 @@ function MySchedules() {
           search: scheduleSearch,
           sortBy: 1,
           referenceId: defaultUiid,
-          referenceType: 0,
+          referenceType: parseInt(referenceType),
           //   startDate,
           endDate,
         })
@@ -170,7 +173,7 @@ function MySchedules() {
           search: scheduleSearch,
           sortBy: 1,
           referenceId: defaultUiid,
-          referenceType: 0,
+          referenceType: parseInt(referenceType),
           startDate,
           //   endDate,
         })
@@ -179,7 +182,7 @@ function MySchedules() {
   };
 
   useEffect(() => {
-    if (scheduleTabs === "1") {
+    if (scheduleTabs === "0") {
       //Get all schedule for today
       fetchAllSchedule(
         moment()
@@ -190,7 +193,7 @@ function MySchedules() {
           .format()
       );
     }
-    if (scheduleTabs === "0") {
+    if (scheduleTabs === "1") {
       //Get all schedule for past
       fetchAllSchedule(
         "",
@@ -208,14 +211,14 @@ function MySchedules() {
         ""
       );
     }
-  }, [scheduleSearch]);
+  }, [scheduleSearch, referenceType]);
 
   const onChangeTab = (e) => {
     //TODO: dispatch another action for past/today/upcoming
     dispatch(handleScheduleTab(e.toString()));
-
+    console.log(e, "onchangeTab");
     //TODO: Here will call api when tabs change
-    if (e.toString() === "1") {
+    if (e.toString() === "0") {
       //Get all schedule for today
       fetchAllSchedule(
         moment()
@@ -226,7 +229,7 @@ function MySchedules() {
           .format()
       );
     }
-    if (e.toString() === "0") {
+    if (e.toString() === "1") {
       //Get all schedule for past
       fetchAllSchedule(
         "",
@@ -246,12 +249,51 @@ function MySchedules() {
     }
   };
 
+  const onChangeMainTab = (e) => {
+    console.log(e, "changeTab");
+    dispatch(handleReferenceTypeChange(e));
+    // if (scheduleTabs === "1") {
+    //   //Get all schedule for today
+    //   fetchAllSchedule(
+    //     moment()
+    //       .startOf("D")
+    //       .format(),
+    //     moment()
+    //       .endOf("D")
+    //       .format()
+    //   );
+    // }
+    // if (scheduleTabs === "0") {
+    //   //Get all schedule for past
+    //   fetchAllSchedule(
+    //     "",
+    //     moment()
+    //       .subtract(1, "days")
+    //       .format()
+    //   );
+    // }
+    // if (scheduleTabs === "2") {
+    //   //Get all schedule for upcoming
+    //   fetchAllSchedule(
+    //     moment()
+    //       .add(1, "days")
+    //       .format(),
+    //     ""
+    //   );
+    // }
+  };
+
   return (
     <div className="flex flex-col gap-3 overflow-hidden h-full">
       <div className="flex flex-1 gap-5 h-full">
         <div className="basis-[30%] min-w-[330px] overflow-y-auto">
           <div className="bg-[#ffffff] mb-[1rem] rounded-[10px]">
-            <Tab panes={newPanes} activeKey="0" />
+            <Tab
+              panes={newPanes}
+              activeKey="0"
+              onChangeTab={onChangeMainTab}
+              canChangeRoute={true}
+            />
           </div>
           <Tab
             panes={panes}

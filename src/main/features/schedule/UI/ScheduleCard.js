@@ -59,12 +59,12 @@ function ScheduleCard({ sheduleType = "", setScheduleData = () => {} }) {
   };
 
   useEffect(() => {
-    fetchAllSchedule(
-      "",
-      moment()
-        .subtract(1, "days")
-        .format()
-    );
+    // fetchAllSchedule(
+    //   "",
+    //   moment()
+    //     .subtract(1, "days")
+    //     .format()
+    // );
   }, []);
   // console.log("sheduleType", sheduleType);
   // useEffect(() => {

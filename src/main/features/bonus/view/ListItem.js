@@ -26,6 +26,7 @@ function ListItem(props) {
     amount,
     status,
     referenceNo,
+    value,
   } = props.item;
 
   console.log(member, "APPROVERS");
@@ -52,7 +53,10 @@ function ListItem(props) {
             Subline={
               <SublineDesigWithTime
                 designation={creator?.designation ? creator?.designation : ""}
-                time={moment(localTime).fromNow()}
+                time={moment
+                  .utc(createDate)
+                  .local()
+                  .fromNow()}
               />
             }
           />
@@ -63,10 +67,18 @@ function ListItem(props) {
         </div>
       </ItemHeader>
       <div className="cardSections" style={{ marginTop: "20px" }}>
-        <div className="cardSectionItem">
-          <div className="cardSection__title">{bonusDictionary.amount}</div>
-          <div className="cardSection__body">{amount}</div>
-        </div>
+        {amount > 0 && (
+          <div className="cardSectionItem">
+            <div className="cardSection__title">{bonusDictionary.amount}</div>
+            <div className="cardSection__body">{amount}</div>
+          </div>
+        )}
+        {value > 0 && (
+          <div className="cardSectionItem">
+            <div className="cardSection__title">{"Percent"}</div>
+            <div className="cardSection__body">{`${value}%`}</div>
+          </div>
+        )}
         <div className="cardSectionItem">
           <div className="cardSection__title">{bonusDictionary.bonusTo}</div>
           <div className="cardSection__body">{member && member.name}</div>

@@ -106,6 +106,7 @@ function CommentWrapper({
               attachmentFile,
               reactionCount,
               cssClass,
+              mentions,
             }) => {
               const { designation, name, image } = creator;
               return (
@@ -135,6 +136,7 @@ function CommentWrapper({
                     attachmentCount,
                     attachmentFile,
                     cssClass: cssClass,
+                    mentions: mentions,
                   }}
                 />
               );

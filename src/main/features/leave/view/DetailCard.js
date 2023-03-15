@@ -27,7 +27,7 @@ import ConfirmationRemarkModal from "../../../sharedComponents/ConfirmationRemar
 
 function DetailCard(props) {
   const [updatedStatus, setUpdatedStatus] = useState(null);
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
   const { userLanguage } = useContext(LanguageChangeContext);
   const { leaveDictionary } = leaveDictionaryList[userLanguage];
   const { user } = useSelector((state) => state.userSlice);
@@ -85,20 +85,19 @@ function DetailCard(props) {
   const handleCancel = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    setIsOpen(true)
+    setIsOpen(true);
   };
 
   const onClose = () => {
     setIsOpen(false);
   };
 
-  const onFinish = (values) => { 
+  const onFinish = (values) => {
     let id = leaveDetail.id;
-    let reason = values.remarks
+    let reason = values.remarks;
     setIsOpen(false);
     // dispatch(cancelReward({ id: id, reason: reason }));
-  }
-
+  };
 
   return (
     <>
@@ -114,7 +113,10 @@ function DetailCard(props) {
                   Subline={
                     <SublineDesigWithTime
                       designation={creator.designation}
-                      time={moment(createDate).fromNow()}
+                      time={moment
+                        .utc(createDate)
+                        .local()
+                        .fromNow()}
                     />
                   }
                 />
@@ -194,7 +196,11 @@ function DetailCard(props) {
           />
         </div>
       )}
-      <ConfirmationRemarkModal isOpen={isOpen} onCancel={onClose} onFinish={onFinish} />
+      <ConfirmationRemarkModal
+        isOpen={isOpen}
+        onCancel={onClose}
+        onFinish={onFinish}
+      />
     </>
   );
 }

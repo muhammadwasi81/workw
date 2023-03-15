@@ -26,10 +26,27 @@ function DetailCard(props) {
     (state) => state.appraisalModuleSlice
   );
   const [updatedStatus, setUpdatedStatus] = useState(null);
+  const [status, setStatus] = useState();
 
   useEffect(() => {
     props.id && dispatch(getAllAppraisalByIdAction(props.id));
   }, [props.id]);
+
+  // useEffect(() => {
+  //   if (Object.keys(updatedStatus).length !== 0) {
+  //     const appraisalStatusArr = Object.keys(updatedStatus).map((k) => {
+  //       return { [k]: updatedStatus[k] };
+  //     });
+
+  //     const updateList = [...appraisalStatusArr].reduce((acc, val, index) => {
+  //       const ac = Object?.values(acc)?.toString();
+  //       const va = Object?.values(val)?.toString();
+  //       if (ac === va) return va;
+  //       else return ApprovalStatus.InProcess;
+  //     });
+  //     setStatus(updateList);
+  //   }
+  // }, [updatedStatus]);
 
   if (detailLoader || !appraisalDetail.id) return <Skeleton />;
   console.log(appraisalDetail);
@@ -41,16 +58,19 @@ function DetailCard(props) {
         questions={appraisalDetail.questions}
         tasks={appraisalDetail.tasks}
         RemarksApproval={
-          <RemarksApproval
-            module={ApprovalsModule.AppraisalApproval}
-            status={appraisalDetail.status}
-            onStatusChanged={(statusChanged) => {
-              setUpdatedStatus(statusChanged);
-              console.log(statusChanged);
-            }}
-            data={appraisalDetail.approvers}
-            title={"Appraisal Approvers"}
-          />
+          <>
+            <RemarksApproval
+              module={ApprovalsModule.AppraisalApproval}
+              status={appraisalDetail.status}
+              reference={appraisalDetail.id}
+              data={appraisalDetail.approvers}
+              onStatusChanged={(statusChanged) => {
+                setUpdatedStatus(statusChanged);
+                console.log(statusChanged);
+              }}
+              title={"Appraisal Approvers"}
+            />
+          </>
         }
       />
     </>

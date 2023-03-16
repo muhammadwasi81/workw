@@ -19,8 +19,10 @@ function EmployeeList() {
   const [view, setView] = useState('List');
   const [search, setSearch] = useState('');
 
-  const filteredEmployees = employees.filter((employee) =>
-    employee.name.toLowerCase().includes(search.toLowerCase())
+  const filteredEmployees = employees.filter(
+    (employee) =>
+      employee.name.toLowerCase().includes(search.toLowerCase()) ||
+      employee.designation.toLowerCase().includes(search.toLowerCase())
   );
 
   useEffect(() => {

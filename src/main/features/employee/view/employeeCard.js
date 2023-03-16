@@ -1,8 +1,11 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
 import { dictionaryList } from '../../../../utils/localization/languages';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+import { disableEmployee } from '../../../../utils/Shared/store/actions';
+import { message, Popconfirm } from 'antd';
 
 const Parent = styled.div`
   display: flex;
@@ -108,8 +111,22 @@ export const CardGrid = styled.div`
 
 function EmployeeCard({ employees: { image, name, email, designation, id } }) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
   const { sharedLabels } = dictionaryList[userLanguage];
+
+  const confirm = (e) => {
+    console.log(e);
+    e.preventDefault();
+    e.stopPropagation();
+    console.log({ userId: id, status: 'DISABLED' });
+    const payload = { userId: id, isDisable: false };
+    dispatch(disableEmployee(payload));
+  };
+
+  const cancel = (e) => {
+    console.log(e);
+  };
 
   return (
     <Parent>
@@ -129,9 +146,18 @@ function EmployeeCard({ employees: { image, name, email, designation, id } }) {
           <strong>{designation || 'No Designation'}</strong>
         </Text>
         <ButtonsBox>
-          <ActionButton BackgroundColor="#db5252">
-            {sharedLabels.Disable}
-          </ActionButton>
+          <Popconfirm
+            title="Are you sure to disable this employee?"
+            description="Are you sure to disable this employee?"
+            onConfirm={confirm}
+            onCancel={cancel}
+            okText="Yes"
+            cancelText="No"
+          >
+            <ActionButton BackgroundColor="#db5252">
+              {sharedLabels.Disable}
+            </ActionButton>
+          </Popconfirm>
           <ActionButton
             onClick={() => {
               navigate(`info/basicInfo/${id}`);

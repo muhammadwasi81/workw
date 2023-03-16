@@ -1,14 +1,14 @@
-import React, { useState } from "react";
-import { Avatar, Tooltip, Modal } from "antd";
-import { getNameForImage } from "../../../utils/base";
-import "./style.css";
-import { useNavigate } from "react-router-dom";
-import ItemDetailModal from "../ItemDetails";
+import React, { useState } from 'react';
+import { Avatar, Tooltip, Modal } from 'antd';
+import { getNameForImage } from '../../../utils/base';
+import './style.css';
+import { useNavigate } from 'react-router-dom';
+import ItemDetailModal from '../ItemDetails';
 // import { AntDesignOutlined, UserOutlined } from "@ant-design/icons";
 // import PropTypes from "prop-types";
 
 function AvatarGroup(props) {
-  console.log(props, "propssse");
+  // console.log(props, "propssse");
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -35,9 +35,9 @@ function AvatarGroup(props) {
         maxPopoverTrigger="click"
         size="small"
         maxStyle={{
-          color: "#f56a00",
-          backgroundColor: "#fde3cf",
-          cursor: "pointer",
+          color: '#f56a00',
+          backgroundColor: '#fde3cf',
+          cursor: 'pointer',
         }}
       >
         {props.membersData?.map((members) => (
@@ -62,7 +62,7 @@ function AvatarGroup(props) {
             {getNameForImage(
               members[props.nestedObjProperty] !== null
                 ? members[props.nestedObjProperty].name
-                : "Unknown User"
+                : 'Unknown User'
             )}
           </Avatar>
           // </Tooltip>
@@ -84,7 +84,7 @@ function AvatarGroup(props) {
         footer={false}
         closeIcon={<div />}
         className="ApproverModal"
-        width={"360px"}
+        width={'360px'}
       >
         {props.membersData?.map((members) => {
           return (
@@ -111,15 +111,15 @@ function AvatarGroup(props) {
                   {getNameForImage(
                     members[props.nestedObjProperty] !== null
                       ? members[props.nestedObjProperty].name
-                      : "Unknown User"
+                      : 'Unknown User'
                   )}
                 </Avatar>
               </div>
               <div className="contentBox">
-                <p style={{ color: "#222222" }}>
+                <p style={{ color: '#222222' }}>
                   {members.member && members.member.name}
                 </p>
-                <p style={{ color: "rgb(117, 125, 134)" }}>
+                <p style={{ color: 'rgb(117, 125, 134)' }}>
                   {members.member && members.member.email}
                 </p>
               </div>

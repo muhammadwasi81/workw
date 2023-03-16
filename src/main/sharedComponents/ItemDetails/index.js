@@ -42,6 +42,7 @@ function ItemDetailModal({
   const [myData, setMyData] = useState([]);
   const { groupDetailid } = params;
   // let ModalOpen = modalRequest.status;
+  console.log('ApprovalSlice', ApprovalSlice);
 
   useEffect(() => {
     if (Object.keys(ApprovalSlice.approver).length) {
@@ -60,11 +61,13 @@ function ItemDetailModal({
 
   useEffect(() => {
     const daa = data?.map((it) => {
+      console.log(it, 'ITTTT');
       return {
         ...it,
         member: it.member || it.approver,
       };
     });
+    console.log(daa, 'daa');
     setMyData(daa);
   }, [data]);
 

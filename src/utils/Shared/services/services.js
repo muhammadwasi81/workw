@@ -182,3 +182,16 @@ export const uploadImageService = (files) => {
     }
   );
 };
+
+export const disableEmployeeService = (payload) => {
+  return MasterConfig.put(
+    `api/Employee/UpdateDisableStatus?userId=${payload.userId}&isDisable=${payload.isDisable}`
+  )
+    .then((res) => {
+      console.log(res.data, 'res.data');
+      return res.data;
+    })
+    .catch((err) => {
+      return err;
+    });
+};

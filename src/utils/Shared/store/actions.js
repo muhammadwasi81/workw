@@ -20,7 +20,9 @@ import {
   getAllEmployeeService,
   getAllEmployeeShortService,
   getEmployeeSalaryService,
+  disableEmployeeService,
 } from '../services/services';
+import { message } from 'antd';
 
 export const getCountries = createAsyncThunk(
   'getCountries',
@@ -213,5 +215,23 @@ export const getComplainCategory = createAsyncThunk(
   async (data) => {
     const response = await getAllComplainCategoryService(data);
     return response.data;
+  }
+);
+
+export const disableEmployee = createAsyncThunk(
+  'employee/disableEmployee',
+  async (payload, { dispatch }) => {
+    const response = await disableEmployeeService(payload);
+    console.log('disableEmployeeService', response.data);
+    if (response.responseCode === 1001) {
+      return message.success('Employee Disabled Successfully');
+    }
+    if (!response.responseCode) {
+      responseMessage({
+        dispatch: dispatch,
+        type: responseMessageType.ApiFailure,
+      });
+    }
+    return response;
   }
 );

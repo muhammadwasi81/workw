@@ -19,7 +19,6 @@ const payloadData = {
 };
 
 function AddAprrovalModal({ data, module, reference }) {
-  console.log(data, 'data');
   console.log(data, 'DATA!!!');
   const dispatch = useDispatch();
   const [value, setValue] = useState([]);
@@ -31,6 +30,7 @@ function AddAprrovalModal({ data, module, reference }) {
     return item.approverId;
   });
   let approverId = approverIdArray.toString();
+  console.log(approverId, 'APPROVER ID');
   let approvalTypeArray = data.map((item) => {
     return item.approvalType;
   });
@@ -72,19 +72,17 @@ function AddAprrovalModal({ data, module, reference }) {
   }, []);
 
   const handleChange = (approverId) => {
-    // console.log(approverId);
-    // console.log(module);
-    // console.log(reference);
+    console.log(approverId, 'APPROVER ID');
     if (approverIdArray.includes(approverId[0])) {
-      return message.error('Member already added');
-    } else {
-      const payload = {
-        approverId: approverId[0],
-        module: module,
-        referenceId: reference,
-      };
-      dispatch(addApproversAction(payload));
+      return message.error('Member already existed');
     }
+    const payload = {
+      approverId: approverId[0],
+      module: module,
+      referenceId: reference,
+    };
+    console.log(payload, 'PAYLOAD!!!');
+    dispatch(addApproversAction(payload));
   };
 
   return (

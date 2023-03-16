@@ -95,10 +95,17 @@ function Scheduler({ feed = false, referenceId }) {
   });
 
   const onSelectFunc = (d) => {
-    console.log(d, "ssss");
+    console.log(d, "onselect");
     //TODO: Here we will open composer according to the date
     setShowDrawer(true);
-    setComposerDate(d.startStr);
+
+    if (
+      moment(d.startStr).format("YYYY-MM-DD hh:mm:ss") >=
+      moment().format("YYYY-MM-DD hh:mm:ss")
+    ) {
+      console.log("if truee");
+      setComposerDate(d.startStr);
+    }
   };
 
   const onClickDateFunc = (d) => {
@@ -126,6 +133,7 @@ function Scheduler({ feed = false, referenceId }) {
         width="768"
         onClose={() => {
           setShowDrawer(false);
+          setComposerDate("");
         }}
         visible={showDrawer}
         destroyOnClose={true}

@@ -72,7 +72,7 @@ function EmployeeList() {
                   })}
                 </CardGrid>
               ) : (
-                <EmployeeTableView />
+                <EmployeeTableView filterEmployees={filteredEmployees} />
               )
             ) : (
               <NoDataFound />

@@ -73,7 +73,7 @@ function TeamList() {
               })}
             </CardGrid>
           ) : (
-            <TeamTableView />
+            <TeamTableView filteredTeams={filteredTeams} />
           )
         ) : (
           <NoDataFound />

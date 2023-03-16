@@ -149,8 +149,6 @@ const TeamCard = ({ teams }) => {
           </ActionButton> */}
           <ActionButton
             onClick={() => {
-              //Route will be set accordingly
-              //TODO: change hard code ID
               navigate(`/teams/info/check-in/${id}`);
             }}
             BackgroundColor="var(--currentThemeColor) !important"

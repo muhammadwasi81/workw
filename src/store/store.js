@@ -108,6 +108,7 @@ import userBillingSlice from "../main/features/billing/store/slice";
 import userPaymentSlice from "../main/features/payments/store/slice";
 import projectExternalSlice from "../main/features/publicRoutes/projects/store/slice";
 import ApproverSlice from "../main/sharedComponents/AppComponents/Approvals/action/slice";
+import globalSearchSlice from "../main/features/search/store/slice";
 // import thunk from "redux-thunk";
 
 const reducers = combineReducers({
@@ -213,6 +214,7 @@ const reducers = combineReducers({
   userPaymentSlice,
   projectExternalSlice,
   ApproverSlice,
+  globalSearchSlice,
 });
 
 const persistConfig = {

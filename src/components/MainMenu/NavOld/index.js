@@ -1,31 +1,31 @@
-import React, { useContext, useEffect, useState } from 'react';
-import $ from 'jquery';
-import { STRINGS, logout } from '../../../utils/base';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useContext, useEffect, useState } from "react";
+import $ from "jquery";
+import { STRINGS, logout } from "../../../utils/base";
+import { useDispatch, useSelector } from "react-redux";
 import {
   navBarOpen,
   userSettingToggleFun,
-} from '../../../store/appReducer/responsiveSlice';
-import systemLogo from '../../../content/systemLogo.png';
-import { NavLink } from 'react-router-dom';
-import './style/style.css';
-import Approvals from './approvals';
-import StickyNotes from './stickynotes';
-import SearchInput from './searchinput';
-import sunIcon from '../../../content/svg/menu/newNavBarIcon/sunLight.svg';
-import moonIcon from '../../../content/svg/menu/newNavBarIcon/moon.svg';
-import navCloseBtn from '../../../content/svg/menu/newNavBarIcon/navCloseBtn.svg';
-import mobileCloseDrawer from '../../../content/svg/topMenu/mobileCloseDrawer.svg';
-import navDownIcon from '../../../content/svg/menu/newNavBarIcon/navDownIcon.svg';
-import navUpIcon from '../../../content/svg/menu/newNavBarIcon/navUpIcon.svg';
-import userSettings from '../../../content/NewContent/NavBar/UserSettingToggle/userSettings.svg';
-import userIcon from '../../../content/NewContent/NavBar/UserSettingToggle/userIcon.svg';
-import userLogout from '../../../content/NewContent/NavBar/UserSettingToggle/userLogout.svg';
+} from "../../../store/appReducer/responsiveSlice";
+import systemLogo from "../../../content/systemLogo.png";
+import { NavLink } from "react-router-dom";
+import "./style/style.css";
+import Approvals from "./approvals";
+import StickyNotes from "./stickynotes";
+import SearchInput from "./searchinput";
+import sunIcon from "../../../content/svg/menu/newNavBarIcon/sunLight.svg";
+import moonIcon from "../../../content/svg/menu/newNavBarIcon/moon.svg";
+import navCloseBtn from "../../../content/svg/menu/newNavBarIcon/navCloseBtn.svg";
+import mobileCloseDrawer from "../../../content/svg/topMenu/mobileCloseDrawer.svg";
+import navDownIcon from "../../../content/svg/menu/newNavBarIcon/navDownIcon.svg";
+import navUpIcon from "../../../content/svg/menu/newNavBarIcon/navUpIcon.svg";
+import userSettings from "../../../content/NewContent/NavBar/UserSettingToggle/userSettings.svg";
+import userIcon from "../../../content/NewContent/NavBar/UserSettingToggle/userIcon.svg";
+import userLogout from "../../../content/NewContent/NavBar/UserSettingToggle/userLogout.svg";
 
 import {
   disable as disableDarkMode,
   enable as enableDarkMode,
-} from 'darkreader';
+} from "darkreader";
 import {
   AboutUser,
   DarkModeToggleMenu,
@@ -37,63 +37,63 @@ import {
   NavToggleUser,
   ToggleLabel,
   UserNavToggle,
-} from './style/navBar.style';
-import NavFooter from './navFooter';
-import NavMenuListContainer from './navMenuListContainer';
-import Avatar from '../../SharedComponent/Avatar/avatar';
-import Notifications from './notifications/notifications';
-import { FontSizeOutlined } from '@ant-design/icons';
-import { LanguageChangeContext } from '../../../utils/localization/localContext/LocalContext';
+} from "./style/navBar.style";
+import NavFooter from "./navFooter";
+import NavMenuListContainer from "./navMenuListContainer";
+import Avatar from "../../SharedComponent/Avatar/avatar";
+import Notifications from "./notifications/notifications";
+import { FontSizeOutlined } from "@ant-design/icons";
+import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
 
 const Index = () => {
   useEffect(() => {
     $(document).ready(function() {
       (function() {
-        const mainNav = $('#mainNav');
+        const mainNav = $("#mainNav");
         const togglePanelInitialTopPosition = 125;
         mainNav.scroll(function() {
           const scrolled = mainNav.scrollTop();
           const calculatedTopPosition =
             togglePanelInitialTopPosition - scrolled;
-          $('.toggle-board').css(
-            'top',
+          $(".toggle-board").css(
+            "top",
             calculatedTopPosition < 8 ? 8 : calculatedTopPosition
           );
         });
-        mainNav.trigger('scroll');
+        mainNav.trigger("scroll");
       })();
 
-      const toggleMenu = $('.toggle-menu > .toggle-label');
-      toggleMenu.on('click', function(e) {
-        if ($('.ic-bar-img').is(e.target)) {
+      const toggleMenu = $(".toggle-menu > .toggle-label");
+      toggleMenu.on("click", function(e) {
+        if ($(".ic-bar-img").is(e.target)) {
         } else {
-          if ($(this).hasClass('no-act')) return;
+          if ($(this).hasClass("no-act")) return;
 
           if (
             !$(this)
               .parent()
-              .hasClass('on')
+              .hasClass("on")
           ) {
-            $('.toggle-menu').removeClass('on');
-            $('.nav').css({
-              'z-index': 2,
+            $(".toggle-menu").removeClass("on");
+            $(".nav").css({
+              "z-index": 2,
             });
             $(this)
               .parent()
-              .addClass('on');
+              .addClass("on");
           } else {
             $(this)
               .parent()
-              .removeClass('on');
-            $('.nav').css({
-              'z-index': 0,
+              .removeClass("on");
+            $(".nav").css({
+              "z-index": 0,
             });
           }
         }
       });
 
-      const toggleBoard = $('.toggle-board');
-      const searchInputArea = $('.search-input-area');
+      const toggleBoard = $(".toggle-board");
+      const searchInputArea = $(".search-input-area");
       $(document).click(function(e) {
         if (
           !toggleBoard.is(e.target) &&
@@ -103,16 +103,16 @@ const Index = () => {
           !searchInputArea.is(e.target) &&
           searchInputArea.has(e.target).length === 0
         ) {
-          $('.toggle-menu').removeClass('on');
-          $('.nav').css({ 'z-index': 0 });
+          $(".toggle-menu").removeClass("on");
+          $(".nav").css({ "z-index": 0 });
         }
       });
 
-      const optionMenu = toggleBoard.find('.option');
-      optionMenu.on('click', function() {
-        $('.toggle-menu').removeClass('on');
-        $('.nav').css({
-          'z-index': 0,
+      const optionMenu = toggleBoard.find(".option");
+      optionMenu.on("click", function() {
+        $(".toggle-menu").removeClass("on");
+        $(".nav").css({
+          "z-index": 0,
         });
       });
     });
@@ -120,15 +120,15 @@ const Index = () => {
 
   const defaultState = {
     isZoom: false,
-    Message: '',
-    variant: '',
+    Message: "",
+    variant: "",
     isOpen: false,
-    activeMenu: '',
+    activeMenu: "",
     activityCount: null,
     openView: false,
     openAddEmployeeComposer: false,
-    path: '',
-    isdDarkMode: window.localStorage.getItem('darkMode') === '1',
+    path: "",
+    isdDarkMode: window.localStorage.getItem("darkMode") === "1",
   };
   const [state, setState] = useState(defaultState);
   const dispatch = useDispatch();
@@ -155,7 +155,7 @@ const Index = () => {
     } else {
       disableDarkMode();
     }
-    window.localStorage.setItem('darkMode', status ? '1' : '0');
+    window.localStorage.setItem("darkMode", status ? "1" : "0");
   };
   const { userLanguage, userLanguageChange } = useContext(
     LanguageChangeContext
@@ -205,7 +205,7 @@ const Index = () => {
             </div>
           ) : (
             <div
-              style={{ margin: '17px 15px' }}
+              style={{ margin: "17px 15px" }}
               onClick={() => dispatch(navBarOpen(!navBarStatus))}
             >
               <NavToggleBtn />
@@ -221,13 +221,13 @@ const Index = () => {
                 name={name}
                 active={false}
                 round={true}
-                style={{ border: '1px solid white' }}
+                style={{ border: "1px solid white" }}
                 size={38}
               />
               <AboutUser navbarstatus={navBarStatus}>
                 <div className="name">{name}</div>
                 <div className="job-title">
-                  {designation || 'Not Designated'}
+                  {designation || "Not Designated"}
                 </div>
               </AboutUser>
               <NavBtn
@@ -260,7 +260,7 @@ const Index = () => {
                 <NavLink
                   className="user-setting-item"
                   to={`${STRINGS.ROUTES.USER.TIMELINE.DEFAULT}/id:${id}`}
-                  style={{ color: '#000' }}
+                  style={{ color: "#000" }}
                 >
                   <img src={userIcon} alt="userIcon" width={16} height={16} />
                   <div>Profile</div>
@@ -269,7 +269,7 @@ const Index = () => {
                 <NavLink
                   className="user-setting-item"
                   to={`${STRINGS.ROUTES.USER.SETTINGS}/${id}`}
-                  style={{ color: '#000' }}
+                  style={{ color: "#000" }}
                 >
                   <img
                     src={userSettings}
@@ -291,23 +291,23 @@ const Index = () => {
                 </div>
                 <div
                   style={{
-                    margin: '4px 0',
-                    fontWeight: '600',
+                    margin: "4px 0",
+                    fontWeight: "600",
                   }}
                 >
                   Select Language
                 </div>
                 <div
                   className="user-setting-item"
-                  onClick={() => handleLanguageChange('en')}
+                  onClick={() => handleLanguageChange("en")}
                 >
                   <FontSizeOutlined />
                   <div
                     style={{
                       fontSize: 11,
-                      width: '100%',
-                      backgroundColor: userLanguage === 'en' && '#e5e5e5',
-                      borderRadius: '6px',
+                      width: "100%",
+                      backgroundColor: userLanguage === "en" && "#e5e5e5",
+                      borderRadius: "6px",
                     }}
                   >
                     English
@@ -315,15 +315,15 @@ const Index = () => {
                 </div>
                 <div
                   className="user-setting-item"
-                  onClick={() => handleLanguageChange('urdu')}
+                  onClick={() => handleLanguageChange("urdu")}
                 >
                   <FontSizeOutlined />
                   <div
                     style={{
                       fontSize: 11,
-                      width: '100%',
-                      backgroundColor: userLanguage === 'urdu' && '#e5e5e5',
-                      borderRadius: '6px',
+                      width: "100%",
+                      backgroundColor: userLanguage === "urdu" && "#e5e5e5",
+                      borderRadius: "6px",
                     }}
                   >
                     Urdu

@@ -22,6 +22,8 @@ function Calendar({ referenceId }) {
   const [employeesData, setEmployeesData] = useState([]);
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [defaultData, setDefaultData] = useState([]);
+  const [userData, setUserData] = useState([]);
+
   const eventSchedules = useSelector(
     (state) => state.scheduleSlice.eventSchedules
   );
@@ -80,6 +82,7 @@ function Calendar({ referenceId }) {
         startDate,
         endDate,
         search: scheduleSearch,
+        users: userData,
       })
     );
   };
@@ -93,7 +96,7 @@ function Calendar({ referenceId }) {
   useEffect(() => {
     fetchCurrentDateScedules(new Date());
     fetchUpcomingScedules(new Date());
-  }, [scheduleSearch]);
+  }, [scheduleSearch, userData]);
 
   const fetchCurrentDateScedules = (value) => {
     const startDate = moment(value)
@@ -116,6 +119,7 @@ function Calendar({ referenceId }) {
         startDate,
         endDate,
         search: scheduleSearch,
+        users: userData,
       })
     );
   };
@@ -138,6 +142,7 @@ function Calendar({ referenceId }) {
         referenceType: 0,
         startDate,
         endDate,
+        users: userData,
       })
     );
   };
@@ -180,7 +185,7 @@ function Calendar({ referenceId }) {
           }}
         />
         <div className="events eventWrapper">
-          <MemberSelect
+          {/* <MemberSelect
             name="managerId"
             mode="multiple"
             formItem={false}
@@ -203,6 +208,39 @@ function Calendar({ referenceId }) {
                 </>
               );
             }}
+          /> */}
+          <MemberSelect
+            name="managerId"
+            mode="multiple"
+            formItem={false}
+            isObject={true}
+            data={firstTimeEmpData}
+            onChange={(emp) => {
+              console.log(emp, "empp");
+              if (Array.isArray(emp)) {
+                setUserData(emp);
+              } else {
+                setUserData([emp]);
+              }
+            }}
+            defaultData={employeesData}
+            canFetchNow={isFirstTimeDataLoaded}
+            fetchData={fetchEmployees}
+            placeholder={"Select"}
+            selectedData={(_, obj) => {
+              setEmployeesData([...obj]);
+            }}
+            optionComponent={(opt) => {
+              return (
+                <>
+                  <Avatar src={opt.image} className="!bg-black">
+                    {getNameForImage(opt.name)}
+                  </Avatar>
+                  {opt.name}
+                </>
+              );
+            }}
+            returnEmpty={true}
           />
         </div>
 

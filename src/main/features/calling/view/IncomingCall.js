@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import Tune from '../../../../content/audio/recivecalltune.mp3'
@@ -11,11 +11,9 @@ export default function IncomingCall() {
 	const userSlice = useSelector(state => state.userSlice);
 	const userDetail = incomingCallData?.data?.callInitializer && incomingCallData?.data?.callInitializer
 	const dispatch = useDispatch();
+	const [timerState, setTimerState] = useState(null);
 
 	const handleOpenCallWindow = (callURL) => {
-		// const strWindowFeatures =
-		// 	"location=yes,height=800,width=800,scrollbars=yes,status=yes";
-		// window.open(callURL, "_blank", strWindowFeatures);
 		dispatch(handleIncomingCall(null));
 		dispatch(handleAddCallWindow({
 			callUrl: `${callURL}?token=${userSlice.token}`,

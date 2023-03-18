@@ -1,6 +1,6 @@
 .DocumentModal {
     border-radius: 8px;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 .DocumentModal .ant-modal-body{
     padding: 0;
@@ -12,6 +12,10 @@
     height: 80vh;
     /* margin-top: 15px; */
 }
+.DocumentModal.CallingModal .ModalInner .doc-modal-content {
+    height: 70vh;
+    /* margin-top: 15px; */
+}
 .DocumentModal img {
     margin: 0 auto;
     height: 100%;
@@ -19,6 +23,9 @@
 .DocumentModal .ant-modal-footer {
     display: none;
 }
+.DocumentModal.CallingModal .doc-modal-header {
+    cursor: move;
+ }
 .ModalInner .doc-modal-header {
     display: flex;
     justify-content: space-between;

@@ -1,14 +1,15 @@
 import { createSlice, current, isPending, isRejected } from "@reduxjs/toolkit";
 import { callingWindowOptions, handleOpenCallWindow } from "../../../../utils/base";
 import { servicesUrls } from "../../../../utils/services/baseURLS";
-import { OUTGOING_CALL_STATUS } from "../constant/enum";
+import { CALL_MEDIA_TYPE, OUTGOING_CALL_STATUS } from "../constant/enum";
 import { createRoom, instantCall } from "./action";
 
 const defaultOutgoingData = {
 	isOpen: false,
 	status: OUTGOING_CALL_STATUS.NO_STATUS,
 	members: [],
-	roomId: ""
+	roomId: "",
+	mediaType: CALL_MEDIA_TYPE.VIDEO
 }
 const defaultCallingWindow = {
 	roomId: "",
@@ -42,12 +43,18 @@ const callingSlice = createSlice({
 		handleOutgoingCall(state, { payload }) {
 			state.outgoingCallData = payload;
 		},
+		handleIncomingCallNotAnswer(state, { payload }) {
+			let callURL = payload;
+			console.log(callURL)
+			if(state.incomingCallData && state?.incomingCallData?.data?.CallURL === callURL){
+				state.incomingCallData = null;
+			}
+		},
 		handleOutgoingCallAccepted(state, { payload }) {
 			const callReceiverId = payload.userId;
 			const authToken = payload.token;
 			if (state.outgoingCallData.members.some(member => member.id === callReceiverId)) {
 				// handleOpenCallWindow(servicesUrls.callingSocket + state.outgoingCallData.roomId, callingWindowOptions);
-				
 				state.callingWindows = [
 					{
 						callUrl: `${servicesUrls.callingSocket}${state.outgoingCallData.roomId}?token=${authToken}`,
@@ -90,20 +97,14 @@ const callingSlice = createSlice({
 				state.loading = false;
 				state.success = true;
 				state.error = false;
-				state.roomId = payload.data.roomId;
+				state.isCreateRoomModalOpen = false
 			})
-			.addCase(instantCall.fulfilled, (state, { payload }) => {
-				state.loading = false;
-				state.success = true;
-				state.error = false;
-				state.roomId = payload.data.roomId;
-			})
-			.addMatcher(isPending(...[createRoom, instantCall]), state => {
+			.addMatcher(isPending(...[createRoom]), state => {
 				state.loading = true;
 				state.success = false;
 				state.roomId = "";
 			})
-			.addMatcher(isRejected(...[createRoom, instantCall]), state => {
+			.addMatcher(isRejected(...[createRoom]), state => {
 				state.loading = false;
 				state.success = false;
 				state.roomId = "";
@@ -120,7 +121,8 @@ export const {
 	handleOutgoingCallRinging,
 	handleAddCallWindow,
 	handleRemoveCallWindow,
-	toggleCallWindow
+	toggleCallWindow,
+	handleIncomingCallNotAnswer
 } = callingSlice.actions;
 
 export default callingSlice.reducer;

@@ -3,11 +3,15 @@ import React from "react";
 import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
 import { CardWrapper2 } from "../../../../sharedComponents/Card/CardStyle";
 import PublicPrivateIcon from "../../../../sharedComponents/PublicPrivateIcon/PublicPrivateIcon";
-import QuickOptions from "../../../groups/quickOptions";
+import { ROUTES } from "../../../../../utils/routes";
+import { useNavigate } from "react-router-dom";
 
 function ListItem(data) {
+  const navigate = useNavigate();
   const { Meta } = Card;
-
+  const handleClickNavigation = (id) => {
+    navigate(`${ROUTES.GROUP.DEFAULT}/${id}`);
+  };
   return (
     // <div className="singleGroupItem">
     //   <img src="https://st.depositphotos.com/1062085/4008/v/600/depositphotos_40089703-stock-illustration-businessman-in-the-office-flat.jpg" />
@@ -28,7 +32,9 @@ function ListItem(data) {
       }
       className="Card2"
       hoverable
-      // onClick={onClick}
+      onClick={() => {
+        handleClickNavigation(data.data.id);
+      }}
     >
       <Meta
         className="w-full"

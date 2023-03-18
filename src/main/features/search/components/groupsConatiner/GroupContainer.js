@@ -19,7 +19,7 @@ function RewardContainer() {
     (state) => state.groupSlice
   );
   const navigate = useNavigate();
-  const searchHandler = (e) => {
+  const searchHandler = () => {
     navigate(`/groups?q=${searchQuery}`);
   };
 
@@ -37,7 +37,7 @@ function RewardContainer() {
       </CardWrapper2>
 
       <div
-        onClick={(e) => searchHandler(e)}
+        onClick={searchHandler}
         className="flex justify-center !text-[18px] cursor-pointer !text-[#707070]"
       >
         See more

@@ -7,7 +7,7 @@ import {
 } from "../../../sharedComponents/AppComponents/MainFlexContainer";
 import GroupContainer from "../components/groupsConatiner/GroupContainer";
 import "../styles/style.css";
-import RewardContainer from "../components/rewardsConatiner/GroupContainer";
+import RewardContainer from "../components/rewardsConatiner/RewardContainer";
 import UserContainer from "../components/usersContainer";
 import { globalSearch } from "../store/actions";
 import { Route, Routes } from "react-router-dom";
@@ -34,9 +34,6 @@ function Index() {
           <GroupContainer />
           <RewardContainer />
           <UserContainer />
-          {/* <Routes>
-            <Route path="/search?q=groups" element={<Groups />} />
-          </Routes> */}
         </div>
       </ContBody>
     </TabbableContainer>

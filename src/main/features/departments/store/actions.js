@@ -5,6 +5,7 @@ import {
   responseMessage,
   responseMessageType,
 } from "../../../../services/slices/notificationSlice";
+import { openNotification } from "../../../../utils/Shared/store/slice";
 import {
   addDepartmentService,
   getAllDepartmentService,
@@ -15,8 +16,9 @@ import {
   removeDepartmentAppraisalQuestionService,
   addDepartmentMemberService,
   getDepartmentMemberService,
+  removeDepartmentMemberService,
 } from "../services/service";
-import { addDepartmentMember } from "../store/slice";
+import { addDepartmentMember, deleteDepartmentMember } from "../store/slice";
 
 export const getAllDepartments = createAsyncThunk(
   "Department/getAllDepartment",
@@ -137,6 +139,33 @@ export const addDepartmentMemberAction = createAsyncThunk(
       return res;
     } else {
       message.error(res.statusText);
+      return rejectWithValue(res.statusText);
+    }
+
+    return res;
+  }
+);
+
+export const removeDepartmentMemberAction = createAsyncThunk(
+  "Department/removeMember",
+  async (data, { dispatch, getState, rejectWithValue }) => {
+    const res = await removeDepartmentMemberService(data);
+    if (res.responseCode) {
+      if (res.responseCode === responseCode.Success)
+        // dispatch(addDepartmentMember(res.data));
+        //TODO: dispatch removedepartmentmember
+        dispatch(deleteDepartmentMember(data.memberId));
+      // message.success("Member Added successfully!");
+      return res;
+    } else {
+      // message.error(res.statusText);
+      dispatch(
+        openNotification({
+          message: res.message,
+          type: "error",
+          duration: 2,
+        })
+      );
       return rejectWithValue(res.statusText);
     }
 

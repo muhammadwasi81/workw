@@ -24,6 +24,7 @@ function Scheduler({ feed = false, referenceId }) {
   const [composerDate, setComposerDate] = useState("");
   console.log(schedules, "scheduless");
   const calendarRef = useRef();
+  const { scheduleSearch } = useSelector((state) => state.scheduleSlice);
   let isPanelChange = false;
   const dispatch = useDispatch();
   // const renderEventContent = eventInfo => {
@@ -31,7 +32,7 @@ function Scheduler({ feed = false, referenceId }) {
   // };
   useEffect(() => {
     fetchAllSchedule(todayDate, todayDate);
-  }, []);
+  }, [scheduleSearch]);
 
   useEffect(() => {
     if (success) {
@@ -52,7 +53,7 @@ function Scheduler({ feed = false, referenceId }) {
       getAllSchedule({
         pageNo: 1,
         pageSize: 20,
-        search: "",
+        search: scheduleSearch,
         sortBy: 1,
         referenceId: referenceId,
         referenceType: 0,
@@ -94,12 +95,18 @@ function Scheduler({ feed = false, referenceId }) {
   });
 
   const onSelectFunc = (d) => {
-    console.log(d, "ssss");
     //TODO: Here we will open composer according to the date
+    setShowDrawer(true);
+
+    if (
+      moment(d.startStr).format("YYYY-MM-DD hh:mm:ss") >=
+      moment().format("YYYY-MM-DD hh:mm:ss")
+    ) {
+      setComposerDate(d.startStr);
+    }
   };
 
   const onClickDateFunc = (d) => {
-    console.log("date", d);
     setShowDrawer(true);
 
     setComposerDate(d.date);
@@ -123,6 +130,7 @@ function Scheduler({ feed = false, referenceId }) {
         width="768"
         onClose={() => {
           setShowDrawer(false);
+          setComposerDate("");
         }}
         visible={showDrawer}
         destroyOnClose={true}

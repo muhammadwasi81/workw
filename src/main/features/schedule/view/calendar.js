@@ -22,6 +22,8 @@ function Calendar({ referenceId }) {
   const [employeesData, setEmployeesData] = useState([]);
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [defaultData, setDefaultData] = useState([]);
+  const [userData, setUserData] = useState([]);
+
   const eventSchedules = useSelector(
     (state) => state.scheduleSlice.eventSchedules
   );
@@ -32,6 +34,8 @@ function Calendar({ referenceId }) {
   const upcomingSchedules = useSelector(
     (state) => state.scheduleSlice.upcomingSchedules
   );
+
+  const { scheduleSearch } = useSelector((state) => state.scheduleSlice);
 
   const {
     sharedSlice: { employees },
@@ -77,6 +81,8 @@ function Calendar({ referenceId }) {
         referenceType: 0,
         startDate,
         endDate,
+        search: scheduleSearch,
+        users: userData,
       })
     );
   };
@@ -86,6 +92,11 @@ function Calendar({ referenceId }) {
     fetchUpcomingScedules(new Date());
     fetchEmployees("", 0);
   }, []);
+
+  useEffect(() => {
+    fetchCurrentDateScedules(new Date());
+    fetchUpcomingScedules(new Date());
+  }, [scheduleSearch, userData]);
 
   const fetchCurrentDateScedules = (value) => {
     const startDate = moment(value)
@@ -107,6 +118,8 @@ function Calendar({ referenceId }) {
         referenceType: 0,
         startDate,
         endDate,
+        search: scheduleSearch,
+        users: userData,
       })
     );
   };
@@ -123,12 +136,13 @@ function Calendar({ referenceId }) {
       getAllUpcomingSchedule({
         pageNo: 1,
         pageSize: 20,
-        search: "",
+        search: scheduleSearch,
         sortBy: 1,
         referenceId: referenceId,
         referenceType: 0,
         startDate,
         endDate,
+        users: userData,
       })
     );
   };
@@ -171,7 +185,7 @@ function Calendar({ referenceId }) {
           }}
         />
         <div className="events eventWrapper">
-          <MemberSelect
+          {/* <MemberSelect
             name="managerId"
             mode="multiple"
             formItem={false}
@@ -194,6 +208,39 @@ function Calendar({ referenceId }) {
                 </>
               );
             }}
+          /> */}
+          <MemberSelect
+            name="managerId"
+            mode="multiple"
+            formItem={false}
+            isObject={true}
+            data={firstTimeEmpData}
+            onChange={(emp) => {
+              console.log(emp, "empp");
+              if (Array.isArray(emp)) {
+                setUserData(emp);
+              } else {
+                setUserData([emp]);
+              }
+            }}
+            defaultData={employeesData}
+            canFetchNow={isFirstTimeDataLoaded}
+            fetchData={fetchEmployees}
+            placeholder={"Select"}
+            selectedData={(_, obj) => {
+              setEmployeesData([...obj]);
+            }}
+            optionComponent={(opt) => {
+              return (
+                <>
+                  <Avatar src={opt.image} className="!bg-black">
+                    {getNameForImage(opt.name)}
+                  </Avatar>
+                  {opt.name}
+                </>
+              );
+            }}
+            returnEmpty={true}
           />
         </div>
 

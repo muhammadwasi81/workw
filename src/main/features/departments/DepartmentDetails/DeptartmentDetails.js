@@ -12,7 +12,12 @@ import CoverDetail from "../view/CoverDetail";
 import CoverImage from "../view/CoverImage";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { getDepartmentById, getDepartmentMemberAction } from "../store/actions";
+import {
+  addDepartmentMemberAction,
+  getDepartmentById,
+  getDepartmentMemberAction,
+  removeDepartmentMemberAction,
+} from "../store/actions";
 import Appraisal from "../appraisal/index";
 import { handleParentId } from "../store/slice";
 import SubDepartment from "./SubDepartment";
@@ -24,6 +29,8 @@ import MemberModal from "./MemberModal";
 import { addMember } from "../store/slice";
 import { Members } from "../constant/index";
 import "./style.css";
+import ItemDetailModal from "../../../sharedComponents/ItemDetails";
+import { handleItemDetailModal } from "../../../../utils/Shared/store/slice";
 
 function DepartmentDetails() {
   const dispatch = useDispatch();
@@ -72,10 +79,31 @@ function DepartmentDetails() {
     dispatch(getDepartmentMemberAction(param.id));
   }, [param.id]);
 
+  const onDelete = (userId) => {
+    const memberId = userId.toString();
+    const delmembers = {
+      id: departmentDetail.id,
+      memberId: memberId,
+    };
+
+    // dispatch(deleteGroupMemberAction(delmembers));
+    dispatch(removeDepartmentMemberAction(delmembers));
+  };
+
+  const addFunc = (id) => {
+    let memberId = id.toString();
+    const members = {
+      id: departmentDetail.id,
+      memberId: memberId,
+    };
+    dispatch(addDepartmentMemberAction(members));
+  };
+
   const memberHandler = () => {
     setVisible(true);
     // const userTypes = memberType === 1 ? Members.user : Members.admin;
-    dispatch(addMember({ status: true }));
+    // dispatch(addMember({ status: true }));
+    dispatch(handleItemDetailModal(true));
   };
   return (
     <>
@@ -94,7 +122,7 @@ function DepartmentDetails() {
             <div className="basis-1/4 gap-5 flex flex-col overflow-scroll">
               <WhiteCard>
                 <MemberCollapse
-                  data={departmentDetail?.members}
+                  data={departmentMembers}
                   isEmail={false}
                   isMember={true}
                   // onEmailClick={() => {
@@ -108,7 +136,18 @@ function DepartmentDetails() {
         </ContBody>
       </TabContainer>
       <ComposeEmail />
-      {visible && <MemberModal data={departmentDetail} />}
+      {/* {visible && <MemberModal data={departmentDetail} />} */}
+      {visible && (
+        <ItemDetailModal
+          data={departmentMembers} //Data
+          isDeleteDisabled={false} //Pass true to hide delete icon
+          addEnabled={true} //Pass false to hide select member
+          addFunc={addFunc}
+          onDelete={onDelete}
+          isSearch={false} //Pass true if you want to search the list
+          openModal={true}
+        />
+      )}
     </>
   );
 }

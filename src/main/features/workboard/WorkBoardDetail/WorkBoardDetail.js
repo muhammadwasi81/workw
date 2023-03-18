@@ -114,14 +114,14 @@ function WorkBoardDetail({ todoDetail }) {
     <>
       <div className=" bg-white rounded-xl mt-5">
         <div className="flex flex-col gap-5">
-          {todoData && todoData.image.length > 0 && (
+          {/* {todoData && todoData.image.length > 0 && (
             <WBDCoverImage
               todoData={todoData}
               image={todoData && todoData.image}
               onUploadImg={onUploadImg}
               onRemoveImg={onRemoveImg}
             />
-          )}
+          )} */}
           <div className="flex gap-5 justify-between flex-wrap sm:flex-nowrap">
             <div className="w-full sm:basis-9/12">
               <WorkBoardDescription
@@ -144,23 +144,23 @@ function WorkBoardDetail({ todoDetail }) {
 									text={"Check List"}
 									icon={<CheckSquareOutlined />}
 								/> */}
-                <TrelloThemeButton
+                {/* <TrelloThemeButton
                   text={labels.dates}
                   icon={<TagOutlined />}
                   onClick={showDateModal}
-                />
+                /> */}
                 {/* <TrelloThemeButton
 									text={"Attachment"}
 									icon={<PaperClipOutlined />}
 								/> */}
-                {todoData && todoData.image.length === 0 && (
+                {/* {todoData && todoData.image.length === 0 && (
                   <UploadBgImg onUploadImg={onUploadImg}>
                     <TrelloThemeButton
                       text={labels.cover}
                       icon={<PictureOutlined />}
                     />
                   </UploadBgImg>
-                )}
+                )} */}
               </div>
             </div>
           </div>

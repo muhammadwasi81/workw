@@ -68,7 +68,8 @@ createDate:"",
   const dispatch = useDispatch();
   const { id } = useParams();
   console.log("id", id);
-  useEffect(() => {
+
+  const initialize = () => {
     dispatch(getWorkboardById(id));
     dispatch(
       getAllWorkBoardTodoPaging({
@@ -81,6 +82,9 @@ createDate:"",
         sortBy: 1,
       })
     );
+  }
+  useEffect(() => {
+    initialize()
   }, []);
 
   const toggleAddingList = () => {
@@ -211,15 +215,6 @@ createDate:"",
       filteredRows.splice(index, 1);
       setEntries(filteredRows);
     };
-    const handleChange1 = (value, name, index) => {
-      console.log("value",index);
-      let tempEntries = [...entries];
-      tempEntries[index] = {
-        ...tempEntries[index],
-        [name]: value,
-      };
-      setEntries(tempEntries);
-    };
     const handleChange = (LabeledValue) => {
       console.log(selectedId,"88888");
 
@@ -248,7 +243,7 @@ createDate:"",
         <BoardTopBar
           handleView={(isTable) => {
             setIsTableView(isTable);
-          }}
+          }} handleChangeSegment={initialize}
           topBar={topBar}
         />
         <ContBody className="!block" direction={Direction}>
@@ -348,7 +343,8 @@ createDate:"",
                     <table>
                     <CreateEntryHead/>
                       <tbody>
-                        {sectionTableData.map((item, ind) => {
+                        {sectionTableData && sectionTableData?.map((item, ind) => { 
+                           console.log(item,"itemmm");
                           return (
                             <TableEntryItem
                               key={ind}
@@ -357,8 +353,8 @@ createDate:"",
                               // handleRemoveRow={handleRemoveRow}
                               itemValue={item}
                             />
-                          );
-                        })}
+                           ); 
+                         })} 
                       </tbody>
                     </table>
                   </div>

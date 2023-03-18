@@ -88,7 +88,7 @@ export const updateWorkBoard = createAsyncThunk(
     if (res.responseCode === responseCode.Success) {
       dispatch(
         openNotification({
-          message: "WorkBoard Updated Successfully!",
+          //message: "WorkBoard Updated Successfully!",
           type: "success",
           duration: 2,
         })

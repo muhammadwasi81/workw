@@ -5,79 +5,75 @@ import { useSelector, useDispatch } from "react-redux";
 import useDebounce from "../../../../utils/Shared/helper/use-debounce";
 import Avatar from "../../../sharedComponents/Avatar/avatar";
 import moment from "moment";
+import { jsonToFormData } from "../../../../utils/base";
+import { updateWorkBoardTodoDesc, updateWorkBoard } from "../store/action";
 
-
-import { updateWorkBoardTodoTitle,updateWorkBoardTodoDesc } from "../store/action";
 
 const EntryItemTable = ({
   index,
   accounts,
   handleChange,
-//   handleRemoveRow,
    itemValue,
 }) => {
 
-  console.log(itemValue.members,"todoDetailtodoDetailgggg");
+  console.log(itemValue.id,"todoDetailtodoDetailgggg");
   let date = itemValue.createDate;
- 
-  let defaultName = itemValue.name ;
-  let defaultDesc = itemValue.description;
 
-  console.log(defaultName,"defaultNamedefaultName");
   const dispatch = useDispatch();
-  const [titleValue,setTitle] = useState(defaultName);
-  const [descValue,setDescValue] = useState(defaultDesc);
-  //const [isLabelModalVisible, setIsLabelModalVisible] = useState(false);
+  const [titleValue,setTitle] = useState("");
+  const [descValue,setDescValue] = useState("");
 
   const tilteDebounce = useDebounce(titleValue, 500);
   const descriptionDebounce = useDebounce(descValue, 500);
 
-
-    const handleInputChangeTitle = (e) => {
-     
-    //     dispatch(
-    //     updateWorkBoardTodoTitle({
-    //     todoId: itemValue.id,
-    //     title: value,
-    //   })
-    //  );
-    }
-
-  const handleInputChangeDescription = (e) => {
-
-      console.log(descValue,"mytitleValue");
-    //     dispatch(
-    //         updateWorkBoardTodoDesc({
-    //            todoId: itemValue.id, 
-    //            description:value,
-    //     })
-    //  );
-  };
-
   useEffect(() => {
     if (tilteDebounce) handleInputChangeTitle(tilteDebounce);
   }, [tilteDebounce]);
+    const handleInputChangeTitle = (title) => {
+      console.log(title,"titlee");
+      const payloadData = {
+        id: itemValue.id,
 
-  useEffect(() => {
-    if (descriptionDebounce) handleInputChangeDescription(descriptionDebounce);
-  }, [descriptionDebounce]);
+        name : title,
+        description:itemValue.description,
+      }
+      let tempObj = jsonToFormData(payloadData)
 
+      //console.log("payload data",tempObj);
+        dispatch(updateWorkBoard(tempObj))
+    }
+    
+    useEffect(() => {
+      if (descriptionDebounce) handleInputChangeDescription(descriptionDebounce);
+    }, [descriptionDebounce]);
+  
+  const handleInputChangeDescription = (description) => {
+    console.log(description,"description");
+    const payloadData = {
+      id: itemValue.id,
+      name:itemValue.name,
+      description : description,
+    }
+      let tempObj = jsonToFormData(payloadData)
+        dispatch(updateWorkBoard((tempObj)));
+  };
+
+ 
+  
 
   return (
     <>
     <tr>
       <td>
         <input
-          name="name"
-          defaultValue={titleValue}
-         // value={titleValue}
-          onChange={(e) => setTitle(e.target.value)}
+          defaultValue={itemValue.name}
+          onChange={(e) =>setTitle(e.target.value)}
         />
       </td>
       <td>
         <input
-          name="description"
-          defaultValue={descValue}
+       
+          defaultValue={itemValue.description}
           onChange={(e)=> setDescValue(e.target.value)}
         />
       </td>

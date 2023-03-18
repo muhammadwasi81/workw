@@ -416,6 +416,7 @@ const trelloSlice = createSlice({
         state.todoDetail = payload.data;
       })
       .addCase(updateWorkBoardTodoDesc.fulfilled, (state, { payload }) => {
+        console.log(payload,"payloaddd");
         state.loader = false;
       })
       .addCase(updateWorkBoardTodoTitle.fulfilled, (state, { payload }) => {
@@ -535,6 +536,7 @@ const trelloSlice = createSlice({
         state.todoDetail.labels = labels;
       })
       .addCase(getAllWorkBoardTodoPaging.fulfilled, (state, { payload }) => {
+
         state.sectionTableData = payload.data.data;
       })
       .addCase(getWorkBoardMemberAction.fulfilled, (state, action) => {

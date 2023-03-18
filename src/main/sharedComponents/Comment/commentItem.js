@@ -28,6 +28,7 @@ const CommentItem = ({
     attachmentFile,
     reactionCount,
     cssClass,
+    mentions,
   } = comment;
   console.log(comment, "contentttt");
   const [openComposer, setOpenComposer] = useState(false);
@@ -53,6 +54,7 @@ const CommentItem = ({
   };
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Reply, Like, WriteYourReplyHere } = CommentDictionary[userLanguage];
+
   // console.log("comment", comment);
   return (
     <div
@@ -73,6 +75,7 @@ const CommentItem = ({
             attachmentCount={attachmentCount}
             attachmentFile={attachmentFile}
             type={type}
+            mentions={mentions}
           />
           {type !== 2 && (
             <div className="likeReplyCont">

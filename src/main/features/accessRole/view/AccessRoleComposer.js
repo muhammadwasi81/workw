@@ -1,29 +1,29 @@
-import { Button, Form, Input, Tree, Skeleton, message } from 'antd';
-import { useContext, useEffect, useState, memo } from 'react';
-import { useSelector } from 'react-redux';
-import { FormTextArea } from '../../../../components/HrMenu/Administration/StyledComponents/adminForm';
-import { getAllBussinessFeatures } from '../../../../utils/Shared/store/actions';
-import Select from '../../../sharedComponents/Select/Select';
-import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
-import { dictionaryList } from '../../../../utils/localization/languages';
-import * as S from '../../employee/Styles/employee.style';
-import { FormLabel } from './FormLabel';
+import { Button, Form, Input, Tree, Skeleton, message } from "antd";
+import { useContext, useEffect, useState, memo } from "react";
+import { useSelector } from "react-redux";
+import { FormTextArea } from "../../../sharedComponents/Administration/StyledComponents/adminForm";
+import { getAllBussinessFeatures } from "../../../../utils/Shared/store/actions";
+import Select from "../../../sharedComponents/Select/Select";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { dictionaryList } from "../../../../utils/localization/languages";
+import * as S from "../../employee/Styles/employee.style";
+import { FormLabel } from "./FormLabel";
 import {
   userTypeEnum,
   userTypeList,
-} from '../../../../utils/Shared/enums/enums';
-import { STRINGS } from '../../../../utils/base';
+} from "../../../../utils/Shared/enums/enums";
+import { STRINGS } from "../../../../utils/base";
 
 const initialTreeData = [
   {
-    title: 'Access Controls',
-    key: 'Access Controls',
-    children: [{ title: '', key: '', children: [] }],
+    title: "Access Controls",
+    key: "Access Controls",
+    children: [{ title: "", key: "", children: [] }],
   },
 ];
 
 function AccessRoleComposer(props) {
-  const [expandedKeys, setExpandedKeys] = useState(['Access Controls']);
+  const [expandedKeys, setExpandedKeys] = useState(["Access Controls"]);
   const [checkedKeys, setCheckedKeys] = useState([]);
   const [selectedKeys, setSelectedKeys] = useState([]);
   const [autoExpandParent, setAutoExpandParent] = useState(true);
@@ -33,8 +33,8 @@ function AccessRoleComposer(props) {
   const [showChecked, setShowChecked] = useState(false);
   const [form] = Form.useForm();
   const [formDataObject, setFormDataObject] = useState({
-    name: '',
-    description: '',
+    name: "",
+    description: "",
     roleTypeId: null,
   });
   const [isObjEqual, setIsObjEqual] = useState(false);
@@ -94,7 +94,7 @@ function AccessRoleComposer(props) {
           bussinessFeatures[i] &&
           bussinessFeatures[i].permissions.map((permission) => ({
             key:
-              JSON.stringify(permission) + '_' + bussinessFeatures[i].featureId,
+              JSON.stringify(permission) + "_" + bussinessFeatures[i].featureId,
             permissionId: permission.id,
             value: permission.featurePermissionId,
             title: permission.name,
@@ -131,13 +131,13 @@ function AccessRoleComposer(props) {
               name: role.permission,
             };
             checkedData.push(
-              JSON.stringify(obj) + '_' + singleAccessRole.features[i].featureId
+              JSON.stringify(obj) + "_" + singleAccessRole.features[i].featureId
             );
           });
         } else {
           let singleAccessRoleObj = {
-            id: '',
-            name: '',
+            id: "",
+            name: "",
             features: [],
             permissions: [],
           };
@@ -193,8 +193,8 @@ function AccessRoleComposer(props) {
     };
     // console.log(finalData, 'finalData in handleTreeForm');
     for (let i = 0; i < checkedKeys.length; i++) {
-      let id = checkedKeys[i].split('_')[1];
-      let data = checkedKeys[i].split('_')[0];
+      let id = checkedKeys[i].split("_")[1];
+      let data = checkedKeys[i].split("_")[0];
       if (id) {
         if (
           finalData.features.length > 0 &&
@@ -219,7 +219,7 @@ function AccessRoleComposer(props) {
           });
         }
       } else {
-        if (data !== 'Access Controls') {
+        if (data !== "Access Controls") {
           const tempData = JSON.parse(data);
           // console.log(data.features, 'data.features');
           if (tempData.permissions.length === 0) {
@@ -237,7 +237,7 @@ function AccessRoleComposer(props) {
 
   const onFinish = (values) => {
     if (checkedKeys.length === 0) {
-      return message.error('Please add access role!');
+      return message.error("Please add access role!");
     }
     let finalData = handleTreeForm(values);
     // console.log(finalData, 'finalData onFinish');

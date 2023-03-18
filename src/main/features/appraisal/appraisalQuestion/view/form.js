@@ -10,7 +10,7 @@ import {
   FormInputContainer,
   FormLabel,
   FormTextArea,
-} from "../../../../../components/HrMenu/Administration/StyledComponents/adminForm";
+} from "../../../../sharedComponents/Administration/StyledComponents/adminForm";
 
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../../utils/localization/languages";

@@ -16,6 +16,7 @@ import { AtomSpinner } from "react-epic-spinners";
 import cutIcon from "../../../content/svg/cancel.svg";
 import { API } from "../../../utils/services";
 import { STRINGS } from "../../../utils/base";
+import { COLOR_CODE } from "./enums";
 
 // const Transition = React.forwardRef(function Transition(props, ref) {
 //     return <Slide direction="down" ref={ref} {...props} />;
@@ -264,7 +265,7 @@ export default function FormDialog(props) {
 								<div className="atomSpinner">
 									<AtomSpinner
 										size={33}
-										color={`${STRINGS.COLOR_CODE.SPINNER_COLOR}`}
+										color={COLOR_CODE.SPINNER_COLOR}
 									/>
 								</div>
 							)}

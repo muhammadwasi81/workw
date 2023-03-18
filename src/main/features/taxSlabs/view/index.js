@@ -9,12 +9,12 @@ import {
   getTaxSlabById,
   removeTaxSlab,
 } from "../store/action";
-import { AdminContainer } from "../../../../components/HrMenu/Administration/StyledComponents/admin";
+import { AdminContainer } from "../../../sharedComponents/Administration/StyledComponents/admin";
 import "../style/taxSlabsGroup.css";
 import { Table } from "../../../sharedComponents/customTable";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { FormContainer } from "../../../sharedComponents/StyledComponents/adminForm";
-import { FormHeader } from "../../../../components/HrMenu/Administration/StyledComponents/adminForm";
+import { FormHeader } from "../../../sharedComponents/Administration/StyledComponents/adminForm";
 import { handleEdit } from "../store/slice";
 import { tableColumns } from "./TableColumn";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";

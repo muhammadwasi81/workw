@@ -30,6 +30,7 @@ function MemberSelect({
   sliceName = "employees",
   resetField = false,
   className = "",
+  returnEmpty = false,
 }) {
   const [value, setValue] = useState("");
   const [stateVal, setStateVal] = useState(dataVal);
@@ -50,6 +51,7 @@ function MemberSelect({
     } else {
       setStateVal([...tempArray]);
     }
+
     // if (emptyStateAfterSelect) {
     // 	setStateVal("");
     // }
@@ -86,6 +88,10 @@ function MemberSelect({
         } else {
           triggerChange(stateVal);
         }
+      }
+    } else {
+      if (returnEmpty) {
+        triggerChange(stateVal);
       }
     }
     if (emptyStateAfterSelect && stateVal.length > 0) {

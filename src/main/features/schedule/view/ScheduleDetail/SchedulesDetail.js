@@ -8,22 +8,45 @@ import TaskDetail from "../../../task/view/TaskDetail/TaskDetail";
 import TravelDetail from "../../../travel/view/TravelDetail/TravelDetail";
 import ScheduleComposerDetail from "../Composer/ScheduleComposerDetail";
 import { ScheduleTypeEnum } from "../../enum/enum";
-import CustomSelect from "../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
+// import CustomSelect from "../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 import {
   getAllEmployees,
   getAllEmployeeShort,
 } from "../../../../../utils/Shared/store/actions";
 import { Avatar } from "antd";
+import { getAllSchedule } from "../../store/action";
+import moment from "moment";
+import { defaultUiid } from "../../../../../utils/Shared/enums/enums";
+import {
+  handleReferenceTypeChange,
+  handleScheduleTab,
+} from "../../store/slice";
+import MemberSelect from "../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
+import { getNameForImage } from "../../../../../utils/base";
 function MySchedules() {
   const dispatch = useDispatch();
   const [scheduleData, setScheduleData] = useState(null);
   const [employee, setEmployee] = useState({});
   const [fetchEmployeesData, setFetchEmployeesData] = useState([]);
+  const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
+  const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [isFirstTime, setIsFirstTime] = useState(true);
-  const employeesData = useSelector((state) => state.sharedSlice.employees);
+  //   const employeesData = useSelector((state) => state.sharedSlice.employees);
+  const [userData, setUserData] = useState([]);
+  const [employeesData, setEmployeesData] = useState([]);
+  const {
+    sharedSlice: { employees },
+  } = useSelector((state) => state);
   const employeesShortData = useSelector(
     (state) => state.sharedSlice.employeeShort
   );
+  const { scheduleSearch, scheduleTabs, referenceType } = useSelector(
+    (state) => state.scheduleSlice
+  );
+
+  //   useEffect(() => {
+  //     console.log(employeesData, "employess data");
+  //   }, [employeesData]);
 
   useEffect(() => {
     fetchEmployees();
@@ -33,6 +56,15 @@ function MySchedules() {
   const fetchEmployees = (text = "", pgNo = 1) => {
     dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
   };
+
+  useEffect(() => {
+    if (employees.length > 0 && !isFirstTimeDataLoaded) {
+      setIsFirstTimeDataLoaded(true);
+      setFirstTimeEmpData(employees);
+      console.log(employees, "employees");
+    }
+  }, [employees]);
+
   const fetchEmployeesShort = (text = "", pgNo = 1) => {
     dispatch(getAllEmployeeShort({ text, pgNo, pgSize: 20 }));
   };
@@ -40,7 +72,7 @@ function MySchedules() {
   const selectedEmployee = (employee) => {
     // console.log(employeesData, employee);
     let selected = employeesData.filter((el) => el.id === employee);
-    setEmployee(selected[0]);
+
     // console.log(selected[0].id);
     // setUserId(selected[0].id);
   };
@@ -55,7 +87,40 @@ function MySchedules() {
       featureId: 1,
       content: (
         <div className=" mb-2 mr-[1rem] ml-[1rem]">
-          <CustomSelect
+          <MemberSelect
+            name="managerId"
+            mode="multiple"
+            formItem={false}
+            isObject={true}
+            data={firstTimeEmpData}
+            onChange={(emp) => {
+              console.log(emp, "empp");
+              if (Array.isArray(emp)) {
+                setUserData(emp);
+              } else {
+                setUserData([emp]);
+              }
+            }}
+            defaultData={employeesData}
+            canFetchNow={isFirstTimeDataLoaded}
+            fetchData={fetchEmployees}
+            placeholder={"Select"}
+            selectedData={(_, obj) => {
+              setEmployeesData([...obj]);
+            }}
+            optionComponent={(opt) => {
+              return (
+                <>
+                  <Avatar src={opt.image} className="!bg-black">
+                    {getNameForImage(opt.name)}
+                  </Avatar>
+                  {opt.name}
+                </>
+              );
+            }}
+            returnEmpty={true}
+          />
+          {/* <CustomSelect
             style={{ marginBottom: "0px" }}
             data={fetchEmployeesData}
             selectedData={(value) => selectedEmployee(value.join())}
@@ -84,7 +149,7 @@ function MySchedules() {
             dataVal={[]}
             name="Employee"
             showSearch={true}
-          />
+          /> */}
         </div>
       ),
     },
@@ -126,14 +191,174 @@ function MySchedules() {
     },
   ];
 
+  const fetchAllSchedule = (startDate, endDate) => {
+    if (startDate.length && endDate.length) {
+      dispatch(
+        getAllSchedule({
+          pageNo: 1,
+          pageSize: 20,
+          search: scheduleSearch,
+          sortBy: 1,
+          referenceId: defaultUiid,
+          referenceType: parseInt(referenceType),
+          startDate,
+          endDate,
+          users: userData,
+        })
+      );
+    }
+    if (!startDate.length && endDate.length) {
+      dispatch(
+        getAllSchedule({
+          pageNo: 1,
+          pageSize: 20,
+          search: scheduleSearch,
+          sortBy: 1,
+          referenceId: defaultUiid,
+          referenceType: parseInt(referenceType),
+          //   startDate,
+          endDate,
+          users: userData,
+        })
+      );
+    }
+    if (startDate.length && !endDate.length) {
+      dispatch(
+        getAllSchedule({
+          pageNo: 1,
+          pageSize: 20,
+          search: scheduleSearch,
+          sortBy: 1,
+          referenceId: defaultUiid,
+          referenceType: parseInt(referenceType),
+          startDate,
+          users: userData,
+          //   endDate,
+        })
+      );
+    }
+  };
+
+  useEffect(() => {
+    if (scheduleTabs === "0") {
+      //Get all schedule for today
+      fetchAllSchedule(
+        moment()
+          .startOf("D")
+          .format(),
+        moment()
+          .endOf("D")
+          .format()
+      );
+    }
+    if (scheduleTabs === "1") {
+      //Get all schedule for past
+      fetchAllSchedule(
+        "",
+        moment()
+          .subtract(1, "days")
+          .format()
+      );
+    }
+    if (scheduleTabs === "2") {
+      //Get all schedule for upcoming
+      fetchAllSchedule(
+        moment()
+          .add(1, "days")
+          .format(),
+        ""
+      );
+    }
+  }, [scheduleSearch, referenceType, userData]);
+
+  const onChangeTab = (e) => {
+    //TODO: dispatch another action for past/today/upcoming
+    dispatch(handleScheduleTab(e.toString()));
+    console.log(e, "onchangeTab");
+    //TODO: Here will call api when tabs change
+    if (e.toString() === "0") {
+      //Get all schedule for today
+      fetchAllSchedule(
+        moment()
+          .startOf("D")
+          .format(),
+        moment()
+          .endOf("D")
+          .format()
+      );
+    }
+    if (e.toString() === "1") {
+      //Get all schedule for past
+      fetchAllSchedule(
+        "",
+        moment()
+          .subtract(1, "days")
+          .format()
+      );
+    }
+    if (e.toString() === "2") {
+      //Get all schedule for upcoming
+      fetchAllSchedule(
+        moment()
+          .add(1, "days")
+          .format(),
+        ""
+      );
+    }
+  };
+
+  const onChangeMainTab = (e) => {
+    console.log(e, "changeTab");
+    dispatch(handleReferenceTypeChange(e));
+    // if (scheduleTabs === "1") {
+    //   //Get all schedule for today
+    //   fetchAllSchedule(
+    //     moment()
+    //       .startOf("D")
+    //       .format(),
+    //     moment()
+    //       .endOf("D")
+    //       .format()
+    //   );
+    // }
+    // if (scheduleTabs === "0") {
+    //   //Get all schedule for past
+    //   fetchAllSchedule(
+    //     "",
+    //     moment()
+    //       .subtract(1, "days")
+    //       .format()
+    //   );
+    // }
+    // if (scheduleTabs === "2") {
+    //   //Get all schedule for upcoming
+    //   fetchAllSchedule(
+    //     moment()
+    //       .add(1, "days")
+    //       .format(),
+    //     ""
+    //   );
+    // }
+  };
+
   return (
     <div className="flex flex-col gap-3 overflow-hidden h-full">
       <div className="flex flex-1 gap-5 h-full">
         <div className="basis-[30%] min-w-[330px] overflow-y-auto">
           <div className="bg-[#ffffff] mb-[1rem] rounded-[10px]">
-            <Tab panes={newPanes} activeKey="0" />
+            <Tab
+              panes={newPanes}
+              activeKey="0"
+              onChangeTab={onChangeMainTab}
+              canChangeRoute={true}
+            />
           </div>
-          <Tab panes={panes} activeKey="1" />
+          <Tab
+            panes={panes}
+            activeKey="1"
+            onChangeTab={onChangeTab}
+            canChangeRoute={true}
+          />
         </div>
         <div className="basis-[70%] flex flex-col gap-[18px] min-h-0">
           <div className="rounded-lg p-2 px-5 bg-[white] font-bold text-black">

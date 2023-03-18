@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useContext, useState } from "react";
 import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
-import { AdminContainer } from "../../../../components/HrMenu/Administration/StyledComponents/admin";
+import { AdminContainer } from "../../../sharedComponents/Administration/StyledComponents/admin";
 import OfficeTimingComposer from "./officeTimingComposer";
 import { getOfficeTimingByIdAction } from "../store/actions";
 import { Form } from "antd";

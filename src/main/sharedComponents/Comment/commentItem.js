@@ -1,10 +1,10 @@
-import React, { useContext, useState } from 'react';
-import './style.css';
-import CommentComposer from './Composer';
-import { getAllComment } from './services';
-import CommentBubble from './CommentBubble';
-import { LanguageChangeContext } from '../../../utils/localization/localContext/LocalContext';
-import { CommentDictionary } from './localization';
+import React, { useContext, useState } from "react";
+import "./style.css";
+import CommentComposer from "./Composer";
+import { getAllComment } from "./services";
+import CommentBubble from "./CommentBubble";
+import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
+import { CommentDictionary } from "./localization";
 
 const CommentItem = ({
   comment,
@@ -28,8 +28,9 @@ const CommentItem = ({
     attachmentFile,
     reactionCount,
     cssClass,
+    mentions,
   } = comment;
-  // console.log(comment, "contentttt");
+  console.log(comment, "contentttt");
   const [openComposer, setOpenComposer] = useState(false);
   const [replies, setReplies] = useState([]);
   const toggleReply = (referenceId, parentId) => {
@@ -47,22 +48,23 @@ const CommentItem = ({
         if (res.length > 0) return res[0];
         else return reply;
       });
-      console.log('replies', replies);
+      console.log("replies", replies);
       setReplies(replies);
     }
   };
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Reply, Like, WriteYourReplyHere } = CommentDictionary[userLanguage];
+
   // console.log("comment", comment);
   return (
     <div
       className={
-        'CommentItem ' +
-        (isReply ? 'ReplyComment ' : '') +
-        (type === 2 ? 'SystemComment' : '')
+        "CommentItem " +
+        (isReply ? "ReplyComment " : "") +
+        (type === 2 ? "SystemComment" : "")
       }
     >
-      <div style={{ flex: '1' }}>
+      <div style={{ flex: "1" }}>
         <div>
           <CommentBubble
             user={user}
@@ -73,6 +75,7 @@ const CommentItem = ({
             attachmentCount={attachmentCount}
             attachmentFile={attachmentFile}
             type={type}
+            mentions={mentions}
           />
           {type !== 2 && (
             <div className="likeReplyCont">
@@ -102,7 +105,7 @@ const CommentItem = ({
                     <React.Fragment key={Rid}>
                       <div
                         className={
-                          'CommentItem ' + (isReply ? 'ReplyComment' : '')
+                          "CommentItem " + (isReply ? "ReplyComment" : "")
                         }
                       >
                         <CommentBubble

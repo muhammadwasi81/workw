@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   FormContainer,
   FormHeader,
-} from "../../../../components/HrMenu/Administration/StyledComponents/adminForm";
+} from "../../../sharedComponents/Administration/StyledComponents/adminForm";
 import { getAllPayment } from "../store/actions";
 import PaymentTable from "./table";
 

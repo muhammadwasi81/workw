@@ -292,21 +292,6 @@ export const ROUTES = {
     EMERGENCY_INFO: `info/emergencyInfo/:id`,
     EXPERIENCE: `info/experience/:id`,
   },
-  EMPLOYEES_INFO: {
-    // JOB_BY_ID: `${DOMAIN_PREFIX}/employees/job`,
-    // EMAIL_CONFIG: `${DOMAIN_PREFIX}/employees/emailconfig`,
-    // PACKAGE: `${DOMAIN_PREFIX}/employees/package`,
-    // LINKAGE: `${DOMAIN_PREFIX}/employees/linkage`,
-    // USER_RIGHTS: `${DOMAIN_PREFIX}/employees/rights`,
-    // ACTIVITY_LOGS: `${DOMAIN_PREFIX}/employees/activityLogs`,
-    // SALARY: `${DOMAIN_PREFIX}/employees/salary`,
-    // APPRAISAL: `${DOMAIN_PREFIX}/employees/appraisal`,
-    // OFFICE_TIMINGS: `${DOMAIN_PREFIX}/employees/officeTimings`,
-    // OFFICETIME: `${DOMAIN_PREFIX}/employees/officetime`,
-    // EMPLOYEE_TIME: `${DOMAIN_PREFIX}/employees/employee_time`,
-    // EMAIL_SEND: `${DOMAIN_PREFIX}/employees/EmailSend`,
-    // ALLOWANCES: `${DOMAIN_PREFIX}/employees/allowances`,
-  },
   ADMINISTRATOR: {
     DEFAULT: `${DOMAIN_PREFIX}/administrator/*`,
     ADMINISTRATION: `${DOMAIN_PREFIX}/administrator/`,
@@ -401,7 +386,6 @@ export const ROUTES = {
     DETAIL: `${DOMAIN_PREFIX}/requisition/requisitionDetail/:id`,
     APPLYREQUISITION: `${DOMAIN_PREFIX}/applyRequisition`,
   },
-  //   EMPLOYEES: {
   //     DEFAULT: `${DOMAIN_PREFIX}/employees/*`,
   //     EMPLOYEELINK: `${DOMAIN_PREFIX}/employees`,
   //     ADD: `add`,
@@ -559,13 +543,6 @@ export const ROUTES = {
     APPROVALS_FLOW: {
       DEFAULT: `${DOMAIN_PREFIX}/hr/approvalflow`,
     },
-    // APPRAISALS: {
-    //   DEFAULT: `${DOMAIN_PREFIX}/appraisals`,
-    //   SUBMIT: `${DOMAIN_PREFIX}/appraisals/submitAppraisal`,
-    // },
-    // RESIGNATIONS: {
-    // 	DEFAULT: `${DOMAIN_PREFIX}/resignations/*`,
-    // },
     WARNINGS: {
       DEFAULT: `${DOMAIN_PREFIX}/warnings`,
       APPROVALS: `${DOMAIN_PREFIX}/warnings/approvals`,

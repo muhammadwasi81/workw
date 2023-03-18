@@ -13,6 +13,7 @@ function Approval({
   approverType,
   onStatusChanged,
   status,
+  reference = "",
 }) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction } = ApprovalDictionary[userLanguage];
@@ -63,6 +64,7 @@ function Approval({
           title={title}
           data={data}
           module={module}
+          reference={reference}
           onListStatus={handleStatusList}
           approverType={approverType}
           onStatusChange={(status) => {

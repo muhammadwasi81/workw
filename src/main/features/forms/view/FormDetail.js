@@ -109,6 +109,7 @@ const FromDetail = (props) => {
             data={approvers}
             title={Approvals}
             module={ApprovalsModule.FormApproval}
+            reference={formDetail.id}
             onStatusChanged={() => {}}
           />
         </SingleItem>

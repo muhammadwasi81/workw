@@ -1,7 +1,7 @@
 import { message } from "antd";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AdminContainer } from "../../../../components/HrMenu/Administration/StyledComponents/admin";
+import { AdminContainer } from "../../../sharedComponents/Administration/StyledComponents/admin";
 import {
   addJobDescription,
   removeJobDescription,

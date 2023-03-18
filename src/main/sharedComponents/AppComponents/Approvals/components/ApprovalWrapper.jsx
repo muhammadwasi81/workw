@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { PlusSquareOutlined, ReloadOutlined } from "@ant-design/icons";
 import Approval from "./Approval";
 import { useDispatch } from "react-redux";
@@ -13,9 +13,15 @@ function ApprovalWrapper({
   approverType,
   onStatusChange,
   onListStatus,
+  reference
 }) {
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [compData, setCompData] = useState([]);
+
+  useEffect(()=> {
+    setCompData(data);
+  },[data])
 
   // const handleOk = () => {
   //   setIsModalOpen(false);
@@ -49,7 +55,7 @@ function ApprovalWrapper({
           </ul>
         </div>
 
-        {data?.map(
+        {compData?.map(
           (
             {
               approver,
@@ -82,7 +88,7 @@ function ApprovalWrapper({
           }
         )}
       </div>
-      {isModalOpen && <AddAprrovalModal data={data} module={module} />}
+      {isModalOpen && <AddAprrovalModal data={data} module={module} reference={reference}/>}
     </>
   );
 }

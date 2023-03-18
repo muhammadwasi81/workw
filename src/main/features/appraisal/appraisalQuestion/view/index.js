@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AdminContainer } from "../../../../../components/HrMenu/Administration/StyledComponents/admin";
+import { AdminContainer } from "../../../../sharedComponents/Administration/StyledComponents/admin";
 import { addQuestion, removeQuestion, updateQuestion } from "../store/actions";
 import AppraisalForm from "./form.js";
 import AppraisalTable from "./table.js";

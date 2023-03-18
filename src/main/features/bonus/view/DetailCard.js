@@ -85,7 +85,10 @@ function BonusDetailCard(props) {
                         designation={
                           creator.designation ? creator.designation : ""
                         }
-                        time={moment(localTime).fromNow()}
+                        time={moment
+                          .utc(createDate)
+                          .local()
+                          .fromNow()}
                       />
                     }
                   />
@@ -116,11 +119,15 @@ function BonusDetailCard(props) {
             </div>
             <div className="cardSections" style={{ marginTop: "20px" }}>
               <div className="cardSectionItem">
-                <div className="cardSection__title">{bonusDictionary.amount}</div>
+                <div className="cardSection__title">
+                  {bonusDictionary.amount}
+                </div>
                 <div className="cardSection__body">{amount}</div>
               </div>
               <div className="cardSectionItem">
-                <div className="cardSection__title">{bonusDictionary.bonusTo}</div>
+                <div className="cardSection__title">
+                  {bonusDictionary.bonusTo}
+                </div>
                 <div className="cardSection__body">{member && member.name}</div>
               </div>
               <div className="cardSectionItem">
@@ -146,6 +153,7 @@ function BonusDetailCard(props) {
           <RemarksApproval
             module={ApprovalsModule.BonusApproval}
             status={status}
+            reference={bonusDetail.id}
             onStatusChanged={(statusChanged) => setUpdatedStatus(statusChanged)}
             data={approvers}
             title="Approvers"

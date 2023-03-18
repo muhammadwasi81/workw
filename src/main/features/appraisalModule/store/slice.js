@@ -26,8 +26,10 @@ const initialState = {
   currentTab: "allAppraisals",
   drawerOpen: false,
   loader: false,
+  previousAppraisalLoader: false,
   userTask: [],
   addSuccess: false,
+  modalOpen: false,
 };
 
 const appraisalModuleSlice = createSlice({
@@ -47,6 +49,9 @@ const appraisalModuleSlice = createSlice({
     },
     handleChangeTab: (state, { payload: tab }) => {
       state.currentTab = tab;
+    },
+    handleOpenModal: (state, { payload }) => {
+      state.modalOpen = payload;
     },
   },
   extraReducers: (builder) => {
@@ -71,7 +76,7 @@ const appraisalModuleSlice = createSlice({
         getAllPreviousAppraisalAction.fulfilled,
         (state, { payload }) => {
           state.previousAppraisals = payload;
-          state.loader = false;
+          state.previousAppraisalLoader = false;
         }
       )
       .addCase(addAppraisal.fulfilled, (state, { payload }) => {
@@ -92,7 +97,7 @@ const appraisalModuleSlice = createSlice({
         state.loader = true;
       })
       .addMatcher(isPending(...[getAllPreviousAppraisalAction]), (state) => {
-        state.loader = true;
+        state.previousAppraisalLoader = true;
       })
       .addMatcher(isPending(...[getAllAppraisalByIdAction]), (state) => {
         state.detailLoader = true;
@@ -114,7 +119,7 @@ const appraisalModuleSlice = createSlice({
         state.loader = false;
       })
       .addMatcher(isRejected(...[getAllPreviousAppraisalAction]), (state) => {
-        state.loader = false;
+        state.previousAppraisalLoader = false;
       });
   },
 });
@@ -123,5 +128,6 @@ export const {
   handleOpenComposer,
   addCareerList,
   handleChangeTab,
+  handleOpenModal,
 } = appraisalModuleSlice.actions;
 export default appraisalModuleSlice.reducer;

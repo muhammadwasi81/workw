@@ -1,7 +1,7 @@
 import { message } from "antd";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AdminContainer } from "../../../../components/HrMenu/Administration/StyledComponents/admin";
+import { AdminContainer } from "../../../sharedComponents/Administration/StyledComponents/admin";
 import { addExpense, removeExpense, updateExpense } from "../store/actions";
 import ExpenseHeaderForm from "./form.js";
 import ExpenseHeaderTable from "./table.js";
@@ -9,7 +9,7 @@ import ExpenseHeaderTable from "./table.js";
 export default function ExpenseHeader() {
   const initialState = { name: "", description: "" };
   const [expenseHeaders, setexpenseHeaders] = useState(initialState);
-  const [clearButton, setClearButton] = useState(false)
+  const [clearButton, setClearButton] = useState(false);
 
   const dispatch = useDispatch();
   const { loader } = useSelector((state) => state.expenseHeaderSlice);
@@ -20,12 +20,12 @@ export default function ExpenseHeader() {
 
   const onSubmit = (e) => {
     if (e.name === "" || e.description === "") {
-      message.error("Please fill all required fields")
+      message.error("Please fill all required fields");
     } else {
       if (!e.id) {
         dispatch(addExpense(e));
         setexpenseHeaders(initialState);
-        setClearButton(true)
+        setClearButton(true);
         return;
       }
       dispatch(updateExpense(e));

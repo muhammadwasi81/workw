@@ -28,7 +28,7 @@ function Avatar(props) {
   // 	props.membersData[0][objProperty] !== null &&
   // 	props.membersData[0][objProperty] !== undefined &&
   // 	props.membersData[0][objProperty]?.image;
-  console.log(props.membersData, "lll");
+
   return (
     <>
       {props.membersData && props.membersData.length > 0 ? (

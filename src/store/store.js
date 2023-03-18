@@ -11,7 +11,8 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import MessengerSlice from "../main/features/Messenger/store/messengerSlice";
-import sideBarChatSlice from "../components/MainMenu/SideChatbar/store/sideBarChatSlice";
+// import sideBarChatSlice from "../components/MainMenu/SideChatbar/store/sideBarChatSlice";
+import sideBarChatSlice from "../main/features/SideChatbar/store/sideBarChatSlice";
 import requisitionSlice from "../main/features/requisition/store/slice";
 import authSlice from "../main/features/auth/store/slice";
 import gradeSlice from "../main/features/grade/store/slice";
@@ -107,6 +108,7 @@ import employeeRebateSlice from "../main/features/rebate/store/slice";
 import userBillingSlice from "../main/features/billing/store/slice";
 import userPaymentSlice from "../main/features/payments/store/slice";
 import projectExternalSlice from "../main/features/publicRoutes/projects/store/slice";
+import ApproverSlice from "../main/sharedComponents/AppComponents/Approvals/action/slice";
 // import thunk from "redux-thunk";
 
 const reducers = combineReducers({
@@ -211,6 +213,7 @@ const reducers = combineReducers({
   userBillingSlice,
   userPaymentSlice,
   projectExternalSlice,
+  ApproverSlice,
 });
 
 const persistConfig = {

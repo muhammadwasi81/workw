@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
-import { Tabs } from 'antd';
-import './tab.css';
+import React, { useEffect } from "react";
+import { Tabs } from "antd";
+import "./tab.css";
 // import { useLocation, useNavigate } from "react-router-dom";
 // import { useState } from "react";
 const { TabPane } = Tabs;
@@ -8,10 +8,10 @@ function Tab(props) {
   const {
     panes,
     canChangeRoute = false,
-    onChange,
+    onChangeTab,
     defaultPath,
     className,
-    activeKey = '',
+    activeKey = "",
   } = props;
 
   // const [defaultPath, setDefaultPath] = useState("");
@@ -29,21 +29,21 @@ function Tab(props) {
   // 		setDefaultPath(pathname.split("_")[0]);
   // 	}
   // }, [pathname]);
-  console.log('class', className);
+  console.log("class", className);
 
   return (
     <>
       {canChangeRoute ? (
         <Tabs
-          activeKey={canChangeRoute ? defaultPath : ''}
-          onChange={onChange}
-          className={'custom_tab ' + className}
+          activeKey={canChangeRoute ? defaultPath : ""}
+          onChange={onChangeTab}
+          className={"custom_tab " + className}
           tabBarStyle={{
-            background: '#ffffff',
-            padding: '2px 5px',
-            borderRadius: '10px',
-            color: 'var(--primary_theme_color_green)',
-            fontWeight: 'bold',
+            background: "#ffffff",
+            padding: "2px 5px",
+            borderRadius: "10px",
+            color: "var(--primary_theme_color_green)",
+            fontWeight: "bold",
           }}
           dir={props.dir}
         >
@@ -58,13 +58,13 @@ function Tab(props) {
       ) : (
         <Tabs
           defaultActiveKey={activeKey}
-          className={'custom_tab ' + className}
+          className={"custom_tab " + className}
           tabBarStyle={{
-            background: '#ffffff',
-            padding: '2px 5px',
-            borderRadius: '10px',
-            color: 'var(--primary_theme_color_green)',
-            fontWeight: 'bold',
+            background: "#ffffff",
+            padding: "2px 5px",
+            borderRadius: "10px",
+            color: "var(--primary_theme_color_green)",
+            fontWeight: "bold",
           }}
           dir={props.dir}
         >

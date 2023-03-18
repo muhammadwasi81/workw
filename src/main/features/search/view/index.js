@@ -13,12 +13,11 @@ import { globalSearch } from "../store/actions";
 import { Route, Routes } from "react-router-dom";
 import Groups from "../../groups/view";
 import { useDispatch, useSelector } from "react-redux";
+import { SearchFilterEnum } from "../enums/enums";
 
 function Index() {
   const dispatch = useDispatch();
-  // useEffect(() => {
-  //   dispatch(globalSearch());
-  // }, []);
+
   const items = [
     {
       name: "Search",
@@ -32,12 +31,12 @@ function Index() {
       <Header items={items} />
       <ContBody>
         <div className="mainSearchContainer">
-          {/* <GroupContainer />
-            <RewardContainer />
-            <UserContainer /> */}
-          <Routes>
+          <GroupContainer />
+          <RewardContainer />
+          <UserContainer />
+          {/* <Routes>
             <Route path="/search?q=groups" element={<Groups />} />
-          </Routes>
+          </Routes> */}
         </div>
       </ContBody>
     </TabbableContainer>

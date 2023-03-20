@@ -13,7 +13,6 @@ const CommentItem = ({
   user,
   handleLike,
   likeClass,
-  userComments,
 }) => {
   let {
     referenceId,
@@ -30,7 +29,7 @@ const CommentItem = ({
     reactionCount,
     cssClass,
   } = comment;
-  console.log(userComments, 'userComments in item file');
+  console.log(creator, 'creator');
   const [openComposer, setOpenComposer] = useState(false);
   const [replies, setReplies] = useState([]);
   const toggleReply = (referenceId, parentId) => {
@@ -67,7 +66,7 @@ const CommentItem = ({
         <div>
           <CommentBubble
             user={user}
-            comments={userComments}
+            creator={creator}
             content={content}
             mentionedUser={mentionedUser}
             date={createDate}

@@ -31,7 +31,7 @@ const Post = ({
     reactionCount,
     myReaction,
   } = post;
-  console.log('post', comments);
+  console.log('post file index', comments);
   return (
     <div className="post">
       <PostHeader

@@ -11,9 +11,10 @@ function CommentBubble({
   attachmentCount,
   attachmentFile,
   type,
-  comments,
+  creator,
 }) {
   const { name, designation = '', userImage: image = '' } = user;
+  console.log('wwwwwwwwww', creator);
   let ts = moment.utc(date);
   ts.local().format('D-MMM-Y');
 
@@ -21,8 +22,8 @@ function CommentBubble({
     <div style={{ display: 'flex', width: '100%' }}>
       {type !== 2 && (
         <Avatar
-          src={comments[0]?.creator?.image || image}
-          name={comments[0]?.creator?.name || name}
+          src={creator.image || image}
+          name={creator.name || name}
           size={30}
           round={true}
         />
@@ -30,21 +31,21 @@ function CommentBubble({
       {type === 2 && (
         <div className="commentName">
           <Avatar
-            src={comments[0]?.creator?.image}
-            name={comments[0]?.creator?.name}
+            src={creator.image || image}
+            name={creator.name || name}
             size={25}
             round={true}
           />
-          <div className="nameText">{comments[0]?.creator?.name || name}</div>
+          <div className="nameText">{creator?.name || name}</div>
         </div>
       )}
       <div className="CommentBubble">
         {type !== 2 && (
           <div className="CommentHeader">
             <div className="CommentHeaderDet">
-              <div className="name">{comments[0]?.creator?.name || name}</div>
+              <div className="name">{creator?.name || name}</div>
               <div className="designation">
-                {comments[0]?.creator?.designation || designation}
+                {creator?.designation || designation}
               </div>
             </div>
             <div className="CommentHeaderIcon">

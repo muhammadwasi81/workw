@@ -1,5 +1,5 @@
+import { useEffect, useState } from 'react';
 import { Skeleton } from 'antd';
-import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { STRINGS } from '../../../utils/base';
 import { addReaction } from '../../features/feed/store/actions';
@@ -26,6 +26,7 @@ function CommentWrapper({
   const [likeClass, setLikeClass] = useState('hello boy');
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.userSlice);
+  console.log('user', user);
   useEffect(() => {
     const newResponse = initailComments?.map((it) => {
       return {
@@ -73,7 +74,6 @@ function CommentWrapper({
     // setLikeClass("liked");
   };
   // console.log("initailComments", initailComments);
-  console.log('comment', comments);
   return (
     <div className="commentWrapper">
       <CommentComposer
@@ -111,7 +111,6 @@ function CommentWrapper({
               return (
                 <CommentItem
                   user={user}
-                  userComments={comments}
                   placeHolderReply={placeHolderReply}
                   initialMentions={initialMentions}
                   mentionedUser={mentionedUser}

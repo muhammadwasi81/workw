@@ -41,7 +41,7 @@ function EmployeeFamily({ mode }) {
     //TODO: dispatch get all family member
     dispatch(getAllEmployeeFamilyAction(param.id));
   }, []);
-
+  console.log(form.getFieldsValue(), "fields value");
   useEffect(() => {
     if (success) {
       //TODO: reset fields and image here

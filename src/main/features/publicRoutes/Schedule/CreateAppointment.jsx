@@ -8,32 +8,33 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllEmployees } from "../../../../utils/Shared/store/actions";
 
 import { ScheduleTypeEnum } from "../../schedule/enum/enum";
-// import { addSchedule } from "../store/action";
-import { defaultUiid } from "../../../../utils/Shared/enums/enums";
-import { getNameForImage, jsonToFormData } from "../../../../utils/base";
+
 import "../../schedule/styles/style.css";
 import { formats, meetingDuration, modules } from "../../schedule/utils";
 import { addAppointmentByExternal } from "../projects/store/action";
-import { options } from "preact";
+import { closeModal } from "../projects/store/slice";
+
 function CreateSchedule(
   props,
   { scheduleDetail = {}, referenceType, referenceId }
 ) {
-  const [venue, setVenue] = useState("Venue");
   const [quillError, setQuillError] = useState(false);
-  const [files, setFiles] = useState([]);
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [subject, setSubject] = useState("");
   const [discription, setDiscription] = useState("");
+  const [internalDuration, setInternalDuration] = useState();
 
   console.log(subject, "subject");
   console.log(discription, "discription");
+  let userId = props.id;
+  console.log(userId, "ccccciiddd");
   const {
     sharedSlice: { employees },
   } = useSelector((state) => state);
-  const userId = useSelector((state) => state.userSlice.user.id);
-  const loading = useSelector((state) => state.scheduleSlice.loading);
+  // const userId = useSelector((state) => state.userSlice.user.id);
+  const { loader } = useSelector((state) => state.externalBookAppointment);
+
   const dispatch = useDispatch();
   const [form] = Form.useForm();
 
@@ -52,37 +53,6 @@ function CreateSchedule(
   }, []);
   console.log(props.durationInMinutes, "durationInMinutes");
 
-  const onFinish = (value) => {
-    console.log("onFinish", value);
-    let objToSend = value;
-
-    if (objToSend.startDate) {
-      objToSend.startDate = moment(objToSend.startDate).format();
-    } else {
-      objToSend.startDate = defaultValue;
-    }
-    if (objToSend.startDate) {
-      objToSend.endDate = moment(value.startDate)
-        .add(+value.endDate.split(" ")[0], value.endDate.split(" ")[1])
-
-        .add(meetingDuration ? meetingDuration : duration, "minutes")
-
-        .format();
-      objToSend.startDate = moment(objToSend.startDate).format();
-    } else {
-      objToSend.endDate = "";
-    }
-
-    if (objToSend.members) {
-      objToSend.members = value.members.map((member) => {
-        return { memberId: member };
-      });
-
-      dispatch(addAppointmentByExternal({ createby: userId, ...objToSend }));
-
-      console.log(value, "value");
-    }
-  };
   console.log(meetingDuration, "meeeeeeeeeeeeeee");
   const onFinishFailed = (value) => {
     if (form.getFieldError("description")[0]) {
@@ -91,11 +61,46 @@ function CreateSchedule(
     }
     setQuillError(false);
   };
-  console.log(props.selectedStartTime, "selectedStartTime");
+  const onFinish = (value, props) => {
+    console.log(value, "dsdsdds");
+    let objToSend = value;
+    // objToSend = [value.externals.id];
+    objToSend.createBy = "42714b44-f73b-4607-9b0d-30a30b3e2c7f";
+    objToSend.externals = [{ externals: value.externals }];
+    objToSend.members = [{ memberId: userId }];
+    if (objToSend.startDate) {
+      objToSend.startDate = moment(objToSend.startDate)
+        .utc()
+        .format(); // convert start date to UTC format
+    } else {
+      objToSend.startDate = defaultValue;
+    }
+
+    if (objToSend.startDate) {
+      objToSend.endDate = moment(value.startDate)
+        .add(+value.endDate.split(" ")[0], value.endDate.split(" ")[1])
+        .add(internalDuration ? internalDuration : duration, "minutes")
+        .utc() // convert end date to UTC format
+        .format();
+      objToSend.startDate = moment(objToSend.startDate)
+        .utc()
+        .format();
+    } else {
+      objToSend.endDate = "";
+    }
+    console.log(userId, "propsids");
+    console.log({ ...objToSend }, "...objToSend");
+    const payload = {
+      data: objToSend,
+      id: userId,
+    };
+    dispatch(addAppointmentByExternal(payload));
+
+    dispatch(closeModal(false));
+  };
+
   useEffect(() => {
     if (Object.keys(scheduleDetail).length > 0) {
-      console.log("scheduleDetail", scheduleDetail);
-
       const startD = moment(scheduleDetail.startDate);
       const endD = moment(scheduleDetail.endDate);
 
@@ -103,20 +108,12 @@ function CreateSchedule(
         ...scheduleDetail,
         startDate: startD,
         endDate: "gvahsgcx",
-        // defaultValue: defaultValue,
-
-        // `${endD.diff(duration, "minutes")} minutes`,
-        members: scheduleDetail.members
-          .map((members) => {
-            return members.memberId;
-          })
-          .filter((member) => member !== userId),
       });
     }
   }, [scheduleDetail]);
   const defaultValue = moment(props.selectedStartTime, "YYYY-MM-DD HH:mm");
-  const duration = props.durationInMinutes;
-  console.log(duration, "duration");
+  const duration = props.durationInMinutes.toString();
+
   return (
     <div className="createSchedule">
       <Form
@@ -140,6 +137,21 @@ function CreateSchedule(
           <Input placeholder="Write Subject"></Input>
         </Form.Item>
         <Form.Item
+          name="externals"
+          label={"Email:"}
+          //   direction={Direction}
+          rules={[
+            {
+              required: true,
+              message: "Email is required",
+              type: "email",
+            },
+          ]}
+        >
+          <Input placeholder={"Enter the Email Address"} />
+        </Form.Item>
+
+        <Form.Item
           name="description"
           label={"Description:"}
           onChange={(e) => {
@@ -149,7 +161,6 @@ function CreateSchedule(
             {
               required: true,
               message: "Description is required",
-              // validator: checkDesc,
             },
           ]}
         >
@@ -193,6 +204,7 @@ function CreateSchedule(
               defaultValue={defaultValue}
               showTime={{ format: "HH:mm" }}
               placeholder="Select Date & Time"
+              utc={true}
             />
           </Form.Item>
           <Form.Item
@@ -200,21 +212,15 @@ function CreateSchedule(
             name="endDate"
             rules={[{ required: true, message: "Duration is required" }]}
           >
-            <Select defaultValue={duration} options={meetingDuration}></Select>
+            <Select
+              name={internalDuration}
+              onSelect={(e) => setInternalDuration(e)}
+              defaultValue={duration}
+              options={meetingDuration}
+            ></Select>
           </Form.Item>
         </div>
-        <Form.Item
-          name={"externals"}
-          label={"External Members"}
-          //   direction={Direction}
-        >
-          <Select
-            mode="tags"
-            dropdownClassName="hidden"
-            placeholder={"Enter the Email Address"}
-            size="large"
-          />
-        </Form.Item>
+
         <Form.Item>
           <Button
             type="primary"
@@ -222,7 +228,7 @@ function CreateSchedule(
             className="ThemeBtn"
             block
             htmlType="submit"
-            loading={loading}
+            loading={loader ? true : false}
           >
             {"Create Schedule"}
           </Button>

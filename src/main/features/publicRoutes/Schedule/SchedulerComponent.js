@@ -5,7 +5,6 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import "./style/calenderComponent.css";
 import "./style/style.css";
-// import Event from "./event";
 import { Calendar } from "antd";
 import EventDetail from "../../schedule/view/eventDetail";
 import moment from "moment";
@@ -13,19 +12,22 @@ import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 import "../../../sharedComponents/Drawer/sideDrawer.css";
 import CreateAppointment from "./CreateAppointment";
 import { message } from "antd";
+import { useSelector, useDispatch } from "react-redux";
+import { setmodal } from "../projects/store/slice";
 
-function SchedulersComponent({ feed = false, referenceId }) {
+function SchedulersComponent(props, { feed = false, referenceId }) {
   const [calenderView, setCalendarView] = useState("");
   const [todayDate, setTodayDate] = useState(new Date());
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [selectedStartTime, setSelectedStartTime] = useState(null);
   const [selectedEndTime, setSelectedEndTime] = useState(null);
-  const [showModal, setShowModal] = useState(false);
-
+  const modal = useSelector((state) => state.externalBookAppointment.modal);
+  const { loading } = useSelector((state) => state.externalBookAppointment);
+  const dispatch = useDispatch();
   const calendarRef = useRef();
   let isPanelChange = false;
-  console.log(selectedStartTime, "selectedStartTime");
-  console.log(selectedEndTime, "selectedEndTime");
+  let userId = props.id;
+  console.log(props.id, "ppppppiddddd");
   useEffect(() => {
     fetchAllSchedule(todayDate, todayDate);
   }, []);
@@ -68,7 +70,8 @@ function SchedulersComponent({ feed = false, referenceId }) {
     setSelectedStartTime(info.startStr.slice(0, 16).replace("T", " "));
     console.log(selectedStartTime, "sestime");
     setSelectedEndTime(info.end);
-    setShowModal(true);
+    // setShowModal(true);
+    dispatch(setmodal(true));
   }
 
   const durationInMinutes =
@@ -151,14 +154,13 @@ function SchedulersComponent({ feed = false, referenceId }) {
             },
           }}
         />
+
         {durationInMinutes <= 60 ? (
           <SideDrawer
             title={"Book Appointment"}
-            isOpen={showModal}
+            isOpen={modal}
             handleOpen={true}
-            handleClose={() => {
-              setShowModal(false);
-            }}
+            handleClose={() => dispatch(setmodal(false))}
           >
             <div className="drawer">
               <div className="drawer-title"></div>
@@ -167,6 +169,7 @@ function SchedulersComponent({ feed = false, referenceId }) {
                   selectedEndTime={selectedEndTime}
                   selectedStartTime={selectedStartTime}
                   durationInMinutes={durationInMinutes}
+                  id={userId}
                 />
               </div>
             </div>

@@ -1,4 +1,5 @@
 import MasterConfig from "../../../../../utils/services/MasterConfig";
+import { jsonToFormData } from "../../../../../utils/base";
 
 export const GetReferenceByIdService = (id) => {
   console.log("ID FROM SERVICE", id);
@@ -11,12 +12,17 @@ export const GetReferenceByIdService = (id) => {
     });
 };
 
-export const addScheduleByExternalService = (data) => {
-  return MasterConfig.post(`api/Schedule/AddScheduleByExternal`, data)
+export const addScheduleByExternalService = (payload) => {
+  console.log(payload, "service datatatta");
+  const formData = jsonToFormData(payload.data);
+  return MasterConfig.post(
+    `api/Schedule/AddScheduleByExternal?id=${payload.id}`,
+    formData
+  )
     .then((res) => {
       return res.data;
     })
     .catch((error) => {
-      return error;
+      console.log(error.message);
     });
 };

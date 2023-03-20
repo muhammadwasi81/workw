@@ -4,7 +4,12 @@ import {
   responseMessage,
   responseMessageType,
 } from "../../../../services/slices/notificationSlice";
-import { getUserBasicInfoByIdService } from "../service/service";
+import { message } from "antd";
+import {
+  getUserBasicInfoByIdService,
+  getUserLeaveByIdService,
+  addUserLeaveByIdService,
+} from "../service/service";
 
 export const getUserBasicInfo = createAsyncThunk(
   "basicInfo",
@@ -20,5 +25,36 @@ export const getUserBasicInfo = createAsyncThunk(
       });
       return rejectWithValue(res.message);
     }
+  }
+);
+
+export const getUserLeave = createAsyncThunk(
+  "getUserLeaveInfo",
+  async (id, { dispatch, getState, rejectWithValue }) => {
+    console.log(id, "idddddddddddd in action");
+    const res = await getUserLeaveByIdService(id);
+    if (res.responseCode === responseCode.Success) {
+      return res;
+    } else {
+      responseMessage({
+        dispatch: dispatch,
+        data: res,
+        type: responseMessageType.ApiFailure,
+      });
+      return rejectWithValue(res.message);
+    }
+  }
+);
+export const addLeaveByEmployee = createAsyncThunk(
+  "api/addLeaveByEmployee",
+  async (args, { dispatch }) => {
+    const res = await addUserLeaveByIdService(args);
+    if (res.responseCode && res.responseCode === responseCode.Success) {
+      message.success("Employee rebate added successfully!");
+      responseMessage({ dispatch, data: res });
+    } else {
+      message.error(res.message);
+    }
+    return res;
   }
 );

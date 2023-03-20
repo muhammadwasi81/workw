@@ -22,6 +22,8 @@ function Schedules({ referenceId = defaultUiid }) {
   const [searchParams] = useSearchParams();
   let param = searchParams.get("f");
   const [isShareLinkModalOpen, setIsShareLinkModalOpen] = useState(false);
+  const userId = useSelector((state) => state.userSlice.user.id);
+
   // const dispatch = useDispatch();
   // const { drawerOpen } = useSelector(state => state.scheduleSlice);
   const [copy, setCopy] = useState(false);
@@ -33,6 +35,7 @@ function Schedules({ referenceId = defaultUiid }) {
   };
   const handleShareLinkModal = () => {
     setIsShareLinkModalOpen(!isShareLinkModalOpen);
+    setCopy(false);
   };
 
   const copyfunc = () => {
@@ -64,10 +67,9 @@ function Schedules({ referenceId = defaultUiid }) {
               <strong>Anyone</strong> with the link can create a schedule.
             </p>
             <CopyToClipboard
-              text={`${window.location.origin}${ROUTES.SCHEDULES.DEFAULT}`}
-              onCopy={copyfunc}
+              text={`${window.location.origin}/${ROUTES.EXTERNAL_PROJECT_SCHEDULER.REGISTER}/${userId}`}
             >
-              <Button>Copy Link</Button>
+              <Button onClick={copyfunc}>Copy Link</Button>
             </CopyToClipboard>
           </div>
         </div>

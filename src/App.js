@@ -10,6 +10,7 @@ import {
   Navigate,
   Route,
   Routes as ReactRoutes,
+  useParams,
 } from "react-router-dom";
 import Auth from "./main/features/auth/view";
 import IndivisualSignup from "./main/features/auth/view/signUp/IndivisualSignup";
@@ -50,12 +51,15 @@ import Scheduler from "./main/features/publicRoutes/Schedule/Scheduler";
 
 const App = () => {
   const { userLanguageChange } = useContext(LanguageChangeContext);
-
+  // const { id } = useParams();
+  // console.log(id, "USEPARAMS");
   const isMobileAndTab = useMediaQuery({ query: "(max-width: 800px)" });
   const { isMobileScreen } = useSelector(
     ({ responsiveSlice }) => responsiveSlice
   );
   const userSlice = useSelector((state) => state.userSlice);
+  // const userId = useSelector((state) => state.userSlice?.user?.id);
+
   const dispatch = useDispatch();
   console.log(userSlice, "USER DATA");
   const isLoggedIn = !!userSlice.token;
@@ -140,7 +144,7 @@ const App = () => {
                 element={<ExternalProject />}
               />
               <Route
-                path={`${ROUTES.EXTERNAL_PROJECT_SCHEDULER.REGISTER}`}
+                path={`${ROUTES.EXTERNAL_PROJECT_SCHEDULER.REGISTER}/:id`}
                 element={<Scheduler />}
               />
               <Route path={`${ROUTES.JOBS.PUBLIC}`} element={<PublicJobs />} />

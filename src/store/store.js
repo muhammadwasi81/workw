@@ -107,6 +107,7 @@ import employeeRebateSlice from "../main/features/rebate/store/slice";
 import userBillingSlice from "../main/features/billing/store/slice";
 import userPaymentSlice from "../main/features/payments/store/slice";
 import externalBookAppointment from "../main/features/publicRoutes/projects/store/slice";
+import userLeaveSlice from "../main/features/userLeave/store/slice";
 // import thunk from "redux-thunk";
 
 const reducers = combineReducers({
@@ -211,6 +212,7 @@ const reducers = combineReducers({
   userBillingSlice,
   userPaymentSlice,
   externalBookAppointment,
+  userLeaveSlice,
 });
 
 const persistConfig = {

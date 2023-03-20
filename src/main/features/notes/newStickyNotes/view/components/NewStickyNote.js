@@ -169,13 +169,18 @@ const NewStickyNote = ({ item }) => {
         >
           <div
             className="stickyNote_header handle"
-            style={{ backgroundColor: item.colorCode }}
+            style={{
+              backgroundColor: item.colorCode,
+            }}
           >
             <input
               placeholder={stikcyDictionary.title}
               onChange={(e) => setTitle(e.target.value)}
               defaultValue={item.title}
-              style={{ backgroundColor: item.colorCode }}
+              style={{
+                backgroundColor: item.colorCode,
+                color: `${item.colorCode ? "black" : "white"}`,
+              }}
               className="sticky_titleContainer"
             />
 
@@ -184,17 +189,22 @@ const NewStickyNote = ({ item }) => {
               <Dropdown menu={menu} overlay={menu} trigger={["click"]}>
                 <a onClick={(e) => e.preventDefault()}>
                   <Space>
-                    <EllipsisOutlined className="threedot_Icon" />
+                    <EllipsisOutlined
+                      className="threedot_Icon"
+                      style={{ color: `${item.colorCode ? "black" : "white"}` }}
+                    />
                   </Space>
                 </a>
               </Dropdown>
               <DeleteOutlined
                 onClick={deleteStickyNotes}
                 className="margin_Icon"
+                style={{ color: `${item.colorCode ? "black" : "white"}` }}
               />
               <CloseOutlined
                 onClick={closeStickyNotes}
                 className="margin_Icon"
+                style={{ color: `${item.colorCode ? "black" : "white"}` }}
               />
             </div>
           </div>

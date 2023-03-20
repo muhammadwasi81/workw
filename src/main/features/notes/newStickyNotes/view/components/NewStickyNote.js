@@ -152,7 +152,7 @@ const NewStickyNote = ({ item }) => {
     <>
       <Draggable
         Draggable
-        defaultPosition={{ x: axis.x_axis, y: axis.y_axis }}
+        //defaultPosition={{ x: axis.x_axis, y: axis.y_axis }}
         handle=".handle"
         // grid={[25, 25]}
         scale={1}

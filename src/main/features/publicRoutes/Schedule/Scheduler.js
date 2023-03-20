@@ -3,7 +3,7 @@ import SchedulersComponent from "./SchedulerComponent";
 import "antd/dist/antd.css";
 import "../Schedule/style/schedular.css";
 import { useSelector, useDispatch } from "react-redux";
-import { GetReferenceById } from "../projects/store/action";
+import { GetReferenceById } from "./store/action";
 import { useParams } from "react-router-dom";
 
 const Scheduler = (referenceId) => {

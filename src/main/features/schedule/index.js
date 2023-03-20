@@ -43,7 +43,7 @@ function Schedules({ referenceId = defaultUiid }) {
     e.stopPropagation();
     setCopy(true);
     navigator.clipboard.writeText(
-      ` ${window.location.origin}${ROUTES.SCHEDULES.DEFAULT}`
+      ` ${window.location.origin}/${ROUTES.EXTERNAL_PROJECT_SCHEDULER.REGISTER}/${userId}`
     );
     message.success("Copied");
   };

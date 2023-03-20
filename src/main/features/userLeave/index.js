@@ -187,7 +187,7 @@ const UserLeave = () => {
   const handelAllocated = (e, item, name) => {
     allLeaves.map((x) => {
       if (x.id === item.id) {
-        return setInputValues([
+        return setInitialState([
           {
             ...x,
             allocatedLeaves: e.target.value,
@@ -204,8 +204,8 @@ const UserLeave = () => {
 
   const { allLeaves } = useSelector((state) => state.userLeaveSlice);
 
-  const [inputValues, setInputValues] = useState(allLeaves);
-  console.log(inputValues, "inputvalue");
+  const [initialState, setInitialState] = useState(allLeaves);
+
   const columns = [
     {
       title: "Leave Type",
@@ -224,46 +224,12 @@ const UserLeave = () => {
     },
   ];
 
-  const data = allLeaves.map((item, ind) => ({
-    leaveType: (
-      <h2 className="w-52">{item.leaveType}</h2>
-      // <input
-      //   name={item.leaveType}
-      //   defaultValue={item.leaveType}
-      //   className="py-2 bg-transparent"
-      //   type={"text"}
-      //   placeholder="enter"
-      // />
-    ),
-    allocatedLeaves: (
-      <input
-        name={item.allocatedLeaves}
-        defaultValue={item.allocatedLeaves}
-        className="py-2 bg-transparent"
-        type={"number"}
-        placeholder="Enter leave alot"
-        onChange={(e) => {
-          handelAllocated(e, item);
-        }}
-      />
-    ),
-    availed: (
-      <input
-        name={item.availed}
-        defaultValue={item.availed}
-        className="py-2 bg-transparent"
-        type={"number"}
-        placeholder="Enter Leave avail"
-        onChange={(e) => {
-          handelAllocated(e, item);
-        }}
-      />
-    ),
-  }));
-
-  console.log(inputValues);
-
-  return <Table columns={columns} dataSource={data} />;
+  return (
+    <div>
+      <Table columns={columns} dataSource={allLeaves} />
+      <button>Update</button>
+    </div>
+  );
 };
 
 export default UserLeave;

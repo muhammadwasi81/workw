@@ -13,7 +13,7 @@ import "../../../sharedComponents/Drawer/sideDrawer.css";
 import CreateAppointment from "./CreateAppointment";
 import { message } from "antd";
 import { useSelector, useDispatch } from "react-redux";
-import { setmodal } from "../projects/store/slice";
+import { setmodal } from "./store/slice";
 
 function SchedulersComponent(props, { feed = false, referenceId }) {
   const [calenderView, setCalendarView] = useState("");
@@ -27,7 +27,7 @@ function SchedulersComponent(props, { feed = false, referenceId }) {
   const calendarRef = useRef();
   let isPanelChange = false;
   let userId = props.id;
-  console.log(props.id, "ppppppiddddd");
+
   useEffect(() => {
     fetchAllSchedule(todayDate, todayDate);
   }, []);

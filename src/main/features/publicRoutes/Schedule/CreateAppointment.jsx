@@ -11,8 +11,8 @@ import { ScheduleTypeEnum } from "../../schedule/enum/enum";
 
 import "../../schedule/styles/style.css";
 import { formats, meetingDuration, modules } from "../../schedule/utils";
-import { addAppointmentByExternal } from "../projects/store/action";
-import { closeModal } from "../projects/store/slice";
+import { addAppointmentByExternal } from "./store/action";
+import { closeModal } from "./store/slice";
 
 function CreateSchedule(
   props,

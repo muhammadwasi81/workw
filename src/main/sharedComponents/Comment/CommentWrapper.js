@@ -81,7 +81,7 @@ function CommentWrapper({
         placeHolder={placeHolder}
         module={module}
         commentRequestSuccess={(comment) => {
-          setComments((preValue) => [...preValue, comment]);
+          setComments((preValue) => [comment, ...preValue]);
           commentRequestSuccess && commentRequestSuccess(comment);
         }}
         setShowComments={setShowComments}
@@ -106,6 +106,7 @@ function CommentWrapper({
               attachmentFile,
               reactionCount,
               cssClass,
+              mentions,
             }) => {
               const { designation, name, image } = creator;
               return (
@@ -135,6 +136,7 @@ function CommentWrapper({
                     attachmentCount,
                     attachmentFile,
                     cssClass: cssClass,
+                    mentions: mentions,
                   }}
                 />
               );

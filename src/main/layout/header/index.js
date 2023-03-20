@@ -7,7 +7,10 @@ import { PlusOutlined, LeftOutlined, SearchOutlined } from "@ant-design/icons";
 import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../utils/localization/languages";
 import SearchInput from "../../sharedComponents/searchBox/SearchInput";
+import { handleScheduleSearch } from "../../features/schedule/store/slice";
+import { useDispatch } from "react-redux";
 function Header({ items, buttons, backButton, width, isSchedule = false }) {
+  const dispatch = useDispatch();
   const { pathname, search } = useLocation();
   const [activeLinks, setActiveLinks] = useState(items.map(() => false));
   const env = process.env.NODE_ENV === "development";
@@ -104,14 +107,16 @@ function Header({ items, buttons, backButton, width, isSchedule = false }) {
               placeholder={"search Schedule..."}
               size="larger"
               onChange={(e) => {
-                console.log(e.target.value);
+                console.log(e.target.value, "search");
+                dispatch(handleScheduleSearch(e.target.value));
               }}
               style={{ height: "30px" }}
             />
           </div>
         )}
         <div className="buttons">
-          {filterButtons && filterButtons.map((button, index) => renderButton(button, index))}
+          {filterButtons &&
+            filterButtons.map((button, index) => renderButton(button, index))}
         </div>
         {/* <div className="dropDown">
 					<Dropdown

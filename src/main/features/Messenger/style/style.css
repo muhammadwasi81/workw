@@ -5,6 +5,16 @@
   position: absolute;
 }
 
+.fromSideBar .sendVoiceIcon  {
+  margin: 0px 8px 0px 0px;
+}
+.fromSideBar .voiceIcon {
+  height: 30px !important;
+}
+.fromSideBar .voiceIcon .actionBtn {
+  height: 14px !important;
+}
+
 .ConversationListCont {
   background: white;
   height: 100%;
@@ -563,7 +573,7 @@ animation:0.1s visibleDelay 0.4s forwards;
 
 .recordBlink {
   animation-name: visibleDelay;
-  animation-duration: 2s;
+  animation-duration: 1.5s;
   animation-iteration-count: infinite;
   /* animation-fill-mode: forwards; */
 }

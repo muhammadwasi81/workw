@@ -4,18 +4,23 @@ import { useSelector } from "react-redux";
 import Tune from '../../../../content/audio/recivecalltune.mp3'
 import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
 import { InitializeCallingSocket } from "../services/socket";
-import { handleIncomingCall } from "../store/slice";
+import { handleAddCallWindow, handleIncomingCall } from "../store/slice";
 
 export default function IncomingCall() {
 	const incomingCallData = useSelector(state => state.callingSlice.incomingCallData);
+	const userSlice = useSelector(state => state.userSlice);
 	const userDetail = incomingCallData?.data?.callInitializer && incomingCallData?.data?.callInitializer
 	const dispatch = useDispatch();
 
 	const handleOpenCallWindow = (callURL) => {
-		const strWindowFeatures =
-			"location=yes,height=800,width=800,scrollbars=yes,status=yes";
-		window.open(callURL, "_blank", strWindowFeatures);
+		// const strWindowFeatures =
+		// 	"location=yes,height=800,width=800,scrollbars=yes,status=yes";
+		// window.open(callURL, "_blank", strWindowFeatures);
 		dispatch(handleIncomingCall(null));
+		dispatch(handleAddCallWindow({
+			callUrl: `${callURL}?token=${userSlice.token}`,
+			isOpen: true
+		}));
 	};
 
 	const handleAccept = (callURL) => {

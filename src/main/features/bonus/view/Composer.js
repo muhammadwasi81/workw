@@ -243,11 +243,13 @@ const Composer = (props) => {
                   },
                 ]}
               >
-                <InputNumber
+                <Input
+                  type={"number"}
                   // parser={(value) => value.replace("%", "")}
                   // formatter={(value) => `${value}%`}
                   // defaultValue={0}
                   // type={"number"}
+                  prefix={"%"}
                   placeholder="0%"
                   min={0}
                   max={100}
@@ -326,7 +328,6 @@ const Composer = (props) => {
           label={bonusDictionary.approvers}
           showSearch={true}
           direction={Direction}
-          rules={[{ required: true }]}
         >
           <CustomSelect
             style={{ marginBottom: "0px" }}
@@ -356,12 +357,6 @@ const Composer = (props) => {
             name="approvers"
             showSearch={true}
             direction={Direction}
-            rules={[
-              {
-                required: true,
-                message: "Please Select Approver",
-              },
-            ]}
           />
         </Form.Item>
 

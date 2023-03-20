@@ -51,7 +51,6 @@ const Profile = () => {
   } = useSelector((state) => state.userSlice);
 
   const { profileSticky } = useSelector((state) => state.employeeProfileSlice);
-  console.log(profileSticky, "profilesticky");
   const onChange = (key) => {
     navigate(key);
   };

@@ -143,16 +143,17 @@ function ListItem({ item, onClick, onClickMyCareer }) {
             <div className="cardSection__title">{labels.members}</div>
             <div className="cardSection__body">
               {" "}
-              {members && (
-                <Avatar
-                  isAvatarGroup={true}
-                  isTag={false}
-                  heading={labels.members}
-                  membersData={members ? members : []}
-                  text={"member"}
-                  image={"https://joeschmoe.io/api/v1/random"}
-                />
-              )}
+              {console.log(members, labels.members, "mmeerrrrrrr") &&
+                members && (
+                  <Avatar
+                    isAvatarGroup={true}
+                    isTag={false}
+                    heading={labels.members}
+                    membersData={members ? members : []}
+                    text={"member"}
+                    image={"https://joeschmoe.io/api/v1/random"}
+                  />
+                )}
             </div>
           </div>
           <div className="cardSectionItem">

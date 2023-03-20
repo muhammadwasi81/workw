@@ -1,7 +1,7 @@
 import { Skeleton } from "antd";
 import { useEffect, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AdminTable } from "../../../../components/HrMenu/Administration/StyledComponents/adminTable";
+import { AdminTable } from "../../../sharedComponents/Administration/StyledComponents/adminTable";
 import { getAllCustomApprovalCategory, getAllGrades } from "../store/actions";
 import { tableColumn } from "./tableColumn";
 import { customCategoryDictionaryList } from "../localization/index";

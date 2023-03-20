@@ -1,17 +1,17 @@
-import { message } from 'antd';
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { AdminContainer } from '../../../../components/HrMenu/Administration/StyledComponents/admin';
+import { message } from "antd";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AdminContainer } from "../../../sharedComponents/Administration/StyledComponents/admin";
 import {
   addDesignation,
   removeDesignation,
   updateDesignation,
-} from '../store/actions';
-import DesignationForm from './form.js';
-import DesignationTable from './table.js';
+} from "../store/actions";
+import DesignationForm from "./form.js";
+import DesignationTable from "./table.js";
 
 export default function Designation() {
-  const initialState = { name: '', description: '' };
+  const initialState = { name: "", description: "" };
   const [designations, setDesignations] = useState(initialState);
 
   const dispatch = useDispatch();
@@ -19,13 +19,13 @@ export default function Designation() {
 
   const handleDelete = (e) => {
     e.preventDefault();
-    console.log(e, 'delete');
+    console.log(e, "delete");
     dispatch(removeDesignation(e));
   };
 
   const onSubmit = (e) => {
-    if (e.name === '' || e.description === '') {
-      return message.error('Please fill all required fields');
+    if (e.name === "" || e.description === "") {
+      return message.error("Please fill all required fields");
     } else {
       if (!e.id) {
         dispatch(addDesignation(e));

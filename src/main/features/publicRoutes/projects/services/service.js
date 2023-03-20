@@ -1,28 +1,14 @@
 import MasterConfig from "../../../../../utils/services/MasterConfig";
-import { jsonToFormData } from "../../../../../utils/base";
 
-export const GetReferenceByIdService = (id) => {
-  console.log("ID FROM SERVICE", id);
-  return MasterConfig.get(`api/Reference/GetReferenceById?id=${id}`)
-    .then((res) => {
-      return res;
-    })
-    .catch((res) => {
-      return res;
-    });
+export const projectExternalService = async (token) => {
+  return MasterConfig.get(
+    `api/Project/VerifyProjectExternalMemberRequest?token=${token}`
+  );
 };
-
-export const addScheduleByExternalService = (payload) => {
-  console.log(payload, "service datatatta");
-  const formData = jsonToFormData(payload.data);
-  return MasterConfig.post(
-    `api/Schedule/AddScheduleByExternal?id=${payload.id}`,
-    formData
-  )
-    .then((res) => {
-      return res.data;
-    })
-    .catch((error) => {
-      console.log(error.message);
-    });
+export const setNewPasswordService = (data) => {
+  let token = data.token;
+  let password = data.password;
+  return MasterConfig.get(
+    `api/Project/SetupNewPassword?token=${token}&password=${password}`
+  );
 };

@@ -1,17 +1,17 @@
 import React from 'react'
 import ListItem from './ListItem'
 
-function GroupContainer() {
+function RewardContainer() {
   return (
-    <div>
+    <div className='SearchMainContainer'>
       <h5 className='containerHeading'>Groups</h5>
       <div className='groupContainer'>
         <ListItem />
         <ListItem />
         <ListItem />
-    </div>
+      </div>
     </div>
   )
 }
 
-export default GroupContainer
+export default RewardContainer

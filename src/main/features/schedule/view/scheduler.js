@@ -6,20 +6,25 @@ import interactionPlugin from "@fullcalendar/interaction";
 import "../styles/style.css";
 import "../styles/calender.css";
 // import Event from "./event";
-import { Calendar } from "antd";
+import { Calendar, Drawer } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleEventDetailComposer } from "../store/slice";
 import EventDetail from "./eventDetail";
 import moment from "moment";
 import { getAllSchedule } from "../store/action";
+import CreateSchedule from "./createSchedule";
 
 function Scheduler({ feed = false, referenceId }) {
   const [calenderView, setCalendarView] = useState("");
   const [todayDate, setTodayDate] = useState(new Date());
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+  const [showDrawer, setShowDrawer] = useState(false);
   const schedules = useSelector((state) => state.scheduleSlice.schedules);
+  const success = useSelector((state) => state.scheduleSlice.success);
+  const [composerDate, setComposerDate] = useState("");
   console.log(schedules, "scheduless");
   const calendarRef = useRef();
+  const { scheduleSearch } = useSelector((state) => state.scheduleSlice);
   let isPanelChange = false;
   const dispatch = useDispatch();
   // const renderEventContent = eventInfo => {
@@ -27,7 +32,14 @@ function Scheduler({ feed = false, referenceId }) {
   // };
   useEffect(() => {
     fetchAllSchedule(todayDate, todayDate);
-  }, []);
+  }, [scheduleSearch]);
+
+  useEffect(() => {
+    if (success) {
+      //Drawer close on success
+      setShowDrawer(false);
+    }
+  }, [success]);
 
   const fetchAllSchedule = (startVal, endVal) => {
     const startDate = moment(startVal)
@@ -41,7 +53,7 @@ function Scheduler({ feed = false, referenceId }) {
       getAllSchedule({
         pageNo: 1,
         pageSize: 20,
-        search: "",
+        search: scheduleSearch,
         sortBy: 1,
         referenceId: referenceId,
         referenceType: 0,
@@ -62,6 +74,7 @@ function Scheduler({ feed = false, referenceId }) {
   };
 
   const onChange = (value) => {
+    console.log(value, "sss");
     const date = value.format("YYYY-MM-DD");
     handleDateChange(date);
     calendarRef.current.getApi().gotoDate(new Date(value.format("YYYY-MM-DD")));
@@ -81,12 +94,57 @@ function Scheduler({ feed = false, referenceId }) {
     };
   });
 
+  const onSelectFunc = (d) => {
+    //TODO: Here we will open composer according to the date
+    setShowDrawer(true);
+
+    if (
+      moment(d.startStr).format("YYYY-MM-DD hh:mm:ss") >=
+      moment().format("YYYY-MM-DD hh:mm:ss")
+    ) {
+      setComposerDate(d.startStr);
+    }
+  };
+
+  const onClickDateFunc = (d) => {
+    setShowDrawer(true);
+
+    setComposerDate(d.date);
+  };
+
   return (
     <>
+      <Drawer
+        title={
+          <h1
+            style={{
+              fontSize: "20px",
+              margin: 0,
+              // textAlign: Direction === "ltr" ? "" : "end",
+            }}
+          >
+            {"Create Schedule"}
+          </h1>
+        }
+        // placement={Direction === "rtl" ? "left" : "right"}
+        width="768"
+        onClose={() => {
+          setShowDrawer(false);
+          setComposerDate("");
+        }}
+        visible={showDrawer}
+        destroyOnClose={true}
+        className="detailedViewComposer drawerSecondary"
+      >
+        <CreateSchedule date={composerDate} />
+      </Drawer>
+
       <EventDetail />
       <div className={`schedulerCalender ${calenderView}`}>
         <FullCalendar
           ref={calendarRef}
+          selectable={true}
+          select={onSelectFunc}
           customButtons={{
             myCustomButton: {
               text: "",
@@ -148,7 +206,6 @@ function Scheduler({ feed = false, referenceId }) {
           }}
           // nowIndicator={true}
           // eventMaxStack={3}
-          selectable={true}
           dayHeaders={true}
           allDaySlot={true}
           allDayText={"All Day"}
@@ -163,6 +220,7 @@ function Scheduler({ feed = false, referenceId }) {
             // "https://fullcalendar.io/api/demo-feeds/events.json"
           }
           eventResize={() => {}}
+          onSelect={(e) => onSelectFunc(e)}
           slotDuration={"00:15:00"}
           slotLabelFormat={{ hour: "numeric", minute: "numeric" }}
           views={{
@@ -201,7 +259,7 @@ function Scheduler({ feed = false, referenceId }) {
           //   locales={allLocales}
           //   locale="ja"
           // datesSet={(args) => console.log("###datesSet:", args)}
-          //   dateClick={handleDateClick}
+          dateClick={(e) => onClickDateFunc(e)}
         />
         <div className="flex justify-center">
           <div
@@ -213,6 +271,7 @@ function Scheduler({ feed = false, referenceId }) {
               onPanelChange={() => {
                 isPanelChange = true;
               }}
+              onSelect={onSelectFunc}
             />
           </div>
         </div>

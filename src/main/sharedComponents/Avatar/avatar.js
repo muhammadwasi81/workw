@@ -14,7 +14,7 @@ function Avatar(props) {
   //       : props.heading.split("s")[0].toLowerCase();
 
   const objProperty =
-    props.heading === "Agents"
+    props.heading === "member"
       ? "approver"
       : props.heading.slice(0, props.heading.length - 1).toLowerCase();
 

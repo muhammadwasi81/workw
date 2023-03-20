@@ -22,7 +22,7 @@ import {
   deleteGroupMemberAction,
   getGroupById,
 } from "../../store/actions";
-import { resetGroupDetail } from "../../store/slice";
+import { handleComposer, resetGroupDetail } from "../../store/slice";
 import { EditOutlined } from "@ant-design/icons";
 import Composer from "../UI/Composer";
 import NewsFeed from "../../../feed/ui";
@@ -43,6 +43,10 @@ import { addMember } from "../../store/slice";
 import { getAllGroupMemberAction } from "../../store/actions";
 import MemberModal from "../Modal/MemberModal";
 import MySchedules from "../../../schedule/view/ScheduleDetail/SchedulesDetail";
+import {
+  GroupFeaturePermissionEnum,
+  GroupFeaturePermissionEnumList,
+} from "../../../../../utils/Shared/enums/groupFeatureEnum";
 import ItemDetailModal from "../../../../sharedComponents/ItemDetails";
 import { handleItemDetailModal } from "../../../../../utils/Shared/store/slice";
 
@@ -55,9 +59,13 @@ function GroupDetails() {
   const [visible, setVisible] = useState(false);
 
   const detail = useSelector((state) => state.groupSlice.groupDetail);
+  const { isComposerOpen, isEditComposer } = useSelector(
+    (state) => state.groupSlice
+  );
   const [features, setFeatures] = useState([]);
-  const [open, setOpen] = useState(false);
   const { groupId: id } = params;
+  const { groupFeatures } = useSelector((state) => state.groupSlice);
+
   useEffect(() => {
     dispatch(getGroupById(id));
   }, [id]);
@@ -85,15 +93,27 @@ function GroupDetails() {
     };
   }, []);
 
+  let featurePermissions = groupFeatures.map((item) => item.featureId);
+
+  // function getUserPermissions(){
+  //   return GroupFeaturePermissionEnumList.map((x)=>{
+  //     if (featurePermissions?.includes(x.id)) {
+  //       return x.featureId
+  //     }
+  //   })
+  // }
   useEffect(() => {
-    let temp = detail?.features.map((feat) => {
+    let temp = groupFeatures.map((feat) => {
       return {
         ...feat,
         content: featuresComp[feat.featureId],
       };
     });
-    setFeatures(temp);
-  }, [detail]);
+    let payload =
+      temp &&
+      temp.filter((item) => featurePermissions.includes(item.featureId));
+    setFeatures(payload);
+  }, []);
 
   const defaultRoute = ROUTES.GROUP.DEFAULT + "/" + id;
   const featuresComp = {
@@ -101,10 +121,10 @@ function GroupDetails() {
       <NewsFeed
         referenceType={PostReferenceType.GROUP}
         referenceId={id}
-        backButton={false}
         isScheduler={false}
         isCheckedIn={false}
         width={"!w-full"}
+        backButton={false}
         routeLink={defaultRoute}
       />
     ),
@@ -184,7 +204,10 @@ function GroupDetails() {
     },
   ];
   const handleEditComposer = () => {
-    setOpen(!open);
+    dispatch(handleComposer({ isOpen: true, isEdit: true }));
+  };
+  const handleCloseComposer = () => {
+    dispatch(handleComposer({ isOpen: false, isEdit: false }));
   };
   const buttons = [
     {
@@ -242,9 +265,9 @@ function GroupDetails() {
         </ContBody>
       </TabContainer>
       <Drawer
-        open={open}
+        open={isComposerOpen}
         width={"786px"}
-        onClose={handleEditComposer}
+        onClose={handleCloseComposer}
         title={updateTextBtn}
         className={"shared_drawer drawerSecondary"}
         destroyOnClose={true}
@@ -252,11 +275,10 @@ function GroupDetails() {
         <Composer
           buttonText={updateTextBtn}
           detail={detail}
-          update={true}
+          update={isEditComposer}
           id={id}
         />
       </Drawer>
-      {/* {visible && <MemberModal data={detail} />} */}
       {visible && (
         <ItemDetailModal
           data={detail?.members} //Data

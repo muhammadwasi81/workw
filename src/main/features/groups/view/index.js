@@ -31,9 +31,8 @@ const Groups = (props) => {
   const { createTextBtn, topBar } = groupsDictionary;
   const [search, setSearch] = useState("");
   const value = useDebounce(search, 500);
-  const {user} = useSelector((state) => state.userSlice);
-  const userPermissions = user.permissions
-
+  const { user } = useSelector((state) => state.userSlice);
+  const userPermissions = user.permissions;
 
   const [tableView, setTableView] = useState(false);
   const { groups, success, getDataLoading, drawerOpen, loader } = useSelector(
@@ -49,7 +48,7 @@ const Groups = (props) => {
         sortBy: 1,
       })
     );
-  }, [search]);
+  }, [value]);
   const handleClickNavigation = (id) => {
     navigate(`${ROUTES.GROUP.DEFAULT}/${id}`);
   };
@@ -65,23 +64,27 @@ const Groups = (props) => {
       <TabbableContainer className="">
         <Header
           items={items}
-          buttons={userPermissions.includes(FeaturePermissionEnum.CreateGroup) ? [
-            {
-              buttonText: createTextBtn,
+          buttons={
+            userPermissions.includes(FeaturePermissionEnum.CreateGroup)
+              ? [
+                  {
+                    buttonText: createTextBtn,
 
-              render: (
-                <SideDrawer
-                  title={createTextBtn}
-                  buttonText={createTextBtn}
-                  handleClose={() => dispatch(handleOpenComposer(false))}
-                  handleOpen={() => dispatch(handleOpenComposer(true))}
-                  isOpen={drawerOpen}
-                >
-                  <Composer />
-                </SideDrawer>
-              ),
-            },
-          ] : []}
+                    render: (
+                      <SideDrawer
+                        title={createTextBtn}
+                        buttonText={createTextBtn}
+                        handleClose={() => dispatch(handleOpenComposer(false))}
+                        handleOpen={() => dispatch(handleOpenComposer(true))}
+                        isOpen={drawerOpen}
+                      >
+                        <Composer />
+                      </SideDrawer>
+                    ),
+                  },
+                ]
+              : []
+          }
         />
         <TopBar
           onSearch={(value) => {

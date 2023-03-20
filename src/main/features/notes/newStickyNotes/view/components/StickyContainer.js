@@ -76,16 +76,23 @@ const StickyContainer = () => {
     dispatch(showStickyNote(note.id));
   };
 
-  //*****window size******
-  // const { height, width } = useWindowDimensions();
-  // console.log(width, height, "widthhh");
-
   // const axis = {
   //   x_axis: String(Math.floor(Math.random() * 40) + 90) + "%",
   //   y_axis: String(Math.floor(Math.random() * 40) + 90) + "%",
   // };
+  const screenWidth = window.innerWidth;
+  const screenHeight = window.innerHeight;
+  //const maxXAxis = screenWidth - 40; // Subtract the width of the item you're placing on the x-axis
+  //console.log(maxXAxis, "maxAxiss");
+  //const maxYAxis = screenHeight - 40; // Subtract the height of the item you're placing on the y-axis
+  let newRandomXAxis;
+  let newRandomYAxis;
+  // const axis = {
+  //   x_axis: Math.floor(Math.random() * screenWidth + 90) + 111,
+  //   y_axis: Math.floor(Math.random() * screenHeight) + 199,
+  // };
   const axis = {
-    x_axis: Math.floor(Math.random() * 40) + 111,
+    x_axis: Math.floor(Math.random() * 40 + 90) + 111,
     y_axis: Math.floor(Math.random() * 40) + 199,
   };
 
@@ -122,17 +129,22 @@ const StickyContainer = () => {
             />
           </div>
           <div className={`noteList-container ${!minimize ? "hide" : ""}`}>
-            {notesList.length > 0 ? (
+            {notesList.length ? (
               notesList.map((item) => (
                 <CustomCard
                   item={item}
                   onDoubleClick={openClickedNote}
+                  index={item.id}
                   key={item.id}
                 />
               ))
             ) : (
               <div className="flex items-center justify-center">
-                <img src={Nodata} className="h-96 w-96" alt="no-data" />
+                <img
+                  src={Nodata}
+                  className="h-[200px] w-[200px]"
+                  alt="no-data"
+                />
               </div>
             )}
           </div>

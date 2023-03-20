@@ -3,6 +3,7 @@ import { Avatar, Tooltip, Modal } from "antd";
 import { getNameForImage } from "../../../utils/base";
 import "./style.css";
 import { useNavigate } from "react-router-dom";
+import ItemDetailModal from "../ItemDetails";
 // import { AntDesignOutlined, UserOutlined } from "@ant-design/icons";
 // import PropTypes from "prop-types";
 
@@ -66,6 +67,15 @@ function AvatarGroup(props) {
           // </Tooltip>
         ))}
       </Avatar.Group>
+      {/* <ItemDetailModal
+        data={props?.membersData} //Data of members will pass here in array
+        isDeleteDisabled={false} //Pass true to hide delete icon
+        addEnabled={false} //Pass false to hide select member
+        addFunc={false} // define and pass addMember action of particular members
+        onDelete={false} // define and pass onDeletemember actions of particular members
+        isSearch={false} //Pass true if you want to search the list
+        openModal={true} // pass true if you want to open member details in modal other wise it display in listing
+      /> */}
       <Modal
         open={isModalOpen}
         onOk={(e) => handleOk(e)}

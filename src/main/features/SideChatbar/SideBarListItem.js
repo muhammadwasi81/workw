@@ -5,6 +5,7 @@ import { STRINGS } from "../../../utils/base";
 import Avatar from "../../sharedComponents/Avatar/avatarOLD";
 import { handleChatBoxAppend, handleMessengerItemClick } from "../Messenger/store/messengerSlice";
 import { MESSENGER_ENUMS } from "../Messenger/utils/Constant";
+import { sideBarOpen } from "./store/sideBarChatSlice";
 // import Avatar from "../../SharedComponent/Avatar/avatar";
 
 export const SideBarListItem = ({ item }) => {
@@ -37,8 +38,10 @@ export const SideBarListItem = ({ item }) => {
       ? chatWith?.name
       : name;
 
-
   const handleItemClick = () => {
+    if (sideBarStatus) {
+        dispatch(sideBarOpen(!sideBarStatus)); 
+    }
     // TODO: handleMessengerItemClick for manage Global State of Messnger
     let chatMembers =
       chatType === MESSENGER_ENUMS.CHAT_TYPES.INDIVIDUAL_CHAT

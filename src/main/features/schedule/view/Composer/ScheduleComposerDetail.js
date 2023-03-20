@@ -138,8 +138,8 @@ function ScheduleComposerDetail({ id, shortEvent = true }) {
           </div>
           <CommentWrapper
             referenceId={eventDetail?.id}
-            // isCommentLoad={true}
-            module={12}
+            isCommentLoad={true}
+            module={9}
             // loadSkeleton={true}
           />
         </>

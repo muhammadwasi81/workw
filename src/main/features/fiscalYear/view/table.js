@@ -1,7 +1,7 @@
 import { Skeleton } from "antd";
 import { useEffect, useState, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AdminTable } from "../../../../components/HrMenu/Administration/StyledComponents/adminTable";
+import { AdminTable } from "../../../sharedComponents/Administration/StyledComponents/adminTable";
 import {
   getAllFiscalYear,
   removeBranch,
@@ -32,7 +32,9 @@ export default function TableView({
 
   console.log("myyyyyy", administration.fiscalyear.startDate);
 
-  const { FiscalYear, loadingData } = useSelector((state) => state.fiscalYearSlice);
+  const { FiscalYear, loadingData } = useSelector(
+    (state) => state.fiscalYearSlice
+  );
   console.log(FiscalYear, "FiscalYearitems");
 
   const dispatch = useDispatch();

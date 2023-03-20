@@ -1,49 +1,71 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
-import { GetReferenceById, addAppointmentByExternal } from "./action";
+
+import {
+  GetReferenceById,
+  addAppointmentByExternal,
+  getVerifyProjectExternalMember,
+  setNewPassword,
+} from "./action";
 
 const initialState = {
   referenceDetail: null,
   loadingData: false,
   loader: false,
   modal: false,
+  projectExternal: {},
+  isSuccess: false,
+  verificationSuccess: false,
+  verificationLoader: false,
+  isError: false,
+  successPassword: false,
 };
 
-const externalBookAppointment = createSlice({
-  name: "externalBookAppointment",
+export const projectExternalSlice = createSlice({
+  name: "projectExternal",
   initialState,
-  reducers: {
-    setmodal: (state, action) => {
-      state.modal = action.payload;
-    },
-    closeModal: (state, action) => {
-      state.modal = action.payload;
-    },
-  },
+
+  reducers: {},
+
   extraReducers: (builder) => {
     builder
-      .addCase(GetReferenceById.fulfilled, (state, action) => {
-        console.log(action.payload, "action paylod");
-        state.referenceDetail = action.payload.data;
-        state.loader = false;
-      })
-      .addCase(addAppointmentByExternal.fulfilled, (state, { payload }) => {
-        state.loader = false;
-      })
+      .addCase(
+        getVerifyProjectExternalMember.fulfilled,
+        (state, { payload }) => {
+          state.verificationLoader = false;
+          let resCode = payload.responseCode;
+          if (resCode === 1001) {
+            state.isSuccess = true;
+            state.verificationSuccess = true;
+          } else {
+            state.isSuccess = false;
+            state.verificationSuccess = false;
+          }
+        }
+      )
+      .addCase(setNewPassword.fulfilled, (state, { payload }) => {
+        let resCode = payload.responseCode;
 
-      .addCase(addAppointmentByExternal.rejected, (state, action) => {
-        state.loader = false;
+        if (resCode === 1001) {
+          state.successPassword = true;
+        } else {
+          state.successPassword = false;
+        }
       })
-      .addMatcher(isPending(...[addAppointmentByExternal]), (state) => {
-        state.loader = true;
+      .addMatcher(isPending(...[setNewPassword]), (state) => {
+        state.successPassword = false;
       })
-      .addMatcher(isPending(...[GetReferenceById]), (state) => {
-        state.loader = true;
+      .addMatcher(isPending(...[getVerifyProjectExternalMember]), (state) => {
+        state.verificationLoader = true;
       })
-      .addMatcher(isRejected(...[addAppointmentByExternal]), (state) => {
-        state.loader = false;
+      .addMatcher(isRejected(...[getVerifyProjectExternalMember]), (state) => {
+        state.isError = true;
+        state.verificationLoader = false;
+      })
+      .addMatcher(isRejected(...[setNewPassword]), (state) => {
+        state.successPassword = false;
       });
   },
 });
-export const { setmodal, closeModal } = externalBookAppointment.actions;
 
-export default externalBookAppointment.reducer;
+export const {} = projectExternalSlice.actions;
+export default projectExternalSlice.reducer;

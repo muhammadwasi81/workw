@@ -32,6 +32,10 @@ function ListItem(props) {
     status,
     referenceNo,
   } = props.item;
+  const localTime = moment
+    .utc(createDate)
+    .local()
+    .format();
   return (
     <SingleItem className="ComplainListItem">
       <div id={props.id} onClick={props.onClick}>
@@ -44,7 +48,7 @@ function ListItem(props) {
                 Subline={
                   <SublineDesigWithTime
                     designation={creator.designation ? creator.designation : ""}
-                    time={moment(createDate).fromNow()}
+                    time={moment(localTime).fromNow()}
                   />
                 }
               />

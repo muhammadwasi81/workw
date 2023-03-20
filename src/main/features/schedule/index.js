@@ -31,20 +31,26 @@ function Schedules({ referenceId = defaultUiid }) {
   const render = {
     cal: <Calendar referenceId={referenceId} />,
     sc: <MySchedules />,
-    si: <MySchedules />,
+    // si: <MySchedules />,
   };
   const handleShareLinkModal = () => {
     setIsShareLinkModalOpen(!isShareLinkModalOpen);
     setCopy(false);
   };
 
-  const copyfunc = () => {
+  const copyfunc = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
     setCopy(true);
+    navigator.clipboard.writeText(
+      ` ${window.location.origin}${ROUTES.SCHEDULES.DEFAULT}`
+    );
+    message.success("Copied");
   };
 
   return (
     <>
-      {copy && message.success("Copied")}
+      {/* {copy && } */}
       <TabbableContainer>
         <Header handleShareLinkModal={handleShareLinkModal} />
         {/* <ScheduleTopBar /> */}
@@ -66,11 +72,8 @@ function Schedules({ referenceId = defaultUiid }) {
             <p className="!m-0 text-[18px] flex-1">
               <strong>Anyone</strong> with the link can create a schedule.
             </p>
-            <CopyToClipboard
-              text={`${window.location.origin}/${ROUTES.EXTERNAL_PROJECT_SCHEDULER.REGISTER}/${userId}`}
-            >
-              <Button onClick={copyfunc}>Copy Link</Button>
-            </CopyToClipboard>
+
+            <Button onClick={copyfunc}>Calendar Link</Button>
           </div>
         </div>
       </Modal>

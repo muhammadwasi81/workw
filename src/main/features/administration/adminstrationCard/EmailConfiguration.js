@@ -1,5 +1,5 @@
-import { Button, Divider, Input, message } from 'antd';
-import { useEffect, useState, useContext } from 'react';
+import { Button, Divider, Input, message } from "antd";
+import { useEffect, useState, useContext } from "react";
 import {
   FormButton,
   FormButtonContainer,
@@ -9,13 +9,13 @@ import {
   FormInputContainer,
   FormLabel,
   FormTextArea,
-} from '../../../../components/HrMenu/Administration/StyledComponents/adminForm';
-import { emailConfiDictionaryList } from '../../emailConfiguration/localization/index';
-import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
-import { useDispatch, useSelector } from 'react-redux';
-import blackLogo from '../../../../content/blackLogo.svg';
-import { addEmailConfiguration } from '../../emailConfiguration/store/actions';
-import './adminstartionCard.css';
+} from "../../../sharedComponents/Administration/StyledComponents/adminForm";
+import { emailConfiDictionaryList } from "../../emailConfiguration/localization/index";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { useDispatch, useSelector } from "react-redux";
+import blackLogo from "../../../../content/blackLogo.svg";
+import { addEmailConfiguration } from "../../emailConfiguration/store/actions";
+import "./adminstartionCard.css";
 
 export default function EmailConfigurationForm({
   formData,
@@ -30,14 +30,14 @@ export default function EmailConfigurationForm({
   const { loader } = useSelector((state) => state.emailConfigurationSlice);
   const onSubmitEmailConfiguration = (e) => {
     if (
-      e.emailName === '' ||
-      e.incomingPort === '' ||
-      e.incomingServerAddress === '' ||
-      e.outgoingPort === '' ||
-      e.outgoingServerAddress === '' ||
-      e.provider === ''
+      e.emailName === "" ||
+      e.incomingPort === "" ||
+      e.incomingServerAddress === "" ||
+      e.outgoingPort === "" ||
+      e.outgoingServerAddress === "" ||
+      e.provider === ""
     ) {
-      return message.error('Please fill all required fields');
+      return message.error("Please fill all required fields");
     } else {
       dispatch(addEmailConfiguration(e));
       handleChangeTab();
@@ -51,7 +51,7 @@ export default function EmailConfigurationForm({
       <div className="flex flex-row gap-5">
         <div className=" flex flex-col">
           <FormContainer
-            style={{ width: '500px', marginTop: '20px', height: '520px' }}
+            style={{ width: "500px", marginTop: "20px", height: "520px" }}
             className="email-form-container"
           >
             <FormHeader>{emailConfiDictionary.emailConfi}</FormHeader>
@@ -146,7 +146,7 @@ export default function EmailConfigurationForm({
                 onClick={(e) => onSubmitEmailConfiguration(formData)}
                 loading={loader}
               >
-                Add Email Configuration{' '}
+                Add Email Configuration{" "}
               </Button>
             </FormInputContainer>
           </FormContainer>
@@ -154,7 +154,7 @@ export default function EmailConfigurationForm({
         <Divider
           type="vertical"
           style={{
-            height: '530px',
+            height: "530px",
           }}
         />
         <div className="basis-1/4  flex flex-col justify-center">

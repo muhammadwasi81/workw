@@ -1,15 +1,12 @@
 import React, { useContext, useState } from "react";
 import { Navigate, useNavigate, useSearchParams } from "react-router-dom";
-import ListItem from "./ListItem";
-import GroupsCard from "../../../groups/view/GridView/GridView";
 import { useDispatch, useSelector } from "react-redux";
 import { ROUTES } from "../../../../../utils/routes";
 import { groupsDictionaryList } from "../../../groups/localization/index";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
-import { CardWrapper2 } from "../../../../sharedComponents/Card/CardStyle";
-import DashboardCardLayout from "../../../groups/view/UI/DashboardCard/DashboardCardLayout";
+import GridView from "../../../groups/view/GridView/GridView";
 
-function RewardContainer() {
+function GroupContainer() {
   const dispatch = useDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
   const searchQuery = searchParams.get("q");
@@ -22,19 +19,21 @@ function RewardContainer() {
   const searchHandler = () => {
     navigate(`/groups?q=${searchQuery}`);
   };
+  const handleClickNavigation = (id) => {
+    navigate(`${ROUTES.GROUP.DEFAULT}/${id}`);
+  };
 
-  const displayCount = 4;
-  const filteredCards = groups.slice(0, displayCount);
-  console.log(filteredCards, "filterrr");
   return (
     <>
       <h5 className="containerHeading">Groups</h5>
 
-      <CardWrapper2>
-        {filteredCards.map((data) => (
-          <ListItem data={data} />
-        ))}
-      </CardWrapper2>
+      <GridView
+        data={groups ? groups.slice(0, 4) : []}
+        loading={getDataLoading}
+        dispatch={dispatch}
+        handleClickNavigation={handleClickNavigation}
+        dictionary={groupsDictionary}
+      />
 
       <div
         onClick={searchHandler}
@@ -46,4 +45,4 @@ function RewardContainer() {
   );
 }
 
-export default RewardContainer;
+export default GroupContainer;

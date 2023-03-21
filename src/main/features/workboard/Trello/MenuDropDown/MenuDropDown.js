@@ -40,18 +40,18 @@ const menu = (changeBgColor, deleteList) => {
 				// 		</div>
 				// 	),
 				// },
-				{
-					key: "2",
-					label: (
-						<div className="flex items-center gap-3">
-							<DeleteOutlined
-								onClick={deleteList}
-								className="text-base"
-							/>
-							<span className="">Delete</span>
-						</div>
-					),
-				},
+				// {
+				// 	key: "2",
+				// 	label: (
+				// 		<div className="flex items-center gap-3">
+				// 			<DeleteOutlined
+				// 				onClick={deleteList}
+				// 				className="text-base"
+				// 			/>
+				// 			<span className="">Delete</span>
+				// 		</div>
+				// 	),
+				// },
 			]}
 			onClick={item => {
 				// console.log("item", item);

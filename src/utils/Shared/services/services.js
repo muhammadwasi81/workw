@@ -134,12 +134,13 @@ export const getAllComplainCategoryService = () => {
 export const getAllEmployeeShortService = (
   pageNo = 1,
   pageSize = 20,
-  search = ''
+  disableFilter
 ) => {
   return MasterConfig.get(
-    `/api/Employee/GetAllEmployeeShort?pageNo=${pageNo}&pageSize=${pageSize}&search=${search}`
+    `/api/Employee/GetAllEmployeeShort?disableFilter=${disableFilter}&pageNo=${pageNo}&pageSize=${pageSize}`
   )
     .then((res) => {
+      console.log();
       return res.data;
     })
     .catch((err) => {

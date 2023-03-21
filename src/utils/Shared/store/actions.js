@@ -126,9 +126,13 @@ export const getAllGenders = createAsyncThunk(
 export const getAllEmployeeShort = createAsyncThunk(
   'getAllEmployeeShort',
   async (args, { dispatch }) => {
-    const { pageNo, pageSize, search } = args;
-    const res = await getAllEmployeeShortService(pageNo, pageSize, search);
-    console.log('action', res);
+    const { pageNo, pageSize, disableFilter } = args;
+    const res = await getAllEmployeeShortService(
+      pageNo,
+      pageSize,
+      disableFilter
+    );
+    // console.log('getAllEmployeeShortAction', res.data);
     if (!res.responseCode) {
       responseMessage({
         dispatch: dispatch,
@@ -224,7 +228,9 @@ export const disableEmployee = createAsyncThunk(
     const response = await disableEmployeeService(payload);
     console.log('disableEmployeeService', response.data);
     if (response.responseCode === 1001) {
-      return message.success('Employee Disabled Successfully');
+      return response.data.isDisable === true
+        ? message.success('Employee Enabled Successfully')
+        : message.success('Employee Disabled Successfully');
     }
     if (!response.responseCode) {
       responseMessage({

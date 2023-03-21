@@ -15,6 +15,7 @@ import { Route, Routes } from "react-router-dom";
 import Groups from "../../groups/view";
 import { useDispatch, useSelector } from "react-redux";
 import { SearchFilterEnum } from "../enums/enums";
+import TravelContainer from "../components/travelContainer/TravelContainer";
 
 function Index() {
   const dispatch = useDispatch();
@@ -32,7 +33,8 @@ function Index() {
       <Header items={items} />
       <ContBody>
         <div className="mainSearchContainer">
-          {/* <LeadContainer /> */}
+          <LeadContainer />
+          <TravelContainer />
           <GroupContainer />
           <RewardContainer />
           <UserContainer />

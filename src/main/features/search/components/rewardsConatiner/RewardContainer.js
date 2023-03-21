@@ -14,8 +14,7 @@ function RewardContainer() {
   const { rewards, loader, drawerOpen } = useSelector(
     (state) => state.rewardSlice
   );
-  const displayCount = 4;
-  const filteredCards = rewards.slice(0, displayCount);
+
   const searchHandler = () => {
     navigate(`/rewards?q=${searchQuery}`);
   };

@@ -9,6 +9,7 @@ import GroupContainer from "../components/groupsConatiner/GroupContainer";
 import "../styles/style.css";
 import RewardContainer from "../components/rewardsConatiner/RewardContainer";
 import UserContainer from "../components/usersContainer";
+import LeadContainer from "../components/leadContainer/LeadContainer";
 import { globalSearch } from "../store/actions";
 import { Route, Routes } from "react-router-dom";
 import Groups from "../../groups/view";
@@ -31,6 +32,7 @@ function Index() {
       <Header items={items} />
       <ContBody>
         <div className="mainSearchContainer">
+          {/* <LeadContainer /> */}
           <GroupContainer />
           <RewardContainer />
           <UserContainer />

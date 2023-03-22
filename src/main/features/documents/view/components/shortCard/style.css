@@ -8,61 +8,70 @@
     min-width: 10rem;
     cursor: pointer;
 } */
-
+.info-icon {
+  display: none;
+}
+.d_ShortCard_Child1:hover .info-icon {
+  display: block;
+}
 .d_ShortCard_Child1 {
-    height: 25px;
-    display: flex;
-    justify-content: space-between;
+  height: 25px;
+  display: flex;
+  justify-content: space-between;
 }
 
-.d_ShortCard_Child1>img {
-    height: 15px;
+.dateTime {
+  font-size: 11px;
+}
+
+.d_ShortCard_Child1 > img {
+  height: 15px;
 }
 
 .d_ShortCard_Child2 {
-    /* flex: 1 1; */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 70px;
-    /* height: 250px; */
-    margin: 0 auto;
+  /* flex: 1 1; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  /* height: 250px; */
+  margin: 0 auto;
 }
 
 .fileName div {
-    margin-top: 5px;
-    text-align: center;
-    font-size: 13px;
-    overflow: hidden;
-    width: 150px;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+  margin-top: 5px;
+  text-align: center;
+  font-size: 13px;
+  overflow: hidden;
+  width: 150px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .d_ShortCard_Child2 img {
-    width: 100%;
+  width: 100%;
 }
 
 .d_ShortCard_Child3 {
-    height: 30px;
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
+  height: 30px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
 }
 .doc_detail_media .d_ShortCard_Child2 {
-    width: 100px;
+  width: 70px;
 }
 .downloadBtn {
-    justify-content: center;
-    display: flex;
-    padding: 11px 0px 0px 0px;
+  justify-content: center;
+  display: flex;
+  padding: 11px 0px 0px 0px;
 }
 .downloadBtn {
-    font-size: 10px;
-    padding: 4px 9px;
-    height: 24px;
+  font-size: 10px;
+  padding: 4px 9px;
+  height: 24px;
 }
 .privacyStatus {
-    position: relative;
-    top: -6px;
+  position: relative;
+  top: -6px;
 }

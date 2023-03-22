@@ -11,13 +11,14 @@ import {
   addExpenseService,
   getAllExpenseService,
   getExpenseByIDService,
+  getExpenseDefaultApprovalService,
 } from "../services/service";
 
 export const addExpense = createAsyncThunk(
   "expense/addexpense",
   async (args, { dispatch, getState }) => {
     const res = await addExpenseService(args);
-
+    console.log(res, "res");
     if (res?.responseCode === responseCode.Success) {
       dispatch(
         openNotification({
@@ -27,7 +28,7 @@ export const addExpense = createAsyncThunk(
         })
       );
 
-      return res;
+      return res.data;
     } else {
       dispatch(
         openNotification({
@@ -44,7 +45,7 @@ export const getAllExpense = createAsyncThunk(
   "expense/getAllExpense",
   async (args, { dispatch, rejectWithValue }) => {
     const res = await getAllExpenseService(args);
-
+    // console.log(res, "response");
     if (res?.responseCode === responseCode.Success) {
       return res;
     } else {
@@ -71,3 +72,19 @@ export const getExpenseById = createAsyncThunk(
     }
   }
 );
+
+// export const getDefaultApprovalByType = createAsyncThunk(
+//   "expense/getDefaultApproval",
+//   async (args, { dispatch, getState }) => {
+//     const res = await getExpenseDefaultApprovalService(args);
+
+//     if (res?.responseCode === responseCode.Success) {
+//       return res;
+//     } else {
+//       responseMessage({
+//         dispatch: dispatch,
+//         type: responseMessageType.ApiFailure,
+//       });
+//     }
+//   }
+// );

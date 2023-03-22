@@ -1,6 +1,6 @@
 // import "./grade.css";
 import { Input } from "antd";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import {
   FormButton,
   FormButtonContainer,
@@ -9,7 +9,9 @@ import {
   FormInput,
   FormInputContainer,
   FormLabel,
-} from "../../../../components/HrMenu/Administration/StyledComponents/adminForm";
+} from "../../../sharedComponents/Administration/StyledComponents/adminForm";
+import { departmentDictionaryList } from "../localization/index";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 export default function Appraisal({
   data,
   onSubmit,
@@ -18,7 +20,10 @@ export default function Appraisal({
   clearButton,
 }) {
   const [form, setForm] = useState(data);
-
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { departmentDictionary, Direction } = departmentDictionaryList[
+    userLanguage
+  ];
   const handleClear = (e) => {
     setForm({ ...form, question: "" });
     setClearButton(false);
@@ -40,12 +45,12 @@ export default function Appraisal({
 
   return (
     <FormContainer>
-      <FormHeader>Appraisal Question</FormHeader>
+      <FormHeader>{departmentDictionary.appraisalQuestion}</FormHeader>
       <FormInputContainer>
         <FormInput>
-          <FormLabel>Question</FormLabel>
+          <FormLabel>{departmentDictionary.question}</FormLabel>
           <Input
-            placeholder={"Enter Question"}
+            placeholder={departmentDictionary.enterQuestion}
             value={form.question}
             onChange={handelChangeName}
           />
@@ -64,7 +69,7 @@ export default function Appraisal({
                 setClearButton(false);
               }}
             >
-              Save Grade
+              {departmentDictionary.saveAppraisalQuestion}
             </FormButton>
           </>
         ) : (
@@ -79,7 +84,7 @@ export default function Appraisal({
             }}
             // loading={loading}
           >
-            Add Grade
+            {departmentDictionary.addAppraisalQuestion}
           </FormButton>
         )}
         {/* <FormButton
@@ -103,7 +108,7 @@ export default function Appraisal({
             className="formBtn"
             onClick={handleClear}
           >
-            Clear
+            {departmentDictionary.clear}
           </FormButton>
         )}
         {/* {form.id ? (

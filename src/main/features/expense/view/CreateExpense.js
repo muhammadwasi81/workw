@@ -22,22 +22,21 @@ import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
 import { useDispatch, useSelector } from "react-redux";
 import { addExpense } from "../store/actions";
 import MemberSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
-
 import { getAllEmployees } from "../../../../utils/Shared/store/actions";
 import { DEFAULT_GUID } from "../../../../utils/constants";
 import moment from "moment";
-
 import { getAllExpenseHeaderService } from "../../expenseHeader/services/service";
-import { defaultUiid } from "../../../../utils/Shared/enums/enums";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { ExpenseDictionary } from "../localization";
 import { getAllProjectsService } from "../../projects/services/service";
 import { getAllGroupService } from "../../groups/services/service";
 import { getAllTravelService } from "../../travel/services/service";
-import { getNameForImage } from "../../../../utils/base";
+import { getNameForImage, STRINGS } from "../../../../utils/base";
+import { getAllDefaultApprovers } from "../../defaultApprovers/service/service";
+import "../style/style.css";
 const { TextArea } = Input;
 
-function CreateExpense({ referenceId = defaultUiid }) {
+function CreateExpense({ referenceId = DEFAULT_GUID, feature = "" }) {
   const [isExecutor, setIsExecutor] = useState(false);
   const { userLanguage } = useContext(LanguageChangeContext);
   const {
@@ -49,23 +48,26 @@ function CreateExpense({ referenceId = defaultUiid }) {
   const {
     sharedSlice: { employees },
   } = useSelector((state) => state);
-
+  const { loader } = useSelector((state) => state.expenseSlice);
+  console.log("loader", loader);
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [allHeader, setAllHeader] = useState([]);
   const [typesSelect, setTypesSelect] = useState([]);
-  const [file, setFile] = useState("");
+  // const [file, setFile] = useState("");
+  const [attachments, setAttachments] = useState([]);
+
   const listObj = {
     1: labels.general,
-    2: labels.project,
-    3: labels.group,
+    2: labels.group,
+    3: labels.project,
     4: labels.travel,
     5: labels.assets,
   };
   const typeList = {
     1: "generalId",
-    2: "projectId",
-    3: "groupId",
+    2: "groupId",
+    3: "projectId",
     4: "travelId",
     5: "assetId",
   };
@@ -90,7 +92,9 @@ function CreateExpense({ referenceId = defaultUiid }) {
       if (responseCode === 1001) {
         setTypesSelect(data);
       }
-    } catch {}
+    } catch (e) {
+      console.log("Error in projects", e);
+    }
   };
   const getGroups = async () => {
     try {
@@ -102,7 +106,9 @@ function CreateExpense({ referenceId = defaultUiid }) {
       if (responseCode === 1001) {
         setTypesSelect(data);
       }
-    } catch {}
+    } catch (e) {
+      console.log("Error in Groups", e);
+    }
   };
   const getTravels = async () => {
     try {
@@ -110,17 +116,20 @@ function CreateExpense({ referenceId = defaultUiid }) {
         pageNo: 1,
         pageSize: 20,
         filterType: 0,
+        search: "",
       });
       if (responseCode === 1001) {
         setTypesSelect(data);
       }
-    } catch {}
+    } catch (e) {
+      console.log("Error in Travel", e);
+    }
   };
   useEffect(() => {
     if (type === 2) {
-      getProjects();
-    } else if (type === 3) {
       getGroups();
+    } else if (type === 3) {
+      getProjects();
     } else if (type === 4) {
       getTravels();
     } else if (type === 5) {
@@ -131,13 +140,18 @@ function CreateExpense({ referenceId = defaultUiid }) {
     };
   }, [type]);
 
+  const getDefaultApproval = async (payload) => {
+    await getAllDefaultApprovers({});
+  };
+  getDefaultApproval();
   const selectedData = (_, obj, name) => {
     if (name === "approvers") {
       setEmployeeData((preValue) => {
         return {
           ...preValue,
           approvers: obj.map(({ type, id }) => {
-            return { approverType: type, approverId: id };
+            return { approverId: id };
+            //approverType: type,
           }),
         };
       });
@@ -146,7 +160,7 @@ function CreateExpense({ referenceId = defaultUiid }) {
         return {
           ...preValue,
           executors: obj.map(({ type, id }) => {
-            return { approverType: type, approverId: id };
+            return { approverId: id };
           }),
         };
       });
@@ -155,7 +169,7 @@ function CreateExpense({ referenceId = defaultUiid }) {
         return {
           ...preValue,
           finance: obj.map(({ type, id }) => {
-            return { approverType: type, approverId: id };
+            return { approverId: id };
           }),
         };
       });
@@ -172,6 +186,11 @@ function CreateExpense({ referenceId = defaultUiid }) {
   const fetchEmployees = (text, pgNo) => {
     dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
   };
+  const getRefrenceId = (parentRefrenceId) => {
+    if (parentRefrenceId !== STRINGS.DEFAULTS.guid) return parentRefrenceId;
+    // if (CategoryRefrenceId) return CategoryRefrenceId;
+    return STRINGS.DEFAULTS.guid;
+  };
 
   const onFinish = (values) => {
     const {
@@ -182,25 +201,25 @@ function CreateExpense({ referenceId = defaultUiid }) {
       description,
       referenceType,
     } = values;
-
     const expenseObj = {
-      id: DEFAULT_GUID,
-      referenceId,
+      // id: DEFAULT_GUID,
+      referenceId: getRefrenceId(referenceId),
       categoryId,
       headerId,
-      [typeList[type]]: values[[typeList[type]]],
-      referenceType,
+      // [typeList[type]]: values[[typeList[type]]],
+      // referenceType,
       amount,
       expenseDate: moment(expenseDate._d).format(),
       isReimbursable: isExecutor,
       description,
-      attachments: { id: DEFAULT_GUID, file: file },
+      attachments,
       approvers: [...employeeData.approvers],
       executors: [...employeeData.executors],
       financers: [...employeeData.finance],
+      quantity: 1,
     };
-    console.log(expenseObj, "values");
     dispatch(addExpense(expenseObj));
+    console.log(expenseObj, "expense objj");
   };
 
   const [form] = Form.useForm();
@@ -213,7 +232,7 @@ function CreateExpense({ referenceId = defaultUiid }) {
       autoComplete="off"
       layout="vertical"
       className={Direction === "ltr" ? "addExpense" : "addExpense rtl"}
-      initialValues={{ categoryId: 1, referenceType: 1 }}
+      initialValues={{ categoryId: 1, referenceType: feature || 1 }}
     >
       <ExpenseType labels={labels} />
       <Form.Item label={labels.types} name="referenceType">
@@ -224,19 +243,21 @@ function CreateExpense({ referenceId = defaultUiid }) {
           onChange={(value) => {
             setType(value.target.value);
           }}
+          disabled={feature ? true : false}
         >
           <Radio.Button value={1}>
             <WalletOutlined />
             {labels.general}
           </Radio.Button>
           <Radio.Button value={2}>
-            <PieChartOutlined />
-            {labels.project}
-          </Radio.Button>
-          <Radio.Button value={3}>
             <TeamOutlined />
             {labels.group}
           </Radio.Button>
+          <Radio.Button value={3}>
+            <PieChartOutlined />
+            {labels.project}
+          </Radio.Button>
+
           <Radio.Button value={4}>
             <CheckCircleOutlined />
             {labels.travel}
@@ -251,17 +272,27 @@ function CreateExpense({ referenceId = defaultUiid }) {
         <Form.Item
           rules={[{ required: true }]}
           label={`${listObj[type]} List`}
-          name={typeList[type]}
+          // name={typeList[type]}
+          name={"referenceId"}
           labelPosition="top"
         >
-          <Select placeholder={listObj[type]} size="large">
+          <Select
+            placeholder={listObj[type]}
+            size="large"
+            filterOption={(input, option) => {
+              return (
+                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+              );
+            }}
+            optionFilterProp="children"
+            showSearch
+          >
             {typesSelect.map((item) => (
               <Select.Option key={item.id} value={item.id}>
                 {type === 4 ? item.subject : item.name}
               </Select.Option>
             ))}
           </Select>
-          {/* <Input  /> */}
         </Form.Item>
       )}
       <Form.Item
@@ -277,6 +308,13 @@ function CreateExpense({ referenceId = defaultUiid }) {
             borderRadius: "5px",
           }}
           size="large"
+          showSearch={true}
+          filterOption={(input, option) => {
+            return (
+              option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+            );
+          }}
+          optionFilterProp="children"
         >
           {allHeader.map((item) => (
             <Select.Option key={item.id} value={item.id}>
@@ -299,10 +337,12 @@ function CreateExpense({ referenceId = defaultUiid }) {
           name="expenseDate"
           labelPosition="top"
           rules={[{ required: true }]}
+          defaultValue={moment()}
         >
           <DatePicker
             placeholder={placeHolder.pickCurrentDate}
             className={"expenseDate"}
+            defaultValue={moment()}
           />
         </Form.Item>
         <Form.Item
@@ -320,11 +360,7 @@ function CreateExpense({ referenceId = defaultUiid }) {
           </Checkbox>
         </Form.Item>
       </div>
-      <Form.Item
-        name="approver"
-        label={labels.approvers}
-        rules={[{ required: true }]}
-      >
+      <Form.Item name="approver" label={labels.approvers}>
         <MemberSelect
           isObject={true}
           data={firstTimeEmpData}
@@ -421,16 +457,28 @@ function CreateExpense({ referenceId = defaultUiid }) {
         ></TextArea>
       </Form.Item>
       <Form.Item
-        label={labels.attachments}
-        name="attachments"
-        labelPosition="top"
+        // label={labels.attachments}
+        // name="attachments"
+        // labelPosition="top"
+        area="true"
+        className="w-max"
       >
         <SingleUpload
-          handleImageUpload={(file) => {
-            // console.log(file[0].originFileObj);
-            setFile(file[0].originFileObj);
-          }}
-          position={"left"}
+          // handleImageUpload={(file) => {
+          //   // console.log(file[0].originFileObj);
+          //   setFile(file[0].originFileObj);
+          // }}
+          // position={"left"}
+          handleImageUpload={(files) =>
+            setAttachments(
+              files.map((file) => ({
+                file: file.originFileObj,
+                id: STRINGS.DEFAULTS.guid,
+              }))
+            )
+          }
+          multiple={true}
+          uploadText={"Upload"}
         />
       </Form.Item>
       <Form.Item>
@@ -440,6 +488,7 @@ function CreateExpense({ referenceId = defaultUiid }) {
           className="ThemeBtn"
           block
           htmlType="submit"
+          loading={loader}
         >
           {labels.createExpense}
         </Button>

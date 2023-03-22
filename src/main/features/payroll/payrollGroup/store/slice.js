@@ -1,6 +1,10 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import { responseCode } from "../../../../../services/enums/responseCode.js";
-import { addPayrollGroup, getAllPayrollGroup, updateaPayrollGroup } from "./actions.js";
+import {
+  addPayrollGroup,
+  getAllPayrollGroup,
+  updateaPayrollGroup,
+} from "./actions.js";
 
 const initialState = {
   groups: [],
@@ -20,6 +24,7 @@ const playGroupSlice = createSlice({
     builder
       .addCase(getAllPayrollGroup.fulfilled, (state, { payload }) => {
         state.loadingData = false;
+
         state.groups = payload.data;
       })
       .addCase(addPayrollGroup.fulfilled, (state, { payload }) => {
@@ -33,14 +38,19 @@ const playGroupSlice = createSlice({
           x.id === payload.data.id ? payload.data : x
         );
       })
-      .addMatcher(isPending(...[addPayrollGroup, updateaPayrollGroup]), (state) => {
-        state.loader = true;
-      })
+      .addMatcher(
+        isPending(...[addPayrollGroup, updateaPayrollGroup]),
+        (state) => {
+          state.loader = true;
+        }
+      )
       .addMatcher(isPending(...[getAllPayrollGroup]), (state) => {
         state.loadingData = true;
       })
       .addMatcher(
-        isRejected(...[getAllPayrollGroup, addPayrollGroup, updateaPayrollGroup]),
+        isRejected(
+          ...[getAllPayrollGroup, addPayrollGroup, updateaPayrollGroup]
+        ),
         (state) => {
           state.loader = false;
           state.loadingData = false;

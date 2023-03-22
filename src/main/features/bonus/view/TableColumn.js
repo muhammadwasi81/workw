@@ -3,59 +3,65 @@ import Avatar from "../../../sharedComponents/Avatar/avatar";
 
 import TagAvatar from "../../../sharedComponents/Avatar/TagAvatar";
 import StatusTag from "../../../sharedComponents/Tag/StatusTag";
-export const tableColumn = () => {
+export const tableColumn = (tables) => {
   return [
     {
-      title: "Sort",
+      title: tables.sort,
       dataIndex: "sort",
       drag: true,
       width: 80,
     },
     {
-      title: "Reference No",
+      title: tables.ReferenceNum,
       dataIndex: "referenceNo",
-      ellipsis: true,
+      width: 200,
       sort: true,
     },
     {
-      title: "Creator",
+      title: tables.Creator,
       dataIndex: "creator",
-      ellipsis: true,
-      render: (creator) => <TagAvatar text={creator.name} img={creator.image} />,
+      width: 200,
+      render: (creator) => (
+        <TagAvatar text={creator.name} img={creator.image} />
+      ),
       sort: true,
     },
     {
-      title: "Status",
+      title: tables.bonusTo,
+      dataIndex: "member",
+      width: 200,
+      sort: true,
+      render: (member) => <TagAvatar text={member.name} />,
+    },
+    {
+      title: tables.amount,
+      dataIndex: "amount",
+      width: 200,
+      sort: true,
+    },
+    {
+      title: tables.Date,
+      dataIndex: "createDate",
+      render: (createDate) => moment(createDate).format("DD MMM YYYY"),
+      sort: true,
+      width: 200,
+    },
+
+    {
+      title: tables.Status,
       dataIndex: "status",
       render: (status) => <StatusTag status={status} />,
       sort: true,
-    },
-    // {
-    //   title: "Category",
-    //   dataIndex: "category",
-    //   ellipsis: true,
-    //   sort: true,
-    // },
-    // { title: "Name", dataIndex: "name", ellipsis: true, sort: true },
-    // { title: "Reason", dataIndex: "reason", ellipsis: true, sort: true },
-    {
-      title: "Date",
-      dataIndex: "createDate",
-      render: (i) => moment(i.createDate).format("DD MMM YYYY"),
-      sort: true,
+      width: 200,
     },
 
-    // {
-    //   title: "Reward To",
-    //   dataIndex: "members",
-    //   ellipsis: true,
-    //   render: (member) => <Avatar membersData={member} heading={"Members"} />,
-    // },
     {
-      title: "Approvers",
+      title: tables.Approvers,
       dataIndex: "approvers",
-      ellipsis: true,
-      render: (approver) => <Avatar membersData={approver} heading={"Approvers"} />,
+      width: 200,
+      render: (approver) => (
+        <Avatar membersData={approver} heading={"Approvers"} />
+      ),
     },
   ];
 };

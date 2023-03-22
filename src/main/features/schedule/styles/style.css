@@ -122,24 +122,32 @@
 }
 
 .fc .fc-button-primary:disabled {
-    color: #666 !important;
-    background-color: transparent !important;
+    color: white !important;
+    
+    background-color: var(--currentThemeColor) !important;
     border-color: #666 !important;
     text-transform: capitalize;
 
 }
 
+.fc .fc-timeGridDay-button.fc-button-active , .fc .fc-timeGridWeek-button.fc-button-active, .fc .fc-dayGridMonth-button.fc-button-active {
+    color: white !important;
+    background-color: var(--currentThemeColor) !important;
+}
+
 .fc .fc-button {
     /* font-weight: 600 !important; */
+    color: #666 !important;
     padding: 3px 8px !important;
     font-size: 12px !important;
     text-transform: capitalize !important;
-    background-color: var(--currentThemeColor) !important;
+    background-color: transparent !important;
     border-color: var(--currentThemeColor) !important;
 }
 
 .fc .fc-button:disabled {
     opacity: 1 !important;
+    
 }
 
 .fc .fc-button-group>.fc-button {
@@ -147,8 +155,6 @@
     border-radius: 50%;
     border-top-right-radius: 50% !important;
     border-bottom-right-radius: 50% !important;
-
-
 }
 
 .fc .fc-button-group>.fc-button .fc-icon {
@@ -177,6 +183,41 @@
     background: transparent !important;
     border: 1px solid var(--currentThemeColor) !important;
 }
+
+.fc .fc-button-primary.fc-prev-button:hover,
+.fc .fc-button-primary.fc-next-button:hover{
+    background: var(--currentThemeColor) !important;
+    border: 1px solid white !important;
+    color: white !important;
+}
+
+.fc .fc-button-primary.fc-prev-button:hover .fc-icon-chevron-left::before,
+.fc .fc-button-primary.fc-next-button:hover .fc-icon-chevron-right::before{
+    /* background: var(--currentThemeColor) !important; */
+    /* border: 1px solid white !important; */
+    color: white !important;
+}
+
+.description_dangerously, .description_dangerously p{
+    margin: 0px !important;
+    max-width: 100%;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    font-size: 0.75rem !important;
+    line-height: 1rem !important;
+}
+
+.dangerous_element_detail, .dangerous_element_detail p{
+    word-break: break-all;
+}
+
+/* .fc-icon-chevron-right:hover::before,
+.fc-icon-chevron-left:hover::before {
+    color: white !important;
+    font-size: 16px;
+} */
 
 .fc-icon-chevron-right:before,
 .fc-icon-chevron-left:before {
@@ -237,6 +278,10 @@
     position: relative;
     height: 100%;
 
+}
+
+.fc-col-header-cell a{
+    color: white;
 }
 
 .schedulerCalender .fc-header-toolbar.fc-toolbar.fc-toolbar-ltr{

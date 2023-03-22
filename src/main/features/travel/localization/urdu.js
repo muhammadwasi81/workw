@@ -20,7 +20,15 @@ const urdu = {
 			traveDepartlPh: "کہاں سے سفر کر رہے ہیں",
 			travelDestPh: "کہاں جانا ہے",
 			specialRequestPh: "خصوصی درخواست کی تفصیل لکھیں",
+			destinationCity:"منزل شہر تلاش کریں۔",
+			departureCity:"روانگی کا شہر تلاش کریں۔",
+			reason:"وجہ درج کریں۔",
+			selectDate:"تاریخ منتخب کریں۔",
 		},
+		buttons:{
+			submit:"جمع کرائیں",
+		},
+
 		headings: {
 			description: "تفصیل",
 			type: "قسم",
@@ -29,6 +37,10 @@ const urdu = {
 			approvers: "منظور کرنے والے",
 			agents: "ایجنٹس",
 			desctination: "منزلیں",
+			departureDate:"تاریخ روانگی",
+			departureTime:"روانگی کا وقت",
+			departureCity:"روانگی کے شہر",
+			arrivalCity:"آمد شہر",
 		},
 
 		labels: {
@@ -67,6 +79,7 @@ const urdu = {
 			description: "تفصیل",
 			agentStatus: "ایجنٹ کی حیثیت",
 			actions: "اعمال",
+			createDate: "تشکیل کی تاریخ",
 		},
 	},
 	Direction: "rtl",

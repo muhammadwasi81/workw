@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import { Dropdown, Menu, Space, Image } from "antd";
 import "antd/dist/antd.css";
 import Draggable from "react-draggable";
+
 import {
   CopyOutlined,
   CloseOutlined,
@@ -12,7 +13,7 @@ import {
   PictureOutlined,
 } from "@ant-design/icons";
 import "../../style.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   closeStickyNote,
   targetTitleVal,
@@ -30,82 +31,71 @@ import {
 } from "../../store/actions";
 import useDebounce from "../../../../../../utils/Shared/helper/use-debounce";
 import { createGuid } from "../../../../../../utils/base";
+import ShareComponent from "./ShareComponent";
+import { handleOpenSticky } from "../../store/stickySlice";
+import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
+import { stickyNotesDictionaryList } from "../../localization/index";
+import { formats, modules } from "../../utils/index";
 
 const NewStickyNote = ({ item }) => {
   const [openColor, setOpenColor] = useState(true);
+  const [openShare, setOpenShare] = useState(false);
   const [title, setTitle] = useState(null);
   const [description, setDescription] = useState(null);
   const tilteDebounce = useDebounce(title, 500);
   const descriptionDebounce = useDebounce(description, 500);
-  const [images, setImage] = useState([]);
+
   const dispatch = useDispatch();
-
-  // const openColorHandler = () => {
-  //   setOpenColor(true);
-  // };
-
+  const { openSticky, selectionId } = useSelector((state) => {
+    return state.stickySlice;
+  });
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { stikcyDictionary } = stickyNotesDictionaryList[userLanguage];
+  const color = item.colorCode;
   const uploadImageHandler = (e) => {
     const image = e.target.files[0];
-    console.log(image, "IMG");
-    // const imagess = URL.createObjectURL(image);
-    // setImage(images);
-    // console.log(imagess,"IMAGESSSSS");
     const id = item.id;
-    // console.log("ID",id);
-    //console.log(images, "IMAGE STATE");
-    // dispatch(addImage({imagess,id}))
     dispatch(
       getStickyAttachmentAction({
         attachments: [{ file: image, id: createGuid() }],
         id,
+        description: item.description,
+        title: item.title,
+        color: item.colorCode,
       })
     );
-    //   dispatch(getStickyAttachmentAction({
-    //     id,
-    //     attachments:image.map((item)=>({
-    //       file:item,
-    //       id:createGuid()
-    //     }))
-    //   }))
   };
-
+  const openShareHandler = () => {
+    setOpenShare((openShare) => !openShare);
+  };
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(item.description);
+  };
   // ********dropdown menu (color, copy, share) in three dot*********
   const menu = (
     <Menu
       items={[
         {
           label: (
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href="https://www.antgroup.com"
-            >
-              Share
-            </a>
+            <div onClick={openShareHandler}>
+              <ShareAltOutlined />
+              <a className="drop-downList">Share</a>
+            </div>
           ),
-          icon: <ShareAltOutlined />,
           key: "0",
         },
         {
           label: (
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href="https://www.antgroup.com"
-            >
-              Copy
-            </a>
-          ),
-          icon: <CopyOutlined />,
-          key: "1",
-        },
-        {
-          label: (
-            <div>
-              {/* <a style={{ textDecoration: "none", color: "Black" }}>Color</a> */}
-              {openColor && <StickyColor item={item} />}
+            <div onClick={copyToClipboard}>
+              <CopyOutlined />
+              <a className="drop-downList">Copy</a>
             </div>
           ),
+          key: "1",
+        },
+
+        {
+          label: <div>{openColor && <StickyColor item={item} />}</div>,
 
           // icon: <HighlightOutlined onClick={openColorHandler} />,
           key: "2",
@@ -135,79 +125,98 @@ const NewStickyNote = ({ item }) => {
   const setTitleValue = (value) => {
     const id = item.id;
     dispatch(targetTitleVal({ id, value }));
-    dispatch(getStickyNoteTitleAction({ ...item, title: value }));
+    dispatch(
+      getStickyNoteTitleAction({ ...item, attachments: [], title: value })
+    );
   };
   const setDescriptionValue = (value) => {
     const id = item.id;
     dispatch(targetStickyDescription({ id, value }));
-    dispatch(
-      getStickyNoteDescAction({ ...item, attachments: [], description: value })
-    );
   };
 
   // *******modules and formats for React quil******
-  const modules = {
-    toolbar: [
-      ["bold", "italic", "underline"],
-      [{ list: "ordered" }, { list: "bullet" }],
-      [],
-    ],
-  };
-  const formats = {
-    toolbar: [
-      [{ font: [] }],
-      [{ header: [1, 2, 3, 4, 5, 6, false] }],
-      ["bold", "italic", "underline", "link", "image"],
-      [{ list: "ordered" }, { list: "bullet" }],
-      [{ script: "sub" }, { script: "super" }],
-      [{ direction: "rtl" }],
-      [{ align: ["center"] }],
-      [{ color: [] }, { background: [] }],
-      ["clean"],
-    ],
-  };
+
   const imgSrc = item.attachments;
-  // console.log(imgSrc, "image from redux");
+  // const { height, width } = useWindowDimensions();
+  // console.log(width, height, "widthhh");
+
+  const axis = {
+    x_axis: Math.floor(Math.random() * (400 - 300)) + 300,
+    y_axis: Math.floor(Math.random() * (200 - 500)) + 500,
+  };
+  const openNewStikcyHandler = () => {
+    dispatch(handleOpenSticky(item.id));
+  };
+
   return (
     <>
-      <Draggable defaultPosition={{ x: 12, y: 450 }} handle=".handle">
+      <Draggable
+        Draggable
+        //defaultPosition={{ x: axis.x_axis, y: axis.y_axis }}
+        handle=".handle"
+        // grid={[25, 25]}
+        scale={1}
+        // bounds="parent"
+        // allowAnyClick={true}
+      >
         <div
           className="stickyNote_container"
-          // style={{ display: !openColor ? "initial" : "none" }}
+          onClick={openNewStikcyHandler}
+          style={{
+            position: "absolute",
+            zIndex: item.id === openSticky ? 3 : 2,
+          }}
         >
           <div
             className="stickyNote_header handle"
-            style={{ backgroundColor: item.colorCode }}
+            style={{
+              backgroundColor: item.colorCode,
+            }}
           >
             <input
-              placeholder="Title"
+              placeholder={stikcyDictionary.title}
               onChange={(e) => setTitle(e.target.value)}
               defaultValue={item.title}
-              style={{ backgroundColor: item.colorCode }}
+              style={{
+                backgroundColor: item.colorCode,
+                color: `${item.colorCode ? "black" : "white"}`,
+              }}
               className="sticky_titleContainer"
             />
 
             {/* ******Drop Down menu (color, copy, share) on three dot****** */}
             <div className="leftNote_Icon">
-              <Dropdown overlay={menu}>
+              <Dropdown menu={menu} overlay={menu} trigger={["click"]}>
                 <a onClick={(e) => e.preventDefault()}>
                   <Space>
-                    <EllipsisOutlined className="margin_Icon" />
+                    <EllipsisOutlined
+                      className="threedot_Icon"
+                      style={{ color: `${item.colorCode ? "black" : "white"}` }}
+                    />
                   </Space>
                 </a>
               </Dropdown>
               <DeleteOutlined
                 onClick={deleteStickyNotes}
                 className="margin_Icon"
+                style={{ color: `${item.colorCode ? "black" : "white"}` }}
               />
               <CloseOutlined
                 onClick={closeStickyNotes}
                 className="margin_Icon"
+                style={{ color: `${item.colorCode ? "black" : "white"}` }}
               />
             </div>
           </div>
 
           {/* *******Insert text area and image********* */}
+
+          {openShare && (
+            <ShareComponent
+              item={item}
+              handleClose={() => setOpenShare(false)}
+            />
+          )}
 
           <div className="textArea_container">
             <ReactQuill
@@ -215,9 +224,10 @@ const NewStickyNote = ({ item }) => {
               modules={modules}
               formats={formats}
               className={"stickyNoteItem-textarea"}
-              placeholder="Take a Note"
+              placeholder={stikcyDictionary.takeANote}
               defaultValue={item.description}
             />
+
             <div className="img-input-container">
               <PictureOutlined className="image_icon text-[20px]" />
               <input
@@ -228,6 +238,7 @@ const NewStickyNote = ({ item }) => {
               />
             </div>
           </div>
+
           {/* **********Insert images******** */}
           {imgSrc.length > 0 ? (
             <div className="image_body">
@@ -239,6 +250,13 @@ const NewStickyNote = ({ item }) => {
                     src={item.path}
                     className="image"
                   />
+                  // <Attachments
+                  //   data={item.path}
+                  //   key={{ data: item.path }}
+                  //   toShow={1}
+                  //   onClick={() => {}}
+                  //   size={"50px"}
+                  // />
                 );
               })}
             </div>

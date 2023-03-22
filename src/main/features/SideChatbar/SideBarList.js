@@ -1,8 +1,8 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import SideBarListItem from "./SideBarListItem";
 
-export const SideBarList = ({chatList}) => {
-
+export const SideBarList = ({chatList }) => {
   return (
     <div className="sideBarList" >
        {

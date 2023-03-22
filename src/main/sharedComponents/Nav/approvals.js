@@ -8,8 +8,11 @@ import { Badge } from "antd";
 // import FormDialog from "../../SharedComponent/Snackbar/FormDialog";
 import { Spin } from "antd";
 import Avatar from "../../sharedComponents/Avatar/avatarOLD";
+import { setApprovalStatus, setNotificationStatus } from "../../../store/appReducer/responsiveSlice";
+import { useDispatch } from "react-redux";
 
 class Approvals extends Component {
+	dispatch = useDispatch();
 	approvalsHolder = React.createRef();
 	currentPage = 0;
 	state = {
@@ -23,6 +26,11 @@ class Approvals extends Component {
 		isOpen: false,
 		loading: false,
 	};
+	handleCloseNotificationBar = (status = false) => {
+		console.log("FIRST")
+		this.dispatch(setApprovalStatus(status));
+		console.log("SECOND")
+	  };
 
 	componentDidMount() {
 		this.getApprovals(++this.currentPage);
@@ -368,6 +376,7 @@ class Approvals extends Component {
 									onClick={_ => {
 										$(".toggle-menu").removeClass("on");
 										$(".nav").css({ "z-index": 0 });
+										// this.handleCloseNotificationBar
 									}}
 								>
 									See All

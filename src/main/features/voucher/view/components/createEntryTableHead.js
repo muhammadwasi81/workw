@@ -1,33 +1,21 @@
-import React, { useEffect, useState } from 'react';
-
+import React, { useEffect, useState, useContext } from "react";
+import { voucherDictionaryList } from "../../localization/index";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 const CreateEntryHead = () => {
-
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { vouncherDictionary, Direction } = voucherDictionaryList[userLanguage];
   return (
     <thead>
       <tr>
-        <th style={{ width: "50px" }} >
-          S.No.
-        </th>
-        <th style={{ width: "230px" }}>
-          Account
-        </th>
-        <th style={{ width: "100px" }}>
-          Cheque No.
-        </th>
-        <th>
-          Naration
-        </th>
-        <th style={{ width: "150px" }}>
-          Amount
-        </th>
-        <th style={{ width: "120px" }}>
-          Dr/Cr
-        </th>
-        <th style={{ width: "45px" }}>
-
-        </th>
+        <th style={{ width: "50px" }}>{vouncherDictionary.sno}</th>
+        <th style={{ width: "230px" }}>{vouncherDictionary.account}</th>
+        <th style={{ width: "100px" }}>{vouncherDictionary.chequeNo}</th>
+        <th>Naration</th>
+        <th style={{ width: "150px" }}>{vouncherDictionary.amount}</th>
+        <th style={{ width: "120px" }}>{vouncherDictionary.drCr}</th>
+        <th style={{ width: "45px" }}></th>
       </tr>
     </thead>
-  )
-}
+  );
+};
 export default CreateEntryHead;

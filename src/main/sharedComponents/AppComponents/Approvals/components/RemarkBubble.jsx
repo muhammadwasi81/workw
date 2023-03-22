@@ -4,8 +4,9 @@ import { LanguageChangeContext } from "../../../../../utils/localization/localCo
 import Avatar from "../../../Avatar/avatarOLD";
 import { getStatusLabelAndColor } from "../enums";
 import { ApprovalDictionary } from "../localization";
+import Attachments from "../../../../features/travel/view/UI/Attachments";
 
-function RemarksBubble({ remarker, remark, type, status, date }) {
+function RemarksBubble({ remarker, remark, type, status, date, attachments }) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { status: statusLabels } = ApprovalDictionary[userLanguage];
   const { label, color } = getStatusLabelAndColor("", statusLabels)[status];
@@ -17,7 +18,8 @@ function RemarksBubble({ remarker, remark, type, status, date }) {
         <div className="comment__header">
           <Avatar
             src={remarker?.image}
-            size={40}
+            name={remarker?.name}
+            size={30}
             round
             width={"30px"}
             height={"30px"}
@@ -30,6 +32,15 @@ function RemarksBubble({ remarker, remark, type, status, date }) {
           </div>
           <p>{remark}</p>
           <span style={{ color }}>{label}</span>
+          <div className="attachments-container">
+            <Attachments
+              data={attachments}
+              key={{ data: attachments }}
+              toShow={1}
+              onClick={() => {}}
+              size={"50px"}
+            />
+          </div>
         </div>
       </div>
     </>

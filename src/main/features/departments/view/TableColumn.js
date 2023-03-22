@@ -3,9 +3,14 @@ import Avatar from "../../../sharedComponents/Avatar/avatar";
 
 import TagAvatar from "../../../sharedComponents/Avatar/TagAvatar";
 import StatusTag from "../../../sharedComponents/Tag/StatusTag";
-export const tableColumn = () => {
+export const tableColumn = (departmentDictionary) => {
   return [
-    { title: "Dept Name", dataIndex: "name", ellipsis: true, sort: true },
+    {
+      title: departmentDictionary.deptName,
+      dataIndex: "name",
+      ellipsis: true,
+      sort: true,
+    },
     // {
     //   title: "Reference No",
     //   dataIndex: "referenceNo",
@@ -13,7 +18,7 @@ export const tableColumn = () => {
     //   sort: true,
     // },
     {
-      title: "Description",
+      title: departmentDictionary.description,
       dataIndex: "description",
       ellipsis: true,
       sort: true,
@@ -28,9 +33,10 @@ export const tableColumn = () => {
     //   sort: true,
     // },
     {
-      title: "Status",
+      title: departmentDictionary.status,
       dataIndex: "status",
       render: (status) => <StatusTag status={status} />,
+      ellipsis: true,
       sort: true,
     },
     // {

@@ -8,33 +8,50 @@ import {
 import Tab from "../../../sharedComponents/Tab";
 import LayoutHeader from "../../../layout/header/index";
 import { EditOutlined } from "@ant-design/icons";
-import Travel from "../../travel/index";
-// import "../styles/projects.css";
-// import Budget from "../UI/Budget";
 import CoverDetail from "../view/CoverDetail";
 import CoverImage from "../view/CoverImage";
-import { useLocation } from "react-router-dom";
-// import CoverImage from "../UI/CoverImage";
-// import MemberCollapse from "../../../sharedComponents/Collapseable/MemberCollapse";
-// import ProjectCover from "../../../../content/png/project_cover_img.png";
-import ProjectCover from "../../../../content/png/project_cover_img.png";
+import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { getDepartmentById } from "../store/actions";
+import {
+  addDepartmentMemberAction,
+  getDepartmentById,
+  getDepartmentMemberAction,
+  removeDepartmentMemberAction,
+} from "../store/actions";
 import Appraisal from "../appraisal/index";
-// import WhiteCard from "../UI/WhiteCard";
+import { handleParentId } from "../store/slice";
+import SubDepartment from "./SubDepartment";
+import WhiteCard from "../view/WhiteCard";
+import MemberCollapse from "../../../sharedComponents/Collapseable/MemberCollapse";
+import ComposeEmail from "../../leadmanager/view/Email/ComposeEmail";
+import { handleComposeEmail } from "../../leadmanager/store/slice";
+import MemberModal from "./MemberModal";
+import { addMember } from "../store/slice";
+import { Members } from "../constant/index";
+import "./style.css";
+import ItemDetailModal from "../../../sharedComponents/ItemDetails";
+import { handleItemDetailModal } from "../../../../utils/Shared/store/slice";
 
-function ProjectDetails() {
+function DepartmentDetails() {
   const dispatch = useDispatch();
-  const { departmentDetail } = useSelector((state) => state.departmentSlice);
-  const { state } = useLocation();
-  const [descrip, setDescrip] = useState("");
-  const { data } = state;
+  let param = useParams();
+  const { departmentDetail, departmentMembers } = useSelector(
+    (state) => state.departmentSlice
+  );
+  const [visible, setVisible] = useState(false);
 
-  const { image, description, id } = departmentDetail;
+  useEffect(() => {
+    if (Object.keys(departmentDetail).length > 1) {
+      dispatch(handleParentId(departmentDetail.id));
+    }
+  }, [departmentDetail]);
+
+  const { image, description } = departmentDetail;
+
   const panes = [
     {
-      featureName: `Description`,
-      content: <div>{descrip}</div>,
+      featureName: `Sub Departments`,
+      content: <SubDepartment />,
       featureId: 0,
     },
     {
@@ -42,31 +59,11 @@ function ProjectDetails() {
       content: <Appraisal />,
       featureId: 1,
     },
-    // {
-    //   title: `Workboard`,
-    //   content: <div>Workboard div</div>,
-    //   key: 2,
-    // },
-    // {
-    //   title: `Documents`,
-    //   content: <div>Documents div</div>,
-    //   key: 3,
-    // },
-    // {
-    //   title: `Task`,
-    //   content: <div>Task div</div>,
-    //   key: 4,
-    // },
-    // {
-    //   title: `Expenses`,
-    //   content: <div>Expenses div</div>,
-    //   key: 5,
-    // },
   ];
   const items = [
     {
       name: "Department Details",
-      to: `${ROUTES.DEPARTMENTS.DEFAULT}`,
+      to: `${ROUTES.DEPARTMENTS.DEPARTMENT}`,
       renderButton: [1],
     },
   ];
@@ -76,29 +73,83 @@ function ProjectDetails() {
       icon: <EditOutlined />,
     },
   ];
-  // console.log("details", data);
 
   useEffect(() => {
-    console.log("useEffects works");
-    dispatch(getDepartmentById(data.id));
-    setDescrip(data.description);
-  }, []);
+    dispatch(getDepartmentById(param.id));
+    dispatch(getDepartmentMemberAction(param.id));
+  }, [param.id]);
 
-  // console.log("department Details*******", departmentDetail);
+  const onDelete = (userId) => {
+    const memberId = userId.toString();
+    const delmembers = {
+      id: departmentDetail.id,
+      memberId: memberId,
+    };
+
+    // dispatch(deleteGroupMemberAction(delmembers));
+    dispatch(removeDepartmentMemberAction(delmembers));
+  };
+
+  const addFunc = (id) => {
+    let memberId = id.toString();
+    const members = {
+      id: departmentDetail.id,
+      memberId: memberId,
+    };
+    dispatch(addDepartmentMemberAction(members));
+  };
+
+  const memberHandler = () => {
+    setVisible(true);
+    // const userTypes = memberType === 1 ? Members.user : Members.admin;
+    // dispatch(addMember({ status: true }));
+    dispatch(handleItemDetailModal(true));
+  };
   return (
-    <TabContainer>
-      <LayoutHeader items={items} buttons={buttons} />
-      <ContBody>
-        <div className="flex flex-row gap-5  h-[calc(100vh_-_60px)] w-full">
-          <div className="rounded-xl basis-12/12 flex flex-col gap-5 overflow-scroll w-full">
-            <CoverImage image={image} />
-            <CoverDetail data={departmentDetail} />
-            <Tab panes={panes} />
+    <>
+      <TabContainer>
+        {/* <LayoutHeader items={items} buttons={buttons} /> */}
+        <LayoutHeader items={items} />
+
+        <ContBody className="!block">
+          <div className="flex flex-row gap-5  h-[calc(100vh_-_60px)]">
+            <div className="rounded-xl basis-9/12 flex flex-col gap-5 overflow-scroll">
+              <CoverImage image={image} />
+              <CoverDetail data={departmentDetail} />
+              <Tab panes={panes} />
+            </div>
+
+            <div className="basis-1/4 gap-5 flex flex-col overflow-scroll">
+              <WhiteCard>
+                <MemberCollapse
+                  data={departmentMembers}
+                  isEmail={false}
+                  isMember={true}
+                  // onEmailClick={() => {
+                  //   dispatch(handleComposeEmail(true));
+                  // }}
+                  handleAdd={(e) => memberHandler(e)}
+                />
+              </WhiteCard>
+            </div>
           </div>
-        </div>
-      </ContBody>
-    </TabContainer>
+        </ContBody>
+      </TabContainer>
+      <ComposeEmail />
+      {/* {visible && <MemberModal data={departmentDetail} />} */}
+      {visible && (
+        <ItemDetailModal
+          data={departmentMembers} //Data
+          isDeleteDisabled={false} //Pass true to hide delete icon
+          addEnabled={true} //Pass false to hide select member
+          addFunc={addFunc}
+          onDelete={onDelete}
+          isSearch={false} //Pass true if you want to search the list
+          openModal={true}
+        />
+      )}
+    </>
   );
 }
 
-export default ProjectDetails;
+export default DepartmentDetails;

@@ -1,0 +1,21 @@
+.custom_table_container .ant-table-thead>tr>th {
+    background: var(--currentThemeColor);
+    color: white;
+    font-weight: 700;
+}
+
+.custom_table_container {
+    margin-top: 20px;
+}
+
+.custom_table_container .ant-table-thead>tr>th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan])::before {
+    background: white;
+}
+
+.custom_table_container .table-row-light {
+    background: #ffffff;
+}
+
+.custom_table_container .table-row-dark {
+    background: #fbfbfb;
+}

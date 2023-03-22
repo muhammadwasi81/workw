@@ -1,46 +1,29 @@
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { AdminTable } from '../../../../components/HrMenu/Administration/StyledComponents/adminTable';
-import {
-  getAllBranchOffice,
-  removeBranchOffice,
-} from '../../subsidiaryOffice/store/actions';
-import { BranchOfficeDeleted } from '../../subsidiaryOffice/store/slice';
-import { tableColumn } from './TableColumn';
-import { Skeleton } from 'antd';
-
+import { useEffect, useContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AdminTable } from "../../../sharedComponents/Administration/StyledComponents/adminTable";
+import { tableColumn } from "./TableColumn";
+import { Skeleton } from "antd";
+import { getAllAssetCategories } from "../store/actions.js";
+import { assetsCategoryDictionaryList } from "../localization/index";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 const AssetsTableView = ({
   handleEdit,
-  removeButtons,
+  handleDelete,
   actionRights = [],
   setClearButton,
+  removeButtons,
+  id,
 }) => {
   const dispatch = useDispatch();
-  const { items, loadingData } = useSelector(
-    (state) => state.subsidiaryOfficeSlice
+  const { assetsData, loadingData } = useSelector(
+    (state) => state.assetsCategorySlice
   );
 
   useEffect(() => {
-    dispatch(getAllBranchOffice());
+    dispatch(getAllAssetCategories());
   }, []);
-
-  const [id, setId] = useState();
-
-  const onSuccess = (e) => {
-    setId(null);
-    dispatch(BranchOfficeDeleted(e));
-    setClearButton(true);
-  };
-
-  const onError = () => {
-    setId(null);
-  };
-
-  const handleDelete = (e) => {
-    setId(e.id);
-    dispatch(removeBranchOffice(e)).then(() => onSuccess(e), onError);
-  };
-
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { assetsDictionary } = assetsCategoryDictionaryList[userLanguage];
   return (
     <>
       <AdminTable
@@ -49,10 +32,11 @@ const AssetsTableView = ({
           handleDelete,
           removeButtons,
           actionRights,
+          setClearButton,
           id,
-          setClearButton
+          assetsDictionary
         )}
-        dataSource={items}
+        dataSource={assetsData}
         pagination={false}
         rowKey="id"
         scroll={{ x: true }}
@@ -67,7 +51,7 @@ const AssetsTableView = ({
                 loading={loadingData}
                 round="true"
                 shape="circle"
-                style={{ width: '100%', marginBottom: 2 }}
+                style={{ width: "100%", marginBottom: 2 }}
               />
             ),
           }

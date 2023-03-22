@@ -11,7 +11,7 @@ import {
 	Typography,
 } from "antd";
 import moment from "moment";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useSelector } from "react-redux";
 import { getNameForImage } from "../../../../../utils/base";
 import CitySelect from "../../../../sharedComponents/AntdCustomSelects/SharedSelects/CitySelect";
@@ -20,8 +20,14 @@ import NewTravelDetailCard from "../UI/NewTravelDetailCard";
 import TravelCard from "../UI/TravelCard";
 import TravelDetailCard from "../UI/TravelDetailCard";
 import { travelCategoryData } from "./TravelCategories";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+import { TravelDictionary } from "../../localization/index";
 
 function NewTravelComposerDetail(props) {
+	const { userLanguage } = useContext(LanguageChangeContext);
+	const { TravelDictionaryList } = TravelDictionary[userLanguage];
+	const { headings,labels,placeHolder} = TravelDictionaryList;
+
 	const { fetchCityData, travelBy, onSelectCity, onTravelDetailAdd } = props;
 	const cities = useSelector(state => state.sharedSlice.cities);
 	const [form] = Form.useForm();
@@ -60,18 +66,19 @@ function NewTravelComposerDetail(props) {
 								message: "Please enter valid reason.",
 							},
 						]}
-						label={"Reason"}
+						label={labels.reason}
+						//label={"Reason"}
 						name="reason"
 					>
-						<Input placeholder={"Enter reason"} size="middle" />
+						<Input placeholder={placeHolder.reason} size="middle" />
 					</Form.Item>
-					<Form.Item label={"Travel"} required>
+					<Form.Item label={labels.travel} required>
 						<div className="flex gap-4 flex-col sm:flex-row">
 							<div className="flex flex-col w-full">
 								<CitySelect
 									data={cities}
 									selectedData={(val, obj) => {
-										console.log("val", obj);
+										// console.log("val", obj);
 										onSelectCity("departure", obj);
 									}}
 									canFetchNow={cities && cities.length > 0}
@@ -92,7 +99,7 @@ function NewTravelComposerDetail(props) {
 									defaultKey={"id"}
 									isObject={true}
 									mode={""}
-									placeholder={"Search departure city"}
+									placeholder={placeHolder.departureCity}
 									size="middle"
 									name="departureId"
 									rules={[
@@ -128,7 +135,7 @@ function NewTravelComposerDetail(props) {
 									defaultKey={"id"}
 									isObject={true}
 									mode={""}
-									placeholder={"Search destination city"}
+									placeholder={placeHolder.destinationCity}
 									size="middle"
 									name="arrivalId"
 									rules={[
@@ -142,7 +149,7 @@ function NewTravelComposerDetail(props) {
 							</div>
 						</div>
 					</Form.Item>
-					<Form.Item label={"Date"} required>
+					<Form.Item label={labels.date} required>
 						<div className="flex w-full gap-3">
 							<Form.Item
 								name="departureDate"
@@ -154,14 +161,14 @@ function NewTravelComposerDetail(props) {
 								]}
 							>
 								<DatePicker
-									format="YYYY-MM-DD HH:mm:ss"
+									format="YYYY-MM-DD HH:mm"
 									showTime={{
 										defaultValue: moment(
 											"00:00:00",
-											"HH:mm:ss"
+											"HH:mm"
 										),
 									}}
-									placeholder="Select Date"
+									placeholder={placeHolder.selectDate}
 									size="middle"
 								/>
 							</Form.Item>
@@ -176,15 +183,15 @@ function NewTravelComposerDetail(props) {
 									]}
 								>
 									<DatePicker
-										format="YYYY-MM-DD HH:mm:ss"
+										format="YYYY-MM-DD HH:mm"
 										showTime={{
 											defaultValue: moment(
 												"00:00:00",
-												"HH:mm:ss"
+												"HH:mm"
 											),
 										}}
 										size="middle"
-										placeholder="Select Date"
+										placeholder={placeHolder.selectDate}
 									/>
 								</Form.Item>
 							)}
@@ -194,30 +201,32 @@ function NewTravelComposerDetail(props) {
 										setIsReturn(e.target.checked);
 									}}
 								>
-									Return
+									{labels.return}
 								</Checkbox>
 							</Form.Item>
 						</div>
 					</Form.Item>
-					<Form.Item label={"Hotel & TADA"}>
+					<Form.Item 
+					label={labels.hotelTada}
+					>
 						<div className="flex ">
 							<Form.Item
 								name="isHotelRequired"
 								valuePropName="checked"
 							>
-								<Checkbox>Hotel Required</Checkbox>
+								<Checkbox>{labels.hotelReq}</Checkbox>
 							</Form.Item>
 							<Form.Item
 								name="isTADARequired"
 								valuePropName="checked"
 							>
-								<Checkbox>TADA Required</Checkbox>
+								<Checkbox>{labels.tadaReq}</Checkbox>
 							</Form.Item>
 						</div>
 					</Form.Item>
 					<div className="flex justify-between items-center">
 						<Form.Item
-							label={"Travel By"}
+						label={labels.travelBy}
 							name="travelById"
 							rules={[
 								{
@@ -239,7 +248,7 @@ function NewTravelComposerDetail(props) {
 							onClick={travelDetailFormSubmit}
 							className="ThemeBtn"
 						>
-							Add
+							{labels.add}
 						</Button>
 					</div>
 				</div>

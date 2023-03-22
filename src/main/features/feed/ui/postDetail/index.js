@@ -12,15 +12,18 @@ import { getFeedById } from "../../store/actions";
 import Header from "../../../../layout/header";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { FeedDictionary } from "../../localization";
+
 function PostDetail() {
   const { singlePost } = useSelector((state) => state.feedSlice);
   const dispatch = useDispatch();
   let { id } = useParams();
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction } = FeedDictionary[userLanguage];
+
   useEffect(() => {
     dispatch(getFeedById(id));
   }, [id, dispatch]);
+
   return (
     <TabbableContainer>
       <Header />
@@ -31,7 +34,7 @@ function PostDetail() {
               {Object.keys(singlePost).length === 0 ? (
                 <p>No Post</p>
               ) : (
-                <Post post={singlePost} />
+                <Post post={singlePost} isDetail={true} />
               )}
             </div>
           </div>

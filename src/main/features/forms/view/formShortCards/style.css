@@ -4,3 +4,11 @@
     gap: 10px;
     grid-template-columns: repeat(auto-fill,minmax(10rem,1fr));
 }
+
+.d_AllShortCard2{
+    width: 100%;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(auto-fill,minmax(19rem,1fr));
+    margin-top: 2rem;
+}

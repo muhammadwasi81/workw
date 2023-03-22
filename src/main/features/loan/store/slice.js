@@ -7,15 +7,21 @@ const initialState = {
   success: false,
   loader: false,
   error: false,
+  drawerOpen: false,
+  createLoader: false,
   isCreateComposer: false,
   loanDetail: {},
   loanList: [],
+  loadingData: false,
 };
 
 const LoanSlice = createSlice({
   name: "loans",
   initialState,
   reducers: {
+    handleOpenComposer: (state, { payload }) => {
+      state.drawerOpen = payload;
+    },
     toggleCreateComposer: (state, payload) => {
       state.isCreateComposer = !state.isCreateComposer;
     },
@@ -31,40 +37,41 @@ const LoanSlice = createSlice({
       .addCase(GetLoanById.fulfilled, (state, { payload }) => {
         console.log("getLoanById payload", payload.data);
         state.loanDetail = payload.data;
-        state.loading = false;
+        state.loader = false;
+        state.loadingData = false;
       })
       .addCase(addLoan.fulfilled, (state, { payload }) => {
-        if (payload.data.data) {
-          state.loanList.unshift(payload.data.data);
-          state.isCreateComposer = true;
-        }
-        // state.success = true;
-        // console.log(payload);
-        // state.loanList = [...state.loanList, payload.data.data];
+        console.log("add loan slice ", payload.data);
+        state.loanList.unshift(payload.data);
+        state.createLoader = false;
+        state.success = true;
+        state.isCreateComposer = false;
+        state.drawerOpen = false;
+        // if (payload.data.length > 1) {
+        //   state.loanList.unshift(payload.data);
+        //   state.createLoader = false;
+        //   state.success = true;
+        //   state.isCreateComposer = false;
+        // }
       })
       .addMatcher(isPending(...[getAllLoans]), (state) => {
         state.loader = true;
       })
-      // .addMatcher(isPending(...[GetLoanById]), (state) => {
-      //   state.loanDetail = {};
-      // })
-      // .addMatcher(isRejected(...[GetLoanById]), (state) => {
-      //   state.loanDetail = {};
-      // })
+
       .addMatcher(isPending(...[addLoan]), (state) => {
-        state.success = true;
+        state.createLoader = true;
+      })
+      .addMatcher(isPending(...[GetLoanById]), (state) => {
+        state.loadingData = true;
       })
       .addMatcher(isRejected(...[addLoan]), (state) => {
         state.success = false;
+      })
+      .addMatcher(isPending(...[addLoan]), (state) => {
+        state.createLoader = true;
       });
-    //   .addMatcher(isPending(...[getAllLoans]), (state) => {
-    //     state.loader = true;
-    //   })
-    //   .addMatcher(isRejected(...[getAllLoans]), (state) => {
-    //     state.loader = true;
-    //   });
   },
 });
 
-export const { toggleCreateComposer } = LoanSlice.actions;
+export const { toggleCreateComposer, handleOpenComposer } = LoanSlice.actions;
 export default LoanSlice.reducer;

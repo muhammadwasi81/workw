@@ -1,11 +1,18 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import { responseCode } from "../../../../services/enums/responseCode.js";
-import { addCustomApprovalCategory, getAllCustomApprovalCategory, removeCustomApprovalCategory, updateCustomApprovalCategory } from "./actions.js";
+import {
+  addCustomApprovalCategory,
+  getAllCustomApprovalCategory,
+  removeCustomApprovalCategory,
+  updateCustomApprovalCategory,
+} from "./actions.js";
 
 const initialState = {
   customApprovalCategories: [],
   loadingData: false,
   loader: false,
+  success: false,
+  error: false,
 };
 
 const customApprovalCategorySlice = createSlice({
@@ -13,7 +20,9 @@ const customApprovalCategorySlice = createSlice({
   initialState,
   reducers: {
     customApprovalCategoryDeleted: (state, { payload }) => {
-      state.customApprovalCategories = state.customApprovalCategories.filter((e) => e.id !== payload.id);
+      state.customApprovalCategories = state.customApprovalCategories.filter(
+        (e) => e.id !== payload.id
+      );
     },
   },
   extraReducers: (builder) => {
@@ -24,24 +33,47 @@ const customApprovalCategorySlice = createSlice({
       })
       .addCase(addCustomApprovalCategory.fulfilled, (state, { payload }) => {
         state.loader = false;
-        if (payload.responseCode === responseCode.Success) state.customApprovalCategories.push(payload.data);
+        if (payload.responseCode === responseCode.Success)
+          state.customApprovalCategories.push(payload.data);
       })
       .addCase(updateCustomApprovalCategory.fulfilled, (state, { payload }) => {
         state.loader = false;
-        state.customApprovalCategories = state.customApprovalCategories.map((x) => (x.id === payload.data.id ? payload.data : x));
+        state.customApprovalCategories = state.customApprovalCategories.map(
+          (x) => (x.id === payload.data.id ? payload.data : x)
+        );
       })
-      .addMatcher(isPending(...[addCustomApprovalCategory, updateCustomApprovalCategory]), (state) => {
-        state.loader = true;
-      })
+      .addMatcher(
+        isPending(...[addCustomApprovalCategory, updateCustomApprovalCategory]),
+        (state) => {
+          state.loader = true;
+          state.success = false;
+          state.error = false;
+        }
+      )
       .addMatcher(isPending(...[getAllCustomApprovalCategory]), (state) => {
         state.loadingData = true;
+        state.success = false;
+        state.error = false;
       })
-      .addMatcher(isRejected(...[getAllCustomApprovalCategory, addCustomApprovalCategory, updateCustomApprovalCategory]), (state) => {
-        state.loader = false;
-        state.loadingData = false;
-      });
+      .addMatcher(
+        isRejected(
+          ...[
+            getAllCustomApprovalCategory,
+            addCustomApprovalCategory,
+            updateCustomApprovalCategory,
+          ]
+        ),
+        (state) => {
+          state.loader = false;
+          state.loadingData = false;
+          state.success = false;
+          state.error = false;
+        }
+      );
   },
 });
 
-export const { customApprovalCategoryDeleted } = customApprovalCategorySlice.actions;
+export const {
+  customApprovalCategoryDeleted,
+} = customApprovalCategorySlice.actions;
 export default customApprovalCategorySlice.reducer;

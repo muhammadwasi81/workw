@@ -1,26 +1,44 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { Skeleton } from "antd";
 import "../styles/event.css";
 import Event from "./event";
-function EventWrapper({data}) {
-  console.log('data',data
-  );
+import { toggleEventDetailComposer } from "../store/slice";
+
+function EventWrapper({ data, heading = "Events", loading = false }) {
+  // if (loading) {
+  // 	return <Skeleton.Input active size block />;
+  // }
+  const dispatch = useDispatch();
+
+  const handleScheduleDetailComposer = (data) => {
+    dispatch(
+      toggleEventDetailComposer({
+        id: data.id,
+        scheduleType: data.scheduleType,
+      })
+    );
+  };
+
   return (
-    <div className="eventWrapper">
+    <div className="eventWrapper ">
       <div className="eventWrapper__header">
-        <p>Events</p>
+        <p>{heading}</p>
       </div>
       <div className="eventWrapper__body">
-        {
-          data?.map(event=>(
-
-            <Event data={event} />
+        {loading ? (
+          <Skeleton.Input active size block />
+        ) : data?.length > 0 ? (
+          data?.map((event) => (
+            <Event
+              showTag={true}
+              data={event}
+              handleScheduleDetailComposer={handleScheduleDetailComposer}
+            />
           ))
-        }
-        {/* <Event />
-        <Event />
-        <Event />
-        <Event />
-        <Event /> */}
+        ) : (
+          <span className="font-semibold">No Events on this day.</span>
+        )}
       </div>
     </div>
   );

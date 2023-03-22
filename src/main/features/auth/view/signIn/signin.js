@@ -10,6 +10,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { loginUser } from "../../store/actions";
 import { useNavigate } from "react-router-dom";
 import FormFooter from "./formFooter";
+import { getFirebaseToken } from "../../../../../firebase/initFirebase";
+import "../styles/style.css"
 
 function SignIn() {
   let formData = {};
@@ -29,8 +31,17 @@ function SignIn() {
 
   const [reset, setReset] = useState(false);
 
-  const onSubmit = (payload) => {
-    dispatch(loginUser(payload));
+  const onSubmit = async (payload) => {
+    let permission = await Notification.requestPermission();
+    let deviceToken = null;
+    if (permission === 'granted') {
+      console.log('Notification permission granted.');
+      let firebaseToken = await getFirebaseToken();
+      // set send token api here...
+      deviceToken = firebaseToken;
+      console.log(firebaseToken, 'firebaseToken');
+    }
+    dispatch(loginUser({ ...payload, deviceToken }));
   };
 
   useEffect(() => {
@@ -72,20 +83,6 @@ function SignIn() {
               <PasswordInput placeholder="Password" prefix={LockOutlined} size="large" reset={reset} />
             </Form.Item>
           </Space>
-        </div>
-        <div className="terms-alert">
-          By signing in,{" "}
-          <span
-            style={{ cursor: "pointer" }}
-            onClick={() =>
-              setlocalState({
-                ...localState,
-                path: termsAndCondition,
-                openView: true,
-              })
-            }>
-            I agree the terms and conditions.
-          </span>
         </div>
         <div className="btn">
           <button className={`button ${loader ? "disable" : ""}`}>

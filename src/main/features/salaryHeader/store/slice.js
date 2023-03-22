@@ -10,6 +10,8 @@ const initialState = {
   salaryHeaders: [],
   loadingData: false,
   loader: false,
+  success: false,
+  error: false,
 };
 
 const salaryHeaderSlice = createSlice({
@@ -43,10 +45,14 @@ const salaryHeaderSlice = createSlice({
         isPending(...[addSalaryHeader, updateSalaryHeader]),
         (state) => {
           state.loader = true;
+          state.success = false;
+          state.error = false;
         }
       )
       .addMatcher(isPending(...[getAllSalaryHeader]), (state) => {
         state.loadingData = true;
+        state.success = false;
+        state.error = false;
       })
       .addMatcher(
         isRejected(
@@ -55,6 +61,8 @@ const salaryHeaderSlice = createSlice({
         (state) => {
           state.loader = false;
           state.loadingData = false;
+          state.success = false;
+          state.error = false;
         }
       );
   },

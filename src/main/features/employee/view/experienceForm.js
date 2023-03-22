@@ -1,6 +1,6 @@
-import { PlusOutlined, EditOutlined } from "@ant-design/icons";
+import { useContext, useEffect } from 'react';
+import { PlusOutlined, EditOutlined } from '@ant-design/icons';
 import {
-  Avatar,
   Button,
   Checkbox,
   DatePicker,
@@ -9,39 +9,44 @@ import {
   Input,
   Select,
   Table,
-} from "antd";
-import React, { useContext, useEffect } from "react";
-import { useState } from "react";
-import { dictionaryList } from "../../../../utils/localization/languages";
-import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import { employeeDictionaryList } from "../localization/index";
-import "../Styles/employeeForm.css";
-import { employmentType } from "../../../../utils/Shared/enums/enums";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { getUserWorkExperience } from "../../experienceInfo/store/actions";
-import moment from "moment";
-import CitySelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/CitySelect";
-import { getNameForImage } from "../../../../utils/base";
-import { getCities } from "../../../../utils/Shared/store/actions";
-import { resetEmergencydetails } from "../store/slice";
+} from 'antd';
+import { useState } from 'react';
+import { dictionaryList } from '../../../../utils/localization/languages';
+import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
+import { employeeDictionaryList } from '../localization/index';
+import '../Styles/employeeForm.css';
+import { useParams } from 'react-router-dom';
+import { employmentType } from '../../../../utils/Shared/enums/enums';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  addUserWorkExperienceAction,
+  getUserWorkExperience,
+  updateUserWorkExperienceAction,
+} from '../../experienceInfo/store/actions';
+import moment from 'moment';
+import { getCities } from '../../../../utils/Shared/store/actions';
+import { resetEmergencydetails } from '../store/slice';
 
 const { RangePicker } = DatePicker;
 
 const { Option } = Select;
-const EmergencyForm = ({ mode, id }) => {
-  const isEdit = mode === "edit";
+
+const ExperienceForm = ({ mode, id }) => {
+  const param = useParams();
+  const isEdit = mode === 'edit';
   const dispatch = useDispatch();
   const [workInfo, setWorkInfo] = useState([]);
   const [form] = Form.useForm();
-  Object.defineProperty(form, "values", {
+  const [newUserId, setNewUserId] = useState('');
+
+  Object.defineProperty(form, 'values', {
     value: function() {
       return workInfo.map((item) => {
         return {
           ...item,
           startDate: moment(item[0]?.startEndDate?._ds)?.format(),
           endDate: item?.isPresent
-            ? ""
+            ? ''
             : moment(item[1]?.startEndDate?._ds)?.format(),
         };
       });
@@ -50,7 +55,6 @@ const EmergencyForm = ({ mode, id }) => {
     enumerable: true,
     configurable: true,
   });
-  const [city, setCity] = useState([]);
   const { userLanguage } = useContext(LanguageChangeContext);
   const { sharedLabels } = dictionaryList[userLanguage];
   const [isPresent, setIsPresent] = useState(false);
@@ -61,14 +65,20 @@ const EmergencyForm = ({ mode, id }) => {
     employee: { experiencedetails },
     success,
   } = useSelector((state) => state.employeeSlice);
+
+  const { experienceDetails, experienceInformation } = useSelector(
+    (state) => state.workExperienceSlice
+  );
+  console.log(experienceDetails, 'experienceDetails');
+
   const initialState = {
-    position: "",
+    position: '',
     employmentTypeId: [],
-    cityId: [],
-    startDate: "",
+    startDate: '',
     isPresent: false,
   };
   const [initialValues, setInitialValues] = useState(initialState);
+  console.log(initialValues, 'initialvaluessss');
   const labels = employeesDictionary.WorkExperienceForm;
   const placeholder = employeesDictionary.placeholders;
   const { cities } = useSelector((state) => state.sharedSlice);
@@ -81,9 +91,8 @@ const EmergencyForm = ({ mode, id }) => {
   useEffect(() => {
     if (isEdit) {
       dispatch(getUserWorkExperience(id));
-      if (!cities.length) fetchCityData("", 0);
+      if (!cities.length) fetchCityData('', 0);
     }
-
     return () => {
       dispatch(resetEmergencydetails());
     };
@@ -96,7 +105,7 @@ const EmergencyForm = ({ mode, id }) => {
   useEffect(() => {
     if (isEdit)
       setWorkInfo(
-        experiencedetails?.map((item) => {
+        experienceInformation?.map((item) => {
           return {
             ...item,
             startDate: item.isPresent
@@ -105,24 +114,35 @@ const EmergencyForm = ({ mode, id }) => {
           };
         })
       );
-  }, [experiencedetails]);
+  }, [experienceInformation]);
+
+  console.log(workInfo, 'workInfo');
 
   const fetchCityData = (text, pgNo) => {
     dispatch(getCities({ textData: text, page: pgNo }));
   };
-  const handleUpdate = () => {
-    console.log("handle udpate");
-  };
+
   const handleAddMore = async () => {
     form.submit();
     try {
       const isValidation = await form.validateFields();
       if (isValidation)
-        setWorkInfo((preValues) => [...preValues, form.getFieldsValue()]);
+        if (isEdit) {
+          console.log('is edit work');
+          const payloadObj = {
+            payload: form.getFieldsValue(),
+            id: param.id,
+          };
+          dispatch(addUserWorkExperienceAction(payloadObj));
+        }
+      setWorkInfo((preValues) => [...preValues, form.getFieldsValue()]);
       form.resetFields();
       setIsPresent(false);
       setInitialValues(initialState);
-    } catch (e) {}
+    } catch (err) {
+      console.log(err, 'err');
+      throw new Error(`Failed to Fetch: ${err}`, { cause: err });
+    }
   };
 
   const handleRowChange = (rowIndex) => {
@@ -131,39 +151,32 @@ const EmergencyForm = ({ mode, id }) => {
     workInfoArr.splice(rowIndex, 1);
     setWorkInfo(workInfoArr);
   };
+
   const columns = [
     {
       title: labels.Position,
-      dataIndex: "position",
-      key: "position",
+      dataIndex: 'position',
+      key: 'position',
     },
 
     {
       title: labels.EmploymentType,
-      dataIndex: "employmentTypeId",
-      key: "employmentTypeId",
+      dataIndex: 'employmentTypeId',
+      key: 'employmentTypeId',
       render: (value) => {
         return employmentType[value - 1]?.name;
       },
     },
     {
-      title: labels.City,
-      dataIndex: "cityId",
-      key: "cityId",
-      render: (value) => {
-        return city?.filter((item) => item.id === value?.toString())?.[0]?.name;
-      },
-    },
-    {
       title: labels.StartEndDate,
-      dataIndex: "startDate",
-      key: "startDate",
+      dataIndex: 'startDate',
+      key: 'startDate',
       render: (value, row) => {
         return value?.length
-          ? `${moment(row.startDate[0]).format("YYYY/MM/DD")} - ${moment(
+          ? `${moment(row.startDate[0]).format('YYYY/MM/DD')} - ${moment(
               row.startDate[1]
-            ).format("YYYY/MM/DD")}`
-          : `${moment(row.start).format("YYYY/MM/DD")} -  Present`;
+            ).format('YYYY/MM/DD')}`
+          : `${moment(row.start).format('YYYY/MM/DD')} -  Present`;
       },
     },
 
@@ -174,18 +187,19 @@ const EmergencyForm = ({ mode, id }) => {
           <a
             href=" "
             onClick={(e) => {
-              console.log(rowIndex, "rowIndex");
+              console.log(rowIndex, 'rowIndex');
               e.preventDefault();
               if (isEdit) {
                 handleRowChange(rowIndex);
-                console.log("edit");
+                console.log('edit');
+                console.log(value?.id, 'value');
+                setNewUserId(value?.id);
               } else {
-                console.log("delete");
-
                 const filterArray = workInfo.filter((value, i) => {
                   if (rowIndex !== i) return value;
                 });
                 setWorkInfo(filterArray);
+                console.log(filterArray, 'filterArray');
               }
             }}
           >
@@ -196,45 +210,51 @@ const EmergencyForm = ({ mode, id }) => {
     },
   ];
 
-  let classes = "employeeForm workInfo ";
-  classes += Direction === "ltr" ? "ltr" : "rtl";
+  const createPayload = () => {
+    const payload = {
+      ...form.getFieldsValue(),
+      id: newUserId,
+      userId: id,
+      startDate: isPresent
+        ? moment(form.getFieldValue('startDate')).format('YYYY-MM-DD')
+        : moment(form.getFieldValue('startDate')[0]).format('YYYY-MM-DD'),
+      endDate: isPresent
+        ? null
+        : moment(form.getFieldValue('startDate')[1]).format('YYYY-MM-DD'),
+    };
+    return payload;
+  };
+
+  const handleUpdate = () => {
+    const payload = createPayload();
+    console.log(payload, 'payload');
+    dispatch(updateUserWorkExperienceAction(payload));
+    setWorkInfo((preValues) => [...preValues, payload]);
+    setInitialValues(initialState);
+    form.resetFields();
+  };
+
+  let classes = 'employeeForm workInfo ';
+  classes += Direction === 'ltr' ? 'ltr' : 'rtl';
   return (
     <div className={classes}>
       <Divider orientation="left"> {labels.WorkExperienceInfo}</Divider>
       <Form
         name="workInfo"
         form={form}
-        layout={"vertical"}
+        layout={'vertical'}
         initialValues={initialValues}
       >
         <Form.Item
-          rules={[
-            {
-              required: true,
-            },
-          ]}
+          rules={[{ required: true }]}
           name="position"
           label={labels.Position}
         >
           <Input placeholder={placeholder.position}></Input>
         </Form.Item>
+
         <Form.Item
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-          name="organization"
-          label={labels.organization}
-        >
-          <Input placeholder={placeholder.organization}></Input>
-        </Form.Item>
-        <Form.Item
-          rules={[
-            {
-              required: true,
-            },
-          ]}
+          rules={[{ required: true }]}
           name="employmentTypeId"
           label={labels.EmploymentType}
         >
@@ -247,47 +267,17 @@ const EmergencyForm = ({ mode, id }) => {
           </Select>
         </Form.Item>
 
-        <CitySelect
-          data={cities}
-          selectedData={(val, obj) => {
-            setCity((preValues) => [...preValues, ...obj]);
-          }}
-          canFetchNow={cities && cities.length > 0}
-          fetchData={fetchCityData}
-          optionComponent={(opt) => {
-            return (
-              <>
-                <Avatar src={opt.image} className="!bg-black">
-                  {getNameForImage(opt.name)}
-                </Avatar>
-                {opt.name + " - " + opt.country}
-              </>
-            );
-          }}
-          defaultKey={"id"}
-          isObject={true}
-          placeholder={placeholder.searchToSelect}
-          size="large"
-          name="cityId"
-          label={labels.City}
-          rules={[{ required: true }]}
-        />
-
         <div className="dates">
           {!isPresent && (
             <Form.Item
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
+              rules={[{ required: true }]}
               name="startDate"
               label={labels.StartEndDate}
             >
               <RangePicker
                 getPopupContainer={(trigger) => trigger.parentNode}
                 size="large"
-                format={"DD/MM/YYYY"}
+                format={'DD/MM/YYYY'}
                 placeholder={[placeholder.sDate, placeholder.eDate]}
               />
             </Form.Item>
@@ -295,17 +285,13 @@ const EmergencyForm = ({ mode, id }) => {
 
           {isPresent && (
             <Form.Item
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
+              rules={[{ required: true }]}
               name="startDate"
               label={labels.StartDate}
             >
               <DatePicker
                 getPopupContainer={(trigger) => trigger.parentNode}
-                format={"DD/MM/YYYY"}
+                format={'DD/MM/YYYY'}
                 placeholder={labels.start}
                 size="large"
               />
@@ -316,8 +302,8 @@ const EmergencyForm = ({ mode, id }) => {
             <Checkbox
               onChange={() => {
                 setIsPresent(!isPresent);
-                form.setFieldValue("startDate", "");
-                form.setFieldValue("startEndDate", "");
+                form.setFieldValue('startDate', '');
+                form.setFieldValue('startEndDate', '');
               }}
             >
               {labels.Present}
@@ -325,7 +311,7 @@ const EmergencyForm = ({ mode, id }) => {
           </Form.Item>
         </div>
       </Form>
-      <div className={isEdit ? "editButtons" : "buttons"}>
+      <div className={isEdit ? 'editButtons' : 'buttons'}>
         <Button
           type="dashed"
           className="btn addMore"
@@ -346,11 +332,11 @@ const EmergencyForm = ({ mode, id }) => {
         )}
       </div>
 
-      {workInfo.length > 0 && (
+      {workInfo?.length > 0 && (
         <Table columns={columns} dragable={true} dataSource={workInfo} />
       )}
     </div>
   );
 };
 
-export default EmergencyForm;
+export default ExperienceForm;

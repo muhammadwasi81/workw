@@ -1,10 +1,14 @@
 import { Skeleton } from "antd";
-import { useEffect, useState } from "react";
+import { useEffect, useState ,useContext} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AdminTable } from "../../../../sharedComponents/StyledComponents/adminTable";
 import { getAllLeaveType, removeLeaveType } from "../store/actions";
 import { tableColumn } from "./tableColumn";
 import { leaveTypeDeleted } from "../store/slice";
+
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext"
+import { dictionaryList } from "../../../../../utils/localization/languages";
+
 
 export default function LeaveTypeTable({
   handleEdit,
@@ -12,6 +16,11 @@ export default function LeaveTypeTable({
   actionRights = [],
   setClearButton
 }) {
+
+  const { userLanguage } = useContext(LanguageChangeContext);
+	const { administration,taxSlab,sharedLabels,Direction } = dictionaryList[userLanguage];
+		console.log("jkjll",administration);
+
   const { leaveTypes, loadingData } = useSelector((state) => state.leaveTypeSlice);
 
   const dispatch = useDispatch();
@@ -47,7 +56,8 @@ export default function LeaveTypeTable({
         removeButtons,
         actionRights,
         id,
-        setClearButton
+        setClearButton,
+        sharedLabels,
       )}
       dataSource={leaveTypes}
       pagination={false}

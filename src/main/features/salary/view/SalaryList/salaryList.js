@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { CardWrapper } from '../../../../sharedComponents/Card/CardStyle';
+import { NoDataFound } from '../../../../sharedComponents/NoDataIcon';
 import { clearSalaryDetail } from '../../store/slice';
 import SalaryDetailedView from './detailedView';
 import SalaryListItem from './SalaryListItem';
@@ -12,13 +13,21 @@ const SalaryList = ({ data }) => {
     setItemId(null);
     dispatch(clearSalaryDetail());
   };
+
+  const loader = useSelector((state) => state.salarySlice.loader);
   return (
-    <CardWrapper>
-      {data.map((item) => (
-        <SalaryListItem item={item} onClick={(id) => setItemId(id)} />
-      ))}
-      {<SalaryDetailedView onClose={onClose} id={itemId} />}
-    </CardWrapper>
+    <>
+      {data?.length > 0 && !loader ? (
+        <CardWrapper>
+          {data.map((item) => (
+            <SalaryListItem item={item} onClick={(id) => setItemId(id)} />
+          ))}
+          {<SalaryDetailedView onClose={onClose} id={itemId} />}
+        </CardWrapper>
+      ) : (
+        !loader && <NoDataFound />
+      )}
+    </>
   );
 };
 export default SalaryList;

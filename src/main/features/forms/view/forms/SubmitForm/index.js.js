@@ -1,57 +1,63 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { STRINGS } from "../../../../../../utils/base";
-import { Skeleton } from "antd";
+import React, { useState, useEffect, useContext } from 'react';
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { STRINGS } from '../../../../../../utils/base';
+import { message, Skeleton } from 'antd';
 // import { getUserDataFromStorage, STRINGS } from "../../../utils/base";
 // import { API } from "../../../utils/services";
-import { MessagePage } from "./congratsPage";
-import FormHeader from "./FormHeader";
-import Radio from "./QuestionsItems/Radio";
-import RadioWithImage from "./QuestionsItems/RadioWithImage";
-import TextFields from "./QuestionsItems/TextFields";
-import { useSearchParams } from "react-router-dom";
+import { MessagePage } from './congratsPage';
+import FormHeader from './FormHeader';
+import Radio from './QuestionsItems/Radio';
+import RadioWithImage from './QuestionsItems/RadioWithImage';
+import TextFields from './QuestionsItems/TextFields';
+import { useSearchParams } from 'react-router-dom';
 import {
   getFormById,
   submitForm as submitFormAction,
-} from "../../../store/actions";
-import { CardWrapper2 } from "../../../../../sharedComponents/Card/CardStyle";
+} from '../../../store/actions';
+import { CardWrapper2 } from '../../../../../sharedComponents/Card/CardStyle';
 // import CustomizedSnackbars from '../../snackbar/CustomizedSnackbars';
-import BusinessLogo from "../../../../../../content/systemLogo.png";
-import "./SubmitForm.css";
+import BusinessLogo from '../../../../../../content/systemLogo.png';
+import './SubmitForm.css';
+import { LanguageChangeContext } from '../../../../../../utils/localization/localContext/LocalContext';
+import { documentDictionaryList } from '../../../localization/index';
 
 let initialData = {
-  formId: "",
-  userId: "",
-  email: "",
+  formId: '',
+  userId: '',
+  email: '',
   attempt: [],
 };
 
 const SubmitForm = (props) => {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { documentDictionary } = documentDictionaryList[userLanguage];
+
+  const { submit, poweredBy } = documentDictionary;
   const dispatch = useDispatch();
   const { disableSubmit } = props;
   let { id } = useParams();
   const [searchParams] = useSearchParams();
-  const [userEmail, setUserEmail] = useState("");
-  const [formStatus, setStatus] = useState("");
+  const [userEmail, setUserEmail] = useState('');
+  const [formStatus, setStatus] = useState('');
   const [formData, setFormData] = useState({});
   const [submitForm, setSubmitForms] = useState(initialData);
   const [attempt, setAttempt] = useState([]);
   const [isSubmited, setIsSubmited] = useState(false);
   const [snackbarState, setSnackbarState] = useState({
     isOpen: false,
-    Message: "",
-    variant: "error",
+    Message: '',
+    variant: 'error',
   });
 
   const { formDetail } = useSelector((state) => state.formSlice);
   const { user } = useSelector((state) => state.userSlice);
 
   useEffect(() => {
-    console.log("dispatch works for getting data from api");
-    const id = searchParams.get("id");
+    console.log('dispatch works for getting data from api');
+    const id = searchParams.get('id');
     dispatch(getFormById(id));
-    console.log("formDetail", formDetail);
+    console.log('formDetail', formDetail);
   }, []);
 
   // useEffect(() => {
@@ -221,27 +227,20 @@ const SubmitForm = (props) => {
   // }, []);
 
   useEffect(() => {
-    console.log("useEffect works when component update");
-    console.log("***", formDetail);
+    console.log('useEffect works when component update');
+    console.log('***', formDetail);
     if (Object.keys(formDetail).length > 1) {
       setFormDataByType(formDetail);
       setSubmitForms({
         ...submitForm,
         formId: formDetail?.id,
-        email: formDetail?.creator?.email,
+        // email: formDetail?.creator?.email,
         userId: user?.id,
         attempt: formDetail?.question.map((el, index) => {
           return {
             questionId: el.id,
-            answer:
-              el.answers.length > 1
-                ? el.answers.map((el, index) => {
-                    return {
-                      answer: el.id,
-                      questionId: el.questionId,
-                    };
-                  })
-                : "",
+            // answer: el.answers.length > 1 ? { answer_id: "" } : "",
+            answer: '',
           };
         }),
       });
@@ -249,35 +248,35 @@ const SubmitForm = (props) => {
   }, [formDetail]);
 
   let setFormDataByType = (data) => {
-    console.log("data send form parameter***", data);
+    console.log('data send form parameter***', data);
     let filteredData = data.question.map((item, index) => {
       if (item.answerType === 2) {
         return {
           ...item,
-          localType: "number",
+          localType: 'number',
           sequence: index,
         };
       } else if (item.answerType === 3) {
         return {
           ...item,
-          localType: "text",
+          localType: 'text',
           sequence: index,
         };
       } else if (item.answerType === 1) {
         //check image available
-        console.log("items in submit form", item);
+        console.log('items in submit form', item);
         if (item.answers[index]?.image?.length > 1) {
-          console.log("worksss");
+          console.log('worksss');
           return {
             ...item,
-            localType: "radioWithImage",
+            localType: 'radioWithImage',
             sequence: index,
           };
         } else {
-          console.log("not working");
+          console.log('not working');
           return {
             ...item,
-            localType: "radio",
+            localType: 'radio',
             sequence: index,
           };
         }
@@ -299,8 +298,7 @@ const SubmitForm = (props) => {
         // }
       }
     });
-    console.log("Filtered data", filteredData);
-    // setFormData({ formDetail, question: filteredData });
+    console.log('Filtered data', filteredData);
     setFormData({ ...formDetail, question: filteredData });
     // console.log("Form data", formData);
   };
@@ -340,10 +338,10 @@ const SubmitForm = (props) => {
   //   setFormData({ ...data, questions: filteredData });
   // };
   let handleChange = (value, index, id, answerType) => {
-    console.log("console value change", value);
-    console.log("console value change index", index);
-    console.log("question id", id);
-    console.log(" answertype", answerType);
+    // console.log("console value change", value);
+    // console.log("console value change index", index);
+    // console.log("question id", id);
+    // console.log(" answertype", answerType);
     let updateAnswers = [...submitForm.attempt];
     if (updateAnswers[index].questionId === id) {
       if (!Array.isArray(updateAnswers[index].answer)) {
@@ -352,15 +350,31 @@ const SubmitForm = (props) => {
         updateAnswers[index].answer_id = value;
       }
     }
-    setSubmitForms({ ...formData, attempt: updateAnswers });
+    setSubmitForms({ ...submitForm, attempt: updateAnswers });
   };
 
   const handleSubmit = () => {
     let payload = submitForm;
-    console.log(payload);
+    // console.log(payload);
+    /**TODO: check answer length is empty
+     * check if answer is radio option
+     */
+    const dataCheck = payload.attempt.map((el, index) => {
+      if (el.answer.length === 0) {
+        return false;
+      } else {
+        return true;
+      }
+    });
+    // console.log(dataCheck);
+
     //sending data to api
-    dispatch(submitFormAction(payload));
-    setIsSubmited(true);
+    if (!dataCheck.some((el) => el === false)) {
+      dispatch(submitFormAction(payload));
+      setIsSubmited(true);
+    } else {
+      message.error('Please Fill All the fields');
+    }
   };
 
   // const handleSubmit = () => {
@@ -398,13 +412,18 @@ const SubmitForm = (props) => {
   //   }
   // };
   if (!formData) return <MessagePage message={formStatus} />;
-  if (isSubmited) return <MessagePage message="Thank you for your Response" />;
+  if (isSubmited)
+    return (
+      <div className="w-full h-full flex m-auto justify-center items-center">
+        <MessagePage message="Thank you for your responses" />
+      </div>
+    );
 
   return (
     <>
       <div className="submit-form-wrap">
         <div className="formCompanyLogo">
-          <img src={BusinessLogo} />
+          <img src={BusinessLogo} alt="logo" />
         </div>
         {Object.keys(formData).length > 1 ? (
           <div className="center-fix">
@@ -412,62 +431,77 @@ const SubmitForm = (props) => {
               title={formData.subject}
               description={formData.description}
               isAcceptingResp={formData.acceptingResponse}
-              // handleChangeEmail={(e) => setUserEmail(e.target.value)}
+              handleChangeEmail={(e) =>
+                setSubmitForms({ ...submitForm, email: e.target.value })
+              }
               // disableSubmit={disableSubmit}
             />
-
             {formData &&
               formData.question.map((item, index) => (
                 <>
-                  {item.localType === "radio" && (
+                  {item.localType === 'radio' && (
                     <Radio
                       handleRadioChange={handleChange}
                       question={item}
                       index={index}
                       disableSubmit={disableSubmit}
+                      required={true}
                     />
                   )}
-                  {item.localType === "radioWithImage" && (
+                  {item.localType === 'radioWithImage' && (
                     <RadioWithImage
                       handleChange={handleChange}
                       question={item}
                       index={index}
                       disableSubmit={disableSubmit}
+                      required={true}
                     />
                   )}
-                  {item.localType === "text" && (
+                  {item.localType === 'text' && (
                     <TextFields
                       handleChange={handleChange}
                       fieldData={item}
                       index={index}
                       type="text"
                       disableSubmit={disableSubmit}
+                      required={true}
                     />
                   )}
-                  {item.localType === "number" && (
+                  {item.localType === 'number' && (
                     <TextFields
                       handleChange={handleChange}
                       fieldData={item}
                       index={index}
                       type="number"
                       disableSubmit={disableSubmit}
+                      required={true}
                     />
                   )}
                 </>
               ))}
             <div className="flex-between mt_10">
-              {!disableSubmit && <button onClick={handleSubmit}>Submit</button>}
+              {!disableSubmit && (
+                <button onClick={handleSubmit} type="submit">
+                  {submit}{' '}
+                </button>
+              )}
               {/* <button> Clear Form</button> */}
             </div>
             <div className="poweredBy">
-              <div>Powered by</div>
+              <div>{poweredBy}</div>
               <a href="https://workw.com">
                 <img src={BusinessLogo} />
               </a>
             </div>
           </div>
         ) : (
-          <div>no data</div>
+          <div className="center-fix">
+            {[...Array(5)].map((item) => (
+              <div className="c-row txt-fields bg-clr p_15">
+                <Skeleton active />
+              </div>
+            ))}
+          </div>
         )}
       </div>
     </>

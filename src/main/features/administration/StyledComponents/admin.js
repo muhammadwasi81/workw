@@ -5,7 +5,7 @@ export const AdminContainer = styled.div`
   width: 100%;
   background: #ffffff;
   min-height: 80vh;
-  overflow-y: scroll; 
+  overflow-y: scroll;
   flex-direction: column;
   margin-top: 18px;
   padding: 10px;

@@ -4,28 +4,33 @@ import {
   TabbableContainer,
 } from "../../../sharedComponents/AppComponents/MainFlexContainer";
 import { List, Skeleton } from "antd";
+import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 import { departmentDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
 import ListItem from "./ListItem";
 import Composer from "./Composer";
 import DetailedView from "./DetailedView";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { STRINGS } from "../../../../utils/base";
+import { ROUTES } from "../../../../utils/routes";
 import { getAllDepartments, GetRewardById } from "../store/actions";
 import FilterSearchButton from "../../../sharedComponents/FilterSearch";
 import { CardWrapper2 } from "../../../sharedComponents/Card/CardStyle";
 import { tableColumn } from "./TableColumn";
 import { Table } from "../../../sharedComponents/customTable";
 import TopBar from "../../../sharedComponents/topBar/topBar";
-import Header from "../../../layout/header/index";
-import { Avatar, Card, Space } from "antd";
+import Header from "../../../layout/header";
+import { Avatar, Card, Space, Button, Drawer } from "antd";
+import { handleParentId, toggleCreateComposer } from "../store/slice";
+import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
 const { Meta } = Card;
 
 const Department = (props) => {
   const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { departmentDictionary } = departmentDictionaryList[userLanguage];
+  const { departmentDictionary, Direction } = departmentDictionaryList[
+    userLanguage
+  ];
 
   const [loading, setLoading] = useState(true);
   const [tableView, setTableView] = useState(false);
@@ -34,9 +39,12 @@ const Department = (props) => {
 
   const [filter, setFilter] = useState({ filterType: 0, search: "" });
 
-  const { departments, loader, departmentDetail } = useSelector(
-    (state) => state.departmentSlice
-  );
+  const {
+    departments,
+    loader,
+    departmentDetail,
+    isCreateComposer,
+  } = useSelector((state) => state.departmentSlice);
   const [searchFilterValues, setSearchFilterValues] = useState();
 
   const onClose = () => {
@@ -44,43 +52,58 @@ const Department = (props) => {
   };
 
   useEffect(() => {
+    dispatch(handleParentId(STRINGS.DEFAULTS.guid));
+  }, []);
+
+  useEffect(() => {
     dispatch(
       getAllDepartments({
-        filter,
+        // filter,
+        pageSize: 20,
         search,
+        sortBy: 1,
+        parentId: STRINGS.DEFAULTS.guid,
       })
     );
-  }, [filter, search]);
+  }, [search]);
 
   // useEffect(()=>{
 
   // },[departments])
   // const onSearch = (value) => setSearch(value);
+
+  const items = [
+    {
+      name: departmentDictionary.departments,
+      to: `${ROUTES.DEPARTMENTS.DEPARTMENT}`,
+      renderButton: [1],
+    },
+  ];
+
   return (
     <>
       <TabbableContainer className="">
         <Header
+          items={items}
           buttons={[
             {
-              buttonText: "Create Department",
-              // onClick: () => setVisible(true),
+              buttonText: departmentDictionary.createDepartment,
+
               render: (
                 <SideDrawer
                   title={departmentDictionary.createDepartment}
                   buttonText={departmentDictionary.createDepartment}
-                  isAccessDrawer={false}
-                >
-                  <Composer />
-                </SideDrawer>
+                  handleClose={() => dispatch(toggleCreateComposer(false))}
+                  handleOpen={() => dispatch(toggleCreateComposer(true))}
+                  isOpen={isCreateComposer}
+                  children={<Composer />}
+                />
               ),
             },
           ]}
         />
         <TopBar
-          // onSearch={onSearch}
-          onSearch={(value) => {
-            console.log(value);
-          }}
+          onSearch={(val) => setSearch(val)}
           // buttons={[
           //   {
           //     name: "Departments",
@@ -92,18 +115,48 @@ const Department = (props) => {
           // }}
           segment={{
             onSegment: (value) => {
-              if (value === "Table") {
+              if (value === departmentDictionary.table) {
                 setTableView(true);
               } else {
                 setTableView(false);
               }
             },
-            label1: "List",
-            label2: "Table",
+            label1: departmentDictionary.list,
+            label2: departmentDictionary.table,
           }}
         />
         <ContBody>
-          {departments?.length > 0 ? (
+          {loader && <Skeleton active={false} />}
+
+          {tableView && (
+            <Table
+              columns={tableColumn(departmentDictionary)}
+              dragable={true}
+              // handleChange={handleChange}
+              // onPageChange={onPageChange}
+              // onRow={onRow}
+              data={departments}
+              // status={travelStatus}
+              // loadding={loader}
+              // success={success}
+              // onActionClick={onActionClick}
+            />
+          )}
+
+          {departments?.length > 0 && !loader && !tableView ? (
+            <CardWrapper2>
+              {departments.map((item, index) => {
+                return (
+                  <>
+                    <ListItem item={item} id={item.id} key={index} />
+                  </>
+                );
+              })}
+            </CardWrapper2>
+          ) : (
+            !loader && !tableView && <NoDataFound />
+          )}
+          {/* {departments?.length > 0 ? (
             tableView ? (
               <Table
                 columns={tableColumn()}
@@ -140,18 +193,18 @@ const Department = (props) => {
                     })}
                   </CardWrapper2>
                 )}
-                {/* <Skeleton loading={loading} avatar active>
+                <Skeleton loading={loading} avatar active>
                   <Meta
                     avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
                     title="Card title"
                     description="This is the description"
                   />
-                </Skeleton> */}
-                {/* <CardWrapper2>
+                </Skeleton>
+                <CardWrapper2>
                   {[...Array(9)].map((item) => (
                     <Skeleton active={false} />
                   ))}
-                </CardWrapper2> */}
+                </CardWrapper2>
               </>
             )
           ) : (
@@ -164,11 +217,9 @@ const Department = (props) => {
                 );
               })}
             </CardWrapper2>
-          )}
+          )} 
+        */}
         </ContBody>
-        {/* {departmentDetail && (
-          <DetailedView onClose={onClose} visible={visible} />
-        )} */}
       </TabbableContainer>
     </>
   );

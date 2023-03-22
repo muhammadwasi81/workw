@@ -11,12 +11,14 @@ import playIcon from "../../../../content/NewContent/Documents/file/play.svg"
 import powerpointIcon from "../../../../content/NewContent/Documents/file/powerpoint.svg"
 import defaultImage from "../../../../content/business_default.png"
 
-export const getIconByExtensionType = ((AttachmentType, extensionType = null) => {
+export const getIconByExtensionType = ((AttachmentType, extensionType = null, imagePath = null) => {
     let { DUCOMENT_TYPE, EXTENSION_TYPE } = DOCUMENT_ENUM;
 
     switch (AttachmentType) {
         case DUCOMENT_TYPE.folder:
             return folderIcon
+        case DUCOMENT_TYPE.image:
+            return imagePath
         case DUCOMENT_TYPE.video:
             return playIcon
         case DUCOMENT_TYPE.grid:
@@ -74,6 +76,23 @@ export const getComposerKeyByType = (documentType) => {
         case DOCUMENT_ENUM.DUCOMENT_TYPE.attachment:
             return DocsComposerEnums.upload
         default:
+            break;
+    }
+}
+
+export const getDocumentRightLabel = (documentType) => {
+    console.log(documentType, "documentType")
+    switch (documentType) {
+        case DOCUMENT_ENUM.DUCOMENT_TYPE.folder:
+            return "Access To"
+        case DOCUMENT_ENUM.DUCOMENT_TYPE.image:
+            return "Downloaders"
+        case DOCUMENT_ENUM.DUCOMENT_TYPE.video:
+            return "Downloaders"
+        case DOCUMENT_ENUM.DUCOMENT_TYPE.attachment:
+            return "Downloaders"
+        default:
+            return "Collaborators"
             break;
     }
 }

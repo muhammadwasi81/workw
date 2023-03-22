@@ -29,6 +29,8 @@ function MemberSelect({
   formItem = true,
   sliceName = "employees",
   resetField = false,
+  className = "",
+  returnEmpty = false,
 }) {
   const [value, setValue] = useState("");
   const [stateVal, setStateVal] = useState(dataVal);
@@ -49,6 +51,7 @@ function MemberSelect({
     } else {
       setStateVal([...tempArray]);
     }
+
     // if (emptyStateAfterSelect) {
     // 	setStateVal("");
     // }
@@ -65,7 +68,7 @@ function MemberSelect({
       setStateVal(tempArray);
       setDefaultValues(tempArray);
     }
-  }, []);
+  }, [defaultData]);
 
   useEffect(() => {
     if (stateVal.length > 0) {
@@ -85,6 +88,10 @@ function MemberSelect({
         } else {
           triggerChange(stateVal);
         }
+      }
+    } else {
+      if (returnEmpty) {
+        triggerChange(stateVal);
       }
     }
     if (emptyStateAfterSelect && stateVal.length > 0) {
@@ -139,6 +146,17 @@ function MemberSelect({
 
   useEffect(() => {
     if (canFetchNow) {
+      //TODO: check if default data is not present in employees then add them in the list
+      // let myData = data;
+      //   defaultData.forEach((def) => {
+      //     const result = data.some((data) => def.id === data.id);
+      //     if (!result) {
+      //       setMemberData([...data, def]);
+      //     } else {
+      //       setMemberData([...data]);
+      //     }
+      //   });
+      // console.log(defaultData);
       setMemberData([...data]);
     }
   }, [data]);
@@ -156,6 +174,7 @@ function MemberSelect({
   // console.log("stateval", stateVal);
   return (
     <AntCustomSelect
+      className={className}
       onDeselect={onDeselect}
       value={stateVal}
       data={memberData}

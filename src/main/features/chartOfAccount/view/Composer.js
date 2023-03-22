@@ -1,45 +1,50 @@
-import { Button, Form, Input, Select } from 'antd';
-import React, { useContext, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { FormTextArea } from '../../../../components/HrMenu/Administration/StyledComponents/adminForm';
-import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
-import { dictionaryList } from '../../../../utils/localization/languages';
-import * as S from '../../employee/Styles/employee.style';
-import { FormLabel } from './FormLable';
+import { Button, Form, Input, Select } from "antd";
+import React, { useContext, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { FormTextArea } from "../../../sharedComponents/Administration/StyledComponents/adminForm";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { charOfAccountDictionaryList } from "../localization/index";
+
+import * as S from "../../employee/Styles/employee.style";
+import { FormLabel } from "./FormLable";
 // import { addBusinessPolicy, updateBusinessPolicy } from "../store/action";
-import 'react-quill/dist/quill.snow.css';
+import "react-quill/dist/quill.snow.css";
 // import { handleEdit } from "../store/slice";
-import accountTypes from './listView';
+import accountTypes from "./listView";
 import {
   addChartOfAccount,
   getAllChartOfAccount,
   updateChartOfAccount,
-} from '../store/actions';
-import TextArea from 'antd/lib/input/TextArea';
-import { handleEdit } from '../store/slice';
-import { STRINGS } from '../../../../utils/base';
+} from "../store/actions";
+import TextArea from "antd/lib/input/TextArea";
+import { handleEdit } from "../store/slice";
+import { STRINGS } from "../../../../utils/base";
 const { Option } = Select;
 
 function Composer() {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { chartOfAccountDictionary } = charOfAccountDictionaryList[
+    userLanguage
+  ];
   const dispatch = useDispatch();
-  const { listData, editData } = useSelector(
+  const { listData, editData, createLoader } = useSelector(
     (state) => state.chartOfAccountsSlice
   );
 
   const accountTypes = [
-    { accountType: 1, label: 'Asset' },
-    { accountType: 2, label: 'Liability' },
-    { accountType: 3, label: 'Capital' },
-    { accountType: 4, label: 'Revenue' },
-    { accountType: 5, label: 'Expense' },
-    { accountType: 6, label: 'Cost of Good Sold' },
+    { accountType: 1, label: "Asset" },
+    { accountType: 2, label: "Liability" },
+    { accountType: 3, label: "Capital" },
+    { accountType: 4, label: "Revenue" },
+    { accountType: 5, label: "Expense" },
+    { accountType: 6, label: "Cost of Good Sold" },
   ];
 
   useEffect(() => {
     dispatch(getAllChartOfAccount());
   }, []);
 
-  console.log(editData, 'FROM COMPOSER');
+  console.log(editData, "FROM COMPOSER");
 
   const onFinish = (values) => {
     let payload = values;
@@ -70,23 +75,26 @@ function Composer() {
       >
         <S.FormItem
           name="name"
-          label={<FormLabel>{'Name'}</FormLabel>}
+          label={<FormLabel>{chartOfAccountDictionary.name}</FormLabel>}
           rules={[
             {
               required: true,
-              message: 'Please Enter Name',
+              message: "Please Enter Name",
             },
           ]}
         >
-          <Input placeholder={'Enter Name'} size="large" />
+          <Input
+            placeholder={chartOfAccountDictionary.enterName}
+            size="large"
+          />
         </S.FormItem>
         <S.FormItem
           name="description"
-          label={<FormLabel>{'Description'}</FormLabel>}
+          label={<FormLabel>{chartOfAccountDictionary.description}</FormLabel>}
           rules={[
             {
               required: true,
-              message: 'Please Enter Description',
+              message: "Please Enter Description",
             },
           ]}
         >
@@ -94,24 +102,26 @@ function Composer() {
         </S.FormItem>
 
         {editData ? (
-          ''
+          ""
         ) : (
           <div>
             <S.FormItem
               name="accountType"
-              label={<FormLabel>{'Account Type'}</FormLabel>}
+              label={
+                <FormLabel>{chartOfAccountDictionary.accountType}</FormLabel>
+              }
               rules={[
                 {
                   required: true,
-                  message: 'Please Enter Account Type',
+                  message: "Please Enter Account Type",
                 },
               ]}
             >
               <Select
-                placeholder={'Select Type'}
+                placeholder={chartOfAccountDictionary.selectType}
                 style={{
-                  width: '100%',
-                  borderRadius: '5px',
+                  width: "100%",
+                  borderRadius: "5px",
                 }}
                 size="large"
               >
@@ -123,14 +133,16 @@ function Composer() {
 
             <S.FormItem
               name="parentId"
-              label={<FormLabel>{'Parent Account'}</FormLabel>}
+              label={
+                <FormLabel>{chartOfAccountDictionary.parentAccount}</FormLabel>
+              }
             >
               <Select
                 // data={listData}
-                placeholder={'Select Parent'}
+                placeholder={chartOfAccountDictionary.selectParent}
                 style={{
-                  width: '100%',
-                  borderRadius: '5px',
+                  width: "100%",
+                  borderRadius: "5px",
                 }}
                 size="large"
               >
@@ -149,10 +161,13 @@ function Composer() {
             className="ThemeBtn"
             block
             htmlType="submit"
-            title={'Create'}
+            loading={createLoader}
+            title={chartOfAccountDictionary.create}
           >
-            {' '}
-            {editData ? 'Save' : 'Create'}{' '}
+            {" "}
+            {editData
+              ? chartOfAccountDictionary.save
+              : chartOfAccountDictionary.create}{" "}
           </Button>
         </Form.Item>
       </Form>

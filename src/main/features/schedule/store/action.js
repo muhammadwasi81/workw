@@ -4,6 +4,9 @@ import { openNotification } from "../../../../utils/Shared/store/slice";
 import {
 	addScheduleService,
 	getAllScheduleService,
+	getScheduleByIdService,
+	updateMemberScheduleStatusService,
+	updateScheduleMemberTypeService,
 } from "../services/services";
 
 export const addSchedule = createAsyncThunk(
@@ -50,6 +53,24 @@ export const getAllSchedule = createAsyncThunk(
 		}
 	}
 );
+export const getScheduleById = createAsyncThunk(
+	"getScheduleById",
+	async (id, { dispatch, getState, rejectWithValue }) => {
+		const res = await getScheduleByIdService(id);
+		if (res.responseCode === responseCode.Success) {
+			return res;
+		} else {
+			dispatch(
+				openNotification({
+					message: res.message,
+					type: "error",
+					duration: 2,
+				})
+			);
+			return rejectWithValue(res.message);
+		}
+	}
+);
 
 export const getAllEventSchedule = createAsyncThunk(
 	"getAllEventSchedule",
@@ -74,6 +95,63 @@ export const getAllCurrentSchedule = createAsyncThunk(
 	"getAllCurrentSchedule",
 	async (data, { dispatch, getState, rejectWithValue }) => {
 		const res = await getAllScheduleService(data);
+		if (res.responseCode === responseCode.Success) {
+			return res;
+		} else {
+			dispatch(
+				openNotification({
+					message: res.message,
+					type: "error",
+					duration: 2,
+				})
+			);
+			return rejectWithValue(res.message);
+		}
+	}
+);
+
+export const getAllUpcomingSchedule = createAsyncThunk(
+	"getAllUpcomingSchedule",
+	async (data, { dispatch, getState, rejectWithValue }) => {
+		const res = await getAllScheduleService(data);
+		if (res.responseCode === responseCode.Success) {
+			return res;
+		} else {
+			dispatch(
+				openNotification({
+					message: res.message,
+					type: "error",
+					duration: 2,
+				})
+			);
+			return rejectWithValue(res.message);
+		}
+	}
+);
+
+export const updateMemberScheduleStatus = createAsyncThunk(
+	"updateMemberScheduleStatus",
+	async (data, { dispatch, getState, rejectWithValue }) => {
+		const res = await updateMemberScheduleStatusService(data);
+		if (res.responseCode === responseCode.Success) {
+			return res;
+		} else {
+			dispatch(
+				openNotification({
+					message: res.message,
+					type: "error",
+					duration: 2,
+				})
+			);
+			return rejectWithValue(res.message);
+		}
+	}
+);
+
+export const updateScheduleMemberType = createAsyncThunk(
+	"updateScheduleMemberType",
+	async (data, { dispatch, getState, rejectWithValue }) => {
+		const res = await updateScheduleMemberTypeService(data);
 		if (res.responseCode === responseCode.Success) {
 			return res;
 		} else {

@@ -1,0 +1,40 @@
+.collapseWrapper > .ant-collapse {
+  border: none;
+  box-shadow: 1px 0px 5px 2px rgb(18 18 18 / 8%);
+  border-radius: 10px;
+  margin-bottom: 12px;
+  border-bottom: 0;
+}
+.modalWrapper .ant-modal-content {
+  border-radius: 27px;
+}
+.modalWrapper .ant-modal {
+  width: 350px !important;
+  height: auto;
+}
+.modalWrapper .ant-modal-content .ant-form-item {
+  margin-bottom: 4px;
+  width: 100%;
+  display: block;
+}
+.modalWrapper .ant-modal-footer {
+  display: none;
+}
+.modalWrapper .ant-modal-close-x {
+  display: none;
+}
+.createEntryTable td {
+  padding: 5px;
+}
+.collapseWrapper .ant-collapse-item {
+  border: 0;
+}
+.collapseWrapper .ant-collapse-expand-icon {
+  margin-top: 4px;
+}
+.collapseWrapper .ant-collapse-header-text {
+  margin-top: 5px;
+}
+.member-name {
+  position: absolute;
+}

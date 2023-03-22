@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Header from "./header";
 import {
   ContBody,
@@ -11,17 +11,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { Table } from "../../../sharedComponents/customTable";
 import { getAllForms } from "../store/actions";
 import { tableColumn } from "../TableColumn";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { documentDictionaryList } from "../localization/index";
+import { Skeleton } from "antd";
+import { FeaturePermissionEnum } from "../../../../utils/Shared/enums/featuresEnums";
 
-const Forms = (props) => {
+const Forms = ({ dictionary }) => {
   const [filter, setFilter] = useState({ filterType: 0, search: "" });
   const [search, setSearch] = useState("");
   const [tableView, setTableView] = useState(false);
   const { forms } = useSelector((state) => state.formSlice);
-
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { documentDictionary } = documentDictionaryList[userLanguage];
   const dispatch = useDispatch();
 
+
   useEffect(() => {
-    console.log("useEffect works for get all forms");
     dispatch(
       getAllForms({
         filter,
@@ -42,12 +47,11 @@ const Forms = (props) => {
       <ContBody>
         {tableView && (
           <Table
-            columns={tableColumn()}
+            columns={tableColumn(documentDictionary)}
             dragable={true}
             data={forms ? forms : []}
           />
         )}
-
         {!tableView && <FormShortCard />}
       </ContBody>
     </TabbableContainer>

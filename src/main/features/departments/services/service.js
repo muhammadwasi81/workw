@@ -2,7 +2,8 @@ import MasterConfig from "../../../../utils/services/MasterConfig";
 import { jsonToFormData } from "../../../../utils/base";
 
 export const getAllDepartmentService = (data) => {
-  return MasterConfig.get(`api/Department/GetAllDepartment`, data)
+  console.log(data, "data in service");
+  return MasterConfig.post(`api/Department/GetAllDepartment`, data)
     .then((res) => {
       // console.log("response data from service", res.data);
       return res.data;
@@ -92,5 +93,51 @@ export const updateDepartmentAppraisalQuestionService = (data) => {
     })
     .catch((res) => {
       return res;
+    });
+};
+export const addDepartmentMemberService = (data) => {
+  const id = data.id;
+  let memberId = data.memberId;
+  let member = [
+    {
+      memberId: memberId,
+      memberType: 1,
+    },
+  ];
+  // let memberType = data.memberType;
+  // console.log(data, "dataaa");
+  return MasterConfig.post(
+    `api/Department/AddDepartmentMember?id=${id}`,
+    member
+  )
+    .then((res) => {
+      return res.data;
+    })
+    .catch((error) => {
+      return error;
+    });
+};
+
+export const removeDepartmentMemberService = (data) => {
+  const id = data.id;
+  const memberId = data.memberId;
+  return MasterConfig.post(`api/Department/RemoveDepartmentMember?id=${id}`, [
+    memberId,
+  ])
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+export const getDepartmentMemberService = (id) => {
+  return MasterConfig.get(`api/Department/GetAllDepartmentMember?id=${id}`)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((error) => {
+      return error;
     });
 };

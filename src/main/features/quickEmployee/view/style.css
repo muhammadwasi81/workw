@@ -1,0 +1,56 @@
+.quickAddForm {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+}
+
+.quickAddForm .formHeader {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding-top: 15px;
+    text-align: center;
+    padding-bottom: 7px;
+}
+
+
+.quickAddForm .row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.quickAddForm .ant-form-item {
+    width: 170px;
+    margin-right: 7px;
+}
+
+.formButtons {
+    display: flex;
+    justify-content: right;
+}
+
+.closeButton {
+    border-radius: 6px;
+    margin-right: 7px;
+}
+
+.QuickAddModal .ant-modal-close-x {
+    line-height: 0;
+    text-align: right;
+    margin-right: 3px;
+    margin-top: 2px;
+}
+
+.QuickAddModal .custom_table {
+    margin-top: 10px;
+}
+
+.QuickAddModal .ant-pagination {
+    display: none;
+}
+
+.QuickAddModal .addQuickEmployeeButton {
+    margin: 13px 0px 10px 0px;
+    width: 130px;
+    border-radius: 6px;
+    background-color: var(--currentThemeColor) !important;
+    color: white !important;
+}

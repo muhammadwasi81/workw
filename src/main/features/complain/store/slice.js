@@ -1,13 +1,20 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
-import { addComplain, cancelComplain, getAllComplains, GetComplainById } from "./actions";
+import {
+  addComplain,
+  cancelComplain,
+  getAllComplains,
+  GetComplainById,
+} from "./actions";
 
 const initialState = {
   complains: [],
   loadingData: false,
   loader: true,
-  complainDetail: null,
+  success: false,
+  createLoader: false,
+  complainDetail: {},
   drawerOpen: false,
-  cancelComplain: {}
+  cancelComplain: {},
 };
 
 const complainSlice = createSlice({
@@ -15,7 +22,7 @@ const complainSlice = createSlice({
   initialState,
   reducers: {
     handleOpenComposer: (state, { payload }) => {
-      state.drawerOpen = payload
+      state.drawerOpen = payload;
     },
   },
   extraReducers: (builder) => {
@@ -26,6 +33,7 @@ const complainSlice = createSlice({
 
     builder.addCase(GetComplainById.fulfilled, (state, action) => {
       state.complainDetail = action.payload.data;
+      state.loadingData = false;
     });
 
     builder.addCase(cancelComplain.fulfilled, (state, action) => {
@@ -35,17 +43,36 @@ const complainSlice = createSlice({
     builder
       .addCase(addComplain.fulfilled, (state, { payload }) => {
         state.drawerOpen = false;
-        state.complainData = payload;
+        state.loader = false;
+        state.createLoader = false
+        state.complains = [payload.data.data, ...state.complains];
         return state;
       })
       .addMatcher(isPending(...[getAllComplains]), (state) => {
         state.loader = true;
       })
+      .addMatcher(isPending(...[addComplain]), (state) => {
+        state.success = false;
+
+        state.loader = true;
+      })
+      .addMatcher(isPending(...[GetComplainById]), (state) => {
+        state.loadingData = true;
+      })
+      .addMatcher(isPending(...[addComplain]), (state) => {
+        state.createLoader = true;
+      })
       .addMatcher(isRejected(...[getAllComplains]), (state) => {
         state.loader = true;
+      })
+      .addMatcher(isRejected(...[addComplain]), (state) => {
+        state.createLoader = false;
       });
+    // .addMatcher(isRejected(...[GetComplainById]), (state) => {
+    //   state.loader = false;
+    // });
   },
 });
 
-export const {handleOpenComposer} = complainSlice.actions;
+export const { handleOpenComposer } = complainSlice.actions;
 export default complainSlice.reducer;

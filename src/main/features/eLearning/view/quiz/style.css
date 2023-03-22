@@ -1,0 +1,91 @@
+.innerColumn {
+    width: 100%;
+    padding: 0px 7px;
+}
+.addTopicBtn {
+    margin-top: 33px;
+    margin-right: 0px;
+    margin-left: auto;
+    font-size: 25px;
+    height: 35px;
+    background: var(--currentThemeColor);
+    width: 14%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    border-radius: 5px;
+}
+.addSectionBtn {
+    width: 110px !important;
+    text-align: center;
+    margin-top: 10px;
+    padding: 5px;
+    cursor: pointer;
+}
+.AddCourseMainContainer .ant-pagination {
+    display: none;
+}
+.sectionContainer {
+    margin-top: 20px;
+}
+.sectionContainer h3 {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.Formbtn {
+    color: #fff;
+    background: var(--currentThemeColor);
+    border-color: transparent;
+    border-radius: 4px;
+    padding: 0 15px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .Formbtn :hover {
+    all: none;
+  }
+  .editForm .ant-upload-list-item-card-actions-btn {
+    opacity: 1 !important;
+  }
+
+  .card{
+    overflow: hidden;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 5px #d4d4d4;
+    padding: 18px;
+    border-top: 10px solid var(--currentThemeColor);
+  }
+
+  .create-quiz-body{
+    background-color: #fff;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 0 5px #d4d4d4;
+    border-top: 10px solid var(--currentThemeColor);
+    padding: 1em;
+  }
+
+  .create-quiz-inner{
+    border-bottom: solid 1px #dfdfdf;
+    border-top: 10px solid var(--currentThemeColor);
+  }
+
+  .quizQuestionClass .ant-upload-list-item-name{
+    display: none;
+  }
+  
+  .quizOptionClass .ant-form-item-control-input-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline
+}
+
+.quizOptionClass .ant-upload-list-item-name{
+  display: none;
+}
+
+  

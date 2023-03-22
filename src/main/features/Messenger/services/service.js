@@ -29,12 +29,43 @@ export const searchConversationService = (search, pageNo) => {
 		.catch(err => err);
 };
 
-const getAllChat = async (data) => {
-	let request = messengerDTO.getAllConversations(data);
+
+
+
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++
+// New Services here
+const getAllChat = async (payload) => {
+	let request = messengerDTO.getAllConversations(payload);
 	try {
 		const {
 			data: { responseCode, data, message },
 		} = await Config.post(`api/chat/getAllConversation`, request);
+		if (responseCode === responseCodeEnum.Success) return ResponseResultSuccess(data);
+		return ResponseResultError(message);
+	} catch (e) {
+		return ResponseResultError(e);
+	}
+};
+
+const getAllEmployeeWithChat = async (payload) => {
+	let request = messengerDTO.getAllConversations(payload);
+	try {
+		const {
+			data: { responseCode, data, message },
+		} = await Config.post(`api/chat/SearchConversation`, request);
+		if (responseCode === responseCodeEnum.Success) return ResponseResultSuccess(data);
+		return ResponseResultError(message);
+	} catch (e) {
+		return ResponseResultError(e);
+	}
+};
+const getAllChatMessage = async (payload) => {
+	let request = messengerDTO.getAllChatMessage(payload);
+	try {
+		const {
+			data: { responseCode, data, message },
+		} = await Config.post(`api/chat/GetAllChatMessage`, request);
 		if (responseCode === responseCodeEnum.Success) return ResponseResultSuccess(data);
 		return ResponseResultError(message);
 	} catch (e) {
@@ -54,13 +85,39 @@ const createChat = async (data) => {
 		return ResponseResultError(e);
 	}
 };
-const sendMessage = async (data) => {
-	let request = messengerDTO.createChat(data);
+const sendMessage = async (payload) => {
+	let request = messengerDTO.sendMessage(payload);
 	let formDataRequest = jsonToFormData(request);
 	try {
 		const {
 			data: { responseCode, data, message },
-		} = await Config.post(`api/chat/createChat`, formDataRequest);
+		} = await Config.post(`api/chat/sendChatMessage`, formDataRequest);
+
+		if (responseCode === responseCodeEnum.Success) return ResponseResultSuccess(data);
+		return ResponseResultError(message);
+	} catch (e) {
+		console.log(e);
+		return ResponseResultError(e);
+	}
+};
+const updateMessageDeliver = async (payload) => {
+	let { chatId, msgIds } = payload;
+	try {
+		const {
+			data: { responseCode, data, message },
+		} = await Config.post(`api/chat/UpdateMessageDeliverStatus?id=${chatId}`, msgIds);
+		if (responseCode === responseCodeEnum.Success) return ResponseResultSuccess(data);
+		return ResponseResultError(message);
+	} catch (e) {
+		return ResponseResultError(e);
+	}
+};
+const updateMessageSeen = async (payload) => {
+	let { chatId, msgIds } = payload;
+	try {
+		const {
+			data: { responseCode, data, message },
+		} = await Config.post(`api/chat/UpdateMessageSeenStatus?id=${chatId}`, msgIds);
 		if (responseCode === responseCodeEnum.Success) return ResponseResultSuccess(data);
 		return ResponseResultError(message);
 	} catch (e) {
@@ -71,5 +128,9 @@ const sendMessage = async (data) => {
 export const MessengerService = {
 	createChat,
 	getAllChat,
-	sendMessage
+	sendMessage,
+	getAllChatMessage,
+	updateMessageDeliver,
+	updateMessageSeen,
+	getAllEmployeeWithChat
 }

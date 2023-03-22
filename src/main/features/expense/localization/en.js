@@ -3,6 +3,8 @@ const en = {
     createTextBtn: "Create Expense",
 
     labels: {
+      list: "List",
+      table: "Table",
       category: "Category",
       approvals: "Approvals",
       myExpense: "My Expense",
@@ -12,7 +14,7 @@ const en = {
       financers: "Financers",
       executors: "Executors",
       executor: "Executor",
-      finance: "Finance",
+      finance: "Finance Approval",
       inProcess: "In Process",
       testProject: "Test Project",
       transport: "Transport",
@@ -37,10 +39,11 @@ const en = {
       attachments: "Attachments",
       createExpense: "Create Expense",
       isReimbursable: "Is Reimbursable",
+      type: "Type",
     },
     placeHolder: {
       writeHeaderHere: "Write Header Here...",
-      pickCurrentDate: "Pick Current Date",
+      pickCurrentDate: "Select Date",
       enterAmount: "Enter Amount",
       selectApprovers: "Select Approvers",
       selectFinancers: "Select Financers",

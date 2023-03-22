@@ -1,7 +1,7 @@
 import React from "react";
 
 const RadioWithImage = (props) => {
-  const { question, handleChange, index, disableSubmit } = props;
+  const { question, handleChange, index, disableSubmit, required } = props;
   const { answers } = question;
   console.log("console. radiowithimage props", props);
   return (
@@ -12,7 +12,10 @@ const RadioWithImage = (props) => {
             <img src={question.image} />{" "}
           </div>
         )}
-        <h1 className="row-tlt">{question.question}</h1>
+        <h1 className="row-tlt">
+          {question.question}
+          <span className="text-sm"> {"(radio)"}</span>
+        </h1>
         <div className="flex-row">
           {answers.map(({ answer, id, image }, i) => (
             <div className="aspect-ratio">

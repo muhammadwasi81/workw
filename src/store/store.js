@@ -11,17 +11,23 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import MessengerSlice from "../main/features/Messenger/store/messengerSlice";
-import sideBarChatSlice from "../components/MainMenu/SideChatbar/store/sideBarChatSlice";
+// import sideBarChatSlice from "../components/MainMenu/SideChatbar/store/sideBarChatSlice";
+import sideBarChatSlice from "../main/features/SideChatbar/store/sideBarChatSlice";
 import requisitionSlice from "../main/features/requisition/store/slice";
 import authSlice from "../main/features/auth/store/slice";
 import gradeSlice from "../main/features/grade/store/slice";
 import rebateCategorySlice from "../main/features/rebateCategory/store/slice";
-import taxSlabSlice from "../main/features/taxSlabs/store/slice";
+// import taxSlabSlice from '../main/features/taxSlabs/store/slice';
+import taxSlabGroupSlice from "../main/features/taxSlabs/store/slice";
+import eLearningSlice from "../main/features/eLearning/store/slice";
+import eLearningCategorySlice from "../main/features/eLearningCategory/store/slice";
 import subsidiarySlice from "../main/features/subsidiary/store/slice";
+import quotationSlice from "../main/features/quotation/store/slice";
 import subsidiaryOfficeSlice from "../main/features/subsidiaryOffice/store/slice";
 import employeeSlice from "../main/features/employee/store/slice";
 import officeTimingSlice from "../main/features/officeTimings/store/slice";
 import emailConfigurationSlice from "../main/features/emailConfiguration/store/slice";
+import emailUserConfigurationSlice from "../main/features/emailUserConfiguration/store/slice";
 import designationSlice from "../main/features/designation/store/slice";
 import appraisalSlice from "../main/features/appraisal/appraisalQuestion/store/slice";
 import warningCategorySlice from "../main/features/warning/warningCategory/store/slice";
@@ -70,13 +76,40 @@ import chartOfAccountsSlice from "../main/features/chartOfAccount/store/slice";
 import callingSlice from "../main/features/calling/store/slice";
 import salarySlice from "../main/features/salary/store/slice";
 import loanSlice from "../main/features/loan/store/slice";
-import resignationSlice from "./appReducer/resignationSlice";
+import resignationSlice from "../main/features/resignation/store/slice";
+import quickAddSlice from "../main/features/quickEmployee/store/slice";
 import voucherSlice from "../main/features/voucher/store/slice";
 import scheduleSlice from "../main/features/schedule/store/slice";
 import attendanceSlice from "../main/features/attendance/store/slice";
 import stickySlice from "../main/features/notes/newStickyNotes/store/stickySlice";
 import formSlice from "../main/features/forms/store/slice";
 import payrollSlice from "../main/features/payroll/store/slice";
+import requestItemSlice from "../main/features/RequestListItems/store/slice";
+import assetsCategorySlice from "../main/features/assetsCategory/store/slice";
+import AssetItemSlice from "../main/features/createAssets/store/slice";
+import teamSlice from "../main/features/team/store/slice";
+import companySlice from "../main/features/companies/companies/store/slice";
+import inventoryAssetSlice from "../main/features/createAssets/store/slice";
+import appraisalModuleSlice from "../main/features/appraisalModule/store/slice";
+import quotationClientSlice from "../main/features/quotationClient/store/slice";
+import employeeProfileSlice from "../main/features/profile/store/slice";
+import notificationSliceNew from "../main/features/notifiation/store/slice";
+import approvalSlice from "../main/features/approval/store/slice";
+import approverSlice from "../main/features/defaultApprovers/store/slice";
+import emergencyInfoSlice from "../main/features/emergencyInfo/store/slice";
+import workExperienceSlice from "../main/features/experienceInfo/store/slice";
+import userEducationSlice from "../main/features/education/store/slice";
+import bankInfoSlice from "../main/features/bankDetails/store/slice";
+import employeeSalarySlice from "../main/features/salary/view/SalaryEmployee/action/slice";
+import mailSlice from "../main/features/mail/Store/MailSlice";
+import settingSlice from "../main/features/settings/store/slice";
+import adminstrationSlice from "../main/features/administration/store/slice";
+import employeeRebateSlice from "../main/features/rebate/store/slice";
+import userBillingSlice from "../main/features/billing/store/slice";
+import userPaymentSlice from "../main/features/payments/store/slice";
+import projectExternalSlice from "../main/features/publicRoutes/projects/store/slice";
+import ApproverSlice from "../main/sharedComponents/AppComponents/Approvals/action/slice";
+import globalSearchSlice from "../main/features/search/store/slice";
 // import thunk from "redux-thunk";
 
 const reducers = combineReducers({
@@ -99,10 +132,14 @@ const reducers = combineReducers({
   sharedQuillSlice,
   defaultHiringCriteriaSlice,
   complainCategorySlice,
+  quickAddSlice,
   payrollGroupSlice,
+  eLearningSlice,
   fiscalYearSlice,
   customApprovalCategorySlice,
   requisitionSlice,
+  quotationSlice,
+  quotationClientSlice,
   rewardCategorySlice,
   rewardSlice,
   complainSlice,
@@ -116,9 +153,12 @@ const reducers = combineReducers({
   general: generalSlice,
   // documentsSlice,
   gradeSlice,
+  eLearningCategorySlice,
   emailConfigurationSlice,
+  emailUserConfigurationSlice,
   salaryHeaderSlice,
-  taxSlabSlice,
+  // taxSlabSlice,
+  taxSlabGroupSlice,
   expenseHeaderSlice,
   appraisalSlice,
   allowanceSlice,
@@ -150,6 +190,32 @@ const reducers = combineReducers({
   stickySlice,
   formSlice,
   payrollSlice,
+  assetsCategorySlice,
+  AssetItemSlice,
+  requestItemSlice,
+  teamSlice,
+  companySlice,
+  inventoryAssetSlice,
+  appraisalModuleSlice,
+  employeeProfileSlice,
+  notificationSliceNew,
+  approvalSlice,
+  approverSlice,
+  emergencyInfoSlice,
+  workExperienceSlice,
+  userEducationSlice,
+  bankInfoSlice,
+  employeeSalarySlice,
+  mailSlice,
+  settingSlice,
+  eLearningCategorySlice,
+  adminstrationSlice,
+  employeeRebateSlice,
+  userBillingSlice,
+  userPaymentSlice,
+  projectExternalSlice,
+  ApproverSlice,
+  globalSearchSlice,
 });
 
 const persistConfig = {

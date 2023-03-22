@@ -42,8 +42,19 @@
     font-size: 8px;
   }
 
-  .bottom-tab-Item .ant-btn>img {
+  .bottom-tab-Item .ant-btn > img {
     width: 14px;
     height: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .ant-btn-icon-only .anticon {
+    display: inline-block !important;
+    font-size: 16px !important;
+    height: auto !important;
+    line-height: normal !important;
+    margin-right: 0 !important;
+    vertical-align: middle !important;
   }
 }

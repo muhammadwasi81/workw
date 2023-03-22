@@ -22,6 +22,18 @@ export const addPromotionService = (data) => {
 
 export const GetPromotionByIdService = (id) => {
   return MasterConfig.get(`api/Promotion/GetPromotionById?id=${id}`)
+
+    .then((res) => {
+      return res;
+      // console.log(id, "serviceee");
+    })
+    .catch((res) => {
+      return res;
+    });
+};
+
+export const cancelPromotionService = (id) => {
+  return MasterConfig.delete(`api/Promotion/PromotionCancel?promotionId=${id}`)
     .then((res) => {
       return res;
     })

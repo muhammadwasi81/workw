@@ -1,6 +1,6 @@
 import "./grade.css";
 import { Input } from "antd";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import {
   FormButton,
   FormButtonContainer,
@@ -10,71 +10,81 @@ import {
   FormInputContainer,
   FormLabel,
   FormTextArea,
-} from "../../../../components/HrMenu/Administration/StyledComponents/adminForm";
+} from "../../../sharedComponents/Administration/StyledComponents/adminForm";
+
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { dictionaryList } from "../../../../utils/localization/languages";
+import { useDispatch, useSelector } from "react-redux";
+
 export default function DesignationForm({ data, onSubmit, loading }) {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const {
+    administration,
+    designation,
+    sharedLabels,
+    Direction,
+  } = dictionaryList[userLanguage];
+
   const [form, setForm] = useState(data);
 
   useEffect(() => {
     setForm(data);
-    
   }, [data]);
-  console.log(data)
+  const { loader } = useSelector((state) => state.designationSlice);
+
   return (
     <FormContainer>
-      <FormHeader>Designation</FormHeader>
+      <FormHeader>{administration.designation.desig}</FormHeader>
       <FormInputContainer>
         <FormInput>
-          <FormLabel>Designation</FormLabel>
+          <FormLabel>{administration.designation.desig}</FormLabel>
           <Input
-            placeholder={"Enter Designation"}
+            placeholder={administration.designation.enterdesig}
             value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
           />
         </FormInput>
         <FormInput>
-          <FormLabel>Description</FormLabel>
+          <FormLabel>{administration.designation.description}</FormLabel>
           <FormTextArea
-            placeholder={"Enter Description"}
+            placeholder={administration.designation.enterDescription}
             value={form.description}
             onChange={(e) => setForm({ ...form, description: e.target.value })}
           />
         </FormInput>
       </FormInputContainer>
       <FormButtonContainer>
-        {
-          form.id ? 
+        {form.id ? (
           <>
             <FormButton
-            type="primary"
-            size="medium"
-            style={{}}
-            className="formBtn"
-            onClick={(e) => onSubmit(form)}
-          >
-            Save Designation
-          </FormButton>
+              type="primary"
+              size="medium"
+              className="formBtn"
+              onClick={(e) => onSubmit(form)}
+              loading={loading}
+            >
+              {administration.designation.save}
+            </FormButton>
+            <FormButton
+              type="primary"
+              size="medium"
+              className="formBtn"
+              onClick={(e) => setForm({ ...form, description: "", name: "" })}
+            >
+              {administration.designation.clear}
+            </FormButton>
+          </>
+        ) : (
           <FormButton
             type="primary"
             size="medium"
-            style={{}}
             className="formBtn"
-            onClick={(e) => setForm({ ...form, description: "", name: "" })}
+            onClick={(e) => onSubmit(form)}
+            loading={loading}
           >
-            Clear 
+            {administration.designation.Add}
           </FormButton>
-          </>
-        : 
-        <FormButton
-          type="primary"
-          size="medium"
-          style={{}}
-          className="formBtn"
-          onClick={(e) => onSubmit(form)}
-          // loading={loading}
-      >
-        Add Designation 
-      </FormButton>
-        }
+        )}
       </FormButtonContainer>
     </FormContainer>
   );

@@ -1,0 +1,69 @@
+.approverBox .imageAvatar {
+  width: 40px;
+  height: 40px;
+  line-height: 38px;
+}
+.approverBox {
+  display: flex;
+}
+.contentBox {
+  margin-top: 3px;
+  margin-left: 7px;
+}
+.contentBox p {
+  margin: 0px;
+  line-height: 16px;
+  font-weight: 600;
+}
+.member-email {
+  font-size: 12px;
+}
+.ApproverModal .ant-modal-content {
+  border-radius: 16px;
+}
+.approverBox:hover {
+  padding: 5px;
+  background: #f0f0f0;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.approverBox {
+  padding: 5px;
+}
+
+.imageDiv {
+  width: 17px;
+  height: 17px;
+}
+.imageDiv img {
+  border-radius: 50%;
+  width: 100%;
+}
+.singleTag {
+  display: flex;
+  background-color: #ededed;
+  padding: 6px;
+  align-items: center;
+  border-radius: 4px;
+  cursor: pointer;
+  width: fit-content;
+}
+.singleTag p {
+  margin: 2px 0px 0px 4px !important;
+  font-size: 12px;
+}
+.tagDiv {
+  margin-top: 3px;
+}
+.detailTabs {
+  margin-top: 15px;
+  background: none !important;
+  padding: 0px !important;
+}
+.ApproversRow {
+  margin-top: 10px;
+}
+.approval {
+  margin-top: 10px;
+  padding-left: 10px;
+}

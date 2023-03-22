@@ -20,7 +20,15 @@ function Approval({
   title = "",
   onListStatus,
 }) {
-  const { businessId, designation, name, image, type } = approver;
+  const approverDetail = approver ? approver : {};
+  const {
+    businessId,
+    designation,
+    name,
+    image,
+    type,
+    attachments,
+  } = approverDetail;
   const [files, setFiles] = useState([]);
   const [remarks, setRemarks] = useState([]);
   const [remarksText, setremarksText] = useState("");
@@ -33,6 +41,7 @@ function Approval({
       setFiles((prevValue) => [...prevValue, e.target.files[0]]);
     }
   };
+
   const handleDelete = (deleteFile) => {
     const allFiles = files.filter((file, index) => index !== deleteFile);
     setFiles(allFiles);

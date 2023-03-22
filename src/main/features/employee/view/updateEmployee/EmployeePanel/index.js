@@ -6,20 +6,18 @@ import { useParams } from "react-router-dom";
 import { getUserBasicInfo } from "../../../../basicInfo/store/actions";
 import { resetBasicdetails } from "../../../store/slice";
 import { useDispatch } from "react-redux";
-const EmployeesUpdate = () => {
-  const { '*':id } = useParams();
-  console.log(id, "ID");
-  const userId = id.split("/")[1];
-  const dispatch = useDispatch()
-  useEffect(() => {
-  console.log(id, "ID Gareebon");
 
+const EmployeesUpdate = () => {
+  const { "*": id } = useParams();
+  const userId = id.split("/")[1];
+  const dispatch = useDispatch();
+  useEffect(() => {
     dispatch(getUserBasicInfo(userId));
 
-  return () => {
-    dispatch(resetBasicdetails());
-  };
-}, []);
+    return () => {
+      dispatch(resetBasicdetails());
+    };
+  }, []);
   return (
     <>
       <EmployeePanelContainer>

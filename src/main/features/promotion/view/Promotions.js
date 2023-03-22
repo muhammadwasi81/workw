@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, useState } from "react";
 import {
-	ContBody,
-	TabbableContainer,
+  ContBody,
+  TabbableContainer,
 } from "../../../sharedComponents/AppComponents/MainFlexContainer";
 import { Button, Skeleton, Drawer } from "antd";
 import { promotionDictionaryList } from "../localization/index";
@@ -15,163 +15,152 @@ import { getAllPromotions, GetPromotionById } from "../store/actions";
 import TableView from "./TableView";
 import { CardWrapper } from "../../../layout/GridStyle";
 
+import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
+
 import { Table } from "../../../sharedComponents/customTable";
 import { tableColumn } from "./TableColumn";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 import Header from "../../../layout/header/index";
 import { handleOpenComposer } from "../store/slice";
+import { ROUTES } from "../../../../utils/routes";
+import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
+import { FeaturePermissionEnum } from "../../../../utils/Shared/enums/featuresEnums";
 
-const Promotion = props => {
-	const dispatch = useDispatch();
-	const { userLanguage } = useContext(LanguageChangeContext);
-	const { promotionDictionary } = promotionDictionaryList[userLanguage];
-	const [promotionId, setPromotionId] = useState("");
+const Promotion = (props) => {
+  const dispatch = useDispatch();
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { promotionDictionary } = promotionDictionaryList[userLanguage];
+  const { tables } = promotionDictionary;
+  const { user } = useSelector((state) => state.userSlice);
+  const userPermissions = user.permissions;
 
-	const [tableView, setTableView] = useState(false);
+  const [promotionId, setPromotionId] = useState("");
 
-	const [visible, setVisible] = useState(false);
+  const [tableView, setTableView] = useState(false);
 
-	const [filter, setFilter] = useState({ filterType: 0, search: "" });
+  const [visible, setVisible] = useState(false);
 
-	const { promotions, loader, promotionDetail, drawerOpen } = useSelector(
-		state => state.promotionSlice
-	);
+  const [filter, setFilter] = useState({
+    filterType: 0,
+    search: "",
+    sortBy: 1,
+  });
+  const { promotions, loader, promotionDetail, drawerOpen } = useSelector(
+    (state) => state.promotionSlice
+  );
 
-	const onClose = () => {
-		setVisible(false);
-	};
+  const onClose = () => {
+    setVisible(false);
+  };
 
-	const getPromotionId = id => {
-		setPromotionId(id);
-		setVisible(true);
-	};
+  const getPromotionId = (id) => {
+    setPromotionId(id);
+    setVisible(true);
+  };
 
-	useEffect(() => {
-		dispatch(getAllPromotions(filter));
-	}, [filter]);
-	return (
-		<TabbableContainer className="max-width-1190">
-			<Header
-				buttons={[
-					{
-						buttonText: "Create Promotion",
-						render: (
-							<Button
-								className="ThemeBtn"
-								onClick={() =>
-									dispatch(handleOpenComposer(true))
-								}
-							>
-								Create Promotion
-							</Button>
-						),
-					},
-				]}
-			/>
-			<TopBar
-				onSearch={value => {
-					setFilter({ ...filter, search: value });
-				}}
-				buttons={[
-					{
-						name: "Promotions",
-						onClick: () => setFilter({ filterType: 0 }),
-					},
-					{
-						name: "Created By Me",
-						onClick: () => setFilter({ filterType: 1 }),
-					},
-					{
-						name: "For Approval",
-						onClick: () => setFilter({ filterType: 2 }),
-					},
-					{
-						name: "Promotion For Me",
-						onClick: () => setFilter({ filterType: 3 }),
-					},
-				]}
-				segment={{
-					onSegment: value => {
-						if (value === "Table") {
-							setTableView(true);
-						} else {
-							setTableView(false);
-						}
-					},
-					label1: "List",
-					label2: "Table",
-				}}
-			/>
-			<ContBody>
-				{promotions && promotions.length > 0 ? (
-					tableView ? (
-						<div>
-							<Table
-								columns={tableColumn()}
-								dragable={false}
-								data={promotions}
-							/>
-						</div>
-					) : (
-						<>
-							{loader ? (
-								<>
-									<Skeleton avatar paragraph={{ rows: 4 }} />
-								</>
-							) : (
-								<CardWrapper>
-									{promotions.map((item, index) => {
-										return (
-											<>
-												<ListItem
-													getPromotionId={
-														getPromotionId
-													}
-													item={item}
-													id={item.id}
-													key={index}
-												/>
-											</>
-										);
-									})}
-								</CardWrapper>
-							)}
-						</>
-					)
-				) : (
-					"Data not found"
-				)}
-			</ContBody>
+  useEffect(() => {
+    dispatch(getAllPromotions(filter));
+  }, [filter]);
 
-			<DetailedView
-				onClose={onClose}
-				visible={visible}
-				id={promotionId}
-			/>
+  const items = [
+    {
+      name: promotionDictionary.promotion,
+      renderButton: [1],
+      to: `${ROUTES.PROMOTION.ROOT}`,
+    },
+  ];
 
-			<Drawer
-				title={
-					<h1
-						style={{
-							fontSize: "20px",
-							margin: 0,
-						}}
-					>
-						Create Promotion
-					</h1>
-				}
-				width="768"
-				onClose={() => {
-					dispatch(handleOpenComposer(false));
-				}}
-				visible={drawerOpen}
-				destroyOnClose={true}
-				className="detailedViewComposer drawerSecondary"
-			>
-				<Composer />
-			</Drawer>
-		</TabbableContainer>
-	);
+  return (
+    <TabbableContainer className="max-width-1190">
+      <Header
+        items={items}
+        buttons={
+          userPermissions.includes(FeaturePermissionEnum.CreatePromotion)
+            ? [
+                {
+                  buttonText: "Create Promotions",
+                  render: (
+                    <SideDrawer
+                      title={promotionDictionary.createPromotion}
+                      buttonText={promotionDictionary.createPromotion}
+                      handleClose={() => dispatch(handleOpenComposer(false))}
+                      handleOpen={() => dispatch(handleOpenComposer(true))}
+                      isOpen={drawerOpen}
+                      children={<Composer />}
+                    />
+                  ),
+                },
+              ]
+            : []
+        }
+      />
+      <TopBar
+        onSearch={(value) => {
+          setFilter({ ...filter, search: value });
+        }}
+        buttons={[
+          {
+            name: promotionDictionary.promotion,
+            onClick: () => setFilter({ filterType: 0 }),
+          },
+          {
+            name: promotionDictionary.createdbyMe,
+            onClick: () => setFilter({ filterType: 1 }),
+          },
+          {
+            name: promotionDictionary.forApproval,
+            onClick: () => setFilter({ filterType: 2 }),
+          },
+          {
+            name: promotionDictionary.promotionToMe,
+            onClick: () => setFilter({ filterType: 3, pageNo: 1 }),
+          },
+        ]}
+        segment={{
+          onSegment: (value) => {
+            if (value === promotionDictionary.table) {
+              setTableView(true);
+            } else {
+              setTableView(false);
+            }
+          },
+          label1: promotionDictionary.list,
+          label2: promotionDictionary.table,
+        }}
+      />
+      <ContBody>
+        {loader && <Skeleton avatar paragraph={{ rows: 4 }} />}
+
+        {tableView && (
+          <Table
+            columns={tableColumn(tables)}
+            dragable={true}
+            data={promotions}
+          />
+        )}
+
+        {promotions?.length > 0 && !loader && !tableView ? (
+          <CardWrapper>
+            {promotions.map((item, index) => {
+              return (
+                <ListItem
+                  getPromotionId={getPromotionId}
+                  item={item}
+                  id={item.id}
+                  key={index}
+                />
+              );
+            })}
+          </CardWrapper>
+        ) : (
+          !loader && !tableView && <NoDataFound />
+        )}
+      </ContBody>
+      {promotionDetail && <DetailedView onClose={onClose} visible={visible} />}
+
+      <DetailedView onClose={onClose} visible={visible} id={promotionId} />
+    </TabbableContainer>
+  );
 };
 
 export default Promotion;

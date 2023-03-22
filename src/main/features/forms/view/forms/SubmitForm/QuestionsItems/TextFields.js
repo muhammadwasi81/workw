@@ -1,7 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
+import { LanguageChangeContext } from "../../../../../../../utils/localization/localContext/LocalContext";
+import { documentDictionaryList } from "../../../../localization/index";
 
 const TextFields = (props) => {
-  const { type, fieldData, handleChange, index, disableSubmit } = props;
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { documentDictionary } = documentDictionaryList[userLanguage];
+
+  const { yourAnswer } = documentDictionary;
+  const {
+    type,
+    fieldData,
+    handleChange,
+    index,
+    disableSubmit,
+    required,
+  } = props;
+  console.log(type);
   return (
     <>
       <div className="c-row txt-fields bg-clr p_15">
@@ -11,7 +25,7 @@ const TextFields = (props) => {
           </div>
         )}
         <label className="required label" htmlFor="">
-          {fieldData.question}
+          {fieldData.question} <span className="text-sm"> {`(${type})`}</span>
         </label>
         <input
           onChange={(e) =>
@@ -24,7 +38,7 @@ const TextFields = (props) => {
           }
           className="styled-input"
           type={type}
-          placeholder="Your answer"
+          placeholder={yourAnswer}
           disabled={disableSubmit}
         />
       </div>

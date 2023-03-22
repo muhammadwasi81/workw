@@ -1,5 +1,8 @@
 // import { createGuid } from "../../../../utils/base";
+import { jsonToFormData } from "../../../../utils/base";
 import AuthConfig from "../../../../utils/services/AuthConfig";
+import MasterConfig from "../../../../utils/services/MasterConfig";
+
 
 export const loginService = (data) => {
   return AuthConfig.post("api/login", data)
@@ -12,7 +15,8 @@ export const loginService = (data) => {
 };
 
 export const signupService = (data) => {
-  return AuthConfig.post("api/Signup/BusinessSignup", data)
+  const formData = jsonToFormData(data);
+  return MasterConfig.post("api/Signup/Signup", formData)
     .then((res) => {
       return res;
     })
@@ -22,7 +26,13 @@ export const signupService = (data) => {
 };
 
 export const emailVerificationService = (data) => {
-  return AuthConfig.get(`konnectapi/api/Signup/VerifySignup?token=${data}`);
+  return MasterConfig.get(`api/Signup/VerifySignupEmailToken?token=${data}`);
+};
+
+export const setNewPasswordService = (data) => {
+  let token = data.token;
+  let password = data.password;
+  return MasterConfig.get(`api/User/SetupNewPassword?token=${token}&password=${password}`);
 };
 
 // export const getDesignationService = () => {

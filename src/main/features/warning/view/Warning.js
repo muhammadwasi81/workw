@@ -1,6 +1,9 @@
 import React, { useEffect, useContext, useState } from "react";
 import { useMediaQuery } from "react-responsive";
-import { ContBody, TabbableContainer } from "../../../sharedComponents/AppComponents/MainFlexContainer";
+import {
+  ContBody,
+  TabbableContainer,
+} from "../../../sharedComponents/AppComponents/MainFlexContainer";
 import { Button, Skeleton, Drawer } from "antd";
 import { warningDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
@@ -12,146 +15,146 @@ import { useDispatch } from "react-redux";
 import { getAllWarnings, GetWarningById } from "../store/actions";
 import { CardWrapper } from "../../../sharedComponents/Card/CardStyle";
 
+import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
+
 import { Table } from "../../../sharedComponents/customTable";
 import { tableColumn } from "./TableColumn";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 import Header from "../../../layout/header/index";
 import { handleOpenComposer } from "../store/slice";
+import { ROUTES } from "../../../../utils/routes";
+import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
+import { FeaturePermissionEnum } from "../../../../utils/Shared/enums/featuresEnums";
 
 const Warning = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { warningDictionary } = warningDictionaryList[userLanguage];
-
+  const { tables } = warningDictionary;
+  const { user } = useSelector((state) => state.userSlice);
+  const userPermissions = user.permissions;
+  const [detailId, setDetailId] = useState(false);
   const [tableView, setTableView] = useState(false);
-
   const isTablet = useMediaQuery({ maxWidth: 800 });
-
   const [visible, setVisible] = useState(false);
+  // const [search, setSearch] = useState("");
 
-  const [filter, setFilter] = useState({ filterType: 0, search: "" });
-
+  const [filter, setFilter] = useState({
+    filterType: 0,
+    search: "",
+    sortBy: 1,
+    pageSize: 50,
+  });
+  console.log(filter, "filterrrr");
   const dispatch = useDispatch();
 
-  const { warnings, loader, warningDetail, drawerOpen } = useSelector((state) => state.warningSlice);
-
-  const onClose = () => {
-    setVisible(false);
-  };
-
-  const getWarningId = (id) => {
-    dispatch(GetWarningById(id));
-    setVisible(true);
-  };
+  const { warnings, loader, warningDetail, drawerOpen } = useSelector(
+    (state) => state.warningSlice
+  );
 
   useEffect(() => {
     dispatch(getAllWarnings(filter));
   }, [filter]);
+
+  const items = [
+    {
+      name: warningDictionary.warning,
+      to: `${ROUTES.WARNINGS.ROOT}`,
+      renderButton: [1],
+    },
+  ];
+
+  const onClose = () => {
+    setDetailId(null);
+  };
+
   return (
     <TabbableContainer className="max-width-1190">
       <Header
-        buttons={[
-          {
-            buttonText: "Create Warning",
-            render: (
-              <Button className="ThemeBtn" onClick={() => dispatch(handleOpenComposer(true))} >
-                Create Warning
-              </Button>
-              // <SideDrawer title={warningDictionary.createWarning} buttonText={warningDictionary.createWarning} isAccessDrawer={false}>
-              //   <Composer />
-              // </SideDrawer>
-            ),
-          },
-        ]}
+        items={items}
+        buttons={
+          userPermissions.includes(FeaturePermissionEnum.CreateWarnings)
+            ? [
+                {
+                  buttonText: "Create Warning",
+                  render: (
+                    <SideDrawer
+                      title={warningDictionary.createWarning}
+                      buttonText={warningDictionary.createWarning}
+                      handleClose={() => dispatch(handleOpenComposer(false))}
+                      handleOpen={() => dispatch(handleOpenComposer(true))}
+                      isOpen={drawerOpen}
+                      children={<Composer />}
+                    />
+                  ),
+                },
+              ]
+            : []
+        }
       />
       <TopBar
         onSearch={(value) => {
           console.log(value);
+          setFilter({ ...filter, search: value });
         }}
         buttons={[
           {
-            name: "Warnings",
+            name: warningDictionary.warning,
             onClick: () => setFilter({ filterType: 0 }),
           },
           {
-            name: "Created By Me",
+            name: warningDictionary.createdByMe,
             onClick: () => setFilter({ filterType: 1 }),
           },
           {
-            name: "For Approval",
+            name: warningDictionary.forApproval,
             onClick: () => setFilter({ filterType: 2 }),
           },
           {
-            name: "Warning To Me",
-            onClick: () => setFilter({ filterType: 3 }),
+            name: warningDictionary.warningToMe,
+            onClick: () => setFilter({ filterType: 3, pageNo: 1 }),
           },
         ]}
         segment={{
           onSegment: (value) => {
-            if (value === "Table") {
+            if (value === warningDictionary.table) {
               setTableView(true);
             } else {
               setTableView(false);
             }
           },
-          label1: "List",
-          label2: "Table",
+          label1: warningDictionary.list,
+          label2: warningDictionary.table,
         }}
       />
       <ContBody>
-        {warnings && warnings.length > 0 ? (
-          tableView ? (
-            <div>
-              <Table
-                columns={tableColumn()}
-                dragable={false}
-                data={warnings}
-              />
-            </div>
-          ) : (
-            <>
-              {loader ? (
-                <>
-                  <Skeleton avatar paragraph={{ rows: 4 }} />
-                </>
-              ) : (
-                <CardWrapper>
-                  {warnings.map((item, index) => {
-                    return (
-                      <>
-                        <ListItem getWarningId={getWarningId} item={item} id={item.id} key={index} />
-                      </>
-                    );
-                  })}
-                </CardWrapper>
-              )}
-            </>
-          )
+        {loader && <Skeleton avatar paragraph={{ rows: 4 }} />}
+
+        {tableView && (
+          <Table
+            columns={tableColumn(tables)}
+            dragable={true}
+            data={warnings}
+          />
+        )}
+
+        {warnings?.length > 0 && !loader && !tableView ? (
+          <CardWrapper>
+            {warnings.map((item, index) => {
+              return (
+                <ListItem
+                  item={item}
+                  id={item.id}
+                  key={index}
+                  onClick={() => setDetailId(item.id)}
+                />
+              );
+            })}
+          </CardWrapper>
         ) : (
-          "Data not found"
+          !loader && !tableView && <NoDataFound />
         )}
       </ContBody>
-      {warningDetail && <DetailedView onClose={onClose} visible={visible} />}
-      <Drawer
-        title={
-          <h1
-            style={{
-              fontSize: "20px",
-              margin: 0,
-            }}
-          >
-            Create Reward
-          </h1>
-        }
-        width="768"
-        onClose={() => {
-          dispatch(handleOpenComposer(false))
-        }}
-        visible={drawerOpen}
-        destroyOnClose={true}
-        className="detailedViewComposer drawerSecondary"
-      >
-        <Composer />
-      </Drawer>
+      {<DetailedView onClose={onClose} id={detailId} />}
     </TabbableContainer>
   );
 };

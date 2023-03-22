@@ -1,11 +1,18 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
-import { addPromotion, getAllPromotions, GetPromotionById } from "./actions";
+import {
+  addPromotion,
+  getAllPromotions,
+  GetPromotionById,
+  cancelPromotion,
+} from "./actions";
 
 const initialState = {
   promotions: [],
+  cancelPromotion: {},
   loadingData: false,
   loader: true,
-  promotionDetail: null,
+  createLoader: false,
+  promotionDetail: {},
   drawerOpen: false,
 };
 
@@ -14,7 +21,21 @@ const promotionSlice = createSlice({
   initialState,
   reducers: {
     handleOpenComposer: (state, { payload }) => {
-      state.drawerOpen = payload
+      state.drawerOpen = payload;
+    },
+    
+    cancelPromotionSuccess: (state, { payload }) => {
+      let promotionList = [...state.promotions];
+      let index = promotionList.findIndex((item) => item.id === payload.promotionId);
+      let promotion = promotionList.filter((item) => item.id === payload.promotionId)[0];
+
+      promotionList[index] = {
+        ...promotion,
+        status: 4,
+      };
+
+      state.promotions = promotionList;
+      state.promotionDetail = { ...promotion,status: 4,};
     },
   },
   extraReducers: (builder) => {
@@ -25,15 +46,35 @@ const promotionSlice = createSlice({
 
     builder.addCase(GetPromotionById.fulfilled, (state, action) => {
       state.promotionDetail = action.payload.data;
+      state.loadingData = false;
+      // console.log(state.promotionDetail, "payload dataaaaa ");
     });
+    // builder.addCase(cancelPromotion.fulfilled, (state, action) => {
+    //   state.cancelPromotion = action.payload.data;
+    //   // state.success = true;
+    //   // state.loader = false;
+    // });
 
     builder
-        .addCase(addPromotion.fulfilled, (state, { payload }) => {
-          state.drawerOpen = false;
-          return state;
-        })
+      .addCase(addPromotion.fulfilled, (state, { payload }) => {
+        state.success = true;
+        state.loading = false;
+        state.drawerOpen = false;
+        state.createLoader = false;
+        state.promotions = [payload.data.data, ...state.promotions];
+      })
+
       .addMatcher(isPending(...[getAllPromotions]), (state) => {
         state.loader = true;
+      })
+      .addMatcher(isPending(...[addPromotion]), (state) => {
+        state.createLoader = true;
+      })
+      .addMatcher(isRejected(...[addPromotion]), (state) => {
+        state.createLoader = false;
+      })
+      .addMatcher(isPending(...[GetPromotionById]), (state) => {
+        state.loadingData = true;
       })
       .addMatcher(isRejected(...[getAllPromotions]), (state) => {
         state.loader = true;
@@ -41,5 +82,8 @@ const promotionSlice = createSlice({
   },
 });
 
-export const { handleOpenComposer } = promotionSlice.actions;
+export const {
+  handleOpenComposer,
+  cancelPromotionSuccess,
+} = promotionSlice.actions;
 export default promotionSlice.reducer;

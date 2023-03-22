@@ -8,6 +8,8 @@
   cursor: pointer;
   border-radius: 5px;
   z-index: 10;
+  bottom: 3px;
+
   transform: translate(11px, 456px);
 }
 
@@ -24,7 +26,6 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-
 }
 
 .heading {
@@ -35,8 +36,12 @@
   margin-top: 10px;
   font-size: 15px;
 }
-
-
+.close_Icon {
+  margin: 3px;
+}
+.minimize-Icon {
+  margin: 3px;
+}
 /* *********styling of card in container********** */
 .right_Icons {
   font-size: 16px !important;
@@ -50,8 +55,22 @@
 
 .margin_Icon {
   margin: 2px;
+  /* color: black; */
 }
-
+.threedot_Icon {
+  margin: 2px;
+  text-decoration: none;
+  color: white;
+}
+a.drop-downList {
+  text-decoration: none;
+  color: black;
+}
+/* .three-dot {
+  font-size: 16px !important;
+  font-weight: bold;
+  margin-bottom: 3px;
+} */
 .time_delete {
   display: flex;
   flex-direction: row;
@@ -80,7 +99,7 @@
   /* width:250px; */
   padding-bottom: 5px;
   padding-top: 5px;
-  line-height: 4px;
+  /* line-height: 4px; */
 }
 
 /* .ant-input-affix-wrapper {
@@ -101,7 +120,10 @@
   bottom: 0;
   transform: unset !important;
 }
-
+.search_Box {
+  margin: 5px;
+  width: 300px;
+}
 .search_Box.hide {
   display: none;
 }
@@ -112,15 +134,19 @@
 
 /* *********styling of sticky container*********** */
 .stickyNote_container {
-  box-shadow: 0px 0px 2px 0px #898989;
+  box-shadow: 0 5px 5px -3px rgb(0 0 0 / 20%), 0 8px 10px 1px rgb(0 0 0 / 14%),
+    0 3px 14px 2px rgb(0 0 0 / 12%);
   display: flex;
   z-index: 10;
+  bottom: 0;
   flex-direction: column;
   background: white;
   border: none;
   resize: both;
   overflow: auto;
   width: 300px;
+  max-width: 600px;
+  max-height: 600px;
   height: auto;
   position: absolute;
   border-radius: 5px;
@@ -129,7 +155,7 @@
 
 .sticky_titleContainer {
   background-color: #0f4c81;
-  color: black;
+  color: white;
   font-weight: bold;
   height: 30px;
   width: 200px;
@@ -159,23 +185,16 @@ input:focus {
   resize: none;
   padding: 5px;
 }
-
-.ql-toolbar.ql-snow+.ql-container.ql-snow {
+.stickyNoteItem-textarea .ql-container.ql-snow {
+  border: none;
+}
+.ql-toolbar.ql-snow + .ql-container.ql-snow {
   height: max-content !important;
-}
-
-div[contenteditable="true"] {
-  height: 200px !important;
-}
-
-.ql-container.ql-snow {
-  border: none !important;
 }
 
 .stickyNote_container .ant-input {
   outline: 0;
   border: none;
-
 }
 
 .stickyNote_container .ant-input-open {
@@ -203,7 +222,6 @@ div[contenteditable="true"] {
   cursor: move;
   z-index: 10;
   height: 40px;
-  /* font-size: 14px; */
   letter-spacing: 1px;
   background-color: #0f4c81;
   border-radius: 5px;
@@ -219,30 +237,40 @@ div[contenteditable="true"] {
   margin-left: 10px !important;
   justify-content: space-around !important;
 }
-
+/* share styling */
+.shareContainer {
+  display: flex;
+  flex-direction: row;
+}
+.user-box {
+  align-items: center;
+  margin: 5px;
+  width: 100%;
+}
+.shareIcon {
+  font-size: 20px !important;
+  font-weight: bold !important;
+  margin: 4px;
+}
 .textArea_container {
   display: flex;
   flex-direction: row;
   /* justify-content: space-between; */
   overflow-y: scroll;
+  position: relative;
 }
 
 .img-input-container {
   color: black;
   position: absolute;
   right: 15px;
-  top: 55px;
+  top: 15px;
   display: flex;
-  flex-direction: row; 
-}
-
-.image_icon {
-  /* margin: 7px; */
+  flex-direction: row;
 }
 
 .img-input {
   position: absolute;
-  /* margin: 7px; */
 }
 
 .image_body {
@@ -254,7 +282,13 @@ div[contenteditable="true"] {
   margin-top: 10px;
   justify-content: space-between;
 }
-
+img.ant-image-preview-img {
+  display: inline-block;
+  width: 70%;
+}
+.ant-image-preview-operations-operation {
+  display: none;
+}
 .image {
   width: 50px !important;
   height: 40 !important;

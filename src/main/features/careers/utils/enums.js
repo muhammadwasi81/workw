@@ -1,22 +1,22 @@
 export const EducationTypeEnum = [
   {
-    label: "NoEducation",
+    label: "No Education",
     value: 1,
   },
   {
-    label: "PrimarySchool",
+    label: "Primary School",
     value: 2,
   },
   {
-    label: "MiddleSchool",
+    label: "Middle School",
     value: 3,
   },
   {
-    label: "HighSchool",
+    label: "High School",
     value: 4,
   },
   {
-    label: "UnderGraduate",
+    label: "Under Graduate",
     value: 5,
   },
   {
@@ -58,11 +58,11 @@ export const JobShiftTypeEnum = [
 
 export const JobTypeEnum = [
   {
-    label: "FullTime",
+    label: "Full Time",
     value: 1,
   },
   {
-    label: "PartTime",
+    label: "Part Time",
     value: 2,
   },
   {
@@ -78,7 +78,7 @@ export const JobTypeEnum = [
     value: 5,
   },
   {
-    label: "ProjectBased",
+    label: "Project Based",
     value: 6,
   },
 ];
@@ -88,30 +88,30 @@ export const CareerLevelTypeEnum = [
     value: 1,
   },
   {
-    label: "MidLevel",
+    label: "Mid Level",
     value: 2,
   },
   {
-    label: "SeniorLevel",
+    label: "Senior Level",
     value: 3,
   },
   {
-    label: "ExecutiveLevel",
+    label: "Executive Level",
     value: 4,
   },
   {
-    label: "CSuite",
+    label: "C-Suite",
     value: 5,
   },
   {
-    label: "PresidentCeo",
+    label: "President Ceo",
     value: 6,
   },
 ];
 
 export const CareerStatusEnum = [
   {
-    label: "InProcess",
+    label: "In Process",
     value: 1,
   },
   {

@@ -1,32 +1,26 @@
-export const tableColumn = () => {
+export const tableColumn = (tables) => {
   return [
     {
-      title: "Id",
-      dataIndex: "id",
-      ellipsis: true,
-      sort: true,
-    },
-    {
-      title: "Name",
+      title: tables.Name,
       dataIndex: "name",
       ellipsis: true,
       sort: true,
     },
     {
-      title: "Email",
+      title: tables.Email,
       dataIndex: "email",
       ellipsis: true,
       sort: true,
     },
     {
-      title: "Grade",
+      title: tables.Grade,
       dataIndex: "grade",
       ellipsis: true,
       sort: true,
     },
 
     {
-      title: "Designation",
+      title: tables.Designation,
       dataIndex: "designation",
       ellipsis: true,
       sort: true,

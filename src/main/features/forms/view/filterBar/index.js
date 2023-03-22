@@ -6,10 +6,23 @@ import TopBar from "../../../../sharedComponents/topBar/topBar";
 import { handleChangeTab } from "../../store/slice";
 import { FormFilterTypeEnum } from "../../enum/index";
 import { getAllForms } from "../../store/actions";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+import { documentDictionaryList } from "../../localization/index";
 
 const FilterBar = (props) => {
-  // const { userLanguage } = useContext(LanguageChangeContext);
-  // const { documentDictionary } = documentDictionaryList[userLanguage];
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { documentDictionary } = documentDictionaryList[userLanguage];
+  const {
+    forms,
+    createForms,
+    allForms,
+    myForms,
+    forApprovals,
+    list,
+    table,
+    copyLink,
+    attempt,
+  } = documentDictionary;
   const dispatch = useDispatch();
   const handleTabChange = (tab) => {
     dispatch(handleChangeTab(tab));
@@ -24,7 +37,7 @@ const FilterBar = (props) => {
   // console.log(props, "props filter bar");
 
   const onSegment = (value) => {
-    if (value === "Table") {
+    if (value === table) {
       // setTableView(true);
       props.onSegment(true);
     } else {
@@ -41,18 +54,18 @@ const FilterBar = (props) => {
       }}
       buttons={[
         {
-          name: "All Forms",
+          name: allForms,
           to: "allForms",
           onClick: () => setFilter({ filterType: FormFilterTypeEnum.All }),
         },
         {
-          name: "My Forms",
+          name: myForms,
           to: "myForms",
           onClick: () =>
             setFilter({ filterType: FormFilterTypeEnum.CreatedByMe }),
         },
         {
-          name: "For Approvals",
+          name: forApprovals,
           to: "forApprovals",
           onClick: () =>
             setFilter({ filterType: FormFilterTypeEnum.ForApproval }),
@@ -75,8 +88,8 @@ const FilterBar = (props) => {
         //   }
         // },
         onSegment: (val) => onSegment(val),
-        label1: "List",
-        label2: "Table",
+        label1: list,
+        label2: table,
       }}
     />
   );

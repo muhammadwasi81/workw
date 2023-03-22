@@ -1,21 +1,29 @@
-import React, { useContext } from "react";
-import "./stylesheet/FeedCompose.css";
-import frameIcon from "../../../../../content/NewContent/NewsFeed/svg/image.svg";
-import penIcon from "../../../../../content/NewContent/NewsFeed/svg/pen.svg";
-import chartIcon from "../../../../../content/NewContent/NewsFeed/svg/chart.svg";
-import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
-import PostHeader from "./views/PostHeader";
-import ComposerForm from "./views/ComposerForm";
-import CModal from "../../../../sharedComponents/CModal/CModal";
-import store from "../../../../../store/store";
-import { feedSlice } from "../../store/slice";
-import { useSelector } from "react-redux";
-import { Modal } from "antd";
-import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
-import { FeedDictionary } from "../../localization";
+import React, { useContext, useRef } from 'react';
+import './stylesheet/FeedCompose.css';
+// import frameIcon from "../../../../../content/NewContent/NewsFeed/svg/image.svg";
+// import penIcon from "../../../../../content/NewContent/NewsFeed/svg/pen.svg";
+// import chartIcon from "../../../../../content/NewContent/NewsFeed/svg/chart.svg";
+import photo from '../../../../../content/NewContent/NewsFeed/svg/post_img_icon.svg';
+import doc from '../../../../../content/NewContent/NewsFeed/svg/post_doc_icon.svg';
+import poll from '../../../../../content/NewContent/NewsFeed/svg/post_poll_icon.svg';
+import Avatar from '../../../../sharedComponents/Avatar/avatarOLD';
+import PostHeader from './views/PostHeader';
+import ComposerForm from './views/ComposerForm';
+// import CModal from "../../../../sharedComponents/CModal/CModal";
+import store from '../../../../../store/store';
+import { feedSlice } from '../../store/slice';
+import { useSelector } from 'react-redux';
+import { Modal, Tooltip } from 'antd';
+import { LanguageChangeContext } from '../../../../../utils/localization/localContext/LocalContext';
+import { FeedDictionary } from '../../localization';
+import { useMediaQuery } from 'react-responsive';
 
 function PostComposer({ referenceType, referenceId }) {
-  const { showComposer } = useSelector((state) => state.feedSlice.postCompose);
+  const isExtraSmall = useMediaQuery({ query: `(max-width: 600px)` });
+
+  const { showComposer, type } = useSelector(
+    (state) => state.feedSlice.postCompose
+  );
   const { userSlice } = useSelector((state) => state);
   const { name, userImage } = userSlice.user;
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -24,6 +32,9 @@ function PostComposer({ referenceType, referenceId }) {
   const toggleComposer = (visibility) => {
     store.dispatch(feedSlice.actions.toggleComposerVisibility({ visibility }));
   };
+  const imageVideoRef = useRef();
+  const docsRef = useRef();
+  const pollRef = useRef();
 
   return (
     <>
@@ -34,8 +45,10 @@ function PostComposer({ referenceType, referenceId }) {
               src={userImage}
               className="addPostAvatar"
               name={name}
-              width={44}
-              height={44}
+              // width={44}
+              // height={44}
+              width={isExtraSmall ? 30 : 44}
+              height={isExtraSmall ? 30 : 44}
               round={true}
             />
             <div className="name">
@@ -43,12 +56,55 @@ function PostComposer({ referenceType, referenceId }) {
             </div>
           </div>
           <div className="text-area" onClick={() => toggleComposer(true)}>
-            {Whatsonyourmind}
+            <span
+              style={{
+                fontSize: isExtraSmall && '9px',
+              }}
+            >
+              {Whatsonyourmind}
+            </span>
           </div>
-          <div className="feedIcons" style={{ display: "flex" }}>
-            <img src={frameIcon} alt="" />
-            <img src={penIcon} alt="" />
-            <img src={chartIcon} alt="" />
+          <div
+            className="feedIcons cursor-pointer"
+            style={{ display: 'flex' }}
+            onClick={() => toggleComposer(true)}
+          >
+            <Tooltip title="Add Image/Video" color="var(--currentThemeColor)">
+              <img
+                src={photo}
+                alt="video"
+                className="hover:shadow-md hover:scale-125 transition-all"
+                onClick={() => {
+                  setTimeout(() => {
+                    imageVideoRef.current.click();
+                  }, 100);
+                }}
+              />
+            </Tooltip>
+            <Tooltip title="Add Documents" color="var(--currentThemeColor)">
+              <img
+                src={doc}
+                alt="doc"
+                className="hover:shadow-md hover:scale-125 transition-all"
+                onClick={() => {
+                  setTimeout(() => {
+                    docsRef.current.click();
+                  }, 100);
+                }}
+              />
+            </Tooltip>
+            <Tooltip title="Add Polls" color="var(--currentThemeColor)">
+              <img
+                src={poll}
+                alt="poll"
+                className="hover:shadow-md hover:scale-125 transition-all"
+                onClick={() => {
+                  setTimeout(() => {
+                    pollRef.current.click();
+                  }, 100);
+                }}
+              />
+            </Tooltip>
           </div>
         </div>
         <span className="area-block" />
@@ -57,7 +113,17 @@ function PostComposer({ referenceType, referenceId }) {
         className={Direction}
         width={800}
         visible={showComposer}
-        onCancel={() => toggleComposer(false)}
+        onCancel={() => {
+          if (type !== 1) {
+            store.dispatch(
+              feedSlice.actions.onPostTypeChange({
+                type: 1,
+              })
+            );
+          }
+          store.dispatch(feedSlice.actions.resetComposeFeed());
+          toggleComposer(false);
+        }}
         destroyOnClose
         footer={null}
         header={null}
@@ -67,6 +133,10 @@ function PostComposer({ referenceType, referenceId }) {
           <ComposerForm
             referenceType={referenceType}
             referenceId={referenceId}
+            imageVideoRef={imageVideoRef}
+            pollRef={pollRef}
+            docsRef={docsRef}
+            isOpen={showComposer}
           />
         </div>
       </Modal>

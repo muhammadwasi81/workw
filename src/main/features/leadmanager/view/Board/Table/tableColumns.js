@@ -1,12 +1,26 @@
 import { PlusCircleFilled } from "@ant-design/icons";
+import React, { useContext } from "react";
+
 import { Tooltip } from "antd";
 import Avatar from "../../../../../sharedComponents/Avatar/avatar";
 import StatusTag from "../../../../../sharedComponents/Tag/StatusTag";
 import LeadSectionSelect from "../../../UI/Select/LeadSectionSelect";
-export const tableColumns = (sections, handleMemberModal) => {
+import { LeadManagerDictionary } from "../../../localization";
+import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
+export const tableColumns = (
+	sections,
+	handleMemberModal,
+	userLanguage,
+	handleSelectedMembers
+) => {
+	// const { userLanguage } = useContext(LanguageChangeContext);
+	const { LeadManagerDictionaryList, Direction } = LeadManagerDictionary[
+		userLanguage
+	];
+	const { table } = LeadManagerDictionaryList;
 	return [
 		{
-			title: "Name",
+			title: table.name,
 			dataIndex: "name",
 			// sort: true,
 			width: 200,
@@ -14,7 +28,7 @@ export const tableColumns = (sections, handleMemberModal) => {
 			// render: details => console.log("details", details),
 		},
 		{
-			title: "Address",
+			title: table.address,
 			dataIndex: "address",
 			// sort: true,
 			// tag: true,
@@ -22,19 +36,19 @@ export const tableColumns = (sections, handleMemberModal) => {
 			width: 200,
 		},
 		{
-			title: "Type",
+			title: table.type,
 			dataIndex: "typeId",
 			width: 200,
 			render: typeId => (typeId === 1 ? "Business" : "Individual"),
 		},
 		{
-			title: "Members",
+			title: table.members,
 			dataIndex: ["members"],
 			width: 200,
 			render: (members, { id }, index) => {
 				return (
 					<div className="flex gap-2 items-center">
-						<Avatar heading="Members" membersData={members} />
+						<Avatar heading="Members" membersData={members || []} />
 						<Tooltip title="Select Assign Members">
 							<PlusCircleFilled
 								className="!text-[20px] !cursor-pointer !text-primary-color "
@@ -42,6 +56,7 @@ export const tableColumns = (sections, handleMemberModal) => {
 									e.stopPropagation();
 									e.preventDefault();
 									handleMemberModal(id);
+									handleSelectedMembers("", members);
 								}}
 							/>
 						</Tooltip>
@@ -51,15 +66,20 @@ export const tableColumns = (sections, handleMemberModal) => {
 			// ellipsis: true,
 		},
 		{
-			title: "Section",
+			title: table.section,
 			dataIndex: "sectionId",
-			render: (sectionId, record, index) => (
-				<LeadSectionSelect
-					detail={record}
-					sections={sections}
-					index={index}
-				/>
-			),
+			render: (sectionId, record, index) => {
+				console.log("row detail", index, record, sectionId);
+
+				return (
+					<LeadSectionSelect
+						detail={record}
+						sections={sections}
+						currentIndex={record.index}
+						key={index}
+					/>
+				);
+			},
 			width: 200,
 		},
 	];

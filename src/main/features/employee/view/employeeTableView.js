@@ -1,18 +1,26 @@
-import React from "react";
-import { useSelector } from "react-redux/es/hooks/useSelector";
-import { Table } from "../../../sharedComponents/customTable";
+import { useContext } from 'react';
+import { Table } from '../../../sharedComponents/customTable';
+import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
+import { employeeDictionaryList } from '../localization';
+import { tableColumn } from './tableColumns';
+import propTypes from 'prop-types';
 
-import { tableColumn } from "./tableColumns";
+function EmployeeTableView({ filterEmployees }) {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { employeesDictionary } = employeeDictionaryList[userLanguage];
+  const { tables } = employeesDictionary;
 
-function EmployeeTableView() {
-  const { employees } = useSelector((state) => state.employeeSlice);
   return (
     <Table
-      columns={tableColumn()}
+      columns={tableColumn(tables)}
       dragable={true}
-      data={employees ? employees : []}
+      data={filterEmployees ? filterEmployees : []}
     />
   );
 }
+
+EmployeeTableView.propTypes = {
+  filterEmployees: propTypes.array,
+};
 
 export default EmployeeTableView;

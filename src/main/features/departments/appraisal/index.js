@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AdminContainer } from "../../../../components/HrMenu/Administration/StyledComponents/admin";
+import { AdminContainer } from "../../../sharedComponents/Administration/StyledComponents/admin";
 import GradeForm from "./form.js";
 import GradeTable from "./table.js";
 import {
@@ -44,16 +44,18 @@ export default function Appraisal() {
           isDefault: true,
         })
       );
+    } else {
+      console.log("dispatch update");
+      dispatch(
+        updateDepartmentAppraisalQuestion({
+          id: e.id,
+          departmentId: departmentDetail.id,
+          question: e.question,
+          isDefault: true,
+        })
+      );
     }
-    console.log("dispatch update");
-    dispatch(
-      updateDepartmentAppraisalQuestion({
-        id: e.id,
-        departmentId: departmentDetail.id,
-        question: e.question,
-        isDefault: true,
-      })
-    );
+
     setQuestion(initialState);
     setClearButton(true);
     return;

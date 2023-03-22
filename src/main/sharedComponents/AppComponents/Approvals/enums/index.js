@@ -11,16 +11,33 @@ export const ApprovalsModule = {
 	ComplainApproval: 10,
 	RewardApproval: 11,
 	BonusApproval: 12,
+	PromotionApproval: 13,
+	RequestForItemApproval: 14,
+	LoanApproval: 15,
+	CustomApproval: 16,
+	FormApproval: 17,
+	DocumentApproval: 18,
+	SalaryApproval: 19,
+	SignupApproval: 20,
+	PayrollApproval: 21,
+	CareerApproval: 22,
 	RequisitionApproval: 23,
 	RequisitionFinalApproval: 24,
-	PromotionApproval: 14,
-	RequestForItemApproval: 15,
-	LoanApproval: 16,
-	CustomApproval: 17,
-	FormApproval: 18,
-	SalaryApproval: 20,
-	PayrollApproval: 22
+	RequestForItemAssetControllerApproval: 25,
+	ItemApproval: 26,
+	AssetApproval: 27,
+	ResignationAdminApproval: 28,
+	ResignationExitApproval: 29,
+	ResignationFinanceApproval: 30,
+	ResignationHrApproval: 31,
+	ResignationItApproval: 32,
+	ResignationOtherApproval: 33,
+	ResignationReportingToApproval: 34,
+	QuotationApproval: 35,
+	QuotationClientApproval: 36,
+	AppraisalApproval: 37,
 };
+
 export const ApprovalStatus = {
 	InProcess: 1,
 	Approved: 2,
@@ -31,6 +48,7 @@ export const ApprovalStatus = {
 	Cancelled: 7,
 	ApprovalRequired: 8,
 	Hold: 9,
+	WaitingForOtherApprover: 10,
 	NoStatus: 0,
 };
 export const ApproverType = {
@@ -39,6 +57,7 @@ export const ApproverType = {
 	Department: 2,
 };
 export const getStatusLabelAndColor = (module, statusLabels) => {
+	// console.log(statusLabels, "statusLabels");
 	return {
 		[ApprovalStatus.InProcess]: {
 			label: statusLabels.InProcess,
@@ -53,8 +72,10 @@ export const getStatusLabelAndColor = (module, statusLabels) => {
 			color: "#FF0000",
 		},
 		[ApprovalStatus.Resend]: {
-			label: statusLabels.Resend,
-			color: "#008eff",
+			// label: statusLabels.Resend,
+			// color: "#008eff",
+			label: statusLabels.Cancelled,
+			color: "#a40d0d",
 		},
 		[ApprovalStatus.Inactive]: {
 			label: statusLabels.Inactive,
@@ -66,16 +87,24 @@ export const getStatusLabelAndColor = (module, statusLabels) => {
 		},
 		[ApprovalStatus.Cancelled]: {
 			label: statusLabels.Cancelled,
+			color: "#a40d0d",
+		},
+		[ApprovalStatus.ApprovalRequired]: {
+			label: statusLabels.ApprovalRequired,
 			color: "#1ECB40",
 		},
 		[ApprovalStatus.ApprovalRequired]: {
 			label: statusLabels.ApprovalRequired,
 			color: "#1ECB40",
 		},
+		[ApprovalStatus.WaitingForOtherApprover]: {
+			label: statusLabels.WaitingForOtherApprover,
+			color: "#9d9d9d",
+		},
 		[ApprovalStatus.NoStatus]: {
 			label: "No Status",
 			color: "Red",
 		},
-		[ApprovalStatus.Hold]: { label: statusLabels.Hold, color: "#1a5669" },
+		[ApprovalStatus.Hold]: { label: statusLabels.Hold, color: "#ffa500" },
 	};
 };

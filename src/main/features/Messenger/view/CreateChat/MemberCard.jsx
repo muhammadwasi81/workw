@@ -3,22 +3,28 @@ import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
 import checkIcon from "../../../../../content/NewContent/Messenger/check-outline.svg";
 import { CloseOutlined } from "@ant-design/icons";
 function MemberCard({
- item,
+  item,
   onMemberSelect,
   onMemberRemove,
   isChecked,
   extraClassName,
 }) {
-
+  console.log(item, "itemmm");
   return (
     <div
       className={`memberCard ${extraClassName && extraClassName} px-5`}
       onClick={() => {
-        isChecked ? onMemberRemove(item) :  onMemberSelect(item);
+        isChecked ? onMemberRemove(item) : onMemberSelect(item);
       }}
     >
       <div className="memberCard__header">
-        <Avatar width={"2.2rem"} height={"2.2rem"} round src={item.image}></Avatar>
+        <Avatar
+          src={item.image}
+          name={item.name}
+          width={"2.2rem"}
+          height={"2.2rem"}
+          round
+        />
       </div>
       <div className="memberCard__body">
         <p>{item.name}</p>
@@ -26,9 +32,8 @@ function MemberCard({
       </div>
       <div className="memberCard__footer">
         <div className={`radio ${isChecked ? "checked" : ""}`}>
-         
           {/* {isChecked && <CloseOutlined />} */}
-          {isChecked && <img src={checkIcon}/> }
+          {isChecked && <img src={checkIcon} />}
         </div>
       </div>
     </div>

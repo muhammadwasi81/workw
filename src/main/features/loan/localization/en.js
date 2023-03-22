@@ -1,5 +1,6 @@
 const en = {
   loanDictionaryList: {
+    loans: "Loans",
     filter: "Filter",
     selectApprovers: "Select Approvers",
     warning: "Warning",
@@ -25,7 +26,14 @@ const en = {
     deadline: "Deadline",
     description: "Description",
     enterDescription: "Enter Description",
+    loanTenure: "Loan Tenure (In Months)",
+    months: "months",
+    datePicker: "Date Picker",
+    loansToMe: "Loans To Me",
+    list: "List",
+    table: "Table",
     loanPurpose: {
+      LoanPurpose: "Loan Purpose",
       vehicle: "Vehicle",
       personal: "Personal",
       wedding: "Wedding",

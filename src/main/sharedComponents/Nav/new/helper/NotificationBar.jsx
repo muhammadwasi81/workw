@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { ROUTES } from "../../../../../utils/routes";
 import sunIcon from "../../../../../content/svg/menu/newNavBarIcon/new/dark_mode.svg";
 import moonIcon from "../../../../../content/svg/menu/newNavBarIcon/new/light_mode.svg";
 import addUser from "../../../../../content/svg/menu/newNavBarIcon/new/add_user.svg";
@@ -6,10 +7,13 @@ import search from "../../../../../content/svg/menu/newNavBarIcon/new/search.svg
 import notification from "../../../../../content/svg/menu/newNavBarIcon/new/ring.svg";
 import rewards from "../../../../../content/svg/menu/newNavBarIcon/new/check_list.svg";
 import stickyNotes from "../../../../../content/svg/menu/newNavBarIcon/new/sticky_notes.svg";
-import Notes from "../../../../features/notes/Notes";
+// import Notes from "../../../../features/notes/Notes";
 import NewStickyNote from "../../../../features/notes/NewStickyNote";
 import { toggleStickyNote } from "../../../../features/notes/newStickyNotes/store/stickySlice";
-import { setNotificationStatus } from "../../../../../store/appReducer/responsiveSlice";
+import {
+  setApprovalStatus,
+  setNotificationStatus,
+} from "../../../../../store/appReducer/responsiveSlice";
 import { useSelector, useDispatch } from "react-redux";
 import {
   disable as disableDarkMode,
@@ -20,22 +24,22 @@ import Approvals from "../../../../features/approval/view/SideBarApproval/sideBa
 import Notifications from "../../../../features/notifiation/view/index";
 import OpenImage from "../../../../features/notes/OpenImage";
 import StickyContainer from "../../../../features/notes/newStickyNotes/view/components/StickyNotes";
-// const Approvals = () => {
-//   return "Approvals";
-// };
+import { quickAddOpen } from "../../../../features/quickEmployee/store/slice";
+import { darkModeHandler } from "../../../../../utils/Shared/store/slice";
+import { useNavigate } from "react-router-dom";
+import { globalSearch } from "../../../../features/search/store/actions";
+import { SearchFilterEnum } from "../../../../features/search/enums/enums";
+import { message } from "antd";
 
 function NotificationBar() {
   const [isSearch, setIsSearch] = useState(false);
-  const [currentNotification, setCurrentNotification] = useState("");
-  const renderModal = {
-    ["approval"]: <Approvals />,
-    ["notification"]: <Notifications />,
-  };
+  const [keyword, setKeyword] = useState("");
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [theme, setTheme] = useState(
     window.localStorage.getItem("darkMode") === "1"
   );
-  const { navBarStatus, notifcationStatus } = useSelector(
+  const { navBarStatus, notifcationStatus, approvalStatus } = useSelector(
     (state) => state.responsiveSlice
   );
   const handleSearch = () => {
@@ -53,19 +57,7 @@ function NotificationBar() {
     }
     window.localStorage.setItem("darkMode", status ? "1" : "0");
   };
-  const toggleNotification = () => {
-    dispatch(setNotificationStatus(false));
-    setCurrentNotification("");
-  };
-  const getCurrentNotification = (current) => {
-    if (current === currentNotification) {
-      dispatch(setNotificationStatus(false));
-      setCurrentNotification("");
-    } else {
-      dispatch(setNotificationStatus(true));
-      setCurrentNotification(current);
-    }
-  };
+
   useEffect(() => {
     setIsSearch(false);
   }, [navBarStatus === false]);
@@ -80,101 +72,97 @@ function NotificationBar() {
     dispatch(toggleStickyNote());
   };
 
-  // const incrementStickyNote = useSelector(
-  //   (state) => state.newStickySlice.incrementArray
-  // );
-
-  const openImg = useSelector((state) => state.newStickySlice.openImg);
-  // console.log(incrementStickyNote);
-
-  //console.log(closeAllSticky);
-  //const closeStickyNote = useSelector((state) => state.stickyNotesSlice.open);
-  const [title, setTitle] = useState("");
-  const titleVal = (titleVal) => {
-    setTitle(titleVal);
+  const quickEmployeeHandler = () => {
+    dispatch(quickAddOpen());
   };
+  const handleNotification = (status = true) => {
+    dispatch(setNotificationStatus(status));
+  };
+  const handleApproval = (status = true) => {
+    dispatch(setApprovalStatus(status));
+  };
+  const openImg = useSelector((state) => state.newStickySlice.openImg);
+
+  function onKeyUp(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    setKeyword(e.target.value);
+    if (e.keyCode === 13 && !e.shiftKey) {
+      // setIsSearch();
+      dispatch(
+        globalSearch({
+          pageNo: 1,
+          pageSize: 20,
+          search: keyword,
+          filterType: 0,
+        })
+      );
+
+      navigate(`search?q=${keyword}`);
+      // setIsSearch(false);
+      // e.target.value = "";
+    }
+  }
 
   return (
     <div className={classes}>
-      <ul className="list">
-        {isSearch && (
+      <div className="notiBarIcon">
+        <ul className="list">
+          <li className="list__item">
+            <img
+              alt="theme-icon"
+              src={theme ? sunIcon : moonIcon}
+              onClick={() => {
+                setTheme(!theme);
+                modeHandler(!theme);
+                dispatch(darkModeHandler(!theme));
+              }}
+            />
+          </li>
+          <li className="list__item">
+            <img src={addUser} alt="" onClick={quickEmployeeHandler} />
+          </li>
+          <li className="list__item">
+            <img src={stickyNotes} alt="" onClick={stickyNoteHandler} />
+          </li>
+          <li className="list__item" onClick={handleNotification}>
+            <img src={notification} alt="" />
+          </li>
+          <li className="list__item" onClick={handleApproval}>
+            <img src={rewards} alt="" />
+          </li>
+        </ul>
+        <div className="searchBar">
+          <img
+            src={search}
+            alt=""
+            onClick={handleSearch}
+            className="cursor-pointer"
+          />
           <input
             type="text"
-            style={{
-              border: "1px solid #3e3e3e",
-              padding: "0 5px",
-              outline: "none",
-            }}
-            className="notificationBar_input"
+            className={!isSearch ? "d-none" : "globalSearchInput"}
+            onKeyUp={(e) => onKeyUp(e)}
           />
-        )}
-        <li className="list__item">
-          <img
-            alt=""
-            src={theme ? sunIcon : moonIcon}
-            onClick={() => {
-              setTheme(!theme);
-              modeHandler(!theme);
-            }}
-          />
-        </li>
-        <li className="list__item">
-          <img src={addUser} alt="" />
-        </li>
-        <li className="list__item">
-          <img src={stickyNotes} alt="" onClick={stickyNoteHandler} />
-        </li>
-        {/* {toggleNote && <Notes stickyNoteTitle={title} />} */}
-        {toggleNote && <StickyContainer />}
-        {/* {incrementStickyNote.map((increment) => (
-          <NewStickyNote
-            key={increment.id}
-            id={increment.id}
-            title={increment.title}
-            titleVal={increment.titleVal}
-            textAreaPlaceholder={increment.textArea_placeholder}
-            textAreaValue={
-              increment.textArea_value === "Take a Note..."
-                ? ""
-                : increment.textArea_value
-            }
-            x_axis={increment.x_axis}
-            y_axis={increment.y_axis}
-            open={increment.open}
-            titleBg={increment.bgColor}
-            onGetTitleVal={titleVal}
-            img={increment.img}
-          />
-        ))} */}
-        <li
-          className="list__item"
-          onClick={() => {
-            getCurrentNotification("notification");
-          }}
-        >
-          <img src={notification} alt="" />
-        </li>
-        <li
-          className="list__item"
-          onClick={() => {
-            getCurrentNotification("approval");
-          }}
-        >
-          <img src={rewards} alt="" />
-        </li>
-        <li className="list__item search" onClick={handleSearch}>
-          <img src={search} alt="" />
-        </li>
-      </ul>
+        </div>
+      </div>
       <NotificationModal
         isVisible={notifcationStatus}
-        onClose={toggleNotification}
+        onClose={() => handleNotification(false)}
       >
-        {renderModal[currentNotification]}
+        <Notifications />
       </NotificationModal>
+
+      <NotificationModal
+        isVisible={approvalStatus}
+        onClose={() => handleApproval(false)}
+      >
+        <Approvals />
+      </NotificationModal>
+
       {openImg && <OpenImage />}
+      {toggleNote && <StickyContainer />}
     </div>
   );
 }
-
 export default NotificationBar;

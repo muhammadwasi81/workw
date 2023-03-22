@@ -3,7 +3,7 @@ import Avatar from "../../../sharedComponents/Avatar/avatar";
 
 import TagAvatar from "../../../sharedComponents/Avatar/TagAvatar";
 import StatusTag from "../../../sharedComponents/Tag/StatusTag";
-export const tableColumn = () => {
+export const tableColumn = (leaveDictionary) => {
   return [
     // {
     //   title: "Sort",
@@ -12,36 +12,49 @@ export const tableColumn = () => {
     //   width: 80,
     // },
     {
-      title: "Reference No",
+      title: leaveDictionary.referenceNo,
       dataIndex: "referenceNo",
-      ellipsis: true,
       sort: true,
+      width: 200,
     },
     {
-      title: "Creator",
+      title: leaveDictionary.creator,
       dataIndex: "creator",
-      ellipsis: true,
-      render: (creator) => <TagAvatar text={creator.name} img={creator.image} />,
+      render: (creator) => (
+        <TagAvatar text={creator.name} img={creator.image} />
+      ),
+      width: 200,
       sort: true,
     },
     {
-      title: "Status",
+      title: leaveDictionary.status,
       dataIndex: "status",
       render: (status) => <StatusTag status={status} />,
       sort: true,
+      width: 200,
     },
     {
-      title: "Date",
-      dataIndex: "createDate",
-      render: (i) => moment(i.createDate).format("DD MMM YYYY"),
+      title: leaveDictionary.startDate,
+      dataIndex: "startDate",
+      render: (startDate) => moment(startDate).format("ddd,DD MMM YYYY"),
       sort: true,
+      width: 200,
+    },
+    {
+      title: leaveDictionary.endDate,
+      dataIndex: "endDate",
+      render: (endDate) => moment(endDate).format("ddd,DD MMM YYYY"),
+      sort: true,
+      width: 200,
     },
 
     {
-      title: "Approvers",
+      title: leaveDictionary.approvers,
       dataIndex: "approvers",
-      ellipsis: true,
-      render: (approver) => <Avatar membersData={approver} heading={"Approvers"} />,
+      width: 200,
+      render: (approver) => (
+        <Avatar membersData={approver} heading={"Approvers"} />
+      ),
     },
   ];
 };

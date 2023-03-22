@@ -1,8 +1,9 @@
 import React from "react";
-import AntTooltip from "../../../SharedComponent/Tooltip/AntTooltip";
+// import AntTooltip from "../../../SharedComponent/Tooltip/AntTooltip";
 import { Button, Rate, Tooltip, message } from "antd";
 import { NavLink, useLocation } from "react-router-dom";
 import {
+	createGuid,
 	parseDate,
 	parseDateWithMontAndYear,
 	STRINGS,
@@ -12,10 +13,21 @@ import { MdDelete } from "react-icons/md";
 import { deleteEmail, moveEmailToTrash } from "../Store/Api";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
+import AntTooltip from "../../../sharedComponents/Tooltip/AntTooltip";
+import { ROUTES } from "../../../../utils/routes";
+import moment from "moment";
 
-const MailItem = ({ data, changeSeenFlag }) => {
+const MailItem = ({ data, changeSeenFlag, handleClick }) => {
 	const dispatch = useDispatch();
-	const { from, subject, id, isRead, date, hasAttachments, content } = data;
+	const {
+		from = [],
+		subject = "",
+		id,
+		isRead = false,
+		date = new Date(),
+		hasAttachments,
+		content = "",
+	} = data;
 	const { pathname } = useLocation();
 	const api_base = pathname.split("/")[2];
 
@@ -30,7 +42,7 @@ const MailItem = ({ data, changeSeenFlag }) => {
 					message.success("Email moved to trash.");
 				}
 				console.log(originalPromiseResult, "originalPromiseResult");
-			} catch (rejectedValueOrSerializedError) {}
+			} catch (rejectedValueOrSerializedError) { }
 		});
 	};
 
@@ -43,7 +55,7 @@ const MailItem = ({ data, changeSeenFlag }) => {
 					message.success("Email deleted forever.");
 				}
 				console.log(originalPromiseResult, "originalPromiseResult");
-			} catch (rejectedValueOrSerializedError) {}
+			} catch (rejectedValueOrSerializedError) { }
 		});
 	};
 
@@ -64,49 +76,68 @@ const MailItem = ({ data, changeSeenFlag }) => {
 			className="mailItem"
 			key={id}
 			style={{ backgroundColor: !isRead && "#e5e5e554" }}
+			onClick={() => handleClick(id)}
 		>
-			<div className="mailName">
-				<input type="checkbox" />
-				<AntTooltip
-					value={!isRead ? "Mark as read" : "Mark as unread"}
-					placement="bottom"
-					color={"#FFFFFF"}
-				>
-					<Rate
-						count={1}
-						onChange={() => changeSeenFlag(id, isRead ? 2 : 1)}
-						value={!isRead}
-						style={{
-							fontSize: "15px",
-							marginLeft: 10,
-							color: "#406776",
-						}}
-					/>
-				</AntTooltip>
+			<div className="flex">
+				<div className="flex-1 overflow-hidden">
+					<div className="mailName">
+						<input type="checkbox" />
+						<AntTooltip
+							value={!isRead ? "Mark as read" : "Mark as unread"}
+							placement="bottom"
+							color={"#FFFFFF"}
+						>
+							<Rate
+								count={1}
+								onChange={() => changeSeenFlag(id, isRead ? 2 : 1)}
+								value={!isRead}
+								style={{
+									fontSize: "15px",
+									marginLeft: 10,
+									color: "#406776",
+								}}
+							/>
+						</AntTooltip>
 
-				<NavLink
-					className="mailFrom"
-					to={`${STRINGS.ROUTES.MAIL.DEFAULT}/${api_base}/${id}`}
-				>
-					{from && from[0]?.name}
-				</NavLink>
-			</div>
-			<NavLink
-				className="subjectAndBody"
-				to={`${STRINGS.ROUTES.MAIL.DEFAULT}/${api_base}/${id}`}
-			>
-				{subject} {content && "-"} {content}
-			</NavLink>
+						{/* <NavLink
+							className="mailFrom"
+							to={`${id}`}
+						> */}
+						<div className="mailFrom">
+							{from && from[0]?.name}
+						</div>
+						{/* </NavLink> */}
+					</div>
+					<div className="subjectAndBody">
+						{/* <NavLink
+						className="subjectAndBody"
+						to={`${id}`}
+					> */}
+						{subject}
+						{/* </NavLink> */}
+					</div>
 
-			<div className="mailDateBox" style={{ flex: "25%" }}>
-				{hasAttachments && (
-					<img
-						src={mailAttachmentIcon}
-						alt="mailAttachmentIcon"
-						style={{ marginRight: "10px" }}
-					/>
-				)}
-				{parseDateWithMontAndYear(parseDate(date))}
+					{/* <NavLink
+						className="subjectAndBody detail"
+						to={`${id}`}
+					> */}
+					{/* <div className="subjectAndBody detail">
+						Dummy Mail Detail Content Here
+					</div> */}
+					{/* </NavLink> */}
+				</div>
+
+				<div className="mailDateBox w-[100px]">
+					{hasAttachments && (
+						<img
+							src={mailAttachmentIcon}
+							alt="mailAttachmentIcon"
+							style={{ marginRight: "10px" }}
+						/>
+					)}
+					{moment(date).format('MMM Do YYYY, h:mm a')}
+				</div>
+
 			</div>
 
 			<div className="hoverEmailAction">

@@ -154,9 +154,19 @@ const urdu = {
     chartOfAccount: "اکاؤنٹ کا چارٹ",
     report: "رپورٹ",
     voucher: "واؤچر",
+    Quotation: "اقتباس",
+    QuotationClient: "عميل الاقتباس",
     ledgerReport: "لیجر رپورٹ",
     salary: "تنخواہ",
     payroll: "پے رول",
+    LD: "L&D",
+    jobBoard: "مجلس العمل",
+    teams: "فريقي",
+    transaction: "المعاملات",
+    assets: "تخصيص الأصول",
+    assetsList: "قائمة الأصول",
+    createAssets: "إنشاء الأصول",
+    requestListItems: "طلب العناصر",
   },
 
   /*** AppHeader only used in Component headerTab ***/
@@ -194,7 +204,7 @@ const urdu = {
     },
     schedules: {
       calendar: "کیلنڈر",
-      schedule: "شیڈول",
+      schedules: "شیڈول",
       scheduleInterviews: "انٹرویو کا شیڈول",
     },
     expense: {

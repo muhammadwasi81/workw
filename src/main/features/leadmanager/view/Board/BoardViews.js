@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { ROUTES } from "../../../../../utils/routes";
@@ -15,6 +15,7 @@ import {
 } from "../../store/actions";
 import {
 	handleAssignMemberModal,
+	handleComposeEmail,
 	handleContactDetailModal,
 	handleSectionDetailModal,
 } from "../../store/slice";
@@ -28,11 +29,14 @@ import ContactDetail from "./ContactDetail";
 import LeadsOverview from "./LeadsOverview";
 import SectionDetail from "./SectionDetail";
 import BoardTable from "./Table/BoardTable";
+import { LeadManagerDictionary } from "../../localization";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 
 function BoardViews() {
 	const [view, setView] = useState("List");
 	const [selectedMembers, setSelectedMembers] = useState([]);
-	const [emailModal, setEmailModal] = useState(false);
+	// const [emailModal, setEmailModal] = useState(false);
+	const [leadSectionId, setLeadSectionId] = useState("");
 	const dispatch = useDispatch();
 	const { id } = useParams();
 	const success = useSelector(state => state.leadMangerSlice.success);
@@ -69,6 +73,12 @@ function BoardViews() {
 	const leadManagerDetail = useSelector(
 		state => state.leadMangerSlice.leadManagerDetail
 	);
+	const { userLanguage } = useContext(LanguageChangeContext);
+	const { LeadManagerDictionaryList, Direction } = LeadManagerDictionary[
+		userLanguage
+	];
+	const { detail, labels, placeHolder } = LeadManagerDictionaryList;
+
 	useEffect(() => {
 		dispatch(getLeadManagerById(id));
 	}, []);
@@ -107,10 +117,22 @@ function BoardViews() {
 				{
 					detailId: assignToMemberId,
 					memberId: tempObj[0].id,
+					sectionId: leadSectionId,
 				},
 			])
 		);
 	};
+
+	const setMembersToSelectedMembers = (val, obj) => {
+		const tempObj = obj.map(member => {
+			return {
+				...member.member,
+			};
+		});
+		// let unique = getUniqueListBy([...selectedMembers, ...tempObj], "id");
+		setSelectedMembers([...tempObj]);
+	};
+
 	const handleDeleteMember = id => {
 		let filteredMembers = selectedMembers.filter(
 			member => member.id !== id
@@ -120,10 +142,13 @@ function BoardViews() {
 			deleteLeadManagerDetailAssignTo({
 				detailId: assignToMemberId,
 				memberId: id,
+				sectionId: leadSectionId,
 			})
 		);
 	};
-
+	// const handle
+	// console.log("selectedMembers", selectedMembers);
+	// console.log("leadManagerDetail", leadManagerDetail);
 	return (
 		<div>
 			<Header items={items} />
@@ -132,17 +157,26 @@ function BoardViews() {
 					setView(view);
 				}}
 				onEmailClick={() => {
-					setEmailModal(true);
+					dispatch(handleComposeEmail(true));
 				}}
 			/>
 			<TabContainer>
 				<ContBody className={`!block `} direction={""}>
 					{view === "List" ? (
-						<LeadsOverview />
+						<LeadsOverview
+							handleSelectedMembers={setMembersToSelectedMembers}
+							setLeadSectionId={setLeadSectionId}
+						/>
 					) : view === "Board" ? (
-						<Board />
+						<Board
+							handleSelectedMembers={setMembersToSelectedMembers}
+						/>
 					) : (
-						<BoardTable data={leadManagerDetail} />
+						<BoardTable
+							data={leadManagerDetail}
+							handleSelectedMembers={setMembersToSelectedMembers}
+							setLeadSectionId={setLeadSectionId}
+						/>
 					)}
 				</ContBody>
 			</TabContainer>
@@ -150,7 +184,7 @@ function BoardViews() {
 				isModalVisible={contactModal.isOpen}
 				onCancel={closeContactDetailModal}
 				width={"50%"}
-				title="Contact Detail"
+				title={detail.contactDetail}
 				footer={null}
 				children={
 					isContactDetailLoading ? (
@@ -171,42 +205,35 @@ function BoardViews() {
 				onCancel={() => {
 					dispatch(handleAssignMemberModal({ id: "" }));
 				}}
-				title="Assign Members"
+				title={detail.assignMembers}
 				footer={null}
 				centered={true}
 				children={
 					<AssignMemberModal
 						defaultData={leadManagerDetail?.members}
+						leadManagerDetail={leadManagerDetail}
 						onChange={handleSelectedMembers}
-						placeholder="Search Members"
+						placeholder={placeHolder.serachMembersPH}
 						selectedMembers={selectedMembers}
 						handleDeleteMember={handleDeleteMember}
 					/>
 				}
 				className={""}
 			/>
-			<CustomModal
-				isModalVisible={emailModal}
-				onCancel={() => {
-					setEmailModal(false);
-				}}
-				title={<div className="flex justify-center">Compose Email</div>}
-				footer={null}
-				centered={true}
-				children={<ComposeEmail />}
-				className={"rounded-lg"}
-				width={"50%"}
-			/>
+			<ComposeEmail />
+
 			<CustomModal
 				isModalVisible={isSectionModalOpen}
 				onCancel={() => dispatch(handleSectionDetailModal())}
 				width={"60%"}
-				title="Details"
+				title={detail.details}
 				footer={null}
 				className={""}
 				children={
 					<SectionDetail
 						isSectionDetailLoading={isSectionDetailLoading}
+						setLeadSectionId={setLeadSectionId}
+						handleSelectedMembers={setMembersToSelectedMembers}
 						handleContactDetailModal={() => {
 							dispatch(
 								handleContactDetailModal({

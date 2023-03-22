@@ -13,6 +13,8 @@ import SoundWaves from "../SoundWaves";
 import { useMediaQuery } from "react-responsive";
 import { useDispatch } from "react-redux";
 import { setNotificationStatus } from "../../../store/appReducer/responsiveSlice";
+import QuickAdd from "../../features/quickEmployee/view";
+
 
 const SideNavigation = () => {
 	const { navBarStatus } = useSelector(state => state.responsiveSlice);
@@ -45,6 +47,7 @@ const SideNavigation = () => {
 			<div className="sideNavigation__footer">
 				<NavigationBottom />
 			</div>
+				<QuickAdd/>
 		</div>
 	);
 };

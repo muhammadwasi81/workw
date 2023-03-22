@@ -3,51 +3,58 @@ import Avatar from "../../../sharedComponents/Avatar/avatar";
 
 import TagAvatar from "../../../sharedComponents/Avatar/TagAvatar";
 import StatusTag from "../../../sharedComponents/Tag/StatusTag";
-export const tableColumn = () => {
+export const tableColumn = (tables) => {
   return [
     {
-      title: "Sort",
+      title: tables.sort,
       dataIndex: "sort",
       drag: true,
       width: 80,
     },
     {
-      title: "Reference No",
+      title: tables.ReferenceNum,
       dataIndex: "referenceNo",
-      ellipsis: true,
       sort: true,
+      width: 100,
     },
     {
-      title: "Creator",
+      title:tables.Creator,
       dataIndex: "creator",
-      ellipsis: true,
-      render: (creator) => <TagAvatar text={creator.name} img={creator.image} />,
+      render: (creator) => (
+        <TagAvatar text={creator.name} img={creator.image} />
+      ),
       sort: true,
+      width: 200,
     },
     {
-      title: "Status",
+      title: tables.Status,
       dataIndex: "status",
       render: (status) => <StatusTag status={status} />,
       sort: true,
+      width: 100,
     },
     {
-      title: "Promotion To",
+      title: tables.promotionTo,
       dataIndex: "member",
-      ellipsis: true,
       render: (member) => member.name,
       sort: true,
+      width: 200,
     },
     {
-      title: "Date",
+      title: tables.Date,
       dataIndex: "createDate",
-      render: (i) => moment(i.createDate).format("DD MMM YYYY"),
+      render: (createDate) => moment(createDate).format("DD MMM YYYY"),
       sort: true,
+      width: 200,
     },
     {
-      title: "Approvers",
+      title: tables.Approvers,
       dataIndex: "approvers",
       ellipsis: true,
-      render: (approver) => <Avatar membersData={approver} heading={"Approvers"} />,
+      width: 200,
+      render: (approver) => (
+        <Avatar membersData={approver} heading={"Approvers"} />
+      ),
     },
   ];
 };

@@ -1,45 +1,50 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useDispatch } from "react-redux";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+import { CareerDictionary } from "../../localization";
 import TopBar from "../../../../sharedComponents/topBar/topBar";
 import { getAllCareerAction } from "../../store/action";
 import { handleChangeTab } from "../../store/slice";
 import { CareerFilterEnum } from "../../enum/index";
 
-function Index() {
+function Index(props) {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { CareerDictionaryList } = CareerDictionary[userLanguage];
   const dispatch = useDispatch();
   const [filter, setFilter] = useState({ filterType: 0, search: "" });
   const [search, setSearch] = useState("");
-  const [tableView, setTableView] = useState(false);
+  // const [tableView, setTableView] = useState(false);
+  const { labels } = CareerDictionaryList;
+  // console.log(labels);
 
   const handleTabChange = (tab) => {
     dispatch(handleChangeTab(tab));
+  };
+
+  const onSegmentChange = (val) => {
+    props.segment(val);
   };
 
   return (
     <>
       <TopBar
         onSearch={(value) => {
-          setFilter({ ...filter, search: value });
+          props.onSearch(value);
         }}
         buttons={[
           {
-            name: "Careers",
+            name: labels.careers,
             to: "careers",
             onClick: handleTabChange,
-            // onClick: () => setFilter({ filterType: CareerFilterEnum.All }),
           },
           {
-            name: "My Careers",
+            name: labels.myCareer,
             to: "myCareers",
             onClick: handleTabChange,
-            // onClick: () =>
-            //   setFilter({ filterType: CareerFilterEnum.MyCareers }),
           },
           {
-            name: "For Approval",
+            name: labels.forApproval,
             to: "forApprovals",
-            // onClick: () =>
-            //   setFilter({ filterType: CareerFilterEnum.ForApproval }),
             onClick: handleTabChange,
           },
         ]}
@@ -48,15 +53,16 @@ function Index() {
         //   onFilter: () => {},
         // }}
         segment={{
-          onSegment: (value) => {
-            if (value === "Table") {
-              setTableView(true);
-            } else {
-              setTableView(false);
-            }
-          },
-          label1: "List",
-          label2: "Table",
+          // onSegment: (value) => {
+          //   if (value === "Table") {
+          //     setTableView(true);
+          //   } else {
+          //     setTableView(false);
+          //   }
+          // },
+          onSegment: (value) => onSegmentChange(value),
+          label1: labels.list,
+          label2: labels.table,
         }}
       />
     </>

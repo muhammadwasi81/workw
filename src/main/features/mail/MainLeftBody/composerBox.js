@@ -5,12 +5,13 @@ import { ComposerBtnSection } from "../style/mail.style";
 import { handleMailComposer } from "../Store/MailSlice";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../utils/localization/languages";
-import SharedButton from "../../../SharedComponent/button/";
+// import SharedButton from "../../../SharedComponent/button/";
 import { getMailFolders, refreshMail } from "../Store/Api";
 import { useLocation } from "react-router-dom";
 import { createGuid } from "../../../../utils/base";
+import SharedButton from "../../../sharedComponents/button";
 
-const ComposerBox = () => {
+const ComposerBox = ({ handleReFetchMail }) => {
   const { responsiveSlice, mailSlice } = useSelector((state) => state);
   const { isMobileScreen } = responsiveSlice;
   const { isRefresh, mailComposerInstances } = mailSlice;
@@ -28,6 +29,9 @@ const ComposerBox = () => {
       id,
       isMax: false,
       isMinimize: false,
+      isReply: false,
+      isForward: false,
+      data: null,
     };
     temArr.push(obj);
 
@@ -41,17 +45,17 @@ const ComposerBox = () => {
     }
   };
 
-  let objData = {
-    folderPath: api_base,
-    pageNo: 1,
-    pageSize: 50,
-    search: "",
-  };
+  // let objData = {
+  //   folderPath: api_base,
+  //   pageNo: 1,
+  //   pageSize: 50,
+  //   search: "",
+  // };
 
-  const handleReFetchMail = () => {
-    dispatch(refreshMail(objData));
-    dispatch(getMailFolders());
-  };
+  // const handleReFetchMail = () => {
+  //   dispatch(refreshMail(objData));
+  //   dispatch(getMailFolders());
+  // };
 
   return (
     <ComposerBtnSection isMobileScreen={isMobileScreen}>

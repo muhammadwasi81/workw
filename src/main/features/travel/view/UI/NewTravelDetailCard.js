@@ -1,8 +1,16 @@
 import moment from "moment";
-import React from "react";
+import React, { useState,useContext} from "react";
 import FlyLocation from "../../../../../content/svg/travel-location.svg";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+import { TravelDictionary} from "../../localization/index"
+
+
 
 function NewTravelDetailCard(props) {
+
+	const { userLanguage } = useContext(LanguageChangeContext);
+	const { Direction,TravelDictionaryList } = TravelDictionary[userLanguage];
+    const {labels}=TravelDictionaryList;
 	const { travel } = props;
 	const travelObj = {
 		1: "By Plane",
@@ -16,25 +24,25 @@ function NewTravelDetailCard(props) {
 				<div className="flex justify-between items-center ">
 					<div className="flex flex-col items-center ">
 						<span className="text-lg font-semibold">
-							{travel?.departure.name
-								? travel.departure.name
+							{travel?.departure?.name
+								? travel.departure?.name
 								: travel.departure}
 						</span>
 						<span>
-							{travel?.departure.country
-								? travel.departure.country
+							{travel?.departure?.country
+								? travel.departure?.country
 								: travel.departureCountry}
 						</span>
 					</div>
 					<div className="flex flex-col items-center ">
 						<span className="text-lg font-semibold">
-							{travel?.arrival.name
-								? travel.arrival.name
+							{travel?.arrival?.name
+								? travel.arrival?.name
 								: travel.arrival}
 						</span>
 						<span>
-							{travel?.arrival.country
-								? travel.arrival.country
+							{travel?.arrival?.country
+								? travel.arrival?.country
 								: travel.arrivalCountry}
 						</span>
 					</div>
@@ -45,7 +53,10 @@ function NewTravelDetailCard(props) {
 
 				<div className="flex items-center justify-between font-semibold">
 					<span>
-						{moment(travel?.departureDate).format("DD MMM, YYYY")}
+						{moment
+							.utc(travel?.departureDate)
+							.local()
+							.format("DD MMM, YYYY - HH:mm")}
 					</span>
 					<span className="">{travelObj[travel?.travelById]}</span>
 				</div>
@@ -53,13 +64,13 @@ function NewTravelDetailCard(props) {
 			<hr />
 			<div className="flex justify-between p-2">
 				<span>
-					Hotel Required{" "}
+					{labels.hotelReq}{" "}
 					<span className="p-1 bg-primary-color text-white text-xs rounded text-semi-bold">
 						{travel?.isHotelRequired ? "Yes" : "No"}
 					</span>
 				</span>
 				<span>
-					TADA Applicable{" "}
+					{labels.tadaReq}{" "}
 					<span className="p-1 bg-primary-color text-white text-xs rounded text-semi-bold">
 						{travel?.isTADARequired ? "Yes" : "No"}
 					</span>

@@ -1,11 +1,13 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import { responseCode } from "../../../../services/enums/responseCode.js";
-import { addAllowance, addGrade, getAllAllowance, getAllGrades, removeGrade, updateAllowance, updateGrade } from "./actions.js";
+import { addAllowance, getAllAllowance, updateAllowance } from "./actions.js";
 
 const initialState = {
   allowances: [],
   loadingData: false,
   loader: false,
+  success: false,
+  error: false,
 };
 
 const allowanceSlice = createSlice({
@@ -29,21 +31,27 @@ const allowanceSlice = createSlice({
       })
       .addCase(updateAllowance.fulfilled, (state, { payload }) => {
         state.loader = false;
-        state.allowances = state.allowances.map((x) =>
-          x.id === payload.data.id ? payload.data : x
+        state.allowances = state.allowances.map((e) =>
+          e.id === payload.data.id ? payload.data : e
         );
       })
       .addMatcher(isPending(...[addAllowance, updateAllowance]), (state) => {
         state.loader = true;
+        state.success = false;
+        state.error = false;
       })
       .addMatcher(isPending(...[getAllAllowance]), (state) => {
         state.loadingData = true;
+        state.success = false;
+        state.error = false;
       })
       .addMatcher(
         isRejected(...[getAllAllowance, addAllowance, updateAllowance]),
         (state) => {
           state.loader = false;
           state.loadingData = false;
+          state.success = false;
+          state.error = false;
         }
       );
   },

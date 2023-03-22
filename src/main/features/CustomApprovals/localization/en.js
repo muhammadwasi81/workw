@@ -1,5 +1,6 @@
 const en = {
   customApprovalDictionary: {
+    customApproval: "Custom Approvals",
     enterRewardName: "Entet Reward Name",
     pleaseEnterRewardName: "Please Enter Reward Name",
     enterRewardReason: "Enter Reward Reason",
@@ -18,8 +19,9 @@ const en = {
     category: "Category",
     approvers: "Approvers",
     rewardTo: "Reward To",
-    createCustomApproval: "Create Custom Approval",
+    createCustomApproval: "Create Custom Approvals",
     forApproval: "For Approval",
+    approvalForMe: "Approval For Me",
     deductionPerMonth: "Deduction/Months",
     pleaseEnterloanTenureInMonths: "Please enter loan tenure",
     amount: "Amount",
@@ -29,6 +31,17 @@ const en = {
     deadline: "Deadline",
     description: "Description",
     enterDescription: "Enter Description",
+    subject: "Subject",
+    pleaseEnterSubject: "Please Enter Subject",
+    customApprovals: "Custom Approvals",
+    createdByMe: "Created By Me",
+    list: "List",
+    table: "Table",
+    referenceNo: "Reference No",
+    creator: "Creator",
+    status: "Status",
+    date: "Date",
+
     loanPurpose: {
       vehicle: "Vehicle",
       personal: "Personal",

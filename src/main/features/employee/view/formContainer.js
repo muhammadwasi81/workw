@@ -1,21 +1,22 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Button, Form } from "antd";
-import EducationForm from "./educationForm";
-import EmergencyForm from "./emergencyForm";
-import ExperienceForm from "./experienceForm";
-import BankForm from "./bankDetailForm";
-import "../Styles/employee.css";
-import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import BasicInfo from "./basicForm";
-import { useDispatch } from "react-redux";
+import React, { useContext, useEffect, useState } from 'react';
+import { Button, Form } from 'antd';
+import EducationForm from './educationForm';
+import EmergencyForm from './emergencyForm';
+import ExperienceForm from './experienceForm';
+import BankForm from './bankDetailForm';
+import '../Styles/employee.css';
+import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
+import BasicInfo from './basicForm';
+import { useDispatch } from 'react-redux';
 import {
   getCities,
   getCountries,
-} from "../../../../utils/Shared/store/actions";
-import { employeeDictionaryList } from "../localization";
-import { addEmployee } from "../store/actions";
-import { defaultUiid } from "../../../../utils/Shared/enums/enums";
-import { useSelector } from "react-redux";
+} from '../../../../utils/Shared/store/actions';
+import { employeeDictionaryList } from '../localization';
+import { addEmployee } from '../store/actions';
+import { defaultUiid } from '../../../../utils/Shared/enums/enums';
+import { useSelector } from 'react-redux';
+import { getAllAccessRoles } from '../../accessRole/store/action';
 
 const EmployeeFormContainer = () => {
   const dispatch = useDispatch();
@@ -24,6 +25,8 @@ const EmployeeFormContainer = () => {
   const [profileImage, setProfileImage] = useState();
 
   const { loader } = useSelector((state) => state.employeeSlice);
+  const { accessRoles } = useSelector((state) => state.accessRolesSlice);
+  console.log(accessRoles, 'ADD FORM!!!');
   const image = {
     image: {
       id: defaultUiid,
@@ -32,7 +35,8 @@ const EmployeeFormContainer = () => {
   };
   useEffect(() => {
     dispatch(getCountries());
-    dispatch(getCities({ textData: "", page: 20 }));
+    dispatch(getCities({ textData: '', page: 20 }));
+    dispatch(getAllAccessRoles());
   }, [dispatch]);
 
   const onSubmit = (forms) => {
@@ -44,12 +48,17 @@ const EmployeeFormContainer = () => {
     const employeeData = {
       ...image,
       ...basicDetails,
+      accessRoles: basicDetails.accessRoles.map((role) => {
+        return {
+          id: role,
+        };
+      }),
       educations: [...educationDetails],
       experiences: [...workInfo],
       bankDetails: [...bankDetails],
       emergencyContacts: [...emergencyInfo],
     };
-
+    console.log(employeeData, 'Add Handler');
     dispatch(
       addEmployee({
         data: employeeData,
@@ -67,7 +76,9 @@ const EmployeeFormContainer = () => {
             if (isValidation) {
               onSubmit(forms);
             }
-          } catch (e) {}
+          } catch (e) {
+            console.log(e);
+          }
         }}
       >
         <Form>

@@ -1,7 +1,107 @@
-/* .profile_link{
-    border-radius: 8px;
+.profilepic {
+  position: relative;
+  image-rendering: pixelated;
 }
 
-.profile_link:hover{
-    back
-} */
+.profilepic:hover .profilepic__content {
+  opacity: 1;
+}
+
+.profilepic:hover .profilepic__image {
+  opacity: 0.5;
+}
+
+.profilepic__image {
+  object-fit: cover;
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.profilepic__content {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.profilepic__icon {
+  color: #fff;
+  padding-bottom: 0;
+}
+.profilepic__content .imageUpload {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+.userImg {
+  width: 150px;
+  height: 150px;
+  border-radius: 4px;
+}
+.uploadIcon {
+  font-size: 30px;
+  color: #000;
+  cursor: pointer;
+}
+.textArea_container {
+  display: flex;
+  flex-direction: row;
+  overflow-y: scroll;
+  position: relative;
+}
+.stickyNoteItem-textarea {
+  flex: 1;
+  width: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  outline: none;
+  border: none;
+  margin: 0;
+  font-size: 16px;
+  resize: none;
+  padding: 5px;
+}
+.singleNote_header {
+  padding: 7px;
+  cursor: move;
+  z-index: 10;
+  height: 40px;
+  /* font-size: 14px; */
+  letter-spacing: 1px;
+  background-color: #0f4c81;
+  border-radius: 5px;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.singleNote_container {
+  box-shadow: 0 5px 5px -3px rgb(0 0 0 / 20%), 0 8px 10px 1px rgb(0 0 0 / 14%),
+    0 3px 14px 2px rgb(0 0 0 / 12%);
+  border-radius: 5px;
+}
+.leftNote_Icon {
+  font-size: 16px !important;
+  font-weight: bold;
+}
+
+@media (min-width: 1280px) {
+  .coursListing .xl\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 768px) {
+  .coursListing .md\:grid-cols-2 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

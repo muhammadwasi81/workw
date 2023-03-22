@@ -1,9 +1,9 @@
 import React, { useEffect, useContext, useState } from "react";
 import {
-	ContBody,
-	TabbableContainer,
+  ContBody,
+  TabbableContainer,
 } from "../../../sharedComponents/AppComponents/MainFlexContainer";
-import { Button, Skeleton, Drawer } from "antd";
+import { Skeleton } from "antd";
 import ListItem from "./ListItem";
 import Composer from "./Composer";
 import DetailedView from "./DetailedView";
@@ -11,167 +11,195 @@ import { complainDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import {
-	getAllComplains,
-	GetComplainById,
-	GetRewardById,
-} from "../store/actions";
+import { getAllComplains } from "../store/actions";
 import { Table } from "../../../sharedComponents/customTable";
 import Header from "../../../layout/header/index";
 
 // import "./complain.css";
 import { CardWrapper } from "../../../sharedComponents/Card/CardStyle";
+import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
 
 import { tableColumn } from "./TableColumn";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 import { handleOpenComposer } from "../store/slice";
+import { ROUTES } from "../../../../utils/routes";
+import SideDrawer from "../../../sharedComponents/Drawer/SideDrawer";
+import { FeaturePermissionEnum } from "../../../../utils/Shared/enums/featuresEnums";
 
-const Reward = props => {
-	const dispatch = useDispatch();
-	const { userLanguage } = useContext(LanguageChangeContext);
-	const { Direction, complainDictionary } = complainDictionaryList[
-		userLanguage
-	];
+const Complain = () => {
+  const dispatch = useDispatch();
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { complainDictionary } = complainDictionaryList[userLanguage];
+  const { user } = useSelector((state) => state.userSlice);
+  const userPermissions = user.permissions;
+  // const {
+  //   createComplain,
+  //   Direction,
+  //   Complains,
+  //   createdByMe,
+  //   forApproval,
+  //   complainToMe,
+  //   list,
+  //   table,
+  // } = complainDictionary;
+  const [detailId, setDetailId] = useState(false);
 
-	const [tableView, setTableView] = useState(false);
+  const [sort, setSort] = useState(1);
+  const [page, setPage] = useState(20);
+  const [pageNo, setPageNo] = useState(1);
+  const [tableView, setTableView] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const [filter, setFilter] = useState({
+    filterType: 0,
+    search: "",
+    sortBy: 1,
+    pageSize: 50,
+  });
+  const [complainId, setComplainId] = useState("");
 
-	const [visible, setVisible] = useState(false);
+  const {
+    complains,
+    complainDetail,
+    loader,
+    drawerOpen,
+    loadingData,
+  } = useSelector((state) => state.complainSlice);
 
-	const [filter, setFilter] = useState({ filterType: 0, search: "" });
-	const [complainId, setComplainId] = useState("");
+  const onClose = () => {
+    setDetailId(null);
+  };
 
-	const { complains, loader, drawerOpen } = useSelector(
-		state => state.complainSlice
-	);
+  const getComplainById = (id) => {
+    setComplainId(id);
+    setVisible(true);
+  };
 
-	const onClose = () => {
-		setVisible(false);
-	};
+  useEffect(() => {
+    dispatch(getAllComplains(filter));
+  }, [filter]);
 
-	const getComplainById = id => {
-		setComplainId(id);
-		setVisible(true);
-	};
+  const items = [
+    {
+      name: complainDictionary.Complains,
+      to: `${ROUTES.COMPLAINS.ROOT}`,
+      renderButton: [1],
+    },
+  ];
 
-	useEffect(() => {
-		dispatch(getAllComplains(filter));
-	}, [filter]);
-	return (
-		<TabbableContainer className="max-width-1190">
-			<Header
-				buttons={[
-					{
-						buttonText: "Create Complain",
-						render: (
-							<Button
-								className="ThemeBtn"
-								onClick={() =>
-									dispatch(handleOpenComposer(true))
-								}
-							>
-								{complainDictionary.createComplain}
-							</Button>
-						),
-					},
-				]}
-			/>
-			<TopBar
-				onSearch={value => {
-					setFilter({ ...filter, search: value });
-				}}
-				buttons={[
-					{
-						name: "Complains",
-						onClick: () => setFilter({ filterType: 0 }),
-					},
-					{
-						name: "Created By Me",
-						onClick: () => setFilter({ filterType: 1 }),
-					},
-					{
-						name: "For Approval",
-						onClick: () => setFilter({ filterType: 2 }),
-					},
-					{
-						name: "Complain To Me",
-						onClick: () => setFilter({ filterType: 3 }),
-					},
-				]}
-				segment={{
-					onSegment: value => {
-						if (value === "Table") {
-							setTableView(true);
-						} else {
-							setTableView(false);
-						}
-					},
-					label1: "List",
-					label2: "Table",
-				}}
-			/>
-			<ContBody>
-				{complains && complains?.length > 0 ? (
-					tableView ? (
-						<Table
-							columns={tableColumn()}
-							dragable={true}
-							data={complains}
-						/>
-					) : (
-						<>
-							{loader ? (
-								<>
-									<Skeleton avatar paragraph={{ rows: 4 }} />
-								</>
-							) : (
-								<CardWrapper>
-									{complains.map((item, index) => {
-										return (
-											<>
-												<ListItem
-													getComplainById={
-														getComplainById
-													}
-													item={item}
-													id={item.id}
-													key={index}
-												/>
-											</>
-										);
-									})}
-								</CardWrapper>
-							)}
-						</>
-					)
-				) : (
-					<Skeleton avatar paragraph={{ rows: 4 }} />
-				)}
-			</ContBody>
-			<Drawer
-				title={
-					<h1
-						style={{
-							fontSize: "20px",
-							margin: 0,
-						}}
-					>
-						Create Complain
-					</h1>
-				}
-				width="768"
-				onClose={() => {
-					dispatch(handleOpenComposer(false));
-				}}
-				visible={drawerOpen}
-				destroyOnClose={true}
-				className="detailedViewComposer drawerSecondary"
-			>
-				<Composer />
-			</Drawer>
+  const onRow = (record, rowIndex) => {
+    return {
+      onClick: (event) => {
+        setComplainId(record.id);
+        setVisible(true);
+      },
+      onDoubleClick: (event) => {}, // double click row
+      onContextMenu: (event) => {}, // right button click row
+      onMouseEnter: (event) => {}, // mouse enter row
+      onMouseLeave: (event) => {}, // mouse leave row
+    };
+  };
 
-			<DetailedView onClose={onClose} visible={visible} id={complainId} />
-		</TabbableContainer>
-	);
+  const handleColumnSorting = (pagination, filters, sorter) => {
+    const { current, pageSize } = pagination;
+    setPage(pageSize);
+    setPageNo(current);
+    const { order } = sorter;
+    if (order === "ascend") {
+      setSort(2);
+      return;
+    }
+    setSort(1);
+  };
+  // const { id } = props;
+  return (
+    <TabbableContainer className="max-width-1190">
+      <Header
+        items={items}
+        buttons={
+          userPermissions.includes(FeaturePermissionEnum.CreateComplains)
+            ? [
+                {
+                  buttonText: complainDictionary.createComplain,
+                  render: (
+                    <SideDrawer
+                      title={complainDictionary.createComplain}
+                      buttonText={complainDictionary.createComplain}
+                      handleClose={() => dispatch(handleOpenComposer(false))}
+                      handleOpen={() => dispatch(handleOpenComposer(true))}
+                      isOpen={drawerOpen}
+                      children={<Composer />}
+                    />
+                  ),
+                },
+              ]
+            : []
+        }
+      />
+      <TopBar
+        onSearch={(value) => {
+          setFilter({ ...filter, search: value });
+        }}
+        buttons={[
+          {
+            name: complainDictionary.Complains,
+            onClick: () => setFilter({ filterType: 0 }),
+          },
+          {
+            name: complainDictionary.createdByMe,
+            onClick: () => setFilter({ filterType: 1 }),
+          },
+          {
+            name: complainDictionary.forApproval,
+            onClick: () => setFilter({ filterType: 2 }),
+          },
+          {
+            name: complainDictionary.complainToMe,
+            onClick: () => setFilter({ filterType: 3 }),
+          },
+        ]}
+        segment={{
+          onSegment: (value) => {
+            if (value === complainDictionary.table) {
+              setTableView(true);
+            } else {
+              setTableView(false);
+            }
+          },
+          label1: complainDictionary.list,
+          label2: complainDictionary.table,
+        }}
+      />
+      <ContBody>
+        {loader && <Skeleton avatar paragraph={{ rows: 4 }} />}
+        {tableView && (
+          <Table
+            columns={tableColumn(complainDictionary)}
+            dragable={true}
+            data={complains}
+            onRow={onRow}
+          />
+        )}
+
+        {complains?.length > 0 && !loader && !tableView ? (
+          <CardWrapper>
+            {complains.map((item, index) => {
+              return (
+                <ListItem
+                  item={item}
+                  id={item.id}
+                  key={index}
+                  onClick={() => setDetailId(item.id)}
+                />
+              );
+            })}
+          </CardWrapper>
+        ) : (
+          !loader && !tableView && <NoDataFound />
+        )}
+      </ContBody>
+      {<DetailedView onClose={onClose} id={detailId} />}
+    </TabbableContainer>
+  );
 };
 
-export default Reward;
+export default Complain;

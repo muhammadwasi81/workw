@@ -1,13 +1,26 @@
-import { Table, Checkbox, TimePicker, InputNumber  } from "antd";
-import { useEffect } from "react";
+import { Table, Checkbox, TimePicker, InputNumber } from "antd";
+import { useEffect, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AdminTable } from "../../../../components/HrMenu/Administration/StyledComponents/adminTable";
+import { AdminTable } from "../../../sharedComponents/Administration/StyledComponents/adminTable";
 import { getAllOfficeTimingGroups } from "../store/actions";
 import { tableColumn } from "./tableColumn";
 import moment from "moment";
 
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { dictionaryList } from "../../../../utils/localization/languages";
+const secondsToHms = (d) => {
+  d = Number(d);
+  var h = Math.floor(d / 3600);
+  var m = Math.floor((d % 3600) / 60);
+  var s = Math.floor((d % 3600) % 60);
+
+  var hDisplay = h > 0 ? String(h).padStart(2, "0") : "00";
+  var mDisplay = m > 0 ? String(m).padStart(2, "0") : "00";
+  var sDisplay = s > 0 ? String(s).padStart(2, "0") : "00";
+  return hDisplay + ":" + mDisplay + ":" + sDisplay;
+};
 const expandedRowRender = (officeTimingGroup) => {
-  console.log(officeTimingGroup)
+  console.log(officeTimingGroup, "officeTiming group");
   const columns = [
     {
       title: "Days",
@@ -16,7 +29,7 @@ const expandedRowRender = (officeTimingGroup) => {
       width: "min-content",
       width: "12%",
       editable: true,
-      align: 'center',
+      align: "center",
     },
     {
       title: "Is Working",
@@ -25,13 +38,13 @@ const expandedRowRender = (officeTimingGroup) => {
       width: "min-content",
       width: "20%",
       editable: true,
-      align: 'center',
+      align: "center",
       render: (text, row) => {
         function onChange(e) {
-          console.log(text, "hello text")
+          console.log(text, "hello text");
         }
-        return <Checkbox defaultChecked={text} onChange={onChange} />
-      }
+        return <Checkbox defaultChecked={text} onChange={onChange} />;
+      },
     },
     {
       title: "Check In",
@@ -40,15 +53,15 @@ const expandedRowRender = (officeTimingGroup) => {
       width: "min-content",
       width: "20%",
       editable: true,
-      align: 'center',
+      align: "center",
       render: (text, row) => {
-        const format = 'HH:mm a';
+        const format = "HH:mm a";
         return (
-            <>
-              <TimePicker defaultValue={moment(text, format)} format={format} />
-            </>
-          )
-      }
+          <>
+            <TimePicker defaultValue={moment(secondsToHms(text), format)} />
+          </>
+        );
+      },
     },
     {
       title: "Check Out",
@@ -57,15 +70,15 @@ const expandedRowRender = (officeTimingGroup) => {
       width: "min-content",
       width: "20%",
       editable: true,
-      align: 'center',
+      align: "center",
       render: (text, row) => {
-        const format = 'HH:mm a';
+        const format = "HH:mm a";
         return (
-            <>
-              <TimePicker defaultValue={moment(text, format)} format={format} />
-            </>
-          )
-      }
+          <>
+            <TimePicker defaultValue={moment(secondsToHms(text), format)} />
+          </>
+        );
+      },
     },
     {
       title: "Grace Time",
@@ -74,20 +87,26 @@ const expandedRowRender = (officeTimingGroup) => {
       width: "min-content",
       width: "20%",
       editable: true,
-      align: 'center',
+      align: "center",
       render: (text, row) => {
-        let num = text / 60;
+        let num = text;
         function onChange(value) {
-          console.log('changed', value);
+          console.log("changed", value);
         }
         return (
-            <>
-              <InputNumber min={1} max={100} defaultValue={num} onChange={onChange} /> min
-            </>
+          <>
+            <InputNumber
+              min={1}
+              max={100}
+              defaultValue={num}
+              onChange={onChange}
+            />{" "}
+            min
+          </>
         );
-      }
+      },
     },
-    
+
     // {
     //   title: 'Action',
     //   dataIndex: 'operation',
@@ -106,9 +125,14 @@ const expandedRowRender = (officeTimingGroup) => {
     // },
   ];
 
-  return <Table columns={columns} dataSource={officeTimingGroup.details} pagination={false} />;
+  return (
+    <Table
+      columns={columns}
+      dataSource={officeTimingGroup.details}
+      pagination={false}
+    />
+  );
 };
-
 
 export default function OfficeTimingTable({
   handleEdit,
@@ -116,7 +140,14 @@ export default function OfficeTimingTable({
   removeButtons,
   actionRights = [],
 }) {
-  const { officeTimingGroups, loadingData } = useSelector((state) => state.officeTimingSlice);
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { administration, office, sharedLabels, Direction } = dictionaryList[
+    userLanguage
+  ];
+
+  const { officeTimingGroups, loadingData } = useSelector(
+    (state) => state.officeTimingSlice
+  );
 
   const dispatch = useDispatch();
 
@@ -130,11 +161,12 @@ export default function OfficeTimingTable({
         handleEdit,
         handleDelete,
         removeButtons,
-        actionRights
+        actionRights,
+        sharedLabels
       )}
       dataSource={officeTimingGroups}
       pagination={false}
-      expandable={{expandedRowRender: expandedRowRender}}
+      expandable={{ expandedRowRender: expandedRowRender }}
       rowKey="id"
       scroll={{ x: true }}
       size="small"

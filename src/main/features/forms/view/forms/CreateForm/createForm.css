@@ -1,4 +1,4 @@
-.btn {
+.Formbtn {
   color: #fff;
   background: var(--currentThemeColor);
   border-color: transparent;
@@ -8,6 +8,9 @@
   align-items: center;
 }
 
-.btn :hover {
+.Formbtn :hover {
   all: none;
+}
+.editForm .ant-upload-list-item-card-actions-btn {
+  opacity: 1 !important;
 }

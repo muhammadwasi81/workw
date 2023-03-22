@@ -1,98 +1,110 @@
 import "./style.css";
 import { Input } from "antd";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import {
-	FormButton,
-	FormButtonContainer,
-	FormContainer,
-	FormHeader,
-	FormInput,
-	FormInputContainer,
-	FormLabel,
-} from "../../../../../components/HrMenu/Administration/StyledComponents/adminForm";
+  FormButton,
+  FormButtonContainer,
+  FormContainer,
+  FormHeader,
+  FormInput,
+  FormInputContainer,
+  FormLabel,
+} from "../../../../sharedComponents/Administration/StyledComponents/adminForm";
+
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+//from "../../../../utils/localization/localContext/LocalContext";
+import { dictionaryList } from "../../../../../utils/localization/languages";
+//"../../utils/localization/languages";
+
 export default function Form({
-	data,
-	onSubmit,
-	loading,
-	setClearButton,
-	clearButton,
+  data,
+  onSubmit,
+  loading,
+  setClearButton,
+  clearButton,
 }) {
-	const [form, setForm] = useState(data);
+  const [form, setForm] = useState(data);
 
-	const handleClear = e => {
-		setForm({ ...form, description: "", name: "" });
-		setClearButton(false);
-	};
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { administration, payrollGroup, Direction } = dictionaryList[
+    userLanguage
+  ];
+  console.log("jkjll", administration);
 
-	const handelChangeName = e => {
-		if (e.target.value.length > 0) {
-			setClearButton(true);
-		} else {
-			setClearButton(false);
-		}
-		setForm({ ...form, name: e.target.value });
-	};
+  const handleClear = (e) => {
+    setForm({ ...form, description: "", name: "" });
+    setClearButton(false);
+  };
 
-	useEffect(() => {
-		setForm(data);
-	}, [data]);
+  const handelChangeName = (e) => {
+    if (e.target.value.length > 0) {
+      setClearButton(true);
+    } else {
+      setClearButton(false);
+    }
+    setForm({ ...form, name: e.target.value });
+  };
 
-	return (
-		<FormContainer>
-			<FormHeader>Payroll Group</FormHeader>
-			<FormInputContainer>
-				<FormInput>
-					<FormLabel>Name</FormLabel>
-					<Input
-						placeholder={"Enter Group Name"}
-						value={form.name}
-						onChange={handelChangeName}
-					/>
-				</FormInput>
-			</FormInputContainer>
-			<FormButtonContainer>
-				{form.id ? (
-					<>
-						<FormButton
-							type="primary"
-							size="medium"
-							style={{}}
-							className="formBtn"
-							onClick={e => {
-								onSubmit(form);
-								setClearButton(false);
-							}}
-						>
-							Save Group
-						</FormButton>
-					</>
-				) : (
-					<FormButton
-						type="primary"
-						size="medium"
-						style={{}}
-						className="formBtn"
-						onClick={e => {
-							onSubmit(form);
-							setClearButton(false);
-						}}
-						loading={loading}
-					>
-						Add Group
-					</FormButton>
-				)}
-				{clearButton && (
-					<FormButton
-						type="primary"
-						size="medium"
-						style={{}}
-						className="formBtn"
-						onClick={handleClear}
-					>
-						Clear
-					</FormButton>
-				)}
-			</FormButtonContainer>
-		</FormContainer>
-	);
+  useEffect(() => {
+    setForm(data);
+  }, [data]);
+
+  return (
+    <FormContainer>
+      <FormHeader>{administration.payrollGroup.PayrollGroup}</FormHeader>
+      <FormInputContainer>
+        <FormInput>
+          <FormLabel>{administration.payrollGroup.name}</FormLabel>
+          <Input
+            placeholder={administration.payrollGroup.enterName}
+            value={form.name}
+            onChange={handelChangeName}
+          />
+        </FormInput>
+      </FormInputContainer>
+      <FormButtonContainer>
+        {form.id ? (
+          <>
+            <FormButton
+              type="primary"
+              size="medium"
+              style={{}}
+              className="formBtn"
+              onClick={(e) => {
+                onSubmit(form);
+                setClearButton(false);
+              }}
+            >
+              {administration.payrollGroup.save}
+            </FormButton>
+          </>
+        ) : (
+          <FormButton
+            type="primary"
+            size="medium"
+            style={{}}
+            className="formBtn"
+            onClick={(e) => {
+              onSubmit(form);
+              setClearButton(false);
+            }}
+            loading={loading}
+          >
+            {administration.payrollGroup.Add}
+          </FormButton>
+        )}
+        {clearButton && (
+          <FormButton
+            type="primary"
+            size="medium"
+            style={{}}
+            className="formBtn"
+            onClick={handleClear}
+          >
+            {administration.payrollGroup.clear}
+          </FormButton>
+        )}
+      </FormButtonContainer>
+    </FormContainer>
+  );
 }

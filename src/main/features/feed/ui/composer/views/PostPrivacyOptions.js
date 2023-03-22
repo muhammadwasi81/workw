@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { Dropdown } from "antd";
 import { useSelector } from "react-redux";
 import store from "../../../../../../store/store";
@@ -10,22 +11,24 @@ export default function PostPrivacyOptions() {
   };
 
   const { privacyType } = useSelector(({ feedSlice }) => feedSlice.postCompose);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <Dropdown
       trigger={["click"]}
-      overlay={PostPrivacyOptionsMenu(onPrivacyChange)}
+      open={isOpen}
+      overlay={PostPrivacyOptionsMenu(onPrivacyChange, setIsOpen)}
     >
-      <button className="dropdown-button">
+      <button className="dropdown-button" onClick={() => setIsOpen(true)}>
         <img src={PostPrivacyType.getPostTypeIcon(privacyType)} alt="" />
       </button>
     </Dropdown>
   );
 }
 
-function PostPrivacyOptionsMenu(onPrivacyChange) {
+function PostPrivacyOptionsMenu(onPrivacyChange, setIsOpen) {
   return (
-    <div className="dropdown-wrapper">
+    <div className="dropdown-wrapper" onClick={() => setIsOpen(false)}>
       <div onClick={() => onPrivacyChange(PostPrivacyType.PUBLIC)}>
         <img src="https://konnect.im/static/media/world.f69f1142.svg" alt="" />
         <span>Public</span>
@@ -37,13 +40,13 @@ function PostPrivacyOptionsMenu(onPrivacyChange) {
         />
         <span>Private</span>
       </div>
-      <div onClick={() => onPrivacyChange(PostPrivacyType.EXTERNAL)}>
+      {/* <div onClick={() => onPrivacyChange(PostPrivacyType.EXTERNAL)}>
         <img
           src="https://konnect.im/static/media/padlock.35a2d6ca.svg"
           alt=""
         />
         <span>External</span>
-      </div>
+      </div> */}
     </div>
   );
 }

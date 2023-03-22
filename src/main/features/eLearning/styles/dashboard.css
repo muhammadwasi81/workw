@@ -1,0 +1,21 @@
+.elearning-dashboard__tab .ant-tabs-nav-list{
+    justify-content: space-between;
+    width: 100%;
+}
+
+.course_detail_tab .ant-tabs-nav{
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+@media (min-width: 1280px) {
+    .coursListing .xl\:grid-cols-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 768px) {
+    .coursListing .md\:grid-cols-2 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}

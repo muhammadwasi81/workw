@@ -1,30 +1,27 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { CloseOutlined } from "@ant-design/icons";
 import "../../style.css";
-import {} from "antd";
-import "antd/dist/antd.css";
 import { useDispatch } from "react-redux";
-import {getColorCodeAction} from "../../store/actions";
-import {  selectStickyNoteColor} from "../../store/stickySlice";
+import { getColorCodeAction } from "../../store/actions";
+import { selectStickyNoteColor } from "../../store/stickySlice";
 
-
-const StickyColor = ({item}) => {
-  const [closeColor,setCloseColor]=useState(true);
-  const dispatch=useDispatch();
-
+const StickyColor = ({ item }) => {
+  const [closeColor, setCloseColor] = useState(true);
+  const dispatch = useDispatch();
 
   // ******select color handler*****
   const selectColorHandler = (e) => {
     const colorValue = e.target.getAttribute("value");
-    const id=item.id;
-    dispatch(selectStickyNoteColor({id,colorValue}));
-    dispatch(getColorCodeAction({...item,colorCode:colorValue,}));
-
+    const id = item.id;
+    dispatch(selectStickyNoteColor({ id, colorValue }));
+    dispatch(
+      getColorCodeAction({ ...item, colorCode: colorValue, attachments: [] })
+    );
   };
 
-  const closeColorHandler=()=>{
-    setCloseColor(false);
-  }
+  // const closeColorHandler = () => {
+  //   setCloseColor(false);
+  // };
   const colors = [
     "#FDEBD0",
     "#cdf1cd",
@@ -37,32 +34,22 @@ const StickyColor = ({item}) => {
 
   return (
     <>
-     {closeColor &&
-      <div
-        className="menu__popUp"
-        // style={{ display: !color ? "initial" : "none" }}
-      >
+      {/* {closeColor &&  */}
+      <div className="menu__popUp">
         <div className="color___LIST">
           {colors.map((colors) => (
             <div
               key={colors}
               onClick={selectColorHandler}
-              style={{ backgroundColor: colors,width: "100%" }}
+              style={{
+                backgroundColor: colors,
+                width: "100%",
+              }}
               value={colors}
             ></div>
           ))}
         </div>
-       
-   
-   <div className="note__iconHOVER-dlt" onClick={closeColorHandler}>
-          <div>
-           <CloseOutlined  />
-          </div>
-          Close Colors
-        </div>
-        
       </div>
-}
     </>
   );
 };

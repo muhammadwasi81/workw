@@ -13,6 +13,22 @@
     z-index: 1;
 }
 
+.refresButton {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+.refresButton img {
+    width: 20px;
+    margin: inherit;
+}
+
+.noData {
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+}
+
 .approval_header_child1 {
     font-size: 14px;
     font-weight: bolder;
@@ -34,19 +50,17 @@
 }
 
 .approval_list {
-    padding: 10px 5px 10px 10px;
+    padding: 10px 5px 10px 5px;
 }
 
 .approval_item {
     display: flex;
-    padding: 5px 0;
+    padding: 5px;
     border-bottom: 1px solid rgb(240, 240, 240);
 }
 
 .approval_item_detail_child1 {
     font-size: 12px;
-    color: var(--currentThemeColor);
-    font-weight: 600;
 }
 
 .approval_item_detail {
@@ -101,4 +115,23 @@
     border-radius: 8px;
     padding: 6px;
     margin-bottom: 8px;
+}
+
+.approval_item_detail_child1 .approval_creator {
+    color: var(--currentThemeColor);
+    font-weight: 600;
+}
+.approval_item_detail_child1 .approval_message {
+    color: black;
+    font-size: 13px;   
+}
+.statusHolder .featureIcon{
+    height: 30px;
+    text-align: right;
+}
+.statusHolder .featureIcon img{
+    height: 100%;
+    margin-left: auto;
+    margin-right: 15px;
+    padding-bottom: 10px;
 }

@@ -1,0 +1,42 @@
+.item-content.bEGlOJ {
+  /* min-height: 80px !important; */
+  max-height: fit-content;
+}
+.description.custom-description {
+  /* width: 200px; */
+  height: 2.8em;
+  line-height: 1.4em;
+  display: flex;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  /* overflow: hidden; */
+}
+.description{
+  width: 600px;
+}
+.cardSection__body.layout{
+  display: inline-block;
+  word-break: break-word;
+  /* line-height: 1.4em;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  -webkit-box-orient: vertical; */
+}
+
+@media (min-width: 1000px) {
+  .description.custom-description {
+    width: 600px;
+  }
+  .description.custom-detail-des {
+    height: 100%;
+    overflow: hidden;
+    /* width: 600px; */
+  }
+}
+
+@media (min-width: 300px) and (max-width: 500px) {
+  .description.custom-description {
+    width: 250px;
+  }
+}

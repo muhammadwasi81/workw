@@ -13,11 +13,15 @@
   direction: rtl;
 }
 
-.header .left,
-.header .right {
+.header .left {
   align-items: stretch;
   display: grid;
   place-items: center;
+}
+
+.header .right {
+  display: flex;
+  grid-column-gap: 8px;
 }
 
 .header .left {
@@ -104,7 +108,7 @@
 
 .header .right .headerBtn span {
   line-height: 1;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .header .right .dropDown {
@@ -167,12 +171,27 @@
     font-size: 11px;
   }
 
+  .header .left .list {
+    gap: 14px;
+  }
+
   .header .right .buttons {
-    display: none;
+    /* display: none; */
   }
 
   .header .right .dropDown {
     display: block;
+  }
+
+  .header .left a {
+    padding-bottom: 5px;
+    font-size: 13px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .header .left .list {
+    gap: 10px;
   }
 
   .header .left a {

@@ -40,18 +40,18 @@ const menu = (changeBgColor, deleteList) => {
 				// 		</div>
 				// 	),
 				// },
-				{
-					key: "2",
-					label: (
-						<div className="flex items-center gap-3">
-							<DeleteOutlined
-								onClick={deleteList}
-								className="text-base"
-							/>
-							<span className="">Delete</span>
-						</div>
-					),
-				},
+				// {
+				// 	key: "2",
+				// 	label: (
+				// 		<div className="flex items-center gap-3">
+				// 			<DeleteOutlined
+				// 				onClick={deleteList}
+				// 				className="text-base"
+				// 			/>
+				// 			<span className="">Delete</span>
+				// 		</div>
+				// 	),
+				// },
 			]}
 			onClick={item => {
 				// console.log("item", item);
@@ -62,10 +62,15 @@ const menu = (changeBgColor, deleteList) => {
 
 function MenuDropDown({ changeBgColor, deleteList, addMembers }) {
 	return (
-		<Dropdown overlay={menu(changeBgColor, deleteList)} trigger={["click"]}>
-			<EllipsisOutlined className="cursor-pointer p-1 rounded-sm hover:bg-slate-400 hover:bg-opacity-40 h-fit hover:transition-all" />
-		</Dropdown>
-	);
+	<>  
+	    <Dropdown 
+	      overlay={menu(changeBgColor, deleteList)} trigger={['click']}
+	    >
+		   <EllipsisOutlined className="cursor-pointer p-1 rounded-sm hover:bg-slate-400 hover:bg-opacity-40 h-fit hover:transition-all" />
+	    </Dropdown>
+	</>
+  );
 }
+
 
 export default MenuDropDown;

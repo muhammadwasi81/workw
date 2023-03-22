@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import MenuItem from "./MenuItem";
 import { STRINGS } from "../../../../utils/base";
 import ComposerBox from "./composerBox";
@@ -10,6 +10,10 @@ import { MdInbox } from "react-icons/md";
 import Demo from "./dataTree";
 import { dictionaryList } from "../../../../utils/localization/languages";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { ROUTES } from "../../../../utils/routes";
+import { useDispatch } from "react-redux";
+import { getAllMail } from "../Store/Api";
+import { useLocation, useParams } from "react-router-dom";
 
 const Index = () => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -21,44 +25,58 @@ const Index = () => {
     mail: { menuItem },
   } = dictionaryList[userLanguage];
 
-  const openNotification = () => {
-    notification.warning({
-      message: "Notification Title",
-      description:
-        "This is the content of the notification. This is the content of the notification. This is the content of the notification.",
-      onClick: () => {
-        console.log("Notification Clicked!");
-      },
-      placement: "bottomLeft",
-      bottom: 10,
-    });
+  // const { id: api_base } = useParams();
+  const { pathname } = useLocation();
+  const api_base = pathname.split("/");
+  const lastIndex = api_base[api_base.length-1] 
+  const dispatch = useDispatch()
+  const GetAllMailHandle = () => {
+    let objData = {
+      folderPath: lastIndex,
+    };
+    dispatch(getAllMail(objData))
   };
+  useEffect(() => {
+    GetAllMailHandle();
+  }, [lastIndex]);
+
 
   return (
     <MailComposerBody isTablet={isTablet} isMobileScreen={isMobileScreen}>
       {/*** mail left body with mail compose button and folder item***/}
 
-      <ComposerBox />
+      <ComposerBox
+        handleReFetchMail={GetAllMailHandle} />
       <div className="mailMenuSection">
+        {/* 
         {mailFolderItem?.map(({ folderPath, unseen }) => (
           <MenuItem
             key={folderPath}
-            path={`${STRINGS.ROUTES.MAIL.DEFAULT}/${folderPath}`}
+            path={`${ROUTES.MAIL.ROOT}/${folderPath}`}
             pathName={folderPath}
-            name={menuItem.inbox}
+            name={menuItem[folderPath]}
             badgeCount={unseen}
             icon={<MdInbox size={20} color={"var(--currentThemeColor)"} />}
             onChange={() => {}}
             style={{ margin: "6px 2px 1px 28px" }}
           />
-        ))}
-
+        ))} */}
+        {mailFolderItem &&
+          <MenuItem
+            path={`${ROUTES.MAIL.ROOT}/INBOX`}
+            pathName={"INBOX"}
+            name={menuItem["inbox"]}
+            badgeCount={false}
+            icon={<MdInbox size={20} color={"var(--currentThemeColor)"} />}
+            onChange={() => { }}
+            style={{ margin: "6px 2px 1px 28px" }}
+          />}
         <Demo mailFolderItem={mailFolderItem} />
 
         {responseCode !== 1002 &&
           !mailFolderItem &&
           [1, 2, 3, 4, 5, 6].map((value) => (
-            <div style={{ marginBottom: 12 }} key={value}>
+            <div style={{ marginBottom: "15px", display: "flex" }} key={value}>
               <Skeleton.Button
                 loading={true}
                 active={!mailFolderItem && true}

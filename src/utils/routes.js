@@ -1,19 +1,34 @@
 export let DOMAIN_PREFIX = "";
-DOMAIN_PREFIX = process.env.NODE_ENV !== "development" ? "" : "";
+DOMAIN_PREFIX = process.env.NODE_ENV !== "development" ? "/konnect" : "";
+// DOMAIN_PREFIX =
+//   process.env.NODE_ENV !== "development" ? "/konnect" : "/konnect";
 
 export const ROUTES = {
   SEARCH: {
     DEFAULT: `${DOMAIN_PREFIX}/search`,
+  },
+  //sanjna
+  SETTINGS: {
+    DEFAULT: `${DOMAIN_PREFIX}/settings/*`,
+    SETTING: `${DOMAIN_PREFIX}/settings/`,
+    CHANGE_PASSWORD: `changePassword`,
+    BASIC_INFORMATION: `basicInformation`,
   },
   MESSENGER: {
     DEFAULT: `${DOMAIN_PREFIX}/messenger`,
     CHAT: `${DOMAIN_PREFIX}/messenger/chat`,
   },
   CUSTOM_APPROVALS: {
-    DEFAULT: `${DOMAIN_PREFIX}/customApprovals`,
+    DEFAULT: `${DOMAIN_PREFIX}/customApprovals/*`,
+    ROOT: `${DOMAIN_PREFIX}/customApprovals`,
+    DETAIL: `/detail`,
   },
   APPROVALS: {
     DEFAULT: `${DOMAIN_PREFIX}/approvals`,
+    MY_APPROVALS: `${DOMAIN_PREFIX}/approvals/myApprovals`,
+  },
+  MY_APPROVALS: {
+    DEFAULT: `${DOMAIN_PREFIX}/myApprovals`,
   },
   USER: {
     LINK: `${DOMAIN_PREFIX}/user/`,
@@ -22,7 +37,7 @@ export const ROUTES = {
       DEFAULT: `${DOMAIN_PREFIX}/user/timeline/post`,
       INFORMATION: `${DOMAIN_PREFIX}/user/timeline/information`,
     },
-    SETTINGS: `${DOMAIN_PREFIX}/user/settings`,
+    SETTINGS: `${DOMAIN_PREFIX}/settings`,
     NOTES: `${DOMAIN_PREFIX}/user/notes`,
   },
   AUTH: {
@@ -35,8 +50,12 @@ export const ROUTES = {
     SIGN_IN_ANONYMOUSLY: `${DOMAIN_PREFIX}/authenticating`,
     FORGOT_PASSWORD_LANDING: `${DOMAIN_PREFIX}/resetpassword`,
     FORGOT_PASSWORD: `${DOMAIN_PREFIX}/forgotpassword`,
-    VERIFICATION_SUCCESS: `${DOMAIN_PREFIX}/verified`,
-    VERIFICATION_INPROCESS: `${DOMAIN_PREFIX}/verify`,
+    VERIFICATION: `${DOMAIN_PREFIX}/signupVerification/verify`,
+    SETUP_PASSWORD: `${DOMAIN_PREFIX}/SetupNewPassword`,
+    // VERIFICATION_INPROCESS: `${DOMAIN_PREFIX}/verifying`,
+  },
+  EXTERNAL_PROJECT: {
+    REGISTER: `${DOMAIN_PREFIX}/ProjectExternal`,
   },
   BUDGET: {
     DEFAULT: `${DOMAIN_PREFIX}/budgets`,
@@ -56,6 +75,8 @@ export const ROUTES = {
     SUBMIT_FORM: `${DOMAIN_PREFIX}/submitForm`,
     EDIT_FORM: `${DOMAIN_PREFIX}/editForm`,
     CREATE_FORM: `create`,
+    RESPONSE_DETAIL_FORM: "detail",
+    RESPONSE: "response",
   },
   JOB_OPENING: `${DOMAIN_PREFIX}/jobopeningletter`,
   OFFER_LETTER: `${DOMAIN_PREFIX}/OfferLetter`,
@@ -70,6 +91,21 @@ export const ROUTES = {
     EXPENSES: `${DOMAIN_PREFIX}/groups/expenses`,
     DETAIL: `${DOMAIN_PREFIX}/groups/group-detail`,
   },
+  ELearning: {
+    LINK: `${DOMAIN_PREFIX}/eLearning`,
+    DEFAULT: `${DOMAIN_PREFIX}/eLearning/*`,
+    COURSE_DETAIL: `${DOMAIN_PREFIX}/eLearning/courses`,
+    TEAM_DASHBOARD: `${DOMAIN_PREFIX}/eLearning/teamDashboard`,
+    TEAM_SUMMARY: `${DOMAIN_PREFIX}/eLearning/summary`,
+    COURSE_CREATE: `${DOMAIN_PREFIX}/eLearning/courses/create`,
+    EBOOK_CREATE: `${DOMAIN_PREFIX}/eLearning/eBook/create`,
+    VIDEO_CREATE: `${DOMAIN_PREFIX}/eLearning/video/create`,
+    ARTICLE_CREATE: `${DOMAIN_PREFIX}/eLearning/article/create`,
+    QUIZ_CREATE: `${DOMAIN_PREFIX}/eLearning/quiz/create`,
+    TEDTALK_CREATE: `${DOMAIN_PREFIX}/eLearning/tedtalk/create`,
+    COURSE_VIDEO: `${DOMAIN_PREFIX}/eLearning/courses/learn/`,
+    // COURSE: `${DOMAIN_PREFIX}/eLearning/courses/`,
+  },
   INVENTORY: {
     DEFAULT: `${DOMAIN_PREFIX}/inventory`,
   },
@@ -78,7 +114,29 @@ export const ROUTES = {
     USER_ATTENDANCE: `${DOMAIN_PREFIX}/attendance/user_attendance`,
   },
   ASSETS: {
-    DEFAULT: `${DOMAIN_PREFIX}/assets`,
+    DEFAULT: `${DOMAIN_PREFIX}/assets/*`,
+    ROOT: `${DOMAIN_PREFIX}/assets`,
+    ASSETS: `${DOMAIN_PREFIX}/assets`,
+    DETAIL: `/detail`,
+  },
+  ASSETS_TABLE_LIST: {
+    DEFAULT: `${DOMAIN_PREFIX}/assetsList`,
+  },
+  CREATE_ASSETS: {
+    DEFAULT: `${DOMAIN_PREFIX}/createAssets`,
+  },
+  REQUEST_LIST_ITEM: {
+    DEFAULT: `${DOMAIN_PREFIX}/listItems`,
+  },
+  QUOTATION: {
+    DEFAULT: `${DOMAIN_PREFIX}/quotation/*`,
+    ROOT: `${DOMAIN_PREFIX}/quotation`,
+    CREATE: `${DOMAIN_PREFIX}/create`,
+  },
+  QUOTATIONCLIENT: {
+    DEFAULT: `${DOMAIN_PREFIX}/quotationClient/*`,
+    ROOT: `${DOMAIN_PREFIX}/quotationClient`,
+    CREATE: `${DOMAIN_PREFIX}/create`,
   },
   PROJECT: {
     DEFAULT: `${DOMAIN_PREFIX}/projects`,
@@ -99,11 +157,6 @@ export const ROUTES = {
     PROJECT_BUDGET: `${DOMAIN_PREFIX}/projects/budget/details`,
     DOCUMENTS: `${DOMAIN_PREFIX}/projects/documents`,
   },
-  // DOCUMENTS: {
-  // 	DEFAULT: `${DOMAIN_PREFIX}/documents`,
-  // 	ITEM: `${DOMAIN_PREFIX}/documents`,
-  // 	EDITOR: `${DOMAIN_PREFIX}/documents/editor`,
-  // },
   TODO: {
     DEFAULT: `${DOMAIN_PREFIX}/workboard`,
     TODO_BOARD: `${DOMAIN_PREFIX}/workboard/board`,
@@ -116,7 +169,10 @@ export const ROUTES = {
     LEAD_GROUP_DETAIL: `${DOMAIN_PREFIX}/leadManager/leadManagerGroupDetails/`,
     LEAD_DETAIL: `${DOMAIN_PREFIX}/leadManager/leadManagerGroupDetails/:id`,
   },
-  SCHEDULES: `${DOMAIN_PREFIX}/schedules`,
+  SCHEDULES: {
+    LINK: `${DOMAIN_PREFIX}/schedules`,
+    DEFAULT: `${DOMAIN_PREFIX}/schedules/*`,
+  },
   FILTER_SCHEDULE_ITEM: `${DOMAIN_PREFIX}/search_schedule`,
   SCHEDULE_SUMMARY_TRAVEL: {
     DEFAULT: `${DOMAIN_PREFIX}/schedules/travel`,
@@ -137,7 +193,7 @@ export const ROUTES = {
     PAYROLL_DETAILS: `${DOMAIN_PREFIX}/payroll/details`,
   },
   APPROVALS: {
-    DEFAULT: `${DOMAIN_PREFIX}/approvals/`,
+    DEFAULT: `${DOMAIN_PREFIX}/approvals`,
   },
   E_LEARNING: {
     DEFAULT: `${DOMAIN_PREFIX}/eLearningCourses/`,
@@ -167,55 +223,6 @@ export const ROUTES = {
     JOIN: `${DOMAIN_PREFIX}/call/joincall`,
     KONNECT_CALL: `${DOMAIN_PREFIX}/konnectcall`,
   },
-  // HR: {
-  // 	CHART: `${DOMAIN_PREFIX}/hr/chart`,
-  // 	LEAVES: `${DOMAIN_PREFIX}/hr/leaves`,
-  // 	SALARY: `${DOMAIN_PREFIX}/hr/salary/`,
-  // 	ALLOWANCE: `${DOMAIN_PREFIX}/hr/allowance/`,
-  // 	TAXRECEIPTS: `${DOMAIN_PREFIX}/hr/taxreceipts/`,
-  // 	COMPANIES: {
-  // 		DEFAULT: `${DOMAIN_PREFIX}/hr/companies`,
-  // 		RIGHTS_REQUEST: `${DOMAIN_PREFIX}/hr/companies/request_rights`,
-  // 		DASHBOARD: `${DOMAIN_PREFIX}/hr/companies/dashboard`,
-  // 		ADD: `${DOMAIN_PREFIX}/hr/companies/add`,
-  // 		UPDATE: `${DOMAIN_PREFIX}/hr/companies/update`,
-  // 		DETAILS: `${DOMAIN_PREFIX}/hr/companies/details`,
-  // 		BUSINESS_RIGHTS: `${DOMAIN_PREFIX}/hr/companies/rights`,
-  // 		EMAIL_CONFIG: `${DOMAIN_PREFIX}/hr/companies/emailConfig`,
-  // 		EMAIL_SEND: `${DOMAIN_PREFIX}/hr/companies/emailSend`,
-  // 		INDIVIDUAL_DASHBOARD: `${DOMAIN_PREFIX}/hr/companies/individualDashboard`,
-  // 	},
-  // 	EMPLOYEES_ADD: `${DOMAIN_PREFIX}/hr/employees/add`,
-  // 	DEPARTMENTS: `${DOMAIN_PREFIX}/hr/departments`,
-  // 	SUBDEPARTMENT: `${DOMAIN_PREFIX}/hr/departments/list`,
-  // 	DETAILDEPARTMENTS: `${DOMAIN_PREFIX}/hr/departments/details`,
-  // 	DEFAULTDEPARTMENT: `${DOMAIN_PREFIX}/hr/department/view`,
-  // 	OFFICE_TIMINGS: `${DOMAIN_PREFIX}/hr/officetimings/`,
-  // 	OFFICE_TIMINGS_DEFAULT: `${DOMAIN_PREFIX}/hr/officetimings/timings`,
-  // 	OFFICE_TIMINGS_EMPLOYEES: `${DOMAIN_PREFIX}/hr/officetimings/employees`,
-  // 	HOLIDAYS: `${DOMAIN_PREFIX}/hr/holidays/`,
-  // 	LEVELS: `${DOMAIN_PREFIX}/hr/addlevels`,
-  // 	APPROVALS_FLOW: {
-  // 		DEFAULT: `${DOMAIN_PREFIX}/hr/approvalflow`,
-  // 	},
-  // 	APPRAISALS: {
-  // 		DEFAULT: `${DOMAIN_PREFIX}/appraisals`,
-  // 	},
-  // 	RESIGNATIONS: {
-  // 		DEFAULT: `${DOMAIN_PREFIX}/resignations/`,
-  // 	},
-  // 	WARNINGS: {
-  // 		DEFAULT: `${DOMAIN_PREFIX}/warnings`,
-  // 		APPROVALS: `${DOMAIN_PREFIX}/warnings/approvals`,
-  // 	},
-  // 	COMPLAINS: {
-  // 		DEFAULT: `${DOMAIN_PREFIX}/complains`,
-  // 		APPROVALS: `${DOMAIN_PREFIX}/complains/approvals`,
-  // 	},
-  // 	BONUS: {
-  // 		DEFAULT: `${DOMAIN_PREFIX}/bonus`,
-  // 	},
-  // },
   MAIL: {
     DEFAULT: `${DOMAIN_PREFIX}/mail`,
     INBOX: `${DOMAIN_PREFIX}/mail/inbox`,
@@ -240,19 +247,22 @@ export const ROUTES = {
     JUNK: `${DOMAIN_PREFIX}/mail?id=INBOX.junk`,
     DRAFTS: `${DOMAIN_PREFIX}/mail?id=INBOX.Drafts`,
   },
+  //by sanjna
   TASK: {
-    DEFAULT: `${DOMAIN_PREFIX}/tasks`,
-    DETAIL: `${DOMAIN_PREFIX}/tasks/taskDetail`,
+    DEFAULT: `${DOMAIN_PREFIX}/tasks/*`,
+    ROOT: `${DOMAIN_PREFIX}/tasks`,
+    DETAIL: `/detail`,
+    // DETAIL: `${DOMAIN_PREFIX}/tasks/taskDetail`,
   },
 
   REWARDS: {
     DEFAULT: `${DOMAIN_PREFIX}/rewards/*`,
     REWARD: `${DOMAIN_PREFIX}/rewards/`,
+    DETAILS: `${DOMAIN_PREFIX}/rewardDetails/:id`,
     APPROVALS: `${DOMAIN_PREFIX}/rewards/approvals`,
   },
   COMPLAINS: {
-    DEFAULT: `${DOMAIN_PREFIX}/complains/*`,
-    COMPLAIN: `${DOMAIN_PREFIX}/complains/`,
+    COMPLAIN: `${DOMAIN_PREFIX}/complains/*`,
     APPROVALS: `complains/approvals`,
   },
   WARNINGS: {
@@ -277,31 +287,18 @@ export const ROUTES = {
     BANK_DETAIL: "info/bankDetail/:id",
     BASIC_INFO: "info/basicInfo/:id",
     USER_LEAVES: "info/leaves/:id",
+    DEVICES: "info/devices/:id",
     EDUCATION: `info/education/:id`,
     EMERGENCY_INFO: `info/emergencyInfo/:id`,
     EXPERIENCE: `info/experience/:id`,
-  },
-  EMPLOYEES_INFO: {
-    // JOB_BY_ID: `${DOMAIN_PREFIX}/employees/job`,
-    // EMAIL_CONFIG: `${DOMAIN_PREFIX}/employees/emailconfig`,
-    // PACKAGE: `${DOMAIN_PREFIX}/employees/package`,
-    // LINKAGE: `${DOMAIN_PREFIX}/employees/linkage`,
-    // USER_RIGHTS: `${DOMAIN_PREFIX}/employees/rights`,
-    // ACTIVITY_LOGS: `${DOMAIN_PREFIX}/employees/activityLogs`,
-    // SALARY: `${DOMAIN_PREFIX}/employees/salary`,
-    // APPRAISAL: `${DOMAIN_PREFIX}/employees/appraisal`,
-    // OFFICE_TIMINGS: `${DOMAIN_PREFIX}/employees/officeTimings`,
-    // OFFICETIME: `${DOMAIN_PREFIX}/employees/officetime`,
-    // EMPLOYEE_TIME: `${DOMAIN_PREFIX}/employees/employee_time`,
-    // EMAIL_SEND: `${DOMAIN_PREFIX}/employees/EmailSend`,
-    // ALLOWANCES: `${DOMAIN_PREFIX}/employees/allowances`,
   },
   ADMINISTRATOR: {
     DEFAULT: `${DOMAIN_PREFIX}/administrator/*`,
     ADMINISTRATION: `${DOMAIN_PREFIX}/administrator/`,
     BUSINESS_POLICY: `businessPolicy`,
-    ACCESSROLES: `${DOMAIN_PREFIX}/konnect/accessroles`,
+    ACCESSROLES: `accessroles`,
     GRADE: `grade`,
+    ELEARNING_CATEGORY: `eLearningCategory`,
     DESIGNATION: `designation`,
     APPRASIAL: `appraisal`,
     TIMEZONE: `timezone`,
@@ -322,6 +319,7 @@ export const ROUTES = {
     ALLOWANCES: `allowances`,
     REWARD_CATEGORY: `rewardCategory`,
     WARNING_CATEGORY: `warningCategory`,
+    // BILLING: `billing`,
   },
   LOAN: {
     DEFAULT: `${DOMAIN_PREFIX}/loan/*`,
@@ -333,10 +331,13 @@ export const ROUTES = {
     RESIGNATION: `${DOMAIN_PREFIX}/resignation`,
     APPROVALS: `${DOMAIN_PREFIX}/loan/approvals`,
   },
-  REQUISITION: {
+  REQUISITIONS: {
     DEFAULT: `${DOMAIN_PREFIX}/requisition/*`,
-    REQUISITION: `${DOMAIN_PREFIX}/requisition`,
+    ROOT: `${DOMAIN_PREFIX}/requisition`,
+    REQUISITIONS: `${DOMAIN_PREFIX}/requisition`,
+    DETAIL: `/detail`,
     APPROVALS: `${DOMAIN_PREFIX}/loan/approvals`,
+    APPLYREQUISITION: `${DOMAIN_PREFIX}/applyRequisition`,
     CREATE_VOUCHERS: `${DOMAIN_PREFIX}/createasset`,
   },
 
@@ -347,8 +348,8 @@ export const ROUTES = {
   },
   COMPLAINS: {
     DEFAULT: `${DOMAIN_PREFIX}/complains/*`,
-    COMPLAIN: `${DOMAIN_PREFIX}/complains/`,
-    APPROVALS: `complains/approvals`,
+    ROOT: `${DOMAIN_PREFIX}/complains`,
+    DETAIL: `/detail`,
   },
   WARNINGS: {
     DEFAULT: `${DOMAIN_PREFIX}/warnings/*`,
@@ -357,7 +358,22 @@ export const ROUTES = {
   },
   EXPENSES: {
     DEFAULT: `${DOMAIN_PREFIX}/expenses/*`,
-    EXPENSES: `${DOMAIN_PREFIX}/expenses`,
+    ROOT: `${DOMAIN_PREFIX}/expenses`,
+    EXPENSES: `${DOMAIN_PREFIX}/expenses/`,
+    DETAIL: `/detail`,
+  },
+  APPRAISALS: {
+    DEFAULT: `${DOMAIN_PREFIX}/appraisals/*`,
+    ROOT: `${DOMAIN_PREFIX}/appraisals`,
+    DETAIL: `/detail`,
+    SUBMIT: `/submitAppraisal`,
+  },
+  PROMOTION: {
+    DEFAULT: `${DOMAIN_PREFIX}/promotions/*`,
+    ROOT: `${DOMAIN_PREFIX}/promotions`,
+    PROMOTION: `${DOMAIN_PREFIX}/promotions`,
+
+    DETAIL: `/detail`,
   },
   LEAVES: {
     DEFAULT: `${DOMAIN_PREFIX}/leaves/*`,
@@ -365,10 +381,11 @@ export const ROUTES = {
     APPROVALS: `leaves/approvals`,
   },
   REQUISITION: {
-		DEFAULT: `${DOMAIN_PREFIX}/requisition/*`,
-		REQUISITION: `${DOMAIN_PREFIX}/requisition`,
-	},
-  //   EMPLOYEES: {
+    DEFAULT: `${DOMAIN_PREFIX}/requisition/*`,
+    REQUISITION: `${DOMAIN_PREFIX}/requisition`,
+    DETAIL: `${DOMAIN_PREFIX}/requisition/requisitionDetail/:id`,
+    APPLYREQUISITION: `${DOMAIN_PREFIX}/applyRequisition`,
+  },
   //     DEFAULT: `${DOMAIN_PREFIX}/employees/*`,
   //     EMPLOYEELINK: `${DOMAIN_PREFIX}/employees`,
   //     ADD: `add`,
@@ -399,14 +416,16 @@ export const ROUTES = {
     DEFAULT_HIRING_CRITERIA: `defaultHiringCriteria`,
     SUBSIDIARY_OFFICE: `subsidiaryOffice`,
     SUBSIDIARY: `subsidiary`,
-    BUSINESS_POLICY: `businessPolicy`,
+    COMPANIES_POLICY: `companiesPolicy`,
     COMLAIN_CATEGORY: `complainCategory`,
     PAYROLL_GROUP: `payrollGroup`,
-    ACCESSROLES: `${DOMAIN_PREFIX}/konnect/accessroles`,
-    GRADE: `grade`,
+    ACCESSROLES: `accessroles`,
     FISCAL_YEAR: `fiscalYear`,
     DESIGNATION: `designation`,
     TAX_SLAB: `taxSlab`,
+    TAX_SLAB_GROUP: `taxSlabsGroup`,
+    GRADE: `grade`,
+    ELEARNING_CATEGORY: `eLearningCategory`,
     APPRASIAL: `appraisal`,
     TIMEZONE: `timezone`,
     OFFICETIMING: `officetimings`,
@@ -426,22 +445,26 @@ export const ROUTES = {
     ALLOWANCES: `allowances`,
     REWARD_CATEGORY: `rewardCategory`,
     WARNING_CATEGORY: `warningCategory`,
+    BILLING: `billing`,
   },
 
   LOAN: {
     DEFAULT: `${DOMAIN_PREFIX}/loan/*`,
+    ROOT: `${DOMAIN_PREFIX}/loan`,
     LOAN: `${DOMAIN_PREFIX}/loan`,
+    DETAIL: `/detail`,
     APPROVALS: `${DOMAIN_PREFIX}/loan/approvals`,
   },
-  RESIGNATION: {
-    DEFAULT: `${DOMAIN_PREFIX}/designation/*`,
-    RESIGNATION: `${DOMAIN_PREFIX}/designation`,
-    APPROVALS: `${DOMAIN_PREFIX}/loan/approvals`,
-  },
+  // RESIGNATION: {
+  // 	DEFAULT: `${DOMAIN_PREFIX}/resignation/*`,
+  // 	RESIGNATION: `${DOMAIN_PREFIX}/resignation`,
+  // },
 
   TRAVELS: `${DOMAIN_PREFIX}/travel`,
   TRAVEL: {
-    DEFAULT: `${DOMAIN_PREFIX}/travel`,
+    DEFAULT: `${DOMAIN_PREFIX}/travel/*`,
+    ROOT: `${DOMAIN_PREFIX}/travel`,
+    DETAILS: `/detail`,
     TREAVELDETAIL: `${DOMAIN_PREFIX}/travel/travel-detail/`,
     DETAIL: `${DOMAIN_PREFIX}/travel/travel-detail/:travelId`,
     CITIES: `${DOMAIN_PREFIX}/travel/cities`,
@@ -460,6 +483,8 @@ export const ROUTES = {
   SALARY: {
     DEFAULT: `${DOMAIN_PREFIX}/salary/*`,
     ROOT: `${DOMAIN_PREFIX}/salary`,
+    SALARY: `${DOMAIN_PREFIX}/salary`,
+    DETAIL: `/detail`,
     CREATE: `${DOMAIN_PREFIX}/create`,
   },
   QOUTATION: {
@@ -505,19 +530,6 @@ export const ROUTES = {
       DEFAULT: `${DOMAIN_PREFIX}/hr/careers`,
       JOB_BY_ID: `${DOMAIN_PREFIX}/hr/careers/job`,
     },
-
-    COMPANIES: {
-      DEFAULT: `${DOMAIN_PREFIX}/hr/companies`,
-      RIGHTS_REQUEST: `${DOMAIN_PREFIX}/hr/companies/request_rights`,
-      DASHBOARD: `${DOMAIN_PREFIX}/hr/companies/dashboard`,
-      ADD: `${DOMAIN_PREFIX}/hr/companies/add`,
-      UPDATE: `${DOMAIN_PREFIX}/hr/companies/update`,
-      DETAILS: `${DOMAIN_PREFIX}/hr/companies/details`,
-      BUSINESS_RIGHTS: `${DOMAIN_PREFIX}/hr/companies/rights`,
-      EMAIL_CONFIG: `${DOMAIN_PREFIX}/hr/companies/emailConfig`,
-      EMAIL_SEND: `${DOMAIN_PREFIX}/hr/companies/emailSend`,
-      INDIVIDUAL_DASHBOARD: `${DOMAIN_PREFIX}/hr/companies/individualDashboard`,
-    },
     EMPLOYEES_ADD: `${DOMAIN_PREFIX}/hr/employees/add`,
     DEPARTMENTS: `${DOMAIN_PREFIX}/hr/departments`,
     SUBDEPARTMENT: `${DOMAIN_PREFIX}/hr/departments/list`,
@@ -531,12 +543,6 @@ export const ROUTES = {
     APPROVALS_FLOW: {
       DEFAULT: `${DOMAIN_PREFIX}/hr/approvalflow`,
     },
-    APPRAISALS: {
-      DEFAULT: `${DOMAIN_PREFIX}/appraisals`,
-    },
-    RESIGNATIONS: {
-      DEFAULT: `${DOMAIN_PREFIX}/resignations/*`,
-    },
     WARNINGS: {
       DEFAULT: `${DOMAIN_PREFIX}/warnings`,
       APPROVALS: `${DOMAIN_PREFIX}/warnings/approvals`,
@@ -545,16 +551,16 @@ export const ROUTES = {
       DEFAULT: `${DOMAIN_PREFIX}/customApprovals`,
       APPROVALS: `${DOMAIN_PREFIX}/warnings/approvals`,
     },
-    COMPLAINS: {
-      DEFAULT: `${DOMAIN_PREFIX}/complains`,
-      APPROVALS: `${DOMAIN_PREFIX}/complains/approvals`,
-    },
     BONUS: {
       DEFAULT: `${DOMAIN_PREFIX}/bonus`,
     },
   },
   MAIL: {
-    DEFAULT: `${DOMAIN_PREFIX}/mail`,
+    DEFAULT: `${DOMAIN_PREFIX}/mail/*`,
+    ROOT: `${DOMAIN_PREFIX}/mail`,
+    LINK: `${DOMAIN_PREFIX}/`,
+    DETAIL: `/detail`,
+
     INBOX: `${DOMAIN_PREFIX}/mail/inbox`,
     STARRED: `${DOMAIN_PREFIX}/mail/starred`,
     SNOOZED: `${DOMAIN_PREFIX}/mail/snoozed`,
@@ -568,38 +574,53 @@ export const ROUTES = {
     DRAFTS: `${DOMAIN_PREFIX}/mail/drafts`,
     CREATE_NEW_LABEL: `${DOMAIN_PREFIX}/mail/create_new_label`,
   },
-  TASK: {
-    DEFAULT: `${DOMAIN_PREFIX}/tasks/*`,
-    ROOT: `${DOMAIN_PREFIX}/tasks`,
-    DETAIL: `tasks/taskDetail/:id`,
-  },
+  //commenttteddd
+  // TASK: {
+  //   DEFAULT: `${DOMAIN_PREFIX}/tasks/*`,
+  //   ROOT: `${DOMAIN_PREFIX}/tasks`,
+  //   DETAIL: `tasks/taskDetail/:id`,
+  // },
   REWARDS: {
-    DEFAULT: `${DOMAIN_PREFIX}/rewards`,
+    DEFAULT: `${DOMAIN_PREFIX}/rewards/*`,
+    ROOT: `${DOMAIN_PREFIX}/rewards`,
     REWARD: `${DOMAIN_PREFIX}/rewards`,
+    DETAIL: `/detail`,
     APPROVALS: `${DOMAIN_PREFIX}/rewards/approvals`,
   },
   //****by SANJANA****
   TEAMS: {
-    DEFAULT: `${DOMAIN_PREFIX}/teams`,
-  },
-
-  COMPLAINS: {
-    DEFAULT: `${DOMAIN_PREFIX}/complains`,
-    COMPLAIN: `${DOMAIN_PREFIX}/complains`,
-    APPROVALS: `complains/approvals`,
+    DEFAULT: `${DOMAIN_PREFIX}/teams/*`,
+    ROOT: `${DOMAIN_PREFIX}/teams`,
+    TEAM: `${DOMAIN_PREFIX}/teams`,
+    ATTENDENCE: `attendence`,
+    CHECK_IN: `checkIn`,
+    LEAVES: `leaves`,
+    REWARDS: `rewards`,
+    APPRAISALS: `appraisals`,
+    WARNING: `warning`,
+    COMPLAIN: `complain`,
+    COURSES: `courses`,
+    EDUCATION: `education`,
+    EXPERIENCE: `experience`,
+    LOAN: `loan`,
+    ACTIVITY_LOG: `activityLog`,
   },
   WARNINGS: {
-    DEFAULT: `${DOMAIN_PREFIX}/warnings`,
+    DEFAULT: `${DOMAIN_PREFIX}/warnings/*`,
+    ROOT: `${DOMAIN_PREFIX}/warnings`,
     WARNING: `${DOMAIN_PREFIX}/warnings`,
+    DETAIL: `/detail`,
     APPROVALS: `warnings/approvals`,
   },
   LEAVES: {
-    DEFAULT: `${DOMAIN_PREFIX}/leaves`,
+    DEFAULT: `${DOMAIN_PREFIX}/leaves/*`,
+    ROOT: `${DOMAIN_PREFIX}/leaves`,
     LEAVE: `${DOMAIN_PREFIX}/leaves`,
+    DETAIL: `/detail`,
     APPROVALS: `leaves/approvals`,
   },
   DEPARTMENTS: {
-    DEFAULT: `${DOMAIN_PREFIX}/departments`,
+    DEFAULT: `${DOMAIN_PREFIX}/departments/*`,
     DEPARTMENT: `${DOMAIN_PREFIX}/departments`,
     DETAIL: `${DOMAIN_PREFIX}/departments/department-detail`,
     APPROVALS: `departments/approvals`,
@@ -608,6 +629,7 @@ export const ROUTES = {
     DEFAULT: `${DOMAIN_PREFIX}/careers/*`,
     JOB_DETAIL: `${DOMAIN_PREFIX}/jobdetail`,
     CAREERLINK: `${DOMAIN_PREFIX}/careers`,
+    APPLYJOB: `${DOMAIN_PREFIX}/applyjob`,
   },
   JOBS: {
     DEFAULT: `${DOMAIN_PREFIX}/jobBoard/*`,
@@ -623,6 +645,8 @@ export const ROUTES = {
     MY_TODO: `${DOMAIN_PREFIX}/workboard/assignToMe`,
   },
   BONUS: {
-    DEFAULT: `${DOMAIN_PREFIX}/bonus`,
+    DEFAULT: `${DOMAIN_PREFIX}/bonus/*`,
+    ROOT: `${DOMAIN_PREFIX}/bonus`,
+    DETAIL: `/detail`,
   },
 };

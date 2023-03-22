@@ -1,0 +1,16 @@
+.thumbnailSkeleton .ant-skeleton-element {
+    width: 100%;
+}
+.thumbnailSkeleton .Image {
+    width: 100%;
+    height: 200px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+.CurriculumPanel {
+    margin-bottom: 10px;
+}
+.CurriculumPanel .ant-collapse-header {
+    border-top-left-radius: 10px !important;
+    border-top-right-radius: 10px !important;
+}

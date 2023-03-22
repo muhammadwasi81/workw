@@ -1,81 +1,75 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { ApprovalStatus } from "../../../../sharedComponents/AppComponents/Approvals/enums";
 import Tab from "../../../../sharedComponents/Tab";
 import ApprovalItem from "../SideBarApproval/approvalItem";
+import { useDispatch } from "react-redux";
+import RefreshIcon from "../../../../../content/NewContent/leadManager/svg/refresh.svg";
+import { getAllApproval } from "../../store/action";
+import { useState } from "react";
 
-const panes = [
-	{
-		featureName: `In Progress`,
-		content: <div></div>,
-		featureId: 0,
-	},
-	{
-		featureName: `Accepted`,
-		content: <div></div>,
-		featureId: 1,
-	},
-	{
-		featureName: `Declined`,
-		content: <div></div>,
-		featureId: 2,
-	},
-	{
-		featureName: `Hold`,
-		content: <div></div>,
-		featureId: 3,
-	},
-];
 
-const approvals = [
-	{
-		type: 1,
-		id: 1,
-	},
-	{
-		type: 2,
-		id: 2,
-	},
-	{
-		type: 3,
-		id: 3,
-	},
-	{
-		type: 4,
-		id: 4,
-	},
-	{
-		type: 5,
-		id: 5,
-	},
-	{
-		type: 6,
-		id: 6,
-	},
-	{
-		type: 7,
-		id: 7,
-	},
-	{
-		type: 8,
-		id: 8,
-	},
-	{
-		type: 9,
-		id: 9,
-	},
-];
+export default function Listing({ handleApprovalDetail, handleTabChange, tabFilter }) {
+  const defaultFilter = {
+    pageNo: 0,
+    search: '',
+    status: [1],
+  };
+  const dispatch = useDispatch();
+  // const [filter, setFilter] = useState(tabFilter);
+  let filter = tabFilter;
+  const approvalList = useSelector((state) => state.approvalSlice.approvalList);
 
-export default function Listing({ handleApprovalDetail }) {
-	return (
-		<>
-			<Tab panes={panes} />
-			<div className="overflow-scroll h-[85vh]">
-				{approvals.map(item => (
-					<ApprovalItem
-						item={item}
-						handleApprovalDetail={handleApprovalDetail}
-					/>
-				))}
-			</div>
-		</>
-	);
+  const panes = [
+    {
+      featureName: `In Progress`,
+      content: <div></div>,
+      featureId: 1,
+    },
+    {
+      featureName: `Accepted`,
+      content: <div></div>,
+      featureId: 2,
+    },
+    {
+      featureName: `Declined`,
+      content: <div></div>,
+      featureId: 3,
+    },
+    {
+      featureName: `Hold`,
+      content: <div></div>,
+      featureId: 4,
+    },
+  ];
+
+  const handleRefresh = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    let isMyApproval = true;
+    dispatch(getAllApproval({ isMyApproval, filter }));
+  };
+
+  return (
+    <>
+      <Tab canChangeRoute={true} panes={panes} onChange={handleTabChange} />
+      <div className="refresButton">
+              <img
+                  src={RefreshIcon}
+                  alt="calender logo"
+                  loading="lazy"
+                  className="cursor-pointer m-auto"
+                  onClick={handleRefresh}
+              />
+          </div>
+      <div className="overflow-scroll h-[85vh]">
+        {approvalList && approvalList.length > 0 ? approvalList.map((item) => (
+          <ApprovalItem
+            item={item}
+            handleApprovalDetail={handleApprovalDetail}
+          />
+        )): <p className="noData">No data...</p>}
+      </div>
+    </>
+  );
 }

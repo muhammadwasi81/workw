@@ -13,8 +13,19 @@ import {
 } from '../../../../sharedComponents/Card/CardStyle';
 import { useDispatch } from 'react-redux';
 import Avatar from '../../../../sharedComponents/Avatar/avatar';
+import { salaryDictionaryList } from '../../localization/index';
+import { LanguageChangeContext } from '../../../../../utils/localization/localContext/LocalContext';
 
 function SalaryListItem(props) {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { salaryDictionary } = salaryDictionaryList[userLanguage];
+  const {
+    salaryFor,
+    EffectiveDate,
+    BasicSalary,
+    NetSalary,
+    Approvers,
+  } = salaryDictionary;
   const disptach = useDispatch();
   const {
     creator = {
@@ -40,6 +51,7 @@ function SalaryListItem(props) {
     user,
   } = props.item;
 
+  // console.log(props.item, "salary ka");
   return (
     <>
       <SingleItem onClick={() => props.onClick(id)}>
@@ -71,25 +83,25 @@ function SalaryListItem(props) {
 
         <div className="cardSections">
           <div className="cardSectionItem">
-            <div className="cardSection__title">Salary For</div>
+            <div className="cardSection__title">{salaryFor}</div>
             <div className="cardSection__body">{user.name}</div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">Effective Date</div>
+            <div className="cardSection__title">{EffectiveDate}</div>
             <div className="cardSection__body">
               {moment(effectiveDate).format('Do MMM YY')}
             </div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">Basic Salary</div>
+            <div className="cardSection__title">{BasicSalary}</div>
             <div className="cardSection__body">{basicSalary}</div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">Net Salary</div>
+            <div className="cardSection__title"> {NetSalary}</div>
             <div className="cardSection__body">{netSalary}</div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">Approvers</div>
+            <div className="cardSection__title">{Approvers}</div>
             <div className="cardSection__body">
               <Avatar
                 isAvatarGroup={true}

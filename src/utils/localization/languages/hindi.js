@@ -75,7 +75,7 @@ const hindi = {
 
   /*** navMenuLabel only used in LeftSideBar ***/
   navMenuLabel: {
-    Schedules: "Schedules",
+    Schedules: "अनुसूचियों",
     workWiseCompanies: "कार्यवार कंपनियां",
     promotions: "पदोन्नति",
     customApprovals: "कस्टम स्वीकृतियां",
@@ -83,6 +83,8 @@ const hindi = {
     messenger: "मैसेंजर",
     chartOfAccount: "खाता का चार्ट",
     voucher: "वाउचर",
+    Quotation: "उद्धरण",
+    QuotationClient: "कोटेशन क्लाइंट",
     transaction: "लेनदेन",
     report: "रिपोर्ट",
     mailBox: "मेल बॉक्स",
@@ -129,6 +131,13 @@ const hindi = {
     ledgerReport: "लेजर रिपोर्ट",
     salary: "वेतन",
     payroll: "पेरोल",
+    teams: "मेरी टीम",
+    LD: "एल एंड डी",
+    jobBoard: "नौकरी बोर्ड",
+    assets: "संपत्ति आवंटन",
+    createAssets: "संपत्ति बनाएँ",
+    assetsList: "संपत्ति सूची",
+    requestListItems: "वस्तुओं के लिए अनुरोध",
   },
 
   /*** AppHeader only used in Component headerTab ***/
@@ -419,6 +428,7 @@ const hindi = {
     Rewards: "बैंक विवरण1",
     Reward_Category: "बैंक विवरण2",
     Warning_Category: "बैंक विवरण3",
+    Billing: "बिलिंग",
     Form: {
       Description: "बैंक विवरण4",
       Add: "बैंक विवरण5",

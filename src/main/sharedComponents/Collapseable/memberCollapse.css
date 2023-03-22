@@ -1,7 +1,7 @@
 .custom_member_collapse .ant-collapse-header{
     background: #f5f5f5;
     border-radius: 0.75rem !important;
-    
+    align-items: center;
 }
 
 .custom_member_collapse .ant-collapse-content-box{

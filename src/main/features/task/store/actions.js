@@ -1,23 +1,24 @@
-import { createAsyncThunk, isRejectedWithValue } from "@reduxjs/toolkit";
-import { responseCode } from "../../../../services/enums/responseCode";
-import { ResponseType } from "../../../../utils/api/ResponseResult";
-import { openNotification } from "../../../../utils/Shared/store/slice";
+import { createAsyncThunk, isRejectedWithValue } from '@reduxjs/toolkit';
+import { responseCode } from '../../../../services/enums/responseCode';
+import { ResponseType } from '../../../../utils/api/ResponseResult';
+import { openNotification } from '../../../../utils/Shared/store/slice';
 import {
   addNewTaskService,
   getAllTaskService,
   getTaskByIdService,
-} from "../utils/services/service";
+  cancelTaskService,
+} from '../utils/services/service';
+import { cancelTaskSuccess } from './taskSlice';
 
 export const addNewTask = createAsyncThunk(
-  "task/addNewTask",
+  'task/addNewTask',
   async (request, { rejectWithValue, dispatch }) => {
     const res = await addNewTaskService(request);
     if (res?.responseCode === responseCode.Success) {
-      console.log("response ture condition");
       dispatch(
         openNotification({
-          message: "User Task Created Successfully",
-          type: "success",
+          message: 'User Task Created Successfully',
+          type: 'success',
           duration: 2,
         })
       );
@@ -27,7 +28,7 @@ export const addNewTask = createAsyncThunk(
       dispatch(
         openNotification({
           message: res.message,
-          type: "error",
+          type: 'error',
           duration: 2,
         })
       );
@@ -36,7 +37,7 @@ export const addNewTask = createAsyncThunk(
   }
 );
 export const getAllTask = createAsyncThunk(
-  "task/getAllTask",
+  'task/getAllTask',
   async (request, { rejectWithValue }) => {
     const response = await getAllTaskService(request);
     switch (response.type) {
@@ -51,13 +52,35 @@ export const getAllTask = createAsyncThunk(
 );
 
 export const getTaskById = createAsyncThunk(
-  "task/getTaskById",
+  'task/getTaskById',
   async (id, { rejectWithValue }) => {
     const response = await getTaskByIdService(id);
     switch (response.type) {
       case ResponseType.ERROR:
         return rejectWithValue(response.errorMessage);
       case ResponseType.SUCCESS:
+        return response.data;
+      default:
+        return;
+    }
+  }
+);
+export const cancelTaskAction = createAsyncThunk(
+  'task/cancelTaskAction',
+  async (id, { rejectWithValue, dispatch }) => {
+    const response = await cancelTaskService(id);
+    switch (response.type) {
+      case ResponseType.ERROR:
+        return rejectWithValue(response.errorMessage);
+      case ResponseType.SUCCESS:
+        dispatch(
+          openNotification({
+            message: response.message,
+            type: 'error',
+            duration: 2,
+          })
+        );
+        dispatch(cancelTaskSuccess({ taskId: id }));
         return response.data;
       default:
         return;

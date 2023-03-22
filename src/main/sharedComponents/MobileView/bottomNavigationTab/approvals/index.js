@@ -1,9 +1,7 @@
 import { Drawer } from "antd";
 import React from "react";
-import Approvals from "../../../Nav/approvals";
 
 const Index = ({ drawerStatus, handleDrawer }) => {
-  // console.log(drawerStatus, "drawerStatus");
   return (
     <Drawer
       placement={"bottom"}
@@ -14,7 +12,6 @@ const Index = ({ drawerStatus, handleDrawer }) => {
       bodyStyle={{ padding: "10px" }}
       closable={false}
       contentWrapperStyle={{ height: "600px" }}>
-      <Approvals />
     </Drawer>
   );
 };

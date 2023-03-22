@@ -1,74 +1,82 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState ,useContext} from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getAllEmployees } from "../../../../utils/Shared/store/actions";
 import MemberSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { WorkBoardDictionary } from "../localization";
 
 function WorkBoardMemberSelect({ onChange, defaultData, loadDefaultData }) {
-	const dispatch = useDispatch();
-	const employees = useSelector(state => state.sharedSlice.employees);
-	const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
-	const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
-	const [value, setValue] = useState([]);
-	const [loading, setLoading] = useState(false);
-	useEffect(() => {
-		fetchEmployees("", 0);
-	}, []);
+  const dispatch = useDispatch();
+  const employees = useSelector((state) => state.sharedSlice.employees);
+  const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
+  const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
+  const [value, setValue] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { WorkBoardDictionaryList, Direction } = WorkBoardDictionary[
+    userLanguage
+  ];
+  const { labels, placeholder } = WorkBoardDictionaryList;
 
-	useEffect(() => {
-		setValue(defaultData);
-		setLoading(true);
-	}, [defaultData]);
+  useEffect(() => {
+    fetchEmployees("", 0);
+  }, []);
 
-	useEffect(() => {
-		if (employees.length > 0 && !isFirstTimeDataLoaded) {
-			setIsFirstTimeDataLoaded(true);
-			setFirstTimeEmpData(employees);
-		}
-	}, [employees]);
+  useEffect(() => {
+    setValue(defaultData);
+    setLoading(true);
+  }, [defaultData]);
 
-	const fetchEmployees = (text, pgNo) => {
-		dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
-	};
+  useEffect(() => {
+    if (employees.length > 0 && !isFirstTimeDataLoaded) {
+      setIsFirstTimeDataLoaded(true);
+      setFirstTimeEmpData(employees);
+    }
+  }, [employees]);
 
-	const selectedData = (data, obj) => {
-		setValue(data);
-		// setMembers(obj);
-		onChange(data, obj);
-	};
+  const fetchEmployees = (text, pgNo) => {
+    dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
+  };
 
-	return (
-		<>
-			<MemberSelect
-				data={firstTimeEmpData}
-				selectedData={selectedData}
-				canFetchNow={isFirstTimeDataLoaded}
-				fetchData={fetchEmployees}
-				placeholder={"Search members"}
-				mode={"multiple"}
-				isObject={true}
-				loadDefaultData={loadDefaultData}
-				optionComponent={opt => {
-					return (
-						<>
-							<Avatar
-								name={opt.name}
-								src={opt.image}
-								round={true}
-								width={"30px"}
-								height={"30px"}
-							/>
-							{opt.name}
-						</>
-					);
-				}}
-				dataVal={value}
-				name="members"
-				showSearch={true}
-			/>
-		</>
-	);
+  const selectedData = (data, obj) => {
+    setValue(data);
+    // setMembers(obj);
+    onChange(data, obj);
+  };
+
+  return (
+    <>
+      <MemberSelect
+        data={firstTimeEmpData}
+        selectedData={selectedData}
+        canFetchNow={isFirstTimeDataLoaded}
+        fetchData={fetchEmployees}
+        placeholder={placeholder.members}
+        mode={"multiple"}
+        isObject={true}
+        loadDefaultData={loadDefaultData}
+        optionComponent={(opt) => {
+          return (
+            <>
+              <Avatar
+                name={opt.name}
+                src={opt.image}
+                round={true}
+                width={"30px"}
+                height={"30px"}
+              />
+              {opt.name}
+            </>
+          );
+        }}
+        dataVal={value}
+        name="members"
+        showSearch={true}
+      />
+    </>
+  );
 }
 
 export default WorkBoardMemberSelect;

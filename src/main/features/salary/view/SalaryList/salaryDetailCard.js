@@ -1,4 +1,4 @@
-import { Button, Image, Tag } from 'antd';
+import { Button, Image, Tag, Skeleton } from 'antd';
 import React, { useContext, useEffect } from 'react';
 import UserInfo from '../../../../sharedComponents/UserShortInfo/UserInfo';
 import SublineDesigWithTime from '../../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime';
@@ -18,21 +18,26 @@ import { useSelector } from 'react-redux';
 import AllowanceDetail from './allowanceDetail';
 import RemarksApproval from '../../../../sharedComponents/AppComponents/Approvals/view';
 import { ApprovalsModule } from '../../../../sharedComponents/AppComponents/Approvals/enums';
+import { salaryDictionaryList } from '../../localization/index';
+import { LanguageChangeContext } from '../../../../../utils/localization/localContext/LocalContext';
 
 function SalaryDetailCard(props) {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { salaryDictionary } = salaryDictionaryList[userLanguage];
+  const { salaryFor, EffectiveDate, BasicSalary, Approvals } = salaryDictionary;
   const dispatch = useDispatch();
   useEffect(() => {
     if (props.id) dispatch(getEmployeeSalaryDetail(props.id));
   }, [props.id]);
 
   const salaryDetail = useSelector((state) => state.salarySlice.salaryDetail);
+  const { loadingData } = useSelector((state) => state.salarySlice);
   if (!salaryDetail) return <></>;
 
   const {
     creator,
     basicSalary,
     details,
-    netSalary,
     description = 'Salary Description here',
     approvers = [{}],
     status = 1,
@@ -41,6 +46,10 @@ function SalaryDetailCard(props) {
     effectiveDate = moment(),
     user,
   } = salaryDetail;
+  console.log(salaryDetail, 'salaryDetail');
+
+  if (loadingData) return <Skeleton />;
+
   return (
     <>
       <SingleItem onClick={props.onClick}>
@@ -52,7 +61,10 @@ function SalaryDetailCard(props) {
               Subline={
                 <SublineDesigWithTime
                   designation={creator.designation ? creator.designation : ''}
-                  time={moment(createDate).fromNow()}
+                  time={moment
+                    .utc(createDate)
+                    .local()
+                    .fromNow()}
                 />
               }
             />
@@ -72,17 +84,17 @@ function SalaryDetailCard(props) {
 
         <div className="cardSections">
           <div className="cardSectionItem">
-            <div className="cardSection__title">Salary For</div>
+            <div className="cardSection__title">{salaryFor}</div>
             <div className="cardSection__body">{user.name}</div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">Effective Date</div>
+            <div className="cardSection__title">{EffectiveDate}</div>
             <div className="cardSection__body">
               {moment(effectiveDate).format('Do MMM YY')}
             </div>
           </div>
           <div className="cardSectionItem">
-            <div className="cardSection__title">Basic Salary</div>
+            <div className="cardSection__title">{BasicSalary}</div>
             <div className="cardSection__body">{basicSalary}</div>
           </div>
         </div>
@@ -91,7 +103,8 @@ function SalaryDetailCard(props) {
 
         <RemarksApproval
           data={approvers}
-          title="Approvals"
+          title={Approvals}
+          reference={salaryDetail.id}
           module={ApprovalsModule.SalaryApproval}
           onStatusChanged={() => {}}
         />

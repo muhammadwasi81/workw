@@ -1,9 +1,13 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import { responseCode } from "../../../../services/enums/responseCode.js";
-import { addFiscalYear, getAllFiscalYear, updateFiscalYear } from "./actions.js";
+import {
+  addFiscalYear,
+  getAllFiscalYear,
+  updateFiscalYear,
+} from "./actions.js";
 
 const initialState = {
-  items: [],
+  FiscalYear: [],
   loadingData: false,
   loader: false,
 };
@@ -13,23 +17,24 @@ const fiscalYearSlice = createSlice({
   initialState,
   reducers: {
     FiscalYearDeleted: (state, { payload }) => {
-      state.items = state.items.filter((e) => e.id !== payload.id);
+      state.FiscalYear = state.FiscalYear.filter((e) => e.id !== payload.id);
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(getAllFiscalYear.fulfilled, (state, { payload }) => {
         state.loadingData = false;
-        state.items = payload.data;
+
+        state.FiscalYear = payload.data;
       })
       .addCase(addFiscalYear.fulfilled, (state, { payload }) => {
         state.loader = false;
         if (payload.responseCode === responseCode.Success)
-          state.items.push(payload.data);
+          state.FiscalYear.push(payload.data);
       })
       .addCase(updateFiscalYear.fulfilled, (state, { payload }) => {
         state.loader = false;
-        state.items = state.items.map((x) =>
+        state.FiscalYear = state.FiscalYear.map((x) =>
           x.id === payload.data.id ? payload.data : x
         );
       })

@@ -186,6 +186,8 @@
     width: 26px;
 }
 
+
+
 .post-section-attachments .slides .swiper-button-next:after,
 .post-section-attachments .slides .swiper-button-prev:after {
     color: #a6a6a6;
@@ -1047,6 +1049,13 @@
 
 .post>.post-footer>.cmnt-hld>.cmnt>.abt-cmnt>.sct>.stats .txt:hover {
     text-decoration: underline;
+}
+
+.share-feed__content .ant-popover-inner-content{
+    padding: 10px 5px;
+}
+.share-feed__content .ant-popover-inner{
+    border-radius: 5px;
 }
 
 @media screen and (max-width: 500px) {

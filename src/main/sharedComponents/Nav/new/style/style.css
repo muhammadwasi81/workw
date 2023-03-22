@@ -3,7 +3,14 @@
   transition: all 0.3s;
   background: #fff;
 }
-
+.globalSearchInput {
+  background-color: #f4f4f4;
+  padding-left: 4px;
+  width: 100%;
+}
+.d-none {
+  display: none;
+}
 .ant-tooltip-inner {
   /* color: #000 !important; */
 }
@@ -182,11 +189,10 @@
   border-color: transparent;
   padding: 0 7px;
 }
-
 .userDetailsWrapper .dropDown.open {
+  border: 1px solid #1b56699e;
   max-height: 400px;
   padding: 7px;
-  border: 1px solid #1b56699e;
 }
 
 .userDetailsWrapper .dropDown .list {
@@ -282,7 +288,7 @@
   font-size: 11px;
 }
 
-.notificationBar {
+.notificationBar .list{
   background: #f4f4f4;
   border-radius: 6px;
   margin-top: 0.5rem;
@@ -291,7 +297,7 @@
 .notificationBar .list {
   display: flex;
   align-items: center;
-  padding: 6px 10px 6px 6px;
+  padding: 6px 6px 6px 6px;
   justify-content: space-between;
   margin-bottom: 6px;
 }
@@ -308,28 +314,61 @@
   height: 2rem;
   padding: 0.3rem;
   place-items: center;
-  transition: all 0.3s;
 }
 
 .notificationBar .list__item:not(:last-child):hover {
   background: #e5e5e5;
 }
 
-.notificationBar.open .list__item:not(:last-child) {
-  display: none;
+.notificationBar.open .list__item {
+  visibility: hidden;
 }
 
-.notificationBar_input {
-  width: 0;
-  transition: 1s;
+.searchBar img{
+  width: 15px;
+}
+.searchBar{
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  background: #f4f4f4;
+  border-radius: 6px;
+  width: 35px;
+  padding-left: 10px;
+  border: 1px solid rgb(198, 198, 198);
+  /* justify-content: center; */
+}
+.notificationBar.open .searchBar{
+  animation-name: openSearch;
+  animation-duration: 0.4s;
+  animation-fill-mode: forwards;
+}
+.notiBarIcon {
+  position: relative;
+}
+.notiBarIcon .list{
+  width: calc(100% - 40px);
 }
 
-.notificationBar.open .notificationBar_input {
-  width: 90%;
-}
+.side-drawer {
+  /* In commentaries are the way to make it slide from left to right */
+  /* position: fixed; */
+  /* height: 100%; */
+  /* background: black; */
+  /* top: 0; */
+  /* right: 0; */
+  /* right: 100%; */
+  /* width: 40%; */
+  width: 0px;
+  /* z-index: 200; */
+  /* box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5); */
+  transform: translateX(10%);
+  /* transform: translateX(0%); */
 
-.notificationBar.open .list {
-  gap: 0px;
+  transition: transform 0.3s ease-out;
 }
 
 .menu .menu-item a {
@@ -484,6 +523,14 @@
   max-height: 500px;
   min-height: 500px;
   overflow: auto;
+}
+@keyframes openSearch {
+  from {
+  }
+
+  to {
+    width: 100%;
+  }
 }
 
 @media screen and (max-width: 800px) {

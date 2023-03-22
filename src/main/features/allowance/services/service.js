@@ -11,8 +11,19 @@ export const getAllAllowanceService = () => {
 };
 
 export const addAllowanceService = (args) => {
-  return MasterConfig.post(`api/allowance/addallowance`, args)
+  return MasterConfig.post(`api/Allowance/AddAllowance`, args)
     .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+export const updateAllowanceService = (payload) => {
+  return MasterConfig.put(`api/allowance/updateAllowance`, payload)
+    .then((res) => {
+      console.log(res, "update ki call");
       return res.data;
     })
     .catch((err) => {

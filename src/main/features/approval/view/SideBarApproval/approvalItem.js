@@ -1,42 +1,67 @@
-import { Avatar } from "antd";
-import React from "react";
+import { Tag } from "antd";
+import moment from "moment";
+import React, { useContext } from "react";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+import { getIconByFeaturesType } from "../../../../../utils/Shared/helper/helpers";
+import { getStatusLabelAndColor } from "../../../../sharedComponents/AppComponents/Approvals/enums";
+import { getFeaturesTypeByApprovalsType } from "../../../../sharedComponents/AppComponents/Approvals/helper/helpers";
+import { ApprovalDictionary } from "../../../../sharedComponents/AppComponents/Approvals/localization";
+import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
 // import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
 import "../style.css";
+import ApprovalActions from "./approvalActions";
 
-export default function ApprovalItem({ item, handleApprovalDetail }) {
-	return (
-		<div
-			className="approval_item cursor-pointer"
-			onClick={() => {
-				handleApprovalDetail(item);
-			}}
-		>
-			<div>
-				<Avatar
-					src={
-						"https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg"
-					}
-					name={"Aqib Memon"}
-				/>
-			</div>
-			<div className="approval_item_detail">
-				<div className="approval_item_detail_child1">
-					Aqib Memon Request for travel
-				</div>
-				<div className="approval_item_detail_child2">
-					<div className="dateTime">
-						<div className="shortDesc">
-							Mon, June 2022. 09:22:20 AM
-						</div>
-						<div className="shortDesc">TRA-00000012</div>
-					</div>
-					<div className="approval_item_status">
-						<div className="accept">Accept</div>
-						<div className="decline">Decline</div>
-						<div className="hold">Hold</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	);
+export default function ApprovalItem({
+  item,
+  handleApprovalDetail = () => { },
+}) {
+  let { creator, updateDate, message, referenceNo } = item;
+  let notiTime = moment
+    .utc(updateDate)
+    .local()
+    .fromNow();
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { status: statusLabels } = ApprovalDictionary[userLanguage];
+  const { label, color } = getStatusLabelAndColor("", statusLabels)[
+    item.status
+  ];
+  return (
+    <div
+      className="approval_item cursor-pointer"
+      onClick={() => handleApprovalDetail(item)}
+    >
+      <div>
+        <Avatar
+          src={creator?.image}
+          name={creator?.name}
+          size={35}
+          round={true}
+        // active={true}
+        />
+      </div>
+      <div className="approval_item_detail">
+        <div className="approval_item_detail_child1">
+          <span className="approval_creator">{creator?.name}</span>
+          <span className="approval_message">{message}</span>
+        </div>
+        <div className="approval_item_detail_child2">
+          <div className="dateTime">
+            <div className="shortDesc">{notiTime}</div>
+            <div className="shortDesc">{referenceNo}</div>
+          </div>
+          <div className="statusHolder" >
+            <div className="featureIcon" >
+              <img src={getIconByFeaturesType(getFeaturesTypeByApprovalsType(item.module))} />
+            </div>
+            {item.status === 1 && <ApprovalActions item={item} />}
+          </div>
+          {item.status !== 1 && (
+            <div className="approval_status_tag">
+              <Tag style={{ background: color }}>{label}</Tag>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
 }

@@ -7,39 +7,83 @@ import {
   addDepartmentAppraisalQuestion,
   updateDepartmentAppraisalQuestion,
   removeDepartmentAppraisalQuestion,
+  addDepartmentMemberAction,
+  getDepartmentMemberAction,
 } from "./actions";
 
 const initialState = {
   departments: [],
   loadingData: false,
   createLoader: false,
+  isCreateComposer: false,
   loader: false,
   success: false,
   error: false,
   drawerOpen: false,
+  parentId: null,
   departmentDetail: {},
   appraisalQuestion: [],
+  addMemberModal: false,
+  departmentMembers: [],
 };
 
 const departmentSlice = createSlice({
   name: "departments",
   initialState,
   reducers: {
+    addMember: (state, { payload }) => {
+      state.addMemberModal = payload;
+    },
     appraisalQuestionDeleted: (state, { payload }) => {
-      // console.log(payload, "********delet reducer");
       state.appraisalQuestion = state.appraisalQuestion.filter(
         (e) => e.id !== payload
       );
+    },
+    toggleCreateComposer: (state, { payload }) => {
+      state.isCreateComposer = payload;
+    },
+    handleParentId: (state, { payload }) => {
+      state.parentId = payload;
+    },
+    addDepartmentMember: (state, { payload }) => {
+      //TODO: replace the response with existing id object
+      const newDepartMember = state.departments.map((item, i) => {
+        if (item.id === payload[0].departmentId) {
+          let members = [...item.members, payload[0]];
+          let newItem = {
+            ...item,
+            members,
+          };
+          return newItem;
+        } else {
+          return item;
+        }
+      });
+
+      state.departments = newDepartMember;
+    },
+    deleteDepartmentMember(state, { payload }) {
+      console.log(payload, "payload delete member");
+      console.log(
+        state.departmentMembers.map((it) => it),
+        "payload delete member"
+      );
+      const newdeptMembers = state.departmentMembers.filter(
+        (it) => it.memberId !== payload
+      );
+
+      state.departmentMembers = newdeptMembers;
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(getAllDepartments.fulfilled, (state, { payload }) => {
-        // console.log(payload);
+        console.log(payload, "getAllDepartments");
         state.departments = payload ? payload : [];
         state.loader = false;
       })
       .addCase(addDepartment.fulfilled, (state, { payload }) => {
+        console.log(payload);
         // console.log("*****", payload.data);
         if (payload.data.data) {
           // console.log("before adding", state.departments);
@@ -47,11 +91,13 @@ const departmentSlice = createSlice({
           // console.log("after adding", state.departments);
         }
         state.success = true;
+        state.createLoader = false;
+        state.isCreateComposer = false;
       })
       .addCase(getDepartmentById.fulfilled, (state, { payload }) => {
-        // console.log("GetDepartmentById payload", payload.data);
+        console.log("GetDepartmentById payload", payload.data);
         state.departmentDetail = payload.data;
-        state.loading = false;
+        state.loader = false;
       })
       .addCase(
         updateDepartmentAppraisalQuestion.fulfilled,
@@ -82,13 +128,37 @@ const departmentSlice = createSlice({
           state.success = true;
         }
       )
+      .addCase(addDepartmentMemberAction.fulfilled, (state, { payload }) => {
+        console.log(payload, "add department member");
+        state.departmentMembers = [...state.departmentMembers, payload.data[0]];
+        // if (state.departmentDetail) {
+        //   //TODO: check if response is empty
+        //   if (payload.data?.length) {
+        //     let newMembers = [...state.departmentMembers, payload.data[0]];
+        //     state.departmentMembers = {
+        //       ...state.departmentMembers,
+        //       members: newMembers,
+        //     };
+        //   }
+        // }
+      })
+
+      .addCase(getDepartmentMemberAction.fulfilled, (state, { payload }) => {
+        state.departmentMembers = payload.length > 0 ? payload : [];
+      })
       .addMatcher(isPending(...[addDepartment]), (state) => {
         // console.log("its pending");
+        state.success = false;
         state.createLoader = true;
+        state.isCreateComposer = true;
       })
       .addMatcher(isPending(...[getAllDepartments]), (state) => {
         // console.log("its pending");
-        state.createLoader = true;
+        state.loader = true;
+      })
+      .addMatcher(isPending(...[getDepartmentById]), (state) => {
+        // console.log("its pending");
+        state.loader = true;
       })
       .addMatcher(
         isPending(...[updateDepartmentAppraisalQuestion]),
@@ -97,9 +167,14 @@ const departmentSlice = createSlice({
           state.createLoader = true;
         }
       )
-
+      .addMatcher(isRejected(...[addDepartment]), (state) => {
+        state.createLoader = false;
+      })
       .addMatcher(isRejected(...[getAllDepartments]), (state) => {
-        state.loader = true;
+        state.loader = false;
+      })
+      .addMatcher(isRejected(...[getDepartmentById]), (state) => {
+        state.loader = false;
       })
       .addMatcher(isPending(...[addDepartmentAppraisalQuestion]), (state) => {
         console.log("its pending add department appraisa question");
@@ -108,5 +183,12 @@ const departmentSlice = createSlice({
   },
 });
 
-export const { appraisalQuestionDeleted } = departmentSlice.actions;
+export const {
+  appraisalQuestionDeleted,
+  toggleCreateComposer,
+  handleParentId,
+  addMember,
+  addDepartmentMember,
+  deleteDepartmentMember,
+} = departmentSlice.actions;
 export default departmentSlice.reducer;

@@ -8,6 +8,7 @@ const initialState = {
    error: false,
    salaryDetail: null,
    salaryList: [],
+   loadingData: false,
 };
 
 export const VoucherSlice = createSlice({
@@ -30,15 +31,22 @@ export const VoucherSlice = createSlice({
             state.salaryDetail = payload;
             state.loader = false;
             state.success = true;
+            state.loadingData = false;
          })
          .addCase(getAllEmployeeSalary.fulfilled, (state, { payload }) => {
             state.salaryList = payload.data;
             state.loader = false;
             state.success = true;
          })
+         .addMatcher(isPending(...[getEmployeeSalaryDetail]), (state) => {
+            state.loadingData = true;
+          })
          .addMatcher(
             isPending(
-               ...[addMultipleEmployeeSalary]
+               ...[
+                  addMultipleEmployeeSalary,
+                  getAllEmployeeSalary
+               ]
             ),
             state => {
                state.loader = true;

@@ -18,7 +18,7 @@ function LeadSectionSelect({ detail, sections, currentIndex }) {
 			moveDetail({
 				sourceListId: currentSectionId,
 				destListId: targetSectionId,
-				oldCardIndex: currentIndex,
+				oldCardIndex: Number(currentIndex),
 				newCardIndex: 0,
 			})
 		);

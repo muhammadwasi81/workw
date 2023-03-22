@@ -2,7 +2,7 @@ const en = {
   taskDictionaryList: {
     createTextBtn: "Create Task",
     placeHolder: {
-      writeSubject: "Write Suject Here",
+      writeSubject: "Write Subject Here",
       writePredecessor: "Write Predecessor Here",
       writeDescription: "Write Description Here",
       startDate: " Start Date",
@@ -12,7 +12,7 @@ const en = {
     labels: {
       taskDetail: "Task Detail",
       attachments: "Attachments",
-      taskSubject: "Task Subject",
+      taskSubject: "Subject",
       predecessor: "Predecessor",
       type: "Type",
       taskDate: "Task Date",
@@ -31,6 +31,18 @@ const en = {
       description: "Description",
       startDate: " Start Date",
       endtDate: " End Date",
+      notStarted: "NotStarted",
+      inProcess: "InProcess",
+
+      completed: "Completed",
+      ratingAssign: "RatingAssign",
+      cancelled: "Cancelled",
+      referenceNo: "Reference No",
+      creator: "Creator",
+      status: "Status",
+      subject: "Subject",
+      progress: "Progress",
+      taskAssignedTo: "Task Assigned To",
     },
   },
   Direction: "ltr",

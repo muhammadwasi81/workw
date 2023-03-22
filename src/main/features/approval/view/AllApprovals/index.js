@@ -1,77 +1,94 @@
-import React, { useState } from "react";
-import { TabbableContainer } from "../../../../layout/GridStyle";
-import Header from "../../../../layout/header/index";
-import { ContBody } from "../../../../sharedComponents/AppComponents/MainFlexContainer";
-import SideDrawer from "../../../../sharedComponents/Drawer/SideDrawer";
-import Tab from "../../../../sharedComponents/Tab";
-import TopBar from "../../../../sharedComponents/topBar/topBar";
-import ApprovalDetail from "./detail";
-import Listing from "./listing";
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useLocation, useParams, useSearchParams } from 'react-router-dom';
+import { ROUTES } from '../../../../../utils/routes';
+import { TabbableContainer } from '../../../../layout/GridStyle';
+import Header from '../../../../layout/header/index';
+import { ApprovalStatus } from '../../../../sharedComponents/AppComponents/Approvals/enums';
+import { ContBody } from '../../../../sharedComponents/AppComponents/MainFlexContainer';
+import { getAllApproval } from '../../store/action';
+import ApprovalDetail from './detail';
+import Listing from './listing';
 
 export default function AllApprovals() {
-	const [tableView, setTableView] = useState(false);
-	const [approvalDetailData, setApprovalDetailData] = useState({});
+  const defaultFilter = {
+    pageNo: 0,
+    search: '',
+    status: [1],
+  };
+  const [filter, setFilter] = useState(defaultFilter);
+  const [approvalDetailData, setApprovalDetailData] = useState({});
+  const dispatch = useDispatch();
 
-	const handleApprovalDetail = item => {
-		console.log("item", item);
-		setApprovalDetailData(item);
-	};
+  const handleApprovalDetail = (item) => {
+    setApprovalDetailData(item);
+  };
+  
+  const handleTabChange = (tabIndex) => {
+    tabIndex = Number(tabIndex);
+    let status = ApprovalStatus.InProcess;
+    switch (tabIndex) {
+      case 1:
+        status = ApprovalStatus.InProcess;
+        break;
+      case 2:
+        status = ApprovalStatus.Approved;
+        break;
+      case 3:
+        status = ApprovalStatus.Declined;
+        break;
+      case 4:
+        status = ApprovalStatus.Hold;
+        break;
+      default:
+        break;
+    }
+    setFilter({
+      ...filter,
+      status: [status],
+    });
+  };
 
-	return (
-		<TabbableContainer>
-			<Header
-				buttons={
-					[
-						// {
-						// 	buttonText: "Create Travel",
-						// 	// onClick: () => setVisible(true),
-						// 	render: (
-						// 		<SideDrawer
-						// 			title={"Hello"}
-						// 			buttonText={"Hello"}
-						// 			isAccessDrawer={false}
-						// 		>
-						// 			"Hello"
-						// 		</SideDrawer>
-						// 	),
-						// },
-					]
-				}
-				backButton={false}
-			/>
-			<TopBar
-				onSearch={value => {
-					console.log(value);
-				}}
-				buttons={[
-					{
-						name: "Filter",
-					},
-				]}
-				segment={{
-					onSegment: value => {
-						if (value === "Table") {
-							setTableView(true);
-						} else {
-							setTableView(false);
-						}
-					},
-					label1: "List",
-					label2: "Table",
-				}}
-			/>
-			<ContBody>
-				<div className="flex ApprovalMainView gap-4 w-full">
-					<div className="">
-						<Listing handleApprovalDetail={handleApprovalDetail} />
-					</div>
-					<div className="flex-1">
-						<ApprovalDetail
-							approvalDetailData={approvalDetailData}
-						/>
-					</div>
-				</div>
-			</ContBody>
-		</TabbableContainer>
-	);
+  useEffect(() => {
+    let isMyApproval = true;
+    dispatch(getAllApproval({ isMyApproval, filter }));
+  }, [filter]);
+
+  
+  return (
+    <TabbableContainer>
+      <Header
+        buttons={[]}
+        items={[
+          {
+            name: 'Approvals',
+            renderButton: [1],
+            to: ROUTES.APPROVALS.DEFAULT,
+          },
+          // {
+          //   name: 'My Approval',
+          //   renderButton: [2],
+          //   to: ROUTES.APPROVALS.DEFAULT + "?myApproval",
+          // },
+        ]}
+        backButton={false}
+      />
+
+      <ContBody>
+        <div className="flex ApprovalMainView gap-4 w-full">
+          <div className="">
+            <Listing
+              handleApprovalDetail={handleApprovalDetail}
+              handleTabChange={handleTabChange}
+              tabFilter={filter}
+              // handleRefresh={handleRefresh} 
+            />
+          </div>
+          <div className="flex-1">
+            <ApprovalDetail approvalDetailData={approvalDetailData} />
+          </div>
+        </div>
+      </ContBody>
+    </TabbableContainer>
+  );
 }

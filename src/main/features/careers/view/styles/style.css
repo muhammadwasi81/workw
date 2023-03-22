@@ -1,3 +1,16 @@
+.createCareerRight .ant-form-item {
+  margin-bottom: 5px;
+  text-align: right;
+}
+
+.createCareerRight .ant-form-item-label {
+  text-align: right;
+}
+
+.alignRight .ant-drawer-title {
+  text-align: right;
+}
+
 .createCareer .ant-form-item {
   margin-bottom: 5px;
 }
@@ -64,12 +77,12 @@
   padding-left: 10px;
 }
 .careersDetailCard .careersSections {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   width: 100%;
 }
 .careersDetailCard div {
-  min-width: 270px;
+  /* min-width: 270px; */
   margin: 5px 0;
 }
 ._candidateList {
@@ -121,4 +134,20 @@
   border: none !important;
   padding-left: 17px !important;
   padding-right: 10px !important;
+}
+
+.reviewCriteriaListing .ant-list-item-meta-content {
+  display: flex;
+  justify-content: space-between;
+}
+.reviewCriteriaListing .ant-list-item-meta-content .text-amber-800 {
+  margin-bottom: 0px;
+  cursor: pointer;
+}
+.QuickDetailPublicRoute {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+.skillsContainer {
+  margin-bottom: 10px;
 }

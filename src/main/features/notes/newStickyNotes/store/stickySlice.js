@@ -7,7 +7,7 @@ import {
   getColorCodeAction,
   getStickyNoteTitleAction,
   getStickyNoteDescAction,
-  getStickyAttachmentAction
+  getStickyAttachmentAction,
 } from "./actions";
 
 const defaultSticky = {
@@ -17,7 +17,7 @@ const defaultSticky = {
   privacyId: "",
   isOpen: false,
   colorCode: "",
-  attachments:[],
+  attachments: [],
   // search:"",
 };
 
@@ -28,6 +28,7 @@ export const stickySlice = createSlice({
     listArray: [],
     colorPicker: true,
     bgColor: "",
+    openSticky: "",
   },
   reducers: {
     closeSticky: (state) => {
@@ -38,7 +39,6 @@ export const stickySlice = createSlice({
       let currentIndex = state.listArray.findIndex(
         (it) => it.id === selectedId
       );
-      console.log(currentIndex, "currentIndex", selectedId);
       state.listArray[currentIndex].isOpen = false;
     },
 
@@ -53,20 +53,23 @@ export const stickySlice = createSlice({
     toggleStickyNote: (state) => {
       state.open = !state.open;
     },
+    handleOpenSticky: (state, action) => {
+      let openStickyId = action.payload;
+      state.openSticky = openStickyId;
+    },
     showStickyNote: (state, action) => {
       let selectedId = action.payload;
       let currentIndex = state.listArray.findIndex(
         (it) => it.id === selectedId
       );
-      // console.log(currentIndex, "currentIndex", selectedId);
       state.listArray[currentIndex].isOpen = true;
+      state.openSticky = selectedId;
     },
     handleChangeNote: (state, action) => {
       let updatedNote = action.payload;
       let currentIndex = state.listArray.findIndex(
         (it) => it.id === updatedNote.id
       );
-      console.log("current index", currentIndex);
       state.listArray[currentIndex] = updatedNote;
     },
     deleteStickyNote: (state, action) => {
@@ -75,12 +78,8 @@ export const stickySlice = createSlice({
     },
     addImage: (state, action) => {
       const values = action.payload;
-      console.log(values,"VALUES");
-      // const id=createGuid();
       const sticky = state.listArray.find((item) => item.id === values.id);
-      console.log("IMAGES REDUX",sticky);
       sticky.attachments.push(values.images);
-      console.log(values,"VALUES AFTER PUSH");
     },
 
     // ********color picker********
@@ -98,27 +97,24 @@ export const stickySlice = createSlice({
 
     targetTitleVal: (state, action) => {
       const val = action.payload;
-      console.log("valueee", val);
+
       const listObj = state.listArray.find((list) => list.id === val.id);
       listObj.title = val.value;
     },
     targetStickyDescription: (state, action) => {
       const val = action.payload;
       const listObj = state.listArray.find((list) => list.id === val.id);
-      // state.listArray[index].description = val.stickyText 
-      listObj.description = val.value
-      // console.log(current(listObj));
-     
+      listObj.description = val.value;
     },
   },
 
   extraReducers: (builder) => {
     builder
       .addCase(addSticky.fulfilled, (state, { payload }) => {
-        console.log(payload);
         state.loader = false;
         state.success = true;
-        state.listArray = [...state.listArray, payload];
+        state.listArray = [{ ...payload, isOpen: true }, ...state.listArray];
+        state.openSticky = payload.id;
       })
       .addCase(deleteStickyAction.fulfilled, (state) => {
         state.loader = false;
@@ -127,31 +123,26 @@ export const stickySlice = createSlice({
       .addCase(getAllStickyNotesAction.fulfilled, (state, action) => {
         state.listArray = action.payload;
       })
-    
-
-      .addCase(getStickyNoteDescAction.fulfilled, (state, { payload }) => {
-      
+      .addCase(getStickyNoteDescAction.fulfilled, (state, action) => {
+        // state.listArray = action.payload;
       })
-      .addCase(getStickyAttachmentAction.fulfilled,(state,action)=>{
+      .addCase(getStickyAttachmentAction.fulfilled, (state, action) => {
         let data = action.payload;
 
         state.loader = false;
         state.success = true;
-        let currentIndex = state.listArray.findIndex(
-          (it) => it.id === data.id
-        );
-        console.log("current index", currentIndex);
+        let currentIndex = state.listArray.findIndex((it) => it.id === data.id);
+
         state.listArray[currentIndex] = {
           ...data,
-          attachments:[
-            ...state.listArray[currentIndex].attachments,
-            ...data.attachments
-          ],
-          isOpen:true
-        };
 
-      })
-      
+          attachments: [
+            ...state.listArray[currentIndex].attachments,
+            ...data.attachments,
+          ],
+          isOpen: true,
+        };
+      });
   },
 });
 
@@ -167,5 +158,6 @@ export const {
   targetTitleVal,
   targetStickyDescription,
   addImage,
+  handleOpenSticky,
 } = stickySlice.actions;
 export default stickySlice.reducer;

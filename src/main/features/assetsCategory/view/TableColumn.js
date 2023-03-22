@@ -1,33 +1,21 @@
-import { DeleteFilled, EditFilled } from '@ant-design/icons';
-import { LoadingOutlined } from '@ant-design/icons';
-import { Popconfirm } from 'antd';
+import { EditFilled } from "@ant-design/icons";
+import { LoadingOutlined } from "@ant-design/icons";
 
 const Edit = (handleEdit, row, setClearButton) => {
   return (
     <EditFilled
-      style={{ color: '#1b5669' }}
+      style={{ color: "#1b5669" }}
       onClick={(e) => {
         handleEdit({
           id: row.id,
-          categoryName: row.categoryName,
+          name: row.name,
           description: row.description,
-          accountType: row.accountType,
-          parentAccount: row.parentAccount,
+          accountId: row.accountId,
+          parentId: row.parentId,
         });
         setClearButton(true);
       }}
     />
-  );
-};
-
-const Delete = (handleDelete, row) => {
-  return (
-    <Popconfirm
-      title="Are you sure want to delete?"
-      onConfirm={(e) => handleDelete({ id: row.id })}
-    >
-      <DeleteFilled style={{ color: '#1b5669' }} />
-    </Popconfirm>
   );
 };
 
@@ -37,28 +25,41 @@ export const tableColumn = (
   removeButtons = false,
   rights,
   id,
-  setClearButton
+  setClearButton,
+  assetsDictionary
 ) => {
   return [
-    // { title: 'Category Name', dataIndex: 'name', width: '20%', key: 1 },
-    // { title: 'Description', dataIndex: 'branchName', width: '15%', key: 2 },
-    // { title: 'Account Type', dataIndex: 'address', width: '20%', key: 3 },
-    // { title: 'parent Account', dataIndex: 'lat', width: '20%', key: 4 },
-    // { title: 'Longitude', dataIndex: 'lng', width: '10%', key: 5 },
-
-    { title: 'Category Name', dataIndex: 'categoryName', width: '20%', key: 1 },
-    { title: 'Description', dataIndex: 'description', width: '20%', key: 2 },
-    { title: 'Account Type', dataIndex: 'accountType', width: '25%', key: 3 },
     {
-      title: 'Parent Account',
-      dataIndex: 'parentAccount',
-      width: '25%',
+      title: assetsDictionary.categoryName,
+      dataIndex: "name",
+      width: "25%",
+      key: 1,
+    },
+    {
+      title: assetsDictionary.desc,
+      dataIndex: "description",
+      width: "40%",
+      key: 2,
+    },
+    {
+      title: assetsDictionary.accountType,
+      dataIndex: "accountId",
+      width: "20%",
+      key: 3,
+      render: (text, row) => {
+        return <>{row.accountId.substring(0, 5) + "..."}</>;
+      },
+    },
+    {
+      title: assetsDictionary.parentAccount,
+      dataIndex: "parentName",
+      width: "25%",
       key: 4,
     },
     removeButtons
       ? {}
       : {
-          align: 'right',
+          align: "right",
           key: 3,
           render: (_, row) => {
             if (id && row.id === id) return <LoadingOutlined key={row} />;
@@ -67,14 +68,13 @@ export const tableColumn = (
             if (rights.includes(1) && rights.includes(2))
               return (
                 <>
-                  {Edit(handleEdit, row, setClearButton)}{' '}
-                  {Delete(handleDelete, row)}
+                  {Edit(handleEdit, row, setClearButton)}{" "}
+                  {/* {Delete(handleDelete, row)}{' '} */}
                 </>
               );
 
             if (rights.includes(1)) return Edit(handleEdit, row);
-
-            if (rights.includes(2)) return Delete(handleDelete, row);
+            // if (rights.includes(2)) return Delete(handleDelete, row);
           },
         },
   ];

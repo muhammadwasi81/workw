@@ -1,6 +1,6 @@
 import moment from "moment";
 import Avatar from "../../sharedComponents/Avatar/avatar";
-
+import AvatarCustom from "../../sharedComponents/Avatar/avatarOLD";
 import TagAvatar from "../../sharedComponents/Avatar/TagAvatar";
 import StatusTag from "../../sharedComponents/Tag/StatusTag";
 export const tableColumn = () => {
@@ -15,6 +15,7 @@ export const tableColumn = () => {
       title: "Creator",
       dataIndex: "creator",
       ellipsis: true,
+      width: 160,
       render: (creator) => (
         <TagAvatar text={creator.name} img={creator.image} />
       ),

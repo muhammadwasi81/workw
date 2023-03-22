@@ -1,32 +1,58 @@
-import { Avatar } from "antd";
-import moment from "moment";
-import React from "react";
-import UserInfo from "../../../../sharedComponents/UserShortInfo/UserInfo";
+import moment from 'moment';
+import Avatar from '../../../../sharedComponents/Avatar/avatarOLD';
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { getCareerByIdAction } from '../../../careers/store/action';
+import CardProfileTopView from '../../../travel/view/ListView/CardProfileTopView';
 
+function ListItem({ item }) {
+  const dispatch = useDispatch();
+  const {
+    id,
+    designation,
+    creator,
+    description,
+    city,
+    country,
+    department,
+    createDate,
+  } = item;
 
-function ListItem() {
+  const onJobClick = (id) => {
+    //todo dispatch career by id
+    console.log('on jobclick works');
+    dispatch(getCareerByIdAction(id));
+  };
+
+  console.log(item);
   return (
-    <div className="careersShortCard item-card cursor-pointer !flex !flex-row gap-3" >
+    <div
+      className="careersShortCard item-card cursor-pointer !flex !flex-row gap-3"
+      onClick={() => onJobClick(id)}
+    >
       <div>
-      <Avatar
-        size={40}
-        src={"https://media-exp1.licdn.com/dms/image/C4E0BAQFDGDEYJfvahA/company-logo_100_100/0/1651291774461?e=1672272000&v=beta&t=POP4Vrc5oo1ovQWEdHnlWBjhEktimNJDwCsi0SaPOTk"}
-      />
-      </div>
-      
-      <div className="w-full" >
-        <div className="text-[16px] font-bold text-sky-900 mb-1">
-          Senior React.js Developer
-        </div>
-        <div className="shortCardDesc">
-          We are looking for a React Native developer interested in building performant mobile apps on both 
-          the iOS and Android platforms. You will be responsible for architecting and building these applications,
-           as well as coordinating with the teams responsible for other layers of the product infrastructure</div>
-        <div className="font-bold">Miletap</div>
-        <div  className="text-xs">Karachi, Pakistan</div>
-        <div className="text-xs float-right">{moment("09-22-2022").fromNow()}</div>
+        <Avatar
+          name={creator.name}
+          src={creator.image}
+          round={true}
+          width={40}
+          height={40}
+        />
       </div>
 
+      <div className="w-full">
+        <div className="text-[16px] font-bold text-sky-900 mb-1">
+          {designation}
+        </div>
+        <div className="text-primary-color font-bold">{department}</div>
+        <div className="shortCardDesc">{description}</div>
+        <div className="text-xs">
+          {city}, {country}
+        </div>
+        <div className="text-xs float-right">
+          {moment(createDate).fromNow()}
+        </div>
+      </div>
     </div>
   );
 }

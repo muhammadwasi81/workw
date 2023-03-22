@@ -57,7 +57,7 @@
   display: flex;
   align-items: center;
   border-bottom: 2px solid #f4f4f4;
-  margin: 9px 0;
+  margin: 9px 10px;
   padding: 10px 0;
   margin-bottom: unset;
 }
@@ -128,9 +128,10 @@
 
 .mailMainBody {
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   overflow: scroll;
   height: 100%;
+  width: 100%;
 }
 
 .mailListingBox {
@@ -145,8 +146,9 @@
 
 .mailItem {
   display: flex;
-  height: 50px;
-  align-items: center;
+  flex-direction: column;
+  height: max-content;
+  /* align-items: center; */
   border-bottom: 2px solid rgb(244, 244, 244);
   padding: 14px 10px;
   justify-content: space-between;
@@ -159,13 +161,13 @@
 }
 
 .mailItem:hover .mailDateBox {
-  display: none;
+  /* display: none; */
 }
 
 .hoverEmailAction {
   display: none;
 }
-
+/* 
 .mailItem:hover .hoverEmailAction {
   display: flex;
   justify-content: flex-end;
@@ -178,7 +180,7 @@
   background: none;
   border: none;
   outline: none;
-}
+} */
 
 .mailName {
   display: flex;
@@ -189,7 +191,7 @@
 .mailFrom {
   margin-left: 14px;
   margin-right: 14px;
-  width: 110px;
+  width: 200px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -230,7 +232,9 @@
 .mailDateBox {
   display: flex;
   justify-content: flex-end;
+  font-size: 12px;
   align-items: center;
+  text-align: right;
 }
 
 .containerHideClass {
@@ -332,8 +336,11 @@
   justify-content: flex-end;
   align-items: flex-end;
   /*height: 100%;*/
-  width: 100%;
+  width: max-content;
   bottom: 0;
+  right: 0;
+  max-width: 100%;
+
 }
 
 .mail-composer-container {
@@ -352,8 +359,8 @@
   display: flex;
   flex-direction: column;
   position: fixed;
-  width: 559px;
-  max-width: 560px;
+  width: 650px;
+  max-width: 650px;
   border-radius: 10px 5px 0 0;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
   background: #ffffff;

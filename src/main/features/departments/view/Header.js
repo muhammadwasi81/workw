@@ -4,15 +4,19 @@ import TravelComposer from "./TravelComposer/TravelComposer";
 import { ROUTES } from "../../../../utils/routes";
 import LayoutHeader from "../../../layout/header";
 import { buttonsEnum } from "../enums/enums";
+import { useSelector } from "react-redux";
+import { FeaturePermissionEnum } from "../../../../utils/Shared/enums/featuresEnums";
 
 function Header(props) {
   const { label } = props;
   const [visible, setVisible] = useState(false);
   const { success } = props;
+  const { user } = useSelector((state) => state.userSlice)
+  const userPermissions = user.permissions
   const items = [
     {
       name: label.appHeader.travel.travels,
-      to: `${ROUTES.TRAVEL.DEFAULT}?f=trv`,
+      to: `${ROUTES.TRAVEL.ROOT}?f=trv`,
       renderButton: buttonsEnum.travel,
     },
   ];
@@ -23,7 +27,7 @@ function Header(props) {
       render: (
         <SideDrawer
           children={<TravelComposer />}
-          title="Create Travel Expense"
+          title="Create Travel"
           buttonText="Create Travel"
           isAccessDrawer={true}
           setOpenDrawer={setVisible}
@@ -34,7 +38,7 @@ function Header(props) {
       ),
     },
   ];
-  return <LayoutHeader items={items} buttons={buttons} />;
+  return <LayoutHeader items={items} buttons={userPermissions.includes(FeaturePermissionEnum.CreateDepartment) ? buttons : []} />;
 }
 
 export default Header;

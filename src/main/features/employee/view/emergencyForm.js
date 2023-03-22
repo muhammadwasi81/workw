@@ -1,80 +1,106 @@
-import { PlusOutlined, EditOutlined } from "@ant-design/icons";
-import { Button, Divider, Form, Input, Select, Table } from "antd";
-import React, { useContext, useEffect } from "react";
-import { useState } from "react";
-import { dictionaryList } from "../../../../utils/localization/languages";
-import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import { employeeDictionaryList } from "../localization/index";
-import "../Styles/employeeForm.css";
-import { relations } from "../../../../utils/Shared/enums/enums";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { getUserEmergency } from "../../emergencyInfo/store/actions";
-import { resetEmergencydetails } from "../store/slice";
+import { PlusOutlined, EditOutlined } from '@ant-design/icons';
+import { Button, Divider, Form, Input, Select, Table } from 'antd';
+import React, { useContext, useEffect } from 'react';
+import { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { dictionaryList } from '../../../../utils/localization/languages';
+import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
+import { employeeDictionaryList } from '../localization/index';
+import '../Styles/employeeForm.css';
+import { relations } from '../../../../utils/Shared/enums/enums';
+import { useSelector, useDispatch } from 'react-redux';
+import { resetEmergencydetails } from '../store/slice';
+import {
+  addUserEmergencyContactAction,
+  getUserEmergency,
+  updateUserEmergencyContactAction,
+} from '../../emergencyInfo/store/actions';
+import { handleResetEmergencyInfo } from '../../emergencyInfo/store/slice';
 
 const { Option } = Select;
-const EmergencyForm = ({ mode, id }) => {
-  const isEdit = mode === "edit";
+
+const EmergencyForm = ({ mode, userId }) => {
+  const param = useParams();
+  const isEdit = mode === 'edit';
   const [emergencyInfo, setEmergencyInfo] = useState([]);
+  const [newUserId, setNewUserId] = useState('');
   const { userLanguage } = useContext(LanguageChangeContext);
   const { sharedLabels } = dictionaryList[userLanguage];
   const { employeesDictionary, Direction } = employeeDictionaryList[
     userLanguage
   ];
-  const {
-    employee: { emergencydetails },
-    success,
-  } = useSelector((state) => state.employeeSlice);
+
+  const { emergencyInformation, success, emergencyDetails } = useSelector(
+    (state) => state.emergencyInfoSlice
+  );
+  console.log(emergencyDetails?.id, 'emergencyInformation');
 
   const initialState = {
-    name: "",
-    address: "",
-    contactNo: "",
-    relation: "",
+    name: '',
+    address: '',
+    contactNo: '',
+    relation: [],
   };
   const [initialValues, setInitialValues] = useState(initialState);
   const labels = employeesDictionary.EmergencyForm;
   const placeholder = employeesDictionary.placeholders;
   const [form] = Form.useForm();
-  Object.defineProperty(form, "values", {
+
+  Object.defineProperty(form, 'values', {
     value: function() {
-      return emergencyInfo;
+      return emergencyInformation;
     },
     writable: true,
     enumerable: true,
     configurable: true,
   });
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (success) setEmergencyInfo([]);
+    dispatch(handleResetEmergencyInfo());
+  }, [success]);
+
   useEffect(() => {
     form.setFieldsValue(initialValues);
   }, [initialValues, form]);
 
   useEffect(() => {
-    if (success) setEmergencyInfo([]);
-  }, [success]);
-
-  useEffect(() => {
-    if (isEdit) setEmergencyInfo(emergencydetails);
-  }, [emergencydetails]);
+    if (isEdit) setEmergencyInfo(emergencyInformation);
+  }, [emergencyInformation]);
 
   useEffect(() => {
     if (isEdit) {
-      dispatch(getUserEmergency(id));
+      dispatch(getUserEmergency(userId));
     }
-
     return () => {
       dispatch(resetEmergencydetails());
     };
   }, []);
+
   const handleAddMore = async () => {
     form.submit();
     try {
       const isValidation = await form.validateFields();
-      if (isValidation)
+      if (isValidation) {
+        //TODO: here we will add emergency info
+        if (isEdit) {
+          console.log('is edit work');
+          const payloadObj = {
+            payload: form.getFieldsValue(),
+            id: param.id,
+          };
+          dispatch(addUserEmergencyContactAction(payloadObj));
+        }
+
         setEmergencyInfo((preValues) => [...preValues, form.getFieldsValue()]);
-      form.resetFields();
-      setInitialValues(initialState);
-    } catch (e) {}
+        form.resetFields();
+        setInitialValues(initialState);
+      }
+    } catch (err) {
+      console.log(err, 'err');
+      throw new Error('something went wrong', { cause: err });
+    }
   };
 
   const handleRowChange = (rowIndex) => {
@@ -83,28 +109,28 @@ const EmergencyForm = ({ mode, id }) => {
     emergencyInfoArr.splice(rowIndex, 1);
     setEmergencyInfo(emergencyInfoArr);
   };
+
   const columns = (data) => {
-    console.log(data, "data2");
     return [
       {
         title: labels.Name,
-        dataIndex: "name",
-        key: "name",
+        dataIndex: 'name',
+        key: 'name',
       },
       {
         title: labels.Address,
-        dataIndex: "address",
-        key: "address",
+        dataIndex: 'address',
+        key: 'address',
       },
       {
         title: labels.Number,
-        dataIndex: "contactNo",
-        key: "contactNo",
+        dataIndex: 'contactNo',
+        key: 'contactNo',
       },
       {
         title: labels.Relation,
-        dataIndex: "relation",
-        key: "relation",
+        dataIndex: 'relation',
+        key: 'relation',
         render: (value) => {
           return relations[value - 1]?.name;
         },
@@ -113,7 +139,6 @@ const EmergencyForm = ({ mode, id }) => {
       {
         title: sharedLabels.action,
         render: (value, __, rowIndex) => {
-          console.log(data, "return");
           return (
             <a
               href=" "
@@ -122,8 +147,9 @@ const EmergencyForm = ({ mode, id }) => {
                 e.stopPropagation();
                 if (isEdit) {
                   handleRowChange(rowIndex);
+                  setNewUserId(data[rowIndex].id);
+                  console.log(data[rowIndex].id, 'data[rowIndex].id');
                 } else {
-                  console.log("Data", data);
                   const filterArray = data.filter((value, i) => {
                     if (rowIndex !== i) return value;
                   });
@@ -139,18 +165,37 @@ const EmergencyForm = ({ mode, id }) => {
     ];
   };
 
-  const handleUpdate = () => {
-    console.log("handle Update");
+  const createPayload = () => {
+    const payload = {
+      userId: userId,
+      id: newUserId,
+      name: form.getFieldValue('name'),
+      address: form.getFieldValue('address'),
+      contactNo: form.getFieldValue('contactNo'),
+      relation: form.getFieldValue('relation'),
+    };
+    return payload;
   };
-  let classes = "employeeForm emergencyInfo ";
-  classes += Direction === "ltr" ? "ltr" : "rtl";
+
+  const handleUpdate = () => {
+    const payloadData = createPayload();
+    console.log(payloadData, 'payloadData');
+    dispatch(updateUserEmergencyContactAction(payloadData));
+    // setEmergencyInfo((preValues) => [...preValues, form.getFieldsValue()]);
+    setEmergencyInfo((preValues) => [...preValues, payloadData]);
+    form.resetFields();
+    setInitialValues(initialState);
+  };
+
+  let classes = 'employeeForm emergencyInfo ';
+  classes += Direction === 'ltr' ? 'ltr' : 'rtl';
   return (
     <div className={classes}>
       <Divider orientation="left"> {labels.EmergencyInfo}</Divider>
       <Form
         name="emergencyInfo"
         form={form}
-        layout={"vertical"}
+        layout={'vertical'}
         initialValues={initialValues}
       >
         <Form.Item
@@ -184,7 +229,7 @@ const EmergencyForm = ({ mode, id }) => {
           name="contactNo"
           label={labels.Number}
         >
-          <Input placeholder={placeholder.number}></Input>
+          <Input type="number" min={0} placeholder={placeholder.number}></Input>
         </Form.Item>
 
         <Form.Item
@@ -195,7 +240,7 @@ const EmergencyForm = ({ mode, id }) => {
         >
           <Select
             getPopupContainer={(trigger) => trigger.parentNode}
-            placeholder="Please select relation"
+            placeholder={placeholder.selectRelation}
             size="large"
           >
             {relations.map((item) => (
@@ -206,7 +251,8 @@ const EmergencyForm = ({ mode, id }) => {
           </Select>
         </Form.Item>
       </Form>
-      <div className={isEdit ? "editButtons" : "buttons"}>
+
+      <div className={isEdit ? 'editButtons' : 'buttons'}>
         <Button
           type="dashed"
           className="btn addMore"

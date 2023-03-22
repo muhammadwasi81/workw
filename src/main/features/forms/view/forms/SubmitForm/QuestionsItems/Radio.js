@@ -1,7 +1,7 @@
 import React from "react";
 
 const Radio = (props) => {
-  const { question, handleRadioChange, index, disableSubmit } = props;
+  const { question, handleRadioChange, index, disableSubmit, required } = props;
   const { answers } = question;
   console.log("radio", props);
 
@@ -14,7 +14,10 @@ const Radio = (props) => {
             <img src={question.image} />{" "}
           </div>
         )}
-        <h1 className="row-tlt">{question.question}</h1>
+        <h1 className="row-tlt">
+          {question.question} <span className="text-sm"> {"(radio)"}</span>
+        </h1>
+
         {answers.map(({ answer, id }, i) => (
           <div key={i} className="radio-wrapper mb_10">
             <label htmlFor="">

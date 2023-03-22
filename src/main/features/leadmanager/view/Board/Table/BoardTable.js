@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useDispatch } from "react-redux";
 import { Table } from "../../../../../sharedComponents/customTable";
 import { getLeadManagerDetailById } from "../../../store/actions";
@@ -7,15 +7,17 @@ import {
 	handleSectionDetailModal,
 } from "../../../store/slice";
 import { tableColumns } from "./tableColumns";
+import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
 
-function BoardTable({ data }) {
-	// let details = data?.sections.map(det => ());
-	let details = data?.sections.reduce((results, item) => {
-		// console.log("results:", results);
-		// console.log(item);
-		return [...results, ...item.details.map(detail => ({ ...detail }))];
+function BoardTable({ data, dictionary, handleSelectedMembers }) {
+	let details = data?.sections.reduce((results, item, index) => {
+		return [
+			...results,
+			...item.details.map((detail, index) => ({ ...detail, index })),
+		];
 	}, []);
 	const dispatch = useDispatch();
+	const { userLanguage } = useContext(LanguageChangeContext);
 	const handleMemberModal = id => {
 		dispatch(
 			handleAssignMemberModal({
@@ -39,12 +41,18 @@ function BoardTable({ data }) {
 	};
 	return (
 		<Table
-			columns={tableColumns(data?.sections, handleMemberModal)}
+			columns={tableColumns(
+				data?.sections,
+				handleMemberModal,
+				userLanguage,
+				handleSelectedMembers
+			)}
 			dragable={false}
-			// handleChange={handleColumnSorting}
-			// onPageChange={onPageChange}
 			onRow={onRow}
 			data={details}
+			//   columns={tableColumns(dictionary)}
+			// handleChange={handleColumnSorting}
+			// onPageChange={onPageChange}
 			// status={travelStatus}
 			// loading={loader}
 			// success={success}

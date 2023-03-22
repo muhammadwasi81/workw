@@ -1,16 +1,28 @@
 import { message } from "antd";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { AdminContainer } from "../../../../components/HrMenu/Administration/StyledComponents/admin";
-import { addFiscalYear, getAllFiscalYear, removeFiscalYear, updateFiscalYear} from "../store/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { AdminContainer } from "../../../sharedComponents/Administration/StyledComponents/admin";
+import {
+  addFiscalYear,
+  getAllFiscalYear,
+  removeFiscalYear,
+  updateFiscalYear,
+} from "../store/actions";
 import Form from "./form.js";
 import TableView from "./table.js";
 
 export default function Fiscalyear() {
-  const initialState = { name: "", description: "", startMonth: "", endMonth: "", startYear: "", endYear: ""};
+  const initialState = {
+    name: "",
+    description: "",
+    startMonth: "",
+    endMonth: "",
+    startYear: "",
+    endYear: "",
+  };
+  const { loader } = useSelector((state) => state.fiscalYearSlice);
   const [subsidiary, setSubsidiary] = useState(initialState);
-  const [clearButton, setClearButton] = useState(false)
-
+  const [clearButton, setClearButton] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -19,14 +31,14 @@ export default function Fiscalyear() {
   };
 
   const onSubmit = (e) => {
-    if (e.name === "" || e.description === ""){
-      message.error("Title can't be empty")
+    if (e.name === "" || e.description === "") {
+      message.error("Title can't be empty");
     } else {
       if (!e.id) {
         dispatch(addFiscalYear(e));
-        dispatch(getAllFiscalYear())
+        dispatch(getAllFiscalYear());
         setSubsidiary(initialState);
-        setClearButton(true)
+        setClearButton(true);
         return;
       }
       dispatch(updateFiscalYear(e));
@@ -36,7 +48,13 @@ export default function Fiscalyear() {
   };
   return (
     <AdminContainer>
-      <Form clearButton={clearButton} setClearButton={setClearButton} data={subsidiary} onSubmit={onSubmit} />
+      <Form
+        clearButton={clearButton}
+        setClearButton={setClearButton}
+        data={subsidiary}
+        onSubmit={onSubmit}
+        loading={loader}
+      />
       <TableView
         handleEdit={setSubsidiary}
         setClearButton={setClearButton}

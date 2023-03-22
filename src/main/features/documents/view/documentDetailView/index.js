@@ -1,14 +1,21 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Drawer } from "antd";
 import DetailCard from "../components/detailCard";
+import { documentDictionaryList } from "../../localization/index";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+import PreviewModal from "../components/modal";
 
 function DetailedView(props) {
-
-  const isTablet = false;
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { documentDictionary } = documentDictionaryList[userLanguage];
 
   return (
     <Drawer
-      title={<h1 style={{ fontSize: "20px", margin: 0 }}>{"Detail"}</h1>}
+      title={
+        <h1 style={{ fontSize: "20px", margin: 0 }}>
+          {documentDictionary.detail}
+        </h1>
+      }
       width="768"
       height={"85%"}
       placement={"right"}
@@ -16,9 +23,10 @@ function DetailedView(props) {
       visible={!!props.id}
       className="drawerSecondary"
       destroyOnClose
-      >
-      <DetailCard id={props.id}/>
-      {/* <DetailCard id={props.id} /> */}
+    >
+      <DetailCard
+        id={props.id} />
+
     </Drawer>
   );
 }

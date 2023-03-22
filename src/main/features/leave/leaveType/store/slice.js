@@ -1,11 +1,18 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import { responseCode } from "../../../../../services/enums/responseCode.js";
-import { addLeaveType, getAllLeaveType, removeLeaveType, updateLeaveType } from "./actions.js";
+import {
+  addLeaveType,
+  getAllLeaveType,
+  removeLeaveType,
+  updateLeaveType,
+} from "./actions.js";
 
 const initialState = {
   leaveTypes: [],
   loadingData: false,
   loader: false,
+  success: false,
+  error: false,
 };
 
 const leaveTypeSlice = createSlice({
@@ -35,15 +42,21 @@ const leaveTypeSlice = createSlice({
       })
       .addMatcher(isPending(...[addLeaveType, updateLeaveType]), (state) => {
         state.loader = true;
+        state.success = false;
+        state.error = false;
       })
       .addMatcher(isPending(...[getAllLeaveType]), (state) => {
         state.loadingData = true;
+        state.success = false;
+        state.error = false;
       })
       .addMatcher(
         isRejected(...[getAllLeaveType, addLeaveType, updateLeaveType]),
         (state) => {
           state.loader = false;
           state.loadingData = false;
+          state.success = false;
+          state.error = false;
         }
       );
   },

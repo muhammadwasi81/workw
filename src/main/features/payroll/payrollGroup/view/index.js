@@ -1,16 +1,21 @@
 import { message } from "antd";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AdminContainer } from "../../../../../components/HrMenu/Administration/StyledComponents/admin";
-import { addPayrollGroup, getAllPayrollGroup, removePayrollGroup, updateaPayrollGroup} from "../store/actions";
+import { AdminContainer } from "../../../../sharedComponents/Administration/StyledComponents/admin";
+import {
+  addPayrollGroup,
+  getAllPayrollGroup,
+  removePayrollGroup,
+  updateaPayrollGroup,
+} from "../store/actions";
 import Form from "./form.js";
 import TableView from "./table.js";
 
 export default function PayrollGroup() {
+  const { loader } = useSelector((state) => state.payrollGroupSlice);
   const initialState = { name: "" };
   const [payrollGroup, setPayrollGroup] = useState(initialState);
-  const [clearButton, setClearButton] = useState(false)
-
+  const [clearButton, setClearButton] = useState(false);
 
   const dispatch = useDispatch();
   // const { loader } = useSelector((state) => state.payrollGroupSlice);
@@ -21,13 +26,13 @@ export default function PayrollGroup() {
 
   const onSubmit = (e) => {
     if (e.name === "") {
-      message.error("Name can't be empty")
+      message.error("Name can't be empty");
     } else {
       if (!e.id) {
         dispatch(addPayrollGroup(e));
-        dispatch(getAllPayrollGroup())
+        dispatch(getAllPayrollGroup());
         setPayrollGroup(initialState);
-        setClearButton(true)
+        setClearButton(true);
         return;
       }
       dispatch(updateaPayrollGroup(e));
@@ -37,7 +42,13 @@ export default function PayrollGroup() {
   };
   return (
     <AdminContainer>
-      <Form clearButton={clearButton} setClearButton={setClearButton} data={payrollGroup} onSubmit={onSubmit} />
+      <Form
+        clearButton={clearButton}
+        setClearButton={setClearButton}
+        data={payrollGroup}
+        onSubmit={onSubmit}
+        loading={loader}
+      />
       <TableView
         handleEdit={setPayrollGroup}
         setClearButton={setClearButton}

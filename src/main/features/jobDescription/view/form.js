@@ -1,8 +1,8 @@
 import "./JobDescription.css";
-import { Input, Select,  } from "antd";
-import { useEffect, useState } from "react";
+import { Select } from "antd";
+import { useEffect, useState, useContext } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {getAllDesignation} from "../../designation/store/actions" 
+import { getAllDesignation } from "../../designation/store/actions";
 import {
   FormButton,
   FormButtonContainer,
@@ -12,11 +12,18 @@ import {
   FormInputContainer,
   FormLabel,
   FormTextArea,
-} from "../../../../components/HrMenu/Administration/StyledComponents/adminForm";
+} from "../../../sharedComponents/Administration/StyledComponents/adminForm";
+import { jobDescDictionaryList } from "../localization/index";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 
-export default function JobDescriptionForm({ data, onSubmit, loading }) {
+export default function JobDescriptionForm({ data, onSubmit }) {
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { jobDescDictionary } = jobDescDictionaryList[userLanguage];
+
   const dispatch = useDispatch();
-  const { Option } = Select;  
+  const { loader } = useSelector((state) => state.jobDescriptionSlice);
+
+  const { Option } = Select;
   const [designationId, setDesignationId] = useState("");
   const [form, setForm] = useState(data);
 
@@ -26,27 +33,24 @@ export default function JobDescriptionForm({ data, onSubmit, loading }) {
     dispatch(getAllDesignation());
   }, []);
 
-  const  handleChange = (value) =>  {
-    const x = designations.filter((item) => item.id === value)
-    setForm({...form, designationId: x[0].id})
-    
-  }
+  const handleChange = (value) => {
+    const x = designations.filter((item) => item.id === value);
+    setForm({ ...form, designationId: x[0].id });
+  };
 
   useEffect(() => {
     setForm(data);
   }, [data]);
   return (
     <FormContainer>
-      <FormHeader>Job Description</FormHeader>
+      <FormHeader>{jobDescDictionary.jobDesc}</FormHeader>
       <FormInputContainer>
         <FormInput>
-          <FormLabel>
-            Designation
-          </FormLabel>
+          <FormLabel>{jobDescDictionary.designation}</FormLabel>
           <Select
             showSearch
             style={{ width: "100%" }}
-            placeholder="Select Designation"
+            placeholder={jobDescDictionary.selectDesign}
             optionFilterProp="children"
             onChange={handleChange}
             value={form.designationId}
@@ -60,47 +64,46 @@ export default function JobDescriptionForm({ data, onSubmit, loading }) {
         <FormInput>
           <FormLabel>Description</FormLabel>
           <FormTextArea
-            placeholder={"Enter Description"}
+            placeholder={jobDescDictionary.enterDesc}
             value={form.description}
             onChange={(e) => setForm({ ...form, description: e.target.value })}
           />
         </FormInput>
       </FormInputContainer>
       <FormButtonContainer>
-        {
-          form.id ? 
+        {form.id ? (
           <>
             <FormButton
-            type="primary"
-            size="medium"
-            style={{}}
-            className="formBtn"
-            onClick={(e) => onSubmit(form)}
-          >
-            Save Job Description
-          </FormButton>
+              type="primary"
+              size="medium"
+              className="formBtn"
+              onClick={(e) => onSubmit(form)}
+              loading={loader}
+            >
+              {jobDescDictionary.saveJobDesc}
+            </FormButton>
+            <FormButton
+              type="primary"
+              size="medium"
+              className="formBtn"
+              onClick={(e) =>
+                setForm({ ...form, designationId: "", description: "" })
+              }
+            >
+              {jobDescDictionary.clear}
+            </FormButton>
+          </>
+        ) : (
           <FormButton
             type="primary"
             size="medium"
-            style={{}}
             className="formBtn"
-            onClick={(e) => setForm({ ...form, designationId: "", description: "",  })}
+            onClick={(e) => onSubmit(form)}
+            loading={loader}
           >
-            Clear 
+            {jobDescDictionary.addJobdesc}
           </FormButton>
-          </>
-        : 
-        <FormButton
-          type="primary"
-          size="medium"
-          style={{}}
-          className="formBtn"
-          onClick={(e) => onSubmit(form)}
-          // loading={loading}
-      >
-        Add Job Description 
-      </FormButton>
-        }
+        )}
       </FormButtonContainer>
     </FormContainer>
   );

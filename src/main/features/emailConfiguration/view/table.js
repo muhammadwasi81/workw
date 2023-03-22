@@ -1,17 +1,20 @@
 import { Skeleton } from "antd";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AdminTable } from "../../../../components/HrMenu/Administration/StyledComponents/adminTable";
+import { AdminTable } from "../../../sharedComponents/Administration/StyledComponents/adminTable";
 import { getAllEmailConfigurations } from "../store/actions";
 import { tableColumn } from "./tableColumn";
-
+import { emailConfiDictionaryList } from "../localization/index";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 export default function EmailConfigurationTable({
   handleEdit,
   handleDelete,
   removeButtons,
   actionRights = [],
 }) {
-  const { emailConfigurations, loadingData } = useSelector((state) => state.emailConfigurationSlice);
+  const { emailConfigurations, loadingData } = useSelector(
+    (state) => state.emailConfigurationSlice
+  );
 
   const dispatch = useDispatch();
 
@@ -19,13 +22,20 @@ export default function EmailConfigurationTable({
     dispatch(getAllEmailConfigurations());
   }, []);
 
+  console.log(emailConfigurations, "EMAIL CONFIGURATION");
+
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { Direction, emailConfiDictionary } = emailConfiDictionaryList[
+    userLanguage
+  ];
   return (
     <AdminTable
       columns={tableColumn(
         handleEdit,
         handleDelete,
         removeButtons,
-        actionRights
+        actionRights,
+        emailConfiDictionary
       )}
       dataSource={emailConfigurations}
       pagination={false}

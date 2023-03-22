@@ -1,23 +1,19 @@
-import React from "react";
-import NewStickyNote from "./NewStickyNote";
-import StickyContainer from "./StickyContainer";
-import Draggable from "react-draggable";
-
-
-// *********import redux*********
-import { useSelector, useDispatch } from "react-redux";
-
+import NewStickyNote from './NewStickyNote';
+import StickyContainer from './StickyContainer';
+import { useSelector } from 'react-redux';
 
 function StickyNotes() {
-  const stickynote=useSelector((state)=>{return state.stickySlice.listArray})
+  const stickynote = useSelector((state) => {
+    return state.stickySlice.listArray;
+  });
+  console.log(stickynote, 'stickynote');
   return (
     <>
-      {stickynote.filter(it=>it.isOpen).map((item, index) => (
-        
-        // <Draggable defaultPosition={{ x: 12, y: 450 }} key={index}>
-          <NewStickyNote item={item} index={item.id}/>
-        // </Draggable>
-      ))}
+      {stickynote
+        .filter((it) => it.isOpen)
+        .map((item, index) => (
+          <NewStickyNote item={item} index={item.id} key={item.id} />
+        ))}
       <StickyContainer />
     </>
   );

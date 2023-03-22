@@ -1,6 +1,5 @@
-import React from "react";
-import { useParams } from "react-router-dom";
-import BasicInfo from "../employee/view/basicForm";
+import { useParams } from 'react-router-dom';
+import BasicInfo from '../employee/view/basicForm';
 
 function Index({ handleImageUpload, profileImage }) {
   const { id } = useParams();
@@ -8,7 +7,7 @@ function Index({ handleImageUpload, profileImage }) {
     <BasicInfo
       handleImageUpload={handleImageUpload}
       profileImage={profileImage}
-      mode={"edit"}
+      mode={'edit'}
       id={id}
     />
   );

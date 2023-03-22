@@ -1,6 +1,6 @@
-import React from "react";
-import { useParams } from "react-router-dom";
-import ExperienceForm from "../employee/view/experienceForm";
+import React from 'react';
+import { useParams } from 'react-router-dom';
+import ExperienceForm from '../employee/view/experienceForm';
 
 function Index() {
   const { id } = useParams();

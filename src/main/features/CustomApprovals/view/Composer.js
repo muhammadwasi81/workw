@@ -11,6 +11,7 @@ import CustomSelect from "../../../sharedComponents/AntdCustomSelects/SharedSele
 import { getAllCustomApprovalCategory } from "../../customApprovalCategory/store/actions";
 import { addCustomApproval } from "../store/actions";
 import { DEFAULT_GUID } from "../../../../utils/constants";
+import { STRINGS } from "../../../../utils/base";
 
 const initialState = {
   id: "",
@@ -30,7 +31,9 @@ const initialState = {
 
 const Composer = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { Direction, customApprovalDictionary } = customApprovalDictionaryList[userLanguage];
+  const { Direction, customApprovalDictionary } = customApprovalDictionaryList[
+    userLanguage
+  ];
 
   const dispatch = useDispatch();
   const [form] = Form.useForm();
@@ -40,11 +43,18 @@ const Composer = (props) => {
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [value, setValue] = useState([]);
+  const [amount, setAmount] = useState(1);
+  const [attachments, setAttachments] = useState([]);
 
-  const { customApprovalCategories } = useSelector((state) => state.customApprovalCategorySlice);
+  const { customApprovalCategories } = useSelector(
+    (state) => state.customApprovalCategorySlice
+  );
 
-  const employees = useSelector(state => state.sharedSlice.employees);
+  const employees = useSelector((state) => state.sharedSlice.employees);
 
+  // const handleImageUpload = (data) => {
+  //   setProfileImage(data);
+  // };
   const selectedData = (data, obj) => {
     setValue(data);
     handleMember(obj);
@@ -55,7 +65,7 @@ const Composer = (props) => {
     fetchEmployees("", 0);
   }, []);
 
-  const handleMember = val => {
+  const handleMember = (val) => {
     setNewState({
       ...newState,
       members: [...val],
@@ -81,26 +91,26 @@ const Composer = (props) => {
   useEffect(() => {
     dispatch(getAllCustomApprovalCategory());
   }, []);
-
-  
-
+  const amountHandler = () => {
+    if (amount > 0) {
+      setAmount(amount);
+    } else {
+      console.log("amount should be greater than 0!");
+    }
+  };
   const onFinish = (values) => {
     let approvers = [];
-    if (typeof values.approvers === 'string') {
+    if (typeof values.approvers === "string") {
       approvers.push({
-        approverId: values.approvers
-      })
-    }
-    else {
+        approverId: values.approvers,
+      });
+    } else {
       approvers = values.approvers.map((approver) => {
         return {
-          approverId: approver
+          approverId: approver,
         };
       });
     }
-
-    let attachments = [{ id: DEFAULT_GUID, file: file }]
-    // let image = { id: STRINGS.DEFAULTS.guid, file: profileImage[0].originFileObj }
     let payload = { ...values, approvers, attachments };
     dispatch(addCustomApproval(payload));
 
@@ -130,16 +140,19 @@ const Composer = (props) => {
         autoComplete="off"
       >
         <Form.Item
-          label={"Subject"}
-          name="subject"
+          label={customApprovalDictionary.subject}
+          name={"subject"}
           labelPosition="top"
           rules={[
             {
               required: true,
               message: "Please Enter Subject",
             },
-          ]}>
-          <TextInput placeholder={"Enter Subject"} />
+          ]}
+        >
+          <TextInput
+            placeholder={customApprovalDictionary.pleaseEnterSubject}
+          />
         </Form.Item>
 
         <Form.Item
@@ -150,7 +163,8 @@ const Composer = (props) => {
               required: true,
               message: "Please Enter Category",
             },
-          ]}>
+          ]}
+        >
           <Select
             data={customApprovalCategories}
             placeholder={customApprovalDictionary.category}
@@ -163,19 +177,31 @@ const Composer = (props) => {
         </Form.Item>
 
         <Form.Item
-          label={"Amount"}
-          name="amount"
+          label={customApprovalDictionary.amount}
+          name="value"
           labelPosition="top"
           rules={[
             {
               required: true,
               message: "Please Enter Amount",
             },
-          ]}>
-          <TextInput placeholder={"Enter Amount"} />
+          ]}
+        >
+          <TextInput
+            placeholder={customApprovalDictionary.pleaseEnterAmount}
+            type="number"
+            onChange={amountHandler}
+            value={amount}
+          />
         </Form.Item>
 
-        <Form.Item style={{ marginBottom: "0px" }} name="approvers" label={customApprovalDictionary.approvers} showSearch={true} direction={Direction} rules={[{ required: true }]}>
+        <Form.Item
+          style={{ marginBottom: "0px" }}
+          name="approvers"
+          label={customApprovalDictionary.approvers}
+          showSearch={true}
+          direction={Direction}
+        >
           <CustomSelect
             style={{ marginBottom: "0px" }}
             data={firstTimeEmpData}
@@ -186,7 +212,7 @@ const Composer = (props) => {
             mode={"multiple"}
             isObject={true}
             loadDefaultData={false}
-            optionComponent={opt => {
+            optionComponent={(opt) => {
               return (
                 <>
                   <Avatar
@@ -204,12 +230,6 @@ const Composer = (props) => {
             name="approvers"
             showSearch={true}
             direction={Direction}
-            rules={[
-              {
-                required: true,
-                message: "Please Select Approver",
-              },
-            ]}
           />
         </Form.Item>
 
@@ -221,20 +241,44 @@ const Composer = (props) => {
               required: true,
               message: customApprovalDictionary.enterDescription,
             },
-          ]}>
-          <Input.TextArea placeholder={customApprovalDictionary.enterDescription} />
+          ]}
+        >
+          <Input.TextArea
+            placeholder={customApprovalDictionary.enterDescription}
+          />
         </Form.Item>
 
-        <Form.Item area="true">
+        <Form.Item area="true" className="w-max">
           <SingleUpload
-            handleImageUpload={(file) => {
-              setFile(file[0].originFileObj);
-            }}
-            img="Add Image" position="flex-start" uploadText={customApprovalDictionary.upload} />
+            // handleImageUpload={(file) => {
+            //   setFile(file[0].originFileObj);
+            // }}
+            // handleImageUpload={handleImageUpload}
+            handleImageUpload={(files) =>
+              setAttachments(
+                files.map((file) => ({
+                  file: file.originFileObj,
+                  id: STRINGS.DEFAULTS.guid,
+                }))
+              )
+            }
+            // img="Add Image"
+            // position="flex-start"
+
+            multiple={true}
+            uploadText={customApprovalDictionary.upload}
+          />
         </Form.Item>
 
         <Form.Item>
-          <Button type="primary" size="medium" className="ThemeBtn" block htmlType="submit" title={customApprovalDictionary.createReward}>
+          <Button
+            type="primary"
+            size="medium"
+            className="ThemeBtn"
+            block
+            htmlType="submit"
+            title={customApprovalDictionary.createReward}
+          >
             {" "}
             {customApprovalDictionary.createCustomApproval}{" "}
           </Button>

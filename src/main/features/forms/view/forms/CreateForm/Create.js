@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { getAllEmployees } from "../../../../../../utils/Shared/store/actions";
 import MemberSelect from "../../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 import DrangableQuestions from "./DragableItems";
@@ -17,6 +17,10 @@ import { Form, Input, Avatar, Select, Button, Space } from "antd";
 import QuestionWithType from "./QuestionWithType";
 import { CloseOutlined } from "@ant-design/icons";
 import "./createForm.css";
+import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
+import { documentDictionaryList } from "../../../localization/index";
+import PrivacyOptions from "../../../../../sharedComponents/PrivacyOptionsDropdown/PrivacyOptions";
+
 const { TextArea } = Input;
 const { Option } = Select;
 
@@ -24,10 +28,22 @@ const Create = (props) => {
   const [form] = Form.useForm();
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
+  const [privacyId, setPrivacyId] = useState(1);
   // console.log("props in create component", props);
   const { removeQuestion, formData, handleSequenceChange } = props;
   const { createLoader } = useSelector((state) => state.formSlice);
-
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { documentDictionary } = documentDictionaryList[userLanguage];
+  const {
+    Description,
+    title,
+    Approvers,
+    question,
+    text,
+    addQuestion,
+    selectApprovers,
+    createForms,
+  } = documentDictionary;
   const {
     sharedSlice: { employees },
   } = useSelector((state) => state);
@@ -48,8 +64,22 @@ const Create = (props) => {
     }
   }, [employees]);
 
+   //TODO: add these labels in localization
+   const labels = {
+    public: "Public",
+    private: "Private",
+  };
+
+  const onPrivacyChange = (value) => {
+    setPrivacyId(value);
+  };
+
   const onFinish = (values) => {
-    console.log("Success:", values);
+    console.log("Success:", values );
+    values = {
+      ...values,
+      privacyId: privacyId
+    }
     props.subDescriptionSend(values);
   };
 
@@ -78,20 +108,25 @@ const Create = (props) => {
           <div className="c-row bg-clr editForm">
             <div className="f-head-item p_15">
               <Form.Item
-                label="Title"
+                label={title}
                 name="subject"
                 rules={[
                   {
                     required: true,
-                    message: "Please input your Subject!",
+                    message: "Please input your Title!",
                   },
                 ]}
               >
-                <Input placeholder="Title" />
+                <TextArea
+                  showCount
+                  maxLength={20}
+                  placeholder={title}
+                  rows={1}
+                />
               </Form.Item>
               <Form.Item
                 name="description"
-                label="Description"
+                label={Description}
                 rules={[
                   {
                     required: true,
@@ -99,17 +134,22 @@ const Create = (props) => {
                   },
                 ]}
               >
-                <TextArea placeholder="Description" rows={4} />
+                <TextArea
+                  showCount
+                  maxLength={100}
+                  placeholder={Description}
+                  rows={4}
+                />
               </Form.Item>
               <Form.Item
                 name="approvers"
-                label="Approvers"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please Select Approvers",
-                  },
-                ]}
+                label={Approvers}
+                // rules={[
+                //   {
+                //     required: true,
+                //     message: "Please Select Approvers",
+                //   },
+                // ]}
               >
                 <MemberSelect
                   name="Approvers"
@@ -119,7 +159,7 @@ const Create = (props) => {
                   data={firstTimeEmpData}
                   canFetchNow={isFirstTimeDataLoaded}
                   fetchData={fetchEmployees}
-                  placeholder="Select Approvers"
+                  placeholder={selectApprovers}
                   selectedData={(_, obj) => {
                     setEmployeesData([...obj]);
                   }}
@@ -183,16 +223,25 @@ const Create = (props) => {
                 </>
               ))}
           </DrangableQuestions>
+          <div className="flex justify-end" style={{gridGap: '0.5rem'}}>
+          <PrivacyOptions
+              privacyId={privacyId}
+              onPrivacyChange={onPrivacyChange}
+              labels={labels}
+            />
           <Form.Item className="flex justify-end">
+          
             <Button
-              className="btn"
+              className="Formbtn"
               // type="primary"
               htmlType="submit"
               disabled={createLoader ? true : false}
             >
-              Submit Form
+              {createForms}
             </Button>
           </Form.Item>
+          </div>
+          
         </Form>
       </Form.Provider>
     </>

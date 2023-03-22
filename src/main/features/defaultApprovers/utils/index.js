@@ -1,0 +1,18 @@
+export const defaultApprovers = [
+  { label: 'Expense', _id: 1, type: 1 },
+  { label: 'Travel', _id: 2, type: 2 },
+  { label: 'Loan', _id: 2, type: 3 },
+  { label: 'Leave', _id: 5, type: 4 },
+  { label: 'Asset', _id: 6, type: 5 },
+  { label: 'Salary', _id: 7, type: 6 },
+  { label: 'Payroll', _id: 8, type: 7 },
+  { label: 'Expense Finance', _id: 8, type: 8 },
+  { label: 'Travel Agent', _id: 4, type: 9 },
+  { label: 'Reward', _id: 9, type: 10 },
+  { label: 'Resignation HR', _id: 10, type: 11 },
+  { label: 'Resignation Admin', _id: 11, type: 12 },
+  { label: 'Resignation IT', _id: 12, type: 13 },
+  { label: 'Resignation Finance', _id: 13, type: 14 },
+  { label: 'Resignation Exit', _id: 14, type: 15 },
+  { label: 'Requistion', _id: 15, type: 16 },
+];

@@ -1,19 +1,34 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import { responseCode } from "../../../../services/enums/responseCode.js";
-import { addOfficeTimingGroup, getAllOfficeTimingGroups } from "./actions.js";
+import {
+  addOfficeTimingGroup,
+  getAllOfficeTimingGroups,
+  updateOfficeTimingGroupAction,
+  getOfficeTimingByIdAction,
+} from "./actions.js";
 
 const initialState = {
   officeTimingGroups: [],
   loadingData: false,
   loader: false,
+  drawerOpen: false,
+  success: false,
+  error: false,
+  editData: null,
+  officeTimingDetail: null,
 };
 
 const officeTimingSlice = createSlice({
   name: "officeTimingGroup",
   initialState,
   reducers: {
+    handleComposer: (state, { payload }) => {
+      state.editData = payload;
+    },
     officeTimingGroupDeleted: (state, { payload }) => {
-      state.officeTimingGroups = state.officeTimingGroups.filter((e) => e.id !== payload.id);
+      state.officeTimingGroups = state.officeTimingGroups.filter(
+        (e) => e.id !== payload.id
+      );
     },
   },
   extraReducers: (builder) => {
@@ -24,30 +39,50 @@ const officeTimingSlice = createSlice({
       })
       .addCase(addOfficeTimingGroup.fulfilled, (state, { payload }) => {
         state.loader = false;
+        state.success = true;
+        state.drawerOpen = false;
         if (payload.responseCode === responseCode.Success)
           state.officeTimingGroups.push(payload.data);
       })
-      // .addCase(updateGrade.fulfilled, (state, { payload }) => {
-      //   state.loader = false;
-      //   state.grades = state.grades.map((x) =>
-      //     x.id === payload.data.id ? payload.data : x
-      //   );
-      // })
-      .addMatcher(isPending(...[addOfficeTimingGroup,]), (state) => {
+      .addCase(
+        updateOfficeTimingGroupAction.fulfilled,
+        (state, { payload }) => {
+          state.items = state.items.map((x) =>
+            x.id === payload.data.id ? payload.data : x
+          );
+          state.success = true;
+        }
+      )
+      .addCase(getOfficeTimingByIdAction.fulfilled, (state, { payload }) => {
+        state.officeTimingDetail = payload.data;
+        console.log(payload.data, "officetiminggg");
+        state.loader = false;
+      })
+
+      .addMatcher(isPending(...[addOfficeTimingGroup]), (state) => {
         state.loader = true;
+        state.success = false;
+        state.error = false;
       })
       .addMatcher(isPending(...[getAllOfficeTimingGroups]), (state) => {
         state.loadingData = true;
+        state.success = false;
+        state.error = false;
       })
       .addMatcher(
         isRejected(...[getAllOfficeTimingGroups, addOfficeTimingGroup]),
         (state) => {
           state.loader = false;
           state.loadingData = false;
+          state.success = false;
+          state.error = false;
         }
       );
   },
 });
 
-export const { officeTimingGroupDeleted } = officeTimingSlice.actions;
+export const {
+  officeTimingGroupDeleted,
+  handleComposer,
+} = officeTimingSlice.actions;
 export default officeTimingSlice.reducer;

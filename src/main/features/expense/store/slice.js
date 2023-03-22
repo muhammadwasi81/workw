@@ -4,12 +4,19 @@ import { addExpense, getAllExpense, getExpenseById } from "./actions.js";
 const expenseSlice = createSlice({
   name: "expense",
   initialState: {
-    loader: true,
+    loader: false,
+    success: false,
+    loadingData: false,
     isCreateComposer: false,
     expenses: [],
+    expenseDetail: null,
     expense: {},
+    drawerOpen: false,
   },
   reducers: {
+    handleOpenExpenseComposer: (state, { payload }) => {
+      state.drawerOpen = payload;
+    },
     toggleCreateComposer: (state, payload) => {
       state.isCreateComposer = !state.isCreateComposer;
     },
@@ -31,25 +38,35 @@ const expenseSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(addExpense.fulfilled, (state, { payload: { data } }) => {
-        if (data) {
-          state.expenses.unshift(data);
-          state.isCreateComposer = true;
-        }
-      })
-      .addCase(getAllExpense.fulfilled, (state, { payload: { data } }) => {
-        state.expenses = data;
+      .addCase(addExpense.fulfilled, (state, { payload }) => {
+        state.expenses = [payload, ...state.expenses];
+
+        state.drawerOpen = false;
         state.loader = false;
       })
-      .addCase(getExpenseById.fulfilled, (state, { payload: { data } }) => {
-        state.expense = data;
+      .addCase(getAllExpense.fulfilled, (state, action) => {
+        // state.expenses = action.payload;
+        // state.loader = false;
+        // console.log(action.payload, "payload");
+        state.expenses = action.payload.data ? action.payload.data : [];
+        state.loader = false;
       })
+      .addCase(getExpenseById.fulfilled, (state, action) => {
+        // state.expense = data;
+        state.expense = action.payload?.data;
+        state.loadingData = false;
+      })
+
       .addMatcher(isPending(...[getAllExpense]), (state) => {
         state.expenses = [];
         state.loader = true;
+        state.loadingData = true;
       })
       .addMatcher(isPending(...[getExpenseById]), (state) => {
         state.expense = {};
+      })
+      .addMatcher(isPending(...[addExpense]), (state) => {
+        state.loader = true;
       })
       .addMatcher(isRejected(...[getExpenseById]), (state) => {
         state.expense = {};
@@ -63,5 +80,6 @@ export const {
   toggleCreateComposer,
   clearExpense,
   updateListExpenseStatus,
+  handleOpenExpenseComposer,
 } = expenseSlice.actions;
 export default expenseSlice.reducer;

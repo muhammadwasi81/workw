@@ -20,6 +20,10 @@ const en = {
 			traveDepartlPh: "Travel from",
 			travelDestPh: "Travel to",
 			specialRequestPh: "Write special request detail",
+			destinationCity:"Search destination city",
+			departureCity:"Search departure city",
+			reason:"Enter reason",
+			selectDate:"Select Date",
 		},
 		headings: {
 			description: "Description",
@@ -29,11 +33,18 @@ const en = {
 			approvers: "Approvers",
 			agents: "Agents",
 			desctination: "Destinations",
+			departureDate:"Departure Date",
+			departureTime:"Departure time",
+			departureCity:"Departure City",
+			arrivalCity:"Arrival City",
+		},
+		buttons:{
+			submit:"Create Travel",
 		},
 
 		labels: {
 			update: "Update",
-			createTravel: "Create Travel Expense",
+			createTravel: "Create Travel",
 			updateGrp: "Update Travel Expense",
 			subject: "Subject",
 			description: "Description",
@@ -67,6 +78,7 @@ const en = {
 			description: "Description",
 			agentStatus: "Agent Status",
 			actions: "Actions",
+			createDate: "Created Date",
 		},
 	},
 	Direction: "ltr",

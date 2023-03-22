@@ -142,24 +142,24 @@ function List(props) {
 								<div
 									ref={provided.innerRef}
 									className="Lists-Cards"
-								>
+								 >
 									{listData.addingCard ? (
 										<CardEditor
 											onSave={addCard}
 											onCancel={toggleAddingCard}
 											adding
 										/>
-									) : (
+									 ) : (
 										<div
 											className="Toggle-Add-Card p-1 flex"
 											onClick={toggleAddingCard}
-										>
+										 >
 											<Button
 												icon={<PlusOutlined />}
 												className="!bg-transparent !flex !items-center !border-none !text-[#5e6c84] hover:!text-[#172b4d] hover:!bg-[#091e4214] !text-sm w-full"
 												ghost={true}
 												size="small"
-											>
+											 >
 												{labels.addTodo}
 											</Button>
 										</div>

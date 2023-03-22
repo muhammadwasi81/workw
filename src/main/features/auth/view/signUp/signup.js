@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { Checkbox, message, Space } from "antd";
+import { Checkbox, Space } from "antd";
 import { STRINGS, SvgSpinner } from "../../../../../utils/base";
 import { ShopOutlined, MailOutlined, LockOutlined } from "@ant-design/icons";
 import TextInput from "../../../../sharedComponents/Input/TextInput";
 import CountryPhoneInput from "../../../../sharedComponents/Input/CountryPhoneInput";
 import Select from "../../../../sharedComponents/Select/Select";
-import ImageUpload from "./ImageUpload";
 import { useDispatch, useSelector } from "react-redux";
 import { clearState } from "../../store/slice";
 import { signup, getDesignation } from "../../store/actions";
 import { Form } from "antd";
 import PasswordInput from "../../../../sharedComponents/Input/PasswordInput";
-import ImageReader from "../../../../sharedComponents/ImageReader/ImageReader";
-import { uploadImage } from "../../../../../utils/Shared/store/actions";
+import SingleUpload from "../../../../sharedComponents/Upload/singleUpload";
+
 
 let formData = {};
 
@@ -41,9 +40,8 @@ function Signup() {
     (state) => state.authSlice
   );
   const { loader: imageLoader } = useSelector((state) => state.sharedSlice);
-  console.log("image", imageLoader);
+  const [profileImage, setProfileImage] = useState(null);
 
-  console.log("loadr", loader);
   const [reset, setReset] = useState(false);
 
   useEffect(() => {
@@ -60,33 +58,29 @@ function Signup() {
     }
   }, [isError, isSuccess]);
 
-  const handleSignUpSubmit = (v) => {
-    if (file === null) {
-      let payload = {
-        businessImageId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-        ...v,
-      };
+  const handleSignUpSubmit = (values) => {
+
+    let image = {
+      id: STRINGS.DEFAULTS.guid,
+      file: profileImage && profileImage[0]?.originFileObj,
+    };
+
+    if (Object.keys(image).length > 0) {
+      let payload = { ...values, image };
       dispatch(signup(payload));
     } else {
-      dispatch(uploadImage(formData.avatar)).then((x) => {
-        if (x) {
-          let signupData = {
-            // businessImageId: x.payload[0].id && x.payload[0].id,
-            businessImageId: x.payload.data[0].id,
-            ...v,
-          };
-          // console.log(signupData, "signup new");
-          dispatch(signup(signupData));
-        } else {
-          message.error("Image upload Error", 5);
-        }
-      });
+      dispatch(signup(values));
     }
+    
   };
+
 
   const onChange = (value, name) => {
     formData = { ...formData, [name]: value };
-    console.log(formData, value, name);
+  };
+
+  const handleImageUpload = (data) => {
+    setProfileImage(data);
   };
 
   return (
@@ -101,35 +95,25 @@ function Signup() {
           <div className="input-group">
             <div className="row-header">
               <div className="row-cl-1" style={{ width: "60%" }}>
-                {file == null ? (
-                  <ImageUpload
-                    onChange={(e) => {
-                      formData = {
-                        ...formData,
-                        avatar: [e.target.files[0]],
-                      };
-                      setFile(e.target.files[0]);
-                      e.target.value = "";
-                    }}
+                <Form.Item area="true">
+                  <SingleUpload
+                    handleImageUpload={handleImageUpload}
+                    img="Add Image"
+                    position="flex-start"
+                    uploadText={"Upload"}
                   />
-                ) : (
-                  <ImageReader
-                    file={file}
-                    showButton={true}
-                    removeFile={() => setFile(null)}
-                  />
-                )}
+                </Form.Item>
               </div>
 
               <div className="row-cl-2">
                 <div className="row-cl-2-heading1">Sign Up</div>
                 <div className="row-cl-2-heading2">
-                  You’re signing up as an Individual.
+                  You’re signing up as an organization.
                 </div>
               </div>
             </div>
             <Space direction="vertical" size={8} style={{ width: "100%" }}>
-              <Form.Item name="businessName" rules={rules}>
+              <Form.Item name="title" rules={rules}>
                 <TextInput
                   type="text"
                   placeholder="Business Title"
@@ -207,7 +191,7 @@ function Signup() {
                   reset={reset}
                 />
               </Form.Item> */}
-              <Form.Item name="designationId" rules={rules}>
+              {/* <Form.Item name="designationId" rules={rules}>
                 <Select
                   data={designations}
                   value={"3fa85f64-5717-4562-b3fc-2c963f66afa6"}
@@ -219,17 +203,21 @@ function Signup() {
                   size="large"
                   reset={reset}
                 />
-              </Form.Item>
-              <Form.Item name="password" rules={rules}>
+              </Form.Item> */}
+              {/* <Form.Item name="password" rules={rules}>
                 <PasswordInput
                   placeholder="Password"
                   prefix={LockOutlined}
                   size="large"
                   reset={reset}
                 />
-              </Form.Item>
+              </Form.Item> */}
               <div className="agreement small-sign-up-form small-sign-up-form-agreement">
-                <Form.Item name="agree" valuePropName="checked">
+                <Form.Item 
+                  name="agree"
+                  valuePropName="checked"
+                  rules={rules}
+                >
                   <Checkbox>
                     <span className="terms-and-conditions">
                       I agree the terms and conditions.
@@ -262,7 +250,7 @@ function Signup() {
           </button>
         </div>
         <div className="already-acc">
-          <p className="p">Already Have an Account?&nbsp;</p>
+          <p className="p">Already have an acount?&nbsp;</p>
           <NavLink
             id="login_btn"
             className="a"

@@ -1,60 +1,46 @@
-import { Select } from 'antd';
-import { Option } from 'antd/lib/mentions';
-import Avatar from '../../../../sharedComponents/Avatar/avatarOLD';
-import { calculateAllowance } from '../../../salary/utils/constant';
-import CustomSelect from '../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect';
+import { Select } from "antd";
+import React, { useContext } from "react";
+import { Option } from "antd/lib/mentions";
+import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
+import CustomSelect from "../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
+import SingleUpload from "../../../../sharedComponents/Upload/singleUpload";
+import { warningDictionaryList } from "../../../allowance/warning/localization";
+import { UploadOutlined } from "@ant-design/icons";
+import "../styles.css";
+import { createAssetsDictionaryList } from "../../localization/index";
+import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 
 const CreateAssetsItem = ({
   index,
-  accounts,
-  handleRemoveRow,
   handleChange,
-  handleRowChange,
+  handleImageUpload,
   value,
-  allowanceData = [],
   employeesShortData = [],
   employeesData = [],
+  data,
   fetchEmployees = () => {},
   fetchEmployeesShort = () => {},
 }) => {
-  const onEmployeeSelect = (row) => {
-    let { gradeId, grade, id } = row[0];
-    let { totalAllowance, totalDeductions, details } = calculateAllowance(
-      allowanceData,
-      gradeId,
-      value.basicSalary
-    );
-    let tempValue = {
-      ...value,
-      userId: id,
-      details,
-      grade,
-      gradeId,
-      allowance: totalAllowance,
-      deduction: totalDeductions,
-      netSalary: value.basicSalary + totalAllowance - totalDeductions,
-    };
-    handleRowChange(
-      {
-        ...tempValue,
-      },
-      index
-    );
+  const onChangeCategory = (categoryId, index) => {
+    console.log(categoryId, `categoryId`);
+    handleChange(categoryId, "category", index);
   };
 
-  const inventoryHandler = (accId) => {
-    console.log(`eewewe`);
-    handleChange(accId, 'accountId', index);
-  };
-  const onDr_Cr_Change = (typeId) => {
-    handleChange(typeId, 'dr_cr', index);
+  const onChangeType = (type, index) => {
+    console.log(`onChangeType`);
+
+    handleChange(type, "type", index);
   };
 
   const handleInputChange = (e) => {
     handleChange(e.target.value, e.target.name, index);
   };
+  const { userLanguage } = useContext(LanguageChangeContext);
+  const { createAssetsDictionary, Direction } = createAssetsDictionaryList[
+    userLanguage
+  ];
   return (
-    <tr>
+    <tr className="tableWrapper">
       <td>{index + 1}</td>
       <td>
         <input
@@ -66,6 +52,7 @@ const CreateAssetsItem = ({
       <td>
         <input
           name="inventoryValue"
+          type={"number"}
           onChange={handleInputChange}
           value={value.inventoryValue}
         />
@@ -81,59 +68,58 @@ const CreateAssetsItem = ({
       <td>
         <Select
           optionFilterProp="children"
-          onChange={inventoryHandler}
-          style={{ width: '100%' }}
+          onChange={(val) => onChangeCategory(val, index)}
+          style={{ width: "100%" }}
           filterOption={(input, option) =>
             option.children.toLowerCase().includes(input.toLowerCase())
           }
-          value={value.inventoryCategory}
+          value={value.category}
         >
-          {[
-            { label: 'Graphic', value: 1 },
-            { label: 'Mouse', value: 2 },
-            { label: 'Keyboard', value: 3 },
-            { label: 'Charger', value: 4 },
-            { label: 'MacBook', value: 5 },
-            { label: 'Cable', value: 6 },
-            { label: 'Laptop', value: 7 },
-            { label: 'USB', value: 8 },
-            { label: 'Mobile', value: 9 },
-            { label: 'Headphones', value: 10 },
-          ].map(({ label, value }) => (
-            <Option value={value}>{label}</Option>
+          {data.map((item) => (
+            <Option key={item.id} value={item.id}>
+              {item.name}
+            </Option>
           ))}
         </Select>
       </td>
       <td>
         <Select
           optionFilterProp="children"
-          onChange={inventoryHandler}
-          style={{ width: '100%' }}
+          onChange={(val) => onChangeType(val, index)}
+          style={{ width: "100%" }}
           filterOption={(input, option) =>
             option.children.toLowerCase().includes(input.toLowerCase())
           }
-          value={value.inventoryType}
+          value={value.type}
         >
           {[
-            { label: 'Non Consumable', value: 1 },
-            { label: 'Consumable', value: 2 },
+            { label: createAssetsDictionary.nonConsumable, value: 1 },
+            { label: createAssetsDictionary.consumable, value: 2 },
+            { label: createAssetsDictionary.service, value: 3 },
           ].map(({ label, value }) => (
             <Option value={value}>{label}</Option>
           ))}
         </Select>
       </td>
-      {/* TODO: SALARY WALA */}
+      <td className="uploadWrapper">
+        <SingleUpload
+          handleImageUpload={handleImageUpload}
+          img="Add Image"
+          uploadButton={<UploadOutlined />}
+          uploadText={warningDictionaryList.upload}
+        />
+      </td>
       <td>
         <CustomSelect
-          style={{ marginBottom: '0px' }}
+          style={{ marginBottom: "0px" }}
           data={employeesShortData}
-          selectedData={(value, row) => onEmployeeSelect(row)}
+          selectedData={(value) => handleChange(value[0], "handoverId", index)}
           canFetchNow={employeesShortData && employeesShortData.length > 0}
           fetchData={fetchEmployeesShort}
           sliceName="employeeShort"
-          placeholder={'Employee'}
+          placeholder={createAssetsDictionary.employee}
           isObject={true}
-          size={'medium'}
+          size={"medium"}
           loadDefaultData={false}
           formItem={false}
           optionComponent={(opt) => {
@@ -143,33 +129,33 @@ const CreateAssetsItem = ({
                   name={opt.name}
                   src={opt.image}
                   round={true}
-                  width={'30px'}
-                  height={'30px'}
+                  width={"30px"}
+                  height={"30px"}
                 />
                 {opt.name}
               </>
             );
           }}
           dataVal={[]}
-          name="Employee"
+          name="handover"
           showSearch={true}
         />
       </td>
       <td className="removeMargin">
         <CustomSelect
-          style={{ marginBottom: '0px' }}
+          style={{ marginBottom: "0px" }}
           data={employeesData}
           selectedData={(value, row) =>
             handleChange(
               row.map((item) => ({ approverId: item.id })),
-              'approvers',
+              "approvers",
               index
             )
           }
           canFetchNow={employeesData && employeesData.length > 0}
           fetchData={fetchEmployees}
-          placeholder={'Approvers'}
-          mode={'multiple'}
+          placeholder={createAssetsDictionary.approvers}
+          mode={"multiple"}
           isObject={true}
           size="small"
           loadDefaultData={false}
@@ -181,8 +167,8 @@ const CreateAssetsItem = ({
                   name={opt.name}
                   src={opt.image}
                   round={true}
-                  width={'30px'}
-                  height={'30px'}
+                  width={"30px"}
+                  height={"30px"}
                 />
                 {opt.name}
               </>

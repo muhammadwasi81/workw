@@ -1,21 +1,21 @@
-import React, { useContext, useEffect, useState } from "react";
-import Header from "../../../../layout/header";
+import React, { useContext, useEffect, useState } from 'react';
+import Header from '../../../../layout/header';
 import {
   ContBody,
   TabbableContainer,
-} from "../../../../sharedComponents/AppComponents/MainFlexContainer";
-import { Button } from "antd";
-import { ROUTES } from "../../../../../utils/routes";
-import SalaryList from "./salaryList";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { getAllEmployeeSalary } from "../../store/actions";
-import TopBar from "../../../../sharedComponents/topBar/topBar";
-import { Table } from "../../../../sharedComponents/customTable";
-import { useSelector } from "react-redux";
-import { salaryTableColumn } from "./tableColumns";
-import { salaryDictionaryList } from "../../localization/index";
-import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+} from '../../../../sharedComponents/AppComponents/MainFlexContainer';
+import { Button } from 'antd';
+import { ROUTES } from '../../../../../utils/routes';
+import SalaryList from './salaryList';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { getAllEmployeeSalary } from '../../store/actions';
+import TopBar from '../../../../sharedComponents/topBar/topBar';
+import { Table } from '../../../../sharedComponents/customTable';
+import { useSelector } from 'react-redux';
+import { salaryTableColumn } from './tableColumns';
+import { salaryDictionaryList } from '../../localization/index';
+import { LanguageChangeContext } from '../../../../../utils/localization/localContext/LocalContext';
 
 function Salaries() {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -33,9 +33,10 @@ function Salaries() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [filterType, setFilterType] = useState(0);
-  const [viewType, setViewType] = useState("List");
-  const [search, setSearch] = useState("");
+  const [viewType, setViewType] = useState('List');
+  const [search, setSearch] = useState('');
 
+  console.log('listData', listData);
   const items = [
     {
       name: salary,
@@ -47,7 +48,7 @@ function Salaries() {
     {
       buttonText: createSalary,
       render: (
-        <Button className="ThemeBtn" onClick={() => navigate("create")}>
+        <Button className="ThemeBtn" onClick={() => navigate('create')}>
           {createSalary}
         </Button>
       ),

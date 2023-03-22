@@ -1,197 +1,206 @@
-.checkInModal .ant-modal-content{
-    border-radius: 10px;
+.checkInModal .ant-modal-content {
+  border-radius: 10px;
 }
-.checkInModal .ant-modal-body{
-    background-image: url(../../../../../content/NewContent/checkIn/background.svg);
-    /* width: 500px; */
-    height: 500px;
-    background-size: contain;
-    background-position: top;
-    background-repeat: no-repeat;
-    padding: 0;
+.checkInModal .ant-modal-body {
+  background-image: url(../../../../../content/NewContent/checkIn/background.svg);
+  /* width: 500px; */
+  height: 500px;
+  background-size: contain;
+  background-position: top;
+  background-repeat: no-repeat;
+  padding: 0;
 }
-.CheckInHeader{
-    display: flex;
-    justify-content: center;
-    padding: 20px 0;
+.CheckInHeader {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
 }
-.reactionIcon{
-    height: 30px;
-    width: 30px;
-    margin: 3px;
-    padding: 1px;
-    border-radius: 50%;
+.reactionIcon {
+  height: 30px;
+  width: 30px;
+  margin: 3px;
+  padding: 1px;
+  border-radius: 50%;
 }
-.checkInBtn{
-    height: 35px;
-    border-radius: 50%;
+.checkInBtn {
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
 }
-.CheckInHeader > .imgCont > img{
-    width: 70px;
+.CheckInHeader > .imgCont > img {
+  width: 70px;
 }
-.CheckInHeader > .imgCont{
-    padding: 0 10px;
+.CheckInHeader > .imgCont {
+  padding: 0 10px;
 }
-.CheckInHeader > .headingCont{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 0 5px;
-    width: 200px;
+.CheckInHeader > .headingCont {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 5px;
+  width: 200px;
 }
-.CheckInHeader > .headingCont :first-child{
-    font-size: 11px;
-    color: rgb(71, 71, 71);
-    font-weight: bolder;
+.CheckInHeader > .headingCont :first-child {
+  font-size: 11px;
+  color: rgb(71, 71, 71);
+  font-weight: bolder;
 }
-.CheckInHeader > .headingCont :nth-child(2), .CheckInCard .headingCont > .checkInTime{
-    font-weight: bolder;
-    -webkit-text-stroke: 0.1px;
-    line-height: 18px;
+.CheckInHeader > .headingCont :nth-child(2),
+.CheckInCard .headingCont > .checkInTime {
+  font-weight: bolder;
+  -webkit-text-stroke: 0.1px;
+  line-height: 18px;
 }
-.CheckInCard{
-    width: 300px;
-    height: 250px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0px 0px 5px 0px #dfdfdf;
-    margin: 10px auto;
-    padding: 20px 20px;
+.CheckInCard {
+  width: 300px;
+  height: 250px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0px 0px 5px 0px #dfdfdf;
+  margin: 10px auto;
+  padding: 20px 20px;
 }
-.CheckInCard .headingCont :first-child{
-    font-size: 10px;
-    color: rgb(71, 71, 71);
-    font-weight: bolder;
+.CheckInCard .headingCont :first-child {
+  font-size: 10px;
+  color: rgb(71, 71, 71);
+  font-weight: bolder;
 }
-.CheckInCard .headingCont > .checkInDate{
-    font-size: 10px;
-    color: rgb(71, 71, 71);
-    font-weight: bolder;
-    margin-top: 5px;
-    word-spacing: 1px;
+.CheckInCard .headingCont > .checkInDate {
+  font-size: 10px;
+  color: rgb(71, 71, 71);
+  font-weight: bolder;
+  margin-top: 5px;
+  word-spacing: 1px;
 }
-.dateSpace{
-    letter-spacing: 1px;
+.dateSpace {
+  letter-spacing: 1px;
 }
-.CheckInCard > .firstCont{
+.CheckInCard > .firstCont {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.radius50{
-    border-radius: 50%;
-    cursor: pointer;
+.radius50 {
+  border-radius: 50%;
+  cursor: pointer;
 }
-.checkInInputCont{
-    background-color: rgb(244, 244, 244);
-    padding: 5px 10px;
-    border-radius: 8px;
+.checkInInputCont {
+  background-color: rgb(244, 244, 244);
+  padding: 5px 10px;
+  border-radius: 8px;
 }
-.checkInInputCont > input{
-    background-color:transparent;
-    width: 100%;
-    outline: none;
+.checkInInputCont > input {
+  background-color: transparent;
+  width: 100%;
+  outline: none;
 }
-.checkInNoteTitle{
-    padding-left: 5px;
-    font-size: 12px;
-    font-weight: bolder;
+.checkInNoteTitle {
+  padding-left: 5px;
+  font-size: 12px;
+  font-weight: bolder;
 }
-.CheckInList{
-    padding: 5px 20px;
+.CheckInList {
+  padding: 5px 20px;
 }
-.CheckInListTitle{
-    padding-left: 10px;
-    font-weight: bolder;
-    margin-bottom: 5px;
+.CheckInListTitle {
+  padding-left: 10px;
+  font-weight: bolder;
+  margin-bottom: 5px;
 }
-.CheckInListItem{
-    display: flex;
-    background-color: rgb(244, 244, 244);
-    padding: 10px 10px;
-    border-radius: 8px;
-    align-items: center;
+.CheckInListItem {
+  display: flex;
+  background-color: rgb(244, 244, 244);
+  padding: 10px 10px;
+  border-radius: 8px;
+  align-items: center;
 }
 .CheckInListItem > .imgCont > img {
-    width: 45px;
+  width: 45px;
 }
 .CheckInListItem > .headingCont {
-    line-height: 18px;
-    padding-left: 13px;
+  line-height: 18px;
+  padding-left: 13px;
 }
 .CheckInListItem > .headingCont > .headTime {
-    font-weight: bolder;
-    -webkit-text-stroke: 0.1px;
-    font-size: 11px;
+  font-weight: bolder;
+  -webkit-text-stroke: 0.1px;
+  font-size: 11px;
 }
 .CheckInListItem > .headingCont > .headDesc {
-    font-size: 11px;
-    color: gray;
+  font-size: 11px;
+  color: gray;
 }
 .CheckInListItem > .headingCont > .headMoodType > img {
-    width: 17px;
+  width: 17px;
 }
 .CheckInListItem > .headingCont > .headMoodType > span {
-    font-size: 11px;
-    color: green;
+  font-size: 11px;
+  color: green;
 }
-.checkInSpinnerHold{
-    position: absolute;
-    width: 100%;
-    /* height: 100%; */
-    top: 0px;
-    right: 0px;
-    background-color: rgba(0,0,0,0.5);
+.checkInSpinnerHold {
+  position: absolute;
+  width: 100%;
+  /* height: 100%; */
+  top: 0px;
+  right: 0px;
+  background-color: rgba(0, 0, 0, 0.5);
 }
-.checkInIndicator{
-    background-color: red;
-    height: 12px;
-    width: 12px;
-    border-radius: 50%;
+.checkInIndicator {
+  background-color: red;
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
 }
-.indicatorCont{
-    float: right;
-    display: inline-block;
-    margin-left: 5px;
-    vertical-align: middle;
+.indicatorCont {
+  float: right;
+  display: inline-block;
+  margin-left: 5px;
+  vertical-align: middle;
 }
 .blinkInfoRed {
-    -webkit-animation: blinkRed 1.5s linear infinite;
-    -moz-animation: blinkRed 1.5s linear infinite;
-    -ms-animation: blinkRed 1.5s linear infinite;
-    -o-animation: blinkRed 1.5s linear infinite;
-    animation: blinkRed 1.5s linear infinite;
+  -webkit-animation: blinkRed 1.5s linear infinite;
+  -moz-animation: blinkRed 1.5s linear infinite;
+  -ms-animation: blinkRed 1.5s linear infinite;
+  -o-animation: blinkRed 1.5s linear infinite;
+  animation: blinkRed 1.5s linear infinite;
 }
 .blinkInfo {
-    -webkit-animation: blinkInfo 1.5s linear infinite;
-    -moz-animation: blinkInfo 1.5s linear infinite;
-    -ms-animation: blinkInfo 1.5s linear infinite;
-    -o-animation: blinkInfo 1.5s linear infinite;
-    animation: blinkInfo 1.5s linear infinite;
+  -webkit-animation: blinkInfo 1.5s linear infinite;
+  -moz-animation: blinkInfo 1.5s linear infinite;
+  -ms-animation: blinkInfo 1.5s linear infinite;
+  -o-animation: blinkInfo 1.5s linear infinite;
+  animation: blinkInfo 1.5s linear infinite;
 }
 @keyframes blinkRed {
-    0% {
-        box-shadow: 0 0 10px red;
-    }
+  0% {
+    box-shadow: 0 0 10px red;
+  }
 
-    50% {
-        box-shadow: none;
-    }
+  50% {
+    box-shadow: none;
+  }
 
-    100% {
-        box-shadow: 0 0 10px red;
-    }
+  100% {
+    box-shadow: 0 0 10px red;
+  }
 }
 @keyframes blinkInfo {
-    0% {
-        box-shadow: 0 0 10px #1b576a;
-    }
+  0% {
+    box-shadow: 0 0 10px #1b576a;
+  }
 
-    50% {
-        box-shadow: 0 0 0;
-    }
+  50% {
+    box-shadow: 0 0 0;
+  }
 
-    100% {
-        box-shadow: 0 0 10px #1b576a;
-    }
+  100% {
+    box-shadow: 0 0 10px #1b576a;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .checkInBtn {
+    height: auto;
+    width: 30px;
+  }
 }

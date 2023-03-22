@@ -229,7 +229,7 @@ const EmergencyForm = ({ mode, userId }) => {
           name="contactNo"
           label={labels.Number}
         >
-          <Input placeholder={placeholder.number}></Input>
+          <Input type="number" min={0} placeholder={placeholder.number}></Input>
         </Form.Item>
 
         <Form.Item

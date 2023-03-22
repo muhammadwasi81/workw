@@ -1,16 +1,15 @@
-import { Drawer } from "antd";
-import React, { useState } from "react";
-import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { handleItemDetailModal } from "../../../../utils/Shared/store/slice";
-import DetailModal from "../../../sharedComponents/ItemDetails";
+import { Drawer } from 'antd';
+import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { handleItemDetailModal } from '../../../../utils/Shared/store/slice';
+import DetailModal from '../../../sharedComponents/ItemDetails';
 import {
   addGroupMemberAction,
   deleteGroupMemberAction,
-} from "../store/actions";
-import { getGroupDetailById, handleComposer, addMember } from "../store/slice";
-
-import MemberModal from "../view/Modal/MemberModal";
+} from '../store/actions';
+import { getGroupDetailById, handleComposer, addMember } from '../store/slice';
+import MemberModal from '../view/Modal/MemberModal';
 
 const ContentOptions = ({ handleClose, data }) => {
   const params = useParams();

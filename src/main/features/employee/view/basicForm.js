@@ -106,8 +106,6 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
     }
   }, [employees]);
 
-  console.log(profileDetails, 'PROFILE DETAILS OBJECT');
-
   useEffect(() => {
     isEdit && dispatch(getEmployeeByIdAction(id));
   }, [id]);
@@ -189,15 +187,11 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
     };
   }, []);
 
-  console.log(accessRoles, 'accessRoles');
-
   const handleUpdateImageUpload = (fileData) => {
-    console.log('handleImageUpload', fileData);
     setUpdateProfileImage(fileData[0].originFileObj);
   };
 
   let image = {
-    // id: STRINGS.DEFAULTS.guid || profileDetails?.imageId,
     id: !updateProfileImage ? profileDetails?.imageId : STRINGS.DEFAULTS.guid,
     file: updateProfileImage,
   };
@@ -276,7 +270,6 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
             id: role.value,
           };
         });
-        console.log(payloadRoles, 'PAYLOAD ROLES');
         if (payload) {
           payload = {
             ...payload,
@@ -288,7 +281,6 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
             probationPeriod: parseInt(payload.probationPeriod),
             noticePeriod: isEdit ? 30 : parseInt(payload.noticePeriod),
           };
-          console.log(payload, 'payload');
           dispatch(
             updateEmployeeAction({
               data: payload,
@@ -297,13 +289,11 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
         }
       }
     } catch (err) {
-      console.log(err.message);
       throw new Error(`Error in handleUpdateInfo: ${err.message}`, {
         cause: err,
       });
     }
   };
-  console.log(selectedAccessRole, 'selectedAccessRole');
 
   let classes = 'employeeForm basicInfo ';
   classes += Direction === 'ltr' ? 'ltr' : 'rtl';
@@ -386,10 +376,10 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
           <Input placeholder={placeholder.pEmail}></Input>
         </Form.Item>
         <Form.Item name="phoneNo" label={labels.PhoneNumber}>
-          <Input placeholder={placeholder.phNo}></Input>
+          <Input type="number" min={0} placeholder={placeholder.phNo}></Input>
         </Form.Item>
         <Form.Item name="nic" label={labels.CNICNumber}>
-          <Input placeholder={placeholder.cnicNo}></Input>
+          <Input type="number" min={0} placeholder={placeholder.cnicNo}></Input>
         </Form.Item>
         <Form.Item
           rules={[{ required: true }]}
@@ -582,7 +572,12 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
           </Select>
         </Form.Item>
         <Form.Item name="employeeNo" label={labels.EmpNo}>
-          <Input placeholder={placeholder.empNo} size="large" />
+          <Input
+            type="number"
+            min={0}
+            placeholder={placeholder.empNo}
+            size="large"
+          />
         </Form.Item>
         <Form.Item name="employmentTypeId" label={labels.EmploymentType}>
           <Select
@@ -622,7 +617,6 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
                 })}
               value={basicdetails.userTypeId}
               onChange={(value) => {
-                console.log(value, 'selected value in user type');
                 // Filter accessRoles based on selected user type
                 let filteredRoles = accessRoles.filter((role) => {
                   if (value === userTypeEnum.Admin) {
@@ -699,7 +693,6 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
                   .includes(input.toLowerCase())
               }
               onChange={(value) => {
-                console.log(value, 'selected value');
                 const userSelectedRoles = value.map((role) => {
                   return {
                     value: accessRoles.find((x) => x.name === role)?.id
@@ -707,7 +700,6 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
                       : role,
                   };
                 });
-                console.log(userSelectedRoles, 'userSelectedRoles');
                 setUserSelectedAccessRole(userSelectedRoles);
               }}
               options={selectedAccessRole.map((role) => {

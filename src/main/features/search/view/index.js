@@ -17,6 +17,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { SearchFilterEnum } from "../enums/enums";
 import TravelContainer from "../components/travelContainer/TravelContainer";
 import DocumentContainer from "../components/documentContainer/DocumentContainer";
+import ProjectContainer from "../components/projectsContainer/ProjectContainer";
+import WorkBoardContainer from "../components/workBoardContainer/WorkBoardContainer";
+import ExpenseContainer from "../components/expenseContainer/ExpenseContainer";
+import TaskContainer from "../components/taskContainer/TaskContainer";
+import EmployeesContainer from "../components/employeesContainer/EmployeesContainer";
 function Index() {
   const dispatch = useDispatch();
 
@@ -36,7 +41,12 @@ function Index() {
           <LeadContainer />
           <TravelContainer />
           <DocumentContainer />
+          <ProjectContainer />
+          <WorkBoardContainer />
           <GroupContainer />
+          <ExpenseContainer />
+          <TaskContainer />
+          <EmployeesContainer />
           <RewardContainer />
           <UserContainer />
         </div>

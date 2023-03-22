@@ -5,6 +5,7 @@ import { ROUTES } from "../../../../../utils/routes";
 import { groupsDictionaryList } from "../../../groups/localization/index";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import GridView from "../../../groups/view/GridView/GridView";
+import { useEffect } from "react";
 
 function GroupContainer() {
   const dispatch = useDispatch();
@@ -23,24 +24,30 @@ function GroupContainer() {
     navigate(`${ROUTES.GROUP.DEFAULT}/${id}`);
   };
 
+  useEffect(() => {}, []);
   return (
     <>
-      <h5 className="containerHeading">Groups</h5>
+      <div className="SearchMainContainer">
+        <h5 className="containerHeading">Groups</h5>
+        {/* {groups.length > 0 && (
+        <> */}
+        <GridView
+          data={groups ? groups.slice(0, 4) : []}
+          loading={getDataLoading}
+          dispatch={dispatch}
+          handleClickNavigation={handleClickNavigation}
+          dictionary={groupsDictionary}
+        />
 
-      <GridView
-        data={groups ? groups.slice(0, 4) : []}
-        loading={getDataLoading}
-        dispatch={dispatch}
-        handleClickNavigation={handleClickNavigation}
-        dictionary={groupsDictionary}
-      />
-
-      <div
-        onClick={searchHandler}
-        className="flex justify-center !text-[18px] cursor-pointer !text-[#707070]"
-      >
-        See more
+        <div
+          onClick={searchHandler}
+          className="flex justify-center !text-[18px] cursor-pointer !text-[#707070]"
+        >
+          See more
+        </div>
       </div>
+      {/* </>
+      )} */}
     </>
   );
 }

@@ -8,12 +8,17 @@ import DocSceleton from "../../../documents/view/skeleton";
 
 function DocumentContainer() {
   const [previewPath, setPreviewPath] = useState(false);
-
+  const [searchParams, setSearchParams] = useSearchParams();
+  const searchQuery = searchParams.get("q");
+  const navigate = useNavigate();
   const listData = useSelector((state) => state.documentSlice.listData);
   const loader = useSelector((state) => state.documentSlice.listLoader);
 
   const handlePreview = (item) => {
     setPreviewPath(item);
+  };
+  const searchHandler = () => {
+    navigate(`/documents?q=${searchQuery}`);
   };
   return (
     <>

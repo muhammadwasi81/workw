@@ -1,7 +1,7 @@
 .SearchMainContainer {
   border-radius: 10px;
   min-width: 800px;
-  /* margin: 0 auto; */
+  margin: 0 auto;
   display: block;
   height: -moz-fit-content;
   height: fit-content;
@@ -9,7 +9,7 @@
   padding: 10px;
 }
 .mainSearchContainer {
-  /* margin: 0 auto; */
+  margin: 0 auto;
 }
 .singleGroupItem {
   border-radius: 8px;

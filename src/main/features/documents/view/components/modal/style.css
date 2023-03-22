@@ -2,44 +2,64 @@
     border-radius: 8px;
     /* overflow: hidden; */
 }
-.DocumentModal .ant-modal-body{
+
+.DocumentModal .ant-modal-body {
     padding: 0;
 }
-.DocumentModal .ant-modal-close-x{
- display: none;
+
+.DocumentModal .ant-modal-content {
+    border-radius: 10px;
 }
+
+.DocumentModal .ant-modal-close-x {
+    display: none;
+}
+
+.DocumentModal .ModalInner {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
 .ModalInner .doc-modal-content {
     height: 80vh;
     /* margin-top: 15px; */
 }
+
 .DocumentModal.CallingModal .ModalInner .doc-modal-content {
     height: 70vh;
     /* margin-top: 15px; */
 }
+
 .DocumentModal img {
     margin: 0 auto;
     height: 100%;
 }
+
 .DocumentModal .ant-modal-footer {
     display: none;
 }
+
 .DocumentModal.CallingModal .doc-modal-header {
     cursor: move;
- }
+    background-color: #272727;
+}
+
 .ModalInner .doc-modal-header {
     display: flex;
     justify-content: space-between;
     height: 40px;
     background-color: var(--currentThemeColor);
 }
-.ModalInner .doc-modal-header .doc-modal-title{
+
+.ModalInner .doc-modal-header .doc-modal-title {
     color: #eaeaea;
     font-size: 15px;
     font-weight: bold;
     padding-top: 9px;
     padding-left: 25px;
 }
-.ModalInner .doc-modal-header .doc-modal-actions{
+
+.ModalInner .doc-modal-header .doc-modal-actions {
     display: flex;
     align-items: center;
     gap: 5px;
@@ -50,5 +70,5 @@
 @media (min-width: 320px) and (max-width: 720px) {
     .ModalInner .doc-modal-content {
         height: 40vh;
-    }   
+    }
 }

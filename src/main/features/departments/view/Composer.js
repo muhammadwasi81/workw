@@ -163,6 +163,7 @@ const Composer = (props) => {
                 handleImageUpload={handleImageUpload}
                 img="Add Image"
                 position="flex-start"
+                accept={"image/*"}
                 uploadText={departmentDictionary.uploads}
               />
             </Form.Item>

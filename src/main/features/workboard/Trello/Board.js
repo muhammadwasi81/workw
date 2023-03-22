@@ -35,14 +35,25 @@ import { Table } from "../../../sharedComponents/customTable";
 import { sectionTableColumn } from "./tableColumns";
 import CardEditor from "../Trello/Card/CardEditor";
 import TableTodo from "../UI/TableEditButton/TableEditButton";
-import { DownOutlined } from '@ant-design/icons';
-import { Select } from 'antd';
 import {addWorkBoardSectionTodo} from "../store/action";
-import { event } from "jquery";
+import TableEntryItem from "../Trello/EntryItem";
+import CreateEntryHead from "../Trello/EntryItemHead";
 
 function Board() {
+  
+const initialEntry = {
+title:"",
+workBoardSection:"",
+description:"",
+labels:"",
+createDate:"",
+}
+//const initialEntries = Array(4).fill(initialEntry);
+  
   const [addingList, setAddingList] = useState(false);
+  const [tableInput, setTableInput] = useState(false);
 
+  console.log(tableInput,"tableInputtableInput");
   const workboardDetail = useSelector(
     (state) => state.trelloSlice.workboardDetail
   );
@@ -57,7 +68,8 @@ function Board() {
   const dispatch = useDispatch();
   const { id } = useParams();
   console.log("id", id);
-  useEffect(() => {
+
+  const initialize = () => {
     dispatch(getWorkboardById(id));
     dispatch(
       getAllWorkBoardTodoPaging({
@@ -70,6 +82,9 @@ function Board() {
         sortBy: 1,
       })
     );
+  }
+  useEffect(() => {
+    initialize()
   }, []);
 
   const toggleAddingList = () => {
@@ -148,6 +163,8 @@ function Board() {
   const [isTableView, setIsTableView] = useState(false);
   const [isModalOpen , setIsModalOpen] = useState(false);
   const [selectedId,setSelectedId] = useState();
+
+  const [entries, setEntries] = useState(initialEntry);
  
   const [listData, setListData] = useState({
 		editingTitle: false,
@@ -192,12 +209,30 @@ function Board() {
       setIsModalOpen(true);
     }
 
+    const handleRemoveRow = (index) => {
+      console.log(index);
+      let filteredRows = [...entries];
+      filteredRows.splice(index, 1);
+      setEntries(filteredRows);
+    };
     const handleChange = (LabeledValue) => {
       console.log(selectedId,"88888");
 
       setSelectedId(LabeledValue);
         console.log(selectedId,"LabeledValue");
     }
+    const onRow = (record, rowIndex) => {    
+      return {
+        onClick: (event) => {
+          const { id } = record;
+          //navigate(`${ROUTES.WORKBOARD.BOARD}${id}`);
+        }, // click row
+        // onDoubleClick: (event) => {}, // double click row
+        // onContextMenu: (event) => {}, // right button click row
+        // onMouseEnter: (event) => {}, // mouse enter row
+        // onMouseLeave: (event) => {}, // mouse leave row
+      };
+    };
    
 
   return (
@@ -208,7 +243,7 @@ function Board() {
         <BoardTopBar
           handleView={(isTable) => {
             setIsTableView(isTable);
-          }}
+          }} handleChangeSegment={initialize}
           topBar={topBar}
         />
         <ContBody className="!block" direction={Direction}>
@@ -276,14 +311,14 @@ function Board() {
                 </Button>
               </div>
 
-               <Modal 
+                <Modal 
                   footer={null}
                   closable={false}
                   title={false}
                   open={isModalOpen} onCancel={handleCancel} onOk={handleOk}
                   >
                 
-                <span className="text-gray-500 font-bold ml-[3px]">Todo Section </span>
+                  <span className="text-gray-500 font-bold ml-[3px]">Todo Section </span>
                    <div className="List-Title !cusrsor-pointer p-2 break-words font-bold w-full">
                      <CustomSelect
                         showSearch={true}
@@ -292,18 +327,39 @@ function Board() {
                         placeholder="Please select Todo Section"
                         onChange={handleChange}
                       />
-                   </div>
+                    </div>
                    <span className="text-gray-500 font-bold ml-[3px]">Todo Title</span>
                   <TableTodo onSave={addCard}/>
-               </Modal>
+               </Modal>  
             
-
-            <Table
-              columns={sectionTableColumn(WorkBoardDictionaryList)}
+            {/* <Table
+              columns={sectionTableColumn(sectionTableData,onActionClick,WorkBoardDictionaryList)}
               data={sectionTableData}
               loading={loader}
-            />
-            </>
+              onRow={onRow}
+            /> */}
+              <div className="createEntryTable mt-6">
+                    <div className="bg-white p-4 rounded-md overflow-x-auto">
+                    <table>
+                    <CreateEntryHead/>
+                      <tbody>
+                        {sectionTableData && sectionTableData?.map((item, ind) => { 
+                           console.log(item,"itemmm");
+                          return (
+                            <TableEntryItem
+                              key={ind}
+                              index={ind}
+                              // handleChange={handleChange1}
+                              // handleRemoveRow={handleRemoveRow}
+                              itemValue={item}
+                            />
+                           ); 
+                         })} 
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                </>
           )}
 
         </ContBody>

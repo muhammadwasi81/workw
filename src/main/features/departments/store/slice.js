@@ -1,4 +1,4 @@
-import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
+import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import {
   getAllDepartments,
   addDepartment,
@@ -9,7 +9,7 @@ import {
   removeDepartmentAppraisalQuestion,
   addDepartmentMemberAction,
   getDepartmentMemberAction,
-} from './actions';
+} from "./actions";
 
 const initialState = {
   departments: [],
@@ -28,7 +28,7 @@ const initialState = {
 };
 
 const departmentSlice = createSlice({
-  name: 'departments',
+  name: "departments",
   initialState,
   reducers: {
     addMember: (state, { payload }) => {
@@ -62,11 +62,23 @@ const departmentSlice = createSlice({
 
       state.departments = newDepartMember;
     },
+    deleteDepartmentMember(state, { payload }) {
+      console.log(payload, "payload delete member");
+      console.log(
+        state.departmentMembers.map((it) => it),
+        "payload delete member"
+      );
+      const newdeptMembers = state.departmentMembers.filter(
+        (it) => it.memberId !== payload
+      );
+
+      state.departmentMembers = newdeptMembers;
+    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(getAllDepartments.fulfilled, (state, { payload }) => {
-        console.log(payload, 'getAllDepartments');
+        console.log(payload, "getAllDepartments");
         state.departments = payload ? payload : [];
         state.loader = false;
       })
@@ -83,7 +95,7 @@ const departmentSlice = createSlice({
         state.isCreateComposer = false;
       })
       .addCase(getDepartmentById.fulfilled, (state, { payload }) => {
-        console.log('GetDepartmentById payload', payload.data);
+        console.log("GetDepartmentById payload", payload.data);
         state.departmentDetail = payload.data;
         state.loader = false;
       })
@@ -117,19 +129,18 @@ const departmentSlice = createSlice({
         }
       )
       .addCase(addDepartmentMemberAction.fulfilled, (state, { payload }) => {
-        if (state.departmentDetail) {
-          //TODO: check if response is empty
-          if (payload.data?.length) {
-            let newMembers = [
-              ...state.departmentDetail.members,
-              payload.data[0],
-            ];
-            state.departmentDetail = {
-              ...state.departmentDetail,
-              members: newMembers,
-            };
-          }
-        }
+        console.log(payload, "add department member");
+        state.departmentMembers = [...state.departmentMembers, payload.data[0]];
+        // if (state.departmentDetail) {
+        //   //TODO: check if response is empty
+        //   if (payload.data?.length) {
+        //     let newMembers = [...state.departmentMembers, payload.data[0]];
+        //     state.departmentMembers = {
+        //       ...state.departmentMembers,
+        //       members: newMembers,
+        //     };
+        //   }
+        // }
       })
 
       .addCase(getDepartmentMemberAction.fulfilled, (state, { payload }) => {
@@ -152,7 +163,7 @@ const departmentSlice = createSlice({
       .addMatcher(
         isPending(...[updateDepartmentAppraisalQuestion]),
         (state) => {
-          console.log('its pending update');
+          console.log("its pending update");
           state.createLoader = true;
         }
       )
@@ -166,7 +177,7 @@ const departmentSlice = createSlice({
         state.loader = false;
       })
       .addMatcher(isPending(...[addDepartmentAppraisalQuestion]), (state) => {
-        console.log('its pending add department appraisa question');
+        console.log("its pending add department appraisa question");
         // state.createLoader = true;
       });
   },
@@ -178,5 +189,6 @@ export const {
   handleParentId,
   addMember,
   addDepartmentMember,
+  deleteDepartmentMember,
 } = departmentSlice.actions;
 export default departmentSlice.reducer;

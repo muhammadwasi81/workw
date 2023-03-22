@@ -41,7 +41,10 @@ const StickyColor = ({ item }) => {
             <div
               key={colors}
               onClick={selectColorHandler}
-              style={{ backgroundColor: colors, width: "100%" }}
+              style={{
+                backgroundColor: colors,
+                width: "100%",
+              }}
               value={colors}
             ></div>
           ))}

@@ -28,8 +28,8 @@ const CommentItem = ({
     attachmentFile,
     reactionCount,
     cssClass,
+    mentions,
   } = comment;
-  console.log(creator, 'creator');
   const [openComposer, setOpenComposer] = useState(false);
   const [replies, setReplies] = useState([]);
   const toggleReply = (referenceId, parentId) => {
@@ -53,6 +53,7 @@ const CommentItem = ({
   };
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Reply, Like, WriteYourReplyHere } = CommentDictionary[userLanguage];
+
   // console.log("comment", comment);
   return (
     <div
@@ -74,6 +75,7 @@ const CommentItem = ({
             attachmentCount={attachmentCount}
             attachmentFile={attachmentFile}
             type={type}
+            mentions={mentions}
           />
           {type !== 2 && (
             <div className="likeReplyCont">

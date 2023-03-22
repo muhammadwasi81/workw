@@ -13,6 +13,8 @@ import { tableColumn } from "./tableColumns";
 import WorkBoardCard from "./WorkBoardCard";
 import { PlusOutlined } from "@ant-design/icons";
 import { Button } from "antd";
+import EntryItemTable from "../Dashboard/EntryItemsTable";
+import CreateEntryHead from "../Dashboard/EntryItemHead";
 
 function WorkBoardDashboard({
   isTableView,
@@ -40,6 +42,7 @@ function WorkBoardDashboard({
   // }, []);
 
   const onRow = (record, rowIndex) => {
+    
     return {
       onClick: (event) => {
         const { id } = record;
@@ -55,7 +58,7 @@ function WorkBoardDashboard({
   return (
     <>
     
-      {isTableView && (
+      {/* {isTableView && (
         <Table
           columns={tableColumn()}
           dragable={true}
@@ -65,10 +68,38 @@ function WorkBoardDashboard({
           // status={travelStatus}
           // loadding={loader}
           // success={success}
-          // onActionClick={onActionClick}
+           //onActionClick={onActionClick}
           // onPageChange={onPageChange}
         />
-      )}
+      )} */}
+
+            {isTableView && (
+                <div className="createEntryTable mt-6">
+                    <div className="bg-white p-4 rounded-md overflow-x-auto">
+                    <table>
+                     <CreateEntryHead/> 
+                      <tbody>
+                       
+                        {workboardsListData?.map((item, ind) => {
+                          console.log(item,"itemmm");
+                          return (
+                            <EntryItemTable
+                              key={ind}
+                              index={ind}
+                              // accounts={sectionTableData}
+                              // handleChange={handleChange1}
+                              // handleRemoveRow={handleRemoveRow}
+                              itemValue={item}
+                            />
+                          );
+                          })} 
+                      </tbody>
+                    </table>
+                  </div>
+               </div>
+          )}  
+
+
  
       {workboardsListData?.length > 0 && !loader && !isTableView ? (
         <CardWrapper2>

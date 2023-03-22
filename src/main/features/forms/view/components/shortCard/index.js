@@ -9,7 +9,7 @@ import {
   SingleItem,
 } from "../../../../../sharedComponents/Card/CardStyle";
 import { Link } from "react-router-dom";
-import { Button, message ,Tag} from "antd";
+import { Button, message, Tag } from "antd";
 import "./style.css";
 import { ROUTES } from "../../../../../../utils/routes";
 import { useSelector } from "react-redux";
@@ -20,8 +20,7 @@ import AvatarOld from "../../../../../sharedComponents/Avatar/avatarOLD";
 import Avatar from "../../../../../sharedComponents/Avatar/avatar";
 import StatusTag from "../../../../../sharedComponents/Tag/StatusTag";
 
-function 
-ListItem(props) {
+function ListItem(props) {
   const { user } = useSelector((state) => state.userSlice);
   const { item, id, onListItem = () => {} } = props;
   const [copy, setCopy] = useState(false);
@@ -36,7 +35,7 @@ ListItem(props) {
     list,
     table,
     copyLink,
-    attempt, 
+    attempt,
   } = documentDictionary;
 
   const copyfunc = () => {
@@ -47,14 +46,14 @@ ListItem(props) {
     <>
       {copy && message.success("Copied")}
       <SingleItem
-          className="new formShortCard"
+        className="new formShortCard"
         //className="cursor-pointer"
         //className="Card3 formShortCard"
         id={props.id}
         onClick={() => {
-        onListItem(props.item.id);
+          onListItem(props.item.id);
         }}
-        
+
         /* <div
          className="Card3 formShortCard"
           id={props.id}
@@ -66,8 +65,8 @@ ListItem(props) {
         {/* <CardProfileTopView>
 
         </CardProfileTopView> */}
-       <ItemHeader className="ItemHeader">
-         <div className="left">
+        <ItemHeader className="ItemHeader">
+          <div className="left">
             <UserInfo
               avatarSrc={item.creator.image}
               name={item.creator.name}
@@ -79,23 +78,24 @@ ListItem(props) {
               }
             />
           </div>
-            <div className="right">
-               <Tag className="IdTag">{item.referenceNo}</Tag>
-               <StatusTag>{item.status}</StatusTag>
-              {/* <h3>{item.subject}</h3> */}
-              {/* {/* <p>{item.description}</p> */}
-              {/* <h3>{item.referenceNo}</h3> */}
-           </div>
-      </ItemHeader> 
-        <ItemContent 
-         //className="ItemContent" 
-            className="item-content flex">
+          <div className="right">
+            <Tag className="IdTag">{item.referenceNo}</Tag>
+            <StatusTag status={item.status}></StatusTag>
+            {/* <h3>{item.subject}</h3> */}
+            {/* {/* <p>{item.description}</p> */}
+            {/* <h3>{item.referenceNo}</h3> */}
+          </div>
+        </ItemHeader>
+        <ItemContent
+          //className="ItemContent"
+          className="item-content flex"
+        >
           <div className="description custom-description">
-          <p>{item.description}</p>
+            <p>{item.description}</p>
           </div>
         </ItemContent>
-        <div className="ItemFooter"> 
-            <Button
+        <div className="ItemFooter">
+          <Button
             className="ThemeBtn"
             onClick={(e) => {
               e.preventDefault();
@@ -113,15 +113,15 @@ ListItem(props) {
           >
             {copyLink}
           </Button>
-            {item.creator.id === user.id && (
+          {item.creator.id === user.id && (
             <Link to={ROUTES.FORMS.RESPONSE_DETAIL_FORM + `/${id}`}>
               <Button className="ThemeBtn">Details</Button>
             </Link>
           )}
-            <Link to={ROUTES.FORMS.SUBMIT_FORM + `/?id=${id}`}>
+          <Link to={ROUTES.FORMS.SUBMIT_FORM + `/?id=${id}`}>
             <Button className="ThemeBtn">{attempt}</Button>
-             </Link>
-          
+          </Link>
+
           {/* <Link to={ROUTES.FORMS.SUBMIT_FORM + `/?id=${id}`}>
             <Button className="ThemeBtn">Copy Link</Button>
           </Link> */}
@@ -131,7 +131,6 @@ ListItem(props) {
               <Button className="ThemeBtn">Edit</Button>
             </Link>
           )} */}
-
         </div>
         <div className="cardSections">
           <div className="cardSectionItem">
@@ -157,7 +156,6 @@ ListItem(props) {
             </div>
           </div>
         </div>
-
       </SingleItem>
     </>
   );

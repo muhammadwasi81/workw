@@ -358,6 +358,10 @@ const trelloSlice = createSlice({
       });
       state.workboardsList = deleteBoardMembers;
     },
+    // deleteTodoItem(state,{payload}){
+    //   console.log(payload,"payloaddoooo");
+    //   //state.todos=state.todos.filter((todo)=>todo.id!==payload.id)
+    // }
   },
   extraReducers: (builder) => {
     builder
@@ -412,6 +416,7 @@ const trelloSlice = createSlice({
         state.todoDetail = payload.data;
       })
       .addCase(updateWorkBoardTodoDesc.fulfilled, (state, { payload }) => {
+        console.log(payload,"payloaddd");
         state.loader = false;
       })
       .addCase(updateWorkBoardTodoTitle.fulfilled, (state, { payload }) => {
@@ -487,14 +492,17 @@ const trelloSlice = createSlice({
       .addCase(removeWorkBoardTodo.fulfilled, (state, { payload }) => {
         state.loader = false;
         const { id, sectionId } = payload;
+        console.log(payload, "mypayloadddd");
         const workBoardSectionIndex = state.workboardDetail.sections.findIndex(
           (section) => section.id === sectionId
         );
+        console.log(workBoardSectionIndex,"workBoardSectionIndex");
         state.workboardDetail.sections[
           workBoardSectionIndex
         ].todos = state.workboardDetail.sections[
           workBoardSectionIndex
         ].todos.filter((todo) => todo.id !== id);
+       
       })
       .addCase(addWorkBoardTodoLabel.fulfilled, (state, { payload }) => {
         const { data, sectionId } = payload;
@@ -528,6 +536,7 @@ const trelloSlice = createSlice({
         state.todoDetail.labels = labels;
       })
       .addCase(getAllWorkBoardTodoPaging.fulfilled, (state, { payload }) => {
+
         state.sectionTableData = payload.data.data;
       })
       .addCase(getWorkBoardMemberAction.fulfilled, (state, action) => {
@@ -634,6 +643,7 @@ export const {
   addWorkBoardMembers,
   deleteWorkBoardMember,
   deleteWorkBoardTodoMember,
+  deleteTodoItem
 } = trelloSlice.actions;
 
 export default trelloSlice.reducer;

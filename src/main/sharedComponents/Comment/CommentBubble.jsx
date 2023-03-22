@@ -59,6 +59,13 @@ function CommentBubble({
             __html: renderTitleWithMentions(content, mentionedUser),
           }}
         />
+        {attachmentFile &&  <div className="rounded-[20px] overflow-hidden w-auto inline-block">
+              <img
+                src={URL.createObjectURL(attachmentFile)}
+                // altt={attachmentName}
+                className="max-w-[210px] aspect-[9/6]"
+              />
+            </div>}
         {attachments?.length > 0 &&
           attachments?.map(({ path, attachmentName }) => (
             <div className="rounded-[20px] overflow-hidden w-auto inline-block">

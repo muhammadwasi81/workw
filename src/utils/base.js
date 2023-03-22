@@ -1,145 +1,72 @@
-import React from 'react';
-import $ from 'jquery';
-import * as moment from 'moment';
-import brokenPaper from '../content/svg/brokenpaper.svg';
-import { Link } from 'react-router-dom';
-import { REPORT_URL } from './services';
-import { ROUTES } from './routes';
-import { replaceURL } from '../main/features/feed/utils/ValidateCreatePost';
+import React from "react";
+import $ from "jquery";
+import * as moment from "moment";
+import brokenPaper from "../content/svg/brokenpaper.svg";
+import { Link } from "react-router-dom";
+import { ROUTES } from "./routes";
+import { replaceURL } from "../main/features/feed/utils/ValidateCreatePost";
+// import { Link } from "react-router-dom";
 // require("jquery.caret");
 
-let DOMAIN_PREFIX = '';
-// for live this line will be comment 
+let DOMAIN_PREFIX = "";
+// for live this line will be comment
 // DOMAIN_PREFIX = process.env.NODE_ENV !== 'development' ? '/konnect' : '';
 
 export const STRINGS = {
   COPY_RIGHTS: `\u00A9 Miletap Ltd - Copyrights \u00402017-${new Date().getFullYear()}`,
   STRIPE_KEY:
-    'pk_test_51Hs6ovE6WX7VMR4a2q3dV2dNIhjNSl1YIXa4PMDlAAUMmeYimKZoZ1B0et3b2n5VaGjaoFlDoNTIMDdxW0cMv7Jr00YyDry9GE',
+    "pk_test_51Hs6ovE6WX7VMR4a2q3dV2dNIhjNSl1YIXa4PMDlAAUMmeYimKZoZ1B0et3b2n5VaGjaoFlDoNTIMDdxW0cMv7Jr00YyDry9GE",
   DEFAULT_EMAIL: {
-    TO: 'support@konnect.im',
-    FROM: 'amir@gmail.com',
+    TO: "support@konnect.im",
+    FROM: "amir@gmail.com",
   },
-  EDITOR_URL: 'https://milepad.gqhub.com/p/',
-  VIDEO: ['mp4'],
-  IMAGE: ['jpg', 'jpeg', 'png', 'gif'],
+  EDITOR_URL: "https://milepad.gqhub.com/p/",
+  VIDEO: ["mp4"],
+  IMAGE: ["jpg", "jpeg", "png", "gif"],
   SIGN_UP_DEFAULT_TOKEN:
-    'hxD0MXIIS0F1tFGfO2uB56Ux6gZn6Tkvm7IOLTwWqNmyHFaDvo7Rjla0JcAU86oS',
+    "hxD0MXIIS0F1tFGfO2uB56Ux6gZn6Tkvm7IOLTwWqNmyHFaDvo7Rjla0JcAU86oS",
   STORAGE: {
-    connectionId: '',
-    _connectionId: 'connectionId',
-    token: 'token',
-    user: 'user',
-    call: 'call',
-    call_id: 'call_id',
-    user_id: 'user_id',
-    first_name: 'first_name',
-    middle_name: 'middle_name',
-    last_name: 'last_name',
-    department_id: 'department_id',
-    departmentName: 'departmentName',
-    hod_id: 'hod_id',
-    hodName: 'hodName',
-    hodImage: 'hodImage',
-    hodDesignation: 'hodDesignation',
-    designation_id: 'designation_id',
-    designation: 'designation',
-    profile_picture: 'profile_picture',
-    manager_id: 'manager_id',
-    managerDesignation: 'managerDesignation',
-    managerImage: 'managerImage',
-    managerName: 'managerName',
-    email: 'email',
-    mobileNo: 'mobileNo',
-    user_type: 'userTypeId',
-    business_id: 'business_id',
-    branch_id: 'branch_id',
-    user_name: 'user_name',
-    birthdate: 'birthdate',
-    businessName: 'businessName',
-    branchName: 'branchName',
-    businessLogo: 'businessLogo',
-    fullname: 'fullname',
-    userRights: 'userRights',
-    rights: 'rights',
+    connectionId: "",
+    _connectionId: "connectionId",
+    token: "token",
+    user: "user",
+    call: "call",
+    call_id: "call_id",
+    user_id: "user_id",
+    first_name: "first_name",
+    middle_name: "middle_name",
+    last_name: "last_name",
+    department_id: "department_id",
+    departmentName: "departmentName",
+    hod_id: "hod_id",
+    hodName: "hodName",
+    hodImage: "hodImage",
+    hodDesignation: "hodDesignation",
+    designation_id: "designation_id",
+    designation: "designation",
+    profile_picture: "profile_picture",
+    manager_id: "manager_id",
+    managerDesignation: "managerDesignation",
+    managerImage: "managerImage",
+    managerName: "managerName",
+    email: "email",
+    mobileNo: "mobileNo",
+    user_type: "userTypeId",
+    business_id: "business_id",
+    branch_id: "branch_id",
+    user_name: "user_name",
+    birthdate: "birthdate",
+    businessName: "businessName",
+    branchName: "branchName",
+    businessLogo: "businessLogo",
+    fullname: "fullname",
+    userRights: "userRights",
+    rights: "rights",
   },
   ROUTES: {
-    SEARCH: {
-      DEFAULT: `${DOMAIN_PREFIX}/search`,
-    },
-    MESSENGER: {
-      DEFAULT: `${DOMAIN_PREFIX}/messenger`,
-      CHAT: `${DOMAIN_PREFIX}/messenger/chat`,
-    },
-    AUTH: {
-      SIGN_UP: `${DOMAIN_PREFIX}/register`,
-      VERIFICATION_SUCCESS: `${DOMAIN_PREFIX}/verified`,
-      VERIFICATION_INPROCESS: `${DOMAIN_PREFIX}/verify`,
-      SIGN_IN: `${DOMAIN_PREFIX}/login`,
-      INDIVIDUAL_SIGN_IN: `${DOMAIN_PREFIX}/individualSignIn`,
-      PAYMENT: `${DOMAIN_PREFIX}/AddPaymentCard`,
-      EXTERNAL_SIGN_UP: `${DOMAIN_PREFIX}/externalSignup`,
-      SIGN_IN_ANONYMOUSLY: `${DOMAIN_PREFIX}/authenticating`,
-      FORGOT_PASSWORD_LANDING: `${DOMAIN_PREFIX}/resetpassword`,
-      FORGOT_PASSWORD: `${DOMAIN_PREFIX}/forgotpassword`,
-    },
-    BUDGET: {
-      DEFAULT: `${DOMAIN_PREFIX}/budgets`,
-    },
     ROOT: `${DOMAIN_PREFIX}/`,
     NEWSFEED: {
       DETAILS: `${DOMAIN_PREFIX}/newsFeedDetails`,
-    },
-    JOB_OPENING: `${DOMAIN_PREFIX}/jobopeningletter`,
-    OFFER_LETTER: `${DOMAIN_PREFIX}/OfferLetter`,
-    DOCUMENT_APPROVAL: `${DOMAIN_PREFIX}/DocumentApproval`,
-    SCHEDULE_REMARKS: `${DOMAIN_PREFIX}/ScheduleRemark`,
-    PRE_EMPLOYMENT: `${DOMAIN_PREFIX}/EmploymentForm`,
-    GROUP: {
-      DEFAULT: `${DOMAIN_PREFIX}/groups/`,
-      NEWS: `${DOMAIN_PREFIX}/groups/news`,
-      SCHEDULES: `${DOMAIN_PREFIX}/groups/schedules`,
-      TASKS: `${DOMAIN_PREFIX}/groups/tasks`,
-      EXPENSES: `${DOMAIN_PREFIX}/groups/expenses`,
-    },
-    INVENTORY: {
-      DEFAULT: `${DOMAIN_PREFIX}/inventory`,
-    },
-    ATTENDANCE: {
-      DEFAULT: `${DOMAIN_PREFIX}/attendance`,
-      USER_ATTENDANCE: `${DOMAIN_PREFIX}/attendance/user_attendance`,
-    },
-    ASSETS: {
-      DEFAULT: `${DOMAIN_PREFIX}/assets`,
-    },
-
-    PROJECT: {
-      DEFAULT: `${DOMAIN_PREFIX}/projects`,
-      NEWS: `${DOMAIN_PREFIX}/projects/news`,
-      SCHEDULES: `${DOMAIN_PREFIX}/projects/schedules`,
-      TASKS: `${DOMAIN_PREFIX}/projects/tasks`,
-      EXPENSES: `${DOMAIN_PREFIX}/projects/expenses`,
-      TRAVEL: `${DOMAIN_PREFIX}/projects/travels`,
-      TRAVEL_DETAILS: `${DOMAIN_PREFIX}/projects/travel/details`,
-      TRAVEL_CITIES: `${DOMAIN_PREFIX}/projects/travel/cities`,
-      TRAVEL_APPROVALS: `${DOMAIN_PREFIX}/projects/travel/approvals`,
-      TRAVEL_EXPENSES: `${DOMAIN_PREFIX}/projects/travel/expenses`,
-      BUDGETS: `${DOMAIN_PREFIX}/projects/budgets`,
-      TODO: `${DOMAIN_PREFIX}/projects/workBoard`,
-      TODO_BOARD: `${DOMAIN_PREFIX}/projects/workBoard/board`,
-      MY_TODO: `${DOMAIN_PREFIX}/projects/mytodo`,
-      PROJECT_BUDGET: `${DOMAIN_PREFIX}/projects/budget/details`,
-      DOCUMENTS: `${DOMAIN_PREFIX}/projects/documents`,
-    },
-    DOCUMENTS: {
-      DEFAULT: `${DOMAIN_PREFIX}/documents`,
-      ITEM: `${DOMAIN_PREFIX}/documents`,
-      EDITOR: `${DOMAIN_PREFIX}/documents/editor`,
-    },
-    TODO: {
-      DEFAULT: `${DOMAIN_PREFIX}/workBoard`,
-      TODO_BOARD: `${DOMAIN_PREFIX}/workBoard/board`,
-      MY_TODO: `${DOMAIN_PREFIX}/workBoard/assignToMe`,
     },
     CONTACT_MANAGER: {
       DEFAULT: `${DOMAIN_PREFIX}/leadManager`,
@@ -202,190 +129,46 @@ export const STRINGS = {
       QUIZ_GAME: `${DOMAIN_PREFIX}/eLearningCourses/game`,
       HIGH_SCORE: `${DOMAIN_PREFIX}/eLearningCourses/highScore`,
     },
-    USER: {
-      DEFAULT: `${DOMAIN_PREFIX}/user/`,
-      TIMELINE: {
-        DEFAULT: `${DOMAIN_PREFIX}/user/timeline/post`,
-        INFORMATION: `${DOMAIN_PREFIX}/user/timeline/information`,
-      },
-      SETTINGS: `${DOMAIN_PREFIX}/settings`,
-      NOTES: `${DOMAIN_PREFIX}/user/notes`,
-    },
-    CALL: {
-      DEFAULT: `${DOMAIN_PREFIX}/call`,
-      AUDIO: `${DOMAIN_PREFIX}/call/audiocall`,
-      VIDEO: `${DOMAIN_PREFIX}/call/audiocall`,
-      JOIN: `${DOMAIN_PREFIX}/call/joincall`,
-      // CALL: `${DOMAIN_PREFIX}/videocall/incall/?peer_id=100000554862579`,
-    },
-    HR: {
-      CHART: `${DOMAIN_PREFIX}/hr/chart`,
-      WARNINGS: {
-        DEFAULT: `${DOMAIN_PREFIX}/warnings`,
-        APPROVALS: `${DOMAIN_PREFIX}/warnings/approvals`,
-      },
-      REWARDS: {
-        DEFAULT: `${DOMAIN_PREFIX}/rewards`,
-        APPROVALS: `${DOMAIN_PREFIX}/rewards/approvals`,
-      },
-      REQUISITION: {
-        DEFAULT: `${DOMAIN_PREFIX}/requisition`,
-        APPROVALS: `${DOMAIN_PREFIX}/requisition/approvals`,
-      },
-      RESIGNATIONS: {
-        DEFAULT: `${DOMAIN_PREFIX}/resignations/*`,
-      },
-      COMPLAINS: {
-        DEFAULT: `${DOMAIN_PREFIX}/complains`,
-        APPROVALS: `${DOMAIN_PREFIX}/complains/approvals`,
-      },
-      BONUS: {
-        DEFAULT: `${DOMAIN_PREFIX}/bonus`,
-      },
-      DEPARTMENT: {
-        DEFAULT: `${DOMAIN_PREFIX}/departments`,
-        APPROVALS: `${DOMAIN_PREFIX}/departments/approvals`,
-      },
-      LEAVES: `${DOMAIN_PREFIX}/hr/leaves`,
-      SALARY: `${DOMAIN_PREFIX}/hr/salary/`,
-      ALLOWANCE: `${DOMAIN_PREFIX}/hr/allowance/`,
-      TAXRECEIPTS: `${DOMAIN_PREFIX}/hr/taxreceipts/`,
-      CAREER: {
-        DEFAULT: `${DOMAIN_PREFIX}/hr/careers`,
-        JOB_BY_ID: `${DOMAIN_PREFIX}/hr/careers/job`,
-      },
-      EMPLOYEES: {
-        DEFAULT: `${DOMAIN_PREFIX}/hr/employees/`,
-        BASIC_INFO: `${DOMAIN_PREFIX}/hr/employees/info`,
-        JOB_BY_ID: `${DOMAIN_PREFIX}/hr/employees/job`,
-        EMAIL_CONFIG: `${DOMAIN_PREFIX}/hr/employees/emailconfig`,
-        EDUCATION: `${DOMAIN_PREFIX}/hr/employees/education`,
-        EXPERIENCE: `${DOMAIN_PREFIX}/hr/employees/experience`,
-        PACKAGE: `${DOMAIN_PREFIX}/hr/employees/package`,
-        LINKAGE: `${DOMAIN_PREFIX}/hr/employees/linkage`,
-        USER_RIGHTS: `${DOMAIN_PREFIX}/hr/employees/rights`,
-        ACTIVITY_LOGS: `${DOMAIN_PREFIX}/hr/employees/activityLogs`,
-        SALARY: `${DOMAIN_PREFIX}/hr/employees/salary`,
-        APPRAISAL: `${DOMAIN_PREFIX}/hr/employees/appraisal`,
-        OFFICE_TIMINGS: `${DOMAIN_PREFIX}/hr/employees/officeTimings`,
-        OFFICETIME: `${DOMAIN_PREFIX}/hr/employees/officetime`,
-        EMPLOYEE_TIME: `${DOMAIN_PREFIX}/hr/employees/employee_time`,
-        EMAIL_SEND: `${DOMAIN_PREFIX}/hr/employees/EmailSend`,
-        ALLOWANCES: `${DOMAIN_PREFIX}/hr/employees/allowances`,
-        BANK_DETAILS: `${DOMAIN_PREFIX}/hr/employees/bankDetails`,
-      },
-      ADMINISTRATOR: {
-        DEFAULT: `${DOMAIN_PREFIX}/administrator`,
-        GRADE: `${DOMAIN_PREFIX}/administrator/grade`,
-        DESIGNATION: `${DOMAIN_PREFIX}/administrator/designation`,
-        ACCESSROLES: `${DOMAIN_PREFIX}/administrator/accessroles`,
-        APPRASIAL: `${DOMAIN_PREFIX}/administrator/appraisal`,
-        TIMEZONE: `${DOMAIN_PREFIX}/administrator/timezone`,
-        OFFICETIMING: `${DOMAIN_PREFIX}/administrator/officetimings`,
-        OFFICE_TIMING_GROUP_DETAIL: `${DOMAIN_PREFIX}/administrator/officetimings/groupdetail`,
-        OFFICETIME: `${DOMAIN_PREFIX}/administrator/officetimings`,
-        CURRENCY: `${DOMAIN_PREFIX}/administrator/currency`,
-        EMPLOYEE_TIME: `${DOMAIN_PREFIX}/administrator/officetimings/employee_time`,
-        JOB_SKILLS: `${DOMAIN_PREFIX}/administrator/job_skills`,
-        LEAVE_TYPES: `${DOMAIN_PREFIX}/administrator/leaveType`,
-        USER_TYPES: `${DOMAIN_PREFIX}/administrator/userTypes`,
-        EXPENSE_HEADERS: `${DOMAIN_PREFIX}/administrator/expenseHeaders`,
-        SALARY_HEADERS: `${DOMAIN_PREFIX}/administrator/salaryHeaders`,
-        EMAIL_CONFIG: `${DOMAIN_PREFIX}/administrator/emailConfig`,
-        REQUEST_FOR_RIGHTS: `${DOMAIN_PREFIX}/administrator/rights`,
-        CUSTOM_APPROVAL_CATEGORY: `${DOMAIN_PREFIX}/administrator/customApprovalCategory`,
-        DEFAULT_APPROVALS: `${DOMAIN_PREFIX}/administrator/defaultApprovals`,
-        ALLOWANCES: `${DOMAIN_PREFIX}/administrator/allowances`,
-        REWARD_CATEGORY: `${DOMAIN_PREFIX}/administrator/rewardCategory`,
-        WARNING_CATEGORY: `${DOMAIN_PREFIX}/administrator/warningCategory`,
-      },
-      COMPANIES: {
-        DEFAULT: `${DOMAIN_PREFIX}/hr/companies`,
-        RIGHTS_REQUEST: `${DOMAIN_PREFIX}/hr/companies/request_rights`,
-        DASHBOARD: `${DOMAIN_PREFIX}/hr/companies/dashboard`,
-        ADD: `${DOMAIN_PREFIX}/hr/companies/add`,
-        UPDATE: `${DOMAIN_PREFIX}/hr/companies/update`,
-        DETAILS: `${DOMAIN_PREFIX}/hr/companies/details`,
-        BUSINESS_RIGHTS: `${DOMAIN_PREFIX}/hr/companies/rights`,
-        EMAIL_CONFIG: `${DOMAIN_PREFIX}/hr/companies/emailConfig`,
-        EMAIL_SEND: `${DOMAIN_PREFIX}/hr/companies/emailSend`,
-        INDIVIDUAL_DASHBOARD: `${DOMAIN_PREFIX}/hr/companies/individualDashboard`,
-      },
-      EMPLOYEES_ADD: `${DOMAIN_PREFIX}/hr/employees/add`,
-      DEPARTMENTS: `${DOMAIN_PREFIX}/hr/departments`,
-      SUBDEPARTMENT: `${DOMAIN_PREFIX}/hr/departments/list`,
-      DETAILDEPARTMENTS: `${DOMAIN_PREFIX}/hr/departments/details`,
-      DEFAULTDEPARTMENT: `${DOMAIN_PREFIX}/hr/department/view`,
-      OFFICE_TIMINGS: `${DOMAIN_PREFIX}/hr/officetimings/`,
-      OFFICE_TIMINGS_DEFAULT: `${DOMAIN_PREFIX}/hr/officetimings/timings`,
-      OFFICE_TIMINGS_EMPLOYEES: `${DOMAIN_PREFIX}/hr/officetimings/employees`,
-      HOLIDAYS: `${DOMAIN_PREFIX}/hr/holidays/`,
-      LEVELS: `${DOMAIN_PREFIX}/hr/addlevels`,
-      APPROVALS_FLOW: {
-        DEFAULT: `${DOMAIN_PREFIX}/hr/approvalflow`,
-      },
-      APPRAISALS: {
-        DEFAULT: `${DOMAIN_PREFIX}/appraisals`,
-      },
-    },
-    MAIL: {
-      DEFAULT: `${DOMAIN_PREFIX}/mail`,
-      INBOX: `${DOMAIN_PREFIX}/mail/inbox`,
-      STARRED: `${DOMAIN_PREFIX}/mail/starred`,
-      SNOOZED: `${DOMAIN_PREFIX}/mail/snoozed`,
-      ALL_MAIL: `${DOMAIN_PREFIX}/mail/all_mail`,
-      SPAM: `${DOMAIN_PREFIX}/mail/id=INBOX.spam`,
-      NOTES: `${DOMAIN_PREFIX}/mail/id=INBOX.Notes`,
-      ARCHIVE: `${DOMAIN_PREFIX}/mail/id=INBOX.Archive`,
-      SENT: `${DOMAIN_PREFIX}/mail/sent`,
-      TRASH: `${DOMAIN_PREFIX}/mail/trash`,
-      JUNK: `${DOMAIN_PREFIX}/mail/id=INBOX.Junk`,
-      DRAFTS: `${DOMAIN_PREFIX}/mail/drafts`,
-      CREATE_NEW_LABEL: `${DOMAIN_PREFIX}/mail/create_new_label`,
-    },
-    EMAIL: {
-      DEFAULT: `${DOMAIN_PREFIX}/mail`,
-      SPAM: `${DOMAIN_PREFIX}/mail?id=INBOX.spam`,
-      ARCHIVE: `${DOMAIN_PREFIX}/mail?id=INBOX.Archive`,
-      SENT: `${DOMAIN_PREFIX}/mail?id=INBOX.Sent`,
-      TRASH: `${DOMAIN_PREFIX}/mail?id=INBOX.Trash`,
-      JUNK: `${DOMAIN_PREFIX}/mail?id=INBOX.junk`,
-      DRAFTS: `${DOMAIN_PREFIX}/mail?id=INBOX.Drafts`,
-    },
-    LEAD_MANAGER: {
-      DEFAULT: `${DOMAIN_PREFIX}/leadmanager`,
-    },
-
-    TASK: {
-      DEFAULT: `${DOMAIN_PREFIX}/tasks/*`,
-      ROOT: `${DOMAIN_PREFIX}/tasks`,
-      DETAIL: `taskDetail/:id`,
-    },
+    // USER: {
+    //   DEFAULT: `${DOMAIN_PREFIX}/user/`,
+    //   TIMELINE: {
+    //     DEFAULT: `${DOMAIN_PREFIX}/user/timeline/post`,
+    //     INFORMATION: `${DOMAIN_PREFIX}/user/timeline/information`,
+    //   },
+    //   SETTINGS: `${DOMAIN_PREFIX}/settings`,
+    //   NOTES: `${DOMAIN_PREFIX}/user/notes`,
+    // },
+    // CALL: {
+    //   DEFAULT: `${DOMAIN_PREFIX}/call`,
+    //   AUDIO: `${DOMAIN_PREFIX}/call/audiocall`,
+    //   VIDEO: `${DOMAIN_PREFIX}/call/audiocall`,
+    //   JOIN: `${DOMAIN_PREFIX}/call/joincall`,
+    // },
   },
   SOCKET_ACTIONS: {
-    REGISTER_USER: 'registerUser',
-    MESSAGES_LISTENER: 'messageListner',
-    LOGOUT_LISTENER: 'logoutFromDevice',
-    MESSAGES_STATE_LISTENER: 'messageStateListner',
-    USER_STATUS_LISTENER: 'UserStatus',
-    MESSAGE_STATE_LISTENER: 'messageStateListner',
-    CONVERSATIONS_LISTENER: 'conversationListener',
-    CHAT_IN: 'chatIn',
-    CHAT_OUT: 'chatOut',
-    NOTIFY_LISTENER: 'notify',
-    TYPING_LISTENER: 'typingStatus',
-    MESSAGES_STATUS: 'messageStatus',
-    COMMUNICATION_OUT: 'communicationOut',
-    COMMUNICATION_IN: 'communicationIn',
-    TESTING: 'testing',
-    NOTIFICATION_IN: 'notificationIn',
-    ACTIVITY_COUNT: 'activityCount',
+    REGISTER_USER: "registerUser",
+    MESSAGES_LISTENER: "messageListner",
+    LOGOUT_LISTENER: "logoutFromDevice",
+    MESSAGES_STATE_LISTENER: "messageStateListner",
+    USER_STATUS_LISTENER: "UserStatus",
+    MESSAGE_STATE_LISTENER: "messageStateListner",
+    CONVERSATIONS_LISTENER: "conversationListener",
+    CHAT_IN: "chatIn",
+    CHAT_OUT: "chatOut",
+    NOTIFY_LISTENER: "notify",
+    TYPING_LISTENER: "typingStatus",
+    MESSAGES_STATUS: "messageStatus",
+    COMMUNICATION_OUT: "communicationOut",
+    COMMUNICATION_IN: "communicationIn",
+    TESTING: "testing",
+    NOTIFICATION_IN: "notificationIn",
+    ACTIVITY_COUNT: "activityCount",
   },
   DOCUMENT: {
-    pdf: ['pdf'],
-    word: ['doc', 'docx'],
-    excel: ['xls', 'xlsx'],
-    powerPoint: ['ppt', 'pptx'],
+    pdf: ["pdf"],
+    word: ["doc", "docx"],
+    excel: ["xls", "xlsx"],
+    powerPoint: ["ppt", "pptx"],
   },
   TYPES: {
     DEFAULT_APPROVALS: {
@@ -402,7 +185,7 @@ export const STRINGS = {
       ADMIN: 0,
     },
     MESSAGES: {
-      WAITING_FOR_APPROVAL: 'Waiting for manager approval.',
+      WAITING_FOR_APPROVAL: "Waiting for manager approval.",
     },
     E_LEARNING: {
       LEVEL_TYPE: {
@@ -431,27 +214,27 @@ export const STRINGS = {
     },
     ATTACHMENTS_EX: {
       IMAGE: [
-        'png',
-        'jpeg',
-        'raw',
-        'cr2',
-        'nef',
-        'orf',
-        'sr2',
-        'tif',
-        'tiff',
-        'bmp',
-        'jpeg',
-        'jpg',
-        'gif',
-        'eps',
-        'svg',
+        "png",
+        "jpeg",
+        "raw",
+        "cr2",
+        "nef",
+        "orf",
+        "sr2",
+        "tif",
+        "tiff",
+        "bmp",
+        "jpeg",
+        "jpg",
+        "gif",
+        "eps",
+        "svg",
       ],
-      VIDEO: ['mp4'],
-      PDF: ['pdf'],
-      WORD: ['docx', 'doc'],
-      EXCEL: ['xlsx'],
-      PPT: ['ppt'],
+      VIDEO: ["mp4"],
+      PDF: ["pdf"],
+      WORD: ["docx", "doc"],
+      EXCEL: ["xlsx"],
+      PPT: ["ppt"],
       INVALID: 0,
     },
     POSTS: {
@@ -500,7 +283,7 @@ export const STRINGS = {
       SALARY: 213,
     },
     CALL: {
-      SCREEN_SHARE_POSTFIX: 'SCREEN_SHARE',
+      SCREEN_SHARE_POSTFIX: "SCREEN_SHARE",
       ICE_CANDIDATE: null,
       TYPE: {
         INCOMING: 1,
@@ -554,18 +337,18 @@ export const STRINGS = {
   },
 
   RESPONSE: {
-    status: 'status',
-    error: 'error',
-    success: 'success',
-    fail: 'fail',
+    status: "status",
+    error: "error",
+    success: "success",
+    fail: "fail",
   },
   DEFAULTS: {
-    guid: '00000000-0000-0000-0000-000000000000',
+    guid: "00000000-0000-0000-0000-000000000000",
   },
 };
 
 export const LOGGER = {
-  log: (LOG, TAG = 'LOG_TAG') => {
+  log: (LOG, TAG = "LOG_TAG") => {
     /*if (process.env.NODE_ENV === 'development') */
     LOG(TAG);
   },
@@ -590,61 +373,61 @@ export function SvgSpinner(props) {
           cx="24"
           cy="4"
           r="4"
-          fill={`${props.props !== undefined ? props.props : '#fff'}`}
+          fill={`${props.props !== undefined ? props.props : "#fff"}`}
         />
         <circle
           cx="12.19"
           cy="7.86"
           r="3.7"
-          fill={`${props.props !== undefined ? props.props : '#fffbf2'}`}
+          fill={`${props.props !== undefined ? props.props : "#fffbf2"}`}
         />
         <circle
           cx="5.02"
           cy="17.68"
           r="3.4"
-          fill={`${props.props !== undefined ? props.props : '#fef7e4'}`}
+          fill={`${props.props !== undefined ? props.props : "#fef7e4"}`}
         />
         <circle
           cx="5.02"
           cy="30.32"
           r="3.1"
-          fill={`${props.props !== undefined ? props.props : '#fef3d7'}`}
+          fill={`${props.props !== undefined ? props.props : "#fef3d7"}`}
         />
         <circle
           cx="12.19"
           cy="40.14"
           r="2.8"
-          fill={`${props.props !== undefined ? props.props : '#feefc9'}`}
+          fill={`${props.props !== undefined ? props.props : "#feefc9"}`}
         />
         <circle
           cx="24"
           cy="44"
           r="2.5"
-          fill={`${props.props !== undefined ? props.props : '#feebbc'}`}
+          fill={`${props.props !== undefined ? props.props : "#feebbc"}`}
         />
         <circle
           cx="35.81"
           cy="40.14"
           r="2.2"
-          fill={`${props.props !== undefined ? props.props : '#fde7af'}`}
+          fill={`${props.props !== undefined ? props.props : "#fde7af"}`}
         />
         <circle
           cx="42.98"
           cy="30.32"
           r="1.9"
-          fill={`${props.props !== undefined ? props.props : '#fde3a1'}`}
+          fill={`${props.props !== undefined ? props.props : "#fde3a1"}`}
         />
         <circle
           cx="42.98"
           cy="17.68"
           r="1.6"
-          fill={`${props.props !== undefined ? props.props : '#fddf94'}`}
+          fill={`${props.props !== undefined ? props.props : "#fddf94"}`}
         />
         <circle
           cx="35.81"
           cy="7.86"
           r="1.3"
-          fill={`${props.props !== undefined ? props.props : '#fcdb86'}`}
+          fill={`${props.props !== undefined ? props.props : "#fcdb86"}`}
         />
       </svg>
     </span>
@@ -677,7 +460,7 @@ export const BrokenPage = () => {
 };
 
 export function getTypeOfFile(fileName) {
-  const ext = fileName.substr(fileName.lastIndexOf('.') + 1, fileName.length);
+  const ext = fileName.substr(fileName.lastIndexOf(".") + 1, fileName.length);
   if (STRINGS.IMAGE.includes(ext)) return STRINGS.TYPES.ATTACHMENTS.IMAGE;
   else if (STRINGS.VIDEO.includes(ext)) return STRINGS.TYPES.ATTACHMENTS.VIDEO;
   else if (STRINGS.DOCUMENT.pdf.includes(ext))
@@ -701,12 +484,12 @@ export function isDocument(ext) {
 }
 
 export function isValidFileSize(files) {
-  const valid = { status: true, message: '' };
+  const valid = { status: true, message: "" };
   for (const key in files) {
     if (files.hasOwnProperty(key)) {
       const file = files[key];
       const ext = file.name.substr(
-        file.name.lastIndexOf('.') + 1,
+        file.name.lastIndexOf(".") + 1,
         file.name.length
       );
       const type = getTypeOfFile(file.name);
@@ -740,26 +523,26 @@ export function isValidFileSize(files) {
 }
 
 export function resizeTabbableContainer() {
-  const tabbableContainer = $('.tabbable-container');
-  const tabbableContainerHeader = $('.cont-header');
+  const tabbableContainer = $(".tabbable-container");
+  const tabbableContainerHeader = $(".cont-header");
 
-  if ($(tabbableContainer.parent()[1]).hasClass('mm-tabs')) {
+  if ($(tabbableContainer.parent()[1]).hasClass("mm-tabs")) {
     const innerTabbableContainer = $(tabbableContainer[1]);
     const innerTabbableContainerContainerHeader = $(
       tabbableContainer[1]
-    ).children('.cont-header');
+    ).children(".cont-header");
     const innerTabbableContainerContainerBody = $(
       tabbableContainer[1]
-    ).children('.cont-body');
+    ).children(".cont-body");
 
     const innerTabbableContainerHeader = $(tabbableContainerHeader[1]);
 
-    innerTabbableContainerContainerHeader.children('.ln').css('z-index', 0);
-    innerTabbableContainerContainerBody.css({ 'margin-top': '0px' });
+    innerTabbableContainerContainerHeader.children(".ln").css("z-index", 0);
+    innerTabbableContainerContainerBody.css({ "margin-top": "0px" });
     innerTabbableContainerHeader.css({
       width: `${innerTabbableContainer.outerWidth()}px`,
-      position: 'relative',
-      'z-index': 0,
+      position: "relative",
+      "z-index": 0,
     });
 
     $(window).resize(() => {
@@ -785,7 +568,7 @@ export function resizeTabbableContainer() {
 
 export function setAuthEnv(token, user) {
   localStorage.setItem(STRINGS.STORAGE.token, token);
-  user.fullname = user.first_name + ' ' + user.last_name;
+  user.fullname = user.first_name + " " + user.last_name;
   localStorage.setItem(STRINGS.STORAGE.user, JSON.stringify(user));
   window.location = ROUTES.ROOT;
 }
@@ -794,63 +577,62 @@ export function logout() {
   localStorage.clear();
   window.location = ROUTES.AUTH.SIGN_IN;
   console.log(
-    'base chal rha he -----------------------------------------------------------'
+    "base chal rha he -----------------------------------------------------------"
   );
 }
 
 export function getNameForImage(name) {
-  const split = name.split(' ');
-  let firstName = '',
-    lastName = '',
-    symbol = '';
+  const split = name.split(" ");
+  let firstName = "",
+    lastName = "",
+    symbol = "";
   if (split.length > 1) {
     firstName = split[0];
     lastName = split[1];
-    symbol = `${firstName[0]}${lastName.length ? lastName[0] : ''}`;
+    symbol = `${firstName[0]}${lastName.length ? lastName[0] : ""}`;
   } else {
     symbol = split[0][0];
   }
-  return symbol !== undefined ? symbol.toUpperCase() : 'EX';
+  return symbol !== undefined ? symbol.toUpperCase() : "EX";
 }
 
 /*---------------- Time functions -----------------*/
 
-export function parseDateAndTime(st = Date.now(), type = 'short') {
+export function parseDateAndTime(st = Date.now(), type = "short") {
   const date = new Date(parseInt(st));
   const options = {
     weekday: type,
-    year: 'numeric',
+    year: "numeric",
     month: type,
-    day: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
   };
-  return date.toLocaleDateString('en-US', options);
+  return date.toLocaleDateString("en-US", options);
 }
 
-export function getRelativeTime(d, t = 'short') {
+export function getRelativeTime(d, t = "short") {
   const parseDate = parseDateAndTime(d, t);
-  const difference = moment(parseDate).diff(new Date(), 'days');
+  const difference = moment(parseDate).diff(new Date(), "days");
   return Math.abs(difference) > 7 ? parseDate : moment(parseDate).fromNow();
 }
 
-export function parseDateWithMontAndYear(st, type = 'short') {
+export function parseDateWithMontAndYear(st, type = "short") {
   const date = new Date(parseInt(st));
   const options = {
-    year: 'numeric',
+    year: "numeric",
     month: type,
   };
-  return date.toLocaleDateString('en-US', options);
+  return date.toLocaleDateString("en-US", options);
 }
-
 
 export function formatAMPM(date) {
   let hours = date.getHours();
   let minutes = date.getMinutes();
-  let ampm = hours >= 12 ? 'pm' : 'am';
+  let ampm = hours >= 12 ? "pm" : "am";
   hours = hours % 12;
   hours = hours ? hours : 12; // the hour '0' should be '12'
-  minutes = minutes < 10 ? '0' + minutes : minutes;
+  minutes = minutes < 10 ? "0" + minutes : minutes;
   return `${hours}:${minutes} ${ampm}`;
 }
 
@@ -870,13 +652,13 @@ export function createGuid() {
   return (
     S4() +
     S4() +
-    '-' +
+    "-" +
     S4() +
-    '-4' +
+    "-4" +
     S4().substr(0, 3) +
-    '-' +
+    "-" +
     S4() +
-    '-' +
+    "-" +
     S4() +
     S4() +
     S4()
@@ -899,7 +681,7 @@ export const isEmptyObj = (obj) => {
 export function buildFormData(formData, data, parentKey) {
   if (
     data &&
-    typeof data === 'object' &&
+    typeof data === "object" &&
     !(data instanceof Date) &&
     !(data instanceof File)
   ) {
@@ -932,7 +714,7 @@ export const getMentionsAndText = (titleWithMentions, mentions) => {
     const regex = `@${value}`;
     if (!titleWithMentions.includes(regex)) return false;
 
-    const regexExpression = new RegExp(regex, 'g');
+    const regexExpression = new RegExp(regex, "g");
     titleWithMentions = titleWithMentions.replace(regexExpression, key);
     mentionsFoundInTitle.push(key);
   });
@@ -948,21 +730,21 @@ export const getMentionsAndText = (titleWithMentions, mentions) => {
 export function renderTitleWithMentions(title, mentions) {
   if (mentions.length > 0) {
     // console.log(mentions);
-    let titleArr = title.split(' ');
+    let titleArr = title.split(" ");
     titleArr = titleArr
       .map((item) => {
         const mention = mentions.filter((member) => member.memberId == item);
         // console.log("mention", mention);
         if (mention.length > 0) {
-          return `<a href=${mention[0]?.member?.id}>${mention[0]?.member?.name}</a>`;
+          return `<a href=user/${mention[0]?.member?.id}>${mention[0]?.member?.name}</a>`;
           // return mention;
         } else {
           return item;
         }
       })
-      .join(' ');
+      .join(" ");
 
-    if (replaceURL(titleArr).includes('<a href=')) {
+    if (replaceURL(titleArr).includes("<a href=")) {
       return replaceURL(titleArr);
     }
     return titleArr;
@@ -974,7 +756,7 @@ export function renderTitleWithMentions(title, mentions) {
 // This function will convert single string into array
 
 export function modifySelectData(data) {
-  if (typeof data === 'string') {
+  if (typeof data === "string") {
     return [data];
   } else {
     return data;
@@ -988,9 +770,8 @@ export const getEnumValue = (objEnum, enumTypeId) => {
   return result.label;
 };
 
-
-
-export const callingWindowOptions = "location=yes,height=800,width=800,scrollbars=yes,status=yes";
+export const callingWindowOptions =
+  "location=yes,height=800,width=800,scrollbars=yes,status=yes";
 
 export const handleOpenCallWindow = (callURL, windowOptions) => {
   window.open(callURL, "_blank", windowOptions);

@@ -15,12 +15,19 @@ import { Button, Modal } from 'antd';
 import moment from 'moment';
 import { handleParentId } from '../../../store/slice';
 import { moveDirectory, moveDocument } from '../../../store/actions';
-import { LockFilled } from '@ant-design/icons';
+import { LockFilled, InfoCircleOutlined } from '@ant-design/icons';
 import { privacyOption } from '../../../../../../utils/Shared/enums/enums';
 import { openNotification } from '../../../../../../utils/Shared/store/slice';
 import QuickOptions from '../quickOptions';
+import DetailView from '../../documentShortCards/DetailView';
 
-const DocShortCard = ({ data, handlePreview, hideControls }) => {
+const DocShortCard = ({
+  data,
+  handlePreview,
+  hideControls,
+  detail = false,
+}) => {
+  const [openDrawer, setOpenDrawer] = useState(false);
   const { userLanguage } = useContext(LanguageChangeContext);
   const { documentDictionary } = documentDictionaryList[userLanguage];
   const disptach = useDispatch();
@@ -78,6 +85,14 @@ const DocShortCard = ({ data, handlePreview, hideControls }) => {
     }
   };
 
+  const infoHandler = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setOpenDrawer(true);
+  };
+  const onClose = () => {
+    setOpenDrawer(false);
+  };
   return (
     <>
       <DragDropContainer
@@ -102,12 +117,18 @@ const DocShortCard = ({ data, handlePreview, hideControls }) => {
             }}
             id={data.id}
           >
-            {!hideControls && (
+            {!hideControls && !detail && (
               <div className="d_ShortCard_Child1">
                 <img alt="" src={favorateIcon} />
-                {documentType === DUCOMENT_TYPE.folder && (
-                  <QuickOptions data={data} />
-                )}
+                <div className="flex justify_between gap-2">
+                  <InfoCircleOutlined
+                    className="!text-[18px] cursor-pointer !text-[#707070] info-icon"
+                    onClick={(e) => infoHandler(e)}
+                  />
+                  {documentType === DUCOMENT_TYPE.folder && (
+                    <QuickOptions data={data} />
+                  )}
+                </div>
               </div>
             )}
 
@@ -123,6 +144,7 @@ const DocShortCard = ({ data, handlePreview, hideControls }) => {
               />
             </div>
             <div className="fileName">
+              {' '}
               <div>{name}</div>
             </div>
             {!hideControls && (
@@ -134,7 +156,9 @@ const DocShortCard = ({ data, handlePreview, hideControls }) => {
                     ''
                   )}
                 </div>
-                <h6 className="dateTime">{moment(localTime).fromNow()}</h6>
+                {!detail && (
+                  <h6 className="dateTime">{moment(localTime).fromNow()}</h6>
+                )}
                 <div>
                   {/* {creator.image || creator.name &&
                                         <Avatar
@@ -149,6 +173,7 @@ const DocShortCard = ({ data, handlePreview, hideControls }) => {
           </div>
         </DropTarget>
       </DragDropContainer>
+      {openDrawer && <DetailView id={data.id} onClose={onClose} />}
     </>
   );
 };

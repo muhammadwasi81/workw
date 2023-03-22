@@ -243,11 +243,13 @@ const Composer = (props) => {
                   },
                 ]}
               >
-                <InputNumber
+                <Input
+                  type={"number"}
                   // parser={(value) => value.replace("%", "")}
                   // formatter={(value) => `${value}%`}
                   // defaultValue={0}
                   // type={"number"}
+                  prefix={"%"}
                   placeholder="0%"
                   min={0}
                   max={100}

@@ -113,7 +113,10 @@ function DetailCard(props) {
                   Subline={
                     <SublineDesigWithTime
                       designation={creator.designation}
-                      time={moment(createDate).fromNow()}
+                      time={moment
+                        .utc(createDate)
+                        .local()
+                        .fromNow()}
                     />
                   }
                 />

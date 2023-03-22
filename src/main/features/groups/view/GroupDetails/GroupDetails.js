@@ -21,6 +21,7 @@ import {
   addGroupMemberAction,
   deleteGroupMemberAction,
   getGroupById,
+  getGroupFeatures,
 } from "../../store/actions";
 import { handleComposer, resetGroupDetail } from "../../store/slice";
 import { EditOutlined } from "@ant-design/icons";
@@ -59,6 +60,7 @@ function GroupDetails() {
   const [visible, setVisible] = useState(false);
 
   const detail = useSelector((state) => state.groupSlice.groupDetail);
+  console.log(detail, "detaill");
   const { isComposerOpen, isEditComposer } = useSelector(
     (state) => state.groupSlice
   );
@@ -70,6 +72,9 @@ function GroupDetails() {
     dispatch(getGroupById(id));
   }, [id]);
 
+  // useEffect(() => {
+  //   dispatch(getGroupFeatures(id));
+  // }, []);
   const memberHandler = () => {
     // setVisible(true);
     // // const userTypes = memberType === 1 ? Members.user : Members.admin;
@@ -93,7 +98,8 @@ function GroupDetails() {
     };
   }, []);
 
-  let featurePermissions = groupFeatures.map((item) => item.featureId);
+  let featurePermissions = detail?.features.map((item) => item.featureId);
+  console.log(featurePermissions, "featurePermissionn");
 
   // function getUserPermissions(){
   //   return GroupFeaturePermissionEnumList.map((x)=>{
@@ -103,7 +109,7 @@ function GroupDetails() {
   //   })
   // }
   useEffect(() => {
-    let temp = groupFeatures.map((feat) => {
+    let temp = detail?.features.map((feat) => {
       return {
         ...feat,
         content: featuresComp[feat.featureId],
@@ -113,7 +119,7 @@ function GroupDetails() {
       temp &&
       temp.filter((item) => featurePermissions.includes(item.featureId));
     setFeatures(payload);
-  }, []);
+  }, [detail]);
 
   const defaultRoute = ROUTES.GROUP.DEFAULT + "/" + id;
   const featuresComp = {

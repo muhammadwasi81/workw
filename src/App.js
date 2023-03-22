@@ -69,7 +69,12 @@ const App = () => {
   useEffect(() => {
     themeHandler(window.localStorage.getItem("darkMode") === "1");
     isLoggedIn && InitMessengerSocket(dispatch, userSlice);
-    isLoggedIn && InitializeCallingSocket.getInstance(dispatch, servicesUrls.callingSocket, userSlice);
+    isLoggedIn &&
+      InitializeCallingSocket.getInstance(
+        dispatch,
+        servicesUrls.callingSocket,
+        userSlice
+      );
   }, [isLoggedIn]);
   const [activityCount /*setActivityCount*/] = useState(null);
 

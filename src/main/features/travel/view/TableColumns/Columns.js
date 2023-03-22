@@ -2,6 +2,7 @@ import { EditFilled } from "@ant-design/icons";
 import moment from "moment";
 import StatusTag from "../../../../sharedComponents/Tag/StatusTag";
 const Edit = (handleEdit, row) => {
+	console.log(row,"eowwwwwwwwwwwwwwwwwww");
 	return (
 		<EditFilled
 			style={{ color: "#1b5669" }}

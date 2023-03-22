@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
-import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import { teamDictionaryList } from "../localization/index";
-import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useContext } from 'react';
+import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
+import { teamDictionaryList } from '../localization/index';
+import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 const Parent = styled.div`
   display: flex;
@@ -50,7 +50,7 @@ const Text = styled.p`
   max-width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
-  display: -ms-flexbox;
+  display: -ms-flex-box;
   display: flex;
   -webkit-align-items: baseline;
   -webkit-box-align: baseline;
@@ -76,7 +76,7 @@ const ButtonsBox = styled.div`
 `;
 
 const ActionButton = styled.button`
-  background-color: ${(props) => props.BackgroundColor || "palevioletred"};
+  background-color: ${(props) => props.BackgroundColor || 'palevioletred'};
   color: #fff;
   font-size: 14px;
   padding: 17px;
@@ -119,19 +119,22 @@ const TeamCard = ({ teams }) => {
   return (
     <Parent>
       <ImageBox
-        src={image ? image : "http://www.miletap.com/img/title.png"}
+        src={
+          image
+            ? image
+            : 'https://konnect.im/static/media/user_default.22b0811e.jpg'
+        }
         alt="logo"
         loading="lazy"
       />
 
       <ContentBox>
         <Heading>
-          {firstName}
-          {lastName}
+          {firstName}&nbsp;{lastName}
         </Heading>
         <Text>{email}</Text>
         <Text>
-          <> {designation || "No Designation"}</>{" "}
+          <strong> {designation || 'No Designation'}</strong>{' '}
         </Text>
         <ButtonsBox>
           {/**enable if remove API is available to remove */}
@@ -146,8 +149,6 @@ const TeamCard = ({ teams }) => {
           </ActionButton> */}
           <ActionButton
             onClick={() => {
-              //Route will be set accordingly
-              //TODO: change hard code ID
               navigate(`/teams/info/check-in/${id}`);
             }}
             BackgroundColor="var(--currentThemeColor) !important"

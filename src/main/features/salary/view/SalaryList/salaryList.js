@@ -15,7 +15,6 @@ const SalaryList = ({ data }) => {
   };
 
   const loader = useSelector((state) => state.salarySlice.loader);
-  console.log(loader, 'myLoader');
   return (
     <>
       {data?.length > 0 && !loader ? (

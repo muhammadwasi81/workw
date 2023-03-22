@@ -28,11 +28,12 @@ import {
   favoriteFeed,
   sharePostOnFeed,
   resetComposeFeed,
+  getAllReactionsAction,
 } from './actions';
 import { PollType, PostPrivacyType, PostType } from '../utils/constants';
-import { filter } from 'lodash';
 
 const composeInitialState = {
+  reactionMembersData: [],
   showComposer: false,
   loading: false,
   privacyType: PostPrivacyType.PUBLIC,
@@ -58,6 +59,7 @@ const allFeedInitialState = {
 export const feedSlice = createSlice({
   name: 'feedSlice',
   initialState: {
+    reactionMembersData: [],
     loading: false,
     allFeed: { ...allFeedInitialState },
     singlePost: {},
@@ -167,6 +169,10 @@ export const feedSlice = createSlice({
     });
     builder.addCase(onFeedCreateSubmitAction.rejected, (state, _) => {
       state.postCompose.loading = false;
+    });
+    builder.addCase(getAllReactionsAction.fulfilled, (state, { payload }) => {
+      console.log('SLICE DATA', payload);
+      state.postCompose.reactionMembersData = payload;
     });
     builder
       .addMatcher(isFulfilled(...[getAllFeed]), (state, { payload }) => {

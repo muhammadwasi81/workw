@@ -16,7 +16,7 @@ export const getAllBankDetailByUser = createAsyncThunk(
   'bankDetail',
   async (userID, { dispatch, rejectWithValue }) => {
     const res = await getBankDetailsByUserService(userID);
-    console.log(res, 'getAllBankDetailByUser action');
+    // console.log(res, 'getAllBankDetailByUser action');
     if (res.responseCode === responseCode.Success) {
       return res;
     } else {
@@ -34,7 +34,7 @@ export const addUserBankInfoAction = createAsyncThunk(
   'bankDetail/addUserBankInfoAction',
   async (payload, { rejectWithValue, dispatch }) => {
     const response = await addUserBankService(payload);
-    console.log(response, 'addUserWorkExperienceAction action');
+    // console.log(response, 'addUserWorkExperienceAction action');
     switch (response.type) {
       case ResponseType.ERROR:
         return rejectWithValue(response.errorMessage);
@@ -57,7 +57,7 @@ export const updateUserBankInfoAction = createAsyncThunk(
   'bankDetail/updateUserBankInfoAction',
   async (payload, { rejectWithValue, dispatch }) => {
     const response = await updateUserBankService(payload);
-    console.log(response, 'updateUserWorkExperienceAction action');
+    // console.log(response, 'updateUserWorkExperienceAction action');
     switch (response.type) {
       case ResponseType.ERROR:
         return rejectWithValue(response.errorMessage);

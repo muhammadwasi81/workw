@@ -1,18 +1,18 @@
-import { Button, Modal } from "antd";
-import moment from "moment";
-import React, { useEffect, useState } from "react";
-import CheckInCard from "./chackInCard";
-import CheckInHeader from "./header";
-import ClockIn from "../../../../../content/NewContent/checkIn/check_in.svg";
-import ClockOut from "../../../../../content/NewContent/checkIn/check_out.svg";
+import { Button, Modal } from 'antd';
+import moment from 'moment';
+import React, { useEffect, useState } from 'react';
+import CheckInCard from './chackInCard';
+import CheckInHeader from './header';
+import ClockIn from '../../../../../content/NewContent/checkIn/check_in.svg';
+import ClockOut from '../../../../../content/NewContent/checkIn/check_out.svg';
 // import ClockOut from "../../../../../content/NewContent/checkIn/check_in.svg";
-import "./style.css";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { getAttendanceLastCheckIn } from "../../store/actions";
-import { ATTENDANCE_ENUM } from "../../utils/constant";
-import CheckInList from "./checkInList";
-import { useMediaQuery } from "react-responsive";
+import './style.css';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { getAttendanceLastCheckIn } from '../../store/actions';
+import { ATTENDANCE_ENUM } from '../../utils/constant';
+import CheckInList from './checkInList';
+import { useMediaQuery } from 'react-responsive';
 
 const CheckIn = () => {
   const dispatch = useDispatch();
@@ -22,6 +22,7 @@ const CheckIn = () => {
     (state) => state.attendanceSlice
   );
   const isMobile = useMediaQuery({ query: `(max-width: 760px)` });
+  const isExtraSmall = useMediaQuery({ query: `(max-width: 600px)` });
 
   useEffect(() => {
     dispatch(getAttendanceLastCheckIn());
@@ -32,23 +33,27 @@ const CheckIn = () => {
   return (
     <>
       <div className="flex items-center text-xs">
-        <div>
-          {isMobile ? moment().format("llll") : moment().format("LLLL")}
+        <div
+          style={{
+            display: isExtraSmall ? 'none' : 'block',
+          }}
+        >
+          {isMobile ? moment().format('llll') : moment().format('LLLL')}
         </div>
         <div className="cursor-pointer" onClick={() => setIsOpen(true)}>
           <img
             className={
-              "checkInBtn ml-2 " +
+              'checkInBtn ml-2 ' +
               (lastCheckIn && lastCheckIn.type === CHECK_IN.IN
-                ? "blinkInfoRed"
-                : "blinkInfo")
+                ? 'blinkInfoRed'
+                : 'blinkInfo')
             }
             src={
               lastCheckIn && lastCheckIn.type === CHECK_IN.IN
                 ? ClockOut
                 : ClockIn
             }
-            alt=""
+            alt="ClockIn"
           />
         </div>
       </div>

@@ -1,29 +1,44 @@
 import { useContext, useEffect, useState } from 'react';
-import EmployeeCard, { CardGrid } from './employeeCard';
+import EmployeeCard from './employeeCard';
 import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllEmployees } from '../store/actions';
+// import { getAllEmployees } from '../store/actions';
 import { Skeleton } from 'antd';
 import { dictionaryList } from '../../../../utils/localization/languages';
 import TopBar from '../../../sharedComponents/topBar/topBar';
 import EmployeeTableView from './employeeTableView';
+import { getAllEmployeeShort } from '../../../../utils/Shared/store/actions';
+import { NoDataFound } from '../../../sharedComponents/NoDataIcon';
+import { EmployeeDisableFilterEnum } from '../util/EmployeeEnum';
+import { CardGrid } from '../Styles/employeeCard.styles';
 
 function EmployeeList() {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction } = dictionaryList[userLanguage];
   const dispatch = useDispatch();
   const { sharedLabels } = dictionaryList[userLanguage];
-  const { employees, loader } = useSelector((state) => state.employeeSlice);
+  const { loader } = useSelector((state) => state.employeeSlice);
+  const { employeeShort } = useSelector((state) => state.sharedSlice);
   const [view, setView] = useState('List');
+  const [search, setSearch] = useState('');
+  const [filter, setFilter] = useState(EmployeeDisableFilterEnum.Enable);
+
+  const filteredEmployees = employeeShort.filter(
+    (employee) =>
+      employee.name.toLowerCase().includes(search.toLowerCase()) ||
+      employee.designation.toLowerCase().includes(search.toLowerCase())
+  );
+  console.log(employeeShort, 'employeeShort');
 
   useEffect(() => {
-    const controller = new AbortController();
-    const signal = controller.signal;
-    dispatch(getAllEmployees(signal));
-    return () => {
-      controller.abort();
-    };
-  }, []);
+    dispatch(
+      getAllEmployeeShort({
+        pageNo: 1,
+        pageSize: 20,
+        disableFilter: filter,
+      })
+    );
+  }, [filter]);
 
   let classes = 'empolyeesListContainer';
   classes += Direction === ' ltr' ? ' ltr' : ' rtl';
@@ -41,15 +56,21 @@ function EmployeeList() {
           <div style={{ flexDirection: 'column', width: '100%' }}>
             <TopBar
               style={{ margin: 0, width: '100%' }}
-              onSearch={(value) => {
-                console.log(value);
-              }}
-              filter={{
-                onFilter: () => {
-                  console.log('filter');
+              onSearch={(val) => setSearch(val)}
+              buttons={[
+                {
+                  name: 'Employees',
+                  onClick: () => setFilter(EmployeeDisableFilterEnum.Enable),
                 },
-              }}
-              buttons={[]}
+                {
+                  name: 'Disabled',
+                  onClick: () => setFilter(EmployeeDisableFilterEnum.Disable),
+                },
+                {
+                  onClick: () => setFilter(EmployeeDisableFilterEnum.Both),
+                  name: 'All Employees',
+                },
+              ]}
               segment={{
                 onSegment: (value) => {
                   setView(value);
@@ -58,14 +79,24 @@ function EmployeeList() {
                 label2: sharedLabels.Table,
               }}
             />
-            {view === 'List' ? (
-              <CardGrid>
-                {employees.map((employee, index) => {
-                  return <EmployeeCard employees={employee} key={index} />;
-                })}
-              </CardGrid>
+            {filteredEmployees.length > 0 ? (
+              view === 'List' ? (
+                <CardGrid>
+                  {filteredEmployees.map((employee, index) => {
+                    return (
+                      <EmployeeCard
+                        employees={employee}
+                        key={index}
+                        filterType={filter}
+                      />
+                    );
+                  })}
+                </CardGrid>
+              ) : (
+                <EmployeeTableView filterEmployees={filteredEmployees} />
+              )
             ) : (
-              <EmployeeTableView />
+              <NoDataFound />
             )}
           </div>
         </>
@@ -73,6 +104,5 @@ function EmployeeList() {
     </>
   );
 }
-// }
 
 export default EmployeeList;

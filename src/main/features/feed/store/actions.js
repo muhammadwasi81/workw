@@ -9,6 +9,7 @@ import {
   getFeedByIdServices,
   saveCreatePost,
   savePollResponseService,
+  getAllReaction,
 } from '../data/FeedApi';
 import { ResponseType } from '../../../../utils/api/ResponseResult';
 import { getAllEmployeeService } from '../../../../utils/Shared/services/services';
@@ -102,6 +103,21 @@ export const addReaction = createAsyncThunk(
   async (data, { _, rejectWithValue }) => {
     const response = await feedReaction(data);
 
+    // eslint-disable-next-line default-case
+    switch (response.type) {
+      case ResponseType.ERROR:
+        return rejectWithValue(response.errorMessage);
+      case ResponseType.SUCCESS:
+        return response.data;
+    }
+  }
+);
+
+export const getAllReactionsAction = createAsyncThunk(
+  'feedSlice/getAllReactions',
+  async (args, { _, rejectWithValue }) => {
+    const response = await getAllReaction(args);
+    console.log('getAllReactionAction', response.data);
     // eslint-disable-next-line default-case
     switch (response.type) {
       case ResponseType.ERROR:

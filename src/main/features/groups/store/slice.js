@@ -167,6 +167,8 @@ const groupSlice = createSlice({
         state.groupFeatures = payload.data;
       })
       .addCase(getGroupFeatures.fulfilled, (state, { payload }) => {
+        console.log(payload, "payloadd");
+
         state.groupFeatures = payload.data;
       })
       .addCase(removeGroupFeaturesAction.fulfilled, (state, { payload }) => {})

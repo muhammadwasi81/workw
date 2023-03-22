@@ -1,31 +1,31 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { message, Skeleton } from "antd";
-import { MessagePage } from "../SubmitForm/congratsPage";
-import FormHeader from "../SubmitForm/FormHeader";
-import Radio from "./QuestionsItems/Radio";
-import RadioWithImage from "./QuestionsItems/RadioWithImage";
-import TextFields from "./QuestionsItems/TextFields";
-import { useSearchParams, useLocation } from "react-router-dom";
+import React, { useState, useEffect, useContext } from 'react';
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { message, Skeleton } from 'antd';
+import { MessagePage } from '../SubmitForm/congratsPage';
+import FormHeader from '../SubmitForm/FormHeader';
+import Radio from './QuestionsItems/Radio';
+import RadioWithImage from './QuestionsItems/RadioWithImage';
+import TextFields from './QuestionsItems/TextFields';
+import { useSearchParams, useLocation } from 'react-router-dom';
 import {
   getFormById,
   submitForm as submitFormAction,
-} from "../../../store/actions";
-import BusinessLogo from "../../../../../../content/systemLogo.png";
-import "../SubmitForm/SubmitForm.css";
-import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
-import { documentDictionaryList } from "../../../localization/index";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { Doughnut } from "react-chartjs-2";
-import Header from "./Header";
+} from '../../../store/actions';
+import BusinessLogo from '../../../../../../content/systemLogo.png';
+import '../SubmitForm/SubmitForm.css';
+import { LanguageChangeContext } from '../../../../../../utils/localization/localContext/LocalContext';
+import { documentDictionaryList } from '../../../localization/index';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { Doughnut } from 'react-chartjs-2';
+import Header from './Header';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 let initialData = {
-  formId: "",
-  userId: "",
-  email: "",
+  formId: '',
+  userId: '',
+  email: '',
   attempt: [],
 };
 
@@ -38,31 +38,31 @@ const ResponseComponent = (props) => {
   const { disableSubmit } = props;
   let { id } = useParams();
   const [searchParams] = useSearchParams();
-  const [userEmail, setUserEmail] = useState("");
-  const [formStatus, setStatus] = useState("");
+  const [userEmail, setUserEmail] = useState('');
+  const [formStatus, setStatus] = useState('');
   const [formData, setFormData] = useState({});
   const [submitForm, setSubmitForms] = useState(initialData);
   const [attempt, setAttempt] = useState([]);
   const [isSubmited, setIsSubmited] = useState(false);
   const [snackbarState, setSnackbarState] = useState({
     isOpen: false,
-    Message: "",
-    variant: "error",
+    Message: '',
+    variant: 'error',
   });
   const { formDetail } = useSelector((state) => state.formSlice);
   const { user } = useSelector((state) => state.userSlice);
   //   const { state } = props.location;
 
   useEffect(() => {
-    console.log("dispatch works for getting data from api");
+    console.log('dispatch works for getting data from api');
     // const id = searchParams.get("id");
     dispatch(getFormById(id));
-    console.log("formDetail", formDetail);
+    console.log('formDetail', formDetail);
   }, []);
 
   useEffect(() => {
-    console.log("useEffect works when component update");
-    console.log("***", formDetail);
+    console.log('useEffect works when component update');
+    console.log('***', formDetail);
     if (Object.keys(formDetail).length > 1) {
       setFormDataByType(formDetail);
       setSubmitForms({
@@ -74,7 +74,7 @@ const ResponseComponent = (props) => {
           return {
             questionId: el.id,
             // answer: el.answers.length > 1 ? { answer_id: "" } : "",
-            answer: "",
+            answer: '',
           };
         }),
       });
@@ -82,41 +82,41 @@ const ResponseComponent = (props) => {
   }, [formDetail]);
 
   let setFormDataByType = (data) => {
-    console.log("data send form parameter***", data);
+    console.log('data send form parameter***', data);
     let filteredData = data.question.map((item, index) => {
       if (item.answerType === 2) {
         return {
           ...item,
-          localType: "number",
+          localType: 'number',
           sequence: index,
         };
       } else if (item.answerType === 3) {
         return {
           ...item,
-          localType: "text",
+          localType: 'text',
           sequence: index,
         };
       } else if (item.answerType === 1) {
         //check image available
-        console.log("items in submit form", item);
+        console.log('items in submit form', item);
         if (item.answers[index]?.image?.length > 1) {
-          console.log("worksss");
+          console.log('worksss');
           return {
             ...item,
-            localType: "radioWithImage",
+            localType: 'radioWithImage',
             sequence: index,
           };
         } else {
-          console.log("not working");
+          console.log('not working');
           return {
             ...item,
-            localType: "radio",
+            localType: 'radio',
             sequence: index,
           };
         }
       }
     });
-    console.log("Filtered data", filteredData);
+    console.log('Filtered data', filteredData);
     setFormData({ ...formDetail, question: filteredData });
     // console.log("Form data", formData);
   };
@@ -125,17 +125,17 @@ const ResponseComponent = (props) => {
   if (isSubmited)
     return (
       <div className="w-full h-full flex m-auto justify-center items-center">
-        <MessagePage message="Thank you for your response" />
+        <MessagePage message="Thank you for your responses" />
       </div>
     );
   const data = {
-    labels: ["Case on Hold", "Submitted", "In Production", "Shipped"],
+    labels: ['Case on Hold', 'Submitted', 'In Production', 'Shipped'],
     datasets: [
       {
-        label: "# of Votes",
+        label: '# of Votes',
         data: [12, 19, 3, 5],
-        backgroundColor: ["#F2CC59", "#BA68C8", "#407BFF", "#E6E5E6"],
-        borderColor: ["#F2CC59", "#BA68C8", "#407BFF", "#E6E5E6"],
+        backgroundColor: ['#F2CC59', '#BA68C8', '#407BFF', '#E6E5E6'],
+        borderColor: ['#F2CC59', '#BA68C8', '#407BFF', '#E6E5E6'],
         borderWidth: 1,
       },
     ],
@@ -173,7 +173,7 @@ const ResponseComponent = (props) => {
             {formData &&
               formData.question.map((item, index) => (
                 <>
-                  {item.localType === "radio" && (
+                  {item.localType === 'radio' && (
                     <>
                       <Radio
                         question={item}
@@ -184,13 +184,13 @@ const ResponseComponent = (props) => {
                       <div className="c-row txt-fields bg-clr p_15 d-flex">
                         <Doughnut
                           data={data}
-                          width={"40%"}
+                          width={'40%'}
                           options={{ maintainAspectRatio: false }}
                         />
                       </div>
                     </>
                   )}
-                  {item.localType === "radioWithImage" && (
+                  {item.localType === 'radioWithImage' && (
                     <>
                       <RadioWithImage
                         question={item}
@@ -201,13 +201,13 @@ const ResponseComponent = (props) => {
                       <div className="c-row txt-fields bg-clr p_15 d-flex">
                         <Doughnut
                           data={data}
-                          width={"40%"}
+                          width={'40%'}
                           options={{ maintainAspectRatio: false }}
                         />
                       </div>
                     </>
                   )}
-                  {item.localType === "text" && (
+                  {item.localType === 'text' && (
                     <>
                       <TextFields
                         fieldData={item}
@@ -219,13 +219,13 @@ const ResponseComponent = (props) => {
                       <div className="c-row txt-fields bg-clr p_15 d-flex">
                         <Doughnut
                           data={data}
-                          width={"40%"}
+                          width={'40%'}
                           options={{ maintainAspectRatio: false }}
                         />
                       </div>
                     </>
                   )}
-                  {item.localType === "number" && (
+                  {item.localType === 'number' && (
                     <>
                       <TextFields
                         fieldData={item}
@@ -237,7 +237,7 @@ const ResponseComponent = (props) => {
                       <div className="c-row txt-fields bg-clr p_15 d-flex">
                         <Doughnut
                           data={data}
-                          width={"40%"}
+                          width={'40%'}
                           options={{ maintainAspectRatio: false }}
                         />
                       </div>

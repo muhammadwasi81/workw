@@ -27,6 +27,7 @@ function GridView({
   const handleEditComposer = () => {
     dispatch(handleComposer({ isOpen: false, isEdit: false }));
   };
+  console.log(data, "dataa");
   return (
     <CardWrapper2>
       {data &&

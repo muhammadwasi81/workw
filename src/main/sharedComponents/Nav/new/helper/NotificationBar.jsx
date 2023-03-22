@@ -1,39 +1,43 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { ROUTES } from "../../../../../utils/routes";
-import sunIcon from '../../../../../content/svg/menu/newNavBarIcon/new/dark_mode.svg';
-import moonIcon from '../../../../../content/svg/menu/newNavBarIcon/new/light_mode.svg';
-import addUser from '../../../../../content/svg/menu/newNavBarIcon/new/add_user.svg';
-import search from '../../../../../content/svg/menu/newNavBarIcon/new/search.svg';
-import notification from '../../../../../content/svg/menu/newNavBarIcon/new/ring.svg';
-import rewards from '../../../../../content/svg/menu/newNavBarIcon/new/check_list.svg';
-import stickyNotes from '../../../../../content/svg/menu/newNavBarIcon/new/sticky_notes.svg';
+import sunIcon from "../../../../../content/svg/menu/newNavBarIcon/new/dark_mode.svg";
+import moonIcon from "../../../../../content/svg/menu/newNavBarIcon/new/light_mode.svg";
+import addUser from "../../../../../content/svg/menu/newNavBarIcon/new/add_user.svg";
+import search from "../../../../../content/svg/menu/newNavBarIcon/new/search.svg";
+import notification from "../../../../../content/svg/menu/newNavBarIcon/new/ring.svg";
+import rewards from "../../../../../content/svg/menu/newNavBarIcon/new/check_list.svg";
+import stickyNotes from "../../../../../content/svg/menu/newNavBarIcon/new/sticky_notes.svg";
 // import Notes from "../../../../features/notes/Notes";
-import NewStickyNote from '../../../../features/notes/NewStickyNote';
-import { toggleStickyNote } from '../../../../features/notes/newStickyNotes/store/stickySlice';
+import NewStickyNote from "../../../../features/notes/NewStickyNote";
+import { toggleStickyNote } from "../../../../features/notes/newStickyNotes/store/stickySlice";
 import {
   setApprovalStatus,
   setNotificationStatus,
-} from '../../../../../store/appReducer/responsiveSlice';
-import { useSelector, useDispatch } from 'react-redux';
+} from "../../../../../store/appReducer/responsiveSlice";
+import { useSelector, useDispatch } from "react-redux";
 import {
   disable as disableDarkMode,
   enable as enableDarkMode,
-} from 'darkreader';
-import NotificationModal from './NavComposer';
-import Approvals from '../../../../features/approval/view/SideBarApproval/sideBarAppovals';
-import Notifications from '../../../../features/notifiation/view/index';
-import OpenImage from '../../../../features/notes/OpenImage';
-import StickyContainer from '../../../../features/notes/newStickyNotes/view/components/StickyNotes';
-import { quickAddOpen } from '../../../../features/quickEmployee/store/slice';
-import { darkModeHandler } from '../../../../../utils/Shared/store/slice';
-import { useNavigate } from 'react-router-dom';
+} from "darkreader";
+import NotificationModal from "./NavComposer";
+import Approvals from "../../../../features/approval/view/SideBarApproval/sideBarAppovals";
+import Notifications from "../../../../features/notifiation/view/index";
+import OpenImage from "../../../../features/notes/OpenImage";
+import StickyContainer from "../../../../features/notes/newStickyNotes/view/components/StickyNotes";
+import { quickAddOpen } from "../../../../features/quickEmployee/store/slice";
+import { darkModeHandler } from "../../../../../utils/Shared/store/slice";
+import { useNavigate } from "react-router-dom";
+import { globalSearch } from "../../../../features/search/store/actions";
+import { SearchFilterEnum } from "../../../../features/search/enums/enums";
+import { message } from "antd";
 
 function NotificationBar() {
   const [isSearch, setIsSearch] = useState(false);
+  const [keyword, setKeyword] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [theme, setTheme] = useState(
-    window.localStorage.getItem('darkMode') === '1'
+    window.localStorage.getItem("darkMode") === "1"
   );
   const { navBarStatus, notifcationStatus, approvalStatus } = useSelector(
     (state) => state.responsiveSlice
@@ -51,15 +55,15 @@ function NotificationBar() {
     } else {
       disableDarkMode();
     }
-    window.localStorage.setItem('darkMode', status ? '1' : '0');
+    window.localStorage.setItem("darkMode", status ? "1" : "0");
   };
 
   useEffect(() => {
     setIsSearch(false);
   }, [navBarStatus === false]);
 
-  let classes = 'notificationBar ';
-  classes += isSearch ? 'open' : '';
+  let classes = "notificationBar ";
+  classes += isSearch ? "open" : "";
 
   // Sticky Note
   const toggleNote = useSelector((state) => state.stickySlice.open);
@@ -80,11 +84,24 @@ function NotificationBar() {
   const openImg = useSelector((state) => state.newStickySlice.openImg);
 
   function onKeyUp(e) {
-    if(e.keyCode === 13 && !e.shiftKey) {
-      navigate("search");
-      setIsSearch(false)
-      e.target.value = ""
-    }   
+    e.preventDefault();
+    e.stopPropagation();
+    setKeyword(e.target.value);
+    if (e.keyCode === 13 && !e.shiftKey) {
+      // setIsSearch();
+      dispatch(
+        globalSearch({
+          pageNo: 1,
+          pageSize: 20,
+          search: keyword,
+          filterType: 0,
+        })
+      );
+
+      navigate(`search?q=${keyword}`);
+      // setIsSearch(false);
+      // e.target.value = "";
+    }
   }
 
   return (
@@ -122,10 +139,10 @@ function NotificationBar() {
             onClick={handleSearch}
             className="cursor-pointer"
           />
-          <input 
+          <input
             type="text"
-            className={!isSearch ? "d-none" : "globalSearchInput" } 
-            onKeyUp={(e) => onKeyUp(e)}  
+            className={!isSearch ? "d-none" : "globalSearchInput"}
+            onKeyUp={(e) => onKeyUp(e)}
           />
         </div>
       </div>

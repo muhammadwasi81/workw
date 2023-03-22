@@ -7,6 +7,8 @@ import {
   PaperClipOutlined,
   PlusOutlined,
   UnorderedListOutlined,
+  PictureOutlined,
+  TagOutlined,
 } from "@ant-design/icons";
 import { HiOutlineClipboardList } from "react-icons/hi";
 // import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
@@ -25,6 +27,16 @@ import Avatar from "../../../sharedComponents/Avatar/avatar";
 import { message, Modal } from "antd";
 import { addMember } from "../store/slice";
 import { initializeApp } from "firebase/app";
+import WBDCoverImage from "./WBDCoverImage";
+import { jsonToFormData } from "../../../../utils/base";
+import { DEFAULT_GUID } from "../../../../utils/constants";
+import UploadBgImg from "./UploadBgImg";
+import { openDateModal, openMembersModal } from "../store/slice";
+
+import {
+  removeWorkBoardTodoImage,
+  updateWorkBoardTodoImage,
+} from "../store/action";
 
 function WorkBoardDescription({
   dueDate,
@@ -52,6 +64,35 @@ function WorkBoardDescription({
     setVisible(true);
     console.log(visible,"visiblee");
   }
+  const onUploadImg = (info) => {
+    const { fileList } = info;
+    const file = fileList[0].originFileObj;
+    const response = jsonToFormData({
+      todoId: todoData.id,
+      image: { id: DEFAULT_GUID, file },
+      sectionId: todoData.sectionId,
+    });
+
+    dispatch(updateWorkBoardTodoImage(response));
+  };
+
+  const onRemoveImg = () => {
+    dispatch(
+      removeWorkBoardTodoImage({
+        id: todoData.id,
+        sectionId: todoData.sectionId,
+      })
+    );
+  };
+  const showDateModal = () => {
+    dispatch(
+      openDateModal({
+        isDateModalOpen: true,
+        todoId: todoData.id,
+        sectionId: todoData.sectionId,
+      })
+    );
+  };
   return (
     <>
 
@@ -74,7 +115,20 @@ function WorkBoardDescription({
           </span>
         </div>
       </div>
-  <div className="flex flex-row gap-16">
+      <div className=" bg-white rounded-xl mt-5">
+        <div className="flex flex-col gap-5">
+          {todoData && todoData.image.length > 0 && (
+              <WBDCoverImage
+                todoData={todoData}
+                image={todoData && todoData.image}
+                onUploadImg={onUploadImg}
+                onRemoveImg={onRemoveImg}
+              />
+            )}
+        </div>
+      </div>
+  <div className="flow-root"> 
+   <div className="float-left flex flex-row gap-14">
       <div className="flex gap-2">
         {dueDate && dueDate.length > 0 && (
           <div className="flex flex-col ">
@@ -103,17 +157,16 @@ function WorkBoardDescription({
               <span className="p-2 px-3 cursor-pointer hover:bg-neutral-200 transition flex items-center bg-neutral-100 rounded-sm">
                 <PlusOutlined className="!text-gray-600" />
               </span>
-            </div>
-            
+            </div>            
           </div>
       
       </div>
 
       <div className="flex flex-col">
-        <div className="flex flex-row justify-between gap-20">
+         <div className="flex flex-row justify-between gap-20">
             <span className="text-gray-500">Members </span>
           </div>
-          <div className="flex gap-2 items-center">
+           <div className="flex gap-2 items-center">
                 <Avatar
                   isAvatarGroup={true}
                   isTag={false}
@@ -128,10 +181,38 @@ function WorkBoardDescription({
                 </span>
               </div>
             </div>
-      </div>
-    </div>
+       </div>
+    </div>     
+    <div className="float-right flex flex-row gap-11">
+            <div className="flex flex-col">
+               <div className="flex justify-between">
+                  <span className="text-gray-500">Cover</span>
+               </div>
+      
+               {todoData && todoData.image.length === 0 && (
+               <UploadBgImg onUploadImg={onUploadImg}>
+                <span className="p-2 px-3 cursor-pointer hover:bg-neutral-200 transition flex items-center bg-neutral-100 rounded-sm">
 
-
+                  <PictureOutlined />
+                  
+                </span> 
+                </UploadBgImg>
+                )} 
+            </div>
+         
+          <div className="flex flex-col">
+              <div className="flex justify-between">
+                <span className="text-gray-500">Date</span>
+              </div>
+              <div onClick={showDateModal}>
+                <span className="p-2 px-3 cursor-pointer hover:bg-neutral-200 transition flex items-center bg-neutral-100 rounded-sm">
+                  <TagOutlined />
+                </span> 
+              </div>
+            </div>
+        </div>
+  </div>   
+    
       {/* <div className="flex gap-2 w-full">
 				<AlignLeftOutlined className="!text-gray-500 text-lg" />
 				<div className="flex flex-col gap-2 w-full"></div>
@@ -169,8 +250,12 @@ function WorkBoardDescription({
           </div>
         </div>
 
+        
+
       </div>
+
     </div>
+
     {visible && <MemberModal data={todoData}/>}
 
           </>

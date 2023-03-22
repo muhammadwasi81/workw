@@ -23,19 +23,19 @@ const bankInfoSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getAllBankDetailByUser.fulfilled, (state, action) => {
-        console.log(action.payload, 'getBankDetailsByUserService Slice');
-        state.userBankDetails = action.payload;
+        // console.log(action.payload, 'getBankDetailsByUserService Slice');
+        state.userBankDetails = action.payload.data;
         state.loader = false;
         state.success = true;
       })
       .addCase(updateUserBankInfoAction.fulfilled, (state, action) => {
-        console.log(action.payload, 'updateUserEmergencyContactAction Slice');
+        // console.log(action.payload, 'updateUserEmergencyContactAction Slice');
         state.loader = false;
         state.success = true;
         state.userBankDetails = action.payload;
       })
       .addCase(addUserBankInfoAction.fulfilled, (state, { payload }) => {
-        console.log(payload, 'addUserEmergencyContactAction Slice');
+        // console.log(payload, 'addUserEmergencyContactAction Slice');
         state.userBankDetails.push(payload.data);
         state.loader = false;
         state.success = true;

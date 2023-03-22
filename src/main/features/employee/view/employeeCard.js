@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
 import { dictionaryList } from '../../../../utils/localization/languages';
 import { useNavigate } from 'react-router-dom';
@@ -15,12 +15,14 @@ import {
   Parent,
   Text,
 } from '../Styles/employeeCard.styles';
+import PropTypes from 'prop-types';
 
 function EmployeeCard({
-  employees: { image, name, email, designation, id },
+  employees: { image, name, email, designation, id, isDisable },
   filterType,
 }) {
   // console.log(filterType, 'filterType');
+  const [disabled, setDisabled] = useState(isDisable);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -35,8 +37,10 @@ function EmployeeCard({
       userId: id,
       isDisable:
         filterType === EmployeeDisableFilterEnum.Disable ? true : false,
+      // isDisable: !disabled,
     };
     dispatch(disableEmployee(payload));
+    setDisabled(!disabled);
   };
 
   const cancel = (e) => {
@@ -62,7 +66,11 @@ function EmployeeCard({
         </Text>
         <ButtonsBox>
           <Popconfirm
-            title="Are you sure to disable this employee?"
+            title={
+              filterType === EmployeeDisableFilterEnum.Disable
+                ? 'Are you sure to enable this employee'
+                : 'Are you sure to disable this employee'
+            }
             description="Are you sure to disable this employee?"
             onConfirm={confirm}
             onCancel={cancel}
@@ -70,9 +78,21 @@ function EmployeeCard({
             cancelText="No"
           >
             <ActionButton
-              BackgroundColor={filterType === 0 ? '#01ae3a' : '#db5252'}
+              BackgroundColor={
+                filterType === 0
+                  ? '#01ae3a'
+                  : disabled && filterType === 2
+                  ? '#4BB543'
+                  : '#db5252'
+              }
+              // BackgroundColor={filterType === 0 ? '#01ae3a' : '#db5252'}
             >
-              {filterType === 0 ? 'Enable' : sharedLabels.Disable}
+              {/* {filterType === 0 ? 'Enable' : sharedLabels.Disable} */}
+              {filterType === 0
+                ? 'Enable'
+                : disabled && filterType === 2
+                ? 'Enable'
+                : sharedLabels.Disable}
             </ActionButton>
           </Popconfirm>
           <ActionButton
@@ -88,5 +108,17 @@ function EmployeeCard({
     </Parent>
   );
 }
+
+EmployeeCard.propTypes = {
+  employees: PropTypes.shape({
+    image: PropTypes.string,
+    name: PropTypes.string,
+    email: PropTypes.string,
+    designation: PropTypes.string,
+    id: PropTypes.string,
+    isDisable: PropTypes.bool,
+  }),
+  filterType: PropTypes.number,
+};
 
 export default EmployeeCard;

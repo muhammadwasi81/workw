@@ -132,7 +132,7 @@ export const getAllEmployeeShort = createAsyncThunk(
       pageSize,
       disableFilter
     );
-    // console.log('getAllEmployeeShortAction', res.data);
+    console.log('getAllEmployeeShortAction', res.data);
     if (!res.responseCode) {
       responseMessage({
         dispatch: dispatch,

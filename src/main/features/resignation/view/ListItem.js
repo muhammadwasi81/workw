@@ -1,22 +1,22 @@
 import { Image, Tag } from 'antd';
-import React, { useContext } from "react";
-import { resignationDictionaryList } from "../localization/index";
-import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import UserInfo from "../../../sharedComponents/UserShortInfo/UserInfo";
-import SublineDesigWithTime from "../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
-import StatusTag from "../../../sharedComponents/Tag/StatusTag";
-import Attachments from "../../travel/view/UI/Attachments";
-import ResignationDefaultIcon from "../../../../content/svg/menu/newNavBarIcon/resignation.svg";
-import moment from "moment";
+import React, { useContext } from 'react';
+import { resignationDictionaryList } from '../localization/index';
+import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
+import UserInfo from '../../../sharedComponents/UserShortInfo/UserInfo';
+import SublineDesigWithTime from '../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime';
+import StatusTag from '../../../sharedComponents/Tag/StatusTag';
+import Attachments from '../../travel/view/UI/Attachments';
+import ResignationDefaultIcon from '../../../../content/svg/menu/newNavBarIcon/resignation.svg';
+import moment from 'moment';
 import {
   ItemContent,
   ItemHeader,
   SingleItem,
-} from "../../../sharedComponents/Card/CardStyle";
-import Avatar from "../../../sharedComponents/Avatar/avatar";
-import { useDispatch } from "react-redux";
-import { ResignationPurposeEnum, ResignationTypeEnum } from "../enums";
-import "./style.css"
+} from '../../../sharedComponents/Card/CardStyle';
+import Avatar from '../../../sharedComponents/Avatar/avatar';
+import { useDispatch } from 'react-redux';
+import { ResignationPurposeEnum, ResignationTypeEnum } from '../enums';
+import './style.css';
 
 function ListItem(props) {
   const disptach = useDispatch();
@@ -39,17 +39,16 @@ function ListItem(props) {
     referenceNo,
     createDate,
   } = props.item;
-
+  console.log(props.item, 'props.item');
   const localTime = moment
     .utc(createDate)
     .local()
     .format();
 
-  const handleImageView = e => {
-		e.preventDefault();
-		e.stopPropagation();
-    console.log("HELLO !!!")
-	};
+  const handleImageView = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
 
   return (
     <>
@@ -62,7 +61,7 @@ function ListItem(props) {
               name={creator?.name}
               Subline={
                 <SublineDesigWithTime
-                  designation={creator?.designation ? creator?.designation : ""}
+                  designation={creator?.designation ? creator?.designation : ''}
                   time={moment(localTime).fromNow()}
                 />
               }
@@ -82,18 +81,14 @@ function ListItem(props) {
               width={60}
               height={60}
               onClick={handleImageView}
-              src={image === "" ? ResignationDefaultIcon : image}
+              src={image === '' ? ResignationDefaultIcon : image}
             />
-             {/* <Image
-              width={200}
-              src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-            /> */}
           </div>
         </ItemContent>
         <div className="cardSections">
           <div className="cardSectionItem">
             <div className="cardSection__title">
-              {resignationDictionary.reason}{" "}
+              {resignationDictionary.reason}{' '}
             </div>
             <div className="cardSection__body">
               {ResignationPurposeEnum.map((item) => {
@@ -116,10 +111,10 @@ function ListItem(props) {
                 <div className="singleTag">
                   {user.image ? (
                     <div className="imageDiv">
-                      <img src={user.image} />
+                      <img src={user.image} alt={user.name} />
                     </div>
                   ) : (
-                    ""
+                    ''
                   )}
                   <div className="tagText">
                     <p>{user.name}</p>
@@ -130,7 +125,7 @@ function ListItem(props) {
           </div>
           <div className="cardSectionItem">
             <div className="cardSection__title">
-              {" "}
+              {' '}
               {resignationDictionary.finance}
             </div>
             <div className="cardSection__body">
@@ -138,17 +133,17 @@ function ListItem(props) {
                 <Avatar
                   isAvatarGroup={true}
                   isTag={false}
-                  heading={"approvers"}
+                  heading={'approvers'}
                   membersData={finance}
-                  text={"approvers"}
-                  image={"https://joeschmoe.io/api/v1/random"}
+                  text={'approvers'}
+                  image={'https://joeschmoe.io/api/v1/random'}
                 />
               )}
             </div>
           </div>
           <div className="cardSectionItem">
             <div className="cardSection__title">
-              {" "}
+              {' '}
               {resignationDictionary.IT}
             </div>
             <div className="cardSection__body">
@@ -156,10 +151,10 @@ function ListItem(props) {
                 <Avatar
                   isAvatarGroup={true}
                   isTag={false}
-                  heading={"approvers"}
+                  heading={'approvers'}
                   membersData={it ? it : []}
-                  text={"Approvers"}
-                  image={"https://joeschmoe.io/api/v1/random"}
+                  text={'Approvers'}
+                  image={'https://joeschmoe.io/api/v1/random'}
                 />
               )}
             </div>

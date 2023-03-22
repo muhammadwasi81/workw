@@ -52,7 +52,6 @@ function DetailCard(props) {
 
   useEffect(() => {
     props.id && dispatch(GetResignationById(props.id));
-    console.log('runing');
   }, [props.id]);
 
   const {
@@ -78,7 +77,6 @@ function DetailCard(props) {
 
   const isTablet = false;
   if (loadingData) return <Skeleton />;
-  console.log('myloadingdata', loadingData);
 
   return (
     <>

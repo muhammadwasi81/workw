@@ -55,9 +55,10 @@ const callingSlice = createSlice({
 			const authToken = payload.token;
 			if (state.outgoingCallData.members.some(member => member.id === callReceiverId)) {
 				// handleOpenCallWindow(servicesUrls.callingSocket + state.outgoingCallData.roomId, callingWindowOptions);
+				let isVideo = state.outgoingCallData.mediaType === CALL_MEDIA_TYPE.VIDEO ? 1 : 0;
 				state.callingWindows = [
 					{
-						callUrl: `${servicesUrls.callingSocket}${state.outgoingCallData.roomId}?token=${authToken}`,
+						callUrl: `${servicesUrls.callingSocket}${state.outgoingCallData.roomId}?token=${authToken}&isVideo=${isVideo}`,
 						isOpen: true
 					}
 				]

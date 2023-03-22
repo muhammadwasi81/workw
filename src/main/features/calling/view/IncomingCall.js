@@ -13,18 +13,19 @@ export default function IncomingCall() {
 	const dispatch = useDispatch();
 	const [timerState, setTimerState] = useState(null);
 
-	const handleOpenCallWindow = (callURL) => {
+	const handleOpenCallWindow = (callURL, isVideo = 0) => {
 		dispatch(handleIncomingCall(null));
 		dispatch(handleAddCallWindow({
-			callUrl: `${callURL}?token=${userSlice.token}`,
+			callUrl: `${callURL}?token=${userSlice.token}&isVideo=${isVideo}`,
 			isOpen: true
 		}));
 	};
 
-	const handleAccept = (callURL) => {
+	const handleAccept = (callURL, isVideo) => {
 		const callingSocket = InitializeCallingSocket.getInstance();
 		callingSocket.acceptCall(userDetail?.id);
-		handleOpenCallWindow(callURL)
+		const isVideoValue = isVideo === true ? 1 : 0;
+		handleOpenCallWindow(callURL, isVideoValue)
 	}
 	const handleDecline = () => {
 		const callingSocket = InitializeCallingSocket.getInstance();
@@ -57,14 +58,14 @@ export default function IncomingCall() {
 							<div className="call-options">
 								{/* {mode === STRINGS.TYPES.CALL.MODE.VIDEO && ( */}
 								<div className="call-opt-btn gr"
-									onClick={() => handleAccept(incomingCallData.data.CallURL)}
+									onClick={() => handleAccept(incomingCallData.data.CallURL, true)}
 								//  onClick={() => this.acceptCall(STRINGS.TYPES.CALL.MODE.VIDEO_ANSWER)}
 								>
 									<i className="ic-facetime" style={{ width: "14px", height: "14px" }} />
 								</div>
 								{/* )} */}
 								<div className="call-opt-btn gr"
-									onClick={() => handleAccept(incomingCallData.data.CallURL)}
+									onClick={() => handleAccept(incomingCallData.data.CallURL, false)}
 								//  onClick={() => this.acceptCall(STRINGS.TYPES.CALL.MODE.ANSWER)}
 								>
 									<i className="ic-phone" />

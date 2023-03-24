@@ -16,18 +16,20 @@ function EmployeesContainer() {
   };
   return (
     <>
-      <h5 className="containerHeading">Employees</h5>
-      <CardGrid>
-        {employees.slice(0, 4).map((employee, index) => {
-          return <EmployeeCard employees={employee} key={index} />;
-        })}
-      </CardGrid>
+      <div className="SearchMainContainer">
+        <h5 className="containerHeading">Employees</h5>
+        <CardGrid>
+          {employees.slice(0, 4).map((employee, index) => {
+            return <EmployeeCard employees={employee} key={index} />;
+          })}
+        </CardGrid>
 
-      <div
-        onClick={searchHandler}
-        className="flex justify-center !text-[18px] cursor-pointer !text-[#707070]"
-      >
-        See more
+        <div
+          onClick={searchHandler}
+          className="flex justify-center !text-[18px] cursor-pointer !text-[#707070]"
+        >
+          See more
+        </div>
       </div>
     </>
   );

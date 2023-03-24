@@ -24,26 +24,28 @@ function RewardContainer() {
 
   return (
     <>
-      <h5 className="containerHeading">Rewards</h5>
-      <CardWrapper>
-        {rewards.slice(0, 4).map((item, index) => {
-          return (
-            <>
-              <ListItem
-                item={item}
-                id={item.id}
-                key={index}
-                onClick={() => setDetailId(item.id)}
-              />
-            </>
-          );
-        })}
-      </CardWrapper>
-      <div
-        onClick={searchHandler}
-        className="flex justify-center !text-[18px] cursor-pointer !text-[#707070]"
-      >
-        See more
+      <div className="SearchMainContainer">
+        <h5 className="containerHeading">Rewards</h5>
+        <CardWrapper>
+          {rewards.slice(0, 4).map((item, index) => {
+            return (
+              <>
+                <ListItem
+                  item={item}
+                  id={item.id}
+                  key={index}
+                  onClick={() => setDetailId(item.id)}
+                />
+              </>
+            );
+          })}
+        </CardWrapper>
+        <div
+          onClick={searchHandler}
+          className="flex justify-center !text-[18px] cursor-pointer !text-[#707070]"
+        >
+          See more
+        </div>
       </div>
       {<DetailedView onClose={onClose} id={detailId} />}
     </>

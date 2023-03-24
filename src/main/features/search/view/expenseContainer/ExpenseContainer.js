@@ -35,23 +35,25 @@ function ExpenseContainer() {
   };
   return (
     <>
-      <h5 className="containerHeading">Expense</h5>
-      <CardWrapper>
-        {expenses.slice(0, 4)?.map((expense, index) => {
-          return (
-            <ExpenseList
-              key={index}
-              onExpense={handleExpense}
-              expense={expense}
-            />
-          );
-        })}
-      </CardWrapper>
-      <div
-        onClick={searchHandler}
-        className="flex justify-center !text-[18px] cursor-pointer !text-[#707070]"
-      >
-        See more
+      <div className="SearchMainContainer">
+        <h5 className="containerHeading">Expense</h5>
+        <CardWrapper>
+          {expenses.slice(0, 4)?.map((expense, index) => {
+            return (
+              <ExpenseList
+                key={index}
+                onExpense={handleExpense}
+                expense={expense}
+              />
+            );
+          })}
+        </CardWrapper>
+        <div
+          onClick={searchHandler}
+          className="flex justify-center !text-[18px] cursor-pointer !text-[#707070]"
+        >
+          See more
+        </div>
       </div>
       <ExpenseDetailsComposer
         direction={Direction}

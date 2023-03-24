@@ -15,18 +15,20 @@ function ProjectContainer() {
   };
   return (
     <>
-      <h5 className="containerHeading">Project</h5>
+      <div className="SearchMainContainer">
+        <h5 className="containerHeading">Project</h5>
 
-      <CardWrapper2>
-        {projects.slice(0, 4).map((item, index) => {
-          return <ListItem item={item} id={item.id} key={index} />;
-        })}
-      </CardWrapper2>
-      <div
-        onClick={searchHandler}
-        className="flex justify-center !text-[18px] cursor-pointer !text-[#707070]"
-      >
-        See more
+        <CardWrapper2>
+          {projects.slice(0, 4).map((item, index) => {
+            return <ListItem item={item} id={item.id} key={index} />;
+          })}
+        </CardWrapper2>
+        <div
+          onClick={searchHandler}
+          className="flex justify-center !text-[18px] cursor-pointer !text-[#707070]"
+        >
+          See more
+        </div>
       </div>
     </>
   );

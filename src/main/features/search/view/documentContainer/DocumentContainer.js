@@ -22,22 +22,24 @@ function DocumentContainer() {
   };
   return (
     <>
-      <h5 className="containerHeading">Document</h5>
-      <div className="d_AllShortCard">
-        <DocSceleton type="short" isActive={loader} />
-        {listData.slice(0, 4).map((item, index) => (
-          <DocShortCard
-            data={item}
-            handlePreview={handlePreview}
-            key={createGuid()}
-          />
-        ))}
-      </div>
-      <div
-        onClick={searchHandler}
-        className="flex justify-center !text-[18px] cursor-pointer !text-[#707070]"
-      >
-        See more
+      <div className="SearchMainContainer">
+        <h5 className="containerHeading">Document</h5>
+        <div className="d_AllShortCard">
+          <DocSceleton type="short" isActive={loader} />
+          {listData.slice(0, 4).map((item, index) => (
+            <DocShortCard
+              data={item}
+              handlePreview={handlePreview}
+              key={createGuid()}
+            />
+          ))}
+        </div>
+        <div
+          onClick={searchHandler}
+          className="flex justify-center !text-[18px] cursor-pointer !text-[#707070]"
+        >
+          See more
+        </div>
       </div>
     </>
   );

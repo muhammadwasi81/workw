@@ -37,17 +37,21 @@ function TaskContainer() {
 
   return (
     <>
-      <h5 className="containerHeading">Task</h5>
-      {Object.keys(groupDate).map((item) => {
-        return groupDate[item].slice(0, 4).map((task) => {
-          return <TaskListItem key={task.id} item={task} onTask={handleCard} />;
-        });
-      })}
-      <div
-        onClick={searchHandler}
-        className="flex justify-center !text-[18px] cursor-pointer !text-[#707070]"
-      >
-        See more
+      <div className="SearchMainContainer">
+        <h5 className="containerHeading">Task</h5>
+        {Object.keys(groupDate).map((item) => {
+          return groupDate[item].slice(0, 4).map((task) => {
+            return (
+              <TaskListItem key={task.id} item={task} onTask={handleCard} />
+            );
+          });
+        })}
+        <div
+          onClick={searchHandler}
+          className="flex justify-center !text-[18px] cursor-pointer !text-[#707070]"
+        >
+          See more
+        </div>
       </div>
     </>
   );

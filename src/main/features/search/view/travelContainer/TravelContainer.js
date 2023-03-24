@@ -21,18 +21,20 @@ function TravelContainer() {
   };
   return (
     <>
-      <h5 className="containerHeading">Travel</h5>
+      <div className="SearchMainContainer">
+        <h5 className="containerHeading">Travel</h5>
 
-      <ListView
-        data={travels ? travels.slice(0, 4) : []}
-        loader={loader}
-        labels={headings}
-      />
-      <div
-        onClick={searchHandler}
-        className="flex justify-center !text-[18px] cursor-pointer !text-[#707070]"
-      >
-        See more
+        <ListView
+          data={travels ? travels.slice(0, 4) : []}
+          loader={loader}
+          labels={headings}
+        />
+        <div
+          onClick={searchHandler}
+          className="flex justify-center !text-[18px] cursor-pointer !text-[#707070]"
+        >
+          See more
+        </div>
       </div>
     </>
   );

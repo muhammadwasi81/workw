@@ -17,34 +17,36 @@ function ArticleContainer() {
   };
   return (
     <>
-      <h5 className="containerHeading">Articles</h5>
-      <div
-        className={
-          loading || articles?.length > 0
-            ? "grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10 mb-2"
-            : !loading && ""
-        }
-      >
-        {loading ? (
-          <ThumbnailSkeleton count={[1, 2]} />
-        ) : articles?.length > 0 ? (
-          articles.slice(0, 4).map((item) => {
-            return <ArticleCard data={item} />;
-          })
-        ) : (
-          !loading && (
-            <>
-              {" "}
-              <NoDataFound />
-            </>
-          )
-        )}
-      </div>
-      <div
-        onClick={searchHandler}
-        className="flex justify-center !text-[18px] cursor-pointer !text-[#707070]"
-      >
-        See more
+      <div className="SearchMainContainer">
+        <h5 className="containerHeading">Articles</h5>
+        <div
+          className={
+            loading || articles?.length > 0
+              ? "grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10 mb-2"
+              : !loading && ""
+          }
+        >
+          {loading ? (
+            <ThumbnailSkeleton count={[1, 2]} />
+          ) : articles?.length > 0 ? (
+            articles.slice(0, 4).map((item) => {
+              return <ArticleCard data={item} />;
+            })
+          ) : (
+            !loading && (
+              <>
+                {" "}
+                <NoDataFound />
+              </>
+            )
+          )}
+        </div>
+        <div
+          onClick={searchHandler}
+          className="flex justify-center !text-[18px] cursor-pointer !text-[#707070]"
+        >
+          See more
+        </div>
       </div>
     </>
   );

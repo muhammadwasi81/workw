@@ -37,19 +37,21 @@ function LeadContainer() {
   };
   return (
     <>
-      <h5 className="containerHeading">Lead Manager</h5>
-      <GridView
-        data={leadManagerData ? leadManagerData.slice(0, 4) : []}
-        loading={loading}
-        dispatch={dispatch}
-        handleClickNavigation={handleClickNavigation}
-        dictionary={LeadManagerDictionaryList}
-      />
-      <div
-        onClick={searchHandler}
-        className="flex justify-center !text-[18px] cursor-pointer !text-[#707070]"
-      >
-        See more
+      <div className="SearchMainContainer">
+        <h5 className="containerHeading">Lead Manager</h5>
+        <GridView
+          data={leadManagerData ? leadManagerData.slice(0, 4) : []}
+          loading={loading}
+          dispatch={dispatch}
+          handleClickNavigation={handleClickNavigation}
+          dictionary={LeadManagerDictionaryList}
+        />
+        <div
+          onClick={searchHandler}
+          className="flex justify-center !text-[18px] cursor-pointer !text-[#707070]"
+        >
+          See more
+        </div>
       </div>
       <Drawer
         open={isComposerOpen}

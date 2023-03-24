@@ -15,19 +15,21 @@ function CoursesContainer() {
   };
   return (
     <>
-      <h5 className="containerHeading">Courses</h5>
-      <div className="coursListing">
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2 mb-2">
-          {courses.slice(0, 4).map((item) => {
-            return <CourseCard data={item} />;
-          })}
+      <div className="SearchMainContainer">
+        <h5 className="containerHeading">Courses</h5>
+        <div className="coursListing">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2 mb-2">
+            {courses.slice(0, 4).map((item) => {
+              return <CourseCard data={item} />;
+            })}
+          </div>
         </div>
-      </div>
-      <div
-        onClick={searchHandler}
-        className="flex justify-center !text-[18px] cursor-pointer !text-[#707070]"
-      >
-        See more
+        <div
+          onClick={searchHandler}
+          className="flex justify-center !text-[18px] cursor-pointer !text-[#707070]"
+        >
+          See more
+        </div>
       </div>
     </>
   );

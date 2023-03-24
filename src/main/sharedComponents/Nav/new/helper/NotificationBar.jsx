@@ -28,7 +28,7 @@ import { quickAddOpen } from "../../../../features/quickEmployee/store/slice";
 import { darkModeHandler } from "../../../../../utils/Shared/store/slice";
 import { useNavigate } from "react-router-dom";
 import { globalSearch } from "../../../../features/search/store/actions";
-import { SearchFilterEnum } from "../../../../features/search/enums/enums";
+import { SearchFilterEnum } from "../../../../features/search/utils/enums";
 import { message } from "antd";
 
 function NotificationBar() {

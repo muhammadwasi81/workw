@@ -17,34 +17,36 @@ function BookContainer() {
   };
   return (
     <>
-      <h5 className="containerHeading">eBooks</h5>
-      <div
-        className={
-          loading || books?.length > 0
-            ? "grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10 mb-2"
-            : !loading && ""
-        }
-      >
-        {loading ? (
-          <ThumbnailSkeleton count={[1, 2]} />
-        ) : books?.length > 0 ? (
-          books.slice(0, 4).map((item) => {
-            return <EbookCard data={item} />;
-          })
-        ) : (
-          !loading && (
-            <>
-              {" "}
-              <NoDataFound />
-            </>
-          )
-        )}
-      </div>
-      <div
-        onClick={searchHandler}
-        className="flex justify-center !text-[18px] cursor-pointer !text-[#707070]"
-      >
-        See more
+      <div className="SearchMainContainer">
+        <h5 className="containerHeading">eBooks</h5>
+        <div
+          className={
+            loading || books?.length > 0
+              ? "grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10 mb-2"
+              : !loading && ""
+          }
+        >
+          {loading ? (
+            <ThumbnailSkeleton count={[1, 2]} />
+          ) : books?.length > 0 ? (
+            books.slice(0, 4).map((item) => {
+              return <EbookCard data={item} />;
+            })
+          ) : (
+            !loading && (
+              <>
+                {" "}
+                <NoDataFound />
+              </>
+            )
+          )}
+        </div>
+        <div
+          onClick={searchHandler}
+          className="flex justify-center !text-[18px] cursor-pointer !text-[#707070]"
+        >
+          See more
+        </div>
       </div>
     </>
   );

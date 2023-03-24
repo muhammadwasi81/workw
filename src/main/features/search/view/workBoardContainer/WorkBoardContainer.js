@@ -38,17 +38,19 @@ function WorkBoardContainer() {
   };
   return (
     <>
-      <h5 className="containerHeading">WorkBoard</h5>
-      <CardWrapper2>
-        {workboardsListData.slice(0, 4).map((data) => (
-          <WorkBoardCard data={data} />
-        ))}
-      </CardWrapper2>
-      <div
-        onClick={searchHandler}
-        className="flex justify-center !text-[18px] cursor-pointer !text-[#707070]"
-      >
-        See more
+      <div className="SearchMainContainer">
+        <h5 className="containerHeading">WorkBoard</h5>
+        <CardWrapper2>
+          {workboardsListData.slice(0, 4).map((data) => (
+            <WorkBoardCard data={data} />
+          ))}
+        </CardWrapper2>
+        <div
+          onClick={searchHandler}
+          className="flex justify-center !text-[18px] cursor-pointer !text-[#707070]"
+        >
+          See more
+        </div>
       </div>
       <SideDrawer
         children={<BoardComposer isEdit={isComposerEdit} loading={loading} />}

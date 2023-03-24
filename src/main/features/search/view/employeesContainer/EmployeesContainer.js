@@ -2,7 +2,8 @@ import React, { useContext, useState } from "react";
 import { Navigate, useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { ROUTES } from "../../../../../utils/routes";
-import EmployeeCard, { CardGrid } from "../../../employee/view/employeeCard";
+import EmployeeCard from "../../../employee/view/employeeCard";
+import { CardGrid } from "../../../employee/Styles/employeeCard.styles";
 
 function EmployeesContainer() {
   const dispatch = useDispatch();
@@ -10,6 +11,8 @@ function EmployeesContainer() {
   const searchQuery = searchParams.get("q");
 
   const { employees, loader } = useSelector((state) => state.employeeSlice);
+  const { employeeShort } = useSelector((state) => state.sharedSlice);
+
   const navigate = useNavigate();
   const searchHandler = () => {
     navigate(`/employees?q=${searchQuery}`);
@@ -18,11 +21,11 @@ function EmployeesContainer() {
     <>
       <div className="SearchMainContainer">
         <h5 className="containerHeading">Employees</h5>
-        <CardGrid>
+        {/* <CardGrid>
           {employees.slice(0, 4).map((employee, index) => {
             return <EmployeeCard employees={employee} key={index} />;
           })}
-        </CardGrid>
+        </CardGrid> */}
 
         <div
           onClick={searchHandler}

@@ -1,11 +1,15 @@
 import React, { useState, useContext } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { TravelDictionary } from "../../../travel/localization";
 import ListView from "../../../travel/view/ListView/ListView";
+import { SearchFilterEnum } from "../../utils/enums";
+import SearchFilter from "../../utils/searchFilter";
 
 function TravelContainer() {
+  console.log(SearchFilter, "serchhhh");
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const { travels, loader, success, isAdded } = useSelector(
@@ -19,6 +23,11 @@ function TravelContainer() {
   const searchHandler = () => {
     navigate(`/travel?f=trv?q=${searchQuery}`);
   };
+  useEffect(() => {
+    if (SearchFilterEnum.Travel) {
+      return SearchFilter("travel");
+    }
+  }, []);
   return (
     <>
       <div className="SearchMainContainer">

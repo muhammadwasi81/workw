@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Navigate, useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { ROUTES } from "../../../../../utils/routes";
@@ -8,10 +8,10 @@ import { LanguageChangeContext } from "../../../../../utils/localization/localCo
 import BoardComposer from "../../../leadmanager/view/Composer/BoardComposer";
 import { handleComposer } from "../../../leadmanager/store/slice";
 import { Drawer } from "antd";
-
+import { SearchFilterEnum } from "../../utils/enums";
+import SearchFilter from "../../utils/searchFilter";
 function LeadContainer() {
   const [searchParams, setSearchParams] = useSearchParams();
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const searchQuery = searchParams.get("q");
@@ -35,6 +35,11 @@ function LeadContainer() {
   const handleEditComposer = () => {
     dispatch(handleComposer({ isOpen: false, isEdit: false }));
   };
+  // useEffect(() => {
+  //   if (SearchFilterEnum.Lead) {
+  //     return SearchFilter(SearchFilterEnum.Lead);
+  //   }
+  // }, []);
   return (
     <>
       <div className="SearchMainContainer">

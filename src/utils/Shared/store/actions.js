@@ -1,8 +1,8 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
   responseMessage,
   responseMessageType,
-} from "../../../services/slices/notificationSlice";
+} from '../../../services/slices/notificationSlice';
 
 import {
   getAllRewardCategoryService,
@@ -20,12 +20,15 @@ import {
   getAllEmployeeService,
   getAllEmployeeShortService,
   getEmployeeSalaryService,
-} from "../services/services";
+  disableEmployeeService,
+} from '../services/services';
+import { message } from 'antd';
 
 export const getCountries = createAsyncThunk(
-  "getCountries",
+  'getCountries',
   async (textData, { dispatch, getState }) => {
     const res = await getCountriesService();
+    console.log(res, 'COUNTRIES DATA');
     if (!res.responseCode) {
       responseMessage({
         dispatch: dispatch,
@@ -37,10 +40,11 @@ export const getCountries = createAsyncThunk(
 );
 
 export const getCities = createAsyncThunk(
-  "getCities",
+  'getCities',
   async (obj, { dispatch, getState }) => {
     // console.log("obj", obj);
     const res = await getCitiesService(obj);
+    console.log(res, 'CITIES DATA');
     if (!res.responseCode) {
       responseMessage({
         dispatch: dispatch,
@@ -52,7 +56,7 @@ export const getCities = createAsyncThunk(
 );
 
 export const getEmployeeSalary = createAsyncThunk(
-  "getEmployeeSalary",
+  'getEmployeeSalary',
   async (data, { dispatch, getState }) => {
     const res = await getEmployeeSalaryService(data);
     if (!res.responseCode) {
@@ -66,7 +70,7 @@ export const getEmployeeSalary = createAsyncThunk(
 );
 
 export const getAllDefaultDesignation = createAsyncThunk(
-  "getDefaultDesignation",
+  'getDefaultDesignation',
   async (args, { dispatch, getState }) => {
     const res = await getDefaultDesignationService();
     if (!res.responseCode) {
@@ -80,7 +84,7 @@ export const getAllDefaultDesignation = createAsyncThunk(
 );
 
 export const getAllUserTypes = createAsyncThunk(
-  "getAllUserTypes",
+  'getAllUserTypes',
   async (args, { dispatch, getState }) => {
     const res = await getAllUserTypesService();
     if (!res.responseCode) {
@@ -93,7 +97,7 @@ export const getAllUserTypes = createAsyncThunk(
   }
 );
 export const getAllUserTitles = createAsyncThunk(
-  "getAllUserTitles",
+  'getAllUserTitles',
   async (args, { dispatch, getState }) => {
     const res = await getAllUserTitlesService();
     if (!res.responseCode) {
@@ -107,7 +111,7 @@ export const getAllUserTitles = createAsyncThunk(
 );
 
 export const getAllGenders = createAsyncThunk(
-  "getAllGenders",
+  'getAllGenders',
   async (args, { dispatch, getState }) => {
     const res = await getAllGendersService();
     if (!res.responseCode) {
@@ -120,10 +124,15 @@ export const getAllGenders = createAsyncThunk(
   }
 );
 export const getAllEmployeeShort = createAsyncThunk(
-  "getAllEmployeeShort",
-  async (args, { dispatch, getState }) => {
-    const { text, pageNo, search } = args;
-    const res = await getAllEmployeeShortService(pageNo, text);
+  'getAllEmployeeShort',
+  async (args, { dispatch }) => {
+    const { pageNo, pageSize, disableFilter } = args;
+    const res = await getAllEmployeeShortService(
+      pageNo,
+      pageSize,
+      disableFilter
+    );
+    console.log('getAllEmployeeShortAction', res.data);
     if (!res.responseCode) {
       responseMessage({
         dispatch: dispatch,
@@ -134,7 +143,7 @@ export const getAllEmployeeShort = createAsyncThunk(
   }
 );
 export const getAllEmployees = createAsyncThunk(
-  "getAllEmployee",
+  'getAllEmployee',
   async (args, { dispatch, getState }) => {
     const { text, pgNo, pgSize } = args;
     const res = await getAllEmployeeService(text, pgNo, pgSize);
@@ -149,7 +158,7 @@ export const getAllEmployees = createAsyncThunk(
   }
 );
 export const getAllMaritalStatus = createAsyncThunk(
-  "getAllMaritalStatus",
+  'getAllMaritalStatus',
   async (args, { dispatch, getState }) => {
     const res = await getAllMaritalStatusService();
     if (!res.responseCode) {
@@ -162,7 +171,7 @@ export const getAllMaritalStatus = createAsyncThunk(
   }
 );
 export const getAllBussinessFeatures = createAsyncThunk(
-  "getAllBussinessFeatures",
+  'getAllBussinessFeatures',
   async (args, { dispatch, getState }) => {
     const res = await getAllBussinessFeaturesService();
     if (!res.responseCode) {
@@ -175,7 +184,7 @@ export const getAllBussinessFeatures = createAsyncThunk(
   }
 );
 export const getAllEmployeeTypes = createAsyncThunk(
-  "getAllEmployeeTypes",
+  'getAllEmployeeTypes',
   async (args, { dispatch, getState }) => {
     const res = await getAllEmployeeTypesService();
     if (!res.responseCode) {
@@ -188,9 +197,9 @@ export const getAllEmployeeTypes = createAsyncThunk(
   }
 );
 export const uploadImage = createAsyncThunk(
-  "Upload/UploadFiles",
+  'Upload/UploadFiles',
   async (data) => {
-    console.log("data from component", data);
+    console.log('data from component', data);
 
     const response = await uploadImageService(data);
     return response.data;
@@ -198,7 +207,7 @@ export const uploadImage = createAsyncThunk(
 );
 
 export const getRewardCategory = createAsyncThunk(
-  "rewardcategory/getallrewardcategory",
+  'rewardcategory/getallrewardcategory',
   async (data) => {
     const response = await getAllRewardCategoryService(data);
     return response.data;
@@ -206,9 +215,29 @@ export const getRewardCategory = createAsyncThunk(
 );
 
 export const getComplainCategory = createAsyncThunk(
-  "ComplainCategory/getAllComplainCategory",
+  'ComplainCategory/getAllComplainCategory',
   async (data) => {
     const response = await getAllComplainCategoryService(data);
     return response.data;
+  }
+);
+
+export const disableEmployee = createAsyncThunk(
+  'employee/disableEmployee',
+  async (payload, { dispatch }) => {
+    const response = await disableEmployeeService(payload);
+    console.log('disableEmployeeService', response.data);
+    if (response.responseCode === 1001) {
+      return response.data.isDisable === true
+        ? message.success('Employee Enabled Successfully')
+        : message.success('Employee Disabled Successfully');
+    }
+    if (!response.responseCode) {
+      responseMessage({
+        dispatch: dispatch,
+        type: responseMessageType.ApiFailure,
+      });
+    }
+    return response;
   }
 );

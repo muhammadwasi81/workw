@@ -6,7 +6,6 @@ import '../Styles/company.css';
 import { LanguageChangeContext } from '../../../../../utils/localization/localContext/LocalContext';
 import { companyDictionaryList } from '../localization/index';
 import { getCompanyAction } from '../store/action';
-import CompanyCard from './CompanyCard';
 import CompanyTableView from './TeamTableView';
 import Header from '../../view/Header/Header';
 import {
@@ -14,6 +13,7 @@ import {
   TabbableContainer,
 } from '../../../../sharedComponents/AppComponents/MainFlexContainer';
 import CompanyShortCard, { CardGrid } from './CompanyShortCard';
+import { NoDataFound } from './../../../eLearning/view/Dashboard/Components/index';
 
 function CompanyList() {
   const [view, setView] = useState('List');
@@ -24,15 +24,18 @@ function CompanyList() {
   const labels = companyDictionary.sharedLabels;
   const { companies, loader } = useSelector((state) => state.companySlice);
 
-  useEffect(() => {
-    // console.log(search, "search");
-    dispatch(getCompanyAction(search));
-  }, [search]);
+  const filteredCompanies = companies.filter(
+    (company) =>
+      company.name.toLowerCase().includes(search.toLowerCase()) ||
+      company.website.toLowerCase().includes(search.toLowerCase())
+  );
 
-  // const searchHandler = (value) => {
-  //   console.log(value, "value");
-  //   dispatch(getCompanyAction(value));
-  // };
+  console.log(filteredCompanies, 'filteredCompanies');
+
+  useEffect(() => {
+    dispatch(getCompanyAction(search));
+  }, []);
+
   let classes = 'teamListContainer ';
   classes += Direction === 'ltr' ? 'ltr' : 'rtl';
   if (loader) {
@@ -46,30 +49,26 @@ function CompanyList() {
         ))}
       </div>
     );
-  } else {
-    return (
-      <>
-        <TabbableContainer>
-          <Header />
-          <ContBody>
-            <div style={{ flexDirection: 'column', width: '100%' }}>
-              <TopBar
-                style={{ margin: 0, width: '100%' }}
-                onSearch={(val) => setSearch(val)}
-                segment={{
-                  onSegment: (value) => {
-                    setView(value);
-                  },
-                  label1: labels.list,
-                  label2: labels.table,
-                }}
-              />
-              {view === 'List' ? (
-                // <div className={classes}>
-                //   {teams.map((team, index) => {
-                //     return <CompanyCard teams={team} key={index} />;
-                //   })}
-                // </div>
+  }
+  return (
+    <>
+      <TabbableContainer>
+        <Header />
+        <ContBody>
+          <div style={{ flexDirection: 'column', width: '100%' }}>
+            <TopBar
+              style={{ margin: 0, width: '100%' }}
+              onSearch={(val) => setSearch(val)}
+              segment={{
+                onSegment: (value) => {
+                  setView(value);
+                },
+                label1: labels.list,
+                label2: labels.table,
+              }}
+            />
+            {filteredCompanies.length > 0 ? (
+              view === 'List' ? (
                 <>
                   <CardGrid>
                     {companies.map((team, index) => {
@@ -79,12 +78,14 @@ function CompanyList() {
                 </>
               ) : (
                 <CompanyTableView />
-              )}
-            </div>
-          </ContBody>
-        </TabbableContainer>
-      </>
-    );
-  }
+              )
+            ) : (
+              <NoDataFound />
+            )}
+          </div>
+        </ContBody>
+      </TabbableContainer>
+    </>
+  );
 }
 export default CompanyList;

@@ -5,7 +5,7 @@ import deliverIcon from '../../../../../../../content/NewContent/Messenger/readM
 import errorIcon from '../../../../../../../content/NewContent/Messenger/errorMsg.svg'
 
 export const getIconByStatus = (status) => {
-    console.log(status, "Status")
+    // console.log(status, "Status")
     switch (status) {
         case "Pending":
             return pendingIcon

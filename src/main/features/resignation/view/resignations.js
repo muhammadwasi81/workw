@@ -1,27 +1,27 @@
-import { Button, Drawer, Skeleton } from "antd";
-import React, { useEffect, useContext, useState } from "react";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import Header from "../../../layout/header";
+import { Button, Drawer, Skeleton } from 'antd';
+import React, { useEffect, useContext, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import Header from '../../../layout/header';
 import {
   ContBody,
   TabbableContainer,
-} from "../../../sharedComponents/AppComponents/MainFlexContainer";
-import { CardWrapper } from "../../../sharedComponents/Card/CardStyle";
-import TopBar from "../../../sharedComponents/topBar/topBar";
-import { Table } from "../../../sharedComponents/customTable";
-import { getAllResignations } from "../store/action";
-import ListItem from "./ListItem";
-import "./style.css";
-import DetailedView from "./detaileView";
-import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
-import { handleOpenComposer } from "../store/slice";
-import Composer from "./composer";
-import { tableColumn } from "./TableColumn";
-import { ROUTES } from "../../../../utils/routes";
-import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import { resignationDictionaryList } from "../localization";
-import { FeaturePermissionEnum } from "../../../../utils/Shared/enums/featuresEnums";
+} from '../../../sharedComponents/AppComponents/MainFlexContainer';
+import { CardWrapper } from '../../../sharedComponents/Card/CardStyle';
+import TopBar from '../../../sharedComponents/topBar/topBar';
+import { Table } from '../../../sharedComponents/customTable';
+import { getAllResignations } from '../store/action';
+import ListItem from './ListItem';
+import './style.css';
+import DetailedView from './detaileView';
+import { NoDataFound } from '../../../sharedComponents/NoDataIcon';
+import { handleOpenComposer } from '../store/slice';
+import Composer from './composer';
+import { tableColumn } from './TableColumn';
+import { ROUTES } from '../../../../utils/routes';
+import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
+import { resignationDictionaryList } from '../localization';
+import { FeaturePermissionEnum } from '../../../../utils/Shared/enums/featuresEnums';
 
 const Resignation = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -31,32 +31,40 @@ const Resignation = (props) => {
   const dispatch = useDispatch();
   const [filter, setFilter] = useState({
     filterType: 1,
-    search: "",
+    search: '',
     pageNo: 0,
     pageSize: 20,
     sortBy: 1,
   });
   const [tableView, setTableView] = useState(false);
   const [detailId, setDetailId] = useState(false);
-  const {user} = useSelector((state) => state.userSlice);
-  const userPermissions = user.permissions
+  const [filteredItems, setFilteredItems] = useState([]);
+  const { user } = useSelector((state) => state.userSlice);
+  const userPermissions = user.permissions;
 
   const { drawerOpen, items, loader } = useSelector(
     (state) => state.resignationSlice
   );
 
+  const onSearch = (value) => {
+    const filtered = items.filter((item) => {
+      return (
+        item.description.toLowerCase().includes(value.toLowerCase()) ||
+        item.referenceNo.toLowerCase().includes(value.toLowerCase())
+      );
+    });
+    setFilteredItems(filtered);
+  };
+
   const onClose = () => {
     setDetailId(null);
   };
-
-  console.log(loader, "LOADER");
-  console.log(items, "ITEMS !!!");
 
   useEffect(() => {
     dispatch(getAllResignations(filter));
   }, [filter]);
 
-  const headerButtuns = [
+  const headerButtons = [
     {
       name: resignationDictionary.resignation,
       renderButton: [1],
@@ -67,7 +75,7 @@ const Resignation = (props) => {
   const onRow = (record, rowIndex) => {
     return {
       onClick: (event) => {
-        console.log(record.id, "ID");
+        console.log(record.id, 'ID');
         setDetailId(record.id);
       },
       onDoubleClick: (event) => {}, // double click row
@@ -81,24 +89,30 @@ const Resignation = (props) => {
     <>
       <TabbableContainer>
         <Header
-          items={headerButtuns}
-          buttons={userPermissions.includes(FeaturePermissionEnum.CreateResignation) ? [
-            {
-              buttonText: "Create Resignation",
-              render: (
-                <Button
-                  className="ThemeBtn"
-                  onClick={() => dispatch(handleOpenComposer(true))}
-                >
-                  {resignationDictionary.createResignation}
-                </Button>
-              ),
-            },
-          ] : []}
+          items={headerButtons}
+          buttons={
+            userPermissions.includes(FeaturePermissionEnum.CreateResignation)
+              ? [
+                  {
+                    buttonText: 'Create Resignation',
+                    render: (
+                      <Button
+                        className="ThemeBtn"
+                        onClick={() => dispatch(handleOpenComposer(true))}
+                      >
+                        {resignationDictionary.createResignation}
+                      </Button>
+                    ),
+                  },
+                ]
+              : []
+          }
         />
         <TopBar
           onSearch={(value) => {
+            console.log('New search value:', value);
             setFilter({ ...filter, search: value });
+            onSearch(value);
           }}
           buttons={[
             {
@@ -161,7 +175,7 @@ const Resignation = (props) => {
           title={
             <h1
               style={{
-                fontSize: "20px",
+                fontSize: '20px',
                 margin: 0,
               }}
             >

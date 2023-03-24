@@ -131,11 +131,16 @@ export const getAllComplainCategoryService = () => {
     });
 };
 
-export const getAllEmployeeShortService = (pageNo = 0, search = '') => {
+export const getAllEmployeeShortService = (
+  pageNo = 1,
+  pageSize = 20,
+  disableFilter
+) => {
   return MasterConfig.get(
-    `api/Employee/GetAllEmployeeShort?pageNo=${pageNo}&search=${search}`
+    `/api/Employee/GetAllEmployeeShort?disableFilter=${disableFilter}&pageNo=${pageNo}&pageSize=${pageSize}`
   )
     .then((res) => {
+      console.log();
       return res.data;
     })
     .catch((err) => {
@@ -177,4 +182,17 @@ export const uploadImageService = (files) => {
       headers: { 'Content-Type': 'multipart/form-data' },
     }
   );
+};
+
+export const disableEmployeeService = (payload) => {
+  return MasterConfig.put(
+    `api/Employee/UpdateDisableStatus?userId=${payload.userId}&isDisable=${payload.isDisable}`
+  )
+    .then((res) => {
+      console.log(res.data, 'res.data');
+      return res.data;
+    })
+    .catch((err) => {
+      return err;
+    });
 };

@@ -1,16 +1,16 @@
-import React, { useId, useRef, useState } from "react";
-import faceIcon from "../../../../../../content/NewContent/Messenger/face.svg";
-import pictureIcon from "../../../../../../content/NewContent/Messenger/picture.svg";
-import attachmentIcon from "../../../../../../content/NewContent/Messenger/attachment.svg";
-import sendIcon from "../../../../../../content/NewContent/Messenger/send.svg";
+import React, { useId, useRef, useState } from 'react';
+import faceIcon from '../../../../../../content/NewContent/Messenger/face.svg';
+import pictureIcon from '../../../../../../content/NewContent/Messenger/picture.svg';
+import attachmentIcon from '../../../../../../content/NewContent/Messenger/attachment.svg';
+import sendIcon from '../../../../../../content/NewContent/Messenger/send.svg';
 // import { sendMessage } from '../../store/messengerSlice';
-import { useDispatch, useSelector } from "react-redux";
-import { sendChatMessage } from "../../../store/actions";
-import EmojiPicker from "../components/emojiPicker";
-import VoiceNotes from "../components/voiceNotes";
-import { createGuid, STRINGS } from "../../../../../../utils/base";
-import FileUploader from "../components/fileUploader";
-import ChatBoxFooter from "../../../../SideChatbar/chatBox/ChatBoxFoot";
+import { useDispatch, useSelector } from 'react-redux';
+import { sendChatMessage } from '../../../store/actions';
+import EmojiPicker from '../components/emojiPicker';
+import VoiceNotes from '../components/voiceNotes';
+import { createGuid, STRINGS } from '../../../../../../utils/base';
+import FileUploader from '../components/fileUploader';
+import ChatBoxFooter from '../../../../SideChatbar/chatBox/ChatBoxFoot';
 
 const MessengerBottom = ({ isOpenProfile, isChatBoxView, messengerDetail }) => {
   const dispatch = useDispatch();
@@ -34,41 +34,40 @@ const MessengerBottom = ({ isOpenProfile, isChatBoxView, messengerDetail }) => {
       message: text,
       id: createGuid(),
       messageType: !!voiceNoteFile ? 2 : 1,
-      attachments: attachments.map(file => ({
+      attachments: attachments.map((file) => ({
         file,
-        id: STRINGS.DEFAULTS.guid
-      }))
+        id: STRINGS.DEFAULTS.guid,
+      })),
     };
-    console.log(payload, "payload")
-    return payload
-  }
+    console.log(payload, 'payload');
+    return payload;
+  };
 
   const handleMsgSend = (e) => {
     let payload = createPayload(e.target.value);
-    console.log(messengerDetail, "messengerDetail")
-    if (!payload.message && payload.attachments.length === 0)
-      return null;
+    console.log(messengerDetail, 'messengerDetail');
+    if (!payload.message && payload.attachments.length === 0) return null;
 
     setIsOpenEmoji(false);
     dispatch(sendChatMessage(payload));
-    e.target.value = "";
-    setAttchmentFiles([])
+    e.target.value = '';
+    setAttchmentFiles([]);
   };
   const handleClickEmoji = () => setIsOpenEmoji(!isOpenEmoji);
 
   const handleClickAttachment = () => {
-    fileInputRef.current.upload.uploader.onClick()
-  }
+    fileInputRef.current.upload.uploader.onClick();
+  };
 
   const handleUpload = (files) => {
-    setAttchmentFiles(files)
-  }
+    setAttchmentFiles(files);
+  };
 
   const handleVoiceSend = (file) => {
     // setVoiceNoteFile(file);
-    let payload = createPayload("", file);
-    dispatch(sendChatMessage(payload))
-  }
+    let payload = createPayload('', file);
+    dispatch(sendChatMessage(payload));
+  };
 
   const onSelectEmoji = (emoji) => {
     msgInpRef.current.value += emoji.native;
@@ -82,7 +81,7 @@ const MessengerBottom = ({ isOpenProfile, isChatBoxView, messengerDetail }) => {
           <VoiceNotes handleVoiceSend={handleVoiceSend} />
         </div>
       </div>
-    )  
+    );
   }
 
   if (isChatBoxView) {
@@ -97,15 +96,16 @@ const MessengerBottom = ({ isOpenProfile, isChatBoxView, messengerDetail }) => {
           <FileUploader
             inputRef={fileInputRef}
             handleUpload={handleUpload}
-            fileList={attchmentFiles} />
+            fileList={attchmentFiles}
+          />
         }
       />
-    )
+    );
   }
   return (
     <>
       {/* <VoiceNotes /> */}
-      <div className={"MessengerBottom " + (isOpenProfile ? "blur-bg" : "")}>
+      <div className={'MessengerBottom ' + (isOpenProfile ? 'blur-bg' : '')}>
         <div className="MessengerInputHandler">
           <div>
             {/* <img
@@ -132,6 +132,11 @@ const MessengerBottom = ({ isOpenProfile, isChatBoxView, messengerDetail }) => {
                   if (e.keyCode === 13) handleMsgSend(e);
                 }}
               />
+              <img
+                src={sendIcon}
+                alt="sendIcon"
+                className="w-5 h-5 cursor-pointer"
+              />
             </div>
           </div>
         </div>
@@ -145,11 +150,9 @@ const MessengerBottom = ({ isOpenProfile, isChatBoxView, messengerDetail }) => {
       <FileUploader
         inputRef={fileInputRef}
         handleUpload={handleUpload}
-        fileList={attchmentFiles} />
-      {isOpenEmoji &&
-        <EmojiPicker
-          onSelect={onSelectEmoji} />}
-
+        fileList={attchmentFiles}
+      />
+      {isOpenEmoji && <EmojiPicker onSelect={onSelectEmoji} />}
     </>
   );
 };

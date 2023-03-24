@@ -1,15 +1,15 @@
-import React from "react";
-import { Button, Badge } from "antd";
-import AntTooltip from "../Tooltip/AntTooltip";
-import { useMediaQuery } from "react-responsive";
+import React from 'react';
+import { Button, Badge } from 'antd';
+import AntTooltip from '../Tooltip/AntTooltip';
+import { useMediaQuery } from 'react-responsive';
 
 const SharedButton = ({
-  type = "primary",
-  shape = "circle",
+  type = 'primary',
+  shape = 'circle',
   icon,
   IconSize = 12,
   title,
-  size = "small",
+  size = 'small',
   style,
   onClick,
   IconColor,
@@ -23,12 +23,11 @@ const SharedButton = ({
   htmlType,
   loading,
   href,
-  isHide = false
+  isHide = false,
 }) => {
   const isTablet = useMediaQuery({ maxWidth: 650 });
 
-  if (isHide)
-    return <></>
+  if (isHide) return <></>;
 
   return (
     <Button
@@ -47,7 +46,7 @@ const SharedButton = ({
         ) : antIcon ? (
           antIcon
         ) : icon ? (
-          <AntTooltip value={toolTip} placement="bottom" color={"#FFFFFF"}>
+          <AntTooltip value={toolTip} placement="bottom" color={'#FFFFFF'}>
             <img
               src={icon}
               height={IconSize}
@@ -62,11 +61,7 @@ const SharedButton = ({
       }
       size={size}
       style={style}
-      // style={{
-      //   backgroundColor:"transparent",
-      //   border:"none"
-      // }}
-      className={`defaultBtn ${buttonClass} ${isTablet && "CompBtnMobile w-fit"} `}
+      className={`defaultBtn ${buttonClass}  `}
     >
       {title}
     </Button>

@@ -23,10 +23,10 @@ import { useParams } from 'react-router';
 const { Option } = Select;
 
 const BankForm = ({ mode, id }) => {
-  console.log(id, 'id');
+  // console.log(id, 'id');
   const isEdit = mode === 'edit';
   const params = useParams();
-  console.log(params.id, 'param');
+  // console.log(params.id, 'param');
   const [bankDetails, setBankDetails] = useState([]);
   const { userLanguage } = useContext(LanguageChangeContext);
   const { sharedLabels } = dictionaryList[userLanguage];
@@ -42,7 +42,6 @@ const BankForm = ({ mode, id }) => {
   const { employeesDictionary, Direction } = employeeDictionaryList[
     userLanguage
   ];
-  console.log(userBankDetails, 'userBankDetails');
   const initialState = {
     accountNumber: '',
     accountTitle: '',
@@ -63,6 +62,8 @@ const BankForm = ({ mode, id }) => {
   // useEffect(() => {
   //   dispatch(getAllBankDetailByUser(params.id));
   // }, []);
+  console.log(bankDetails, 'bankDetails');
+  console.log(bankdetails, 'bankdetails');
 
   Object.defineProperty(form, 'values', {
     value: function() {
@@ -106,7 +107,7 @@ const BankForm = ({ mode, id }) => {
     form.submit();
     try {
       const isValidation = await form.validateFields();
-      console.log(isValidation, 'isValidation');
+      // console.log(isValidation, 'isValidation');
       if (isValidation) {
         setBankDetails((preValues) => [...preValues, form.getFieldsValue()]);
         form.resetFields();
@@ -131,6 +132,7 @@ const BankForm = ({ mode, id }) => {
     bankDetailsArr.splice(rowIndex, 1);
     setBankDetails(bankDetailsArr);
   };
+
   const columns = (data) => {
     return [
       {
@@ -174,10 +176,14 @@ const BankForm = ({ mode, id }) => {
         dataIndex: 'countryId',
         ellipsis: true,
         key: 'countryId',
-        render: (labels) => {
-          return bankDetails
-            .filter((item) => item.countryId === labels)
-            .map((item) => item.country);
+        render: (value) => {
+          if (isEdit) {
+            return countries?.filter(
+              (item) => item.id === value?.toString()
+            )?.[0]?.name;
+          } else {
+            return value?.name;
+          }
         },
       },
       {
@@ -186,9 +192,11 @@ const BankForm = ({ mode, id }) => {
         ellipsis: true,
         key: 'cityId',
         render: (value) => {
-          return bankDetails
-            .filter((item) => item.cityId === value)
-            .map((item) => item.city);
+          if (isEdit) {
+            return cities?.filter((item) => item.id === value?.toString())?.[0]
+              ?.name;
+          }
+          return value?.name;
         },
       },
       {
@@ -229,7 +237,7 @@ const BankForm = ({ mode, id }) => {
 
   const handleUpdate = () => {
     const payload = createPayload();
-    console.log(payload, 'payload');
+    // console.log(payload, 'payload');
     const payloadObj = {
       payload,
       id: params.id,
@@ -291,7 +299,11 @@ const BankForm = ({ mode, id }) => {
           name="bankBranchCode"
           label={labels.BranchCode}
         >
-          <Input placeholder={placeholder.branchCode}></Input>
+          <Input
+            type="number"
+            min={0}
+            placeholder={placeholder.branchCode}
+          ></Input>
         </Form.Item>
         <Form.Item
           rules={[
@@ -302,7 +314,7 @@ const BankForm = ({ mode, id }) => {
           name="accountNumber"
           label={labels.AccountNumber}
         >
-          <Input placeholder={placeholder.accNo}></Input>
+          <Input type="number" min={0} placeholder={placeholder.accNo}></Input>
         </Form.Item>
         <Form.Item
           rules={[
@@ -324,8 +336,13 @@ const BankForm = ({ mode, id }) => {
           name="sortCode"
           label={labels.SortCode}
         >
-          <Input placeholder={placeholder.sortCode}></Input>
+          <Input
+            type="number"
+            min={0}
+            placeholder={placeholder.sortCode}
+          ></Input>
         </Form.Item>
+
         <Form.Item
           name="countryId"
           label={labels.Country}
@@ -333,15 +350,17 @@ const BankForm = ({ mode, id }) => {
         >
           <Select
             showSearch={true}
-            getPopupContainer={(trigger) => trigger.parentNode}
             placeholder={placeholder.selectCountry}
             size="large"
+            getPopupContainer={(trigger) => trigger.parentNode}
+            optionFilterProp="children"
           >
             {countries.map((item) => (
               <Option key={item.id}>{item.name}</Option>
             ))}
           </Select>
         </Form.Item>
+
         <CitySelect
           data={cities}
           selectedData={(val, obj) => {

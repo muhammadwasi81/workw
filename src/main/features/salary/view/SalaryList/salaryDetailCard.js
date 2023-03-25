@@ -1,25 +1,25 @@
-import { Button, Image, Tag, Skeleton } from "antd";
-import React, { useContext, useEffect } from "react";
-import UserInfo from "../../../../sharedComponents/UserShortInfo/UserInfo";
-import SublineDesigWithTime from "../../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
-import StatusTag from "../../../../sharedComponents/Tag/StatusTag";
+import { Button, Image, Tag, Skeleton } from 'antd';
+import React, { useContext, useEffect } from 'react';
+import UserInfo from '../../../../sharedComponents/UserShortInfo/UserInfo';
+import SublineDesigWithTime from '../../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime';
+import StatusTag from '../../../../sharedComponents/Tag/StatusTag';
 // import Avatar from "../../../../sharedComponents/Avatar/avatar";
-import RewardDefaultIcon from "../../../../../content/svg/menu/rewardIcon.svg";
-import moment from "moment";
+import RewardDefaultIcon from '../../../../../content/svg/menu/rewardIcon.svg';
+import moment from 'moment';
 import {
   ItemContent,
   ItemHeader,
   SingleItem,
-} from "../../../../sharedComponents/Card/CardStyle";
-import { useDispatch } from "react-redux";
-import Avatar from "../../../../sharedComponents/Avatar/avatar";
-import { getEmployeeSalaryDetail } from "../../store/actions";
-import { useSelector } from "react-redux";
-import AllowanceDetail from "./allowanceDetail";
-import RemarksApproval from "../../../../sharedComponents/AppComponents/Approvals/view";
-import { ApprovalsModule } from "../../../../sharedComponents/AppComponents/Approvals/enums";
-import { salaryDictionaryList } from "../../localization/index";
-import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+} from '../../../../sharedComponents/Card/CardStyle';
+import { useDispatch } from 'react-redux';
+import Avatar from '../../../../sharedComponents/Avatar/avatar';
+import { getEmployeeSalaryDetail } from '../../store/actions';
+import { useSelector } from 'react-redux';
+import AllowanceDetail from './allowanceDetail';
+import RemarksApproval from '../../../../sharedComponents/AppComponents/Approvals/view';
+import { ApprovalsModule } from '../../../../sharedComponents/AppComponents/Approvals/enums';
+import { salaryDictionaryList } from '../../localization/index';
+import { LanguageChangeContext } from '../../../../../utils/localization/localContext/LocalContext';
 
 function SalaryDetailCard(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -38,18 +38,17 @@ function SalaryDetailCard(props) {
     creator,
     basicSalary,
     details,
-    description = "Salary Description here",
+    description = 'Salary Description here',
     approvers = [{}],
     status = 1,
-    referenceNo = "SAR-10001",
+    referenceNo = 'SAR-10001',
     createDate = moment(),
     effectiveDate = moment(),
     user,
   } = salaryDetail;
-  console.log(salaryDetail, "salaryDetail");
+  console.log(salaryDetail, 'salaryDetail');
 
   if (loadingData) return <Skeleton />;
-  console.log("loadingDataaaa", loadingData);
 
   return (
     <>
@@ -61,8 +60,11 @@ function SalaryDetailCard(props) {
               name={creator.name}
               Subline={
                 <SublineDesigWithTime
-                  designation={creator.designation ? creator.designation : ""}
-                  time={moment(createDate).fromNow()}
+                  designation={creator.designation ? creator.designation : ''}
+                  time={moment
+                    .utc(createDate)
+                    .local()
+                    .fromNow()}
                 />
               }
             />
@@ -88,7 +90,7 @@ function SalaryDetailCard(props) {
           <div className="cardSectionItem">
             <div className="cardSection__title">{EffectiveDate}</div>
             <div className="cardSection__body">
-              {moment(effectiveDate).format("Do MMM YY")}
+              {moment(effectiveDate).format('Do MMM YY')}
             </div>
           </div>
           <div className="cardSectionItem">
@@ -102,6 +104,7 @@ function SalaryDetailCard(props) {
         <RemarksApproval
           data={approvers}
           title={Approvals}
+          reference={salaryDetail.id}
           module={ApprovalsModule.SalaryApproval}
           onStatusChanged={() => {}}
         />

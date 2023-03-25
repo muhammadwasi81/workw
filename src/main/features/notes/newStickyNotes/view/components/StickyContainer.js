@@ -101,7 +101,7 @@ const StickyContainer = () => {
   return (
     <>
       <Draggable
-        defaultPosition={{ x: axis.x_axis, y: axis.y_axis }}
+        //defaultPosition={{ x: axis.x_axis, y: axis.y_axis }}
         handle=".handle"
       >
         <div className={`sticky_container ${!minimize ? "minimize" : ""}`}>

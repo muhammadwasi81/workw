@@ -26,7 +26,7 @@ export const addUserBankService = (payload) => {
     payload
   )
     .then((res) => {
-      console.log(res, 'addUserBankService Service');
+      // console.log(res, 'addUserBankService Service');
       return res.data;
     })
     .catch((err) => {
@@ -35,7 +35,7 @@ export const addUserBankService = (payload) => {
 };
 
 export const updateUserBankService = async (payload) => {
-  console.log(payload, 'payload');
+  // console.log(payload, 'payload');
   try {
     const {
       data: { responseCode, data, message },
@@ -43,7 +43,7 @@ export const updateUserBankService = async (payload) => {
       `${API_PREFIX}UserBankDetail/UpdateUserBankDetail?userId=${payload.id}`,
       payload.payload
     );
-    console.log(data, 'updateUserBankService service');
+    // console.log(data, 'updateUserBankService service');
     if (responseCode === 1001) return ResponseResultSuccess(data);
     return ResponseResultError(message);
   } catch (e) {

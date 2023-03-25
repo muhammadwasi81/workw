@@ -3,7 +3,6 @@ import $ from "jquery";
 import * as moment from "moment";
 import brokenPaper from "../content/svg/brokenpaper.svg";
 import { Link } from "react-router-dom";
-import { REPORT_URL } from "./services";
 import { ROUTES } from "./routes";
 import { replaceURL } from "../main/features/feed/utils/ValidateCreatePost";
 // import { Link } from "react-router-dom";
@@ -65,82 +64,9 @@ export const STRINGS = {
     rights: "rights",
   },
   ROUTES: {
-    SEARCH: {
-      DEFAULT: `${DOMAIN_PREFIX}/search`,
-    },
-    MESSENGER: {
-      DEFAULT: `${DOMAIN_PREFIX}/messenger`,
-      CHAT: `${DOMAIN_PREFIX}/messenger/chat`,
-    },
-    AUTH: {
-      SIGN_UP: `${DOMAIN_PREFIX}/register`,
-      VERIFICATION_SUCCESS: `${DOMAIN_PREFIX}/verified`,
-      VERIFICATION_INPROCESS: `${DOMAIN_PREFIX}/verify`,
-      SIGN_IN: `${DOMAIN_PREFIX}/login`,
-      INDIVIDUAL_SIGN_IN: `${DOMAIN_PREFIX}/individualSignIn`,
-      PAYMENT: `${DOMAIN_PREFIX}/AddPaymentCard`,
-      EXTERNAL_SIGN_UP: `${DOMAIN_PREFIX}/externalSignup`,
-      SIGN_IN_ANONYMOUSLY: `${DOMAIN_PREFIX}/authenticating`,
-      FORGOT_PASSWORD_LANDING: `${DOMAIN_PREFIX}/resetpassword`,
-      FORGOT_PASSWORD: `${DOMAIN_PREFIX}/forgotpassword`,
-    },
-    BUDGET: {
-      DEFAULT: `${DOMAIN_PREFIX}/budgets`,
-    },
     ROOT: `${DOMAIN_PREFIX}/`,
     NEWSFEED: {
       DETAILS: `${DOMAIN_PREFIX}/newsFeedDetails`,
-    },
-    JOB_OPENING: `${DOMAIN_PREFIX}/jobopeningletter`,
-    OFFER_LETTER: `${DOMAIN_PREFIX}/OfferLetter`,
-    DOCUMENT_APPROVAL: `${DOMAIN_PREFIX}/DocumentApproval`,
-    SCHEDULE_REMARKS: `${DOMAIN_PREFIX}/ScheduleRemark`,
-    PRE_EMPLOYMENT: `${DOMAIN_PREFIX}/EmploymentForm`,
-    GROUP: {
-      DEFAULT: `${DOMAIN_PREFIX}/groups/`,
-      NEWS: `${DOMAIN_PREFIX}/groups/news`,
-      SCHEDULES: `${DOMAIN_PREFIX}/groups/schedules`,
-      TASKS: `${DOMAIN_PREFIX}/groups/tasks`,
-      EXPENSES: `${DOMAIN_PREFIX}/groups/expenses`,
-    },
-    INVENTORY: {
-      DEFAULT: `${DOMAIN_PREFIX}/inventory`,
-    },
-    ATTENDANCE: {
-      DEFAULT: `${DOMAIN_PREFIX}/attendance`,
-      USER_ATTENDANCE: `${DOMAIN_PREFIX}/attendance/user_attendance`,
-    },
-    ASSETS: {
-      DEFAULT: `${DOMAIN_PREFIX}/assets`,
-    },
-
-    PROJECT: {
-      DEFAULT: `${DOMAIN_PREFIX}/projects`,
-      NEWS: `${DOMAIN_PREFIX}/projects/news`,
-      SCHEDULES: `${DOMAIN_PREFIX}/projects/schedules`,
-      TASKS: `${DOMAIN_PREFIX}/projects/tasks`,
-      EXPENSES: `${DOMAIN_PREFIX}/projects/expenses`,
-      TRAVEL: `${DOMAIN_PREFIX}/projects/travels`,
-      TRAVEL_DETAILS: `${DOMAIN_PREFIX}/projects/travel/details`,
-      TRAVEL_CITIES: `${DOMAIN_PREFIX}/projects/travel/cities`,
-      TRAVEL_APPROVALS: `${DOMAIN_PREFIX}/projects/travel/approvals`,
-      TRAVEL_EXPENSES: `${DOMAIN_PREFIX}/projects/travel/expenses`,
-      BUDGETS: `${DOMAIN_PREFIX}/projects/budgets`,
-      TODO: `${DOMAIN_PREFIX}/projects/workBoard`,
-      TODO_BOARD: `${DOMAIN_PREFIX}/projects/workBoard/board`,
-      MY_TODO: `${DOMAIN_PREFIX}/projects/mytodo`,
-      PROJECT_BUDGET: `${DOMAIN_PREFIX}/projects/budget/details`,
-      DOCUMENTS: `${DOMAIN_PREFIX}/projects/documents`,
-    },
-    DOCUMENTS: {
-      DEFAULT: `${DOMAIN_PREFIX}/documents`,
-      ITEM: `${DOMAIN_PREFIX}/documents`,
-      EDITOR: `${DOMAIN_PREFIX}/documents/editor`,
-    },
-    TODO: {
-      DEFAULT: `${DOMAIN_PREFIX}/workBoard`,
-      TODO_BOARD: `${DOMAIN_PREFIX}/workBoard/board`,
-      MY_TODO: `${DOMAIN_PREFIX}/workBoard/assignToMe`,
     },
     CONTACT_MANAGER: {
       DEFAULT: `${DOMAIN_PREFIX}/leadManager`,
@@ -243,9 +169,6 @@ export const STRINGS = {
       BONUS: {
         DEFAULT: `${DOMAIN_PREFIX}/bonus`,
       },
-      // ORGCHART:{
-      //   DEFAULT: `${DOMAIN_PREFIX}/index`,
-      // },
       DEPARTMENT: {
         DEFAULT: `${DOMAIN_PREFIX}/departments`,
         APPROVALS: `${DOMAIN_PREFIX}/departments/approvals`,

@@ -1,34 +1,36 @@
-import { Modal } from "antd";
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { getAllEmployees } from "../../../../../utils/Shared/store/actions";
-import Avatar from "../../../Avatar/avatarOLD";
-import { getAllDefaultApproversAction } from "../../../../features/defaultApprovers/store/action";
-import CustomSelect from "../../../AntdCustomSelects/SharedSelects/MemberSelect";
-import { useSelector } from "react-redux";
-import { addApproversAction } from "../action/action";
-import ApproverListItem from "./approverList";
-import DetailModal from "../../../../sharedComponents/ItemDetails";
+import { Modal, message } from 'antd';
+import React from 'react';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { getAllEmployees } from '../../../../../utils/Shared/store/actions';
+import Avatar from '../../../Avatar/avatarOLD';
+import { getAllDefaultApproversAction } from '../../../../features/defaultApprovers/store/action';
+import CustomSelect from '../../../AntdCustomSelects/SharedSelects/MemberSelect';
+import { useSelector } from 'react-redux';
+import { addApproversAction } from '../action/action';
+import ApproverListItem from './approverList';
+import DetailModal from '../../../../sharedComponents/ItemDetails';
 
 const payloadData = {
   pageNo: 1,
   pageSize: 20,
-  search: "",
+  search: '',
 };
 
 function AddAprrovalModal({ data, module, reference }) {
+  console.log(data, 'DATA!!!');
   const dispatch = useDispatch();
   const [value, setValue] = useState([]);
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
-  const [currentType, setCurrentType] = useState("");
+  const [currentType, setCurrentType] = useState('');
 
   let approverIdArray = data.map((item) => {
     return item.approverId;
   });
   let approverId = approverIdArray.toString();
+  console.log(approverId, 'APPROVER ID');
   let approvalTypeArray = data.map((item) => {
     return item.approvalType;
   });
@@ -66,20 +68,21 @@ function AddAprrovalModal({ data, module, reference }) {
   };
 
   useEffect(() => {
-    fetchEmployees("", 0);
+    fetchEmployees('', 0);
   }, []);
 
   const handleChange = (approverId) => {
-    console.log(approverId)
-    console.log(module);
-    console.log(reference)
+    console.log(approverId, 'APPROVER ID');
+    if (approverIdArray.includes(approverId[0])) {
+      return message.error('Member already existed');
+    }
     const payload = {
       approverId: approverId[0],
       module: module,
-      referenceId: reference
-    }
+      referenceId: reference,
+    };
+    console.log(payload, 'PAYLOAD!!!');
     dispatch(addApproversAction(payload));
-  
   };
 
   return (

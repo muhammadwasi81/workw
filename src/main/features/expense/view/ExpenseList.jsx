@@ -39,7 +39,6 @@ function ExpenseList({
     attachments,
   } = expense;
 
-  console.log(expense, 'expense');
   const { labels } = ExpenseDictionaryList;
   let classes = 'expenseCard ';
   classes += Direction === 'rtl' ? 'rtl' : '';
@@ -98,7 +97,7 @@ function ExpenseList({
           <div className="expensedetail__footer">
             <div className="left">
               <span>{labels.expenseDate}</span>
-              <span> {moment(expenseDate).format('ddd,MMM DD,YYYY')}</span>
+              <span> {moment(expenseDate).fromNow()}</span>
             </div>
             <div className="right">
               <span>{labels.header}:</span>

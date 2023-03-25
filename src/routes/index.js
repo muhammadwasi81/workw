@@ -5,7 +5,7 @@ import SideNavigation from "../main/sharedComponents/Nav/";
 import TopMenuBar from "../main/sharedComponents/MobileView/topMenu";
 import BottomNavigationTab from "../main/sharedComponents/MobileView/bottomNavigationTab/";
 import { useSelector } from "react-redux";
-import { Socket, SOCKET_STATE } from "../utils/socket";
+import { SOCKET_STATE } from "../utils/Shared/enums/socketEnums";
 import Spinner from "../main/sharedComponents/spinner/spinner";
 import SideChatBar from "../main/features/SideChatbar/index";
 import FcmNotification from "../main/features/notifiation/view/FCM/fcmNotification";

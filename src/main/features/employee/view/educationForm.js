@@ -98,7 +98,11 @@ const EducationForm = ({ id, mode }) => {
       dataIndex: 'cityId',
       key: 'cityId',
       render: (value) => {
-        return city?.filter((item) => item.id === value?.toString())?.[0]?.name;
+        if (isEdit) {
+          return cities?.filter((item) => item.id === value?.toString())?.[0]
+            ?.name;
+        }
+        return value?.name;
       },
     },
     {
@@ -167,10 +171,10 @@ const EducationForm = ({ id, mode }) => {
     form.submit();
     try {
       const isValidation = await form.validateFields();
-      console.log(isValidation, 'isValidation');
+      // console.log(isValidation, 'isValidation');
       if (isValidation) {
         if (isEdit) {
-          console.log('is edit work');
+          // console.log('is edit work');
           const payloadObj = {
             payload: form.getFieldsValue(),
             id: param.id,
@@ -232,13 +236,16 @@ const EducationForm = ({ id, mode }) => {
       ...form.getFieldsValue(),
       id: newUserId,
       userId: param.id,
+      startDate: form.getFieldValue('startDate')[0],
+      endDate: form.getFieldValue('startDate')[1],
+      isPresent: form.getFieldValue('isPresent'),
     };
     return payload;
   };
 
   const handleUpdate = () => {
     const payload = createPayload();
-    console.log(payload, 'payload');
+    // console.log(payload, 'payload');
     dispatch(updateUserEducationAction(payload));
     setEducationDetails((preValues) => [...preValues, payload]);
     setInitialValues(initialState);

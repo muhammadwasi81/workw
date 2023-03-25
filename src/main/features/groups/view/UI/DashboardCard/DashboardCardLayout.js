@@ -23,7 +23,7 @@ function DashboardCardLayout({
 }) {
   const { groupMembers } = useSelector((state) => state.groupSlice);
   console.log(groupMembers, "group members");
-
+  console.log(data, "Dataaa");
   const dispatch = useDispatch();
   const { Meta } = Card;
   const menuHandler = (e) => {

@@ -48,7 +48,7 @@ const JobDetails = (props) => {
   } = careerDetail;
 
   // console.log("career detail", careerDetail);
-  console.log(status, "STATUS")
+  // console.log(status, "STATUS")
 
   const copyfunc = () => {
     setCopy(true);
@@ -58,7 +58,7 @@ const JobDetails = (props) => {
 
   const skillsArray = skills?.split(",");
 
-  console.log(skillsArray, "SKILLSSS !!!")
+  // console.log(skillsArray, "SKILLSSS !!!")
 
   // let notesTime = !moment(new Date()).fromNow(createDate)
   //   ? moment(createDate).format("LT")

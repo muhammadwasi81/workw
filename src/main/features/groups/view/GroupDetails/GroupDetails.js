@@ -98,7 +98,7 @@ function GroupDetails() {
     };
   }, []);
 
-  let featurePermissions = detail?.features.map((item) => item.featureId);
+  let featurePermissions = groupFeatures.map((item) => item.featureId);
   console.log(featurePermissions, "featurePermissionn");
 
   // function getUserPermissions(){
@@ -109,7 +109,8 @@ function GroupDetails() {
   //   })
   // }
   useEffect(() => {
-    let temp = detail?.features.map((feat) => {
+    let temp = groupFeatures.map((feat) => {
+      console.log(feat, "feattt");
       return {
         ...feat,
         content: featuresComp[feat.featureId],
@@ -119,7 +120,7 @@ function GroupDetails() {
       temp &&
       temp.filter((item) => featurePermissions.includes(item.featureId));
     setFeatures(payload);
-  }, [detail]);
+  }, [groupFeatures]);
 
   const defaultRoute = ROUTES.GROUP.DEFAULT + "/" + id;
   const featuresComp = {

@@ -76,9 +76,9 @@ const TopBar = ({
         </div>
       </div>
       <div className="searchButtons">
-        {!isEmptyObj(filter) && (
+        {/* {!isEmptyObj(filter) && (
           <FilterSearchButton onFilter={onFilter} {...rest} />
-        )}
+        )} */}
         {rightButtons &&
           rightButtons.map(({ name, onClick, icon, className }, index) => (
             <Button

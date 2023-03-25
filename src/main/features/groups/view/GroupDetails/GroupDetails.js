@@ -110,7 +110,6 @@ function GroupDetails() {
   // }
   useEffect(() => {
     let temp = groupFeatures.map((feat) => {
-      console.log(feat, "feattt");
       return {
         ...feat,
         content: featuresComp[feat.featureId],

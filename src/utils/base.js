@@ -129,21 +129,21 @@ export const STRINGS = {
       QUIZ_GAME: `${DOMAIN_PREFIX}/eLearningCourses/game`,
       HIGH_SCORE: `${DOMAIN_PREFIX}/eLearningCourses/highScore`,
     },
-    // USER: {
-    //   DEFAULT: `${DOMAIN_PREFIX}/user/`,
-    //   TIMELINE: {
-    //     DEFAULT: `${DOMAIN_PREFIX}/user/timeline/post`,
-    //     INFORMATION: `${DOMAIN_PREFIX}/user/timeline/information`,
-    //   },
-    //   SETTINGS: `${DOMAIN_PREFIX}/settings`,
-    //   NOTES: `${DOMAIN_PREFIX}/user/notes`,
-    // },
-    // CALL: {
-    //   DEFAULT: `${DOMAIN_PREFIX}/call`,
-    //   AUDIO: `${DOMAIN_PREFIX}/call/audiocall`,
-    //   VIDEO: `${DOMAIN_PREFIX}/call/audiocall`,
-    //   JOIN: `${DOMAIN_PREFIX}/call/joincall`,
-    // },
+    USER: {
+      DEFAULT: `${DOMAIN_PREFIX}/user/`,
+      TIMELINE: {
+        DEFAULT: `${DOMAIN_PREFIX}/user/timeline/post`,
+        INFORMATION: `${DOMAIN_PREFIX}/user/timeline/information`,
+      },
+      SETTINGS: `${DOMAIN_PREFIX}/settings`,
+      NOTES: `${DOMAIN_PREFIX}/user/notes`,
+    },
+    CALL: {
+      DEFAULT: `${DOMAIN_PREFIX}/call`,
+      AUDIO: `${DOMAIN_PREFIX}/call/audiocall`,
+      VIDEO: `${DOMAIN_PREFIX}/call/audiocall`,
+      JOIN: `${DOMAIN_PREFIX}/call/joincall`,
+    },
   },
   SOCKET_ACTIONS: {
     REGISTER_USER: "registerUser",

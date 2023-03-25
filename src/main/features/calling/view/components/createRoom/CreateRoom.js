@@ -12,6 +12,7 @@ import AddMember from "../Modal/AddMember";
 import MultipleAvatars from "../../../../../sharedComponents/Avatar/MultipleAvatars";
 import ExternalMember from "../Modal/ExternalMember";
 import { createRoom } from "../../../store/action";
+import { CALL_MEDIA_TYPE } from "../../../constant/enum";
 
 export default function CreateRoom() {
 	const [isPassword, setIsPassword] = useState(false);
@@ -102,6 +103,7 @@ export default function CreateRoom() {
 		let dataToSend = {
 			...fields,
 			members: [...members, ...externals],
+			mediaType: CALL_MEDIA_TYPE.VIDEO
 		};
 
 		dispatch(createRoom(dataToSend));

@@ -15,7 +15,7 @@ import {
 	getAllDocumentDirectoryMemberService,
 	addDocumentDirectoryMemberService,
 } from "../services/service";
-import { updateMoveDocument } from "./slice";
+import { toggleMinimizeDocument, updateMoveDocument } from "./slice";
 import { message } from "antd";
 
 export const moveDirectory = createAsyncThunk(
@@ -87,6 +87,10 @@ export const addDocument = createAsyncThunk(
 						duration: 2,
 					})
 				);
+				dispatch(toggleMinimizeDocument({
+					id: response.data.id,
+					status: true
+				  }))
 				console.log("action", response)
 				return response.data;
 			default:

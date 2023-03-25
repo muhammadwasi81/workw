@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 // import { useNavigate } from "react-router-dom";
 // import PropTypes from "prop-types";
-import AvatarGroup from "./AvatarGroup";
-import SingleItem from "./SingleItem";
+import AvatarGroup from './AvatarGroup';
+import SingleItem from './SingleItem';
 // import TagAvatar from "./TagAvatar";
 // avatar
 function Avatar(props) {
@@ -14,8 +14,8 @@ function Avatar(props) {
   //       : props.heading.split("s")[0].toLowerCase();
 
   const objProperty =
-    props.heading === "member"
-      ? "approver"
+    props.heading === 'member'
+      ? 'approver'
       : props.heading.slice(0, props.heading.length - 1).toLowerCase();
 
   // const name =
@@ -28,7 +28,6 @@ function Avatar(props) {
   // 	props.membersData[0][objProperty] !== null &&
   // 	props.membersData[0][objProperty] !== undefined &&
   // 	props.membersData[0][objProperty]?.image;
-
   return (
     <>
       {props.membersData && props.membersData.length > 0 ? (

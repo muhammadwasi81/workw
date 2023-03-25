@@ -6,8 +6,9 @@ import infoIcon from '../../../../../../content/NewContent/Messenger/infoIcon.sv
 import arrowIcon from '../../../../../../content/NewContent/Messenger/leftArrow.svg';
 import { useDispatch } from 'react-redux';
 import { handleIsopenChat } from '../../../store/messengerSlice';
-import { createRoom } from '../../../../calling/store/action';
+import { createDirectCall, createRoom } from '../../../../calling/store/action';
 import { InitializeCallingSocket } from '../../../../calling/services/socket';
+import { CALL_MEDIA_TYPE } from '../../../../calling/constant/enum';
 
 const MessengerHead = ({
   handleProfileClick,
@@ -17,7 +18,7 @@ const MessengerHead = ({
   const dispatch = useDispatch();
   const { profileName, profileImage, chatId, chatType, members } = messengerDetail;
   useEffect(() => { }, []);
-  const handleCall = () => {
+  const handleCall = (isVideoCall = false) => {
     let payload = {
       roomPassword: "",
       private: false,
@@ -27,9 +28,10 @@ const MessengerHead = ({
         exteralEmail: null,
         userId: member.id,
         user: member
-      }))
+      })),
+      mediaType: isVideoCall ? CALL_MEDIA_TYPE.VIDEO : CALL_MEDIA_TYPE.AUDIO
     }
-    dispatch(createRoom(payload));
+    dispatch(createDirectCall(payload));
     // const callingSocket = InitializeCallingSocket.getInstance();
     // callingSocket.startCalling(payload.members)
   }
@@ -58,12 +60,12 @@ const MessengerHead = ({
       <div className="MessengerHeadIcon">
         <div>
           <img src={phoneIcon}
-            onClick={handleCall}
+            onClick={() => handleCall(false)}
             alt="phoneIcon"
             className="cursor-pointer" />
           <img
             src={videoIcon}
-            onClick={handleCall}
+            onClick={() => handleCall(true)}
             className="videoIcon cursor-pointer"
             alt="videoIcon"
           />

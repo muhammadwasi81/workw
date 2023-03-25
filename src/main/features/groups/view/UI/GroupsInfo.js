@@ -47,7 +47,7 @@ function GroupsInfo({ ghost = true }) {
 
   useEffect(() => {
     let newFeatures;
-    if (groupFeatures.length >= 0) {
+    if (groupFeatures.length > 0) {
       newFeatures = groupFeatures.map((item) => {
         return {
           featureId: item.featureId,

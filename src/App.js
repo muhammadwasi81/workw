@@ -61,7 +61,7 @@ const App = () => {
   // const userId = useSelector((state) => state.userSlice?.user?.id);
 
   const dispatch = useDispatch();
-  console.log(userSlice, "USER DATA");
+  // console.log(userSlice, "USER DATA");
   const isLoggedIn = !!userSlice.token;
   useEffect(() => {
     let defaultLanguage = window.localStorage.getItem("rcml-lang");

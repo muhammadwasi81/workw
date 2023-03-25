@@ -43,7 +43,7 @@ function CallWindow({ item }) {
 
             <CallPreviewModal
                 isMinimizedModal={true}
-                previewItem={item.isOpen ? { path: item.callUrl } : null}
+                previewItem={item.isOpen ? item : null}
                 handleClose={handleClose} />
         </>
     )

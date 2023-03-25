@@ -1,61 +1,51 @@
-import { Button, Form, Input, message, Select } from "antd";
-import React, { useContext } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import ReactQuill from "react-quill";
-import { FormTextArea } from "../../../sharedComponents/Administration/StyledComponents/adminForm";
-import * as S from "../../employee/Styles/employee.style";
-import { FormLabel } from "./FormLabel";
-import { addBusinessPolicy, updateBusinessPolicy } from "../store/action";
-import "react-quill/dist/quill.snow.css";
-import { handleEdit } from "../store/slice";
+import { Button, Form, Input, message, Select } from 'antd';
+import React, { useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import ReactQuill from 'react-quill';
+import { FormTextArea } from '../../../sharedComponents/Administration/StyledComponents/adminForm';
+import * as S from '../../employee/Styles/employee.style';
+import { FormLabel } from './FormLabel';
+import { addBusinessPolicy, updateBusinessPolicy } from '../store/action';
+import 'react-quill/dist/quill.snow.css';
+import { handleEdit } from '../store/slice';
 
-import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
-import { dictionaryList } from "../../../../utils/localization/languages";
+import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
+import { dictionaryList } from '../../../../utils/localization/languages';
 
 const { Option } = Select;
 
 const modules = {
   toolbar: [
-    [{ font: [] }],
-    [{ size: ["small", false, "large", "huge"] }],
-    [{ header: [1, 2, 3, 4, 5, 6, false] }],
-    ["bold", "italic", "underline"],
-    [{ list: "ordered" }, { list: "bullet" }],
-    // [{ 'script': 'sub' }, { 'script': 'super' }],
-    //[{ 'indent': '-1'}, { 'indent': '+1' }],
-    [{ direction: "rtl" }],
-    [{ align: ["center"] }],
+    // [{ header: [1, 2, 3, 4, 5, 6, false] }],
+    ['bold', 'italic', 'underline'],
+    [{ list: 'ordered' }, { list: 'bullet' }],
     [{ color: [] }, { background: [] }],
-    // ['clean']
+    [{ direction: 'rtl' }],
+    [{ align: ['center'] }],
   ],
 };
 const formats = {
   toolbar: [
     [{ font: [] }],
-    [{ size: ["small", false, "large", "huge"] }],
+    [{ size: ['small', false, 'large', 'huge'] }],
     [{ header: [1, 2, 3, 4, 5, 6, false] }],
-    ["bold", "italic", "underline"],
-    [{ list: "ordered" }, { list: "bullet" }],
-    // [{ 'script': 'sub' }, { 'script': 'super' }],
-    //[{ 'indent': '-1'}, { 'indent': '+1' }],
-    [{ direction: "rtl" }],
-    [{ align: ["center"] }],
+    ['bold', 'italic', 'underline'],
+    [{ list: 'ordered' }, { list: 'bullet' }],
+    [{ direction: 'rtl' }],
+    [{ align: ['center'] }],
     [{ color: [] }, { background: [] }],
-    // ['clean']
   ],
 };
 
 function BusinessPolicyComposer({ editData }) {
   const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { administration, businessPolicy, Direction } = dictionaryList[
-    userLanguage
-  ];
-
+  const { administration, Direction } = dictionaryList[userLanguage];
   const { createLoader } = useSelector((state) => state.businessPolicySlice);
+
   const onFinish = (values) => {
     if (values.name.length > 150) {
-      message.error("Name characters limit exeeded");
+      return message.error('Name characters limit exceeded');
     } else {
       if (editData) {
         dispatch(updateBusinessPolicy({ ...values, id: editData.id }));
@@ -64,7 +54,6 @@ function BusinessPolicyComposer({ editData }) {
       }
     }
   };
-
   return (
     <div className="ar_container">
       <Form
@@ -123,9 +112,9 @@ function BusinessPolicyComposer({ editData }) {
             }
           >
             <ReactQuill
-              style={{ overflow: "hidden" }}
+              style={{ overflow: 'hidden' }}
               className="ReactQuill"
-              onChange={(e) => console.log(e)}
+              onChange={(e) => console.log(e, 'e')}
               modules={modules}
               formats={formats}
             />
@@ -139,13 +128,13 @@ function BusinessPolicyComposer({ editData }) {
             className="ThemeBtn"
             block
             htmlType="submit"
-            title={"Create"}
+            title={'Create'}
             loading={createLoader}
           >
-            {" "}
+            {' '}
             {editData
               ? administration.businessPolicy.save
-              : administration.businessPolicy.create}{" "}
+              : administration.businessPolicy.create}{' '}
           </Button>
         </Form.Item>
       </Form>

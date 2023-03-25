@@ -1,5 +1,5 @@
-import { Drawer, Skeleton } from 'antd';
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { Skeleton } from 'antd';
 import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
 import Approval from '../../../sharedComponents/AppComponents/Approvals/view';
 import { ExpenseDictionary } from '../localization';
@@ -10,8 +10,8 @@ import {
   ApprovalStatus,
 } from '../../../sharedComponents/AppComponents/Approvals/enums';
 import { updateListExpenseStatus } from '../store/slice';
-import ExpenseDetailList from './ExpenseDetailList';
-import "../style/style.css"
+import '../style/style.css';
+import ExpenseList from './ExpenseList';
 function ExpenseDetail({ id }) {
   const { expense, loadingData } = useSelector((state) => state.expenseSlice);
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -22,7 +22,6 @@ function ExpenseDetail({ id }) {
   const [isMount, setIsMount] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
-    // console.log(id, "DDIDDD");
     dispatch(getExpenseById(id));
   }, [id]);
   useEffect(() => {
@@ -63,7 +62,7 @@ function ExpenseDetail({ id }) {
       ) : (
         <div className="expenseDetail">
           {
-            <ExpenseDetailList
+            <ExpenseList
               expense={expense}
               updateStatus={isMount ? status : expense.status}
               isDetail={true}
@@ -71,6 +70,7 @@ function ExpenseDetail({ id }) {
           }
           <Approval
             title={labels.approvers}
+            reference={expense.id}
             module={ApprovalsModule.ExpenseApproval}
             data={expense.approvers}
             onStatusChanged={(status) => {
@@ -83,6 +83,7 @@ function ExpenseDetail({ id }) {
           <Approval
             title={labels.executors}
             module={ApprovalsModule.ExpenseExecutor}
+            reference={expense.id}
             data={expense.executors}
             onStatusChanged={(status) =>
               setExpenseStatus((prev) => {
@@ -95,6 +96,7 @@ function ExpenseDetail({ id }) {
             title={labels.financers}
             module={ApprovalsModule.ExpenseFinance}
             data={expense.financers}
+            reference={expense.id}
             onStatusChanged={(status) =>
               setExpenseStatus((prev) => {
                 return { ...prev, ...status };

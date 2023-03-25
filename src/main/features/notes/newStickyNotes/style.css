@@ -8,6 +8,8 @@
   cursor: pointer;
   border-radius: 5px;
   z-index: 10;
+  bottom: 3px;
+
   transform: translate(11px, 456px);
 }
 
@@ -153,7 +155,7 @@ a.drop-downList {
 
 .sticky_titleContainer {
   background-color: #0f4c81;
-  color: black;
+  color: white;
   font-weight: bold;
   height: 30px;
   width: 200px;

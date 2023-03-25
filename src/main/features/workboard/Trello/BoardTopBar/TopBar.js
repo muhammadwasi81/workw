@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import TopBar from "../../../../sharedComponents/topBar/topBar";
 
-function BoardTopBar({ handleView, topBar }) {
+function BoardTopBar({ handleView, topBar, handleChangeSegment = () => {} }) {
 	// const [filter, setFilter] = useState({
 	// 	filterType: 1,
 	// });
@@ -19,6 +19,7 @@ function BoardTopBar({ handleView, topBar }) {
 			}}
 			segment={{
 				onSegment: value => {
+					handleChangeSegment()
 					if (value === topBar.table) {
 						setTableView(true);
 					} else {

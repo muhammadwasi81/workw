@@ -35,7 +35,7 @@ function MinimizedItem({ item }) {
                     </div>
                     <div>
                         <div>
-                            <SharedButton onClick={() => { }} icon={closeMailIcon} />
+                            <SharedButton onClick={handleClose} icon={closeMailIcon} />
                         </div>
                     </div>
                 </div>}

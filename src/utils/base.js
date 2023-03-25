@@ -243,6 +243,9 @@ export const STRINGS = {
       BONUS: {
         DEFAULT: `${DOMAIN_PREFIX}/bonus`,
       },
+      // ORGCHART:{
+      //   DEFAULT: `${DOMAIN_PREFIX}/index`,
+      // },
       DEPARTMENT: {
         DEFAULT: `${DOMAIN_PREFIX}/departments`,
         APPROVALS: `${DOMAIN_PREFIX}/departments/approvals`,

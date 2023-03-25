@@ -223,10 +223,10 @@ export const routes = {
       path: `${ROUTES.HR.BONUS.DEFAULT}`,
       component: lazy(() => import("../main/features/bonus/view/Bonus")),
     },
-    // {
-    //   path: `${ROUTES.HR.ORGCHART.DEFAULT}`,
-    //   component: lazy(() => import("../main/features/orgchart/view/index")),
-    // },
+    {
+      path: `${ROUTES.HR.OrganizationalChart.DEFAULT}`,
+      component: lazy(() => import("../main/features/orgchart/view/index")),
+    },
     {
       path: `${ROUTES.APPRAISALS.DEFAULT}`,
       component: lazy(() =>

@@ -554,6 +554,9 @@ export const ROUTES = {
     BONUS: {
       DEFAULT: `${DOMAIN_PREFIX}/bonus`,
     },
+    OrganizationalChart:{
+      DEFAULT: `${DOMAIN_PREFIX}/index`,
+    },
   },
   MAIL: {
     DEFAULT: `${DOMAIN_PREFIX}/mail/*`,
@@ -648,5 +651,9 @@ export const ROUTES = {
     DEFAULT: `${DOMAIN_PREFIX}/bonus/*`,
     ROOT: `${DOMAIN_PREFIX}/bonus`,
     DETAIL: `/detail`,
+  },
+  OrganizationalChart:{
+    DEFAULT: `${DOMAIN_PREFIX}/index`,
+    ROOT: `${DOMAIN_PREFIX}/index`,
   },
 };

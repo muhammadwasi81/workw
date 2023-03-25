@@ -46,7 +46,7 @@ export const CreateCall = () => {
             </div>
           ),
           onClick: () => {
-            dispatch(instantCall({ isPrivate: false, roomPassword: "" }));
+            dispatch(instantCall({ private: false, roomPassword: "", members: [] }));
           },
         },
       ]}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import Tune from '../../../../content/audio/recivecalltune.mp3'
@@ -11,22 +11,21 @@ export default function IncomingCall() {
 	const userSlice = useSelector(state => state.userSlice);
 	const userDetail = incomingCallData?.data?.callInitializer && incomingCallData?.data?.callInitializer
 	const dispatch = useDispatch();
+	const [timerState, setTimerState] = useState(null);
 
-	const handleOpenCallWindow = (callURL) => {
-		// const strWindowFeatures =
-		// 	"location=yes,height=800,width=800,scrollbars=yes,status=yes";
-		// window.open(callURL, "_blank", strWindowFeatures);
+	const handleOpenCallWindow = (callURL, isVideo = 0) => {
 		dispatch(handleIncomingCall(null));
 		dispatch(handleAddCallWindow({
-			callUrl: `${callURL}?token=${userSlice.token}`,
+			callUrl: `${callURL}?token=${userSlice.token}&isVideo=${isVideo}`,
 			isOpen: true
 		}));
 	};
 
-	const handleAccept = (callURL) => {
+	const handleAccept = (callURL, isVideo) => {
 		const callingSocket = InitializeCallingSocket.getInstance();
 		callingSocket.acceptCall(userDetail?.id);
-		handleOpenCallWindow(callURL)
+		const isVideoValue = isVideo === true ? 1 : 0;
+		handleOpenCallWindow(callURL, isVideoValue)
 	}
 	const handleDecline = () => {
 		const callingSocket = InitializeCallingSocket.getInstance();
@@ -59,14 +58,14 @@ export default function IncomingCall() {
 							<div className="call-options">
 								{/* {mode === STRINGS.TYPES.CALL.MODE.VIDEO && ( */}
 								<div className="call-opt-btn gr"
-									onClick={() => handleAccept(incomingCallData.data.CallURL)}
+									onClick={() => handleAccept(incomingCallData.data.CallURL, true)}
 								//  onClick={() => this.acceptCall(STRINGS.TYPES.CALL.MODE.VIDEO_ANSWER)}
 								>
 									<i className="ic-facetime" style={{ width: "14px", height: "14px" }} />
 								</div>
 								{/* )} */}
 								<div className="call-opt-btn gr"
-									onClick={() => handleAccept(incomingCallData.data.CallURL)}
+									onClick={() => handleAccept(incomingCallData.data.CallURL, false)}
 								//  onClick={() => this.acceptCall(STRINGS.TYPES.CALL.MODE.ANSWER)}
 								>
 									<i className="ic-phone" />

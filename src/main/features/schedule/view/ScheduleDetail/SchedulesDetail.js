@@ -242,32 +242,20 @@ function MySchedules() {
   useEffect(() => {
     if (scheduleTabs === "0") {
       //Get all schedule for today
-      fetchAllSchedule(
-        moment()
-          .startOf("D")
-          .format(),
-        moment()
-          .endOf("D")
-          .format()
-      );
+      const endOfDayUtc = moment.utc().endOf("day");
+      // console.log(endOfDayUtc.format());
+      fetchAllSchedule("", endOfDayUtc.format());
     }
     if (scheduleTabs === "1") {
       //Get all schedule for past
-      fetchAllSchedule(
-        "",
-        moment()
-          .subtract(1, "days")
-          .format()
-      );
+      const startOfDayUtc = moment.utc().startOf("day");
+      const endOfDayUtc = moment.utc().endOf("day");
+      fetchAllSchedule(startOfDayUtc.format(), endOfDayUtc.format());
     }
     if (scheduleTabs === "2") {
       //Get all schedule for upcoming
-      fetchAllSchedule(
-        moment()
-          .add(1, "days")
-          .format(),
-        ""
-      );
+      const startOfDayUtc = moment.utc().startOf("day");
+      fetchAllSchedule(startOfDayUtc.format(), "");
     }
   }, [scheduleSearch, referenceType, userData]);
 
@@ -278,32 +266,20 @@ function MySchedules() {
     //TODO: Here will call api when tabs change
     if (e.toString() === "0") {
       //Get all schedule for today
-      fetchAllSchedule(
-        moment()
-          .startOf("D")
-          .format(),
-        moment()
-          .endOf("D")
-          .format()
-      );
+      const endOfDayUtc = moment.utc().endOf("day");
+      // console.log(endOfDayUtc.format());
+      fetchAllSchedule("", endOfDayUtc.format());
     }
     if (e.toString() === "1") {
       //Get all schedule for past
-      fetchAllSchedule(
-        "",
-        moment()
-          .subtract(1, "days")
-          .format()
-      );
+      const startOfDayUtc = moment.utc().startOf("day");
+      const endOfDayUtc = moment.utc().endOf("day");
+      fetchAllSchedule(startOfDayUtc.format(), endOfDayUtc.format());
     }
     if (e.toString() === "2") {
       //Get all schedule for upcoming
-      fetchAllSchedule(
-        moment()
-          .add(1, "days")
-          .format(),
-        ""
-      );
+      const startOfDayUtc = moment.utc().startOf("day");
+      fetchAllSchedule(startOfDayUtc.format(), "");
     }
   };
 

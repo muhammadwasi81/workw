@@ -83,6 +83,8 @@ const TaskComp = (props) => {
   };
   const fetchEmployeesShort = (text = "", pgNo = 1) => {
     dispatch(getAllEmployeeShort({ text, pgNo, pgSize: 20 }));
+    //will be change
+    // dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
   };
 
   useEffect(() => {

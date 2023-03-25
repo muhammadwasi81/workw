@@ -10,7 +10,7 @@ import { replaceURL } from "../main/features/feed/utils/ValidateCreatePost";
 
 let DOMAIN_PREFIX = "";
 // for live this line will be comment
-// DOMAIN_PREFIX = process.env.NODE_ENV !== 'development' ? '/konnect' : '';
+// DOMAIN_PREFIX = process.env.NODE_ENV !== "development" ? "/konnect" : "";
 
 export const STRINGS = {
   COPY_RIGHTS: `\u00A9 Miletap Ltd - Copyrights \u00402017-${new Date().getFullYear()}`,
@@ -85,7 +85,12 @@ export const STRINGS = {
     NEW_SCHEDULES: {
       DEFAULT: `${DOMAIN_PREFIX}/newschedules`,
     },
-    // TASKS: `${DOMAIN_PREFIX}/tasks`,
+
+    TASK: {
+      DEFAULT: `${DOMAIN_PREFIX}/tasks/*`,
+      ROOT: `${DOMAIN_PREFIX}/tasks`,
+      DETAIL: `taskDetail/:id`,
+    },
     LEAVES: `${DOMAIN_PREFIX}/leaves/`,
     DEPARTMENT: `${DOMAIN_PREFIX}/departments`,
     EXPENSE: {
@@ -129,21 +134,21 @@ export const STRINGS = {
       QUIZ_GAME: `${DOMAIN_PREFIX}/eLearningCourses/game`,
       HIGH_SCORE: `${DOMAIN_PREFIX}/eLearningCourses/highScore`,
     },
-    // USER: {
-    //   DEFAULT: `${DOMAIN_PREFIX}/user/`,
-    //   TIMELINE: {
-    //     DEFAULT: `${DOMAIN_PREFIX}/user/timeline/post`,
-    //     INFORMATION: `${DOMAIN_PREFIX}/user/timeline/information`,
-    //   },
-    //   SETTINGS: `${DOMAIN_PREFIX}/settings`,
-    //   NOTES: `${DOMAIN_PREFIX}/user/notes`,
-    // },
-    // CALL: {
-    //   DEFAULT: `${DOMAIN_PREFIX}/call`,
-    //   AUDIO: `${DOMAIN_PREFIX}/call/audiocall`,
-    //   VIDEO: `${DOMAIN_PREFIX}/call/audiocall`,
-    //   JOIN: `${DOMAIN_PREFIX}/call/joincall`,
-    // },
+    USER: {
+      DEFAULT: `${DOMAIN_PREFIX}/user/`,
+      TIMELINE: {
+        DEFAULT: `${DOMAIN_PREFIX}/user/timeline/post`,
+        INFORMATION: `${DOMAIN_PREFIX}/user/timeline/information`,
+      },
+      SETTINGS: `${DOMAIN_PREFIX}/settings`,
+      NOTES: `${DOMAIN_PREFIX}/user/notes`,
+    },
+    CALL: {
+      DEFAULT: `${DOMAIN_PREFIX}/call`,
+      AUDIO: `${DOMAIN_PREFIX}/call/audiocall`,
+      VIDEO: `${DOMAIN_PREFIX}/call/audiocall`,
+      JOIN: `${DOMAIN_PREFIX}/call/joincall`,
+    },
   },
   SOCKET_ACTIONS: {
     REGISTER_USER: "registerUser",

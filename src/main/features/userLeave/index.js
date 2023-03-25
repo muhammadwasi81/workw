@@ -1,179 +1,100 @@
-// import React, { useEffect, useState } from "react";
-// import { useSelector } from "react-redux";
-// import { useParams } from "react-router-dom";
-// import { Table } from "antd";
-// import "./style.css";
-// import { useDispatch } from "react-redux";
+// import { Button, Table } from "antd";
+// import { useSelector, useDispatch } from "react-redux";
 // import { getUserLeave } from "../userLeave/store/actions";
-// import { Button, DatePicker, Divider, Form, Input, Select } from "antd";
-// import { EditOutlined } from "@ant-design/icons";
-// import EditableTable from "./EditableTable";
-// const columns = [
-//   {
-//     title: "Leave Type",
-//     dataIndex: "leaveType",
-//     ellipsis: true,
-//     key: "leaveTypeName",
-//   },
-//   {
-//     title: "Alloted",
-//     dataIndex: "allocatedLeaves",
-//     ellipsis: true,
-//     key: "alloted",
-//     editable: true, // make this column editable
-//   },
-//   {
-//     title: "Availed",
-//     dataIndex: "availed",
-//     ellipsis: true,
-//     key: "availed",
-//     editable: true, // make this column editable
-//   },
-// ];
+// import { useEffect, useState } from "react";
+// import { useParams } from "react-router-dom";
 
-// const handleSave = (row) => {
-//   console.log(row, "updated row");
-// };
-
-// function UserLeave({ mode }) {
-//   const isEdit = mode === "edit";
-//   const [form] = Form.useForm();
+// const UserLeave = () => {
 //   const { id } = useParams();
+//   console.log(id, "id");
 //   const dispatch = useDispatch();
+//   const { allLeaves } = useSelector((state) => state.userLeaveSlice);
+//   const [allocatedLeaves, setAllocatedLeaves] = useState("");
+//   const [availedLeaves, setAvailedLeaves] = useState("");
+//   const [newUserId, setNewUserId] = useState("");
+
+//   console.log(allLeaves, "allLeaves");
+//   console.log(newUserId, "newUserId");
+
 //   useEffect(() => {
-//     //TODO: dispatch get leaveUserById
 //     dispatch(getUserLeave(id));
 //   }, []);
-//   const {
-//     employee: { basicdetails },
-//   } = useSelector((state) => state.employeeSlice);
-
-//   // const handleSubmit = async () => {
-//   //   form.submit();
-//   //   let data;
-//   //   console.log(...form.getFieldsValue(), "fields value");
-
-//   //   // data = {
-//   //   //   ...form.getFieldsValue(),
-
-//   //   //   userId: id,
-//   //   // };
-//   // };
-//   const [dataSource, setDataSource] = useState(allLeaves ? allLeaves : []);
-
-//   // Define a function to handle the value change
-//   const handleValueChange = (record, dataIndex, value) => {
-//     // Find the index of the record in the data source
-//     const index = dataSource.findIndex((item) => item.key === record.key);
-
-//     // Create a new copy of the record and update the value
-//     const updatedRecord = {
-//       ...record,
-//       [dataIndex]: value,
+//   console.log(newUserId, "newUserId");
+//   const handleSubmit = () => {
+//     console.log(allocatedLeaves, "allocatedLeaves");
+//     console.log(availedLeaves, "availedLeaves");
+//     const payload = {
+//       userId: id,
+//       id: newUserId.id,
+//       availed: Number(availedLeaves),
+//       allocatedLeaves: Number(allocatedLeaves),
+//       leaveTypeId: newUserId.leaveTypeId,
 //     };
-
-//     console.log(updatedRecord, "updatedRecord");
-
-//     // Create a new copy of the data source and update the record
-//     const updatedDataSource = [...dataSource];
-//     updatedDataSource.splice(index, 1, updatedRecord);
-
-//     // Update the state with the new data source
-//     setDataSource(updatedDataSource);
-
-//     const EditableCell = ({
-//       editing,
-//       dataIndex,
-//       title,
-//       inputType,
-//       record,
-//       index,
-//       handleValueChange,
-//       children,
-//       ...restProps
-//     }) => {
-//       // ...
-//       const onChange = (e) => {
-//         const value = e.target.value;
-//         handleValueChange(record, dataIndex, value);
-//         console.log(value, "valueeeeee");
-//       };
-//       // ...
-//     };
+//     console.log([payload], "PAYLOAD");
 //   };
+//   const columns = [
+//     {
+//       title: "Leave Type",
+//       dataIndex: "leaveType",
+//       key: "leaveType",
+//     },
+//     {
+//       title: "Allocated",
+//       dataIndex: "allocatedLeaves",
+//       key: "allocatedLeaves",
+//       editable: true,
+//       render: (value, rowIndex) => {
+//         setNewUserId(rowIndex);
+//         console.log(value, "value");
+//         console.log(
+//           [rowIndex].map((x) => x.id),
+//           "[rowIndex]"
+//         );
+//         return (
+//           <input
+//             type="number"
+//             defaultValue={value}
+//             value={allocatedLeaves || value}
+//             onChange={(e) => setAllocatedLeaves(e.target.value)}
+//           />
+//         );
+//       },
+//     },
+//     {
+//       title: "Availed",
+//       dataIndex: "availed",
+//       key: "availed",
+//       render: (value, rowIndex) => {
+//         setNewUserId(rowIndex);
+//         console.log(value, "value");
+//         console.log(
+//           [rowIndex].map((x) => x.id),
+//           "[rowIndex]"
+//         );
+//         return (
+//           <input
+//             type="number"
+//             defaultValue={value}
+//             value={allocatedLeaves || value}
+//             onChange={(e) => setAllocatedLeaves(e.target.value)}
+//           />
+//         );
+//       },
+//     },
+//   ];
+
 //   return (
 //     <div>
-//       {/* <div className="employeeForm">
-//         <Divider orientation="left">Leaves Info</Divider>
-//         <Form name="familyInfo" layout={"vertical"}>
-//           <Form.Item
-//             name="Leave Type"
-//             label={"Leave Type"}
-//             rules={[{ required: true }]}
-//           >
-//             <Input placeholder="Leave Type" type="text" />
-//           </Form.Item>
-
-//           <Form.Item
-//             name="Alloted"
-//             label={"Alloted"}
-//             rules={[{ required: true }]}
-//           >
-//             <Input placeholder="Availed" type="number" />
-//           </Form.Item>
-//           <Form.Item
-//             name="Availed"
-//             label={"Availed"}
-//             rules={[{ required: true }]}
-//           >
-//             <Input placeholder="Availed" type="number" />
-//           </Form.Item>
-//         </Form>
-//         {/* <div className={isEdit ? "editButtons " : "buttons"}> */}
-//       {/* <Button
-//           type="dashed"
-//           style={{ marginLeft: "auto" }}
-//           icon={<EditOutlined />}
-//           onClick={handleSubmit} */}
-//       {/* // disabled= */}
-//       {/* {disableAdd ? true : false} */}
-//       {/* > */}
-//       {/* Add Rebate */}
-//       {/* </Button> */}
-//       {/* {isEdit && (
-//             <Buttons
-//               className="btn ThemeBtn"
-//               icon={<EditOutlined />}
-//               // onClick={handleUpdate}
-//               // disabled={!disableAdd ? true : false}
-//             >
-//               Update Rebate
-//             </Button>
-//           )} */}
-//       {/* </div> */}
-//       {/* <div className="rebateTable" style={{ marginTop: "1rem" }}></div>
-//       </div>  */}
-//       {/* <div className="userLeavesTable">
-//         <Table
-//           columns={columns}
-//           dragable={true}
-//           dataSource={allLeaves ? allLeaves : []}
-//         />
-//       </div> */}
-//       <EditableTable
-//         columns={columns}
-//         dragable={true}
-//         dataSource={dataSource}
-//         handleValueChange={handleSave}
-//       />
+//       <Table columns={columns} dragable={true} dataSource={allLeaves} />
+//       <Button onClick={handleSubmit}>Update</Button>
 //     </div>
 //   );
-// }
+// };
 
 // export default UserLeave;
-import { Table } from "antd";
+import { Button, Table } from "antd";
 import { useSelector, useDispatch } from "react-redux";
-import { getUserLeave } from "../userLeave/store/actions";
+import { getUserLeave, updateUserLeave } from "../userLeave/store/actions";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
@@ -184,28 +105,15 @@ const UserLeave = () => {
     dispatch(getUserLeave(id));
   }, []);
 
-  const handelAllocated = (e, item, name) => {
-    allLeaves.map((x) => {
-      if (x.id === item.id) {
-        return setInitialState([
-          {
-            ...x,
-            allocatedLeaves: e.target.value,
-          },
-          { ...x, availed: e.target.value },
-        ]);
-      }
-      // if (x.id === item.id) {
-      //   return setInputValues({ ...x, availed: e.target.value });
-      // }
-      console.log(x);
-    });
-  };
+  console.log(id, "id");
 
   const { allLeaves } = useSelector((state) => state.userLeaveSlice);
+  const [Initialinputs, setInitialinputs] = useState(allLeaves || []);
+  const [payload, setPayload] = useState([]);
 
-  const [initialState, setInitialState] = useState(allLeaves);
-
+  useEffect(() => {
+    setInitialinputs(allLeaves);
+  }, [allLeaves]);
   const columns = [
     {
       title: "Leave Type",
@@ -216,6 +124,7 @@ const UserLeave = () => {
       title: "Allocated",
       dataIndex: "allocatedLeaves",
       key: "allocatedLeaves",
+      editable: true,
     },
     {
       title: "Availed",
@@ -224,10 +133,64 @@ const UserLeave = () => {
     },
   ];
 
+  const renderTableRows = () => {
+    return Initialinputs.map((row, index) => {
+      return {
+        leaveType: <h2 className="w-48">{row.leaveType}</h2>,
+        allocatedLeaves: (
+          <input
+            defaultValue={row.allocatedLeaves}
+            className="bg-transparent"
+            type="number"
+            value={row.name}
+            onChange={(event) =>
+              handleInputChange(event, index, "allocatedLeaves")
+            }
+          />
+        ),
+        availed: (
+          <input
+            defaultValue={row.availed}
+            className="bg-transparent"
+            type="number"
+            value={row.age}
+            onChange={(event) => handleInputChange(event, index, "availed")}
+          />
+        ),
+      };
+    });
+  };
+
+  console.log(Initialinputs, "Initialinputs");
+  const handleInputChange = (event, rowIndex, field) => {
+    const newData = Initialinputs.map((row, index) => {
+      if (index === rowIndex) {
+        return {
+          ...row,
+          [field]: Number(event.target.value),
+        };
+      }
+
+      return row;
+    });
+    setInitialinputs(newData);
+  };
+  const handleUpdate = () => {
+    console.log(Initialinputs, "Initialinputs2");
+
+    dispatch(updateUserLeave({ Initialinputs: Initialinputs, id: id }));
+  };
   return (
     <div>
-      <Table columns={columns} dataSource={allLeaves} />
-      <button>Update</button>
+      <Table dataSource={renderTableRows()} columns={columns} />
+      <Button
+        onClick={() => {
+          handleUpdate();
+        }}
+      >
+        {" "}
+        Update
+      </Button>
     </div>
   );
 };

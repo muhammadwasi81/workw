@@ -9,7 +9,9 @@ import {
   getUserBasicInfoByIdService,
   getUserLeaveByIdService,
   addUserLeaveByIdService,
+  updateUserLeaveService,
 } from "../service/service";
+import { json } from "react-router-dom";
 
 export const getUserBasicInfo = createAsyncThunk(
   "basicInfo",
@@ -55,6 +57,28 @@ export const addLeaveByEmployee = createAsyncThunk(
     } else {
       message.error(res.message);
     }
+    return res;
+  }
+);
+export const updateUserLeave = createAsyncThunk(
+  "api/updateUserLeaveService",
+
+  async (args, { dispatch }) => {
+    console.log(args, "arddd");
+    // const jsons = JSON.stringify(args);
+    const res = await updateUserLeaveService(args);
+
+    if (res.responseCode) {
+      if (res.responseCode === responseCode.Success)
+        message.success("leaves updated successfully!");
+      responseMessage({ dispatch, data: res });
+    } else {
+      responseMessage({
+        dispatch: dispatch,
+        type: responseMessageType.ApiFailure,
+      });
+    }
+
     return res;
   }
 );

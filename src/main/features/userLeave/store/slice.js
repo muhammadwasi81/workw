@@ -1,5 +1,5 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
-import { getUserLeave, addLeaveByEmployee } from "./actions";
+import { getUserLeave, addLeaveByEmployee, updateUserLeave } from "./actions";
 
 const initialState = {
   allLeaves: [],
@@ -18,6 +18,11 @@ const userLeaveSlice = createSlice({
         console.log(action.payload, "action paylod");
         state.allLeaves = action.payload.data;
         state.loader = false;
+      })
+      .addCase(updateUserLeave.fulfilled, (state, action) => {
+        console.log(action.payload.data, "ttttttttttttttttt");
+        state.loader = false;
+        state.allLeaves = action.payload.data;
       })
       .addCase(addLeaveByEmployee.fulfilled, (state, { payload }) => {
         state.loader = false;

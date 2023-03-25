@@ -38,3 +38,15 @@ export const addUserLeaveByIdService = (args) => {
       return err;
     });
 };
+export const updateUserLeaveService = (args) => {
+  console.log(args, "servive payload");
+
+  return MasterConfig.put(`${API_PREFIX}UserLeave/UpdateUserLeave`, args)
+    .then((res) => {
+      console.log(res.data, "resdeaa");
+      return res.data;
+    })
+    .catch((err) => {
+      return err;
+    });
+};

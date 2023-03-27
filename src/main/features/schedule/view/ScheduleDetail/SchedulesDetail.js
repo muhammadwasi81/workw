@@ -80,11 +80,11 @@ function MySchedules() {
   const newPanes = [
     {
       featureName: "My Schedules",
-      featureId: 0,
+      featureId: 1,
     },
     {
       featureName: "Team Schedules",
-      featureId: 1,
+      featureId: 2,
       content: (
         <div className=" mb-2 mr-[1rem] ml-[1rem]">
           <MemberSelect
@@ -199,8 +199,7 @@ function MySchedules() {
           pageSize: 20,
           search: scheduleSearch,
           sortBy: 1,
-          referenceId: defaultUiid,
-          referenceType: parseInt(referenceType),
+          filterType: parseInt(referenceType),
           startDate,
           endDate,
           users: userData,
@@ -214,8 +213,7 @@ function MySchedules() {
           pageSize: 20,
           search: scheduleSearch,
           sortBy: 1,
-          referenceId: defaultUiid,
-          referenceType: parseInt(referenceType),
+          filterType: parseInt(referenceType),
           //   startDate,
           endDate,
           users: userData,
@@ -229,8 +227,7 @@ function MySchedules() {
           pageSize: 20,
           search: scheduleSearch,
           sortBy: 1,
-          referenceId: defaultUiid,
-          referenceType: parseInt(referenceType),
+          filterType: parseInt(referenceType),
           startDate,
           users: userData,
           //   endDate,
@@ -284,7 +281,7 @@ function MySchedules() {
   };
 
   const onChangeMainTab = (e) => {
-    console.log(e, "changeTab");
+    console.log(e, "changeTabsss");
     dispatch(handleReferenceTypeChange(e));
     // if (scheduleTabs === "1") {
     //   //Get all schedule for today

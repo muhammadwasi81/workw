@@ -33,6 +33,7 @@ function ItemDetailModal({
 
   console.log(data, "dataa");
   const ApprovalSlice = useSelector((state) => state.ApproverSlice);
+  console.log(ApprovalSlice, "ffffff");
   const { employees, itemDetailModal } = useSelector(
     (state) => state.sharedSlice
   );
@@ -45,6 +46,10 @@ function ItemDetailModal({
   const params = useParams();
   const [myData, setMyData] = useState([]);
   const { groupDetailid } = params;
+
+  const userSlice = useSelector((state) => state.userSlice);
+  const user = userSlice.user;
+  console.log(user, "userr");
   // let ModalOpen = modalRequest.status;
   // console.log('ApprovalSlice', ApprovalSlice);
 
@@ -65,7 +70,7 @@ function ItemDetailModal({
 
   useEffect(() => {
     const daa = data?.map((it) => {
-      // console.log(it, 'ITTTT');
+      console.log(it, "ITTTT");
       return {
         ...it,
         member: it.member || it.approver,
@@ -136,6 +141,7 @@ function ItemDetailModal({
     onDelete(id);
   };
   // };
+
   if (openModal) {
     return (
       <Modal

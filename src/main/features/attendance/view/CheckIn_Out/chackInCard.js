@@ -61,8 +61,8 @@ const CheckInCard = ({ lastCheckIn }) => {
           <Popconfirm
             title={
               lastCheckIn && lastCheckIn.type === CHECK_IN.IN
-                ? "Are You Sure to CheckIn?"
-                : "Are You Sure to CheckOut?"
+                ? "Are You Sure to check-in?"
+                : "Are You Sure to check-out?"
             }
             // description="Are You sure to ChceckIn"
             onConfirm={handleSubmit}

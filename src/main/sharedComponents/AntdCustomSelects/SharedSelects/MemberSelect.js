@@ -31,6 +31,7 @@ function MemberSelect({
   resetField = false,
   className = "",
   returnEmpty = false,
+  isIncludedMyId = false,
 }) {
   console.log(data, "dataa");
   const [value, setValue] = useState("");
@@ -181,7 +182,6 @@ function MemberSelect({
   // console.log("canfetch now", canFetchNow);
   // console.log("data", data);
   // console.log("stateval", stateVal);
-  const employeesdata = [...memberData, user];
   return (
     <AntCustomSelect
       className={className}
@@ -209,6 +209,7 @@ function MemberSelect({
       rules={rules}
       label={label}
       formItem={formItem}
+      isIncludedMyId={isIncludedMyId}
     />
   );
 }

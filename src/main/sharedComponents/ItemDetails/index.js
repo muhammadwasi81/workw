@@ -184,6 +184,7 @@ function ItemDetailModal({
             name="members"
             showSearch={true}
             resetField={true}
+            isIncludedMyId={true}
             // direction={Direction}
             rules={[
               {

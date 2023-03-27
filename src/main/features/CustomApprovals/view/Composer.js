@@ -93,6 +93,7 @@ const Composer = (props) => {
   }, []);
   const amountHandler = () => {
     if (amount > 0) {
+      console.log(amount, "amount");
       setAmount(amount);
     } else {
       console.log("amount should be greater than 0!");
@@ -180,12 +181,6 @@ const Composer = (props) => {
           label={customApprovalDictionary.amount}
           name="value"
           labelPosition="top"
-          rules={[
-            {
-              required: true,
-              message: "Please Enter Amount",
-            },
-          ]}
         >
           <TextInput
             placeholder={customApprovalDictionary.pleaseEnterAmount}

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ScheduleMemberType } from "../../enum/enum";
 import {
+  addScheduleMemberAction,
   getScheduleById,
   updateMemberScheduleStatus,
   updateScheduleMemberType,
@@ -11,12 +12,15 @@ import Event from "../event";
 
 import ScheduleMembersList from "../Composer/ScheduleMembersList";
 import ScheduleDetailSkeleton from "./ScheduleDetailSkeleton";
+import { PlusSquareOutlined } from "@ant-design/icons";
 // import { EditOutlined } from "@ant-design/icons";
 // import CreateSchedule from "../createSchedule";
 import { Button } from "antd";
 import UpdateSchedule from "./UpdateSchedule";
 import Attachments from "../../../travel/view/UI/Attachments";
 import CommentWrapper from "../../../../sharedComponents/Comment/CommentWrapper";
+import ItemDetailModal from "../../../../sharedComponents/ItemDetails";
+import { handleItemDetailModal } from "../../../../../utils/Shared/store/slice";
 
 function ScheduleComposerDetail({ id, shortEvent = true }) {
   const eventDetail = useSelector((state) => state.scheduleSlice.eventDetail);
@@ -65,8 +69,33 @@ function ScheduleComposerDetail({ id, shortEvent = true }) {
   const handleEditSchedule = () => {
     setEditSchedule(!editSchedule);
   };
+
+  const addFunc = (memberId) => {
+    console.log(eventDetail.id, "eventDetail id");
+    console.log(memberId, "APPROVER ID");
+    // if (eventDetail?.members.includes(memberId[0])) {
+    //   return message.error('Member already existed');
+    // }
+    const payload = {
+      data: [{ memberId: memberId[0], memberType: 1 }],
+      id: eventDetail.id,
+    };
+    console.log(payload, "PAYLOAD!!!");
+    // here add schedule member api will be called
+    dispatch(addScheduleMemberAction(payload));
+  };
+
   return (
     <>
+      <ItemDetailModal
+        data={[]} //Data of members will pass here in array
+        isDeleteDisabled={true} //Pass true to hide delete icon
+        addEnabled={true} //Pass false to hide select member
+        addFunc={addFunc} // define and pass addMember action of particular members
+        onDelete={false} // define and pass onDeletemember actions of particular members
+        isSearch={false} //Pass true if you want to search the list
+        openModal={true} // pass true if you want to open member details in modal other wise it display in listing
+      />
       {loading ? (
         <ScheduleDetailSkeleton />
       ) : (
@@ -123,7 +152,16 @@ function ScheduleComposerDetail({ id, shortEvent = true }) {
                 </div>
               </>
             ) : null}
-            <div className="eventDetail-title">Members</div>
+            <div className="eventDetail-title flex justify-between items-baseline">
+              <div>Members</div>
+              <PlusSquareOutlined
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  dispatch(handleItemDetailModal(true));
+                }}
+              />
+            </div>
             {eventDetail?.members?.map((member) => (
               <ScheduleMembersList
                 status={member.status}

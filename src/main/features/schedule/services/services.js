@@ -11,6 +11,19 @@ export const addScheduleService = (data) => {
     });
 };
 
+export const addScheduleMemberService = (data) => {
+  return MasterConfig.post(
+    `${API_PREFIX}AddScheduleMember?id=${data.id}`,
+    data.data
+  )
+    .then((res) => {
+      return res.data;
+    })
+    .catch((error) => {
+      return error;
+    });
+};
+
 export const getAllScheduleService = (data) => {
   return MasterConfig.post(`${API_PREFIX}GetAllSchedule`, data)
     .then((res) => {

@@ -10,6 +10,7 @@ import {
   getScheduleById,
   updateMemberScheduleStatus,
   updateScheduleMemberType,
+  addScheduleMemberAction,
 } from "./action";
 
 const scheduleSlice = createSlice({
@@ -29,6 +30,7 @@ const scheduleSlice = createSlice({
     scheduleSearch: "",
     scheduleTabs: "0",
     referenceType: 0,
+    scheduleMember: [],
   },
   reducers: {
     handleOpenComposer: (state, { payload }) => {
@@ -51,7 +53,6 @@ const scheduleSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-
       .addCase(addSchedule.fulfilled, (state, { payload }) => {
         state.loading = false;
         state.success = true;
@@ -163,6 +164,10 @@ const scheduleSlice = createSlice({
         );
         state.eventDetail.members[filteredMemberIndex] = payload.data;
       })
+      .addCase(addScheduleMemberAction.fulfilled, (state, { payload }) => {
+        console.log(payload);
+        state.success = true;
+      })
       .addMatcher(
         isPending(
           ...[
@@ -174,6 +179,7 @@ const scheduleSlice = createSlice({
             getScheduleById,
             updateMemberScheduleStatus,
             updateScheduleMemberType,
+            addScheduleMemberAction,
           ]
         ),
         (state) => {
@@ -189,6 +195,7 @@ const scheduleSlice = createSlice({
             getScheduleById,
             updateMemberScheduleStatus,
             updateScheduleMemberType,
+            addScheduleMemberAction,
             // getAllEventSchedule,
             // getAllCurrentSchedule,
           ]

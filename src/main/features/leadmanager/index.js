@@ -1,21 +1,21 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from 'react';
 import {
   ContBody,
   TabbableContainer,
-} from "../../sharedComponents/AppComponents/MainFlexContainer";
-import Header from "./view/Header/Header";
-import LeadTopBar from "./view/LeadTopBar/TopBar";
-import LeadDashboard from "./view/Dashboard/Dashboard";
-import { LeadManagerDictionary } from "./localization";
-import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
-import { useDispatch, useNavigate, useSelector } from "react-redux";
-import { getAllLeadManager } from "./store/actions";
-import useDebounce from "../../../utils/Shared/helper/use-debounce";
-import Spinner from "../../sharedComponents/spinner/spinner";
-import { resetLeadManagerDetail } from "./store/slice";
-import BoardComposer from "./view/Composer/BoardComposer";
-import { Drawer } from "antd";
-import { handleComposer } from "./store/slice";
+} from '../../sharedComponents/AppComponents/MainFlexContainer';
+import Header from './view/Header/Header';
+import LeadTopBar from './view/LeadTopBar/TopBar';
+import LeadDashboard from './view/Dashboard/Dashboard';
+import { LeadManagerDictionary } from './localization';
+import { LanguageChangeContext } from '../../../utils/localization/localContext/LocalContext';
+import { useDispatch, useNavigate, useSelector } from 'react-redux';
+import { getAllLeadManager } from './store/actions';
+import useDebounce from '../../../utils/Shared/helper/use-debounce';
+import Spinner from '../../sharedComponents/spinner/spinner';
+import { resetLeadManagerDetail } from './store/slice';
+import BoardComposer from './view/Composer/BoardComposer';
+import { Drawer } from 'antd';
+import { handleComposer } from './store/slice';
 
 function LeadManager() {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -24,7 +24,7 @@ function LeadManager() {
   ];
   const { topBar } = LeadManagerDictionaryList;
   const [isTableView, setIsTableView] = useState(false);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const [sort, setSort] = useState(1);
   const [page, setPage] = useState(20);
   const [pageNo, setPageNo] = useState(1);
@@ -34,7 +34,6 @@ function LeadManager() {
     (state) => state.leadMangerSlice.leadManagersData
   );
   const [table, setTable] = useState(1);
-  console.log(table, "tablee");
   const { loading, success, isComposerOpen, isEditComposer } = useSelector(
     (state) => state.leadMangerSlice
   );
@@ -58,7 +57,7 @@ function LeadManager() {
     setPage(pageSize);
     setPageNo(current);
     const { order } = sorter;
-    if (order === "ascend") {
+    if (order === 'ascend') {
       setSort(2);
       return;
     }
@@ -88,10 +87,10 @@ function LeadManager() {
         />
         <Drawer
           open={isComposerOpen}
-          width={"786px"}
+          width={'786px'}
           onClose={handleEditComposer}
-          title={"Update Lead Manager"}
-          className={"shared_drawer drawerSecondary"}
+          title={'Update Lead Manager'}
+          className={'shared_drawer drawerSecondary'}
         >
           <BoardComposer isEdit={isEditComposer} loading={loading} />
         </Drawer>

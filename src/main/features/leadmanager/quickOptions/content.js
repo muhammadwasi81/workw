@@ -1,19 +1,19 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 // import { DocsComposerEnums, DOCUMENT_ENUM } from '../../../constant';
-import { useDispatch } from "react-redux";
-import { AssignMemEnum, MemberEnum } from "../../eLearning/constant";
+import { useDispatch } from 'react-redux';
+import { AssignMemEnum, MemberEnum } from '../../eLearning/constant';
 // import { handleOpenDocComposer, handleUpdateFolder, handleUpdateFolderMemberId } from '../../../store/slice';
 import {
   getLeadManagerGroupDetailById,
   handleComposer,
   addMember,
-} from "../store/slice";
-import MemberModal from "../view/Modal/MemberModal";
+} from '../store/slice';
+import MemberModal from '../view/Modal/MemberModal';
 
 const ContentOptions = ({ handleClose, data }) => {
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
-  console.log(data,"dataaaaaaaaa");
+  console.log(data, 'ContentOptions');
 
   const handleUpdate = (e) => {
     e.preventDefault();

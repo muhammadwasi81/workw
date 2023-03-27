@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { message, Modal } from "antd";
-import { useSelector } from "react-redux";
-import CustomSelect from "../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
-import ApproverListItem from "../../../../sharedComponents/AppComponents/Approvals/components/approverList";
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { message, Modal } from 'antd';
+import { useSelector } from 'react-redux';
+import CustomSelect from '../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect';
+import ApproverListItem from '../../../../sharedComponents/AppComponents/Approvals/components/approverList';
 import {
   addBookMember,
   getAllBookMember,
   getAllLeadManagerMember,
   addLeadManagereMember,
   deleteLeadManagerById,
-} from "../../store/actions";
-import { useParams } from "react-router-dom";
-import { addMember } from "../../store/slice";
-import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
-import { getAllEmployees } from "../../../../../utils/Shared/store/actions";
-import { deleteLeadManagerMember } from "../../store/slice";
-import { data } from "jquery";
+} from '../../store/actions';
+import { useParams } from 'react-router-dom';
+import { addMember } from '../../store/slice';
+import Avatar from '../../../../sharedComponents/Avatar/avatarOLD';
+import { getAllEmployees } from '../../../../../utils/Shared/store/actions';
+import { deleteLeadManagerMember } from '../../store/slice';
+import { data } from 'jquery';
 
 function MemberModal({ isOpen = false, data }) {
   const dispatch = useDispatch();
@@ -32,7 +32,7 @@ function MemberModal({ isOpen = false, data }) {
   let ModalOpen = modalRequest.status;
 
   useEffect(() => {
-    fetchEmployees("", 0);
+    fetchEmployees('', 0);
   }, []);
 
   const fetchEmployees = (text, pgNo) => {
@@ -49,14 +49,13 @@ function MemberModal({ isOpen = false, data }) {
       id: data.id,
       memberId: memberId,
     };
-   
 
     let a = data.members.filter((item) => {
       return item.member.id === membersData.memberId;
     });
-    let b = a[0] ? a[0].memberId : "";
+    let b = a[0] ? a[0].memberId : '';
     if (membersData.memberId === b) {
-      return message.error("Member Already Added");
+      return message.error('Member Already Added');
     } else {
       dispatch(addLeadManagereMember(membersData));
     }
@@ -85,16 +84,16 @@ function MemberModal({ isOpen = false, data }) {
       footer={false}
       closeIcon={<div />}
       className="ApproverModal"
-      width={"360px"}
+      width={'360px'}
       destroyOnClose={true}
     >
       <CustomSelect
-        style={{ marginBottom: "0px" }}
+        style={{ marginBottom: '0px' }}
         data={firstTimeEmpData}
         selectedData={handleChange}
         canFetchNow={isFirstTimeDataLoaded}
         fetchData={fetchEmployees}
-        placeholder={"Select Member"}
+        placeholder={'Select Member'}
         isObject={true}
         loadDefaultData={false}
         optionComponent={(opt) => {
@@ -102,10 +101,10 @@ function MemberModal({ isOpen = false, data }) {
             <>
               <Avatar
                 name={opt?.name}
-                src={opt?.image || "https://joeschmoe.io/api/v1/random"}
+                src={opt?.image || 'https://joeschmoe.io/api/v1/random'}
                 round={true}
-                width={"30px"}
-                height={"30px"}
+                width={'30px'}
+                height={'30px'}
               />
               {opt?.name}
             </>
@@ -118,7 +117,7 @@ function MemberModal({ isOpen = false, data }) {
         rules={[
           {
             required: true,
-            message: "Please Select Member",
+            message: 'Please Select Member',
           },
         ]}
       />

@@ -1,5 +1,5 @@
-import moment from "moment";
-import Avatar from "../../../../../sharedComponents/Avatar/avatar";
+import moment from 'moment';
+import Avatar from '../../../../../sharedComponents/Avatar/avatar';
 // import TagAvatar from "../../../../../sharedComponents/Avatar/TagAvatar";
 // import StatusTag from "../../../../../sharedComponents/Tag/StatusTag";
 export const tableColumn = (dictionary, data) => {
@@ -8,27 +8,27 @@ export const tableColumn = (dictionary, data) => {
   return [
     {
       title: table.name,
-      dataIndex: "name",
+      dataIndex: 'name',
       ellipsis: true,
       sort: true,
     },
     {
       title: table.description,
-      dataIndex: "description",
+      dataIndex: 'description',
       ellipsis: true,
       sort: true,
     },
 
     {
       title: table.members,
-      dataIndex: "members",
+      dataIndex: 'members',
       ellipsis: true,
-      render: (member) => <Avatar membersData={member} heading={"Members"} />,
+      render: (member) => <Avatar membersData={member} heading={'Members'} />,
     },
     {
       title: table.createDate,
-      dataIndex: "createDate",
-      render: (createDate) => moment(createDate).format("DD MMM YYYY"),
+      dataIndex: 'createDate',
+      render: (createDate) => moment(createDate).format('DD MMM YYYY'),
       ellipsis: true,
       sort: true,
     },

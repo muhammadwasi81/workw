@@ -8,6 +8,7 @@ import {
   updateMemberScheduleStatusService,
   updateScheduleMemberTypeService,
   addScheduleMemberService,
+  getAllScheduleMemberService,
 } from "../services/services";
 
 export const addSchedule = createAsyncThunk(
@@ -80,6 +81,26 @@ export const getAllSchedule = createAsyncThunk(
     }
   }
 );
+
+export const getAllScheduleMemberAction = createAsyncThunk(
+  "getAllScheduleMember",
+  async (data, { dispatch, getState, rejectWithValue }) => {
+    const res = await getAllScheduleMemberService(data);
+    if (res.responseCode === responseCode.Success) {
+      return res;
+    } else {
+      dispatch(
+        openNotification({
+          message: res.message,
+          type: "error",
+          duration: 2,
+        })
+      );
+      return rejectWithValue(res.message);
+    }
+  }
+);
+
 export const getScheduleById = createAsyncThunk(
   "getScheduleById",
   async (id, { dispatch, getState, rejectWithValue }) => {

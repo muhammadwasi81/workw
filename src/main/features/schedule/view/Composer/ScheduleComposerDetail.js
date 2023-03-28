@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { ScheduleMemberType } from "../../enum/enum";
 import {
   addScheduleMemberAction,
+  getAllScheduleMemberAction,
   getScheduleById,
   updateMemberScheduleStatus,
   updateScheduleMemberType,
@@ -31,7 +32,10 @@ function ScheduleComposerDetail({ id, shortEvent = true }) {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getScheduleById(id));
+    dispatch(getAllScheduleMemberAction(id));
   }, [id]);
+
+  const { scheduleMember } = useSelector((state) => state.scheduleSlice);
 
   useEffect(() => {
     if (eventDetail && Object.keys(eventDetail).length > 0) {
@@ -88,7 +92,7 @@ function ScheduleComposerDetail({ id, shortEvent = true }) {
   return (
     <>
       <ItemDetailModal
-        data={[]} //Data of members will pass here in array
+        data={scheduleMember} //Data of members will pass here in array
         isDeleteDisabled={true} //Pass true to hide delete icon
         addEnabled={true} //Pass false to hide select member
         addFunc={addFunc} // define and pass addMember action of particular members
@@ -162,7 +166,7 @@ function ScheduleComposerDetail({ id, shortEvent = true }) {
                 }}
               />
             </div>
-            {eventDetail?.members?.map((member) => (
+            {scheduleMember?.map((member) => (
               <ScheduleMembersList
                 status={member.status}
                 id={member.id}

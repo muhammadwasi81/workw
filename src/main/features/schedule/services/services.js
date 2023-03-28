@@ -34,6 +34,16 @@ export const getAllScheduleService = (data) => {
     });
 };
 
+export const getAllScheduleMemberService = (id) => {
+  return MasterConfig.get(`${API_PREFIX}GetAllScheduleMember?id=${id}`)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((error) => {
+      return error;
+    });
+};
+
 export const getScheduleByIdService = (id) => {
   return MasterConfig.get(`${API_PREFIX}GetScheduleById?id=${id}`)
     .then((res) => {

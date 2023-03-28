@@ -1,3 +1,5 @@
+import { useSelector } from "react-redux";
+
 export let DOMAIN_PREFIX = "";
 DOMAIN_PREFIX = process.env.NODE_ENV !== "development" ? "/konnect" : "";
 // DOMAIN_PREFIX =
@@ -54,8 +56,12 @@ export const ROUTES = {
     SETUP_PASSWORD: `${DOMAIN_PREFIX}/SetupNewPassword`,
     // VERIFICATION_INPROCESS: `${DOMAIN_PREFIX}/verifying`,
   },
+
   EXTERNAL_PROJECT: {
     REGISTER: `${DOMAIN_PREFIX}/ProjectExternal`,
+  },
+  EXTERNAL_PROJECT_SCHEDULER: {
+    REGISTER: `${DOMAIN_PREFIX}schedules/bookAppointment`,
   },
   BUDGET: {
     DEFAULT: `${DOMAIN_PREFIX}/budgets`,

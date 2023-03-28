@@ -62,7 +62,14 @@ function AssignMemberModal({
             key={index}
           >
             <div className="flex gap-3">
-              <Avatar src={''} className="!bg-black">
+              <Avatar
+                src={
+                  defaultData
+                    .map((item) => item.member)
+                    .filter((item) => item.id === element.id)[0].image
+                }
+                className="!bg-black"
+              >
                 {getNameForImage(element.name)}
               </Avatar>
               <div className="flex flex-col gap-1">

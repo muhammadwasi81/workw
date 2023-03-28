@@ -43,6 +43,7 @@ const UserLeave = () => {
 
         allocatedLeaves: (
           <input
+            placeholder="Enter Leave allot"
             defaultValue={row.allocatedLeaves}
             className="bg-transparent"
             type="number"
@@ -55,6 +56,7 @@ const UserLeave = () => {
 
         availed: (
           <input
+            placeholder="Enter Leave avail"
             defaultValue={row.availed}
             className="bg-transparent"
             type="number"
@@ -97,14 +99,18 @@ const UserLeave = () => {
       </Divider>
       <Table dataSource={renderTableRows()} columns={columns} />
 
-      <Button
-        className="btn ThemeBtn mt-1"
-        icon={<EditOutlined />}
-        onClick={handleUpdate}
-        disabled={Initialinputs.length === 0 ? true : false}
-      >
-        Update Leave
-      </Button>
+      {Initialinputs.length > 0 ? (
+        <Button
+          className="btn ThemeBtn mt-1"
+          icon={<EditOutlined />}
+          onClick={handleUpdate}
+          disabled={Initialinputs.length === 0 ? true : false}
+        >
+          Update Leave
+        </Button>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

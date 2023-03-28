@@ -1,4 +1,4 @@
-import { Button, Form, Input, Avatar } from "antd";
+import { Button, Form, Input, Avatar, InputNumber } from "antd";
 import React, { useEffect, useState, useContext } from "react";
 import TextInput from "../../../sharedComponents/Input/TextInput";
 import Select from "../../../sharedComponents/Select/Select";
@@ -182,10 +182,11 @@ const Composer = (props) => {
           name="value"
           labelPosition="top"
         >
-          <TextInput
+          <Input
             placeholder={customApprovalDictionary.pleaseEnterAmount}
             type="number"
             onChange={amountHandler}
+            onWheel={(e) => e.target.blur()}
             value={amount}
           />
         </Form.Item>

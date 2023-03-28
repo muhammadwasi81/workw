@@ -52,7 +52,7 @@ function QuickOptions() {
   return (
     <>
       <div className="quickIcons">
-        <Tooltip title={createMileshow} color="var(--currentThemeColor)">
+        <Tooltip title={"Create Show"} color="var(--currentThemeColor)">
           <img
             className="hover:scale-125 transition-all hover:shadow-md"
             src={milePersatationIcon}
@@ -60,7 +60,7 @@ function QuickOptions() {
             onClick={handleOpenComposer}
           />
         </Tooltip>
-        <Tooltip title="Create Mileboard" color="var(--currentThemeColor)">
+        <Tooltip title="Create Board" color="var(--currentThemeColor)">
           <img
             className="hover:scale-125 transition-all hover:shadow-md"
             src={mileboardPlusIcon}
@@ -68,7 +68,7 @@ function QuickOptions() {
             onClick={handleOpenComposer}
           />
         </Tooltip>
-        <Tooltip title="Create Milegrid" color="var(--currentThemeColor)">
+        <Tooltip title="Create Grid" color="var(--currentThemeColor)">
           <img
             className="hover:scale-125 transition-all hover:shadow-md"
             src={milegridPlusIcon}
@@ -76,7 +76,7 @@ function QuickOptions() {
             onClick={handleOpenComposer}
           />
         </Tooltip>
-        <Tooltip title="Create Milepad" color="var(--currentThemeColor)">
+        <Tooltip title="Create Pad" color="var(--currentThemeColor)">
           <img
             className="hover:scale-125 transition-all hover:shadow-md"
             src={milepadPlusIcon}

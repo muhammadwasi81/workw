@@ -165,7 +165,6 @@ export const deleteLeadManagerById = createAsyncThunk(
     if (res.responseCode === responseCode.Success) {
       dispatch(deleteLeadManagerMember(data));
       // res.message = "Member deleted successfulyy";
-      message.success(res.message);
     } else {
       responseMessage({
         dispatch: dispatch,

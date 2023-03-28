@@ -55,7 +55,10 @@ import Schedules from "../../schedule/index";
 import MemberModal from "../UI/MemberModal";
 import ProjectInformation from "../UI/ProjectInformation";
 import { STRINGS } from "../../../../utils/base";
-import {addProjectMemberAction , deleteProjectMemberAction } from "../store/actions";
+import {
+  addProjectMemberAction,
+  deleteProjectMemberAction,
+} from "../store/actions";
 import ItemDetailModal from "../../../sharedComponents/ItemDetails";
 import { handleItemDetailModal } from "../../../../utils/Shared/store/slice";
 import { ProjectFeaturePermissionEnumList } from "../../../../utils/Shared/enums/projectFeatureEnum";
@@ -79,6 +82,7 @@ function ProjectDetails() {
   const { updateTextBtn, labels, features } = projectsDictionary;
   const [open, setOpen] = useState(false);
   const { projectId } = params;
+  const { projectFeature } = useSelector((state) => state.projectSlice);
 
   useEffect(() => {
     dispatch(getProjectById(projectId));
@@ -90,18 +94,20 @@ function ProjectDetails() {
     };
   }, []);
 
-  let featurePermissions = detail?.features.map((item) => item.featureId)
+  let featurePermissions = projectFeature.map((item) => item.featureId);
 
   useEffect(() => {
-    let temp = detail?.features.map((feat) => {
+    let temp = projectFeature.map((feat) => {
       return {
         ...feat,
         content: featuresComp[feat.featureId],
       };
     });
-    let payload = temp && temp.filter((item) =>  featurePermissions.includes(item.featureId))
+    let payload =
+      temp &&
+      temp.filter((item) => featurePermissions.includes(item.featureId));
     setprojectFeatures(payload);
-  }, [detail]);
+  }, [projectFeature]);
 
   const panes = [
     {

@@ -53,7 +53,7 @@ function ProjectInformation({ ghost = true }) {
         projectId: projectId,
       };
 
-      let newPayload = [...features, payload];
+      let newPayload = features ? [...features, payload] : [payload];
       const newFeature = newPayload.map((item) => {
         return {
           featureId: item.featureId,

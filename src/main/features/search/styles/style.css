@@ -22,7 +22,7 @@
   display: grid;
   margin-top: 5px;
   gap: 0.8rem;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   height: -moz-fit-content;
   height: fit-content;
   background-color: white;

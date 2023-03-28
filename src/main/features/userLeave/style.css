@@ -1,3 +1,7 @@
-.userLeavesTable .ant-table-thead>tr>th  {
-    padding: 5px;
+.userLeavesTable .ant-table-thead > tr > th {
+  padding: 5px;
+}
+th,
+td {
+  padding: 0 10px;
 }

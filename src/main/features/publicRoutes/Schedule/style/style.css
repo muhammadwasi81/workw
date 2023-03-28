@@ -1,0 +1,294 @@
+.ReactQuill div[contenteditable="true"] {
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
+.formInput.w-50 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.formInput.w-50 .ant-form-item {
+    flex: 1;
+}
+
+.formInput.w-50 .ant-picker {
+    width: 100%;
+}
+
+.formInput.w-33 {
+    display: flex;
+    gap: 10px;
+}
+
+.formInput.w-33 .ant-form-item+.ant-form-item {
+    flex: 1;
+}
+
+.formInput.w-33 .ant-row:first-child {
+    min-width: 150px;
+    margin: 0;
+}
+
+.createSchedule .ant-form-vertical .ant-form-item-label>label {
+    color: var(--currentThemeColor);
+    font-weight: 600;
+}
+
+
+
+.createSchedule .ant-radio-button-wrapper {
+
+    color: #666;
+    padding: 0 8px;
+}
+
+.createSchedule .ant-radio-button-wrapper::before {
+    display: none;
+}
+
+.createSchedule .ant-radio-button-wrapper:hover {
+    color: var(--currentThemeColor);
+}
+
+.createSchedule .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+
+    font-weight: 600;
+    color: var(--currentThemeColor);
+}
+
+.createSchedule .ant-radio-button-wrapper span+span {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.createSchedule .ant-radio-button-wrapper {
+    border-width: 1px
+}
+
+.createSchedule .ant-radio-button-wrapper svg {
+    font-size: 16px;
+}
+
+.createSchedule .ant-radio-group {
+    display: flex;
+    gap: 5px;
+}
+
+.createSchedule .ant-radio-button-wrapper-checked:not([class*=" ant-radio-button-wrapper-disabled"]).ant-radio-button-wrapper:first-child {
+    border-color: var(--currentThemeColor);
+    border-radius: 3px
+}
+
+.createSchedule .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+    border-color: var(--currentThemeColor);
+    border-radius: 3px;
+}
+
+.fc .fc-timegrid-now-indicator-container {
+    background-color: white !important;
+}
+
+.fc .fc-toolbar.fc-header-toolbar {
+    margin-bottom: 0.5em !important;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+
+}
+
+.fc .fc-toolbar {
+    display: block !important;
+}
+
+.fc .fc-toolbar-title {
+    font-size: 20px !important;
+    margin-bottom: 4px;
+}
+
+.fc {
+    background-color: white;
+    border-radius: 8px;
+    padding: 10px;
+    border: solid 1px #ebebeb;
+    box-shadow: 0 12px 6px -12px #bbbbbb;
+    height: 100%;
+}
+
+.fc .fc-timegrid-axis-cushion,
+.fc .fc-timegrid-slot-label-cushion {
+    font-size: 12px;
+}
+
+.fc .fc-button-primary:disabled {
+    color: white !important;
+    
+    background-color: var(--currentThemeColor) !important;
+    border-color: #666 !important;
+    text-transform: capitalize;
+
+}
+
+.fc .fc-timeGridDay-button.fc-button-active , .fc .fc-timeGridWeek-button.fc-button-active, .fc .fc-dayGridMonth-button.fc-button-active {
+    color: white !important;
+    background-color: var(--currentThemeColor) !important;
+}
+
+.fc .fc-button {
+    /* font-weight: 600 !important; */
+    color: #666 !important;
+    padding: 3px 8px !important;
+    font-size: 12px !important;
+    text-transform: capitalize !important;
+    background-color: transparent !important;
+    border-color: var(--currentThemeColor) !important;
+}
+
+.fc .fc-button:disabled {
+    opacity: 1 !important;
+    
+}
+
+.fc .fc-button-group>.fc-button {
+    padding: 1px !important;
+    border-radius: 50%;
+    border-top-right-radius: 50% !important;
+    border-bottom-right-radius: 50% !important;
+}
+
+.fc .fc-button-group>.fc-button .fc-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fc .fc-button-group {
+    display: inline-flex;
+    gap: 5px;
+}
+
+.fc-direction-ltr .fc-button-group>.fc-button:not(:first-child) {
+    margin-left: -1px;
+    border-top-left-radius: 50% !important;
+    border-bottom-left-radius: 50% !important;
+}
+
+.fc .fc-button-primary:focus {
+    box-shadow: none !important;
+}
+
+.fc .fc-button-primary.fc-prev-button,
+.fc .fc-button-primary.fc-next-button {
+    background: transparent !important;
+    border: 1px solid var(--currentThemeColor) !important;
+}
+
+.fc .fc-button-primary.fc-prev-button:hover,
+.fc .fc-button-primary.fc-next-button:hover{
+    background: var(--currentThemeColor) !important;
+    border: 1px solid white !important;
+    color: white !important;
+}
+
+.fc .fc-button-primary.fc-prev-button:hover .fc-icon-chevron-left::before,
+.fc .fc-button-primary.fc-next-button:hover .fc-icon-chevron-right::before{
+    /* background: var(--currentThemeColor) !important; */
+    /* border: 1px solid white !important; */
+    color: white !important;
+}
+
+.description_dangerously, .description_dangerously p{
+    margin: 0px !important;
+    max-width: 100%;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    font-size: 0.75rem !important;
+    line-height: 1rem !important;
+}
+
+.dangerous_element_detail, .dangerous_element_detail p{
+    word-break: break-all;
+}
+
+/* .fc-icon-chevron-right:hover::before,
+.fc-icon-chevron-left:hover::before {
+    color: white !important;
+    font-size: 16px;
+} */
+
+.fc-icon-chevron-right:before,
+.fc-icon-chevron-left:before {
+    color: var(--currentThemeColor);
+    font-size: 16px;
+}
+
+.fc .fc-scrollgrid-liquid {
+    border: none !important;
+}
+
+.fc .fc-scrollgrid-section-liquid>td {
+    border: none !important;
+}
+
+.fc-timegrid-event .fc-event-main {
+    padding: 0 !important;
+}
+
+.ql-editor{
+    white-space: normal !important;
+}
+
+.fc-v-event {
+    border: 1px solid var(--currentThemeColor) !important;
+    overflow: hidden;
+    background-color: var(--currentThemeColor);
+}
+
+.fc-event-main .event {
+    border: none;
+    padding: 3px 10px;
+    height: 100%;
+}
+
+.site-calendar {
+    width: 300px;
+    /* left: 33%; */
+    /* top: 38%; */
+    /* left: 50%; */
+    /* transform: translate(-50%, -50%); */
+    border-radius: 2px;
+    position: absolute;
+    top: 42px;
+    z-index: 99;
+    max-height: 0;
+    transition: all 0.2s;
+    overflow: hidden;
+}
+
+.site-calendar.open {
+    border: 1px solid #f0f0f0;
+    max-height: 350px;
+
+}
+
+.schedulerCalender {
+    position: relative;
+    height: 100%;
+
+}
+
+.fc-col-header-cell a{
+    color: white;
+}
+
+.schedulerCalender .fc-header-toolbar.fc-toolbar.fc-toolbar-ltr{
+    display: inline-flex !important;
+}
+
+.schedulerCalender .fc-toolbar-chunk>div{
+    display: inline-flex !important;
+    gap: 10px !important;
+}

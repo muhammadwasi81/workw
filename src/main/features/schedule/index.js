@@ -22,6 +22,8 @@ function Schedules({ referenceId = defaultUiid }) {
   const [searchParams] = useSearchParams();
   let param = searchParams.get("f");
   const [isShareLinkModalOpen, setIsShareLinkModalOpen] = useState(false);
+  const userId = useSelector((state) => state.userSlice.user.id);
+
   // const dispatch = useDispatch();
   // const { drawerOpen } = useSelector(state => state.scheduleSlice);
   const [copy, setCopy] = useState(false);
@@ -33,6 +35,7 @@ function Schedules({ referenceId = defaultUiid }) {
   };
   const handleShareLinkModal = () => {
     setIsShareLinkModalOpen(!isShareLinkModalOpen);
+    setCopy(false);
   };
 
   const copyfunc = (e) => {
@@ -40,7 +43,7 @@ function Schedules({ referenceId = defaultUiid }) {
     e.stopPropagation();
     setCopy(true);
     navigator.clipboard.writeText(
-      ` ${window.location.origin}${ROUTES.SCHEDULES.DEFAULT}`
+      ` ${window.location.origin}/${ROUTES.EXTERNAL_PROJECT_SCHEDULER.REGISTER}/${userId}`
     );
     message.success("Copied");
   };

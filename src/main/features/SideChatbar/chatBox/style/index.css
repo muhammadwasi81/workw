@@ -8,7 +8,7 @@
   bottom: 3px;
   right: 100px;
   width: max-content;
-    max-width: 90%;
+  max-width: 90%;
 }
 
 .ChatBox {
@@ -102,6 +102,13 @@
   padding-left: 6px;
 }
 
+.ChatBoxMessages>.MessengerListItem.GroupMessage {
+  margin-top: 2px !important;
+}
+.ChatBoxMessages>.MessengerListItem-ME.GroupMessage {
+  margin-top: 2px !important;
+}
+
 .ChatBoxMessages>.MessengerListItem-ME {
   margin-top: 10px !important;
 }
@@ -115,8 +122,9 @@
   animation-duration: 0.3s;
   animation-fill-mode: forwards;
 }
-.minimizeChatBox .ChatBoxName{
-    width: calc(100% - 50px);
+
+.minimizeChatBox .ChatBoxName {
+  width: calc(100% - 50px);
 }
 
 .minimizeCloseChatBox {
@@ -124,12 +132,14 @@
   animation-duration: 0.3s;
   animation-fill-mode: forwards;
 }
-.extendChatBox{
+
+.extendChatBox {
   animation-name: extendChatBox;
   animation-duration: 0.3s;
   animation-fill-mode: forwards;
 }
-.extendCloseChatBox{
+
+.extendCloseChatBox {
   animation-name: extendCloseChatBox;
   animation-duration: 0.3s;
   animation-fill-mode: forwards;
@@ -145,6 +155,7 @@
     width: 200px;
   }
 }
+
 @keyframes minimizeCloseChatBox {
   from {
     height: 45px;
@@ -159,6 +170,7 @@
     border-radius: 10px 10px 0 0;
   }
 }
+
 @keyframes extendChatBox {
   from {
     height: 450px;
@@ -170,6 +182,7 @@
     width: 428px;
   }
 }
+
 @keyframes extendCloseChatBox {
   from {
     height: 650px;
@@ -179,5 +192,12 @@
   to {
     height: 450px;
     width: 328px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .ChatBoxCont {
+    right: 0px;
+    bottom: 50px;
   }
 }

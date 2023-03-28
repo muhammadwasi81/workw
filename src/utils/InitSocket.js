@@ -1,7 +1,7 @@
 import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
 import { addRealTimePost } from "../main/features/feed/store/slice";
 import { updateMessageDeliver } from "../main/features/Messenger/store/actions";
-import { receiveChatMessage } from "../main/features/Messenger/store/messengerSlice";
+import { handleConversationIndexing, receiveChatMessage } from "../main/features/Messenger/store/messengerSlice";
 import { servicesUrls } from "./services/baseURLS";
 import { openNotification } from "./Shared/store/slice";
 
@@ -14,11 +14,11 @@ export const InitMessengerSocket = (dispatch, userSlice) => {
 		.configureLogging(LogLevel.Information)
 		.build();
 	connection.start().then(() => { });
+
 	// Receive Message Listner Here
 	connection.on("messageOut", data => {
 		console.log(data, "messageOut mySocket");
 		if (data.creator.id !== userSlice.user.id) {
-			dispatch(receiveChatMessage(data));
 			dispatch(
 				updateMessageDeliver({
 					chatId: data.chatId,
@@ -35,6 +35,7 @@ export const InitMessengerSocket = (dispatch, userSlice) => {
 				})
 			);
 		}
+		dispatch(receiveChatMessage(data));
 	});
 	connection.on("notificationOut", data => {
 		console.log(data, "notificationOut");
@@ -47,6 +48,9 @@ export const InitMessengerSocket = (dispatch, userSlice) => {
 				style: { backgroundColor: "#64c4b2" }
 			})
 		);
+	});
+	connection.on("ConversationOut", data => {
+		dispatch(handleConversationIndexing(data))
 	});
 	connection.on("newFeedOut", data => {
 		dispatch(addRealTimePost(data))

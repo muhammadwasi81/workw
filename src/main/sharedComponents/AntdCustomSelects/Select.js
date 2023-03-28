@@ -54,7 +54,7 @@ function AntCustomSelect(props) {
 		}
 	}, [pgNo]);
 	// console.log("data", isLoaded, data);
-
+let countrySelect;
 	return (
 		<>
 			{!formItem ? (
@@ -74,7 +74,7 @@ function AntCustomSelect(props) {
 					onSearch={onSearch}
 					filterOption={filterOption}
 					getPopupContainer={trigger => trigger.parentNode}
-					// maxTagCount="responsive"
+				// maxTagCount="responsive"
 				>
 					{isLoaded && !loading ? (
 						data &&
@@ -127,11 +127,15 @@ function AntCustomSelect(props) {
 						loading={loading}
 						onPopupScroll={onPopupScroll}
 						onSelect={onSelect}
-						onChange={onChange}
+						ref={(select) => countrySelect = select}
+						onChange={() => {
+							countrySelect.blur()
+						}}
+						// onChange={onChange}
 						onSearch={onSearch}
 						filterOption={filterOption}
 						getPopupContainer={trigger => trigger.parentNode}
-						// maxTagCount="responsive"
+					// maxTagCount="responsive"
 					>
 						{isLoaded && !loading ? (
 							data &&

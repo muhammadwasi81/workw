@@ -30,7 +30,8 @@ export default function OutgoingCall() {
 			outgoingCallData.mediaType === CALL_MEDIA_TYPE.VIDEO && stopVideo();
 	}, [outgoingCallData]);
 
-	const handleClose = () => {
+	const handleClose = (e) => {
+		e && e.preventDefault()
 		dispatch(handleOutgoingCall({
 			isOpen: false,
 			members: [],
@@ -59,7 +60,6 @@ export default function OutgoingCall() {
 			console.log(err)
 		}
 	}
-	console.log(outgoingCallData, "outgoingCallData")
 
 	const axis = {
 		x_axis: 0,
@@ -72,8 +72,9 @@ export default function OutgoingCall() {
 				outgoingCallData.members.length === 1 &&
 				<Draggable
 					Draggable
-					defaultPosition={{ x: axis.x_axis, y: axis.y_axis }}
+					defaultPosition={window.innerWidth < 800 ? undefined : { x: axis.x_axis, y: axis.y_axis }}
 					handle=".outgoing-call"
+					disabled={window.innerWidth < 800}
 					// grid={[25, 25]}
 					scale={1}
 					// bounds="parent"
@@ -105,7 +106,7 @@ export default function OutgoingCall() {
 									<div className="call-options">
 
 										<div className="call-opt-btn hang-up rd"
-											onClick={() => handleClose()}
+											onClick={(e) => handleClose(e)}
 										>
 											<i className="ic-phone" />
 										</div>

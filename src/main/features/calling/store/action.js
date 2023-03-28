@@ -18,7 +18,6 @@ export const createRoom = createAsyncThunk(
 				openNotification({
 					message: "Room Has Been Created Successfully!",
 					type: "success",
-					duration: 2,
 				})
 			);
 			dispatch(handleAddCallWindow({

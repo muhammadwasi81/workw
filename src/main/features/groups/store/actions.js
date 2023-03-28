@@ -208,7 +208,6 @@ export const removeGroupFeaturesAction = createAsyncThunk(
   "removeGroupFeature",
   async (data, { dispatch, rejectWithValue }) => {
     const res = await removeGroupFeaturesService(data);
-    console.log(data, "responsee");
     if (res.responseCode === responseCode.Success) {
       dispatch(removeGroupFeatures(data));
       return data;

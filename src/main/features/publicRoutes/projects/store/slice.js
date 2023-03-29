@@ -1,9 +1,18 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
-import { getVerifyProjectExternalMember, setNewPassword } from "./action";
+
+import {
+  GetReferenceById,
+  addAppointmentByExternal,
+  getVerifyProjectExternalMember,
+  setNewPassword,
+} from "./action";
 
 const initialState = {
-  projectExternal: {},
+  referenceDetail: null,
+  loadingData: false,
   loader: false,
+  modal: false,
+  projectExternal: {},
   isSuccess: false,
   verificationSuccess: false,
   verificationLoader: false,

@@ -32,14 +32,20 @@ function MemberSelect({
   className = "",
   returnEmpty = false,
 }) {
+  console.log(data, "dataa");
   const [value, setValue] = useState("");
   const [stateVal, setStateVal] = useState(dataVal);
   const [defaultValues, setDefaultValues] = useState([]);
+  console.log(defaultValues, "default vv");
   const [isDataFetchable, setIsDataFetchable] = useState(canFetchNow);
   const debouncedSearch = useDebounce(value, 500);
+  const userSlice = useSelector((state) => state.userSlice);
+  const user = userSlice.user;
   const [memberData, setMemberData] = useState([...data]);
+  console.log(memberData, "memberData");
   const { loader } = useSelector((state) => state.sharedSlice);
   const employees = useSelector((state) => state.sharedSlice[sliceName]);
+  console.log(employees, "employees");
   const [isAssignDefaultData, setIsAssignDefaultData] = useState(
     loadDefaultData
   );
@@ -62,6 +68,7 @@ function MemberSelect({
   useEffect(() => {
     if (defaultData.length > 0) {
       let tempArray = [];
+      console.log("sssss");
       defaultData.forEach((element) => {
         tempArray.push(element[defaultKey]);
       });
@@ -74,6 +81,7 @@ function MemberSelect({
     if (stateVal.length > 0) {
       let filterArrOfObj;
       if (isObject) {
+        console.log("isobject");
         filterArrOfObj = employees.filter((val) =>
           stateVal.includes(val[defaultKey])
         );
@@ -137,6 +145,7 @@ function MemberSelect({
   useEffect(() => {
     if (isDataFetchable) {
       const merged = [...memberData, ...employees];
+      console.log(merged, "mergedd");
       setMemberData(() => {
         return [...new Map(merged.map((v) => [v.id, v])).values()];
       });
@@ -172,6 +181,7 @@ function MemberSelect({
   // console.log("canfetch now", canFetchNow);
   // console.log("data", data);
   // console.log("stateval", stateVal);
+  const employeesdata = [...memberData, user];
   return (
     <AntCustomSelect
       className={className}

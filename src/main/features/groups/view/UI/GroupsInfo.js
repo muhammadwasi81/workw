@@ -34,6 +34,7 @@ function GroupsInfo({ ghost = true }) {
   const { groupFeatures } = useSelector((state) => state.groupSlice);
 
   const [features, setFeatures] = useState([]);
+  console.log(features, "fetauress");
   const [form] = Form.useForm();
   const { groupId } = useParams();
 
@@ -65,8 +66,8 @@ function GroupsInfo({ ghost = true }) {
         featureId: featureId,
         groupId: groupId,
       };
-      let newPayload = [...features, payload];
-      const newFeature = newPayload.map((item) => {
+      let newPayload = features ? [...features, payload] : [payload];
+      const newFeature = newPayload?.map((item) => {
         return {
           featureId: item.featureId,
         };

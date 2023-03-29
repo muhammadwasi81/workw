@@ -18,10 +18,6 @@ function DetailCard(props) {
   );
 
   const detailLoader = useSelector((state) => state.documentSlice.detailLoader);
-
-  useEffect(() => {
-    dispatch(GetDocumentById("2EDCD3D1-2C51-4379-BC8A-37D3705007B4"));
-  }, []);
   let {
     name,
     documentType,
@@ -39,6 +35,10 @@ function DetailCard(props) {
     attachments,
     referenceNo,
   } = ducomentDetail;
+  useEffect(() => {
+    props.id && dispatch(GetDocumentById(props.id));
+  }, [props.id]);
+
   let documentFile = attachments ? attachments : {};
 
   const localTime = moment

@@ -28,6 +28,7 @@ function TravelContainer() {
       return SearchFilter("travel");
     }
   }, []);
+
   return (
     <>
       <div className="SearchMainContainer">

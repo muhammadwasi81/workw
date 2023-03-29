@@ -28,11 +28,12 @@ import { useSelector } from "react-redux";
 import CustomNotes from "../notes/singleNotes/singleNotes";
 import Courses from "../eLearning/view/Dashboard/Sections/Courses/Courses";
 import TeamAppraisal from "../appraisalModule/view/components/TeamAppraisal/index";
-import { saveSticyNotes, getSticyNotes } from "./store/action";
+import { saveSticyNotes, getStickyNotes } from "./store/action";
 import useDebounce from "../../../utils/Shared/helper/use-debounce";
-import { formats, modules } from "./utils/index";
+import { formats, modules } from "./utils";
 
 const Profile = () => {
+  console.log(formats, modules, "ffgfgkfmk");
   const param = useParams();
   const navigate = useNavigate();
   const location = useLocation();
@@ -49,6 +50,7 @@ const Profile = () => {
   } = useSelector((state) => state.userSlice);
 
   const { profileSticky } = useSelector((state) => state.employeeProfileSlice);
+  console.log(profileSticky, "profilesticky");
   const onChange = (key) => {
     navigate(key);
   };
@@ -57,9 +59,9 @@ const Profile = () => {
     setDefaultPath(pathname.split("_")[0]);
   }, [pathname]);
 
-  useEffect(() => {
-    dispatch(getSticyNotes());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getStickyNotes());
+  // }, []);
 
   useEffect(() => {
     if (descriptionDebounce) setDescriptionValue(descriptionDebounce);
@@ -91,7 +93,7 @@ const Profile = () => {
           <div className="singleNote_container ">
             <div className="singleNote_header"></div>
             <div className="textArea_container bg-white w-[300px]">
-              {profileSticky.id && (
+              {profileSticky?.id && (
                 <CustomNotes
                   onChange={(value) => setDescription(value)}
                   modules={modules}

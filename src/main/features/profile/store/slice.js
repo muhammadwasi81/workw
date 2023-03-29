@@ -9,7 +9,7 @@ import {
   updateUserCoverImgAction,
   updateUserProfileImgAction,
   saveSticyNotes,
-  getSticyNotes,
+  getStickyNotes,
 } from "./action";
 
 const initialState = {
@@ -81,7 +81,7 @@ const employeeProfileSlice = createSlice({
         console.log(payload, "payload");
         state.profileSticky = payload.data;
       })
-      .addCase(getSticyNotes.fulfilled, (state, { payload }) => {
+      .addCase(getStickyNotes.fulfilled, (state, { payload }) => {
         state.profileSticky = payload.data;
       })
       .addMatcher(isPending(...[getAllEmployeeAction]), (state) => {

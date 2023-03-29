@@ -5,7 +5,7 @@ const CustomNotes = ({
   onChange,
   className,
   placeholder,
-  defaultValue,
+  defaultValue = "Description",
   modules,
   formats,
 }) => {

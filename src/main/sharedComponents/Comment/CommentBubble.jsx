@@ -22,8 +22,8 @@ function CommentBubble({
     <div style={{ display: 'flex', width: '100%' }}>
       {type !== 2 && (
         <Avatar
-          src={creator.image || image}
-          name={creator.name || name}
+          src={creator?.image ? creator?.image : image}
+          name={creator?.name ? creator?.name : name}
           size={30}
           round={true}
         />

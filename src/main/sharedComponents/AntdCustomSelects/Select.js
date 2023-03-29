@@ -97,7 +97,7 @@ function AntCustomSelect(props) {
                 )
             )
           ) : (
-            <Option>
+            <Option className="SelectOptionSkeleton">
               <Space className="pointer-events-none">
                 <Skeleton.Avatar active={true} />
                 <Skeleton.Input active={true} block />
@@ -164,7 +164,7 @@ function AntCustomSelect(props) {
                 )
               )
             ) : (
-              <Option>
+              <Option className="SelectOptionSkeleton">
                 <Space className="pointer-events-none">
                   <Skeleton.Avatar active={true} />
                   <Skeleton.Input active={true} block />

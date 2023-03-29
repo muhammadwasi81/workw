@@ -8,3 +8,6 @@
 .ant-select-item-option-state .anticon-check{
     display: none;
 }
+.SelectOptionSkeleton {
+    pointer-events: none;
+}

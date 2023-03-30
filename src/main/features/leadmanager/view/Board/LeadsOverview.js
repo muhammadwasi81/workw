@@ -1,29 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import { PlusOutlined } from '@ant-design/icons';
-import { Avatar, Select, Tag, Tooltip } from 'antd';
-import { useDispatch, useSelector } from 'react-redux';
-import { getNameForImage, jsonToFormData } from '../../../../../utils/base';
-import { DEFAULT_GUID } from '../../../../../utils/constants';
+import React, { useEffect, useState } from "react";
+import { PlusOutlined } from "@ant-design/icons";
+import { Avatar, Select, Tag, Tooltip } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { getNameForImage, jsonToFormData } from "../../../../../utils/base";
+import { DEFAULT_GUID } from "../../../../../utils/constants";
 import {
   addLeadManagerDetail,
   getLeadManagerDetailById,
   moveLeadManagerDetail,
-} from '../../store/actions';
-import CardButton from '../../UI/Button/CardButton';
-import SectionForm from './Sections/SectionForm/SectionForm';
-import SectionDetail from './SectionDetail';
-import SectionDetailSkeleton from '../../UI/Skeleton/SectionDetailSkeleton';
+} from "../../store/actions";
+import CardButton from "../../UI/Button/CardButton";
+import SectionForm from "./Sections/SectionForm/SectionForm";
+import SectionDetail from "./SectionDetail";
+import SectionDetailSkeleton from "../../UI/Skeleton/SectionDetailSkeleton";
 import {
   handleAssignMemberModal,
   handleContactDetailModal,
   moveDetail,
-} from '../../store/slice';
+} from "../../store/slice";
 // import LeadSectionSelect from "../../UI/Select/LeadSectionSelect";
-import AvatarGroup from '../../../../sharedComponents/Avatar/AvatarGroup';
+import AvatarGroup from "../../../../sharedComponents/Avatar/AvatarGroup";
 function LeadsOverview({ handleSelectedMembers = () => {}, setLeadSectionId }) {
   const { Option } = Select;
   const [toggleForm, setToggleForm] = useState(false);
-  const [leadDetailId, setLeadDetailId] = useState('');
+  const [leadDetailId, setLeadDetailId] = useState("");
   const [openDetail, setOpenDetail] = useState(false);
   const isSectionDetailLoading = useSelector(
     (state) => state.leadMangerSlice.isSectionDetailLoading
@@ -64,9 +64,9 @@ function LeadsOverview({ handleSelectedMembers = () => {}, setLeadSectionId }) {
     targetSectionId,
     currentIndex
   ) => {
-    console.log('current section id: ', currentSectionId);
-    console.log('target section id:', targetSectionId);
-    console.log('currentIndex:', currentIndex);
+    console.log("current section id: ", currentSectionId);
+    console.log("target section id:", targetSectionId);
+    console.log("currentIndex:", currentIndex);
     dispatch(
       moveDetail({
         sourceListId: currentSectionId,
@@ -91,7 +91,7 @@ function LeadsOverview({ handleSelectedMembers = () => {}, setLeadSectionId }) {
     setLeadSectionId(sectionId);
     e.stopPropagation();
     e.preventDefault();
-    handleSelectedMembers('', members);
+    handleSelectedMembers("", members);
     dispatch(
       handleAssignMemberModal({
         id,
@@ -103,7 +103,7 @@ function LeadsOverview({ handleSelectedMembers = () => {}, setLeadSectionId }) {
       <div className="flex flex-1 gap-10 my-5 ">
         <section className="basis-[40%] flex gap-5 flex-col">
           <CardButton
-            className={'text-gray-400'}
+            className={"text-gray-400"}
             icon={<PlusOutlined className="!text-gray-500" />}
             onClick={handleToggleForm}
           />
@@ -154,13 +154,13 @@ function LeadsOverview({ handleSelectedMembers = () => {}, setLeadSectionId }) {
                                 color: detail.colorCode,
                               }}
                             >
-                              {det.typeId === 1 ? 'Business' : 'Individual'}
+                              {det.typeId === 1 ? "Business" : "Individual"}
                             </div>
                           </div>
                           <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2">
                               <AvatarGroup
-                                nestedObjProperty={'member'}
+                                nestedObjProperty={"member"}
                                 membersData={det?.members}
                               />
                               <Tooltip title="Select Assign Members">
@@ -183,14 +183,14 @@ function LeadsOverview({ handleSelectedMembers = () => {}, setLeadSectionId }) {
                               <Select
                                 defaultValue={det?.sectionId}
                                 dropdownStyle={{
-                                  minWidth: 'max-content',
+                                  minWidth: "max-content",
                                 }}
                                 onClick={(e) => {
                                   e.stopPropagation();
                                   e.preventDefault();
                                 }}
                                 onChange={(value) => {
-                                  console.log('value index', index);
+                                  console.log("value index", index);
                                   handleSectionChange(
                                     det?.sectionId,
                                     value,

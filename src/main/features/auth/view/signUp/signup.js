@@ -13,7 +13,6 @@ import { Form } from "antd";
 import PasswordInput from "../../../../sharedComponents/Input/PasswordInput";
 import SingleUpload from "../../../../sharedComponents/Upload/singleUpload";
 
-
 let formData = {};
 
 function Signup() {
@@ -59,7 +58,6 @@ function Signup() {
   }, [isError, isSuccess]);
 
   const handleSignUpSubmit = (values) => {
-
     let image = {
       id: STRINGS.DEFAULTS.guid,
       file: profileImage && profileImage[0]?.originFileObj,
@@ -71,9 +69,7 @@ function Signup() {
     } else {
       dispatch(signup(values));
     }
-    
   };
-
 
   const onChange = (value, name) => {
     formData = { ...formData, [name]: value };
@@ -213,11 +209,7 @@ function Signup() {
                 />
               </Form.Item> */}
               <div className="agreement small-sign-up-form small-sign-up-form-agreement">
-                <Form.Item 
-                  name="agree"
-                  valuePropName="checked"
-                  rules={rules}
-                >
+                <Form.Item name="agree" valuePropName="checked" rules={rules}>
                   <Checkbox>
                     <span className="terms-and-conditions">
                       I agree the terms and conditions.
@@ -254,7 +246,7 @@ function Signup() {
           <NavLink
             id="login_btn"
             className="a"
-            to={STRINGS.ROUTES.AUTH.SIGN_IN}
+            to={STRINGS.ROUTES?.AUTH?.SIGN_IN}
           >
             Login
           </NavLink>

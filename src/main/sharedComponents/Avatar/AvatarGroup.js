@@ -1,27 +1,27 @@
-import { useState } from 'react';
-import { Avatar, Modal } from 'antd';
-import { getNameForImage } from '../../../utils/base';
-import './style.css';
-import { useNavigate } from 'react-router-dom';
-import ItemDetailModal from '../ItemDetails';
-import { handleItemDetailModal } from '../../../utils/Shared/store/slice';
+import { useState } from "react";
+import { Avatar, Modal, message } from "antd";
+import { getNameForImage } from "../../../utils/base";
+import "./style.css";
+import { useNavigate } from "react-router-dom";
+import ItemDetailModal from "../ItemDetails";
+import { handleItemDetailModal } from "../../../utils/Shared/store/slice";
 // import { AntDesignOutlined, UserOutlined } from "@ant-design/icons";
 // import PropTypes from "prop-types";
-import { useDispatch, useSelector } from 'react-redux';
-import { addLeadManagereMember } from '../../features/leadmanager/store/actions';
-import { useEffect } from 'react';
-import { getAllEmployees } from '../../../utils/Shared/store/actions';
-import CustomSelect from '../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect';
+import { useDispatch, useSelector } from "react-redux";
+import { addLeadManagereMember } from "../../features/leadmanager/store/actions";
+import { useEffect } from "react";
+import { getAllEmployees } from "../../../utils/Shared/store/actions";
+import CustomSelect from "../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 
 function AvatarGroup(props) {
-  // console.log(props, 'props');
+  // console.log(props, "props");
   const employees = useSelector((state) => state.sharedSlice.employees);
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
-  const [value, setValue] = useState([]);
-
-  const navigate = useNavigate();
+  // const [value, setValue] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const showModal = (e) => {
@@ -30,44 +30,47 @@ function AvatarGroup(props) {
     setIsModalOpen(true);
     dispatch(handleItemDetailModal(true));
   };
-  // const handleChange = () => {
-  //   console.log('addFunc');
-  //   const payloadData = props.membersData.map((member) => {
-  //     return {
-  //       id: member.leadManagerId,
-  //       memberId: member.memberId,
-  //     };
-  //   });
-  //   setValue(payloadData);
-  //   console.log('membersData', payloadData);
+
+  const addFunc = (memberId) => {
+    console.log(memberId, "memberId");
+    const objToSend = props.membersData.reduce((acc, item) => {
+      return { ...acc, id: item.id };
+    }, {});
+    console.log(objToSend, "objToSend");
+    const membersData = {
+      id: objToSend.id,
+      memberId: memberId.join(", "),
+    };
+    console.log(membersData, "membersData");
+    const filterData = props.membersData.filter((item) => {
+      return item.member.id === membersData.memberId;
+    });
+    const payloadData = filterData[0] ? filterData[0].memberId : "";
+    if (membersData.memberId === payloadData) {
+      return message.error("Member Already Added");
+    } else {
+      dispatch(addLeadManagereMember(membersData));
+    }
+  };
+
+  // const onCancel = () => {
+  //   console.log("onCancel");
+  //   setIsModalOpen(false);
+  //   dispatch(handleItemDetailModal(false));
+  // };
+  // const handleOk = (e) => {
+  //   e.preventDefault();
+  //   e.stopPropagation();
+  //   setIsModalOpen(false);
+  // };
+  // const handleCancel = (e) => {
+  //   e.preventDefault();
+  //   e.stopPropagation();
+  //   setIsModalOpen(false);
   // };
 
-  const handleChange = (memberId, leadManagerId) => {
-    console.log('memberId', memberId);
-    console.log('leadManagerId', leadManagerId);
-
-    const payloadData = props.membersData.map((member) => {
-      return {
-        id: member.leadManagerId,
-        memberId: member.memberId,
-      };
-    });
-    console.log('membersData', payloadData);
-  };
-
-  const handleOk = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsModalOpen(false);
-  };
-  const handleCancel = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsModalOpen(false);
-  };
-
   useEffect(() => {
-    fetchEmployees('', 0);
+    fetchEmployees("", 0);
   }, []);
 
   const fetchEmployees = (text, pgNo) => {
@@ -88,9 +91,9 @@ function AvatarGroup(props) {
         maxPopoverTrigger="click"
         size="small"
         maxStyle={{
-          color: '#f56a00',
-          backgroundColor: '#fde3cf',
-          cursor: 'pointer',
+          color: "#f56a00",
+          backgroundColor: "#fde3cf",
+          cursor: "pointer",
         }}
       >
         {props.membersData?.map((members) => (
@@ -115,26 +118,22 @@ function AvatarGroup(props) {
             {getNameForImage(
               members[props.nestedObjProperty] !== null
                 ? members[props.nestedObjProperty].name
-                : 'Unknown User'
+                : "Unknown User"
             )}
           </Avatar>
           // </Tooltip>
         ))}
       </Avatar.Group>
-      {/* <ItemDetailModal
-        data={props?.membersData} //Data
-        isDeleteDisabled={false} //Pass true to hide delete icon
-        addEnabled={true} //Pass false to hide select member
-        addFunc={addFunc}
-        onDelete={() => {}}
-        openModal={true}
-        onCancel={() => {
-          console.log('modal close');
-          setIsModalOpen(false);
-          dispatch(handleItemDetailModal(false));
-        }}
-      /> */}
-      <Modal
+      {isModalOpen && (
+        <ItemDetailModal
+          data={props?.membersData}
+          addEnabled={true}
+          addFunc={addFunc}
+          openModal={true}
+          isDeleteDisabled={true}
+        />
+      )}
+      {/* <Modal
         open={isModalOpen}
         onOk={(e) => handleOk(e)}
         onCancel={(e) => handleCancel(e)}
@@ -217,7 +216,7 @@ function AvatarGroup(props) {
             </div>
           );
         })}
-      </Modal>
+      </Modal> */}
     </div>
   );
 }

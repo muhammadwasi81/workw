@@ -145,7 +145,7 @@ function CreateSchedule({
     }
   }, [scheduleDetail]);
 
-  console.log(moment(), "momentt");
+  // console.log(moment(), "momentt");
 
   const disabledDate = (current) => {
     // Can not select days before today and today
@@ -160,11 +160,36 @@ function CreateSchedule({
     return result;
   };
 
+  // function disabledHours() {
+  //   const currentHour = moment().hour();
+  //   return [...Array(currentHour).keys()];
+  // }
+
   function disabledHours() {
-    // Disable past hours
     const currentHour = moment().hour();
-    return [...Array(currentHour).keys()];
+    const userSelectedDate = form.getFieldValue("startDate");
+    console.log(userSelectedDate, "userSelectedDate");
+    const todaysDate = moment();
+    console.log(todaysDate, "todaysDate");
+    if (userSelectedDate > todaysDate) {
+      return [...Array(24).keys()];
+    } else {
+      return [...Array(currentHour).keys()];
+    }
   }
+
+  const handleHoursChange = () => {
+    const currentHour = moment().hour();
+    const userSelectedDate = form.getFieldValue("startDate");
+    console.log(userSelectedDate, "userSelectedDate");
+    const todaysDate = moment();
+    console.log(todaysDate, "todaysDate");
+    if (userSelectedDate > todaysDate) {
+      return [...Array(24).keys()];
+    } else {
+      return [...Array(currentHour).keys()];
+    }
+  };
 
   function disabledMinutes(selectedHour) {
     // Disable past minutes for the selected hour
@@ -282,6 +307,7 @@ function CreateSchedule({
               disabledDate={disabledDate}
               disabledHours={disabledHours}
               disabledMinutes={disabledMinutes}
+              onChange={handleHoursChange}
               // disabledTime={(current) => current.isBefore(moment())}
               // disabledTime={disabledDateTime}
               showTime={{

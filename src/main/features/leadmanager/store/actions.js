@@ -1,12 +1,12 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { message } from 'antd';
-import { responseCode } from '../../../../services/enums/responseCode';
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+import { message } from "antd";
+import { responseCode } from "../../../../services/enums/responseCode";
 import {
   responseMessage,
   responseMessageType,
-} from '../../../../services/slices/notificationSlice';
-import { openNotification } from '../../../../utils/Shared/store/slice';
+} from "../../../../services/slices/notificationSlice";
+import { openNotification } from "../../../../utils/Shared/store/slice";
 import {
   addLeadManagerContactService,
   addLeadManagerDetailService,
@@ -29,18 +29,18 @@ import {
   getAllLeadManagerMemberService,
   addLeadManagerMemberService,
   deleteLeadManagerMemberById,
-} from '../services/services';
-import { addLeadMember, deleteLeadManagerMember } from '../store/slice';
+} from "../services/services";
+import { addLeadMember, deleteLeadManagerMember } from "../store/slice";
 
 export const addLeadManager = createAsyncThunk(
-  'addLeadManager',
+  "addLeadManager",
   async (data, { dispatch, getState, rejectWithValue }) => {
     const res = await addLeadManagerService(data);
     if (res.responseCode === responseCode.Success) {
       dispatch(
         openNotification({
-          message: 'LeadManager Created Successfully',
-          type: 'success',
+          message: "LeadManager Created Successfully",
+          type: "success",
           duration: 2,
         })
       );
@@ -49,7 +49,7 @@ export const addLeadManager = createAsyncThunk(
       dispatch(
         openNotification({
           message: res.message,
-          type: 'error',
+          type: "error",
           duration: 2,
         })
       );
@@ -59,15 +59,15 @@ export const addLeadManager = createAsyncThunk(
 );
 
 export const addLeadManagerDetail = createAsyncThunk(
-  'addLeadManagerDetail',
+  "addLeadManagerDetail",
   async (data, { dispatch, getState, rejectWithValue }) => {
     const res = await addLeadManagerDetailService(data);
-    console.log(res, 'res lead ');
+    console.log(res, "res lead ");
     if (res.responseCode === responseCode.Success) {
       dispatch(
         openNotification({
-          message: 'Lead Manager Detail Created Successfully',
-          type: 'success',
+          message: "Lead Manager Detail Created Successfully",
+          type: "success",
           duration: 2,
         })
       );
@@ -76,7 +76,7 @@ export const addLeadManagerDetail = createAsyncThunk(
       dispatch(
         openNotification({
           message: res.message,
-          type: 'error',
+          type: "error",
           duration: 2,
         })
       );
@@ -86,15 +86,15 @@ export const addLeadManagerDetail = createAsyncThunk(
 );
 
 export const updateLeadManager = createAsyncThunk(
-  'updateLeadManager',
+  "updateLeadManager",
   async (data, { dispatch, getState, rejectWithValue }) => {
     const res = await updateLeadManagerService(data);
-    console.log(res, 'Responsee');
+    console.log(res, "Responsee");
     if (res.responseCode === responseCode.Success) {
       dispatch(
         openNotification({
-          message: 'Lead Manager Updated Successfully!',
-          type: 'success',
+          message: "Lead Manager Updated Successfully!",
+          type: "success",
           duration: 2,
         })
       );
@@ -104,7 +104,7 @@ export const updateLeadManager = createAsyncThunk(
       dispatch(
         openNotification({
           message: res.message,
-          type: 'error',
+          type: "error",
           duration: 2,
         })
       );
@@ -114,10 +114,10 @@ export const updateLeadManager = createAsyncThunk(
 );
 
 export const getAllLeadManager = createAsyncThunk(
-  'getAllLeadManager',
+  "getAllLeadManager",
   async (data, { dispatch, getState, rejectWithValue, signal }) => {
     const source = axios.CancelToken.source();
-    signal.addEventListener('abort', () => {
+    signal.addEventListener("abort", () => {
       source.cancel();
     });
     const res = await getAllLeadManagerService(data, source);
@@ -130,7 +130,7 @@ export const getAllLeadManager = createAsyncThunk(
 );
 
 export const getAllLeadManagerPaging = createAsyncThunk(
-  'getAllLeadManagerPaging',
+  "getAllLeadManagerPaging",
   async (data, { dispatch, getState, rejectWithValue }) => {
     const res = await getAllLeadManagerPagingService(data);
     if (res.responseCode === responseCode.Success) {
@@ -142,7 +142,7 @@ export const getAllLeadManagerPaging = createAsyncThunk(
 );
 
 export const getLeadManagerById = createAsyncThunk(
-  'getLeadManagerById',
+  "getLeadManagerById",
   async (id, { dispatch, getState, rejectWithValue }) => {
     const res = await getLeadManagerByIdService(id);
     if (res.responseCode === responseCode.Success) {
@@ -159,7 +159,7 @@ export const getLeadManagerById = createAsyncThunk(
 );
 
 export const deleteLeadManagerById = createAsyncThunk(
-  'deleteManagerById',
+  "deleteManagerById",
   async (data, { dispatch, getState, rejectWithValue }) => {
     const res = await deleteLeadManagerMemberById(data);
     if (res.responseCode === responseCode.Success) {
@@ -176,7 +176,7 @@ export const deleteLeadManagerById = createAsyncThunk(
   }
 );
 export const getLeadManagerSectionById = createAsyncThunk(
-  'getLeadManagerSectionById',
+  "getLeadManagerSectionById",
   async (id, { dispatch, getState, rejectWithValue }) => {
     const res = await getLeadManagerSectionByIdService(id);
     if (res.responseCode === responseCode.Success) {
@@ -193,7 +193,7 @@ export const getLeadManagerSectionById = createAsyncThunk(
 );
 
 export const getLeadManagerDetailById = createAsyncThunk(
-  'getLeadManagerDetailById',
+  "getLeadManagerDetailById",
   async (id, { dispatch, getState, rejectWithValue }) => {
     const res = await getLeadManagerSectionDetailByIdService(id);
     if (res.responseCode === responseCode.Success) {
@@ -210,14 +210,14 @@ export const getLeadManagerDetailById = createAsyncThunk(
 );
 
 export const addLeadManagerContact = createAsyncThunk(
-  'addLeadManagerContact',
+  "addLeadManagerContact",
   async (data, { dispatch, getState, rejectWithValue }) => {
     const res = await addLeadManagerContactService(data);
     if (res.responseCode === responseCode.Success) {
       dispatch(
         openNotification({
-          message: 'LeadManager Contact Created Successfully',
-          type: 'success',
+          message: "LeadManager Contact Created Successfully",
+          type: "success",
           duration: 2,
         })
       );
@@ -226,7 +226,7 @@ export const addLeadManagerContact = createAsyncThunk(
       dispatch(
         openNotification({
           message: res.message,
-          type: 'error',
+          type: "error",
           duration: 2,
         })
       );
@@ -236,14 +236,14 @@ export const addLeadManagerContact = createAsyncThunk(
 );
 
 export const updateLeadManagerDetail = createAsyncThunk(
-  'updateLeadManagerDetail',
+  "updateLeadManagerDetail",
   async (data, { dispatch, getState, rejectWithValue }) => {
     const res = await updateLeadManagerDetailService(data);
     if (res.responseCode === responseCode.Success) {
       dispatch(
         openNotification({
-          message: 'Lead Manager Detail Updated Successfully!',
-          type: 'success',
+          message: "Lead Manager Detail Updated Successfully!",
+          type: "success",
           duration: 2,
         })
       );
@@ -253,7 +253,7 @@ export const updateLeadManagerDetail = createAsyncThunk(
       dispatch(
         openNotification({
           message: res.message,
-          type: 'error',
+          type: "error",
           duration: 2,
         })
       );
@@ -263,7 +263,7 @@ export const updateLeadManagerDetail = createAsyncThunk(
 );
 
 export const getAllLeadManagerContactDetail = createAsyncThunk(
-  'getAllLeadManagerContactDetail',
+  "getAllLeadManagerContactDetail",
   async (id, { dispatch, getState, rejectWithValue }) => {
     const res = await getLeadManagerContactDetailService(id);
     if (res.responseCode === responseCode.Success) {
@@ -275,14 +275,14 @@ export const getAllLeadManagerContactDetail = createAsyncThunk(
 );
 
 export const updateLeadManagerContact = createAsyncThunk(
-  'updateLeadManagerContact',
+  "updateLeadManagerContact",
   async (data, { dispatch, getState, rejectWithValue }) => {
     const res = await updateLeadManagerContactService(data);
     if (res.responseCode === responseCode.Success) {
       dispatch(
         openNotification({
-          message: 'Lead Manager Contact Updated Successfully!',
-          type: 'success',
+          message: "Lead Manager Contact Updated Successfully!",
+          type: "success",
           duration: 2,
         })
       );
@@ -292,7 +292,7 @@ export const updateLeadManagerContact = createAsyncThunk(
       dispatch(
         openNotification({
           message: res.message,
-          type: 'error',
+          type: "error",
           duration: 2,
         })
       );
@@ -302,7 +302,7 @@ export const updateLeadManagerContact = createAsyncThunk(
 );
 
 export const moveLeadManagerSection = createAsyncThunk(
-  'moveLeadManagerSection',
+  "moveLeadManagerSection",
   async (data, { dispatch, getState, rejectWithValue }) => {
     const res = await moveLeadManagerSectionService(data);
     if (res.responseCode === responseCode.Success) {
@@ -311,7 +311,7 @@ export const moveLeadManagerSection = createAsyncThunk(
       dispatch(
         openNotification({
           message: res.message,
-          type: 'error',
+          type: "error",
           duration: 2,
         })
       );
@@ -321,7 +321,7 @@ export const moveLeadManagerSection = createAsyncThunk(
 );
 
 export const moveLeadManagerDetail = createAsyncThunk(
-  'moveLeadManagerDetail',
+  "moveLeadManagerDetail",
   async (data, { dispatch, getState, rejectWithValue }) => {
     const res = await moveLeadManagerDetailService(data);
     if (res.responseCode === responseCode.Success) {
@@ -330,7 +330,7 @@ export const moveLeadManagerDetail = createAsyncThunk(
       dispatch(
         openNotification({
           message: res.message,
-          type: 'error',
+          type: "error",
           duration: 2,
         })
       );
@@ -340,7 +340,7 @@ export const moveLeadManagerDetail = createAsyncThunk(
 );
 
 export const addLeadManagerAssignTo = createAsyncThunk(
-  'addLeadManagerAssignTo',
+  "addLeadManagerAssignTo",
   async (data, { dispatch, getState, rejectWithValue }) => {
     const res = await LeadManagerDetailAssignToService(data);
     if (res.responseCode === responseCode.Success) {
@@ -356,7 +356,7 @@ export const addLeadManagerAssignTo = createAsyncThunk(
 );
 
 export const deleteLeadManagerDetailAssignTo = createAsyncThunk(
-  'deleteLeadManagerDetailAssignTo',
+  "deleteLeadManagerDetailAssignTo",
   async (data, { dispatch, getState, rejectWithValue }) => {
     const res = await deleteLeadManagerDetailAssignToService(data);
     if (res.responseCode === responseCode.Success) {
@@ -393,10 +393,11 @@ export const deleteLeadManagerDetailAssignTo = createAsyncThunk(
 // );
 
 export const getAllScheduleAction = createAsyncThunk(
-  'getAllSchedule',
+  "getAllSchedule",
   async (data, { dispatch, getState, rejectWithValue }) => {
     const res = await getAllScheduleService(data);
     if (res.responseCode === responseCode.Success) {
+      // console.log(res, "DATA IN ACTION");
       return res;
     } else {
       return rejectWithValue(res.message);
@@ -405,7 +406,7 @@ export const getAllScheduleAction = createAsyncThunk(
 );
 
 export const getScheduleByIdAction = createAsyncThunk(
-  'getAllScheduleById',
+  "getAllScheduleById",
   async (id, { dispatch, getState, rejectWithValue }) => {
     const res = await getScheduleByIdService(id);
     if (res.responseCode === responseCode.Success) {
@@ -416,24 +417,24 @@ export const getScheduleByIdAction = createAsyncThunk(
   }
 );
 export const getAllLeadManagerMember = createAsyncThunk(
-  'GetAllLeadMember',
+  "GetAllLeadMember",
   async (data) => {
-    console.log(data, 'FROM ACTIONSSS !!');
+    console.log(data, "FROM ACTIONSSS !!");
     const response = await getAllLeadManagerMemberService(data);
     if (!response.responseCode) {
-      message.error('Something went wrong');
+      message.error("Something went wrong");
     }
     return response.data;
   }
 );
 export const addLeadManagereMember = createAsyncThunk(
-  'addLeadMember',
+  "addLeadMember",
   async (data, { dispatch, getState, rejectWithValue }) => {
     const res = await addLeadManagerMemberService(data);
-    console.log(res, 'action data');
+    console.log(res, "action data");
     if (res.data?.responseCode === responseCode.Success) {
       dispatch(addLeadMember(res.data));
-      message.success('Member Added');
+      message.success("Member Added");
       return res;
     } else {
       message.error(res.data.message);

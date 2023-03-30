@@ -67,7 +67,7 @@ const Index = () => {
           icon={bell}
           IconSize={18}
           badge={true}
-          style={{ backgroundColor: "#1b5669" }}
+          style={{ backgroundColor: "#526bb1" }}
         ></SharedButton>
         <div>Notification</div>
       </div>
@@ -82,7 +82,7 @@ const Index = () => {
           icon={ApprovalIcon}
           IconSize={18}
           badge={true}
-          style={{ backgroundColor: "#1b5669" }}
+          style={{ backgroundColor: "#526bb1" }}
         ></SharedButton>
         <div>Approvals</div>
       </div>
@@ -100,7 +100,7 @@ const Index = () => {
           icon={Messenger}
           IconSize={18}
           badge={true}
-          style={{ backgroundColor: "#1b5669" }}
+          style={{ backgroundColor: "#526bb1" }}
         ></SharedButton>
         <div>Messenger</div>
       </div>
@@ -152,7 +152,7 @@ const Index = () => {
             size="small"
             onClick={() => {}}
             antIcon={<MoreOutlined />}
-            style={{ backgroundColor: "#1b5669", color: "#fff" }}
+            style={{ backgroundColor: "#526bb1", color: "#fff" }}
           ></SharedButton>
           <div>More</div>
         </Popover>

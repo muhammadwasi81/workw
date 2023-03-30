@@ -1,35 +1,23 @@
-<<<<<<< HEAD
-import React, { useState } from 'react';
-// import { DocsComposerEnums, DOCUMENT_ENUM } from '../../../constant';
-import { useDispatch } from 'react-redux';
-import { AssignMemEnum, MemberEnum } from '../../eLearning/constant';
-=======
+import { useState } from "react";
 import { message } from "antd";
-import React, { useState } from "react";
 // import { DocsComposerEnums, DOCUMENT_ENUM } from '../../../constant';
 import { useDispatch } from "react-redux";
 import { handleItemDetailModal } from "../../../../utils/Shared/store/slice";
 import DetailModal from "../../../sharedComponents/ItemDetails";
-import { AssignMemEnum, MemberEnum } from "../../eLearning/constant";
-
+// import { AssignMemEnum, MemberEnum } from "../../eLearning/constant";
 import { addLeadManagereMember, deleteLeadManagerById } from "../store/actions";
->>>>>>> 0541c1790ac6d80403defa54b21a8eeabbba0ffd
 // import { handleOpenDocComposer, handleUpdateFolder, handleUpdateFolderMemberId } from '../../../store/slice';
 import {
   getLeadManagerGroupDetailById,
   handleComposer,
-  addMember,
-} from '../store/slice';
-import MemberModal from '../view/Modal/MemberModal';
+  // addMember,
+} from "../store/slice";
+// import MemberModal from "../view/Modal/MemberModal";
 
 const ContentOptions = ({ handleClose, data }) => {
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
-<<<<<<< HEAD
-  console.log(data, 'ContentOptions');
-=======
-  console.log(data, "dataaaaaaaaa");
->>>>>>> 0541c1790ac6d80403defa54b21a8eeabbba0ffd
+  console.log(data, "DATA");
 
   const handleUpdate = (e) => {
     e.preventDefault();
@@ -49,11 +37,13 @@ const ContentOptions = ({ handleClose, data }) => {
     handleClose(false);
   };
   const addFunc = (myid) => {
+    console.log(myid, "myid");
     let memberId = myid.toString();
     const membersData = {
       id: data.id,
       memberId: memberId,
     };
+    console.log(membersData, "membersData");
     let a = data.members.filter((item) => {
       return item.member.id === membersData.memberId;
     });
@@ -67,12 +57,12 @@ const ContentOptions = ({ handleClose, data }) => {
 
   const onDelete = (myid) => {
     const memberId = myid.toString();
-    const delmembers = {
+    const delMembers = {
       id: data.id,
       memberId: memberId,
     };
 
-    dispatch(deleteLeadManagerById(delmembers));
+    dispatch(deleteLeadManagerById(delMembers));
   };
 
   return (

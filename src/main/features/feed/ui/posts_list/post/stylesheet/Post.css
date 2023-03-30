@@ -11,7 +11,7 @@
   margin-bottom: 12px;
 }
 
-.tags-member > .ant-modal-root > .ant-modal-mask {
+.tags-member {
   background-color: transparent !important;
 }
 .post > .post-header {

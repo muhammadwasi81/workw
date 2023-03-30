@@ -25,22 +25,13 @@ const PostHeader = ({
   privacyId,
   id,
 }) => {
-  console.log(tags, "tagsss");
   const dispatch = useDispatch();
   const { image, name, designation } = creator;
   const [isModalOpen, setIsModalOpen] = useState(false);
-  console.log(isModalOpen, "issmodall");
-  // const handleOk = () => {
-  //   setIsModalOpen(false);
-  // };
-
-  // const handleCancel = () => {
-  //   setIsModalOpen(false);
-  // };
 
   const handleShowModal = (e) => {
     e.preventDefault();
-    // e.stopPropagation();
+    e.stopPropagation();
     setIsModalOpen(!isModalOpen);
     dispatch(handleItemDetailModal(true));
   };
@@ -112,8 +103,8 @@ const PostHeader = ({
             <StarOutlined className="!text-[18px] cursor-pointer !text-[#707070]" />
           )}
         </div>
+        {isModalOpen && <PostTaggedModal tags={tags} />}
       </div>
-      <PostTaggedModal open={isModalOpen} tags={tags} />
     </>
   );
 };

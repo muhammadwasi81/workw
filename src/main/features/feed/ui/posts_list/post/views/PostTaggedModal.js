@@ -6,7 +6,7 @@ import MemberSelect from "../../../../../../sharedComponents/AntdCustomSelects/S
 import Avatar from "../../../../../../sharedComponents/Avatar/avatarOLD";
 import ItemDetailModal from "../../../../../../sharedComponents/ItemDetails";
 
-const PostTaggedModal = ({ open = false, tags = [] }) => {
+const PostTaggedModal = ({ tags = [] }) => {
   // const employees = useSelector((state) => state.sharedSlice.employees);
   // const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   // const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
@@ -44,17 +44,15 @@ const PostTaggedModal = ({ open = false, tags = [] }) => {
 
   return (
     <div className="tags-member">
-      {open && (
-        <ItemDetailModal
-          data={tags} //Data of members will pass here in array
-          isDeleteDisabled={true} //Pass true to hide delete icon
-          addEnabled={false} //Pass false to hide select member
-          addFunc={false} // define and pass addMember action of particular members
-          onDelete={false} // define and pass onDeletemember actions of particular members
-          isSearch={false} //Pass true if you want to search the list
-          openModal={true} // pass true if you want to open member details in modal other wise it display in listing
-        />
-      )}
+      <ItemDetailModal
+        data={tags} //Data of members will pass here in array
+        isDeleteDisabled={true} //Pass true to hide delete icon
+        addEnabled={false} //Pass false to hide select member
+        addFunc={false} // define and pass addMember action of particular members
+        onDelete={false} // define and pass onDeletemember actions of particular members
+        isSearch={false} //Pass true if you want to search the list
+        openModal={true} // pass true if you want to open member details in modal other wise it display in listing
+      />
     </div>
     // <Modal
     //   open={open}

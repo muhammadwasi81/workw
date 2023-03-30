@@ -100,7 +100,6 @@ export const addAppraisal = createAsyncThunk(
           openNotification({
             message: "Appraisal Create Successfully",
             type: "success",
-            duration: 2,
           })
         );
         return res.data;

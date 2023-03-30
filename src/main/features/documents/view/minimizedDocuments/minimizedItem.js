@@ -31,7 +31,7 @@ function MinimizedItem({ item }) {
                             className="minimized-icon"
                             src={getIconByExtensionType(document.documentType, document.extensionTypeId, document.path)}
                         />
-                        <div className="chatName">{"profileName"}</div>
+                        <div className="chatName">{document.name}</div>
                     </div>
                     <div>
                         <div>

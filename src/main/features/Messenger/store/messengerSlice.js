@@ -43,9 +43,13 @@ export const messengerSlice = createSlice({
   initialState: initialState,
   reducers: {
     receiveChatMessage: (state, { payload }) => {
-      state.MessengerList[payload.chatId] = state.MessengerList[payload.chatId]
-        ? [...state.MessengerList[payload.chatId], payload]
-        : [payload];
+      let existChatMessages = state.MessengerList[payload.chatId] || [];
+      if(!existChatMessages.find(message=> message.id === payload.id)){
+        state.MessengerList[payload.chatId] = [...existChatMessages, payload];
+      }
+      // state.MessengerList[payload.chatId] = state.MessengerList[payload.chatId]
+      //   ? [...state.MessengerList[payload.chatId], payload]
+      //   : [payload];
     },
     handleIsopenChat: (state, { payload }) => {
       state.mobileIsopenChat = payload;
@@ -113,6 +117,16 @@ export const messengerSlice = createSlice({
       };
       console.log(currentChatMessages, "currentChatMessages");
     },
+    handleConversationIndexing: (state, { payload }) => {
+      // Shuffle Messenger Conversaions
+      let updatedConversations = state.Conversations.filter(conversation => conversation.chatWithId !== payload.chatWithId);
+      updatedConversations = [payload, ...updatedConversations];
+      state.Conversations = updatedConversations
+       // Shuffle SideBar Conversaions
+       let updatedSidebarConversations = state.ConversationsWithEmployee.filter(conversation => conversation.chatWithId !== payload.chatWithId);
+       updatedSidebarConversations = [payload, ...updatedSidebarConversations];
+       state.ConversationsWithEmployee = updatedSidebarConversations
+    },
   },
 
   extraReducers: (builder) => {
@@ -174,5 +188,6 @@ export const {
   handleMinimizeChatBox,
   handleExpendChatBox,
   handleMessageFailure,
+  handleConversationIndexing
 } = messengerSlice.actions;
 export default messengerSlice.reducer;

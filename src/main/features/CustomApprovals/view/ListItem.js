@@ -1,24 +1,25 @@
-import { Image, Tag } from 'antd';
-import React, { useContext } from 'react';
-import { customApprovalDictionaryList } from '../localization/index';
-import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
-import UserInfo from '../../../sharedComponents/UserShortInfo/UserInfo';
-import SublineDesigWithTime from '../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime';
-import StatusTag from '../../../sharedComponents/Tag/StatusTag';
-import customApprovalIcon from '../../../../content/svg/menu/newNavBarIcon/Custom Approval.svg';
-import { PieChartOutlined } from '@ant-design/icons';
-import Avatar from '../../../sharedComponents/Avatar/avatar';
-import Attachments from '../../travel/view/UI/Attachments';
-import './style/customApproval.css';
+import { Image, Tag } from "antd";
+import React, { useContext } from "react";
+import { customApprovalDictionaryList } from "../localization/index";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import UserInfo from "../../../sharedComponents/UserShortInfo/UserInfo";
+import SublineDesigWithTime from "../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
+import StatusTag from "../../../sharedComponents/Tag/StatusTag";
+import customApprovalIcon from "../../../../content/svg/menu/newNavBarIcon/Custom Approval.svg";
+import { PieChartOutlined } from "@ant-design/icons";
+import Avatar from "../../../sharedComponents/Avatar/avatar";
+import Attachments from "../../travel/view/UI/Attachments";
+import "./style/customApproval.css";
 
 import {
   ItemContent,
   ItemHeader,
   SingleItem,
-} from '../../../sharedComponents/Card/CardStyle';
-import moment from 'moment';
-import { Category } from 'emoji-mart';
-import { AttachmentType } from '../../documents/constant';
+} from "../../../sharedComponents/Card/CardStyle";
+import moment from "moment";
+import { Category } from "emoji-mart";
+import { AttachmentType } from "../../documents/constant";
+import ItemDetailModal from "../../../sharedComponents/ItemDetails";
 
 function ListItem(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -39,8 +40,8 @@ function ListItem(props) {
     attachments,
     subject,
   } = props.item;
-  console.log(creator.image, 'name of creator');
-  console.log(attachments, 'attatchments!!');
+
+  console.log(approvers, "approverss");
   return (
     <>
       <SingleItem>
@@ -58,7 +59,7 @@ function ListItem(props) {
               name={creator.name}
               Subline={
                 <SublineDesigWithTime
-                  designation={creator.designation ? creator.designation : ''}
+                  designation={creator.designation ? creator.designation : ""}
                   time={moment
                     .utc(createDate)
                     .local()
@@ -82,7 +83,7 @@ function ListItem(props) {
               key={{ data: attachments }}
               toShow={1}
               onClick={() => {}}
-              size={'60px'}
+              size={"60px"}
             />
             {/* {attachments.map((i) => {
               return <img width={"100%"} src={i.path} />;
@@ -121,11 +122,20 @@ function ListItem(props) {
                 <Avatar
                   isAvatarGroup={true}
                   isTag={false}
-                  heading={'Approvers'}
+                  heading={"Approvers"}
                   membersData={approvers}
-                  text={'Approvers'}
-                  image={'https://joeschmoe.io/api/v1/random'}
+                  text={"Approvers"}
+                  image={"https://joeschmoe.io/api/v1/random"}
                 />
+                // <ItemDetailModal
+                //   data={approvers} //Data of members will pass here in array
+                //   isDeleteDisabled={true} //Pass true to hide delete icon
+                //   addEnabled={false} //Pass false to hide select member
+                //   addFunc={false} // define and pass addMember action of particular members
+                //   onDelete={false} // define and pass onDeletemember actions of particular members
+                //   isSearch={false} //Pass true if you want to search the list
+                //   openModal={true} // pass true if you want to open member details in modal other wise it display in listing
+                // />
               )}
             </div>
           </div>

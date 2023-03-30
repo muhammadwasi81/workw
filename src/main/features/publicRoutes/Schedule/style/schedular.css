@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  gap: 110px;
+  /* gap: 110px; */
   margin: auto;
   flex-wrap: wrap;
   background-color: #e9eae9;

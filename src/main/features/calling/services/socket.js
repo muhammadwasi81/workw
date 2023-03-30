@@ -27,18 +27,15 @@ export class InitializeCallingSocket {
 
 	initializeConnection = async (baseURL) => {
 		this.connection = await io.connect(baseURL);
-		this.connection.on("connect", () => {
-			console.log("socket.id", this.connection); // x8WIv7-mJelg7on_ALbx
-		  });
-		  this.connection.on("disconnect", () => {
-			console.log("socket.id disconnect"); // x8WIv7-mJelg7on_ALbx
-		  });
 
 		this.#onAppLoad();
 	}
 
 	#onAppLoad = async () => {
-		await this.connection.emit("connect-workwise", { userId: this.user.id });
+		this.connection.on("connect", async() => {
+			console.log("socket.id", this.connection); // x8WIv7-mJelg7on_ALbx
+			await this.connection.emit("connect-workwise", { userId: this.user.id });
+		  });
 
 		await this.connection.on("send-notification", (data) => {
 			this.#dispatch(handleIncomingCall({ data }));

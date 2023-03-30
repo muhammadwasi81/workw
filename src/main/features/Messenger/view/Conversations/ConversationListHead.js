@@ -25,7 +25,7 @@ const ConversationListHead = () => {
   return (
     <div className="ConversationListHead">
       <div>
-        <Avatar src={user.image} name={user.name} size={38} round={true} />
+        <Avatar src={user.userImage} name={user.name} size={38} round={true} />
       </div>
       <div className="HeadName">{messengerDictionary.messenger}</div>
       <div className="HeadIcon" onClick={showDrawer}>

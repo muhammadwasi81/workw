@@ -67,3 +67,9 @@
   margin-top: 10px;
   padding-left: 10px;
 }
+.statusIcon .ant-badge-dot {
+  width: 12px;
+  min-width: 12px;
+  height: 12px;
+  background: green;
+}

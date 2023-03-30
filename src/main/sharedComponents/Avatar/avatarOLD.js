@@ -15,7 +15,7 @@ export default function Avatar({
   isZoom = true,
   id,
   style,
-  counter,
+  status,
   customClass,
 }) {
   const handleRoute = () => {
@@ -24,7 +24,7 @@ export default function Avatar({
 
   try {
     return (
-      <Badge count={counter}>
+      <Badge className='statusIcon' dot={status}>
         <div
           onClick={id !== undefined ? handleRoute : null}
           className={`avatar ${round && 'round'} ${customClass}`}

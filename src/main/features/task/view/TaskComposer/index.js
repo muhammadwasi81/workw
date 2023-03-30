@@ -121,7 +121,6 @@ function TaskComposer({
     };
     dispatch(addNewTask(requestData));
   };
-  console.log(attachments, "Attachmenst");
   useEffect(() => {
     if (success) {
       form.resetFields();

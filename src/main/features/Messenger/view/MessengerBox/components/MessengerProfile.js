@@ -6,14 +6,13 @@ import videoIcon from "../../../../../../content/NewContent/Messenger/video.svg"
 
 const MessengerProfile = ({ hanldeClose, messengerDetail }) => {
 	const { profileName, profileImage, chatId, chatType, chatWith } = messengerDetail;
-	console.log(messengerDetail, "messengerDetail")
 	return (
 		<div className="MessengerProfile" onClick={hanldeClose}>
 			<div className="imgHolder">
 				{/* <img
-					className="profileImg"
-					src={profileImage}
-				/> */}
+						className="profileImg"
+						src={profileImage}
+					/> */}
 				<div className="text-center">
 					<Avatar
 						src={profileImage}

@@ -49,7 +49,7 @@ const MessengerHead = ({
           <Avatar
             src={profileImage}
             name={profileName}
-            size={40}
+            size={42}
             round={true}
           />
         </div>

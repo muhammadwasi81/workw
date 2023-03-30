@@ -33,6 +33,7 @@ function AntCustomSelect(props) {
     rules = [],
     formItem = true,
     className = "",
+    isIncludedMyId,
   } = props;
 
   console.log(optionComponent, "option");
@@ -55,8 +56,6 @@ function AntCustomSelect(props) {
     }
   }, [pgNo]);
   // console.log("data", isLoaded, data);
-
-  console.log(data, "data ssss");
 
   return (
     <>
@@ -98,7 +97,7 @@ function AntCustomSelect(props) {
                 )
             )
           ) : (
-            <Option>
+            <Option className="SelectOptionSkeleton">
               <Space className="pointer-events-none">
                 <Skeleton.Avatar active={true} />
                 <Skeleton.Input active={true} block />
@@ -135,33 +134,37 @@ function AntCustomSelect(props) {
             {isLoaded && !loading ? (
               data &&
               data.length > 0 &&
-              data.map((opt, index) => (
-                //   userId !== opt.id && (
-                //     <Option
-                //       key={index}
-                //       value={isEmailSelect ? opt.email : opt.id}
-                //       disabled={defaultData.includes(opt.id)}
-                //       className="hover:!bg-primary-color hover:!text-white"
-                //     >
-                //       <div className="flex gap-1 items-center">
-                //         {optionComponent ? optionComponent(opt) : opt.name}
-                //       </div>
-                //     </Option>
-                //   )
-
-                <Option
-                  key={index}
-                  value={isEmailSelect ? opt.email : opt.id}
-                  disabled={defaultData.includes(opt.id)}
-                  className="hover:!bg-primary-color hover:!text-white"
-                >
-                  <div className="flex gap-1 items-center">
-                    {optionComponent ? optionComponent(opt) : opt.name}
-                  </div>
-                </Option>
-              ))
+              data.map((opt, index) =>
+                isIncludedMyId ? (
+                  <Option
+                    key={index}
+                    value={isEmailSelect ? opt.email : opt.id}
+                    disabled={defaultData.includes(opt.id)}
+                    className="hover:!bg-primary-color hover:!text-white"
+                  >
+                    <div className="flex gap-1 items-center">
+                      {optionComponent ? optionComponent(opt) : opt.name}
+                    </div>
+                  </Option>
+                ) : (
+                  <>
+                    {userId !== opt.id && (
+                      <Option
+                        key={index}
+                        value={isEmailSelect ? opt.email : opt.id}
+                        disabled={defaultData.includes(opt.id)}
+                        className="hover:!bg-primary-color hover:!text-white"
+                      >
+                        <div className="flex gap-1 items-center">
+                          {optionComponent ? optionComponent(opt) : opt.name}
+                        </div>
+                      </Option>
+                    )}
+                  </>
+                )
+              )
             ) : (
-              <Option>
+              <Option className="SelectOptionSkeleton">
                 <Space className="pointer-events-none">
                   <Skeleton.Avatar active={true} />
                   <Skeleton.Input active={true} block />

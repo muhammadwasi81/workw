@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useLocation, useParams, useSearchParams } from 'react-router-dom';
-import { ROUTES } from '../../../../../utils/routes';
-import { TabbableContainer } from '../../../../layout/GridStyle';
-import Header from '../../../../layout/header/index';
-import { ApprovalStatus } from '../../../../sharedComponents/AppComponents/Approvals/enums';
-import { ContBody } from '../../../../sharedComponents/AppComponents/MainFlexContainer';
-import { getAllApproval } from '../../store/action';
-import ApprovalDetail from './detail';
-import Listing from './listing';
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useLocation, useParams, useSearchParams } from "react-router-dom";
+import { ROUTES } from "../../../../../utils/routes";
+import { TabbableContainer } from "../../../../layout/GridStyle";
+import Header from "../../../../layout/header/index";
+import { ApprovalStatus } from "../../../../sharedComponents/AppComponents/Approvals/enums";
+import { ContBody } from "../../../../sharedComponents/AppComponents/MainFlexContainer";
+import { getAllApproval } from "../../store/action";
+import ApprovalDetail from "./detail";
+import Listing from "./listing";
 
 export default function AllApprovals() {
   const defaultFilter = {
     pageNo: 0,
-    search: '',
+    search: "",
     status: [1],
   };
   const [filter, setFilter] = useState(defaultFilter);
@@ -23,7 +23,7 @@ export default function AllApprovals() {
   const handleApprovalDetail = (item) => {
     setApprovalDetailData(item);
   };
-  
+
   const handleTabChange = (tabIndex) => {
     tabIndex = Number(tabIndex);
     let status = ApprovalStatus.InProcess;
@@ -54,14 +54,13 @@ export default function AllApprovals() {
     dispatch(getAllApproval({ isMyApproval, filter }));
   }, [filter]);
 
-  
   return (
     <TabbableContainer>
       <Header
         buttons={[]}
         items={[
           {
-            name: 'Approvals',
+            name: "Approvals",
             renderButton: [1],
             to: ROUTES.APPROVALS.DEFAULT,
           },
@@ -81,7 +80,9 @@ export default function AllApprovals() {
               handleApprovalDetail={handleApprovalDetail}
               handleTabChange={handleTabChange}
               tabFilter={filter}
-              // handleRefresh={handleRefresh} 
+              isDetail={true}
+
+              // handleRefresh={handleRefresh}
             />
           </div>
           <div className="flex-1">

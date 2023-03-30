@@ -8,11 +8,15 @@ import RefreshIcon from "../../../../../content/NewContent/leadManager/svg/refre
 import { getAllApproval } from "../../store/action";
 import { useState } from "react";
 
-
-export default function Listing({ handleApprovalDetail, handleTabChange, tabFilter }) {
+export default function Listing({
+  handleApprovalDetail,
+  handleTabChange,
+  tabFilter,
+  isDetail = false,
+}) {
   const defaultFilter = {
     pageNo: 0,
-    search: '',
+    search: "",
     status: [1],
   };
   const dispatch = useDispatch();
@@ -54,21 +58,26 @@ export default function Listing({ handleApprovalDetail, handleTabChange, tabFilt
     <>
       <Tab canChangeRoute={true} panes={panes} onChange={handleTabChange} />
       <div className="refresButton">
-              <img
-                  src={RefreshIcon}
-                  alt="calender logo"
-                  loading="lazy"
-                  className="cursor-pointer m-auto"
-                  onClick={handleRefresh}
-              />
-          </div>
+        <img
+          src={RefreshIcon}
+          alt="calender logo"
+          loading="lazy"
+          className="cursor-pointer m-auto"
+          onClick={handleRefresh}
+        />
+      </div>
       <div className="overflow-scroll h-[85vh]">
-        {approvalList && approvalList.length > 0 ? approvalList.map((item) => (
-          <ApprovalItem
-            item={item}
-            handleApprovalDetail={handleApprovalDetail}
-          />
-        )): <p className="noData">No data...</p>}
+        {approvalList && approvalList.length > 0 ? (
+          approvalList.map((item) => (
+            <ApprovalItem
+              item={item}
+              handleApprovalDetail={handleApprovalDetail}
+              detail={isDetail}
+            />
+          ))
+        ) : (
+          <p className="noData">No data...</p>
+        )}
       </div>
     </>
   );

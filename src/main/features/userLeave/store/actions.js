@@ -8,10 +8,8 @@ import { message } from "antd";
 import {
   getUserBasicInfoByIdService,
   getUserLeaveByIdService,
-  addUserLeaveByIdService,
   updateUserLeaveService,
 } from "../service/service";
-import { json } from "react-router-dom";
 
 export const getUserBasicInfo = createAsyncThunk(
   "basicInfo",
@@ -33,7 +31,6 @@ export const getUserBasicInfo = createAsyncThunk(
 export const getUserLeave = createAsyncThunk(
   "getUserLeaveInfo",
   async (id, { dispatch, getState, rejectWithValue }) => {
-    console.log(id, "idddddddddddd in action");
     const res = await getUserLeaveByIdService(id);
     if (res.responseCode === responseCode.Success) {
       return res;
@@ -47,24 +44,11 @@ export const getUserLeave = createAsyncThunk(
     }
   }
 );
-export const addLeaveByEmployee = createAsyncThunk(
-  "api/addLeaveByEmployee",
-  async (args, { dispatch }) => {
-    const res = await addUserLeaveByIdService(args);
-    if (res.responseCode && res.responseCode === responseCode.Success) {
-      message.success("Employee rebate added successfully!");
-      responseMessage({ dispatch, data: res });
-    } else {
-      message.error(res.message);
-    }
-    return res;
-  }
-);
+
 export const updateUserLeave = createAsyncThunk(
   "api/updateUserLeaveService",
 
   async (args, { dispatch }) => {
-    console.log(args, "arddd");
     // const jsons = JSON.stringify(args);
     const res = await updateUserLeaveService(args);
 

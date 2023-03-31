@@ -93,23 +93,21 @@ const UserLeave = () => {
   return (
     <div>
       <Divider orientation="left">
-        <h2 style={{ fontSize: 19 }}>
+        <h2 className="text-xl">
           <b>Leaves info</b>
         </h2>
       </Divider>
+
       <Table dataSource={renderTableRows()} columns={columns} />
 
-      {Initialinputs.length > 0 ? (
+      {Initialinputs.length > 0 && (
         <Button
           className="btn ThemeBtn mt-1"
           icon={<EditOutlined />}
           onClick={handleUpdate}
-          disabled={Initialinputs.length === 0 ? true : false}
         >
           Update Leave
         </Button>
-      ) : (
-        ""
       )}
     </div>
   );

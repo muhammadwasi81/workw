@@ -63,6 +63,19 @@ const Bonus = (props) => {
   );
   console.log(drawerOpen, 'drawerOpen');
 
+  const onRow = (record, rowIndex) => {
+    return {
+      onClick: (event) => {
+        setDetailId(record.id);
+        setVisible(true);
+      },
+      onDoubleClick: (event) => {}, // double click row
+      onContextMenu: (event) => {}, // right button click row
+      onMouseEnter: (event) => {}, // mouse enter row
+      onMouseLeave: (event) => {}, // mouse leave row
+    };
+  };
+
   const onClose = () => {
     setDetailId(null);
     setVisible(false);
@@ -137,7 +150,7 @@ const Bonus = (props) => {
         {loader && <Skeleton avatar paragraph={{ rows: 4 }} />}
 
         {tableView && (
-          <Table columns={tableColumn(tables)} dragable={false} data={bonuses} />
+          <Table columns={tableColumn(tables)} dragable={false} data={bonuses} onRow={onRow} />
         )}
 
         {bonuses?.length > 0 && !loader && !tableView ? (

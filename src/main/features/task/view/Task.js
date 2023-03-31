@@ -20,9 +20,8 @@ import { taskDictionary } from '../localization';
 import { defaultUiid } from '../../../../utils/Shared/enums/enums';
 import { TaskReferenceTypeEnum } from '../enums/enum';
 import { handleOpenTaskComposer } from '../store/taskSlice';
-import { Button, Drawer } from 'antd';
-import CreateTask from './createTask/CreateTask';
 import SideDrawer from '../../../sharedComponents/Drawer/SideDrawer';
+import TaskDetailDrawer from './TaskDetail/TaskComposer';
 
 import '../view/style/task.css';
 import { NoDataFound } from '../../../sharedComponents/NoDataIcon';
@@ -47,6 +46,9 @@ function Task({
   const { appHeader, sharedLabels, navMenuLabel } = dictionaryList[
     userLanguage
   ];
+  const [detailId, setDetailId] = useState("");
+  const [visible, setVisible] = useState(false);
+
   const { taskDictionaryList } = taskDictionary[userLanguage];
   const [filterType, setFilterType] = useState(2);
   const [tableView, setTableView] = useState(false);
@@ -61,6 +63,23 @@ function Task({
   const {user} = useSelector((state) => state.userSlice);
   const userPermissions = user.permissions
 
+  const onRow = (record, rowIndex) => {
+    return {
+      onClick: (event) => {
+        setDetailId(record.id);
+        setVisible(true);
+      },
+      onDoubleClick: (event) => {}, // double click row
+      onContextMenu: (event) => {}, // right button click row
+      onMouseEnter: (event) => {}, // mouse enter row
+      onMouseLeave: (event) => {}, // mouse leave row
+    };
+  };
+
+  const handleDrawerClose = () => {
+    setVisible(false);
+    setDetailId(null);
+  }
   useEffect(() => {
     dispatch(
       getAllTask({
@@ -147,6 +166,7 @@ function Task({
               columns={tableColumn(taskDictionaryList)}
               dragable={true}
               data={list ? list : []}
+              onRow={onRow}
             />
           )}
           {list?.length > 0 && !loading && !tableView ? (
@@ -160,6 +180,13 @@ function Task({
           )}
         </div>
       </ContBody>
+
+      <TaskDetailDrawer
+        id={detailId}
+        visible={visible}
+        onClose={handleDrawerClose}
+      />
+
       {/* <CreateTask
         referenceId={referenceId}
         referenceType={referenceType}

@@ -14,6 +14,12 @@ export const routes = {
         import("../main/features/publicRoutes/projects/view")
       ),
     },
+    {
+      path: ROUTES.EXTERNAL_PROJECT_SCHEDULER.REGISTER,
+      component: lazy(() =>
+        import("../main/features/publicRoutes/Schedule/Scheduler")
+      ),
+    },
   ],
 
   // Private Route Here

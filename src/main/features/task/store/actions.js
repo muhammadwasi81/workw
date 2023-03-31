@@ -19,7 +19,6 @@ export const addNewTask = createAsyncThunk(
         openNotification({
           message: 'User Task Created Successfully',
           type: 'success',
-          duration: 2,
         })
       );
 

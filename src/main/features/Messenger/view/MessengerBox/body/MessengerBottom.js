@@ -39,7 +39,6 @@ const MessengerBottom = ({ isOpenProfile, isChatBoxView, messengerDetail }) => {
         id: STRINGS.DEFAULTS.guid,
       })),
     };
-    console.log(payload, 'payload');
     return payload;
   };
 
@@ -108,7 +107,7 @@ const MessengerBottom = ({ isOpenProfile, isChatBoxView, messengerDetail }) => {
       <div className={'MessengerBottom ' + (isOpenProfile ? 'blur-bg' : '')}>
         <div className="MessengerInputHandler">
           <div>
-            {/* <img
+            <img
               className="actionBtn"
               src={faceIcon}
               alt=""
@@ -119,7 +118,7 @@ const MessengerBottom = ({ isOpenProfile, isChatBoxView, messengerDetail }) => {
               src={attachmentIcon}
               alt=""
               onClick={handleClickAttachment}
-            /> */}
+            />
           </div>
         </div>
         <div className="MessengerInputCont">

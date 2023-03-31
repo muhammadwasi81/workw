@@ -126,7 +126,7 @@ const Profile = () => {
               </div>
             </div>
             <div className="textArea_container bg-white w-[300px]">
-              {profileSticky.id && (
+              {profileSticky?.id && (
                 <CustomNotes
                   onChange={(value) => setDescription(value)}
                   modules={modules}

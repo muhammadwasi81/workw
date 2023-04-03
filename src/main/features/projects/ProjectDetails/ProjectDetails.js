@@ -65,6 +65,7 @@ function ProjectDetails() {
   const dispatch = useDispatch();
   const detail = useSelector((state) => state.projectSlice.projectDetail);
   const { projectSticky } = useSelector((state) => state.projectSlice);
+  console.log(projectSticky, "projectsticky");
   const [projectfeatures, setprojectFeatures] = useState([]);
   const [description, setDescription] = useState(null);
   const descriptionDebounce = useDebounce(description, 500);
@@ -210,8 +211,9 @@ function ProjectDetails() {
   const setDescriptionValue = (value) => {
     dispatch(
       saveStickyproject({
-        id: projectId,
+        referenceId: projectId,
         description: value,
+        id: projectSticky?.id,
       })
     );
   };
@@ -234,6 +236,8 @@ function ProjectDetails() {
     };
     dispatch(addProjectMemberAction(members));
   };
+
+  console.log(projectSticky, "sss");
 
   return (
     <>

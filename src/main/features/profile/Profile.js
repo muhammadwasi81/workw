@@ -35,7 +35,6 @@ import Nodata from "../../../content/NewContent/eLearning/Nodata.svg";
 import { formats, modules } from "./utils";
 
 const Profile = () => {
-  console.log(formats, modules, "ffgfgkfmk");
   const param = useParams();
   const navigate = useNavigate();
   const location = useLocation();
@@ -52,7 +51,6 @@ const Profile = () => {
   } = useSelector((state) => state.userSlice);
 
   const { profileSticky } = useSelector((state) => state.employeeProfileSlice);
-  console.log(profileSticky, "profilesticky");
   const onChange = (key) => {
     navigate(key);
   };
@@ -70,7 +68,6 @@ const Profile = () => {
   }, [descriptionDebounce]);
 
   const setDescriptionValue = (value) => {
-    console.log(value, "value descriptionn");
     dispatch(
       saveSticyNotes({
         id: id,
@@ -96,7 +93,7 @@ const Profile = () => {
           <div className="singleNote_container ">
             <div className="singleNote_header"></div>
             <div className="textArea_container bg-white w-[300px]">
-              {profileSticky && (
+              {profileSticky?.id && (
                 <CustomNotes
                   onChange={(value) => setDescription(value)}
                   modules={modules}

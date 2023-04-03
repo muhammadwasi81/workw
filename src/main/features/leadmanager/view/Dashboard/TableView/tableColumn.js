@@ -2,6 +2,8 @@ import moment from "moment";
 import Avatar from "../../../../../sharedComponents/Avatar/avatar";
 // import TagAvatar from "../../../../../sharedComponents/Avatar/TagAvatar";
 // import StatusTag from "../../../../../sharedComponents/Tag/StatusTag";
+import groupImg from "../../../../../../../src/content/png/leadgroupImg.jpg";
+
 export const tableColumn = (dictionary, data) => {
   const { table } = dictionary;
 
@@ -19,10 +21,7 @@ export const tableColumn = (dictionary, data) => {
       sort: true,
       render: (image) => (
         <img
-          src={
-            image ||
-            "https://st.depositphotos.com/1062085/4008/v/600/depositphotos_40089703-stock-illustration-businessman-in-the-office-flat.jpg"
-          }
+          src={image || groupImg}
           alt="avatar"
           style={{
             width: "26px",

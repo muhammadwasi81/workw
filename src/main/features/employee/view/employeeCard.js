@@ -15,7 +15,7 @@ import {
   Text,
 } from "../Styles/employeeCard.styles";
 import PropTypes from "prop-types";
-
+import userAvatar from "../../../../content/png/userAvatar.jpg";
 function EmployeeCard({
   employees: { image, name, email, designation, id, isDisable },
 }) {
@@ -41,15 +41,7 @@ function EmployeeCard({
 
   return (
     <Parent>
-      <ImageBox
-        src={
-          image
-            ? image
-            : "https://konnect.im/static/media/user_default.22b0811e.jpg"
-        }
-        alt="logo"
-        loading="lazy"
-      />
+      <ImageBox src={image ? image : userAvatar} alt="logo" loading="lazy" />
       <ContentBox>
         <Heading>{name}</Heading>
         <Text>{email}</Text>

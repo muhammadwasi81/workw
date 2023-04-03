@@ -16,6 +16,8 @@ import { useSelector } from 'react-redux';
 import { salaryTableColumn } from './tableColumns';
 import { salaryDictionaryList } from '../../localization/index';
 import { LanguageChangeContext } from '../../../../../utils/localization/localContext/LocalContext';
+import SalaryDetailedView from './detailedView';
+
 
 function Salaries() {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -35,6 +37,24 @@ function Salaries() {
   const [filterType, setFilterType] = useState(0);
   const [viewType, setViewType] = useState('List');
   const [search, setSearch] = useState('');
+  const [detailId, setDetailId] = useState(false);
+
+
+  const onRow = (record, rowIndex) => {
+    return {
+      onClick: (event) => {
+        setDetailId(record.id);
+      },
+      onDoubleClick: (event) => {}, // double click row
+      onContextMenu: (event) => {}, // right button click row
+      onMouseEnter: (event) => {}, // mouse enter row
+      onMouseLeave: (event) => {}, // mouse leave row
+    };
+  };
+
+  const onClose = () => {
+    setDetailId(null);
+  };
 
   console.log('listData', listData);
   const items = [
@@ -86,6 +106,7 @@ function Salaries() {
         columns={salaryTableColumn(salaryDictionary)}
         dragable={true}
         data={listData}
+        onRow={onRow}
       />
     ),
   };
@@ -102,6 +123,7 @@ function Salaries() {
         }}
       />
       <ContBody>{render[viewType]}</ContBody>
+      {<SalaryDetailedView onClose={onClose} id={detailId} />}
     </TabbableContainer>
   );
 }

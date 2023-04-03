@@ -26,6 +26,8 @@ import { handleOpenExpenseComposer } from "./store/slice";
 import SideDrawer from "../../sharedComponents/Drawer/SideDrawer";
 import { getAllExpense } from "./store/actions";
 import { FeaturePermissionEnum } from "../../../utils/Shared/enums/featuresEnums";
+import ExpenseDetailsComposer from "./view/ExpenseDetailsComposer";
+
 
 function Expenses({
   referenceId = defaultUiid,
@@ -37,8 +39,10 @@ function Expenses({
 }) {
   const [filterType, setFilterType] = useState(ExpenseFilterType.myExpense);
   const { userLanguage } = useContext(LanguageChangeContext);
+
   const { appHeader, sharedLabels } = dictionaryList[userLanguage];
-  const { ExpenseDictionaryList } = ExpenseDictionary[userLanguage];
+  const { ExpenseDictionaryList,Direction } = ExpenseDictionary[userLanguage];
+
   const { isCreateComposer, drawerOpen } = useSelector(
     (state) => state.expenseSlice
   );
@@ -51,6 +55,18 @@ function Expenses({
   });
   const {user} = useSelector((state) => state.userSlice);
   const userPermissions = user.permissions
+  const [visible, setVisible] = useState(false);
+  const [id, setId] = useState(false);
+  const [detailId, setDetailId] = useState(false);
+
+
+  console.log("rowId",id);
+  console.log("visible",visible);
+
+  const handleDrawerClose = () => {
+    setVisible(false);
+    setDetailId(null);
+  };
 
   useEffect(() => {
     dispatch(getAllExpense(filter));
@@ -75,7 +91,7 @@ function Expenses({
         referenceType={referenceType}
       />
     ),
-    Table: <ExpenseTableView />,
+    Table: <ExpenseTableView detail={setDetailId} open={setVisible}/>,
   };
   return (
     <TabbableContainer>
@@ -150,6 +166,14 @@ function Expenses({
         }}
       />
       <ContBody className={width}>{render[view]}</ContBody>
+
+      <ExpenseDetailsComposer
+       direction={Direction}
+        visible={visible}
+        onClose={handleDrawerClose}
+        id={detailId}
+      />
+
     </TabbableContainer>
   );
 }

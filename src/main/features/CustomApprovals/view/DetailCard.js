@@ -60,7 +60,7 @@ export default function DetailCard(props) {
   } = customApprovalDetail;
 
   return (
-    <div className="detailedCard ">
+    <div className="detailedCard">
       <ItemHeader>
         <div className="left">
           <UserInfo

@@ -24,6 +24,9 @@ import { PlusOutlined } from "@ant-design/icons";
 import { FeaturePermissionEnum } from "../../../utils/Shared/enums/featuresEnums";
 import SideDrawer from "../../sharedComponents/Drawer/SideDrawer";
 import { handleOpenComposer } from "./store/slice";
+import { Card, Popover } from "antd";
+import { useNavigate } from "react-router-dom";
+
 const Projects = () => {
   const [search, setSearch] = useState("");
   const [tableView, setTableView] = useState(false);
@@ -32,6 +35,7 @@ const Projects = () => {
   const [pageNo, setPageNo] = useState(1);
   const value = useDebounce(search, 500);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { userLanguage } = useContext(LanguageChangeContext);
   const { projectsDictionary, Direction } = projectsDictionaryList[
     userLanguage
@@ -40,6 +44,7 @@ const Projects = () => {
   const { projects, loader } = useSelector((state) => state.projectSlice);
   const { user } = useSelector((state) => state.userSlice);
   const userPermissions = user.permissions;
+ 
 
   useEffect(() => {
     dispatch(
@@ -79,6 +84,18 @@ const Projects = () => {
   } = useSelector((state) => state.projectSlice);
   const handleEditComposer = () => {
     dispatch(handleComposer({ isOpen: false, isEdit: false }));
+  };
+  const onRow = (record, rowIndex) => {
+    return {
+      onClick: (event) => {
+        navigate(`${ROUTES.PROJECT.DEFAULT}/${record.id} `);
+      },
+
+      onDoubleClick: (event) => {}, // double click row
+      onContextMenu: (event) => {}, // right button click row
+      onMouseEnter: (event) => {}, // mouse enter row
+      onMouseLeave: (event) => {}, // mouse leave row
+    };
   };
   return (
     <>
@@ -134,6 +151,7 @@ const Projects = () => {
               dragable={true}
               data={projects}
               handleChange={handleColumnSorting}
+              onRow={onRow}
             />
           )}
 

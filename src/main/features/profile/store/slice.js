@@ -78,7 +78,6 @@ const employeeProfileSlice = createSlice({
         state.loader = false;
       })
       .addCase(saveSticyNotes.fulfilled, (state, { payload }) => {
-        console.log(payload, "payload");
         state.profileSticky = payload.data;
       })
       .addCase(getStickyNotes.fulfilled, (state, { payload }) => {

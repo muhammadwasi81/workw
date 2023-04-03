@@ -266,7 +266,7 @@ function ProjectDetails() {
                   </div> */}
                 </div>
                 <div className="textArea_container bg-white">
-                  {projectSticky?.id && (
+                  {projectSticky && (
                     <CustomNotes
                       onChange={(value) => setDescription(value)}
                       modules={modules}

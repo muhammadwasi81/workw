@@ -16,6 +16,7 @@ import { addFeedFavourite } from "../../../../store/slice";
 import PostTaggedModal from "./PostTaggedModal";
 import { ROUTES } from "../../../../../../../utils/routes";
 import { handleItemDetailModal } from "../../../../../../../utils/Shared/store/slice";
+import { useEffect } from "react";
 
 const PostHeader = ({
   creator = {},
@@ -33,9 +34,12 @@ const PostHeader = ({
     e.preventDefault();
     e.stopPropagation();
     setIsModalOpen(!isModalOpen);
-    dispatch(handleItemDetailModal(true));
   };
-
+  useEffect(() => {
+    if (isModalOpen) {
+      dispatch(handleItemDetailModal(true));
+    }
+  }, [isModalOpen]);
   const privacy = {
     1: <img src={publicIcon} alt="public-icon" />,
     2: <LockOutlined style={{ color: "#797f85", fontSize: "12px" }} />,

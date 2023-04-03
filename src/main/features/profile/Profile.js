@@ -30,6 +30,8 @@ import Courses from "../eLearning/view/Dashboard/Sections/Courses/Courses";
 import TeamAppraisal from "../appraisalModule/view/components/TeamAppraisal/index";
 import { saveSticyNotes, getStickyNotes } from "./store/action";
 import useDebounce from "../../../utils/Shared/helper/use-debounce";
+import Nodata from "../../../content/NewContent/eLearning/Nodata.svg";
+
 import { formats, modules } from "./utils";
 
 const Profile = () => {
@@ -59,15 +61,16 @@ const Profile = () => {
     setDefaultPath(pathname.split("_")[0]);
   }, [pathname]);
 
-  // useEffect(() => {
-  //   dispatch(getStickyNotes());
-  // }, []);
+  useEffect(() => {
+    dispatch(getStickyNotes());
+  }, []);
 
   useEffect(() => {
     if (descriptionDebounce) setDescriptionValue(descriptionDebounce);
   }, [descriptionDebounce]);
 
   const setDescriptionValue = (value) => {
+    console.log(value, "value descriptionn");
     dispatch(
       saveSticyNotes({
         id: id,
@@ -93,7 +96,7 @@ const Profile = () => {
           <div className="singleNote_container ">
             <div className="singleNote_header"></div>
             <div className="textArea_container bg-white w-[300px]">
-              {profileSticky?.id && (
+              {profileSticky && (
                 <CustomNotes
                   onChange={(value) => setDescription(value)}
                   modules={modules}

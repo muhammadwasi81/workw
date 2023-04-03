@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, memo } from "react";
 import { message } from "antd";
 // import { DocsComposerEnums, DOCUMENT_ENUM } from '../../../constant';
 import { useDispatch } from "react-redux";
@@ -13,6 +13,7 @@ import {
   // addMember,
 } from "../store/slice";
 // import MemberModal from "../view/Modal/MemberModal";
+import propTypes from "prop-types";
 
 const ContentOptions = ({ handleClose, data }) => {
   const dispatch = useDispatch();
@@ -37,13 +38,13 @@ const ContentOptions = ({ handleClose, data }) => {
     handleClose(false);
   };
   const addFunc = (myid) => {
-    console.log(myid, "myid");
+    // console.log(myid, "myid");
     let memberId = myid.toString();
     const membersData = {
       id: data.id,
       memberId: memberId,
     };
-    console.log(membersData, "membersData");
+    // console.log(membersData, "membersData");
     let a = data.members.filter((item) => {
       return item.member.id === membersData.memberId;
     });
@@ -96,4 +97,8 @@ const ContentOptions = ({ handleClose, data }) => {
     </>
   );
 };
-export default ContentOptions;
+ContentOptions.propTypes = {
+  handleClose: propTypes.func,
+  data: propTypes.object,
+};
+export default memo(ContentOptions);

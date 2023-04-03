@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, memo } from "react";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../utils/localization/languages";
 import { useNavigate } from "react-router-dom";
@@ -101,4 +101,4 @@ EmployeeCard.propTypes = {
   filterType: PropTypes.number,
 };
 
-export default EmployeeCard;
+export default memo(EmployeeCard);

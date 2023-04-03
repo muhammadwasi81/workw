@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, memo } from "react";
 import { PlusOutlined } from "@ant-design/icons";
 import { Avatar, Select, Tag, Tooltip } from "antd";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,6 +20,8 @@ import {
 } from "../../store/slice";
 // import LeadSectionSelect from "../../UI/Select/LeadSectionSelect";
 import AvatarGroup from "../../../../sharedComponents/Avatar/AvatarGroup";
+import PropTypes from "prop-types";
+
 function LeadsOverview({ handleSelectedMembers = () => {}, setLeadSectionId }) {
   const { Option } = Select;
   const [toggleForm, setToggleForm] = useState(false);
@@ -277,5 +279,9 @@ function LeadsOverview({ handleSelectedMembers = () => {}, setLeadSectionId }) {
     </>
   );
 }
+LeadsOverview.propTypes = {
+  handleSelectedMembers: PropTypes.func,
+  handleContactDetailModal: PropTypes.func,
+};
 
-export default LeadsOverview;
+export default memo(LeadsOverview);

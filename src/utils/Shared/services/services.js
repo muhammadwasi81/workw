@@ -134,11 +134,11 @@ export const getAllComplainCategoryService = () => {
 export const getAllEmployeeShortService = (
   pageNo = 1,
   pageSize = 20,
-  disableFilter
+  disableFilter = 1,
+  search = ""
 ) => {
   return MasterConfig.get(
-    // `/api/Employee/GetAllEmployeeShort?disableFilter=${disableFilter}&pageNo=${pageNo}&pageSize=${pageSize}`
-    `/api/Employee/GetAllEmployeeShort?pageNo=${pageNo}&pageSize=${pageSize}`
+    `/api/Employee/GetAllEmployeeShort?disableFilter=${disableFilter}&pageNo=${pageNo}&pageSize=${pageSize}&search=${search}`
   )
     .then((res) => {
       console.log();

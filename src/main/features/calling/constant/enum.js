@@ -7,6 +7,10 @@ export const OUTGOING_CALL_STATUS = {
     ACCEPTED: 5,
     DECLINED: 6
 };
+export const CALL_MEDIA_TYPE = {
+    AUDIO: 1,
+    VIDEO: 2
+};
 
 export const OUTGOING_CALL_STATUS_MESSAGE = {
     [OUTGOING_CALL_STATUS.NO_STATUS]: "Calling...",

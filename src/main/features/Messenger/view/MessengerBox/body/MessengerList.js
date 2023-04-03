@@ -16,14 +16,7 @@ const MessengerList = ({
     (state) => state.MessengerSlice.MessengerList[messengerDetail.chatId]
   );
   const MyRef = useRef("myRef");
-  console.log(messageList, "messageList");
   useEffect(() => {
-    // if(isDidMount){
-    //    isDidMount = false
-    // }
-    // else{
-    //    MyRef.current.scrollIntoView({ behavior: "smooth" })
-    // }
     MyRef.current.scrollIntoView({ behavior: "smooth" });
   }, [messageList]);
   useEffect(() => {

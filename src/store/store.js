@@ -107,6 +107,8 @@ import adminstrationSlice from "../main/features/administration/store/slice";
 import employeeRebateSlice from "../main/features/rebate/store/slice";
 import userBillingSlice from "../main/features/billing/store/slice";
 import userPaymentSlice from "../main/features/payments/store/slice";
+import externalBookAppointment from "../main/features/publicRoutes/Schedule/store/slice";
+import userLeaveSlice from "../main/features/userLeave/store/slice";
 import projectExternalSlice from "../main/features/publicRoutes/projects/store/slice";
 import ApproverSlice from "../main/sharedComponents/AppComponents/Approvals/action/slice";
 import globalSearchSlice from "../main/features/search/store/slice";
@@ -213,6 +215,8 @@ const reducers = combineReducers({
   employeeRebateSlice,
   userBillingSlice,
   userPaymentSlice,
+  externalBookAppointment,
+  userLeaveSlice,
   projectExternalSlice,
   ApproverSlice,
   globalSearchSlice,

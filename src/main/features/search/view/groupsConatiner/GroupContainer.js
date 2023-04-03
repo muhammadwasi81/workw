@@ -1,15 +1,13 @@
 import React, { useContext, useState } from "react";
 import { Navigate, useNavigate, useSearchParams } from "react-router-dom";
-import ListItem from "./ListItem";
-import GroupsCard from "../../../groups/view/GridView/GridView";
 import { useDispatch, useSelector } from "react-redux";
 import { ROUTES } from "../../../../../utils/routes";
 import { groupsDictionaryList } from "../../../groups/localization/index";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
-import { CardWrapper2 } from "../../../../sharedComponents/Card/CardStyle";
-import DashboardCardLayout from "../../../groups/view/UI/DashboardCard/DashboardCardLayout";
+import GridView from "../../../groups/view/GridView/GridView";
+import { useEffect } from "react";
 
-function RewardContainer() {
+function GroupContainer() {
   const dispatch = useDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
   const searchQuery = searchParams.get("q");
@@ -22,28 +20,36 @@ function RewardContainer() {
   const searchHandler = () => {
     navigate(`/groups?q=${searchQuery}`);
   };
+  const handleClickNavigation = (id) => {
+    navigate(`${ROUTES.GROUP.DEFAULT}/${id}`);
+  };
 
-  const displayCount = 4;
-  const filteredCards = groups.slice(0, displayCount);
-  console.log(filteredCards, "filterrr");
+  useEffect(() => {}, []);
   return (
     <>
-      <h5 className="containerHeading">Groups</h5>
+      <div className="SearchMainContainer">
+        <h5 className="containerHeading">Groups</h5>
+        {/* {groups.length > 0 && (
+        <> */}
+        <GridView
+          data={groups ? groups.slice(0, 4) : []}
+          loading={getDataLoading}
+          dispatch={dispatch}
+          handleClickNavigation={handleClickNavigation}
+          dictionary={groupsDictionary}
+        />
 
-      <CardWrapper2>
-        {filteredCards.map((data) => (
-          <ListItem data={data} />
-        ))}
-      </CardWrapper2>
-
-      <div
-        onClick={searchHandler}
-        className="flex justify-center !text-[18px] cursor-pointer !text-[#707070]"
-      >
-        See more
+        <div
+          onClick={searchHandler}
+          className="flex justify-center !text-[18px] cursor-pointer !text-[#707070]"
+        >
+          See more
+        </div>
       </div>
+      {/* </>
+      )} */}
     </>
   );
 }
 
-export default RewardContainer;
+export default GroupContainer;

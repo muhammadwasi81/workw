@@ -1,6 +1,6 @@
 import io from "socket.io-client";
 import { servicesUrls } from "../../../../utils/services/baseURLS";
-import { handleAddCallWindow, handleIncomingCall, handleOutgoingCallAccepted, handleOutgoingCallDeclined, handleOutgoingCallRinging } from "../store/slice";
+import { handleAddCallWindow, handleCallNotAnswer, handleIncomingCall, handleIncomingCallNotAnswer, handleOutgoingCallAccepted, handleOutgoingCallDeclined, handleOutgoingCallRinging } from "../store/slice";
 
 export class InitializeCallingSocket {
 	connection;
@@ -10,7 +10,6 @@ export class InitializeCallingSocket {
 	user;
 	#authToken;
 	constructor(dispatch, baseURL, userSlice) {
-		console.log(userSlice)
 		this.#dispatch = dispatch;
 		this.user = userSlice.user;
 		this.#authToken = userSlice.token;
@@ -28,16 +27,26 @@ export class InitializeCallingSocket {
 
 	initializeConnection = async (baseURL) => {
 		this.connection = await io.connect(baseURL);
+
 		this.#onAppLoad();
 	}
 
 	#onAppLoad = async () => {
-		await this.connection.emit("connect-workwise", { userId: this.user.id });
+		this.connection.on("connect", async() => {
+			console.log("socket.id", this.connection); // x8WIv7-mJelg7on_ALbx
+			await this.connection.emit("connect-workwise", { userId: this.user.id });
+		  });
 
 		await this.connection.on("send-notification", (data) => {
-			console.log(data);
 			this.#dispatch(handleIncomingCall({ data }));
+			console.log(data, "dataINC")
+			console.log(new Date(), "dataINC")
+
 			//set timeout for 1 minute rinigng etc
+			setTimeout(() => {
+				this.#dispatch(handleIncomingCallNotAnswer(data.CallURL));
+				console.log(new Date(), "dataINC")
+			}, 30000);
 			this.connection.emit("send-notification-reply", data.callInitializer.id);
 		})
 
@@ -55,8 +64,8 @@ export class InitializeCallingSocket {
 			// 	callUrl: servicesUrls.callingSocket + res.data.roomId,
 			// 	isOpen: true
 			// }));
-			this.#dispatch(handleOutgoingCallAccepted({userId: data.userId, token: this.#authToken}))
-			
+			this.#dispatch(handleOutgoingCallAccepted({ userId: data.userId, token: this.#authToken }))
+
 		})
 	}
 

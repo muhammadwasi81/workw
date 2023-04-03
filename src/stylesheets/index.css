@@ -7628,19 +7628,28 @@ i.ic-magnifying {
 .outgoing-call {
   width: 300px;
   display: flex;
+  flex-direction: column;
   height: min-content;
   background: #272727;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border-radius: 8px;
   margin: 10px;
-  padding: 12px 7px 12px;
+  padding: 12px 7px 7px;
+  cursor: move;
+}
+.outgoing-call .outgoing-call-body{
+  display: flex;
+  padding-bottom: 5px;
 }
 .outgoing-call .section-2 {
   color: white;
   flex: 1;
   padding-left: 8px;
 }
-.outgoing-call .section-2 .caller-name {
+.outgoing-call video {
+  border-radius: 8px;
+}
+.outgoing-call .section-2 .caller-name{
   font-weight: bolder;
   font-size: 15px;
 }

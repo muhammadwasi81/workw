@@ -12,8 +12,9 @@ import {
 } from '../../Messenger/store/messengerSlice';
 import phoneIcon from '../../../../content/NewContent/Messenger/callWhiteIcon.svg';
 import videoIcon from '../../../../content/NewContent/Messenger/videoWhiteIcon.svg';
-import { createRoom } from '../../calling/store/action';
+import { createDirectCall, createRoom } from '../../calling/store/action';
 import { CHATBOX_ENUM } from '../utils/constant';
+import { CALL_MEDIA_TYPE } from '../../calling/constant/enum';
 
 const ChatBoxHead = ({ chat, index }) => {
   let { profileImage, profileName, chatId, members, isMinimize } = chat;
@@ -22,7 +23,7 @@ const ChatBoxHead = ({ chat, index }) => {
   const handleMinimize = () => dispatch(handleMinimizeChatBox({ index }));
   const handleExpend = () => dispatch(handleExpendChatBox({ index }));
 
-  const handleCall = () => {
+  const handleCall = (isVideoCall = false) => {
     let payload = {
       roomPassword: "",
       private: false,
@@ -32,9 +33,10 @@ const ChatBoxHead = ({ chat, index }) => {
         exteralEmail: null,
         userId: member.id,
         user: member
-      }))
+      })),
+      mediaType: isVideoCall ? CALL_MEDIA_TYPE.VIDEO : CALL_MEDIA_TYPE.AUDIO
     }
-    dispatch(createRoom(payload))
+    dispatch(createDirectCall(payload))
   }
 
   return (
@@ -51,16 +53,16 @@ const ChatBoxHead = ({ chat, index }) => {
       </div>
       <div>
         <div>
-          <SharedButton onClick={handleCall} icon={videoIcon} isHide={isMinimize === CHATBOX_ENUM.BOOLEAN.TRUE} />
+          <SharedButton onClick={() => handleCall(true)} icon={videoIcon} isHide={isMinimize === CHATBOX_ENUM.BOOLEAN.TRUE} />
         </div>
         <div>
-          <SharedButton onClick={handleCall} icon={phoneIcon} isHide={isMinimize === CHATBOX_ENUM.BOOLEAN.TRUE}/>
+          <SharedButton onClick={handleCall} icon={phoneIcon} isHide={isMinimize === CHATBOX_ENUM.BOOLEAN.TRUE} />
         </div>
         <div>
           <SharedButton onClick={handleMinimize} className="mb-[3px]" icon={mailMinimizeIcon} />
         </div>
         <div>
-          <SharedButton onClick={handleExpend} icon={mailResizeIcon} isHide={isMinimize === CHATBOX_ENUM.BOOLEAN.TRUE}/>
+          <SharedButton onClick={handleExpend} icon={mailResizeIcon} isHide={isMinimize === CHATBOX_ENUM.BOOLEAN.TRUE} />
         </div>
         <div>
           <SharedButton onClick={handleClose} icon={closeMailIcon} />

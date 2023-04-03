@@ -3,7 +3,6 @@ import Avatar from '../../../../../../sharedComponents/Avatar/avatarOLD';
 
 const MessageProfile = ({ creator = {}, isChatBox, messageByMe, isGroupMessage }) => {
     let { image, name } = creator;
-    console.log(creator)
     if (messageByMe || isGroupMessage)
         return;
 

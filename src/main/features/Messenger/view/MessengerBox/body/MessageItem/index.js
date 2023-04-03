@@ -31,13 +31,11 @@ const MessengerListItem = ({
   const { chatType } = messengerDetail;
   const isGroupMessage = previousMessage?.creator?.id === creator?.id;
   let contClasses = !messageByMe ? "MessengerListItem" : "MessengerListItem-ME";
-  contClasses = console.log(previousMessage, "previousMessage");
-  console.log(messageByMe, "messgeItem");
 
   return (
     <div
       id={id}
-      className={!messageByMe ? "MessengerListItem" : "MessengerListItem-ME"}
+      className={`${!messageByMe ? "MessengerListItem" : "MessengerListItem-ME"} ${isGroupMessage ? "GroupMessage" : ""}`}
     >
       <MessageProfile
         isChatBox={isChatBox}

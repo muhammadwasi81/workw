@@ -2,6 +2,7 @@ import React from 'react';
 import pendingIcon from '../../../../../../../content/NewContent/Messenger/pendingMsg.svg'
 import sendIcon from '../../../../../../../content/NewContent/Messenger/sentMsg.svg'
 import deliverIcon from '../../../../../../../content/NewContent/Messenger/readMsg.svg'
+import seenIcon from '../../../../../../../content/NewContent/Messenger/readMsg2.svg'
 import errorIcon from '../../../../../../../content/NewContent/Messenger/errorMsg.svg'
 import { MESSENGER_ENUMS } from '../../../../utils/Constant';
 
@@ -17,7 +18,7 @@ export const getIconByStatus = (status) => {
         case MESSENGER_ENUMS.MESSAGE_STATUS.DELIVERED:
             return deliverIcon
         case MESSENGER_ENUMS.MESSAGE_STATUS.SEEN:
-            return deliverIcon
+            return seenIcon
         default:
             return;
     }

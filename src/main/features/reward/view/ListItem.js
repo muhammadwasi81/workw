@@ -105,8 +105,9 @@ function ListItem(props) {
             <div className="cardSection__title">
               {rewardDictionary.rewardTo}
             </div>
+
             <div className="cardSection__body">
-              {console.log(members, "ggegegeg") && members && (
+              {members && (
                 <Avatar
                   isAvatarGroup={true}
                   isTag={false}

@@ -34,7 +34,7 @@ function Menu() {
 
   function getUserPermissions(){
     return FeaturePermissionEnumList.map((x)=>{
-      if (user.permissions.includes(x.id)) {
+      if (user?.permissions.includes(x?.id)) {
         return x.featureId 
       }
     })

@@ -5,6 +5,7 @@ import { promotionDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import PromotionDetail from "./PromotionDetail";
 
+
 function DetailedView(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, promotionDictionary } = promotionDictionaryList[

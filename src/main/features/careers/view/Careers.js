@@ -3,7 +3,7 @@ import {
   ContBody,
   TabbableContainer,
 } from "../../../sharedComponents/AppComponents/MainFlexContainer";
-import { Drawer, Button } from "antd";
+import { Drawer, Button ,Modal} from "antd";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { CareerDictionary } from "../localization";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,6 +22,7 @@ import "../view/styles/style.css";
 import { Table } from "../../../sharedComponents/customTable";
 import { tableColumn } from "./TableColumn";
 import { FeaturePermissionEnum } from "../../../../utils/Shared/enums/featuresEnums";
+import JobDetails from "./DetailView/DetailComposer/JobDetails";
 
 function Careers() {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -38,6 +39,10 @@ function Careers() {
   const [view, setView] = useState("List");
   const { user } = useSelector((state) => state.userSlice)
   const userPermissions = user.permissions
+
+  const [detailId, setDetailId] = useState("");
+  const [visible, setVisible] = useState(false);
+
 
   const items = [
     {
@@ -95,6 +100,23 @@ function Careers() {
     }
   };
 
+  const onRow = (record, rowIndex) => {
+    return {
+      onClick: (event) => {
+        setDetailId(record.id);
+        setVisible(true);
+      },
+      onDoubleClick: (event) => {}, // double click row
+      onContextMenu: (event) => {}, // right button click row
+      onMouseEnter: (event) => {}, // mouse enter row
+      onMouseLeave: (event) => {}, // mouse leave row
+    };
+  };
+  const onClose = () => {
+    setDetailId(null);
+    setVisible(false);
+  };
+
   return (
     <>
       <TabbableContainer>
@@ -126,6 +148,7 @@ function Careers() {
               handleChange={handleColumnSorting}
               dragable={true}
               data={careers ? careers : []}
+              onRow={onRow}
             />
           )}
         </ContBody>
@@ -152,6 +175,16 @@ function Careers() {
         >
           <Composer />
         </Drawer>
+       
+        <Modal
+          visible={visible}
+          onCancel={onClose}
+          footer={null}
+          width={"50%"}
+        >
+          <JobDetails onClose={onClose} id={detailId} visible={visible} />
+        </Modal>
+      
       </TabbableContainer>
     </>
   );

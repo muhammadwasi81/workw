@@ -86,11 +86,16 @@ function Scheduler({ feed = false, referenceId }) {
     }
   };
   let data = schedules?.map((sch) => {
+    // date: moment(sch.startDate).format(),
+    // end: moment(sch.endDate).format(),
+    // moment(myDate).add(1, "day");
     return {
       ...sch,
       date: new Date(sch.startDate), //this will only show the start date and upon clicking the schedule it will open detail of that event
-      // end: new Date(sch.endDate), //commented by humayoun
+      end: new Date(sch.endDate),
+      // end: new Date(moment(sch.endDate).add(1, "day")), //commented by humayoun
       title: sch.subject,
+      // timezone: "UTC",
     };
   });
 
@@ -142,6 +147,7 @@ function Scheduler({ feed = false, referenceId }) {
       <EventDetail />
       <div className={`schedulerCalender ${calenderView}`}>
         <FullCalendar
+          // timeZone="UTC"
           ref={calendarRef}
           selectable={true}
           select={onSelectFunc}
@@ -260,6 +266,8 @@ function Scheduler({ feed = false, referenceId }) {
           //   locale="ja"
           // datesSet={(args) => console.log("###datesSet:", args)}
           dateClick={(e) => onClickDateFunc(e)}
+          slotEventOverlap={true}
+          eventOverlap={true}
         />
         <div className="flex justify-center">
           <div

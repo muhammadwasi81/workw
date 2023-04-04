@@ -22,9 +22,11 @@ import { TravelDictionary } from "../localization";
 import useDebounce from "../../../../utils/Shared/helper/use-debounce";
 import { TravelReferenceTypeEnum } from "../../projects/enum/enums";
 import Scroll from "../../../sharedComponents/ScrollSelect/infinteScoll";
-import { Skeleton } from "antd";
+import { Skeleton ,Drawer} from "antd";
 import { resetTravelData } from "../store/slice";
 import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
+import TravelDetail from "./TravelDetail/TravelDetail";
+
 
 function Travel({
   referenceType = TravelReferenceTypeEnum.General,
@@ -43,6 +45,9 @@ function Travel({
   const { travels, loader, success, isAdded } = useSelector(
     (state) => state.travelSlice
   );
+
+  const [visible, setVisible] = useState(false);
+  const [detailId, setDetailId] = useState("");
   console.log(travels?.agents, "travelsss");
   const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -104,13 +109,17 @@ function Travel({
   const onRow = (record, rowIndex) => {
     return {
       onClick: (event) => {
-        // console.log("onCLick");
-      }, // click row
+        setDetailId(record.id);
+        setVisible(true);
+      },
       onDoubleClick: (event) => {}, // double click row
       onContextMenu: (event) => {}, // right button click row
       onMouseEnter: (event) => {}, // mouse enter row
       onMouseLeave: (event) => {}, // mouse leave row
     };
+  };
+  const onClose = () => {
+    setVisible(false)
   };
 
   const onActionClick = (row) => {
@@ -277,48 +286,18 @@ function Travel({
         ) : (
           !loader && !tableView && <NoDataFound />
         )}
-
-        {/* 
-				{tableView ? (
-					<Table
-						columns={tableColumns(onActionClick, Direction, table)}
-						dragable={true}
-						handleChange={handleColumnSorting}
-						// onPageChange={onPageChange}
-						onRow={onRow}
-						data={travels}
-						status={travelStatus}
-						loading={loader}
-						success={success}
-						// onActionClick={onActionClick}
-					/>
-				) : (
-					<Scroll
-						isLoading={loader}
-						data={travels}
-						fetchMoreData={pageNo => {
-							setPageNo(pageNo);
-						}}
-						loader={[0, 0, 0].map(() => (
-							<Skeleton
-								active
-								avatar
-								paragraph={{
-									rows: 4,
-								}}
-							/>
-						))}
-						endMessage={"No more travels..."}
-					>
-						<ListView
-							data={travels}
-							loader={loader}
-							labels={headings}
-						/>
-					</Scroll>
-				)} 
-				*/}
       </ContBody>
+
+      <Drawer
+        title="Travel Detail"
+        placement="right"
+        onClose={onClose}
+        open={visible}
+        width={"768px"}
+        destroyOnClose={true}
+      >
+        <TravelDetail isCloseable={onClose} travelId={detailId} />
+      </Drawer>
     </TabContainer>
   );
 }

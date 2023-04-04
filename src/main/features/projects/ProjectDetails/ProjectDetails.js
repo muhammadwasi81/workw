@@ -49,31 +49,25 @@ import Expenses from "../../expense";
 import Documents from "../../documents/view/documents";
 import CustomNotes from "../../notes/singleNotes/singleNotes";
 import useDebounce from "../../../../utils/Shared/helper/use-debounce";
-import StickyColor from "../UI/StickyColor";
+
 import { formats, modules } from "./utils";
 import Schedules from "../../schedule/index";
-import MemberModal from "../UI/MemberModal";
 import ProjectInformation from "../UI/ProjectInformation";
-import { STRINGS } from "../../../../utils/base";
 import {
   addProjectMemberAction,
   deleteProjectMemberAction,
 } from "../store/actions";
 import ItemDetailModal from "../../../sharedComponents/ItemDetails";
-import { handleItemDetailModal } from "../../../../utils/Shared/store/slice";
-import { ProjectFeaturePermissionEnumList } from "../../../../utils/Shared/enums/projectFeatureEnum";
+import MenuDropDown from "./menuDropdown/MenuDropDown";
 
 function ProjectDetails() {
   const params = useParams();
   const dispatch = useDispatch();
   const detail = useSelector((state) => state.projectSlice.projectDetail);
   const { projectSticky } = useSelector((state) => state.projectSlice);
-  console.log(projectSticky, "sticky array");
   const [projectfeatures, setprojectFeatures] = useState([]);
   const [description, setDescription] = useState(null);
   const descriptionDebounce = useDebounce(description, 500);
-
-  const [openColor, setOpenColor] = useState(true);
 
   const [visible, setVisible] = useState(false);
 
@@ -221,28 +215,6 @@ function ProjectDetails() {
       })
     );
   };
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText("");
-  };
-  const menu = (
-    <Menu
-      items={[
-        {
-          label: (
-            <div onClick={copyToClipboard}>
-              <CopyOutlined />
-              <a className="drop-downList">Copy</a>
-            </div>
-          ),
-          key: "1",
-        },
-        {
-          label: <div>{openColor && <StickyColor />}</div>,
-          key: "2",
-        },
-      ]}
-    />
-  );
 
   const onDelete = (userId) => {
     const memberId = userId.toString();
@@ -262,8 +234,6 @@ function ProjectDetails() {
     };
     dispatch(addProjectMemberAction(members));
   };
-
-  console.log(projectSticky);
 
   return (
     <>
@@ -289,18 +259,11 @@ function ProjectDetails() {
               <WhiteCard>
                 <ProjectInformation />
               </WhiteCard>
-
               <div className="singleNote_container">
                 <div className="singleNote_header">
-                  <div className="leftNote_Icon">
-                    <Dropdown menu={menu}>
-                      <a onClick={(e) => e.preventDefault()}>
-                        <Space>
-                          <EllipsisOutlined className="threedot_Icon" />
-                        </Space>
-                      </a>
-                    </Dropdown>
-                  </div>
+                  {/* <div className="leftNote_Icon">
+                    <MenuDropDown changeBgColor={BgcolorHandler} />
+                  </div> */}
                 </div>
                 <div className="textArea_container bg-white">
                   {projectSticky?.id && (

@@ -10,7 +10,7 @@ import { NavLink, useLocation } from "react-router-dom";
 import { Badge } from "antd";
 import { DOMAIN_PREFIX } from "../../../utils/routes";
 import AntTooltip from "../../sharedComponents/Tooltip/AntTooltip";
-let DOMAIN_PREFIX = "";
+//let DOMAIN_PREFIX = "";
 DOMAIN_PREFIX = process.env.NODE_ENV !== "development" ? "/konnect" : "";
 const NavMenuListContainer = ({ navbarstatus }) => {
   const { pathname } = useLocation();

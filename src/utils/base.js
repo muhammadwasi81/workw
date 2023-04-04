@@ -10,7 +10,7 @@ import { replaceURL } from "../main/features/feed/utils/ValidateCreatePost";
 
 let DOMAIN_PREFIX = "";
 // for live this line will be comment
-// DOMAIN_PREFIX = process.env.NODE_ENV !== 'development' ? '/konnect' : '';
+// DOMAIN_PREFIX = process.env.NODE_ENV !== "development" ? "/konnect" : "";
 
 export const STRINGS = {
   COPY_RIGHTS: `\u00A9 Miletap Ltd - Copyrights \u00402017-${new Date().getFullYear()}`,
@@ -85,7 +85,12 @@ export const STRINGS = {
     NEW_SCHEDULES: {
       DEFAULT: `${DOMAIN_PREFIX}/newschedules`,
     },
-    // TASKS: `${DOMAIN_PREFIX}/tasks`,
+
+    TASK: {
+      DEFAULT: `${DOMAIN_PREFIX}/tasks/*`,
+      ROOT: `${DOMAIN_PREFIX}/tasks`,
+      DETAIL: `taskDetail/:id`,
+    },
     LEAVES: `${DOMAIN_PREFIX}/leaves/`,
     DEPARTMENT: `${DOMAIN_PREFIX}/departments`,
     EXPENSE: {

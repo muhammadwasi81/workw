@@ -104,7 +104,7 @@ function Header({ items, buttons, backButton, width, isSchedule = false }) {
           <div className="searchBox">
             <SearchInput
               icon={<SearchOutlined />}
-              placeholder={"search Schedule..."}
+              placeholder={"Search Schedule..."}
               size="larger"
               onChange={(e) => {
                 console.log(e.target.value, "search");

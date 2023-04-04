@@ -72,7 +72,9 @@
   min-width: 12px;
   height: 12px;
   background: green;
-  top: 40px;
-  right: 6px;
-  bottom: 0;
+  right: 8px;
+  bottom: -9px;
+  display: block;
+  margin: 0 auto;
+  top: auto;
 }

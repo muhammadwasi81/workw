@@ -42,7 +42,7 @@ export const tableColumn = () => {
     },
     {
       title: "Rating",
-      dataIndex: "rating",
+      dataIndex: "ratingAssign",
       ellipsis: true,
       sort: true,
       render: (rating) => (

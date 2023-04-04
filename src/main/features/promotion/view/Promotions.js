@@ -48,8 +48,20 @@ const Promotion = (props) => {
   const { promotions, loader, promotionDetail, drawerOpen } = useSelector(
     (state) => state.promotionSlice
   );
-
+  const onRow = (record, rowIndex) => {
+    return {
+      onClick: (event) => {
+        setPromotionId(record.id);
+        setVisible(true);
+      },
+      onDoubleClick: (event) => {}, // double click row
+      onContextMenu: (event) => {}, // right button click row
+      onMouseEnter: (event) => {}, // mouse enter row
+      onMouseLeave: (event) => {}, // mouse leave row
+    };
+  };
   const onClose = () => {
+    setPromotionId(null);
     setVisible(false);
   };
 
@@ -136,6 +148,7 @@ const Promotion = (props) => {
             columns={tableColumn(tables)}
             dragable={true}
             data={promotions}
+            onRow={onRow}
           />
         )}
 
@@ -148,6 +161,7 @@ const Promotion = (props) => {
                   item={item}
                   id={item.id}
                   key={index}
+                 // onClick={() => setDetailId(item.id)}
                 />
               );
             })}
@@ -156,9 +170,8 @@ const Promotion = (props) => {
           !loader && !tableView && <NoDataFound />
         )}
       </ContBody>
-      {promotionDetail && <DetailedView onClose={onClose} visible={visible} />}
-
-      <DetailedView onClose={onClose} visible={visible} id={promotionId} />
+      {promotionDetail && <DetailedView onClose={onClose} id={promotionId} visible={visible} />}
+      
     </TabbableContainer>
   );
 };

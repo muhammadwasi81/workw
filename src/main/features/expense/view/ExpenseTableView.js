@@ -6,7 +6,7 @@ import { Table } from "../../../sharedComponents/customTable";
 import { ExpenseDictionary } from "../localization";
 import { tableColumn, tableColumns } from "./tableColumns";
 
-function ExpenseTableView() {
+function ExpenseTableView(props) {
   const initialTableFilter = {
     pageNo: 1,
     pageSize: 20,
@@ -31,9 +31,10 @@ function ExpenseTableView() {
   };
   const onRow = (record, rowIndex) => {
     return {
-      onClick: (event) => {
-        // console.log("onCLick");
-      }, // click row
+        onClick: (event) => {
+          props.detail(record.id);
+          props.open(true);
+        },
       onDoubleClick: (event) => {}, // double click row
       onContextMenu: (event) => {}, // right button click row
       onMouseEnter: (event) => {}, // mouse enter row

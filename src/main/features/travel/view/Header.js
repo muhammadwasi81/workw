@@ -6,6 +6,8 @@ import { buttonsEnum } from "../enums/enums";
 import NewTravelComposer from "./TravelComposer/NewTravelComposer";
 import { FeaturePermissionEnum } from "../../../../utils/Shared/enums/featuresEnums";
 import { useSelector } from "react-redux";
+import TravelDetail from "./TravelDetail/TravelDetail";
+
 
 function Header(props) {
   const { label, backButton, route, referenceId, referenceType } = props;
@@ -40,6 +42,7 @@ function Header(props) {
           setIsEdited={() => {}}
           openDrawer={visible}
           success={success}
+          
         />
       ),
     },

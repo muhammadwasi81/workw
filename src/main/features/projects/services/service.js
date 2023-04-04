@@ -69,6 +69,7 @@ export const addProjectFeatureService = (data) => {
 };
 
 export const saveStickyNoteProject = (data) => {
+  console.log(data, "dataaa service");
   return MasterConfig.post(`api/StickyNotes/SaveProjectStickyNotes`, data)
     .then((res) => {
       return res.data;
@@ -78,9 +79,8 @@ export const saveStickyNoteProject = (data) => {
     });
 };
 
-export const getAllProjectStickyService = (data) => {
-  console.log(data, "requesttttt");
-  return MasterConfig.get(`api/StickyNotes/GetProjectStickyNotes`, data)
+export const getAllProjectStickyService = (id) => {
+  return MasterConfig.get(`api/StickyNotes/GetProjectStickyNotes?id=${id}`)
     .then((res) => {
       return res.data;
     })

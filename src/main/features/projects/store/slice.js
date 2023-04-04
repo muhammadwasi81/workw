@@ -28,7 +28,7 @@ const initialState = {
   removeMemberSucess: false,
   projectFeature: [],
   drawerOpen: false,
-  projectSticky: [],
+  projectSticky: {},
 };
 
 const projectSlice = createSlice({
@@ -126,15 +126,13 @@ const projectSlice = createSlice({
         state.success = true;
       })
       .addCase(saveStickyproject.fulfilled, (state, { payload }) => {
-        console.log(payload.data, "payloadddd");
+        console.log(payload, "payloadddd");
 
-        state.loader = false;
-        state.success = true;
         state.projectSticky = payload.data;
       })
       .addCase(getProjectSticky.fulfilled, (state, { payload }) => {
-        console.log(payload, "payloadd");
-        state.projectSticky = [payload.data];
+        console.log(payload.data[0], "payloadd sttt");
+        state.projectSticky = payload.data[0];
       })
 
       .addCase(getAllProjectMemberAction.fulfilled, (state, action) => {

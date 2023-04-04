@@ -201,7 +201,7 @@ function ProjectDetails() {
     dispatch(addMember({ status: true }));
   };
   useEffect(() => {
-    dispatch(getProjectSticky());
+    dispatch(getProjectSticky(projectId));
   }, []);
 
   useEffect(() => {
@@ -211,9 +211,11 @@ function ProjectDetails() {
   const setDescriptionValue = (value) => {
     dispatch(
       saveStickyproject({
-        referenceId: projectId,
+        // id: projectSticky?.id,
         description: value,
-        id: projectSticky?.id,
+        // colorCode: "#0f4c81",
+
+        referenceId: projectSticky?.id,
       })
     );
   };
@@ -236,8 +238,6 @@ function ProjectDetails() {
     };
     dispatch(addProjectMemberAction(members));
   };
-
-  console.log(projectSticky, "sss");
 
   return (
     <>
@@ -270,7 +270,7 @@ function ProjectDetails() {
                   </div> */}
                 </div>
                 <div className="textArea_container bg-white">
-                  {projectSticky && (
+                  {projectSticky?.id && (
                     <CustomNotes
                       onChange={(value) => setDescription(value)}
                       modules={modules}

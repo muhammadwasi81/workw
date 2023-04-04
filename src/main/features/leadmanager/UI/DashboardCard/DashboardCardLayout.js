@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { Card, Skeleton } from "antd";
-import Avatar from "../../../../sharedComponents/Avatar/avatar";
-import PublicPrivateIcon from "../../../../sharedComponents/PublicPrivateIcon/PublicPrivateIcon";
-import { useSelector, useDispatch } from "react-redux";
-import "./style.css";
-import QuickOptions from "../../quickOptions/index";
-import { getAllLeadManagerMember } from "../../store/actions";
+import React, { useState, useEffect } from 'react';
+import { Card, Skeleton } from 'antd';
+import Avatar from '../../../../sharedComponents/Avatar/avatar';
+import PublicPrivateIcon from '../../../../sharedComponents/PublicPrivateIcon/PublicPrivateIcon';
+import { useSelector, useDispatch } from 'react-redux';
+import './style.css';
+import QuickOptions from '../../quickOptions/index';
+import { getAllLeadManagerMember } from '../../store/actions';
 
 function DashboardCardLayout({
   data = {},
@@ -41,9 +41,9 @@ function DashboardCardLayout({
         // }
         cover={
           <img
+            src={data.image ? data.image : defaultImg}
             alt="example"
             className="object-cover"
-            src={data.image ? data.image : defaultImg}
           />
         }
         className="Card2"
@@ -56,7 +56,7 @@ function DashboardCardLayout({
           title={data.name}
           description={
             <div className="flex items-center gap-1 w-full">
-              <PublicPrivateIcon id={data.privacyId} />{" "}
+              <PublicPrivateIcon id={data.privacyId} />{' '}
               <div className="flex items-center justify-between w-full">
                 <span className="text-ellipsis whitespace-nowrap overflow-hidden w-[150px]">
                   {data.description}
@@ -71,10 +71,10 @@ function DashboardCardLayout({
             <Avatar
               isAvatarGroup={true}
               isTag={false}
-              heading={"Members"}
+              heading={'Members'}
               membersData={data.members}
-              text={"Danish"}
-              image={"https://joeschmoe.io/api/v1/random"}
+              text={'Danish'}
+              image={'https://joeschmoe.io/api/v1/random'}
             />
           </div>
 

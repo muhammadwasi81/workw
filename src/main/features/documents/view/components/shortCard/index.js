@@ -1,25 +1,30 @@
-import React, { useContext, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { LanguageChangeContext } from '../../../../../../utils/localization/localContext/LocalContext';
-import { documentDictionaryList } from '../../../localization/index';
-import './style.css';
-import menuIcon from '../../../../../../content/NewContent/Documents/3dots.svg';
-import favorateIcon from '../../../../../../content/NewContent/Documents/favorate.svg';
-import Avatar from '../../../../../sharedComponents/Avatar/avatarOLD';
-import { DragDropContainer, DropTarget } from 'react-drag-drop-container';
-import { getIconByExtensionType } from '../../../constant/helpers';
-import { IconByExtensionType } from '../../../constant';
-import { attachTypeApi } from 'antd/lib/message';
-import { DOCUMENT_ENUM } from '../../../constant';
-import { Button, Modal } from 'antd';
-import moment from 'moment';
-import { handleParentId } from '../../../store/slice';
-import { moveDirectory, moveDocument } from '../../../store/actions';
-import { LockFilled, InfoCircleOutlined } from '@ant-design/icons';
-import { privacyOption } from '../../../../../../utils/Shared/enums/enums';
-import { openNotification } from '../../../../../../utils/Shared/store/slice';
-import QuickOptions from '../quickOptions';
-import DetailView from '../../documentShortCards/DetailView';
+import React, { useContext, useState } from "react";
+import { useDispatch } from "react-redux";
+import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
+import { documentDictionaryList } from "../../../localization/index";
+import "./style.css";
+import menuIcon from "../../../../../../content/NewContent/Documents/3dots.svg";
+import favorateIcon from "../../../../../../content/NewContent/Documents/favorate.svg";
+import Avatar from "../../../../../sharedComponents/Avatar/avatarOLD";
+import { DragDropContainer, DropTarget } from "react-drag-drop-container";
+import { getIconByExtensionType } from "../../../constant/helpers";
+import { IconByExtensionType } from "../../../constant";
+import { attachTypeApi } from "antd/lib/message";
+import { DOCUMENT_ENUM } from "../../../constant";
+import { Button, Modal } from "antd";
+import moment from "moment";
+import { handleFavoriteMark, handleParentId } from "../../../store/slice";
+import {
+  addDocumentFavorite,
+  moveDirectory,
+  moveDocument,
+} from "../../../store/actions";
+import { LockFilled, InfoCircleOutlined } from "@ant-design/icons";
+import { privacyOption } from "../../../../../../utils/Shared/enums/enums";
+import { openNotification } from "../../../../../../utils/Shared/store/slice";
+import QuickOptions from "../quickOptions";
+import DetailView from "../../documentShortCards/DetailView";
+import { StarFilled, StarOutlined } from "@ant-design/icons";
 
 const DocShortCard = ({
   data,
@@ -27,6 +32,7 @@ const DocShortCard = ({
   hideControls,
   detail = false,
 }) => {
+  console.log(data, "data");
   const [openDrawer, setOpenDrawer] = useState(false);
   const { userLanguage } = useContext(LanguageChangeContext);
   const { documentDictionary } = documentDictionaryList[userLanguage];
@@ -78,8 +84,8 @@ const DocShortCard = ({
     } else {
       disptach(
         openNotification({
-          message: 'Invalid Move',
-          type: 'error',
+          message: "Invalid Move",
+          type: "error",
         })
       );
     }
@@ -93,10 +99,20 @@ const DocShortCard = ({
   const onClose = () => {
     setOpenDrawer(false);
   };
+
+  const handleFavorite = (e) => {
+    console.log("handleFavorite");
+    e.preventDefault();
+    e.stopPropagation();
+    disptach(handleFavoriteMark({ id: data.id, isPinned: !data.isPinnedPost }));
+    disptach(
+      addDocumentFavorite({ id: data.id, isPinned: !data.isPinnedPost })
+    );
+  };
   return (
     <>
       <DragDropContainer
-        targetKey={'docsDrag'}
+        targetKey={"docsDrag"}
         dragData={{ name: data }}
         onDrop={handleDrop}
         key={data.id}
@@ -119,7 +135,13 @@ const DocShortCard = ({
           >
             {!hideControls && !detail && (
               <div className="d_ShortCard_Child1">
-                <img alt="" src={favorateIcon} />
+                <div onClick={(e) => handleFavorite(e)}>
+                  {data.isPinnedPost ? (
+                    <StarFilled className="!text-[18px] !text-yellow-400 cursor-pointer" />
+                  ) : (
+                    <StarOutlined className="!text-[18px] cursor-pointer !text-[#707070]" />
+                  )}
+                </div>
                 <div className="flex justify_between gap-2">
                   <InfoCircleOutlined
                     className="!text-[18px] cursor-pointer !text-[#707070] info-icon"
@@ -144,16 +166,16 @@ const DocShortCard = ({
               />
             </div>
             <div className="fileName">
-              {' '}
+              {" "}
               <div>{name}</div>
             </div>
             {!hideControls && (
               <div className="d_ShortCard_Child3">
                 <div className="privacyStatus">
                   {privacyId === Private ? (
-                    <LockFilled style={{ color: 'var(--currentThemeColor)' }} />
+                    <LockFilled style={{ color: "var(--currentThemeColor)" }} />
                   ) : (
-                    ''
+                    ""
                   )}
                 </div>
                 {!detail && (

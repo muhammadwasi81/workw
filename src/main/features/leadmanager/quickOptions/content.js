@@ -1,24 +1,24 @@
+import { useState, memo } from "react";
 import { message } from "antd";
-import React, { useState } from "react";
 // import { DocsComposerEnums, DOCUMENT_ENUM } from '../../../constant';
 import { useDispatch } from "react-redux";
 import { handleItemDetailModal } from "../../../../utils/Shared/store/slice";
 import DetailModal from "../../../sharedComponents/ItemDetails";
-import { AssignMemEnum, MemberEnum } from "../../eLearning/constant";
-
+// import { AssignMemEnum, MemberEnum } from "../../eLearning/constant";
 import { addLeadManagereMember, deleteLeadManagerById } from "../store/actions";
 // import { handleOpenDocComposer, handleUpdateFolder, handleUpdateFolderMemberId } from '../../../store/slice';
 import {
   getLeadManagerGroupDetailById,
   handleComposer,
-  addMember,
+  // addMember,
 } from "../store/slice";
-import MemberModal from "../view/Modal/MemberModal";
+// import MemberModal from "../view/Modal/MemberModal";
+import propTypes from "prop-types";
 
 const ContentOptions = ({ handleClose, data }) => {
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
-  console.log(data, "dataaaaaaaaa");
+  console.log(data, "DATA");
 
   const handleUpdate = (e) => {
     e.preventDefault();
@@ -38,11 +38,13 @@ const ContentOptions = ({ handleClose, data }) => {
     handleClose(false);
   };
   const addFunc = (myid) => {
+    // console.log(myid, "myid");
     let memberId = myid.toString();
     const membersData = {
       id: data.id,
       memberId: memberId,
     };
+    // console.log(membersData, "membersData");
     let a = data.members.filter((item) => {
       return item.member.id === membersData.memberId;
     });
@@ -56,12 +58,12 @@ const ContentOptions = ({ handleClose, data }) => {
 
   const onDelete = (myid) => {
     const memberId = myid.toString();
-    const delmembers = {
+    const delMembers = {
       id: data.id,
       memberId: memberId,
     };
 
-    dispatch(deleteLeadManagerById(delmembers));
+    dispatch(deleteLeadManagerById(delMembers));
   };
 
   return (
@@ -95,4 +97,8 @@ const ContentOptions = ({ handleClose, data }) => {
     </>
   );
 };
-export default ContentOptions;
+ContentOptions.propTypes = {
+  handleClose: propTypes.func,
+  data: propTypes.object,
+};
+export default memo(ContentOptions);

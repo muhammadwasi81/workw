@@ -31,6 +31,7 @@ import {
   deleteLeadManagerMemberById,
 } from "../services/services";
 import { addLeadMember, deleteLeadManagerMember } from "../store/slice";
+
 export const addLeadManager = createAsyncThunk(
   "addLeadManager",
   async (data, { dispatch, getState, rejectWithValue }) => {
@@ -396,6 +397,7 @@ export const getAllScheduleAction = createAsyncThunk(
   async (data, { dispatch, getState, rejectWithValue }) => {
     const res = await getAllScheduleService(data);
     if (res.responseCode === responseCode.Success) {
+      // console.log(res, "DATA IN ACTION");
       return res;
     } else {
       return rejectWithValue(res.message);
@@ -429,9 +431,10 @@ export const addLeadManagereMember = createAsyncThunk(
   "addLeadMember",
   async (data, { dispatch, getState, rejectWithValue }) => {
     const res = await addLeadManagerMemberService(data);
+    console.log(res, "action data");
     if (res.data?.responseCode === responseCode.Success) {
       dispatch(addLeadMember(res.data));
-      // message.success("Member Added");
+      message.success("Member Added");
       return res;
     } else {
       message.error(res.data.message);

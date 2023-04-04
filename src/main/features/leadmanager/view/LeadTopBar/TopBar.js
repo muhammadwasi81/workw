@@ -10,9 +10,6 @@ function LeadTopBar({ handleView, topBar, handleSearch }) {
         handleSearch(value);
       }}
       buttons={[]}
-      filter={{
-        onFilter: () => {},
-      }}
       segment={{
         onSegment: (value) => {
           if (value === topBar.table) {

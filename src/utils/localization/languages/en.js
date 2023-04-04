@@ -121,7 +121,7 @@ const en = {
     eLearning: "E-Learning",
     inventory: "Inventory",
     myTeam: "My Team",
-    orgChart: "Org Chart",
+    orgChart: "Organizational Chart",
     payroll: "Payroll",
     employee: "Employees",
     administration: "Administration",

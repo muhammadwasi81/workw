@@ -33,6 +33,8 @@ const CustomApproval = (props) => {
   const userPermissions = user.permissions
 
   const [tableView, setTableView] = useState(false);
+  const [detailId, setDetailId] = useState(false);
+
 
   const [visible, setVisible] = useState(false);
 
@@ -51,9 +53,26 @@ const CustomApproval = (props) => {
   } = useSelector((state) => state.customApprovalSlice);
   const [searchFilterValues, setSearchFilterValues] = useState();
 
+
+  const onRow = (record, rowIndex) => {
+    return {
+      onClick: (event) => {
+        setDetailId(record.id);
+        setVisible(true);
+      },
+      onDoubleClick: (event) => {}, // double click row
+      onContextMenu: (event) => {}, // right button click row
+      onMouseEnter: (event) => {}, // mouse enter row
+      onMouseLeave: (event) => {}, // mouse leave row
+    };
+  };
+
   const onClose = () => {
     setVisible(false);
+    setDetailId(null);
   };
+
+
 
   useEffect(() => {
     dispatch(getAllCustomApprovals(filter));
@@ -140,6 +159,7 @@ const CustomApproval = (props) => {
               columns={tableColumn()}
               dragable={true}
               data={customApprovals}
+              onRow={onRow}
             />
           )}
 
@@ -152,6 +172,7 @@ const CustomApproval = (props) => {
                     item={item}
                     id={item.id}
                     key={index}
+                    onClick={() => setDetailId(item.id)}
                   />
                 );
               })}
@@ -161,7 +182,7 @@ const CustomApproval = (props) => {
           )}
         </ContBody>
         {customApprovalDetail && (
-          <DetailedView onClose={onClose} visible={visible} />
+          <DetailedView onClose={onClose} visible={visible} id={detailId} />
         )}
         {/* <Drawer
           title={

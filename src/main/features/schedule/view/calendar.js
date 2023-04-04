@@ -185,30 +185,6 @@ function Calendar({ referenceId }) {
           }}
         />
         <div className="events eventWrapper">
-          {/* <MemberSelect
-            name="managerId"
-            mode="multiple"
-            formItem={false}
-            isObject={true}
-            data={firstTimeEmpData}
-            defaultData={defaultData}
-            canFetchNow={isFirstTimeDataLoaded}
-            fetchData={fetchEmployees}
-            placeholder={"Select"}
-            selectedData={(_, obj) => {
-              setEmployeesData([...obj]);
-            }}
-            optionComponent={(opt) => {
-              return (
-                <>
-                  <Avatar src={opt.image} className="!bg-black">
-                    {getNameForImage(opt.name)}
-                  </Avatar>
-                  {opt.name}
-                </>
-              );
-            }}
-          /> */}
           <MemberSelect
             name="managerId"
             mode="multiple"

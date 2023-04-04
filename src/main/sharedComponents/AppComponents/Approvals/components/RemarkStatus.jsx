@@ -1,8 +1,17 @@
-import React from "react";
+import React, {useState } from 'react';
 import { ApprovalStatus } from "../enums";
+import { Popconfirm } from "antd";
+
 
 function RemarkStatus({ onCurrentStatus }) {
+  const [open, setOpen] = useState(false);
+
+  const Cancel = () => {
+    console.log('Clicked cancel button');
+    setOpen(false);
+  };
   return (
+    <>
     <ul className="list">
       <div
         className="list__item"
@@ -10,20 +19,22 @@ function RemarkStatus({ onCurrentStatus }) {
       >
         In Process
       </div>
-
-      <div
-        className="list__item"
-        onClick={() => onCurrentStatus(ApprovalStatus.Approved)}
+ 
+      <Popconfirm title="Sure to Approve ?"  
+        onConfirm={(e) => onCurrentStatus(ApprovalStatus.Approved)} 
+       onCancel={Cancel}
       >
-        Approve
-      </div>
+        <div className="list__item">Approve</div>
+     </Popconfirm>
 
-      <div
-        className="list__item"
-        onClick={() => onCurrentStatus(ApprovalStatus.Declined)}
+
+    <Popconfirm title="Sure to Decline ?"  
+      onConfirm={(e) => onCurrentStatus(ApprovalStatus.Declined)} 
+      onCancel={Cancel}
       >
-        Decline
-      </div>
+      <div className="list__item">Decline</div>
+      </Popconfirm>
+
 
       <div
         className="list__item"
@@ -32,6 +43,7 @@ function RemarkStatus({ onCurrentStatus }) {
         Hold
       </div>
     </ul>
+</>
   );
 }
 

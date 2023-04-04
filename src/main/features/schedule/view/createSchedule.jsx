@@ -34,6 +34,7 @@ function CreateSchedule({
   date = "",
 }) {
   const [venue, setVenue] = useState("Venue");
+  const [selectedDate, setSelectedDate] = useState();
   const [quillError, setQuillError] = useState(false);
   const [files, setFiles] = useState([]);
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
@@ -149,6 +150,7 @@ function CreateSchedule({
 
   const disabledDate = (current) => {
     // Can not select days before today and today
+
     return current.isBefore(moment().subtract(1, "day"));
   };
 
@@ -160,19 +162,20 @@ function CreateSchedule({
     return result;
   };
 
-  function disabledHours() {
-    // Disable past hours
-    const currentHour = moment().hour();
-    return [...Array(currentHour).keys()];
+  const prevHr = moment()
+    .subtract(1, "hours")
+    .hours();
+  const disHrs = [];
+  for (let i = 0; i <= prevHr; i++) {
+    disHrs.push(i);
   }
 
-  function disabledMinutes(selectedHour) {
-    // Disable past minutes for the selected hour
-    const currentMinute = moment().minute();
-    return selectedHour < moment().hour()
-      ? []
-      : [...Array(currentMinute).keys()];
+  const prevMin = moment().minutes();
+  const disMins = [];
+  for (let i = 0; i <= prevMin; i++) {
+    disMins.push(i);
   }
+
   return (
     <div className="createSchedule">
       <Form
@@ -278,14 +281,23 @@ function CreateSchedule({
             ]}
           >
             <DatePicker
+              onSelect={setSelectedDate}
               format="YYYY-MM-DD HH:mm"
               disabledDate={disabledDate}
-              disabledHours={disabledHours}
-              disabledMinutes={disabledMinutes}
-              // disabledTime={(current) => current.isBefore(moment())}
-              // disabledTime={disabledDateTime}
               showTime={{
                 defaultValue: moment("00:00:00", "HH:mm"),
+                disabledHours: () => {
+                  if (moment().date() == selectedDate?.date()) return disHrs;
+                  else return [];
+                },
+                disabledMinutes: () => {
+                  if (
+                    moment().hour() == selectedDate?.hour() &&
+                    moment().date() == selectedDate?.date()
+                  )
+                    return disMins;
+                  else return [];
+                },
               }}
               placeholder="Select Date & Time"
             />

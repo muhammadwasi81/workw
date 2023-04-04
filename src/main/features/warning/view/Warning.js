@@ -63,6 +63,18 @@ const Warning = (props) => {
     },
   ];
 
+  const onRow = (record, rowIndex) => {
+    return {
+      onClick: (event) => {
+        setDetailId(record.id);
+      },
+      onDoubleClick: (event) => {}, // double click row
+      onContextMenu: (event) => {}, // right button click row
+      onMouseEnter: (event) => {}, // mouse enter row
+      onMouseLeave: (event) => {}, // mouse leave row
+    };
+  };
+
   const onClose = () => {
     setDetailId(null);
   };
@@ -134,6 +146,7 @@ const Warning = (props) => {
             columns={tableColumn(tables)}
             dragable={true}
             data={warnings}
+            onRow={onRow}
           />
         )}
 

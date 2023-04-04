@@ -205,6 +205,7 @@ function ListView(props) {
       >
         <TravelDetail travelId={travelId} />
       </Drawer>
+
       <div
         onClick={(e) => {
           e.preventDefault();

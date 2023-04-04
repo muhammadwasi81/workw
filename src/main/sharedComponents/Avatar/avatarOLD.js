@@ -2,6 +2,7 @@ import React from 'react';
 import ZoomImage from '../ZoomImage';
 import { getNameForImage, STRINGS } from '../../../utils/base';
 import { Badge } from 'antd';
+import { useState } from 'react';
 
 export default function Avatar({
   src = '',
@@ -22,9 +23,37 @@ export default function Avatar({
     window.location.href = `${STRINGS.ROUTES.USER.TIMELINE.DEFAULT}/${id}`;
   };
 
+  console.log(status, color, "FUCKING!!!")
+
+
+  function color(val) {
+    if (val === 0) {
+      return 'gray'
+    }
+    if ( val === 1 ) {
+      return 'green'
+    } 
+    if ( val === 2 ) {
+      return 'yellow'
+    } 
+    if ( val === 3 ) {
+      return 'blue'
+    } 
+    if ( val === 4 ) {
+      return 'black'
+    } 
+    if ( val === 5 ) {
+      return 'pink'
+    } 
+  } 
+
   try {
     return (
-      <Badge className='statusIcon' dot={status}>
+      <Badge 
+        className='statusIcon'
+        dot={true}
+        color={color(status)}
+      >
         <div
           onClick={id !== undefined ? handleRoute : null}
           className={`avatar ${round && 'round'} ${customClass}`}

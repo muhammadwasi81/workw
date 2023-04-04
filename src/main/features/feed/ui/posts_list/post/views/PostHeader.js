@@ -55,7 +55,13 @@ const PostHeader = ({
   return (
     <div className="post-header">
       <div className="top-det">
-        <Avatar src={image} name={name} width={44} height={44} round={true} status={userActiveStatus === 0 ? false : true} />
+        <Avatar 
+          src={image}
+          name={name}
+          width={44}
+          height={44}
+          round={true}
+          status={true} />
         <div className="user-det">
           <div className="name">
             <span>

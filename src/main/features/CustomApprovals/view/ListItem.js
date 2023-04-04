@@ -17,9 +17,6 @@ import {
   SingleItem,
 } from "../../../sharedComponents/Card/CardStyle";
 import moment from "moment";
-import { Category } from "emoji-mart";
-import { AttachmentType } from "../../documents/constant";
-import ItemDetailModal from "../../../sharedComponents/ItemDetails";
 
 function ListItem(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -85,9 +82,6 @@ function ListItem(props) {
               onClick={() => {}}
               size={"60px"}
             />
-            {/* {attachments.map((i) => {
-              return <img width={"100%"} src={i.path} />;
-            })} */}
           </div>
         </ItemContent>
         <div className="cardSections">
@@ -109,10 +103,7 @@ function ListItem(props) {
             </div>
             <div className="cardSection__body">{value}</div>
           </div>
-          {/* <div className="cardSectionItem">
-          <div className="cardSection__title">{customApprovalDictionary.days}</div>
-          <div className="cardSection__body">{customApprovalDictionary.days}</div>
-        </div> */}
+
           <div className="cardSectionItem">
             <div className="cardSection__title">
               {customApprovalDictionary.approvers}

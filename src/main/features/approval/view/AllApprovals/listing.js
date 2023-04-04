@@ -17,10 +17,9 @@ export default function Listing({
   const defaultFilter = {
     pageNo: 0,
     search: "",
-    status: [1],
+    status: ApprovalStatus.InProcess,
   };
   const dispatch = useDispatch();
-  // const [filter, setFilter] = useState(tabFilter);
   let filter = tabFilter;
   const approvalList = useSelector((state) => state.approvalSlice.approvalList);
 

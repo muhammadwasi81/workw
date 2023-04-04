@@ -96,8 +96,6 @@ function VideoDetail() {
                   // 			<AssignMemberModal />
                   // 		</>
                   // 	}
-                  imageHeight={"200px"}
-                  headingSize={"30px"}
                 />
               )}
               {/* <h3 style={{color: "#222",fontSize: "17px",fontWeight: '600',marginBottom: '0px'}} >Description</h3>
@@ -105,12 +103,9 @@ function VideoDetail() {
 							description && description 
 						} */}
               {loader ? (
-                <Skeleton.Image
-                  style={{ width: "100%", height: "400px" }}
-                  active={true}
-                />
+                <Skeleton.Image active={true} />
               ) : (
-                <video width="100%" height="400" controls>
+                <video controls>
                   <source src={links} type="video/mp4" />
                 </video>
               )}
@@ -125,10 +120,7 @@ function VideoDetail() {
             <WhiteCard className="flex flex-col gap-1 w-full">
               {loader ? (
                 <>
-                  <Skeleton.Image
-                    style={{ width: "100%", height: "400px" }}
-                    active={true}
-                  />
+                  <Skeleton.Image active={true} />
                   <Skeleton paragraph={{ rows: 4 }} />
                 </>
               ) : (

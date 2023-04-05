@@ -59,13 +59,14 @@ import {
 } from "../store/actions";
 import ItemDetailModal from "../../../sharedComponents/ItemDetails";
 import MenuDropDown from "./menuDropdown/MenuDropDown";
+import { createGuid } from "../../../../utils/base";
 
 function ProjectDetails() {
   const params = useParams();
   const dispatch = useDispatch();
   const detail = useSelector((state) => state.projectSlice.projectDetail);
   const { projectSticky } = useSelector((state) => state.projectSlice);
-  console.log(projectSticky, "projectsticky");
+  console.log(projectSticky?.id, "projectsticky");
   const [projectfeatures, setprojectFeatures] = useState([]);
   const [description, setDescription] = useState(null);
   const descriptionDebounce = useDebounce(description, 500);
@@ -80,11 +81,11 @@ function ProjectDetails() {
   const { projectId } = params;
   const { projectFeature } = useSelector((state) => state.projectSlice);
 
-  useEffect(() => {
-    if (Object.keys(projectSticky).length) {
-      setprojectStickyState(projectSticky);
-    }
-  }, [projectSticky]);
+  // useEffect(() => {
+  //   if (Object.keys(projectSticky).length > 0) {
+  //     setprojectStickyState(projectSticky);
+  //   }
+  // }, [projectSticky]);
 
   useEffect(() => {
     dispatch(getProjectById(projectId));
@@ -209,7 +210,7 @@ function ProjectDetails() {
   };
   useEffect(() => {
     dispatch(getProjectSticky(projectId));
-  }, []);
+  }, [projectId]);
 
   useEffect(() => {
     if (descriptionDebounce) setDescriptionValue(descriptionDebounce);

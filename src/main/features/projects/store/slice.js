@@ -126,7 +126,7 @@ const projectSlice = createSlice({
         state.success = true;
       })
       .addCase(saveStickyproject.fulfilled, (state, { payload }) => {
-        console.log(payload, "payloadddd");
+        console.log(payload.data, "payloadddd descriptionn");
 
         state.projectSticky = payload.data;
       })

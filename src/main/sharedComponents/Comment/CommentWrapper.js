@@ -93,7 +93,7 @@ function CommentWrapper({
               type,
               comment,
               creator = {
-                designation: user?.designation || "",
+                designation: user.designation || "",
                 name: user.name,
                 image: user.userImage,
               },

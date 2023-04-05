@@ -1,12 +1,13 @@
-import React from 'react';
-import ZoomImage from '../ZoomImage';
-import { getNameForImage, STRINGS } from '../../../utils/base';
-import { Badge } from 'antd';
+import React from "react";
+import ZoomImage from "../ZoomImage";
+import { getNameForImage, STRINGS } from "../../../utils/base";
+import { Badge } from "antd";
+import propTypes from "prop-types";
 
 export default function Avatar({
-  src = '',
+  src = "",
   size,
-  name = '',
+  name = "",
   active,
   width,
   height,
@@ -27,13 +28,13 @@ export default function Avatar({
       <Badge count={counter}>
         <div
           onClick={id !== undefined ? handleRoute : null}
-          className={`avatar ${round && 'round'} ${customClass}`}
+          className={`avatar ${round && "round"} ${customClass}`}
           style={{
             width: size !== undefined ? size : width,
             minWidth: size !== undefined ? size : width,
             height: size !== undefined ? size : height,
             maxHeight: size !== undefined ? size : height,
-            position: position !== undefined ? 'inherit' : 'relative',
+            position: position !== undefined ? "inherit" : "relative",
           }}
         >
           {src ? (
@@ -53,7 +54,7 @@ export default function Avatar({
   } catch (e) {
     return (
       <div
-        className={`avatar ${round ? 'round' : ''}`}
+        className={`avatar ${round ? "round" : ""}`}
         style={{
           width: width,
           minWidth: width,
@@ -66,3 +67,19 @@ export default function Avatar({
     );
   }
 }
+
+Avatar.propTypes = {
+  src: propTypes.string,
+  size: propTypes.number,
+  name: propTypes.string,
+  active: propTypes.bool,
+  width: propTypes.number,
+  height: propTypes.number,
+  round: propTypes.bool,
+  position: propTypes.string,
+  isZoom: propTypes.bool,
+  id: propTypes.string,
+  style: propTypes.object,
+  counter: propTypes.number,
+  customClass: propTypes.string,
+};

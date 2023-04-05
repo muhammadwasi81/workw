@@ -113,7 +113,7 @@ function SectionForm(props) {
           </Radio.Group>
         </Form.Item>
         {props.list && (
-          <Form.Item name="sectionId" label={labels.section}>
+          <Form.Item name="sectionId" label={'Status'}>
             <Select>
               {leadManagerDetail?.sections.map((leadSection) => (
                 <Option value={leadSection.id} key={leadSection.id}>

@@ -379,7 +379,12 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
           <Input type="number" min={0} placeholder={placeholder.phNo}></Input>
         </Form.Item>
         <Form.Item name="nic" label={labels.CNICNumber}>
-          <Input type="number" min={0} placeholder={placeholder.cnicNo}></Input>
+          <Input
+            type="number"
+            min={0}
+            onWheel={(e) => e.target.blur()}
+            placeholder={placeholder.cnicNo}
+          ></Input>
         </Form.Item>
         <Form.Item
           rules={[{ required: true }]}

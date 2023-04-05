@@ -146,7 +146,7 @@ function CreateSchedule({
     }
   }, [scheduleDetail]);
 
-  console.log(moment(), "momentt");
+  // console.log(moment(), "momentt");
 
   const disabledDate = (current) => {
     // Can not select days before today and today
@@ -317,35 +317,28 @@ function CreateSchedule({
           //   direction={Direction}
         >
           <Select
-            mode="tags"
-            dropdownClassName="hidden"
-            placeholder={"Enter the Email Address"}
-            size="large"
+            isObject={true}
+            data={firstTimeEmpData}
+            selectedData={(data, obj) => {}}
+            canFetchNow={isFirstTimeDataLoaded}
+            fetchData={fetchEmployees}
+            name="members"
+            mode="multiple"
+            placeholder={"Select Employee"}
+            optionComponent={(opt) => {
+              return (
+                <>
+                  <Avatar src={opt.image} className="!bg-black">
+                    {getNameForImage(opt.name)}
+                  </Avatar>
+                  {opt.name}
+                </>
+              );
+            }}
+            label={"Members"}
+            size="default"
           />
         </Form.Item>
-        <MemberSelect
-          isObject={true}
-          data={firstTimeEmpData}
-          selectedData={(data, obj) => {}}
-          canFetchNow={isFirstTimeDataLoaded}
-          fetchData={fetchEmployees}
-          name="members"
-          mode="multiple"
-          placeholder={"Select Employee"}
-          optionComponent={(opt) => {
-            return (
-              <>
-                <Avatar src={opt.image} className="!bg-black">
-                  {getNameForImage(opt.name)}
-                </Avatar>
-                {opt.name}
-              </>
-            );
-          }}
-          label={"Members"}
-          size="default"
-        />
-
         <div className="formInput w-50">
           {/* <Form.Item label={""}>
 						<Checkbox>Travel Time</Checkbox>

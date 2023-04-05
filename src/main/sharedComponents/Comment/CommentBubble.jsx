@@ -14,7 +14,7 @@ function CommentBubble({
   creator,
 }) {
   const { name, designation = "", userImage: image = "" } = user;
-
+  // console.log("wwwwwwwwww", creator);
   let ts = moment.utc(date);
   ts.local().format("D-MMM-Y");
 

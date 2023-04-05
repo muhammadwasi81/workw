@@ -26,8 +26,6 @@ import AwardsTable from "./awards";
 import SalaryTable from "./salary";
 import { useSelector } from "react-redux";
 import CustomNotes from "../notes/singleNotes/singleNotes";
-import { CopyOutlined, EllipsisOutlined } from "@ant-design/icons";
-import { Menu, Dropdown, Space } from "antd";
 import Courses from "../eLearning/view/Dashboard/Sections/Courses/Courses";
 import TeamAppraisal from "../appraisalModule/view/components/TeamAppraisal/index";
 import { saveSticyNotes, getSticyNotes } from "./store/action";
@@ -51,6 +49,7 @@ const Profile = () => {
   } = useSelector((state) => state.userSlice);
 
   const { profileSticky } = useSelector((state) => state.employeeProfileSlice);
+  console.log(profileSticky, "profileSticky");
   const onChange = (key) => {
     navigate(key);
   };
@@ -75,29 +74,6 @@ const Profile = () => {
       })
     );
   };
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText("");
-  };
-  const menu = (
-    <Menu
-      items={[
-        {
-          label: (
-            <div onClick={copyToClipboard}>
-              <CopyOutlined />
-              <a className="drop-downList">Copy</a>
-            </div>
-          ),
-          key: "1",
-        },
-        {
-          label: <div></div>,
-          key: "2",
-          // icon: <HighlightOutlined onClick={openColorHandler} />,
-        },
-      ]}
-    />
-  );
 
   const panes = [
     {
@@ -114,19 +90,9 @@ const Profile = () => {
             routeLink={ROUTES.USER.DEFAULT + id}
           />
           <div className="singleNote_container ">
-            <div className="singleNote_header">
-              <div className="leftNote_Icon">
-                <Dropdown menu={menu}>
-                  <a onClick={(e) => e.preventDefault()}>
-                    <Space>
-                      <EllipsisOutlined className="threedot_Icon" />
-                    </Space>
-                  </a>
-                </Dropdown>
-              </div>
-            </div>
+            <div className="singleNote_header"></div>
             <div className="textArea_container bg-white w-[300px]">
-              {profileSticky.id && (
+              {profileSticky?.id && (
                 <CustomNotes
                   onChange={(value) => setDescription(value)}
                   modules={modules}

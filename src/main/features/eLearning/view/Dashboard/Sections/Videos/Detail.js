@@ -105,7 +105,7 @@ function VideoDetail() {
               {loader ? (
                 <Skeleton.Image active={true} />
               ) : (
-                <video controls>
+                <video class="w-full h-400" controls>
                   <source src={links} type="video/mp4" />
                 </video>
               )}

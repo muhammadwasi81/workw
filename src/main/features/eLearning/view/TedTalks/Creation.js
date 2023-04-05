@@ -4,7 +4,7 @@ import DashboardLayout from "../Dashboard/Layout/DashboardLayout";
 import { elearningDictionaryList } from "../../localization/index";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { FormContainer, Heading, MainContainer } from "./styleObjects";
-import "./style.css"
+import "./style.css";
 import { Avatar, Button, Form, Input, Select, Radio } from "antd";
 import TextInput from "../../../../sharedComponents/Input/TextInput";
 import SingleUpload from "../../../../sharedComponents/Upload/singleUpload";
@@ -22,32 +22,36 @@ import { getELearningCategory } from "../../../eLearningCategory/store/action";
 const { Option } = Select;
 
 function CreateTedTalk() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { Direction, elearningDictionary } = elearningDictionaryList[userLanguage];
+  const { Direction, elearningDictionary } = elearningDictionaryList[
+    userLanguage
+  ];
 
   const [form] = Form.useForm();
   const [profileImage, setProfileImage] = useState(null);
-  const [video, setVideo] = useState(null)
+  const [video, setVideo] = useState(null);
   const [privacyId, setPrivacyId] = useState(PostPrivacyType.PUBLIC);
-  const [fileType, setFileType] = useState(1)
+  const [fileType, setFileType] = useState(1);
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [value, setValue] = useState([]);
   const [videoType, setVideoType] = useState(1);
 
-  const {ELearningCategory } = useSelector((state) => state.eLearningCategorySlice);
-  const { loaders, addTedTalksuccess } = useSelector((state) => state.eLearningSlice);
+  const { ELearningCategory } = useSelector(
+    (state) => state.eLearningCategorySlice
+  );
+  const { loaders, addTedTalksuccess } = useSelector(
+    (state) => state.eLearningSlice
+  );
   const employees = useSelector((state) => state.sharedSlice.employees);
 
-
   const onChangeRadio = (e) => {
-    let value = e.target.value 
+    let value = e.target.value;
     setVideoType(value);
   };
 
-
-  let loader = loaders.addTedTalkLoading
+  let loader = loaders.addTedTalkLoading;
   const selectedData = (data, obj) => {
     setValue(data);
     handleMember(obj);
@@ -83,7 +87,7 @@ function CreateTedTalk() {
     dispatch(getELearningCategory());
   }, []);
 
-  const onPrivacyChange = value => {
+  const onPrivacyChange = (value) => {
     setPrivacyId(value);
   };
 
@@ -122,7 +126,6 @@ function CreateTedTalk() {
     //   });
     // }
 
-
     let image = {
       id: STRINGS.DEFAULTS.guid,
       file: profileImage && profileImage,
@@ -144,14 +147,13 @@ function CreateTedTalk() {
       // assignMembers: assignMembers,
       image: image,
       attachment: attachment,
-    }
+    };
 
     if (Object.keys(image).length > 0) {
-      dispatch(addTedTalk(dataObject))
+      dispatch(addTedTalk(dataObject));
     } else {
-      dispatch(addTedTalk(dataObject))
+      dispatch(addTedTalk(dataObject));
     }
-    
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -161,8 +163,8 @@ function CreateTedTalk() {
   useEffect(() => {
     if (addTedTalksuccess) {
       form.resetFields();
-      setProfileImage([])
-      setVideo([])
+      setProfileImage([]);
+      setVideo([]);
     }
   }, [addTedTalksuccess]);
 
@@ -308,7 +310,7 @@ function CreateTedTalk() {
               </div>
             </div> */}
             <div className="flex">
-            <div className="innerColumn">
+              <div className="innerColumn">
                 <Form.Item
                   label={"Name"}
                   name="name"
@@ -323,7 +325,7 @@ function CreateTedTalk() {
                   <TextInput placeholder={"Enter Name"} />
                 </Form.Item>
               </div>
-              <div className="innerColumn" style={{paddingTop: "33px"}}>
+              <div className="innerColumn" style={{ paddingTop: "33px" }}>
                 <Form.Item>
                   <Radio.Group onChange={onChangeRadio} value={videoType}>
                     <Radio value={1}>Via Link</Radio>
@@ -334,30 +336,35 @@ function CreateTedTalk() {
             </div>
             <div className="flex">
               <div className="innerColumn">
-                {
-                  videoType === 1 ? 
-                    <Form.Item
-                      label={"Link"}
-                      name="links"
-                      labelPosition="top"
-                      rules={[
-                        {
-                          required: true,
-                          message: "Please Insert Link",
-                        },
-                      ]}
-                    >
-                      <TextInput placeholder={"Insert Link"} />
-                    </Form.Item> :
-                    <FileUploader
+                {videoType === 1 ? (
+                  <Form.Item
+                    label={"Link"}
+                    name="links"
+                    labelPosition="top"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please Insert Link",
+                      },
+                    ]}
+                  >
+                    <TextInput
+                      pattern="^https?://.*\.mp4$"
+                      title="Please enter a valid MP4 video link, starting with http:// or https:// and ending with .mp4"
+                      placeholder={"Insert Link"}
+                    />
+                  </Form.Item>
+                ) : (
+                  <FileUploader
                     fileList={video ? video : []}
                     isMultiple={false}
                     uploadButton={<div>Upload Video</div>}
-                    handleUpload={handleVideoUpload} 
-                    classes="" 
+                    handleUpload={handleVideoUpload}
+                    acceptFile=".mp4"
+                    classes=""
                     // acceptFile=".PDF"
-                />
-                }
+                  />
+                )}
               </div>
             </div>
             <div className="innerColumn">
@@ -371,17 +378,20 @@ function CreateTedTalk() {
                   },
                 ]}
               >
-                <Input.TextArea placeholder={"Enter Description"} style={{ height: "50px" }} />
+                <Input.TextArea
+                  placeholder={"Enter Description"}
+                  style={{ height: "50px" }}
+                />
               </Form.Item>
               <div className="flex">
                 <FileUploader
                   fileList={profileImage ? profileImage : []}
                   uploadButton={<div>Upload Image</div>}
-                  handleUpload={handleImageUpload} 
+                  handleUpload={handleImageUpload}
                   isMultiple={false}
                   acceptFile="image/*"
                   classes=""
-                  />
+                />
               </div>
             </div>
           </FormContainer>
@@ -411,4 +421,4 @@ function CreateTedTalk() {
   );
 }
 
-export default CreateTedTalk
+export default CreateTedTalk;

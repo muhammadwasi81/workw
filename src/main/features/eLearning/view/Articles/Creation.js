@@ -224,8 +224,8 @@ function CreateArticle() {
                     <TextInput
                       placeholder={"Insert Link"}
                       type={"text"}
-                      pattern="^https?://.*\.pdf$"
-                      title="Please enter a valid PDF link, starting with http:// or https:// and ending with .pdf"
+                      pattern="^https?://.*\.(pdf|PDF|png|jpg|jpeg)$"
+                      title="Please enter a valid link to a PDF, PNG, or JPG file, starting with http:// or https://"
                     />
                   </Form.Item>
                 ) : (
@@ -234,7 +234,7 @@ function CreateArticle() {
                     isMultiple={false}
                     uploadButton={<div>Upload PDF</div>}
                     handleUpload={handleVideoUpload}
-                    acceptFile=".pdf"
+                    acceptFile=".pdf,.PDF,.png,.jpg,.jpeg"
                     classes=""
                     // acceptFile=".PDF"
                   />

@@ -155,6 +155,8 @@ function ItemDetailModal({
         destroyOnClose={true}
         // afterClose={afterClose}
         forceRender={true}
+        mask={true}
+        maskStyle={{ backgroundColor: "transparent", boxShadow: "none" }}
       >
         {addEnabled && (
           <CustomSelect

@@ -2,7 +2,7 @@
   width: 100% !important;
 }
 
-.post-model>.ant-modal>.ant-modal-content {
+.post-model > .ant-modal > .ant-modal-content {
   width: 100% !important;
   margin: 0;
   top: 0;
@@ -33,13 +33,13 @@
   font-size: 22px;
 }
 
-.post-model .post-footer .commentWrapper>.commentComposer {
+.post-model .post-footer .commentWrapper > .commentComposer {
   position: absolute;
   bottom: 0;
   width: 100%;
 }
 
-.post-model .post>.post-header>.pinned-post {
+.post-model .post > .post-header > .pinned-post {
   display: none;
 }
 

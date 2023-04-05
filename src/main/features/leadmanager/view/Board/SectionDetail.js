@@ -39,13 +39,11 @@ import "./event.css";
 import Event from "./event";
 import EventDetail from "../../../schedule/view/eventDetail";
 import { toggleEventDetailComposer } from "../../../schedule/store/slice";
-import { useParams } from "react-router-dom";
 import { ScheduleReferenceTypeEnum } from "../../enum/enum";
 
 const { Panel } = Collapse;
 
 function SectionDetail(props) {
-  const { id } = useParams();
   const {
     data,
     isSectionDetailLoading,
@@ -53,7 +51,8 @@ function SectionDetail(props) {
     setLeadSectionId,
     handleMemberModal,
   } = props;
-
+  const id = data?.id;
+  console.log(id, "props");
   const [isOpen, setIsOpen] = useState(false);
   const [image, setImage] = useState(
     data?.image
@@ -66,7 +65,10 @@ function SectionDetail(props) {
   const { detail, labels, placeHolder } = LeadManagerDictionaryList;
   const scheduleSuccess = useSelector((state) => state.scheduleSlice.success);
   const { meetingDetail } = useSelector((state) => state.leadMangerSlice);
-  console.log("meetingDetail", meetingDetail);
+
+  const filterMeetings = meetingDetail?.filter(
+    (meeting) => meeting.referenceId === id
+  );
   useEffect(() => {
     dispatch(
       getAllScheduleAction({
@@ -128,7 +130,8 @@ function SectionDetail(props) {
               className="object-cover h-[200px] w-full rounded-2xl"
               src={
                 image && image.length > 0
-                  ? image
+                  ? data?.image ||
+                    "https://gocrm.io/wp-content/uploads/2020/09/lead-management.jpg"
                   : (window.URL || window.webkitURL).createObjectURL(image)
               }
               alt="lead manager"
@@ -267,7 +270,7 @@ function SectionDetail(props) {
           </Form>
         </section>
         <section className="basis-5/12 flex flex-col gap-5">
-          <div className="bg-neutral-100 p-2 rounded-lg h-fit">
+          <div className="bg-neutral-100 p-2 rounded-lg h-fit overflow-y-scroll">
             <Collapse
               bordered={false}
               defaultActiveKey={["1"]}
@@ -280,7 +283,7 @@ function SectionDetail(props) {
                   <p className="text-white w-full !m-0">{detail.meetings}</p>
                 }
                 key="1"
-                className=" site-collapse-custom-panel"
+                className="site-collapse-custom-panel"
                 showArrow={false}
                 extra={
                   <div className="flex flex-wrap justify-end gap-3">
@@ -320,8 +323,8 @@ function SectionDetail(props) {
                 <div className="eventWrapper">
                   <div className="eventWrapper__body">
                     <EventDetail />
-                    {meetingDetail && meetingDetail.length > 0 ? (
-                      meetingDetail?.map((event) => (
+                    {filterMeetings && filterMeetings.length > 0 ? (
+                      filterMeetings?.map((event) => (
                         <Event
                           data={event}
                           handleScheduleDetailComposer={

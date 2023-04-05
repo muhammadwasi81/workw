@@ -91,7 +91,7 @@ const groupSlice = createSlice({
       state.groups = deleteGroupMembers;
     },
     handleFavoriteMark(state, { payload }) {
-      const favGroups = state.groups.find((group) => group.id === payload.id);
+      const favGroups = state.groups.find((doc) => doc.id === payload.id);
       favGroups.isPinnedPost = !favGroups.isPinnedPost;
     },
     removeGroupFeatures(state, { payload }) {

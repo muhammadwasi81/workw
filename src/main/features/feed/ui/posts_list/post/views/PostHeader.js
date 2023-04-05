@@ -1,20 +1,22 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { STRINGS } from '../../../../../../../utils/base';
-import Avatar from '../../../../../../sharedComponents/Avatar/avatarOLD';
-import publicIcon from './../../../../../../../content/NewContent/NewsFeed/svg/public.svg';
-import moment from 'moment';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { STRINGS } from "../../../../../../../utils/base";
+import Avatar from "../../../../../../sharedComponents/Avatar/avatarOLD";
+import publicIcon from "./../../../../../../../content/NewContent/NewsFeed/svg/public.svg";
+import moment from "moment";
 import {
   LockOutlined,
   ShareAltOutlined,
   StarFilled,
   StarOutlined,
-} from '@ant-design/icons';
-import { useDispatch } from 'react-redux';
-import { favoriteFeed } from '../../../../store/actions';
-import { addFeedFavourite } from '../../../../store/slice';
-import PostTaggedModal from './PostTaggedModal';
-import { ROUTES } from '../../../../../../../utils/routes';
+} from "@ant-design/icons";
+import { useDispatch } from "react-redux";
+import { favoriteFeed } from "../../../../store/actions";
+import { addFeedFavourite } from "../../../../store/slice";
+import PostTaggedModal from "./PostTaggedModal";
+import { ROUTES } from "../../../../../../../utils/routes";
+import { handleItemDetailModal } from "../../../../../../../utils/Shared/store/slice";
+import { useEffect } from "react";
 
 const PostHeader = ({
   creator = {},
@@ -33,24 +35,19 @@ const PostHeader = ({
   const handleOk = () => {
     setIsModalOpen(false);
   };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleShowModal = () => {
-    console.log('open');
-    setIsModalOpen(true);
-  };
-
+  useEffect(() => {
+    if (isModalOpen) {
+      dispatch(handleItemDetailModal(true));
+    }
+  }, [isModalOpen]);
   const privacy = {
     1: <img src={publicIcon} alt="public-icon" />,
-    2: <LockOutlined style={{ color: '#797f85', fontSize: '12px' }} />,
+    2: <LockOutlined style={{ color: "#797f85", fontSize: "12px" }} />,
     3: <ShareAltOutlined />,
   };
 
   var ts = moment.utc(createDate);
-  ts.local().format('D-MMM-Y');
+  ts.local().format("D-MMM-Y");
 
   return (
     <div className="post-header">
@@ -61,7 +58,7 @@ const PostHeader = ({
           width={44}
           height={44}
           round={true}
-          status={true} />
+          status={userActiveStatus} />
         <div className="user-det">
           <div className="name">
             <span>
@@ -94,33 +91,36 @@ const PostHeader = ({
               {designation ? designation : 'Not Designated'}
               &nbsp;&#9679;
             </div>
-            <div className="t">
-              {moment(ts).fromNow()}
-              &nbsp;&#9679;
+            <div className="dtp">
+              <div className="d">
+                {designation ? designation : "Not Designated"}
+                &nbsp;&#9679;
+              </div>
+              <div className="t">
+                {moment(ts).fromNow()}
+                &nbsp;&#9679;
+              </div>
+              <div className="p">{privacy[privacyId]}</div>
             </div>
-            <div className="p">{privacy[privacyId]}</div>
           </div>
         </div>
+        <div
+          className="pinned-post"
+          onClick={() => {
+            dispatch(addFeedFavourite({ isPinned: !isPinnedPost, id }));
+            dispatch(favoriteFeed({ isPinned: !isPinnedPost, id }));
+          }}
+        >
+          {isPinnedPost ? (
+            <StarFilled className="!text-[18px] !text-yellow-400 cursor-pointer" />
+          ) : (
+            <StarOutlined className="!text-[18px] cursor-pointer !text-[#707070]" />
+          )}
+        </div>
+        {isModalOpen && <PostTaggedModal tags={tags} />}
       </div>
-      <div
-        className="pinned-post"
-        onClick={() => {
-          dispatch(addFeedFavourite({ isPinned: !isPinnedPost, id }));
-          dispatch(favoriteFeed({ isPinned: !isPinnedPost, id }));
-        }}
-      >
-        {isPinnedPost ? (
-          <StarFilled className="!text-[18px] !text-yellow-400 cursor-pointer" />
-        ) : (
-          <StarOutlined className="!text-[18px] cursor-pointer !text-[#707070]" />
-        )}
-      </div>
-      <PostTaggedModal
-        open={isModalOpen}
-        onCancel={handleCancel}
-        onOk={handleOk}
-      />
     </div>
+    
   );
 };
 

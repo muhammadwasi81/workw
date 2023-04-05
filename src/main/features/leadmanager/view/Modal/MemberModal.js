@@ -49,7 +49,6 @@ function MemberModal({ isOpen = false, data }) {
       id: data.id,
       memberId: memberId,
     };
-   
 
     let a = data.members.filter((item) => {
       return item.member.id === membersData.memberId;
@@ -102,7 +101,7 @@ function MemberModal({ isOpen = false, data }) {
             <>
               <Avatar
                 name={opt?.name}
-                src={opt?.image || "https://joeschmoe.io/api/v1/random"}
+                src={opt?.image}
                 round={true}
                 width={"30px"}
                 height={"30px"}
@@ -114,7 +113,6 @@ function MemberModal({ isOpen = false, data }) {
         dataVal={value}
         name="members"
         showSearch={true}
-        // direction={Direction}
         rules={[
           {
             required: true,

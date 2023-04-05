@@ -1,6 +1,6 @@
-import moment from 'moment';
-import { renderTitleWithMentions } from '../../../utils/base';
-import Avatar from '../Avatar/avatarOLD';
+import moment from "moment";
+import { renderTitleWithMentions } from "../../../utils/base";
+import Avatar from "../Avatar/avatarOLD";
 
 function CommentBubble({
   user,
@@ -13,13 +13,13 @@ function CommentBubble({
   type,
   creator,
 }) {
-  const { name, designation = '', userImage: image = '' } = user;
-  console.log('wwwwwwwwww', creator);
+  const { name, designation = "", userImage: image = "" } = user;
+  // console.log("wwwwwwwwww", creator);
   let ts = moment.utc(date);
-  ts.local().format('D-MMM-Y');
+  ts.local().format("D-MMM-Y");
 
   return (
-    <div style={{ display: 'flex', width: '100%' }}>
+    <div style={{ display: "flex", width: "100%" }}>
       {type !== 2 && (
         <Avatar
           src={creator?.image ? creator?.image : image}
@@ -31,8 +31,8 @@ function CommentBubble({
       {type === 2 && (
         <div className="commentName">
           <Avatar
-            src={creator.image || image}
-            name={creator.name || name}
+            src={creator?.image || image}
+            name={creator?.name || name}
             size={25}
             round={true}
           />
@@ -59,13 +59,15 @@ function CommentBubble({
             __html: renderTitleWithMentions(content, mentionedUser),
           }}
         />
-        {attachmentFile &&  <div className="rounded-[20px] overflow-hidden w-auto inline-block">
-              <img
-                src={URL.createObjectURL(attachmentFile)}
-                // altt={attachmentName}
-                className="max-w-[210px] aspect-[9/6]"
-              />
-            </div>}
+        {attachmentFile && (
+          <div className="rounded-[20px] overflow-hidden w-auto inline-block">
+            <img
+              src={URL.createObjectURL(attachmentFile)}
+              // altt={attachmentName}
+              className="max-w-[210px] aspect-[9/6]"
+            />
+          </div>
+        )}
         {attachments?.length > 0 &&
           attachments?.map(({ path, attachmentName }) => (
             <div className="rounded-[20px] overflow-hidden w-auto inline-block">

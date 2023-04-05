@@ -65,10 +65,12 @@ function ProjectDetails() {
   const dispatch = useDispatch();
   const detail = useSelector((state) => state.projectSlice.projectDetail);
   const { projectSticky } = useSelector((state) => state.projectSlice);
+  console.log(projectSticky, "projectsticky");
   const [projectfeatures, setprojectFeatures] = useState([]);
   const [description, setDescription] = useState(null);
   const descriptionDebounce = useDebounce(description, 500);
-
+  const [projectStickyState, setprojectStickyState] = useState({});
+  console.log(projectStickyState, "project description statee");
   const [visible, setVisible] = useState(false);
 
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -77,6 +79,12 @@ function ProjectDetails() {
   const [open, setOpen] = useState(false);
   const { projectId } = params;
   const { projectFeature } = useSelector((state) => state.projectSlice);
+
+  useEffect(() => {
+    if (Object.keys(projectSticky).length) {
+      setprojectStickyState(projectSticky);
+    }
+  }, [projectSticky]);
 
   useEffect(() => {
     dispatch(getProjectById(projectId));
@@ -200,7 +208,7 @@ function ProjectDetails() {
     dispatch(addMember({ status: true }));
   };
   useEffect(() => {
-    dispatch(getProjectSticky());
+    dispatch(getProjectSticky(projectId));
   }, []);
 
   useEffect(() => {
@@ -210,8 +218,11 @@ function ProjectDetails() {
   const setDescriptionValue = (value) => {
     dispatch(
       saveStickyproject({
-        id: projectId,
+        // id: projectSticky?.id,
         description: value,
+        // colorCode: "#0f4c81",
+
+        referenceId: projectId,
       })
     );
   };

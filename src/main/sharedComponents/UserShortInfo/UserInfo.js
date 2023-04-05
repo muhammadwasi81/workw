@@ -4,6 +4,7 @@ import "./style.css";
 
 const UserInfo = (props) => {
   const { name, avatarSrc, status, Subline, nameStyle = {}, avatarSize = 44 } = props;
+  console.log(status, "ONLINE STATUS !!")
   return (
     <div className="userInfo" style={{ display: "flex" }}>
       <Avatar 

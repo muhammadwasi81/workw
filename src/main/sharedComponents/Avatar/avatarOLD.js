@@ -2,7 +2,6 @@ import React from 'react';
 import ZoomImage from '../ZoomImage';
 import { getNameForImage, STRINGS } from '../../../utils/base';
 import { Badge } from 'antd';
-import { useState } from 'react';
 
 export default function Avatar({
   src = '',
@@ -23,7 +22,7 @@ export default function Avatar({
     window.location.href = `${STRINGS.ROUTES.USER.TIMELINE.DEFAULT}/${id}`;
   };
 
-  console.log(status, color, "FUCKING!!!")
+  console.log(status,  "STATUS !!")
 
 
   function color(val) {
@@ -44,7 +43,8 @@ export default function Avatar({
     } 
     if ( val === 5 ) {
       return 'pink'
-    } 
+    }
+    
   } 
 
   try {

@@ -430,7 +430,6 @@ export const getAllLeadManagerMember = createAsyncThunk(
 export const addLeadManagereMember = createAsyncThunk(
   "addLeadMember",
   async (data, { dispatch, getState, rejectWithValue }) => {
-    console.log(data, "lead member");
     const res = await addLeadManagerMemberService(data);
     console.log(res, "action data");
     if (res.data?.responseCode === responseCode.Success) {

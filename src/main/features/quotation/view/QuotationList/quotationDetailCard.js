@@ -129,7 +129,7 @@ function QuotationDetailCard(props) {
           </div>
         </div>
 
-        <AllowanceDetail details={details} />
+        {/* <AllowanceDetail details={details} /> */}
 
         <RemarksApproval
           data={approvers}

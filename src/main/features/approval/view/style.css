@@ -1,137 +1,140 @@
 .approval_list_cont {
-    /* padding: 10px; */
+  /* padding: 10px; */
 }
 
 .approval_header {
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid #e1e1e1;
-    padding: 10px 10px 5px 10px;
-    position: sticky;
-    top: 0;
-    background: white;
-    z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #e1e1e1;
+  padding: 10px 10px 5px 10px;
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 1;
 }
 
 .refresButton {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 10px;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
 }
 .refresButton img {
-    width: 20px;
-    margin: inherit;
+  width: 20px;
+  margin: inherit;
 }
 
 .noData {
-    text-align: center;
-    font-size: 13px;
-    font-weight: 600;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
 }
 
 .approval_header_child1 {
-    font-size: 14px;
-    font-weight: bolder;
-    color: var(--currentThemeColor);
+  font-size: 14px;
+  font-weight: bolder;
+  color: var(--currentThemeColor);
 }
 
 .approval_header_child2 {
-    display: flex;
-    /* background: red; */
-    width: 120px;
-    justify-content: space-around;
-    font-size: 13px;
-    font-weight: bolder;
-    color: var(--currentThemeColor);
+  display: flex;
+  /* background: red; */
+  width: 120px;
+  justify-content: space-around;
+  font-size: 13px;
+  font-weight: bolder;
+  color: var(--currentThemeColor);
 }
 
-.approval_header_child2>* {
-    cursor: pointer;
+.approval_header_child2 > * {
+  cursor: pointer;
 }
 
 .approval_list {
-    padding: 10px 5px 10px 5px;
+  padding: 10px 5px 10px 5px;
 }
 
 .approval_item {
-    display: flex;
-    padding: 5px;
-    border-bottom: 1px solid rgb(240, 240, 240);
+  display: flex;
+  padding: 5px;
+  border-bottom: 1px solid rgb(240, 240, 240);
 }
 
 .approval_item_detail_child1 {
-    font-size: 12px;
+  font-size: 12px;
 }
 
 .approval_item_detail {
-    padding-left: 10px;
-    flex: 1;
+  padding-left: 10px;
+  flex: 1;
 }
 
 .approval_item_detail_child2 {
-    display: flex;
+  display: flex;
 }
 
 .approval_item_detail .shortDesc {
-    font-size: 10px;
+  font-size: 10px;
 }
 
 .approval_item_status {
-    width: 170px;
-    /* background: red; */
-    display: flex;
-    justify-content: space-around;
-    align-items: flex-end;
+  width: 170px;
+  /* background: red; */
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
 }
 
-.approval_item_status>div {
-    font-size: 12px;
-    font-weight: bolder;
-    cursor: pointer;
+.approval_item_status > div {
+  font-size: 12px;
+  font-weight: bolder;
+  cursor: pointer;
 }
 
-.approval_item_status>.accept {
-    color: rgb(0, 194, 0);
+.approval_item_status > .accept {
+  color: rgb(0, 194, 0);
 }
 
-.approval_item_status>.decline {
-    color: red;
+.approval_item_status > .decline {
+  color: red;
 }
 
-.approval_item_status>.hold {
-    color: #eda317;
+.approval_item_status > .hold {
+  color: #eda317;
 }
 
 .approval_item_detail .dateTime {
-    flex: 1;
+  flex: 1;
 }
 
 .ApprovalMainView {
-    padding-top: 15px;
+  padding-top: 15px;
 }
 
 .ApprovalMainView .approval_item {
-    background: white;
-    border-radius: 8px;
-    padding: 6px;
-    margin-bottom: 8px;
+  background: white;
+  border-radius: 8px;
+  padding: 6px;
+  margin-bottom: 8px;
 }
 
 .approval_item_detail_child1 .approval_creator {
-    color: var(--currentThemeColor);
-    font-weight: 600;
+  color: var(--currentThemeColor);
+  font-weight: 600;
 }
 .approval_item_detail_child1 .approval_message {
-    color: black;
-    font-size: 13px;   
+  color: black;
+  font-size: 13px;
 }
-.statusHolder .featureIcon{
-    height: 30px;
-    text-align: right;
+.statusHolder .featureIcon {
+  height: 30px;
+  text-align: right;
 }
-.statusHolder .featureIcon img{
-    height: 100%;
-    margin-left: auto;
-    margin-right: 15px;
-    padding-bottom: 10px;
+.statusHolder .featureIcon img {
+  height: 100%;
+  margin-left: auto;
+  margin-right: 15px;
+  padding-bottom: 10px;
+}
+.modal-body .ant-modal-content {
+  border-radius: 10px;
 }

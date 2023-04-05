@@ -70,7 +70,7 @@ const PostHeader = ({
                 {tags.length > 1 && (
                   <>
                     &nbsp;and&nbsp;
-                    <span onClick={handleShowModal}>
+                    <span>
                       {tags.length > 2 ? (
                         `${tags.length - 1} Others`
                       ) : (

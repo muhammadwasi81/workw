@@ -1,3 +1,3 @@
-export const buttonsEnum = {
-  approvals: [1],
+export const approvalsEnum = {
+  approvals: 1,
 };

@@ -9,13 +9,13 @@ import { ContBody } from "../../../../sharedComponents/AppComponents/MainFlexCon
 import { getAllApproval } from "../../store/action";
 import ApprovalDetail from "./detail";
 import Listing from "./listing";
-import { buttonsEnum } from "../../enum/enum";
+import { approvalsEnum } from "../../enum/enum";
 
 export default function AllApprovals() {
   const defaultFilter = {
     pageNo: 0,
     search: "",
-    status: ApprovalStatus.InProcess,
+    status: [ApprovalStatus.InProcess],
   };
   const [filter, setFilter] = useState(defaultFilter);
   const [approvalDetailData, setApprovalDetailData] = useState({});
@@ -62,7 +62,7 @@ export default function AllApprovals() {
         items={[
           {
             name: "Approvals",
-            renderButton: buttonsEnum.approvals,
+            renderButton: approvalsEnum.approvals,
             to: ROUTES.APPROVALS.DEFAULT,
           },
           // {

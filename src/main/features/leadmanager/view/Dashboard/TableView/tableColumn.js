@@ -2,6 +2,8 @@ import moment from "moment";
 import Avatar from "../../../../../sharedComponents/Avatar/avatar";
 // import TagAvatar from "../../../../../sharedComponents/Avatar/TagAvatar";
 // import StatusTag from "../../../../../sharedComponents/Tag/StatusTag";
+import groupImg from "../../../../../../../src/content/png/leadgroupImg.jpg";
+
 export const tableColumn = (dictionary, data) => {
   const { table } = dictionary;
 
@@ -11,6 +13,23 @@ export const tableColumn = (dictionary, data) => {
       dataIndex: "name",
       ellipsis: true,
       sort: true,
+    },
+    {
+      title: "Image",
+      dataIndex: "image",
+      ellipsis: true,
+      sort: true,
+      render: (image) => (
+        <img
+          src={image || groupImg}
+          alt="avatar"
+          style={{
+            width: "26px",
+            height: "26px",
+            borderRadius: "50%",
+          }}
+        />
+      ),
     },
     {
       title: table.description,

@@ -8,26 +8,29 @@ import { searchDictionaryList } from "../utils/localization/index";
 import "../../administration/styles/adminstration.css";
 import SearchInput from "../../../sharedComponents/searchBox/SearchInput";
 import { SearchOutlined } from "@ant-design/icons";
+import { useSelector } from "react-redux";
 
 const MenuList = () => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { globalSearch } = searchDictionaryList[userLanguage];
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 768px)" });
   const [searchInput, setSearchInput] = useState("");
+  const { keyword } = useSelector((state) => state.globalSearchSlice);
+
   const searchHandler = (e) => {
     const searchValue = e.target.value;
     setSearchInput(searchValue);
   };
-  const filteredData = listitem.filter((list) => {
-    if (searchInput === "") {
-      return list;
-    } else {
-      return Object.values(list)
-        .join(" ")
-        .toLowerCase()
-        .includes(searchInput.toLowerCase());
-    }
-  });
+  // const filteredData = listitem.filter((list) => {
+  //   if (searchInput === "") {
+  //     return list;
+  //   } else {
+  //     return Object.values(list)
+  //       .join(" ")
+  //       .toLowerCase()
+  //       .includes(searchInput.toLowerCase());
+  //   }
+  // });
   return (
     <>
       <List className="Adminlist" style={{ height: "inherit" }}>
@@ -37,10 +40,11 @@ const MenuList = () => {
               icon={<SearchOutlined />}
               placeholder={"Search"}
               size="larger"
-              onChange={searchHandler}
+              // onChange={searchHandler}
+              value={keyword}
             />
           </div>
-          {filteredData?.map(({ displayName, to, IconName }) => (
+          {listitem?.map(({ displayName, to, IconName }) => (
             <Item key={displayName}>
               <Tooltip
                 title={isTabletOrMobile && displayName}

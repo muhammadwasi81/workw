@@ -33,20 +33,20 @@ function MemberSelect({
   returnEmpty = false,
   isIncludedMyId = false,
 }) {
-  console.log(data, "dataa");
+  // console.log(data, "dataa");
   const [value, setValue] = useState("");
   const [stateVal, setStateVal] = useState(dataVal);
   const [defaultValues, setDefaultValues] = useState([]);
-  console.log(defaultValues, "default vv");
+  // console.log(defaultValues, "default vv");
   const [isDataFetchable, setIsDataFetchable] = useState(canFetchNow);
   const debouncedSearch = useDebounce(value, 500);
   const userSlice = useSelector((state) => state.userSlice);
   const user = userSlice.user;
   const [memberData, setMemberData] = useState([...data]);
-  console.log(memberData, "memberData");
+  // console.log(memberData, "memberData");
   const { loader } = useSelector((state) => state.sharedSlice);
   const employees = useSelector((state) => state.sharedSlice[sliceName]);
-  console.log(employees, "employees");
+  // console.log(employees, "employees");
   const [isAssignDefaultData, setIsAssignDefaultData] = useState(
     loadDefaultData
   );

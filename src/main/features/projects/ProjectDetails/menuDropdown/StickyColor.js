@@ -34,7 +34,7 @@ const StickyColor = ({ item }) => {
   return (
     <>
       {/* {closeColor &&  */}
-      <div className="menu__popUp">
+      <div className=" w-72 h-7">
         <div className="color___LIST">
           {colors.map((colors) => (
             <div

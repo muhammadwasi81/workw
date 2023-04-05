@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { Button, Popover } from "antd";
-import ContentOptions from "./content";
-import menuIcon from "../../../../content/NewContent/Documents/3dots.svg";
-import "./style.css";
+import React, { useState } from 'react';
+import { Popover } from 'antd';
+import ContentOptions from './content';
+import menuIcon from '../../../../content/NewContent/Documents/3dots.svg';
+import './style.css';
 
 const QuickOptions = ({ data, onClick = () => {} }) => {
   const [open, setOpen] = useState(false);
@@ -30,7 +30,7 @@ const QuickOptions = ({ data, onClick = () => {} }) => {
         overlayClassName="docsPopover"
       >
         <div className="menuIcon" onClick={onClick}>
-          <img src={menuIcon} />
+          <img src={menuIcon} alt="menuIcon" />
         </div>
       </Popover>
     </div>

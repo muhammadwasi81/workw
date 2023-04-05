@@ -130,20 +130,23 @@ const NewStickyNote = ({ item }) => {
     );
   };
   const setDescriptionValue = (value) => {
+    console.log(value, "valueeee");
     const id = item.id;
-    dispatch(targetStickyDescription({ id, value }));
+    dispatch(
+      targetStickyDescription({
+        id,
+        value,
+      })
+    );
+    dispatch(
+      getStickyNoteDescAction({ ...item, attachments: [], description: value })
+    );
   };
 
   // *******modules and formats for React quil******
 
   const imgSrc = item.attachments;
-  // const { height, width } = useWindowDimensions();
-  // console.log(width, height, "widthhh");
 
-  const axis = {
-    x_axis: Math.floor(Math.random() * (400 - 300)) + 300,
-    y_axis: Math.floor(Math.random() * (200 - 500)) + 500,
-  };
   const openNewStikcyHandler = () => {
     dispatch(handleOpenSticky(item.id));
   };
@@ -152,7 +155,6 @@ const NewStickyNote = ({ item }) => {
     <>
       <Draggable
         Draggable
-        //defaultPosition={{ x: axis.x_axis, y: axis.y_axis }}
         handle=".handle"
         // grid={[25, 25]}
         scale={1}

@@ -36,9 +36,9 @@ export default function ApprovalItem({
   const handleCancel = () => {
     setIsOpenModal(false);
   };
-  const handleOpenApprovalDetail = (item) => {
-    // e.preventDefault();
-    // e.stopPropagation();
+  const handleOpenApprovalDetail = (item, e) => {
+    e.preventDefault();
+    e.stopPropagation();
     setIsOpenModal(true);
     setApprovalDetailData(item);
   };
@@ -49,7 +49,7 @@ export default function ApprovalItem({
         className="approval_item cursor-pointer"
         onClick={
           !detail
-            ? () => handleOpenApprovalDetail(item)
+            ? (e) => handleOpenApprovalDetail(item, e)
             : () => handleApprovalDetail(item)
         }
       >

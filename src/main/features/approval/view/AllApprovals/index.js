@@ -29,16 +29,16 @@ export default function AllApprovals() {
     tabIndex = Number(tabIndex);
     let status = ApprovalStatus.InProcess;
     switch (tabIndex) {
-      case 1:
+      case ApprovalStatus.InProcess:
         status = ApprovalStatus.InProcess;
         break;
-      case 2:
+      case ApprovalStatus.Approved:
         status = ApprovalStatus.Approved;
         break;
-      case 3:
+      case ApprovalStatus.Declined:
         status = ApprovalStatus.Declined;
         break;
-      case 4:
+      case ApprovalStatus.Hold:
         status = ApprovalStatus.Hold;
         break;
       default:
@@ -62,7 +62,7 @@ export default function AllApprovals() {
         items={[
           {
             name: "Approvals",
-            renderButton: approvalsEnum.approvals,
+            approvalFilterItem: [1],
             to: ROUTES.APPROVALS.DEFAULT,
           },
           // {

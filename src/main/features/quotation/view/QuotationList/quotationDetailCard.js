@@ -1,5 +1,5 @@
 import { Button, Image, Tag } from "antd";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import UserInfo from "../../../../sharedComponents/UserShortInfo/UserInfo";
 import SublineDesigWithTime from "../../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
 import StatusTag from "../../../../sharedComponents/Tag/StatusTag";
@@ -19,6 +19,7 @@ import RemarksApproval from "../../../../sharedComponents/AppComponents/Approval
 import { ApprovalsModule } from "../../../../sharedComponents/AppComponents/Approvals/enums";
 import { quotationDictionaryList } from "../../localization/index";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+import ConfirmationRemarkModal from "../../../../sharedComponents/ConfirmationRemarkModal/ConfirmationRemarkModal";
 
 function QuotationDetailCard(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -26,6 +27,8 @@ function QuotationDetailCard(props) {
     userLanguage
   ];
   const dispatch = useDispatch();
+  const [isOpen, setIsOpen] = useState(false);
+  const [updatedStatus, setUpdatedStatus] = useState(null);
   useEffect(() => {
     if (props.id) dispatch(getQuotationById(props.id));
   }, [props.id]);
@@ -34,6 +37,17 @@ function QuotationDetailCard(props) {
     (state) => state.quotationSlice.quotationDetail
   );
   if (!quotationDetail) return <></>;
+
+  const onClose = () => {
+    setIsOpen(false);
+  };
+
+  const onFinish = (values) => {
+    let id = quotationDetail.id;
+    let reason = values.remarks;
+    setIsOpen(false);
+    // dispatch(cancelReward({ id: id, reason: reason }));
+  };
 
   const {
     creator,
@@ -44,6 +58,7 @@ function QuotationDetailCard(props) {
     quotationDate,
     approvers,
     createDate,
+    status,
   } = quotationDetail;
   console.log(quotationDetail, "Quotation detail");
   return (
@@ -132,10 +147,20 @@ function QuotationDetailCard(props) {
         {/* <AllowanceDetail details={details} /> */}
 
         <RemarksApproval
+          status={status}
+          reference={quotationDetail.id}
+          onStatusChanged={(statusChanged) => {
+            setUpdatedStatus(statusChanged);
+            console.log(statusChanged);
+          }}
           data={approvers}
           title={quotationDictionary.approvals}
-          module={ApprovalsModule.quotation}
-          onStatusChanged={() => {}}
+          module={ApprovalsModule.QuotationApproval}
+        />
+        <ConfirmationRemarkModal
+          isOpen={isOpen}
+          onCancel={onClose}
+          onFinish={onFinish}
         />
       </SingleItem>
     </>

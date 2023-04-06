@@ -16,6 +16,7 @@ import {
 } from "../Styles/employeeCard.styles";
 import PropTypes from "prop-types";
 import userAvatar from "../../../../content/png/userAvatar.jpg";
+import { useSelector } from "react-redux";
 function EmployeeCard({
   employees: { image, name, email, designation, id, isDisable },
 }) {
@@ -23,6 +24,7 @@ function EmployeeCard({
   const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
   const { sharedLabels } = dictionaryList[userLanguage];
+  const { user } = useSelector((state) => state.userSlice);
 
   const confirm = (e) => {
     console.log(e);
@@ -61,11 +63,15 @@ function EmployeeCard({
             okText="Yes"
             cancelText="No"
           >
-            <ActionButton
-              BackgroundColor={isDisable === true ? "#db5252" : "#01ae3a"}
-            >
-              {isDisable === true ? sharedLabels.Disable : "Enable"}
-            </ActionButton>
+            {user?.id === id ? (
+              ""
+            ) : (
+              <ActionButton
+                BackgroundColor={isDisable === true ? "#db5252" : "#01ae3a"}
+              >
+                {isDisable === true ? sharedLabels.Disable : "Enable"}
+              </ActionButton>
+            )}
           </Popconfirm>
           <ActionButton
             onClick={() => {

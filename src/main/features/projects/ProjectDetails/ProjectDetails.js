@@ -288,7 +288,9 @@ function ProjectDetails() {
                       formats={formats}
                       className={"stickyNoteItem-textarea"}
                       placeholder={"Take a Note"}
-                      defaultValue={projectSticky?.description}
+                      defaultValue={
+                        projectSticky ? projectSticky?.description : ""
+                      }
                     />
                   )}
                 </div>

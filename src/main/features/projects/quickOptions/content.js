@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { handleComposer, addMember, updateProjectById } from "../store/slice";
-import {addProjectMemberAction , deleteProjectMemberAction } from "../store/actions";
+import {
+  addProjectMemberAction,
+  deleteProjectMemberAction,
+} from "../store/actions";
 import DetailModal from "../../../sharedComponents/ItemDetails";
 import { useParams } from "react-router-dom";
 import { handleItemDetailModal } from "../../../../utils/Shared/store/slice";
@@ -49,6 +52,17 @@ const ContentOptions = ({ handleClose, data }) => {
 
   return (
     <>
+      {visible && (
+        <DetailModal
+          data={data?.members} //Data of members will pass here in array
+          isDeleteDisabled={false} //Pass true to hide delete icon
+          addEnabled={true} //Pass false to hide select member
+          addFunc={addFunc} // define and pass addMember action of particular members
+          onDelete={onDelete} // define and pass onDeletemember actions of particular members
+          isSearch={false} //Pass true if you want to search the list
+          openModal={true} // pass true if you want to open member details in modal other wise it display in listing
+        />
+      )}
       <div className="flex flex-col">
         <div
           className="flex gap-2 items-center btn cursor-pointer hover:bg-[#f6f6f6] transition-all p-2 py-1 rounded-[6px]"
@@ -65,18 +79,6 @@ const ContentOptions = ({ handleClose, data }) => {
           <span>Members</span>
         </div>
         {/* {visible && <MemberModal data={data} />} */}
-        {
-          //props will be passed for all functions that will be used
-          <DetailModal
-            data={data?.members} //Data of members will pass here in array
-            isDeleteDisabled={false} //Pass true to hide delete icon
-            addEnabled={true} //Pass false to hide select member
-            addFunc={addFunc} // define and pass addMember action of particular members
-            onDelete={onDelete} // define and pass onDeletemember actions of particular members
-            isSearch={false} //Pass true if you want to search the list
-            openModal={true} // pass true if you want to open member details in modal other wise it display in listing
-          />
-        }
       </div>
     </>
   );

@@ -30,6 +30,7 @@ import rewardIcon from "../../../content/svg/menu/rewardIcon.svg";
 import complainIcon from "../../../content/svg/menu/newNavBarIcon/complainIcon.svg";
 import departmentIcon from "../../../content/NewContent/department/departmentIcon.svg";
 import bonusIcon from "../../../content/NewContent/bonus/bonus.svg";
+import orgChartIcon from "../../../content/svg/menu/newNavBarIcon/Org Chart.svg";
 import coaIcon from "../../../content/NewContent/chartOfAccount/coa.svg";
 import reportIcon from "../../../content/NewContent/report/report.svg";
 import documentIcon from "../../../content/NewContent/Documents/file/folder.svg";
@@ -261,6 +262,24 @@ const NavMenuList = () => {
       featureId: FeaturesEnum.Bonus,
       notificationCount: notificationCounts.bonus,
     },
+    {
+      name: label.navMenuLabel.orgChart,
+      counter: 0,
+      icon: orgChartIcon,
+      to: ROUTES.OrganizationalChart.ROOT,
+      isActive: true,
+      key: label.navMenuLabel.hr,
+      featureId:FeaturesEnum.OrganizationalChart
+    },
+
+
+
+
+
+
+
+
+
     {
       name: label.navMenuLabel.complains,
       counter: 0,

@@ -6,11 +6,19 @@ import StatusTag from "../../../sharedComponents/Tag/StatusTag";
 export const tableColumn = (projectsDictionary) => {
   return [
     {
-      title: projectsDictionary.labels.referenceNo,
-      dataIndex: "referenceNo",
+      title: projectsDictionary.labels.name,
+      dataIndex: "name",
       ellipsis: true,
       sort: true,
     },
+    
+    {
+      title: projectsDictionary.labels.status,
+      dataIndex: "status",
+      render: (status) => <StatusTag status={status} />,
+      sort: true,
+    },
+
     {
       title: projectsDictionary.labels.creator,
       dataIndex: "creator",
@@ -20,29 +28,7 @@ export const tableColumn = (projectsDictionary) => {
       ),
       sort: true,
     },
-    {
-      title: projectsDictionary.labels.status,
-      dataIndex: "status",
-      render: (status) => <StatusTag status={status} />,
-      sort: true,
-    },
-    {
-      title: projectsDictionary.labels.category,
-      dataIndex: "category",
-      ellipsis: true,
-      sort: true,
-    },
-    {
-      title: projectsDictionary.labels.name,
-      dataIndex: "name",
-      ellipsis: true,
-      sort: true,
-    },
-    {
-      title: projectsDictionary.labels.reason,
-      dataIndex: "reason",
-      ellipsis: true,
-      sort: true,
-    },
+    
+    
   ];
 };

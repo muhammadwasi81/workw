@@ -89,7 +89,7 @@ const Complain = () => {
   const onRow = (record, rowIndex) => {
     return {
       onClick: (event) => {
-        setComplainId(record.id);
+        setDetailId(record.id);
         setVisible(true);
       },
       onDoubleClick: (event) => {}, // double click row

@@ -26,7 +26,7 @@ function CommentWrapper({
   const [likeClass, setLikeClass] = useState("hello boy");
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.userSlice);
-  // console.log('user', user);
+  console.log("user", user);
   useEffect(() => {
     const newResponse = initailComments?.map((it) => {
       return {
@@ -109,6 +109,7 @@ function CommentWrapper({
               mentions,
             }) => {
               const { designation, name, image } = creator;
+              console.log(designation, "creatorrr");
               return (
                 <CommentItem
                   user={user}

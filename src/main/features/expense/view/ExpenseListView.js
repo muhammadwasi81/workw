@@ -36,7 +36,6 @@ function ExpenseListView({
         pageNo: 1,
         pageSize: 20,
         filterType,
-
         referenceType,
         referenceId,
       })

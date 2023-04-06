@@ -50,7 +50,7 @@ function ComposeEmail() {
       title={<div className="flex justify-center"> {labels.composeEmail}</div>}
       footer={
         <div className="flex justify-end gap-2 items-center">
-          <Button className="primary_btn !w-fit">{labels.preview}</Button>
+          {/* <Button className="primary_btn !w-fit">{labels.preview}</Button> */}
           <Button className="primary_btn !w-fit">
             {labels.send} <SendOutlined />
           </Button>

@@ -60,32 +60,37 @@ import {
 import ItemDetailModal from "../../../sharedComponents/ItemDetails";
 import MenuDropDown from "./menuDropdown/MenuDropDown";
 import { createGuid } from "../../../../utils/base";
-
+import { DownOutlined } from "@ant-design/icons";
 function ProjectDetails() {
   const params = useParams();
   const dispatch = useDispatch();
   const detail = useSelector((state) => state.projectSlice.projectDetail);
   const { projectSticky } = useSelector((state) => state.projectSlice);
-  console.log(projectSticky?.id, "projectsticky");
+  console.log(projectSticky?.description, "pppp");
   const [projectfeatures, setprojectFeatures] = useState([]);
   const [description, setDescription] = useState(null);
   const descriptionDebounce = useDebounce(description, 500);
-  const [projectStickyState, setprojectStickyState] = useState({});
-  console.log(projectStickyState, "project description statee");
   const [visible, setVisible] = useState(false);
-
+  const [openSticky, setOpenSticky] = useState(false);
   const { userLanguage } = useContext(LanguageChangeContext);
   const { projectsDictionary } = projectsDictionaryList[userLanguage];
   const { updateTextBtn, labels, features } = projectsDictionary;
   const [open, setOpen] = useState(false);
-  const { projectId } = params;
+  let { projectId } = params;
+  projectId = projectId.trim();
   const { projectFeature } = useSelector((state) => state.projectSlice);
 
   // useEffect(() => {
-  //   if (Object.keys(projectSticky).length > 0) {
-  //     setprojectStickyState(projectSticky);
+  //   if (Object.keys(projectStickyState?.description)?.length) {
+  //     setprojectStickyState(projectStickyState);
+  //     // let stickyNote = {
+  //     //   ...projectStickyState?.description,
+  //     //   description: projectStickyState?.description,
+  //     // };
+  //     // console.log(stickyNote, "stickyNoteee");
+  //     // setprojectStickyState();
   //   }
-  // }, [projectSticky]);
+  // }, [projectStickyState]);
 
   useEffect(() => {
     dispatch(getProjectById(projectId));
@@ -209,6 +214,7 @@ function ProjectDetails() {
     dispatch(addMember({ status: true }));
   };
   useEffect(() => {
+    // setOpenSticky(true);
     dispatch(getProjectSticky(projectId));
   }, [projectId]);
 
@@ -217,9 +223,10 @@ function ProjectDetails() {
   }, [descriptionDebounce]);
 
   const setDescriptionValue = (value) => {
+    // setOpenSticky(true);
     dispatch(
       saveStickyproject({
-        // id: projectSticky?.id,
+        id: projectSticky?.id,
         description: value,
         // colorCode: "#0f4c81",
 
@@ -272,13 +279,9 @@ function ProjectDetails() {
                 <ProjectInformation />
               </WhiteCard>
               <div className="singleNote_container">
-                <div className="singleNote_header">
-                  {/* <div className="leftNote_Icon">
-                    <MenuDropDown changeBgColor={BgcolorHandler} />
-                  </div> */}
-                </div>
+                <div className="singleNote_header"></div>
                 <div className="textArea_container bg-white">
-                  {projectSticky?.id && (
+                  {projectSticky?.referenceId === projectId && (
                     <CustomNotes
                       onChange={(value) => setDescription(value)}
                       modules={modules}

@@ -4,7 +4,7 @@ import Avatar from "../../../../../sharedComponents/Avatar/avatar";
 // import StatusTag from "../../../../../sharedComponents/Tag/StatusTag";
 import groupImg from "../../../../../../../src/content/png/leadgroupImg.jpg";
 
-export const tableColumn = (dictionary, data) => {
+export const tableColumn = (dictionary, handleModalOpen) => {
   const { table } = dictionary;
 
   return [
@@ -42,7 +42,11 @@ export const tableColumn = (dictionary, data) => {
       title: table.members,
       dataIndex: "members",
       ellipsis: true,
-      render: (member) => <Avatar membersData={member} heading={"Members"} />,
+      render: (member, rowData) => (
+        <div onClick={(e) => handleModalOpen(e, rowData)}>
+          <Avatar membersData={member} heading={"Members"} />
+        </div>
+      ),
     },
     {
       title: table.createDate,

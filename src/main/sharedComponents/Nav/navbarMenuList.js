@@ -53,13 +53,13 @@ const NavMenuList = () => {
   const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
   const label = dictionaryList[userLanguage];
-  const { userNotification } = useSelector((state) => state.sharedSlice);
+  const { notificationCounts } = useSelector((state) => state.sharedSlice);
   // const { Direction } = dictionaryList[userLanguage];
 
   useEffect(() => {
-    console.log("useEffect ran", userNotification);
+    console.log("useEffect ran", notificationCounts);
     dispatch(getAllNotification());
-  }, []);
+  }, [notificationCounts]);
 
   const menuItems = [
     {
@@ -70,7 +70,7 @@ const NavMenuList = () => {
       isActive: 1,
       key: label.navMenuLabel.menu,
       featureId: FeaturesEnum.Feed,
-      notificationCount: userNotification.feed,
+      notificationCount: notificationCounts.feed,
     },
     {
       name: label.navMenuLabel.schedules,
@@ -80,7 +80,7 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.menu,
       featureId: FeaturesEnum.Schedule,
-      notificationCount: userNotification.schedule,
+      notificationCount: notificationCounts.schedule,
     },
     {
       name: label.navMenuLabel.messenger,
@@ -90,7 +90,7 @@ const NavMenuList = () => {
       isActive: 3,
       key: label.navMenuLabel.menu,
       featureId: FeaturesEnum.Messenger,
-      notificationCount: userNotification.messenger,
+      notificationCount: notificationCounts.messenger,
     },
     {
       name: label.navMenuLabel.mailBox,
@@ -100,7 +100,7 @@ const NavMenuList = () => {
       isActive: 3,
       key: label.navMenuLabel.menu,
       featureId: FeaturesEnum.Mailbox,
-      notificationCount: userNotification.mailbox,
+      notificationCount: notificationCounts.mailbox,
     },
     {
       name: label.navMenuLabel.leadManager,
@@ -110,7 +110,7 @@ const NavMenuList = () => {
       isActive: 8,
       key: label.navMenuLabel.menu,
       featureId: FeaturesEnum.Lead,
-      notificationCount: userNotification.lead,
+      notificationCount: notificationCounts.lead,
     },
     {
       name: label.navMenuLabel.customApprovals,
@@ -120,7 +120,7 @@ const NavMenuList = () => {
       isActive: 4,
       key: label.navMenuLabel.menu,
       featureId: FeaturesEnum.CustomApproval,
-      notificationCount: userNotification.customApproval,
+      notificationCount: notificationCounts.customApproval,
     },
     {
       name: label.navMenuLabel.travel,
@@ -130,7 +130,7 @@ const NavMenuList = () => {
       isActive: 11,
       key: label.navMenuLabel.menu,
       featureId: FeaturesEnum.Travel,
-      notificationCount: userNotification.travel,
+      notificationCount: notificationCounts.travel,
     },
     {
       name: label.navMenuLabel.docsArchives,
@@ -140,7 +140,7 @@ const NavMenuList = () => {
       // isActive: 6,
       key: label.navMenuLabel.menu,
       featureId: FeaturesEnum.Document,
-      notificationCount: userNotification.document,
+      notificationCount: notificationCounts.document,
     },
     {
       name: label.navMenuLabel.LD,
@@ -150,7 +150,7 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.menu,
       featureId: FeaturesEnum.ELearning,
-      notificationCount: userNotification.eLearning,
+      notificationCount: notificationCounts.eLearning,
     },
     {
       name: label.navMenuLabel.employee,
@@ -160,7 +160,6 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.hr,
       featureId: FeaturesEnum.Employees,
-      notificationCount: userNotification.employee,
     },
     {
       name: label.navMenuLabel.appraisals,
@@ -170,7 +169,7 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.hr,
       featureId: FeaturesEnum.Appraisal,
-      notificationCount: userNotification.appraisal,
+      notificationCount: notificationCounts.appraisal,
     },
     {
       name: label.navMenuLabel.projects,
@@ -180,7 +179,7 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.menu,
       featureId: FeaturesEnum.Project,
-      notificationCount: userNotification.project,
+      notificationCount: notificationCounts.project,
     },
     {
       name: label.navMenuLabel.workBoard,
@@ -190,7 +189,7 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.menu,
       featureId: FeaturesEnum.Workboard,
-      notificationCount: userNotification.workboard,
+      notificationCount: notificationCounts.workboard,
     },
     {
       name: label.navMenuLabel.groups,
@@ -200,7 +199,7 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.menu,
       featureId: FeaturesEnum.Group,
-      notificationCount: userNotification.group,
+      notificationCount: notificationCounts.group,
     },
     {
       name: label.navMenuLabel.expense,
@@ -210,7 +209,7 @@ const NavMenuList = () => {
       isActive: 10,
       key: label.navMenuLabel.menu,
       featureId: FeaturesEnum.Expense,
-      notificationCount: userNotification.expense,
+      notificationCount: notificationCounts.expense,
     },
     {
       name: label.navMenuLabel.administration,
@@ -220,7 +219,6 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.hr,
       featureId: FeaturesEnum.Administration,
-      notificationCount: userNotification.administration,
     },
 
     {
@@ -231,7 +229,7 @@ const NavMenuList = () => {
       isActive: 6,
       key: label.navMenuLabel.menu,
       featureId: FeaturesEnum.Task,
-      notificationCount: userNotification.task,
+      notificationCount: notificationCounts.task,
     },
     {
       name: label.navMenuLabel.promotions,
@@ -241,7 +239,7 @@ const NavMenuList = () => {
       isActive: 7,
       key: label.navMenuLabel.hr,
       featureId: FeaturesEnum.Promotion,
-      notificationCount: userNotification.promotion,
+      notificationCount: notificationCounts.promotion,
     },
     {
       name: label.navMenuLabel.warnings,
@@ -251,7 +249,7 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.hr,
       featureId: FeaturesEnum.Warnings,
-      notificationCount: userNotification.warning,
+      notificationCount: notificationCounts.warning,
     },
     {
       name: label.navMenuLabel.bonus,
@@ -261,7 +259,7 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.hr,
       featureId: FeaturesEnum.Bonus,
-      notificationCount: userNotification.bonus,
+      notificationCount: notificationCounts.bonus,
     },
     {
       name: label.navMenuLabel.complains,
@@ -271,7 +269,7 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.hr,
       featureId: FeaturesEnum.Complains,
-      notificationCount: userNotification.complain,
+      notificationCount: notificationCounts.complain,
     },
     {
       name: label.navMenuLabel.rewards,
@@ -281,7 +279,7 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.hr,
       featureId: FeaturesEnum.Rewards,
-      notificationCount: userNotification.reward,
+      notificationCount: notificationCounts.reward,
     },
     {
       name: label.navMenuLabel.teams,
@@ -291,7 +289,6 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.hr,
       featureId: FeaturesEnum.MyTeam,
-      notificationCount: userNotification.team,
     },
     {
       name: label.navMenuLabel.leaves,
@@ -301,7 +298,7 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.hr,
       featureId: FeaturesEnum.Leave,
-      notificationCount: userNotification.leave,
+      notificationCount: notificationCounts.leave,
     },
     {
       name: label.navMenuLabel.departments,
@@ -311,7 +308,6 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.hr,
       featureId: FeaturesEnum.Department,
-      notificationCount: userNotification.department,
     },
     {
       name: label.navMenuLabel.jobBoard,
@@ -321,7 +317,6 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.menu,
       featureId: FeaturesEnum.JobBoard,
-      notificationCount: userNotification.jobBoard,
     },
     {
       name: label.navMenuLabel.careers,
@@ -331,7 +326,7 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.hr,
       featureId: FeaturesEnum.Career,
-      notificationCount: userNotification.career,
+      notificationCount: notificationCounts.career,
     },
     {
       name: label.navMenuLabel.chartOfAccount,
@@ -341,7 +336,6 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.finance,
       featureId: FeaturesEnum.ChartofAccount,
-      notificationCount: userNotification.chartOfAccount,
     },
     {
       name: label.navMenuLabel.Quotation,
@@ -351,7 +345,6 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.finance,
       featureId: FeaturesEnum.Quotation,
-      notificationCount: userNotification.quotation,
     },
     // {
     //   name: label.navMenuLabel.QuotationClient,
@@ -369,7 +362,6 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.finance,
       featureId: FeaturesEnum.Voucher,
-      notificationCount: userNotification.voucher,
     },
     {
       name: label.navMenuLabel.transaction,
@@ -379,7 +371,6 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.finance,
       featureId: FeaturesEnum.Transaction,
-      notificationCount: userNotification.transaction,
     },
     {
       name: label.navMenuLabel.ledgerReport,
@@ -389,7 +380,6 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.finance,
       featureId: FeaturesEnum.Report,
-      notificationCount: userNotification.report,
     },
     {
       name: label.navMenuLabel.payroll,
@@ -399,7 +389,6 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.finance,
       featureId: FeaturesEnum.Payroll,
-      notificationCount: userNotification.payroll,
     },
     {
       name: label.navMenuLabel.salary,
@@ -409,7 +398,7 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.hr,
       featureId: FeaturesEnum.Salary,
-      notificationCount: userNotification.salary,
+      notificationCount: notificationCounts.salary,
     },
     {
       name: label.navMenuLabel.businessPolicy,
@@ -419,7 +408,6 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.menu,
       featureId: FeaturesEnum.BusinessPolicy,
-      notificationCount: userNotification.businessPolicy,
     },
     {
       name: label.navMenuLabel.form,
@@ -429,7 +417,7 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.menu,
       featureId: FeaturesEnum.Form,
-      notificationCount: userNotification.form,
+      notificationCount: notificationCounts.form,
     },
     {
       name: label.navMenuLabel.loan,
@@ -439,7 +427,7 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.hr,
       featureId: FeaturesEnum.Loan,
-      notificationCount: userNotification.loan,
+      notificationCount: notificationCounts.loan,
     },
     {
       name: label.navMenuLabel.resignations,
@@ -449,7 +437,7 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.hr,
       featureId: FeaturesEnum.Resignation,
-      notificationCount: userNotification.resignation,
+      notificationCount: notificationCounts.resignation,
     },
     {
       name: label.navMenuLabel.requisition,
@@ -459,9 +447,8 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.inventory,
       featureId: FeaturesEnum.Requisition,
-      notificationCount: userNotification.requisition,
+      notificationCount: notificationCounts.requisition,
     },
-    // TODO:// ASSETS MODULE
     {
       name: label.navMenuLabel.assets,
       counter: 0,
@@ -470,7 +457,6 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.inventory,
       featureId: FeaturesEnum.Asset,
-      notificationCount: userNotification.asset,
     },
     {
       name: label.navMenuLabel.createAssets,
@@ -480,7 +466,6 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.inventory,
       featureId: FeaturesEnum.Asset,
-      notificationCount: userNotification.asset,
     },
     {
       name: label.navMenuLabel.assetsList,
@@ -490,7 +475,6 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.inventory,
       featureId: FeaturesEnum.Asset,
-      notificationCount: userNotification.asset,
     },
     {
       name: label.navMenuLabel.requestListItems,
@@ -500,7 +484,7 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.inventory,
       featureId: FeaturesEnum.Asset,
-      notificationCount: userNotification.asset,
+      notificationCount: notificationCounts.asset,
     },
     {
       name: label.navMenuLabel.companies,
@@ -510,7 +494,6 @@ const NavMenuList = () => {
       isActive: true,
       key: label.navMenuLabel.workWiseCompanies,
       featureId: FeaturesEnum.Company,
-      notificationCount: userNotification.company,
     },
   ];
   return {

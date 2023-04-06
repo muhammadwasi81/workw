@@ -21,6 +21,7 @@ import {
   FeaturePermissionEnumList,
   FeaturesEnumList,
 } from "../../../../../utils/Shared/enums/featuresEnums";
+import NotificationBadge from "../../../Badge/NotificationBadge";
 const { Panel } = Collapse;
 
 function Menu() {
@@ -28,7 +29,7 @@ function Menu() {
   const { Direction, navMenuLabel } = dictionaryList[userLanguage];
   const { pathname } = useLocation();
   let { menuItems } = NavMenuList();
-  console.log("menuItems", menuItems);
+  // console.log("menuItems", menuItems);
   const { navBarStatus } = useSelector((state) => state.responsiveSlice);
   const { user } = useSelector((state) => state.userSlice);
 
@@ -176,7 +177,9 @@ function Menu() {
                             </div>
                             <p>{name}</p>
                             {notificationCount > 0 && (
-                              <Badge count={notificationCount} />
+                              <NotificationBadge
+                                notificationCount={notificationCount}
+                              />
                             )}
                           </NavLink>
                         </div>

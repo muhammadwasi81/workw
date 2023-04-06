@@ -80,6 +80,7 @@ function BonusDetailCard(props) {
                   <UserInfo
                     avatarSrc={creator.image}
                     name={creator.name}
+                    status={creator.userActiveStatus}
                     Subline={
                       <SublineDesigWithTime
                         designation={

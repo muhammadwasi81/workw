@@ -21,7 +21,7 @@ import {
   getAllEmployeeShortService,
   getEmployeeSalaryService,
   disableEmployeeService,
-  getAllNotificationService,
+  getAllNotificationCount,
 } from "../services/services";
 import { message } from "antd";
 
@@ -247,7 +247,7 @@ export const disableEmployee = createAsyncThunk(
 export const getAllNotification = createAsyncThunk(
   "notification/getAllNotification",
   async (args, { dispatch }) => {
-    const res = await getAllNotificationService();
+    const res = await getAllNotificationCount();
     console.log("getAllNotification Action", res.data);
     if (!res.responseCode) {
       responseMessage({

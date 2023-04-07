@@ -36,7 +36,7 @@ const ListItem = (props) => {
   useEffect(() => {
     console.log("project count", notificationCounts);
     dispatch(getAllNotification());
-  }, [notificationCounts]);
+  }, []);
 
   const handlePinnedPost = (e) => {
     e.preventDefault();

@@ -9,20 +9,14 @@ import { FeaturesEnumList } from "../../../../../utils/Shared/enums/featuresEnum
 import { useDispatch } from "react-redux";
 import { ResendSignupEmailAction } from "../../companies/store/action";
 
+function ListItem({ item, onClick, id }) {
+  const dispatch = useDispatch();
+  const { firstName, lastName, email, title, features } = item ? item : "";
 
-function ListItem({item, onClick, id}) {
-  const dispatch = useDispatch()
-  const {
-    firstName,
-    lastName,
-    email,
-    title,
-    features,
-  } = item ? item : "";
-
-  let splited = features.split(',')
+  let splited = features.split(",");
   var nums = splited.map(function(str) {
-  return parseInt(str); });
+    return parseInt(str);
+  });
 
   return (
     <>
@@ -36,42 +30,36 @@ function ListItem({item, onClick, id}) {
               Subline={
                 <SublineDesigWithTime
                   designation={email}
-              // time={moment(localTime).fromNow()}
+                  // time={moment(localTime).fromNow()}
                 />
               }
             />
           </div>
           <div className="right">
-            <button 
+            <button
               className="ThemeBtn"
               style={{
-                paddingLeft: '16px',
-                paddingRight: '16px',
-                paddingTop: '5px',
-                paddingBottom: '5px'
-                }}
-                onClick={() => dispatch(ResendSignupEmailAction(id))}
-                >
-                  Resend
+                paddingLeft: "16px",
+                paddingRight: "16px",
+                paddingTop: "5px",
+                paddingBottom: "5px",
+              }}
+              onClick={() => dispatch(ResendSignupEmailAction(id))}
+            >
+              Resend
             </button>
           </div>
         </ItemHeader>
         <div className="tagsContainer">
-              {
-                FeaturesEnumList.map((item) => {
-                  if (nums.includes(item.value)) {
-                    return (
-                      <span className="featureTag">{item.label}</span>
-                    )
-                  }
-                })
+          {FeaturesEnumList.map((item) => {
+            if (nums.includes(item.value)) {
+              return <span className="featureTag">{item.label}</span>;
             }
+          })}
         </div>
         <div className="cardSections">
           <div className="cardSectionItem">
-            <div className="cardSection__title">
-              {"First Name"}
-            </div>
+            <div className="cardSection__title">{"First Name"}</div>
             <div className="cardSection__body">{firstName}</div>
           </div>
           <div className="cardSectionItem">

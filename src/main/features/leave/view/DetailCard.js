@@ -1,29 +1,29 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Drawer, Tag, Image, Button, Skeleton } from 'antd';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { leaveDictionaryList } from '../localization/index';
-import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
-import StatusTag from '../../../sharedComponents/Tag/StatusTag';
-import DefaultIcon from '../../../../content/NewContent/leaves/Leaves.svg';
-import RemarksApproval from '../../../sharedComponents/AppComponents/Approvals/view';
-import moment from 'moment';
-import { GetLeaveById } from '../store/actions';
+import React, { useContext, useEffect, useState } from "react";
+import { Drawer, Tag, Image, Button, Skeleton } from "antd";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { leaveDictionaryList } from "../localization/index";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import StatusTag from "../../../sharedComponents/Tag/StatusTag";
+import DefaultIcon from "../../../../content/NewContent/leaves/Leaves.svg";
+import RemarksApproval from "../../../sharedComponents/AppComponents/Approvals/view";
+import moment from "moment";
+import { GetLeaveById } from "../store/actions";
 import {
   ApprovalStatus,
   ApprovalsModule,
-} from '../../../sharedComponents/AppComponents/Approvals/enums';
+} from "../../../sharedComponents/AppComponents/Approvals/enums";
 
-import UserInfo from '../../../sharedComponents/UserShortInfo/UserInfo';
-import SublineDesigWithTime from '../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime';
-import Avatar from '../../../sharedComponents/Avatar/avatar';
+import UserInfo from "../../../sharedComponents/UserShortInfo/UserInfo";
+import SublineDesigWithTime from "../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
+import Avatar from "../../../sharedComponents/Avatar/avatar";
 import {
   ItemContent,
   ItemHeader,
   SingleItem,
-} from '../../../sharedComponents/Card/CardStyle';
-import Attachments from '../../travel/view/UI/Attachments';
-import ConfirmationRemarkModal from '../../../sharedComponents/ConfirmationRemarkModal/ConfirmationRemarkModal';
+} from "../../../sharedComponents/Card/CardStyle";
+import Attachments from "../../travel/view/UI/Attachments";
+import ConfirmationRemarkModal from "../../../sharedComponents/ConfirmationRemarkModal/ConfirmationRemarkModal";
 
 function DetailCard(props) {
   const [updatedStatus, setUpdatedStatus] = useState(null);
@@ -72,7 +72,7 @@ function DetailCard(props) {
 
   var a = moment(startDate);
   var b = moment(endDate);
-  const days = b.diff(a, 'days');
+  const days = b.diff(a, "days");
 
   // const isTablet = useMediaQuery({ maxWidth: 800 });
 
@@ -110,6 +110,7 @@ function DetailCard(props) {
                 <UserInfo
                   avatarSrc={creator.image}
                   name={creator.name}
+                  status={creator.userActiveStatus}
                   Subline={
                     <SublineDesigWithTime
                       designation={creator.designation}
@@ -136,7 +137,7 @@ function DetailCard(props) {
                   key={{ data: attachments }}
                   toShow={1}
                   onClick={() => {}}
-                  size={'50px'}
+                  size={"50px"}
                 />
               </div>
             </ItemContent>
@@ -146,7 +147,7 @@ function DetailCard(props) {
                   {leaveDictionary.startDate}
                 </div>
                 <div className="cardSection__body">
-                  {moment(startDate).format('ddd,MMM DD,YYYY')}
+                  {moment(startDate).format("ddd,MMM DD,YYYY")}
                 </div>
               </div>
               <div className="cardSectionItem">
@@ -154,7 +155,7 @@ function DetailCard(props) {
                   {leaveDictionary.endDate}
                 </div>
                 <div className="cardSection__body">
-                  {moment(endDate).format('ddd,MMM DD,YYYY')}
+                  {moment(endDate).format("ddd,MMM DD,YYYY")}
                 </div>
               </div>
               <div className="cardSectionItem">
@@ -174,10 +175,10 @@ function DetailCard(props) {
                     <Avatar
                       isAvatarGroup={true}
                       isTag={false}
-                      heading={'Approvers'}
+                      heading={"Approvers"}
                       membersData={approvers}
-                      text={'Approvers'}
-                      image={'https://joeschmoe.io/api/v1/random'}
+                      text={"Approvers"}
+                      image={"https://joeschmoe.io/api/v1/random"}
                     />
                   )}
                 </div>

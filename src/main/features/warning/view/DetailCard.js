@@ -97,6 +97,7 @@ function DetaileCard(props) {
               <UserInfo
                 avatarSrc={creator && creator.image}
                 status={creator.userActiveStatus}
+                profileId={"asd13123zxczxc"}
                 name={creator && creator.name}
                 Subline={
                   <SublineDesigWithTime

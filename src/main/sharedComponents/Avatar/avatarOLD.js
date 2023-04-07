@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ZoomImage from "../ZoomImage";
 import { getNameForImage, STRINGS } from "../../../utils/base";
 import { Badge } from "antd";
@@ -15,6 +15,7 @@ export default function Avatar({
   position,
   isZoom = true,
   id,
+  userId,
   style,
   status,
   customClass,
@@ -23,7 +24,8 @@ export default function Avatar({
     window.location.href = `${STRINGS.ROUTES.USER.TIMELINE.DEFAULT}/${id}`;
   };
 
-  console.log(status,  "STATUS !!")
+  let profileId = userId
+  console.log(profileId, "PROFILE ID")
 
 
   function color(val) {
@@ -45,7 +47,6 @@ export default function Avatar({
     if ( val === 5 ) {
       return 'pink'
     }
-    
   } 
 
   try {

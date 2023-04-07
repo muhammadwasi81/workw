@@ -66,6 +66,8 @@ export default function DetailCard(props) {
           <UserInfo
             avatarSrc={creator?.image}
             name={creator?.name}
+            profileId={"asd13123zxczxc"}
+            status={creator.userActiveStatus}
             Subline={
               <SublineDesigWithTime
                 designation={creator?.designation ? creator?.designation : ""}

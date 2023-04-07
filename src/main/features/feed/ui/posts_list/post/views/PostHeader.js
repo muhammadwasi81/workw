@@ -30,10 +30,10 @@ const PostHeader = ({
   const { image, name, designation, userActiveStatus } = creator;
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  console.log(userActiveStatus, "USER ACTIVE STATUS")
-
-  const handleOk = () => {
-    setIsModalOpen(false);
+  const handleShowModal = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsModalOpen(!isModalOpen);
   };
   useEffect(() => {
     if (isModalOpen) {
@@ -50,46 +50,43 @@ const PostHeader = ({
   ts.local().format("D-MMM-Y");
 
   return (
-    <div className="post-header">
-      <div className="top-det">
-        <Avatar 
-          src={image}
-          name={name}
-          width={44}
-          height={44}
-          round={true}
-          status={userActiveStatus} />
-        <div className="user-det">
-          <div className="name">
-            <span>
-              <Link to={`${ROUTES.USER.DEFAULT}${creator.id}`}>{name}</Link>
-            </span>
-            {tags.length > 0 && (
-              <>
-                &nbsp;with <span>{tags[tags.length - 1].member?.name}</span>
-                {tags.length > 1 && (
-                  <>
-                    &nbsp;and&nbsp;
-                    <span>
-                      {tags.length > 2 ? (
-                        `${tags.length - 1} Others`
-                      ) : (
-                        <Link
-                          to={`${STRINGS.ROUTES.USER.TIMELINE.DEFAULT}/${tags[1]?.member?.id}`}
-                        >
-                          {tags[1]?.member?.name}
-                        </Link>
-                      )}
-                    </span>
-                  </>
-                )}
-              </>
-            )}
-          </div>
-          <div className="dtp">
-            <div className="d">
-              {designation ? designation : 'Not Designated'}
-              &nbsp;&#9679;
+    <>
+      <div className="post-header">
+        <div className="top-det">
+          <Avatar 
+            src={image}
+            name={name}
+            width={44}
+            height={44}
+            round={true}
+            status={userActiveStatus}
+          />
+          <div className="user-det">
+            <div className="name">
+              <span>
+                <Link to={`${ROUTES.USER.DEFAULT}${creator.id}`}>{name}</Link>
+              </span>
+              {tags.length > 0 && (
+                <>
+                  &nbsp;with <span>{tags[tags.length - 1].member?.name}</span>
+                  {tags.length > 1 && (
+                    <>
+                      &nbsp;and&nbsp;
+                      <span onClick={(e) => handleShowModal(e)}>
+                        {tags.length > 2 ? (
+                          `${tags.length - 1} Others`
+                        ) : (
+                          <Link
+                            to={`${STRINGS.ROUTES.USER.TIMELINE.DEFAULT}/${tags[1]?.member?.id}`}
+                          >
+                            {tags[1]?.member?.name}
+                          </Link>
+                        )}
+                      </span>
+                    </>
+                  )}
+                </>
+              )}
             </div>
             <div className="dtp">
               <div className="d">
@@ -119,8 +116,7 @@ const PostHeader = ({
         </div>
         {isModalOpen && <PostTaggedModal tags={tags} />}
       </div>
-    </div>
-    
+    </>
   );
 };
 

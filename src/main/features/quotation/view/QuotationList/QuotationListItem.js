@@ -1,19 +1,14 @@
-import { Button, Image, Tag } from "antd";
 import React, { useContext } from "react";
-import UserInfo from "../../../../sharedComponents/UserShortInfo/UserInfo";
-import SublineDesigWithTime from "../../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
-import StatusTag from "../../../../sharedComponents/Tag/StatusTag";
-import RewardDefaultIcon from "../../../../../content/svg/menu/rewardIcon.svg";
-import moment from "moment";
 import {
-  ItemContent,
   ItemHeader,
   SingleItem,
 } from "../../../../sharedComponents/Card/CardStyle";
+import AvatarOld from "../../../../sharedComponents/Avatar/avatarOLD";
 import { useDispatch } from "react-redux";
 import Avatar from "../../../../sharedComponents/Avatar/avatar";
 import { quotationDictionaryList } from "../../localization/index";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+import CardProfileTopView from "../../../travel/view/ListView/CardProfileTopView";
 
 function QuotationListItem(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -41,25 +36,30 @@ function QuotationListItem(props) {
         className="Card3 formShortCard"
         onClick={() => props.onClick(id)}
       >
-        <ItemHeader className="ItemHeader">
-          <div className="flex justify-between">
-            <UserInfo
-              avatarSrc={creator?.image}
-              name={creator?.name}
-              Subline={
-                <SublineDesigWithTime
-                  designation={creator?.designation}
-                  time={moment(createDate).fromNow()}
-                />
-              }
-            />
-
-            <div>
-              <StatusTag status={status} />
-            </div>
-          </div>
+        <ItemHeader>
+          <CardProfileTopView
+            profileImgSrc={
+              <AvatarOld
+                width={40}
+                height={40}
+                // src={user.image}
+                // name={user.name}
+                round
+              ></AvatarOld>
+            }
+            createDate={createDate}
+            isPublic={true}
+            name={creator && creator.name}
+            destination={
+              creator && creator.designation
+                ? creator.designation
+                : "Not Designated"
+            }
+            refNo={referenceNo}
+            status={status}
+            profileImgSize={40}
+          />
         </ItemHeader>
-
         <div className="cardSections mt-2">
           <div className="cardSectionItem">
             <div className="cardSection__title">

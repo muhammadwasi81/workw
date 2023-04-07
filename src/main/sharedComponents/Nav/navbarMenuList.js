@@ -51,11 +51,11 @@ import { getAllNotification } from "../../../utils/Shared/store/actions";
 import { useDispatch } from "react-redux";
 
 const NavMenuList = () => {
+  // const { Direction } = dictionaryList[userLanguage];
   const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
   const label = dictionaryList[userLanguage];
   const { notificationCounts } = useSelector((state) => state.sharedSlice);
-  // const { Direction } = dictionaryList[userLanguage];
 
   useEffect(() => {
     console.log("useEffect ran", notificationCounts);

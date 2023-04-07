@@ -146,7 +146,7 @@ const sharedSlice = createSlice({
         state.success = true;
       })
       .addCase(getAllNotification.fulfilled, (state, { payload }) => {
-        console.log(payload, "payload of notification");
+        console.log(payload.data, "payload of notification");
         state.notificationCounts = payload.data;
         state.loader = false;
       })

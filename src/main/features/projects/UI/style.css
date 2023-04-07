@@ -60,7 +60,12 @@
   min-height: 50vh;
   height: 50vh;
 }
-
+.Card2 {
+  border-radius: 6px;
+  padding: 11px;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2);
+}
 .modalStyle .ant-modal-content {
   border-radius: 20px;
 }

@@ -40,6 +40,10 @@ function VideoDetail() {
     attachment,
     links,
   } = videoDetail;
+  console.log(links, "links");
+
+  console.log(attachment, "attachment");
+  console.log(videoDetail, "videoDetail");
 
   useEffect(() => {
     disptach(GetVideoById(id));
@@ -106,7 +110,7 @@ function VideoDetail() {
                 <Skeleton.Image active={true} />
               ) : (
                 <video class="w-full h-400" controls>
-                  <source src={links} type="video/mp4" />
+                  <source src={links ? links : attachment} type="video/mp4" />
                 </video>
               )}
             </WhiteCard>

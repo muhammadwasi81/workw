@@ -38,7 +38,8 @@ function ArticleDetail() {
     attachment,
     links,
   } = articleDetail;
-  console.log(articleDetail, "articleDetail");
+  console.log(links, "links");
+  console.log(attachment, "attachment");
 
   useEffect(() => {
     disptach(GetArticleById(id));
@@ -110,7 +111,7 @@ function ArticleDetail() {
                 />
               ) : (
                 <embed
-                  src={`${links}#toolbar=0`}
+                  src={`${links ? links : attachment}`}
                   width="100%"
                   height="400"
                 ></embed>

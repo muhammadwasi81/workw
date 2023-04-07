@@ -18,6 +18,7 @@ import { PostPrivacyType } from "../../../../../utils/Shared/enums/enums";
 import { addTedTalk } from "../../store/action";
 import FileUploader from "../../../Messenger/view/MessengerBox/components/fileUploader";
 import { getELearningCategory } from "../../../eLearningCategory/store/action";
+import { useNavigate } from "react-router-dom";
 
 const { Option } = Select;
 
@@ -37,6 +38,7 @@ function CreateTedTalk() {
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [value, setValue] = useState([]);
   const [videoType, setVideoType] = useState(1);
+  const navigate = useNavigate();
 
   const { ELearningCategory } = useSelector(
     (state) => state.eLearningCategorySlice

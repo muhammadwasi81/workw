@@ -111,7 +111,7 @@ function TedTalkDetail() {
                 />
               ) : (
                 <video controls>
-                  <source src={links} type="video/mp4" />
+                  <source src={links ? links : attachment} type="video/mp4" />
                 </video>
               )}
             </WhiteCard>

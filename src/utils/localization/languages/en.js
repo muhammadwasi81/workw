@@ -442,6 +442,7 @@ const en = {
     Family: "Family",
     Attachments: "Attachments",
     My_Team: "My Team",
+    Employees_Linkage: "Employees Linkage",
   },
   administration: {
     basicInfo: "Basic Info",

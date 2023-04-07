@@ -3,7 +3,10 @@ import moment from "moment";
 import React, { useContext, useState } from "react";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { getIconByFeaturesType } from "../../../../../utils/Shared/helper/helpers";
-import { getStatusLabelAndColor } from "../../../../sharedComponents/AppComponents/Approvals/enums";
+import {
+  ApprovalStatus,
+  getStatusLabelAndColor,
+} from "../../../../sharedComponents/AppComponents/Approvals/enums";
 import { getFeaturesTypeByApprovalsType } from "../../../../sharedComponents/AppComponents/Approvals/helper/helpers";
 import { ApprovalDictionary } from "../../../../sharedComponents/AppComponents/Approvals/localization";
 import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
@@ -30,15 +33,12 @@ export default function ApprovalItem({
   const [approvalDetailData, setApprovalDetailData] = useState({});
   const [isOpenModal, setIsOpenModal] = useState(false);
 
-  const handleOk = () => {
-    setIsOpenModal(false);
-  };
   const handleCancel = () => {
     setIsOpenModal(false);
   };
-  const handleOpenApprovalDetail = (item) => {
-    // e.preventDefault();
-    // e.stopPropagation();
+  const handleOpenApprovalDetail = (item, e) => {
+    e.preventDefault();
+    e.stopPropagation();
     setIsOpenModal(true);
     setApprovalDetailData(item);
   };
@@ -49,7 +49,7 @@ export default function ApprovalItem({
         className="approval_item cursor-pointer"
         onClick={
           !detail
-            ? () => handleOpenApprovalDetail(item)
+            ? (e) => handleOpenApprovalDetail(item, e)
             : () => handleApprovalDetail(item)
         }
       >
@@ -80,9 +80,11 @@ export default function ApprovalItem({
                   )}
                 />
               </div>
-              {item.status === 1 && <ApprovalActions item={item} />}
+              {item.status === ApprovalStatus.InProcess && (
+                <ApprovalActions item={item} />
+              )}
             </div>
-            {item.status !== 1 && (
+            {item.status !== ApprovalStatus.InProcess && (
               <div className="approval_status_tag">
                 <Tag style={{ background: color }}>{label}</Tag>
               </div>

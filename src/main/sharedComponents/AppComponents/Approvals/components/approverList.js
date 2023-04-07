@@ -1,9 +1,7 @@
 import { Avatar } from "antd";
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import { getNameForImage } from "../../../../../utils/base";
 import { DeleteFilled } from "@ant-design/icons";
-
 import "./style.css";
 
 function ApproverListItem({ data, handleDelete }) {
@@ -35,19 +33,15 @@ function ApproverListItem({ data, handleDelete }) {
 
               <div className="flex flex-auto justify-between">
                 <div className="contentBox">
-                  <p style={{ color: "#222222" }}>
+                  <p className="memberName">
                     {members.member && members.member.name}
                   </p>
-                  <p
-                    style={{ color: "rgb(117, 125, 134)" }}
-                    className="member-email"
-                  >
+                  <p className="member-email">
                     {members.member && members.member.email}
                   </p>
                 </div>
                 <DeleteFilled
-                  className=""
-                  style={{ color: "#000000" }}
+                  className="deleteIcon"
                   onClick={() => handleDelete(members.member.id)}
                 />
               </div>

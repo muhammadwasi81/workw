@@ -13,13 +13,18 @@ import { attachTypeApi } from "antd/lib/message";
 import { DOCUMENT_ENUM } from "../../../constant";
 import { Button, Modal } from "antd";
 import moment from "moment";
-import { handleParentId } from "../../../store/slice";
-import { moveDirectory, moveDocument } from "../../../store/actions";
+import { handleFavoriteMark, handleParentId } from "../../../store/slice";
+import {
+  addDocumentFavorite,
+  moveDirectory,
+  moveDocument,
+} from "../../../store/actions";
 import { LockFilled, InfoCircleOutlined } from "@ant-design/icons";
 import { privacyOption } from "../../../../../../utils/Shared/enums/enums";
 import { openNotification } from "../../../../../../utils/Shared/store/slice";
 import QuickOptions from "../quickOptions";
 import DetailView from "../../documentShortCards/DetailView";
+import { StarFilled, StarOutlined } from "@ant-design/icons";
 
 const DocShortCard = ({
   data,
@@ -27,6 +32,7 @@ const DocShortCard = ({
   hideControls,
   detail = false,
 }) => {
+  console.log(data, "data");
   const [openDrawer, setOpenDrawer] = useState(false);
   const { userLanguage } = useContext(LanguageChangeContext);
   const { documentDictionary } = documentDictionaryList[userLanguage];
@@ -93,6 +99,16 @@ const DocShortCard = ({
   const onClose = () => {
     setOpenDrawer(false);
   };
+
+  const handleFavorite = (e) => {
+    console.log("handleFavorite");
+    e.preventDefault();
+    e.stopPropagation();
+    disptach(handleFavoriteMark({ id: data.id, isPinned: !data.isPinnedPost }));
+    disptach(
+      addDocumentFavorite({ id: data.id, isPinned: !data.isPinnedPost })
+    );
+  };
   return (
     <>
       <DragDropContainer
@@ -119,7 +135,13 @@ const DocShortCard = ({
           >
             {!hideControls && !detail && (
               <div className="d_ShortCard_Child1">
-                <img alt="" src={favorateIcon} />
+                <div onClick={(e) => handleFavorite(e)}>
+                  {data.isPinnedPost ? (
+                    <StarFilled className="!text-[18px] !text-yellow-400 cursor-pointer" />
+                  ) : (
+                    <StarOutlined className="!text-[18px] cursor-pointer !text-[#707070]" />
+                  )}
+                </div>
                 <div className="flex justify_between gap-2">
                   <InfoCircleOutlined
                     className="!text-[18px] cursor-pointer !text-[#707070] info-icon"

@@ -109,6 +109,7 @@ function CommentWrapper({
               mentions,
             }) => {
               const { designation, name, image } = creator;
+              console.log(designation, "creatorrr");
               return (
                 <CommentItem
                   user={user}

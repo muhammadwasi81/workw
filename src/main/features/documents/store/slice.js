@@ -119,22 +119,28 @@ const documentSlice = createSlice({
         isOpen: false,
         id: payload.id,
         document: {
-          ...payload
-        }
+          ...payload,
+        },
       };
       state.minimzedDocuments = [...state.minimzedDocuments, dcoumentItem];
     },
     handleRemoveMinimizeDocument: (state, { payload }) => {
       let id = payload.id;
-      state.minimzedDocuments = state.minimzedDocuments.filter(item => item.id !== id);
+      state.minimzedDocuments = state.minimzedDocuments.filter(
+        (item) => item.id !== id
+      );
     },
     toggleMinimizeDocument: (state, { payload: { id, status } }) => {
-      let index = state.minimzedDocuments.findIndex(item => item.id === id);
+      let index = state.minimzedDocuments.findIndex((item) => item.id === id);
       state.minimzedDocuments[index] = {
         ...state.minimzedDocuments[index],
-        isOpen: status
-      }
-    }
+        isOpen: status,
+      };
+    },
+    handleFavoriteMark(state, { payload }) {
+      const favDocs = state.listData.find((group) => group.id === payload.id);
+      favDocs.isPinnedPost = !favDocs.isPinnedPost;
+    },
   },
 
   extraReducers: (builder) => {
@@ -157,13 +163,13 @@ const documentSlice = createSlice({
         state.isOpenComposers.mileshow = false;
         state.isOpenComposers.upload = false;
         // handle minimize document working...
-        let createdDocument = state.listData[0]
+        let createdDocument = state.listData[0];
         let dcoumentItem = {
           isOpen: true,
           id: createdDocument.id,
           document: {
-            ...createdDocument
-          }
+            ...createdDocument,
+          },
         };
         state.minimzedDocuments = [...state.minimzedDocuments, dcoumentItem];
       })
@@ -236,6 +242,7 @@ export const {
   handleUpdateFolderMemberId,
   handleAddMinimizeDocument,
   handleRemoveMinimizeDocument,
-  toggleMinimizeDocument
+  toggleMinimizeDocument,
+  handleFavoriteMark,
 } = documentSlice.actions;
 export default documentSlice.reducer;

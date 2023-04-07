@@ -30,10 +30,11 @@ import Courses from "../eLearning/view/Dashboard/Sections/Courses/Courses";
 import TeamAppraisal from "../appraisalModule/view/components/TeamAppraisal/index";
 import { saveSticyNotes, getStickyNotes } from "./store/action";
 import useDebounce from "../../../utils/Shared/helper/use-debounce";
+import Nodata from "../../../content/NewContent/eLearning/Nodata.svg";
+
 import { formats, modules } from "./utils";
 
 const Profile = () => {
-  console.log(formats, modules, "ffgfgkfmk");
   const param = useParams();
   const navigate = useNavigate();
   const location = useLocation();
@@ -59,9 +60,9 @@ const Profile = () => {
     setDefaultPath(pathname.split("_")[0]);
   }, [pathname]);
 
-  // useEffect(() => {
-  //   dispatch(getStickyNotes());
-  // }, []);
+  useEffect(() => {
+    dispatch(getStickyNotes());
+  }, []);
 
   useEffect(() => {
     if (descriptionDebounce) setDescriptionValue(descriptionDebounce);

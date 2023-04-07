@@ -2,7 +2,9 @@ import moment from "moment";
 import Avatar from "../../../../../sharedComponents/Avatar/avatar";
 // import TagAvatar from "../../../../../sharedComponents/Avatar/TagAvatar";
 // import StatusTag from "../../../../../sharedComponents/Tag/StatusTag";
-export const tableColumn = (dictionary, data) => {
+import groupImg from "../../../../../../../src/content/png/leadgroupImg.jpg";
+
+export const tableColumn = (dictionary, handleModalOpen) => {
   const { table } = dictionary;
 
   return [
@@ -11,6 +13,23 @@ export const tableColumn = (dictionary, data) => {
       dataIndex: "name",
       ellipsis: true,
       sort: true,
+    },
+    {
+      title: "Image",
+      dataIndex: "image",
+      ellipsis: true,
+      sort: true,
+      render: (image) => (
+        <img
+          src={image || groupImg}
+          alt="avatar"
+          style={{
+            width: "26px",
+            height: "26px",
+            borderRadius: "50%",
+          }}
+        />
+      ),
     },
     {
       title: table.description,
@@ -23,7 +42,11 @@ export const tableColumn = (dictionary, data) => {
       title: table.members,
       dataIndex: "members",
       ellipsis: true,
-      render: (member) => <Avatar membersData={member} heading={"Members"} />,
+      render: (member, rowData) => (
+        <div onClick={(e) => handleModalOpen(e, rowData)}>
+          <Avatar membersData={member} heading={"Members"} />
+        </div>
+      ),
     },
     {
       title: table.createDate,

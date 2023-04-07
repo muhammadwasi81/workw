@@ -21,6 +21,7 @@ import {
   getAllEmployeeShortService,
   getEmployeeSalaryService,
   disableEmployeeService,
+  getAllNotificationService,
 } from "../services/services";
 import { message } from "antd";
 
@@ -240,5 +241,20 @@ export const disableEmployee = createAsyncThunk(
       });
     }
     return response;
+  }
+);
+
+export const getAllNotification = createAsyncThunk(
+  "notification/getAllNotification",
+  async (args, { dispatch }) => {
+    const res = await getAllNotificationService();
+    console.log("getAllNotification Action", res.data);
+    if (!res.responseCode) {
+      responseMessage({
+        dispatch: dispatch,
+        type: responseMessageType.ApiFailure,
+      });
+    }
+    return res;
   }
 );

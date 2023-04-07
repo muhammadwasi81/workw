@@ -197,3 +197,14 @@ export const disableEmployeeService = (payload) => {
       return err;
     });
 };
+
+export const getAllNotificationService = () => {
+  return MasterConfig.get(`api/Notification/GetAllNotificationCount`)
+    .then((res) => {
+      console.log(res.data, "getAllNotificationService");
+      return res.data;
+    })
+    .catch((err) => {
+      return err;
+    });
+};

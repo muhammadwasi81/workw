@@ -43,7 +43,7 @@ const initialState = {
   employeeShort: [],
   isDarkMode: localStorage.getItem("darkMode") === "1",
   itemDetailModal: false,
-  notificationCounts: 0,
+  notificationCounts: {},
 };
 
 const sharedSlice = createSlice({
@@ -63,8 +63,8 @@ const sharedSlice = createSlice({
       console.log(payload, "payload");
       state.itemDetailModal = payload;
     },
-    setNotificationCount: (state, action) => {
-      state.notificationCounts = action.payload;
+    setNotificationCount: (state, { payload }) => {
+      state.notificationCounts = payload;
     },
   },
   extraReducers: (builder) => {

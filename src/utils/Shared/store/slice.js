@@ -1,4 +1,4 @@
-import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
+import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import {
   getEmployeeSalary,
   getCities,
@@ -16,14 +16,15 @@ import {
   getAllEmployees,
   getAllEmployeeShort,
   disableEmployee,
-} from './actions';
+  getAllNotification,
+} from "./actions";
 
 const initialState = {
   countries: [],
   cities: [],
   designations: [],
-  employeeSalary: '',
-  employeeBasicSalary: '',
+  employeeSalary: "",
+  employeeBasicSalary: "",
   userTypes: [],
   userTitles: [],
   genders: [],
@@ -40,12 +41,13 @@ const initialState = {
   notification: {},
   employees: [],
   employeeShort: [],
-  isDarkMode: localStorage.getItem('darkMode') === '1',
+  isDarkMode: localStorage.getItem("darkMode") === "1",
   itemDetailModal: false,
+  notificationCounts: {},
 };
 
 const sharedSlice = createSlice({
-  name: 'shared',
+  name: "shared",
   initialState,
   reducers: {
     openNotification: (state, { payload }) => {
@@ -58,8 +60,11 @@ const sharedSlice = createSlice({
       state.isDarkMode = payload;
     },
     handleItemDetailModal: (state, { payload }) => {
-      console.log(payload, 'payload');
+      console.log(payload, "payload");
       state.itemDetailModal = payload;
+    },
+    setNotificationCount: (state, { payload }) => {
+      state.notificationCounts = payload;
     },
   },
   extraReducers: (builder) => {
@@ -140,6 +145,11 @@ const sharedSlice = createSlice({
         state.loader = false;
         state.success = true;
       })
+      .addCase(getAllNotification.fulfilled, (state, { payload }) => {
+        console.log(payload, "payload of notification");
+        state.notificationCounts = payload.data;
+        state.loader = false;
+      })
       .addMatcher(isPending(uploadImage), (state) => {
         state.isUploaded = false;
       })
@@ -179,5 +189,6 @@ export const {
   emptyEmployeesData,
   darkModeHandler,
   handleItemDetailModal,
+  setNotificationCount,
 } = sharedSlice.actions;
 export default sharedSlice.reducer;

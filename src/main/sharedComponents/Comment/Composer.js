@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import {
   getMentionsAndText,
   isValidFileSize,
   jsonToFormData,
-} from '../../../utils/base';
-import { DEFAULT_GUID } from '../../../utils/constants';
-import { defaultUiid } from '../../../utils/Shared/enums/enums';
-import useDebounce from '../../../utils/Shared/helper/use-debounce';
-import { getAllEmployeeService } from '../../../utils/Shared/services/services';
-import Avatar from '../Avatar/avatarOLD';
-import CustomMentions from '../Mentions';
-import closeIcon from './assets/close.svg';
-import { postComment } from './services';
-import './style.css';
+} from "../../../utils/base";
+import { DEFAULT_GUID } from "../../../utils/constants";
+import { defaultUiid } from "../../../utils/Shared/enums/enums";
+import useDebounce from "../../../utils/Shared/helper/use-debounce";
+import { getAllEmployeeService } from "../../../utils/Shared/services/services";
+import Avatar from "../Avatar/avatarOLD";
+import CustomMentions from "../Mentions";
+import closeIcon from "./assets/close.svg";
+import { postComment } from "./services";
+import "./style.css";
 
 const CommentComposer = ({
   isAttachment = true,
@@ -23,7 +23,7 @@ const CommentComposer = ({
   module = 1,
   commentRequestSuccess,
   initialMentions = [],
-  placeHolder = 'Write Your Comments Here.',
+  placeHolder = "Write Your Comments Here.",
   setShowComments = () => {},
 }) => {
   const {
@@ -32,9 +32,9 @@ const CommentComposer = ({
   const defaultState = {
     hasAttachment: false,
     attachmentFile: null,
-    attachmentName: '',
-    attachmentPath: '',
-    commentText: '',
+    attachmentName: "",
+    attachmentPath: "",
+    commentText: "",
   };
   const { name, userImage } = user;
   const [mentions, setMentions] = useState([...initialMentions]);
@@ -65,7 +65,7 @@ const CommentComposer = ({
     setState({
       ...state,
       hasAttachment: false,
-      attachmentPath: '',
+      attachmentPath: "",
       attachmentFile: null,
     });
   };
@@ -111,9 +111,9 @@ const CommentComposer = ({
   };
 
   const getEmployeeOnMentionSearch = async (value) => {
-    if (value.includes('@')) {
-      let filter = value.split('@').at(-1);
-      const text = filter.replace(/@/g, '');
+    if (value.includes("@")) {
+      let filter = value.split("@").at(-1);
+      const text = filter.replace(/@/g, "");
 
       const { responseCode, data } = await getAllEmployeeService(text, 1, 20);
       if (responseCode === 1001) setMentions(data);
@@ -177,8 +177,8 @@ const CommentComposer = ({
                 style={{
                   backgroundImage: `url("${state.attachmentPath}")`,
                   backgroundRepeat: `no-repeat`,
-                  backgroundSize: 'contain',
-                  backgroundPosition: 'center',
+                  backgroundSize: "contain",
+                  backgroundPosition: "center",
                 }}
               >
                 <div className="overlay">
@@ -191,7 +191,7 @@ const CommentComposer = ({
             }
           </div>
         ) : (
-          ''
+          ""
         )}
       </div>
     </div>

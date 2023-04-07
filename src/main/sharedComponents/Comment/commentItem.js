@@ -5,7 +5,7 @@ import { getAllComment } from "./services";
 import CommentBubble from "./CommentBubble";
 import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
 import { CommentDictionary } from "./localization";
-
+import { commentTypeEnum } from "./enum/enum";
 const CommentItem = ({
   comment,
   initialMentions,
@@ -58,7 +58,7 @@ const CommentItem = ({
       className={
         "CommentItem " +
         (isReply ? "ReplyComment " : "") +
-        (type === 2 ? "SystemComment" : "")
+        (type === commentTypeEnum.SystemComment ? "SystemComment" : "")
       }
     >
       <div style={{ flex: "1" }}>
@@ -75,7 +75,7 @@ const CommentItem = ({
             type={type}
             mentions={mentions}
           />
-          {type !== 2 && (
+          {type !== commentTypeEnum.SystemComment && (
             <div className="likeReplyCont">
               <div className={cssClass} onClick={() => handleLike(parentId)}>
                 {/* {Like} &nbsp; {reactionCount > 0 ? reactionCount : ""} */}

@@ -26,7 +26,6 @@ function CommentWrapper({
   const [likeClass, setLikeClass] = useState("hello boy");
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.userSlice);
-  console.log("user", user);
   useEffect(() => {
     const newResponse = initailComments?.map((it) => {
       return {
@@ -34,7 +33,6 @@ function CommentWrapper({
         cssClass: "no",
       };
     });
-    // console.log(newResponse, "newresponse");
     setComments([...newResponse]);
   }, [JSON.stringify(initailComments)]);
 
@@ -50,7 +48,6 @@ function CommentWrapper({
   if (comments.length === 0 && loadSkeleton) return <Skeleton active />;
 
   const handleAddReaction = (id) => {
-    console.log("id", id);
     dispatch(
       addReaction({
         referenceId: id,
@@ -109,7 +106,6 @@ function CommentWrapper({
               mentions,
             }) => {
               const { designation, name, image } = creator;
-              console.log(designation, "creatorrr");
               return (
                 <CommentItem
                   user={user}

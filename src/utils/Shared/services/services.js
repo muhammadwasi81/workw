@@ -198,7 +198,7 @@ export const disableEmployeeService = (payload) => {
     });
 };
 
-export const getAllNotificationService = () => {
+export const getAllNotificationCount = () => {
   return MasterConfig.get(`api/Notification/GetAllNotificationCount`)
     .then((res) => {
       console.log(res.data, "getAllNotificationService");

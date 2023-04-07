@@ -46,7 +46,7 @@ function DashboardCardLayout({
   useEffect(() => {
     console.log("group count", notificationCounts);
     dispatch(getAllNotification());
-  }, [notificationCounts]);
+  }, []);
   return (
     <>
       <Card

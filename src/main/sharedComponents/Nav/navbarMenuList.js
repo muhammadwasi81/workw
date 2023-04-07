@@ -60,7 +60,7 @@ const NavMenuList = () => {
   useEffect(() => {
     console.log("useEffect ran", notificationCounts);
     dispatch(getAllNotification());
-  }, [notificationCounts]);
+  }, []);
 
   const menuItems = [
     {
@@ -269,16 +269,8 @@ const NavMenuList = () => {
       to: ROUTES.OrganizationalChart.ROOT,
       isActive: true,
       key: label.navMenuLabel.hr,
-      featureId:FeaturesEnum.OrganizationalChart
+      featureId: FeaturesEnum.OrganizationalChart,
     },
-
-
-
-
-
-
-
-
 
     {
       name: label.navMenuLabel.complains,

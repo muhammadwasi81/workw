@@ -44,7 +44,7 @@ export const messengerSlice = createSlice({
   reducers: {
     receiveChatMessage: (state, { payload }) => {
       let existChatMessages = state.MessengerList[payload.chatId] || [];
-      if(!existChatMessages.find(message=> message.id === payload.id)){
+      if (!existChatMessages.find(message => message.id === payload.id)) {
         state.MessengerList[payload.chatId] = [...existChatMessages, payload];
       }
       // state.MessengerList[payload.chatId] = state.MessengerList[payload.chatId]
@@ -122,10 +122,19 @@ export const messengerSlice = createSlice({
       let updatedConversations = state.Conversations.filter(conversation => conversation.chatWithId !== payload.chatWithId);
       updatedConversations = [payload, ...updatedConversations];
       state.Conversations = updatedConversations
-       // Shuffle SideBar Conversaions
-       let updatedSidebarConversations = state.ConversationsWithEmployee.filter(conversation => conversation.chatWithId !== payload.chatWithId);
-       updatedSidebarConversations = [payload, ...updatedSidebarConversations];
-       state.ConversationsWithEmployee = updatedSidebarConversations
+      // Shuffle SideBar Conversaions
+      let updatedSidebarConversations = state.ConversationsWithEmployee.filter(conversation => conversation.chatWithId !== payload.chatWithId);
+      updatedSidebarConversations = [payload, ...updatedSidebarConversations];
+      state.ConversationsWithEmployee = updatedSidebarConversations
+    },
+    handleStatusUpdate: (state, { payload }) => {
+     let chatId = payload.chatId;
+     let messageId = payload.id;
+     let messageList = state.MessengerList[chatId];
+     if(messageList){
+      let messageIndex = messageList.findIndex((message)=>message.id === messageId);
+      state.MessengerList[chatId][messageIndex] = {...payload};
+     }
     },
   },
 
@@ -188,6 +197,7 @@ export const {
   handleMinimizeChatBox,
   handleExpendChatBox,
   handleMessageFailure,
-  handleConversationIndexing
+  handleConversationIndexing,
+  handleStatusUpdate
 } = messengerSlice.actions;
 export default messengerSlice.reducer;

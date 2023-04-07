@@ -1,9 +1,10 @@
 import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
 import { addRealTimePost } from "../main/features/feed/store/slice";
 import { updateMessageDeliver } from "../main/features/Messenger/store/actions";
-import { handleConversationIndexing, receiveChatMessage } from "../main/features/Messenger/store/messengerSlice";
+import { handleConversationIndexing, handleStatusUpdate, receiveChatMessage } from "../main/features/Messenger/store/messengerSlice";
 import { servicesUrls } from "./services/baseURLS";
 import { openNotification } from "./Shared/store/slice";
+import { MESSENGER_ENUMS } from "../main/features/Messenger/utils/Constant";
 
 export const InitMessengerSocket = (dispatch, userSlice) => {
 	// console.log(userSlice, "UserSlice")
@@ -23,6 +24,9 @@ export const InitMessengerSocket = (dispatch, userSlice) => {
 				updateMessageDeliver({
 					chatId: data.chatId,
 					msgIds: [data.id],
+					// the reason of hardly pass deliver status is 
+					// this listner will only fire of delivered case
+					status: MESSENGER_ENUMS.MESSAGE_STATUS.DELIVERED
 				})
 			);
 			dispatch(
@@ -55,22 +59,22 @@ export const InitMessengerSocket = (dispatch, userSlice) => {
 	connection.on("newFeedOut", data => {
 		dispatch(addRealTimePost(data))
 	});
+	connection.on("chatMessageStatusOut", data => {
+		console.log(data, "chatMessageStatusOut")
+		if (data) {
+			data.forEach((messageItem) => dispatch(handleStatusUpdate(messageItem)))
+		}
+	});
+
+
+
+
 	connection.on("commentOut", data => {
 		console.log(data, "commentOut")
 	});
 	connection.on("likeOut", data => {
 		console.log(data, "commentOut")
 	});
-	// connection.on("ReceiveMessage", data => {
-	// 	// console.log(data)
-	// 	dispatch(receiveChatMessage(data));
-	// 	dispatch(openNotification({
-	// 		message: `${data.messageFrom.name} sent you a message ${data.chatMessage.message}`,
-	// 		playSound: false,
-	// 		avatarName: data.messageFrom.name,
-	// 		avatarImage: data.messageFrom.image
-	// 	}));
-	// });
 };
 
 

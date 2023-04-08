@@ -53,7 +53,7 @@ export default function Avatar({
     return (
       <Badge 
         className='statusIcon'
-        dot={true}
+        dot={!!status}
         color={color(status)}
       >
         <div

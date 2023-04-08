@@ -180,7 +180,7 @@ const Profile = () => {
             <Tab
               panes={userId === id ? panes : panes.slice(0, 2)}
               canChangeRoute={true}
-              onChange={onChange}
+              onChangeTab={onChange}
               defaultPath={defaultPath}
             />
           </div>

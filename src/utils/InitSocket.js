@@ -72,7 +72,7 @@ export const InitMessengerSocket = (dispatch, userSlice) => {
 					message: `${data.user.name} is online`,
 					avatarName: data.user.name,
 					avatarImage: data.user.image,
-					style: { backgroundColor: "yellow", color: black }
+					style: { backgroundColor: "yellow", color: "black" }
 				})
 			);
 		}

@@ -43,6 +43,7 @@ function ListItem(props) {
             <UserInfo
               avatarSrc={""}
               name={"Daniyal Khan"}
+              status={props.creator.userActiveStatus}
               Subline={
                 <SublineDesigWithTime
                   designation={"Default Designation"}

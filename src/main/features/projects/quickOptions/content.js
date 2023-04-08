@@ -52,7 +52,7 @@ const ContentOptions = ({ handleClose, data }) => {
 
   return (
     <>
-      {visible && (
+      {
         <DetailModal
           data={data?.members} //Data of members will pass here in array
           isDeleteDisabled={false} //Pass true to hide delete icon
@@ -61,8 +61,10 @@ const ContentOptions = ({ handleClose, data }) => {
           onDelete={onDelete} // define and pass onDeletemember actions of particular members
           isSearch={false} //Pass true if you want to search the list
           openModal={true} // pass true if you want to open member details in modal other wise it display in listing
+          visible={visible}
+          setVisible={(da) => setVisible(da)}
         />
-      )}
+      }
       <div className="flex flex-col">
         <div
           className="flex gap-2 items-center btn cursor-pointer hover:bg-[#f6f6f6] transition-all p-2 py-1 rounded-[6px]"

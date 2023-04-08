@@ -19,6 +19,7 @@ import "./style.css";
 import QuickOptions from "../quickOptions";
 import { handleItemDetailModal } from "../../../../utils/Shared/store/slice";
 import ItemDetailModal from "../../../sharedComponents/ItemDetails";
+import { data } from "jquery";
 const { Meta } = Card;
 
 const ListItem = (props) => {
@@ -48,12 +49,11 @@ const ListItem = (props) => {
   const handleModalOpen = (e) => {
     e.stopPropagation();
     e.preventDefault();
-    setOpenModal(!openModal);
-    dispatch(handleItemDetailModal(true));
+    setOpenModal(true);
   };
   return (
     <>
-      {openModal && (
+      {
         <ItemDetailModal
           data={members} //Data of members will pass here in array
           isDeleteDisabled={true} //Pass true to hide delete icon
@@ -62,8 +62,10 @@ const ListItem = (props) => {
           onDelete={false} // define and pass onDeletemember actions of particular members
           isSearch={false} //Pass true if you want to search the list
           openModal={true} // pass true if you want to open member details in modal other wise it display in listing
+          visible={openModal}
+          setVisible={(da) => setOpenModal(da)}
         />
-      )}
+      }
       <Card
         className={"Card2"}
         cover={
@@ -75,6 +77,7 @@ const ListItem = (props) => {
           />
         }
         hoverable
+        style={{ padding: "7px" }}
         onClick={() => {
           navigate(`${ROUTES.PROJECT.DEFAULT}/${props.id} `);
         }}

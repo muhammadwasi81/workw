@@ -37,13 +37,7 @@ function ListItem({ item, onClick, id }) {
           </div>
           <div className="right">
             <button
-              className="ThemeBtn"
-              style={{
-                paddingLeft: "16px",
-                paddingRight: "16px",
-                paddingTop: "5px",
-                paddingBottom: "5px",
-              }}
+              className="ThemeBtn resendBtn"
               onClick={() => dispatch(ResendSignupEmailAction(id))}
             >
               Resend

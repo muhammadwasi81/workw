@@ -1,4 +1,4 @@
-import { memo, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { Card } from "antd";
 import Avatar from "../../../../../sharedComponents/Avatar/avatar";
 import PublicPrivateIcon from "../../../../../sharedComponents/PublicPrivateIcon/PublicPrivateIcon";
@@ -11,6 +11,8 @@ import PropTypes from "prop-types";
 import { CommentOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import ItemDetailModal from "../../../../../sharedComponents/ItemDetails";
+import NotificationBadge from "../../../../../sharedComponents/Badge/NotificationBadge";
+import { getAllNotification } from "../../../../../../utils/Shared/store/actions";
 
 function DashboardCardLayout({
   data = {},
@@ -24,8 +26,7 @@ function DashboardCardLayout({
 }) {
   const { groupMembers } = useSelector((state) => state.groupSlice);
   const [openModal, setOpenModal] = useState(false);
-  console.log(groupMembers, "group members");
-  console.log(data, "Dataaa");
+  const { notificationCounts } = useSelector((state) => state.sharedSlice);
   const dispatch = useDispatch();
   const { Meta } = Card;
   const menuHandler = (e) => {
@@ -47,6 +48,11 @@ function DashboardCardLayout({
     e.preventDefault();
     setOpenModal(true);
   };
+
+  useEffect(() => {
+    console.log("group count", notificationCounts);
+    dispatch(getAllNotification());
+  }, []);
 
   return (
     <>
@@ -71,11 +77,15 @@ function DashboardCardLayout({
             src={data.image ? data.image : defaultImg}
           />
         }
-        className="Card2"
         style={{ padding: "7px" }}
+        className={`${`Card2`} ${`relative`}`}
         hoverable
         onClick={onClick}
       >
+        <NotificationBadge
+          notificationCount={notificationCounts.projects}
+          customClass="absolute top-0 right-0"
+        />
         <Meta
           className="w-full"
           title={data.name}

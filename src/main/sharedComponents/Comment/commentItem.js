@@ -1,10 +1,10 @@
-import React, { useContext, useState } from 'react';
-import './style.css';
-import CommentComposer from './Composer';
-import { getAllComment } from './services';
-import CommentBubble from './CommentBubble';
-import { LanguageChangeContext } from '../../../utils/localization/localContext/LocalContext';
-import { CommentDictionary } from './localization';
+import React, { useContext, useState } from "react";
+import "./style.css";
+import CommentComposer from "./Composer";
+import { getAllComment } from "./services";
+import CommentBubble from "./CommentBubble";
+import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
+import { CommentDictionary } from "./localization";
 
 const CommentItem = ({
   comment,
@@ -42,28 +42,26 @@ const CommentItem = ({
     const response = await getAllComment(referenceId, parentId);
     if (response) {
       const replies = response.map((reply) => {
-        const res = response.filter((res) => res.id === reply.id);
+        const res = replies.filter((res) => res.id === reply.id);
 
         if (res.length > 0) return res[0];
         else return reply;
       });
-      console.log('replies', replies);
       setReplies(replies);
     }
   };
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Reply, Like, WriteYourReplyHere } = CommentDictionary[userLanguage];
 
-  // console.log("comment", comment);
   return (
     <div
       className={
-        'CommentItem ' +
-        (isReply ? 'ReplyComment ' : '') +
-        (type === 2 ? 'SystemComment' : '')
+        "CommentItem " +
+        (isReply ? "ReplyComment " : "") +
+        (type === 2 ? "SystemComment" : "")
       }
     >
-      <div style={{ flex: '1' }}>
+      <div style={{ flex: "1" }}>
         <div>
           <CommentBubble
             user={user}
@@ -105,7 +103,7 @@ const CommentItem = ({
                     <React.Fragment key={Rid}>
                       <div
                         className={
-                          'CommentItem ' + (isReply ? 'ReplyComment' : '')
+                          "CommentItem " + (isReply ? "ReplyComment" : "")
                         }
                       >
                         <CommentBubble

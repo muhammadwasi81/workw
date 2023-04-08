@@ -22,7 +22,7 @@ function SalaryDetailedView(props) {
       height={"85%"}
       placement={"right"}
       onClose={props.onClose}
-      visible={!!props.id}
+      visible={props.visible}
       className="drawerSecondary"
     >
       <QuotationDetailCard id={props.id} />

@@ -210,17 +210,17 @@ export const updateMessageDeliver = createAsyncThunk(
     }
   }
 );
-export const updateMessageSeen = createAsyncThunk(
-  "messenger/updateMessageSeen",
-  async (request, { rejectWithValue }) => {
-    const response = await MessengerService.updateMessageSeen(request);
-    switch (response.type) {
-      case ResponseType.ERROR:
-        return rejectWithValue(response.errorMessage);
-      case ResponseType.SUCCESS:
-        return response.data;
-      default:
-        return;
-    }
-  }
-);
+// export const updateMessageSeen = createAsyncThunk(
+//   "messenger/updateMessageSeen",
+//   async (request, { rejectWithValue }) => {
+//     const response = await MessengerService.updateMessageSeen(request);
+//     switch (response.type) {
+//       case ResponseType.ERROR:
+//         return rejectWithValue(response.errorMessage);
+//       case ResponseType.SUCCESS:
+//         return response.data;
+//       default:
+//         return;
+//     }
+//   }
+// );

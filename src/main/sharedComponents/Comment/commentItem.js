@@ -42,8 +42,7 @@ const CommentItem = ({
     const response = await getAllComment(referenceId, parentId);
     if (response) {
       const replies = response.map((reply) => {
-        const res = replies.filter((res) => res.id === reply.id);
-
+        const res = response.filter((res) => res.id === reply.id);
         if (res.length > 0) return res[0];
         else return reply;
       });

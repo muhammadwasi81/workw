@@ -3,7 +3,6 @@ import { jsonToFormData } from "../../../../utils/base";
 import AuthConfig from "../../../../utils/services/AuthConfig";
 import MasterConfig from "../../../../utils/services/MasterConfig";
 
-
 export const loginService = (data) => {
   return AuthConfig.post("api/login", data)
     .then((res) => {
@@ -32,7 +31,9 @@ export const emailVerificationService = (data) => {
 export const setNewPasswordService = (data) => {
   let token = data.token;
   let password = data.password;
-  return MasterConfig.get(`api/User/SetupNewPassword?token=${token}&password=${password}`);
+  return MasterConfig.get(
+    `api/User/SetupNewPassword?token=${token}&password=${password}`
+  );
 };
 
 // export const getDesignationService = () => {
@@ -80,4 +81,27 @@ export const setNewPasswordService = (data) => {
 // 		.catch(error => {
 // 			return error;
 // 		});
+// };
+export const forgotPassword = (data) => {
+  console.log(data, "datttta");
+
+  return MasterConfig.post(`api/User/ForgotPassword?email=${data}`)
+    .then((res) => {
+      return res;
+    })
+    .catch((error) => {
+      return error;
+    });
+};
+
+// export const forgotPasswordTokenService = (tokenData) => {
+//   console.log(tokenData, "datttta");
+
+//   return MasterConfig.get(`api/User/VerifyToken?token=${tokenData}`)
+//     .then((res) => {
+//       return res;
+//     })
+//     .catch((error) => {
+//       return error;
+//     });
 // };

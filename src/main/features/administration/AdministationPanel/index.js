@@ -17,10 +17,20 @@ import EmailConfigurationForm from "../adminstrationCard/EmailConfiguration";
 import { addDesignation } from "../../designation/store/actions";
 import { addFiscalYear } from "../../fiscalYear/store/actions";
 import { addPayrollGroup } from "../../payroll/payrollGroup/store/actions";
+import { GetAllWizard } from "../store/action";
 
 const Administration = () => {
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
+
+  const { handleModal } = useSelector((state) => state.adminstrationSlice);
+  console.log(handleModal.data[0].type, "adminstrationSlice");
+
+  useEffect(() => {
+    console.log("useEffect ran");
+    dispatch(GetAllWizard());
+  }, []);
+
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -101,31 +111,32 @@ const Administration = () => {
       handleChangeTab={handleChangeTab}
     />,
   ];
-
+  const checkType = handleModal?.data[0]?.type;
   return (
     <>
       <AdminPanelContainer>
-        <Modal
-          title=""
-          centered
-          className="modal-body"
-          footer={[
-            <Button className="ThemeBtn" onClick={handleSkip}>
-              Skip
-            </Button>,
-          ]}
-          open={visible}
-          onOk={() => setVisible(false)}
-          onCancel={() => setVisible(false)}
-          closable={false}
-          width={900}
-          // height={550}
-        >
-          {RenderTab[page]}
-        </Modal>
+        {checkType === 0 && (
+          <Modal
+            title=""
+            centered
+            className="modal-body"
+            footer={[
+              <Button className="ThemeBtn" onClick={handleSkip}>
+                Skip
+              </Button>,
+            ]}
+            open={visible}
+            onOk={() => setVisible(false)}
+            onCancel={() => setVisible(false)}
+            closable={false}
+            width={900}
+            // height={550}
+          >
+            {RenderTab[page]}
+          </Modal>
+        )}
 
         <AdminList />
-
         <AdminRoutes />
         <AdminNotification />
       </AdminPanelContainer>

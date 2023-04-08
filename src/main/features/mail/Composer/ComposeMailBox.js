@@ -56,7 +56,7 @@ const ComposeMailBox = ({
     [{ align: [] }],
     [{ font: [] }],
   ];
-
+  console.log(user, "user");
   useEffect(() => {
     const quillInstance = new Quill(`#editor${i}`, {
       theme: "snow",
@@ -67,9 +67,8 @@ const ComposeMailBox = ({
     setQuillInstance(quillInstance);
   }, []);
   useEffect(() => {
-    if (isReply)
-      setSelectedTOEmail(data?.from.map(item => item.address))
-  }, [])
+    if (isReply) setSelectedTOEmail(data?.from.map((item) => item.address));
+  }, []);
 
   const handleToMailSelected = (arr) => setSelectedTOEmail(arr);
 
@@ -134,9 +133,9 @@ const ComposeMailBox = ({
       id: 0,
       to: selectedTOEmail
         ? selectedTOEmail.map((value) => ({
-          name: value?.split("@")[0],
-          address: value,
-        }))
+            name: value?.split("@")[0],
+            address: value,
+          }))
         : [],
       from: [
         {
@@ -146,15 +145,15 @@ const ComposeMailBox = ({
       ],
       cc: selectedCcEmail
         ? selectedCcEmail.map((value) => ({
-          name: value?.split("@")[0],
-          address: value,
-        }))
+            name: value?.split("@")[0],
+            address: value,
+          }))
         : [],
       bcc: selectedBcEmail
         ? selectedBcEmail.map((value) => ({
-          name: value?.split("@")[0],
-          address: value,
-        }))
+            name: value?.split("@")[0],
+            address: value,
+          }))
         : [],
       subject: val.subject ? val.subject : "",
       content: val.content,
@@ -198,15 +197,19 @@ const ComposeMailBox = ({
 
   const getDefaultSubject = () => {
     if (isReply)
-      return data.subject.toLocaleLowerCase().startsWith("re") ? data.subject : "RE : " + data.subject;
+      return data.subject.toLocaleLowerCase().startsWith("re")
+        ? data.subject
+        : "RE : " + data.subject;
     else if (isForward)
-      return data.subject.toLocaleLowerCase().startsWith("fw") ? data.subject : "FW : " + data.subject;
-    else
-      return ""
-  }
+      return data.subject.toLocaleLowerCase().startsWith("fw")
+        ? data.subject
+        : "FW : " + data.subject;
+    else return "";
+  };
   const makeReplyBody = (content) => {
     let updatedContent = "";
-    let replyLine = "<h4><strong>=======================================================</strong></h4>";
+    let replyLine =
+      "<h4><strong>=======================================================</strong></h4>";
     updatedContent += content;
     updatedContent += replyLine;
     return updatedContent;
@@ -217,18 +220,16 @@ const ComposeMailBox = ({
     return content;
   };
   const getDefaultBody = () => {
-    if (isReply)
-      return makeReplyBody(data.content);
-    else if (isForward)
-      return data.content;
-    else
-      return ""
+    if (isReply) return makeReplyBody(data.content);
+    else if (isForward) return data.content;
+    else return "";
   };
 
   return (
     <div
-      className={`${isMax ? "mail-composer-containerMax" : "mail-composer-container"
-        } ${isMinimize ? "mail-composer-containerMin" : ""}`}
+      className={`${
+        isMax ? "mail-composer-containerMax" : "mail-composer-container"
+      } ${isMinimize ? "mail-composer-containerMin" : ""}`}
     >
       <div className="mail-composer-head">
         <div>{mail.newMessage}</div>
@@ -293,7 +294,7 @@ const ComposeMailBox = ({
             justifyContent: "space-evenly",
           }}
           initialValues={{
-            subject: getDefaultSubject()
+            subject: getDefaultSubject(),
           }}
         >
           <Form.Item>
@@ -301,7 +302,9 @@ const ComposeMailBox = ({
               handleGetSelected={handleToMailSelected}
               placeholder={"To"}
               // disabled={isReply}
-              defaultValue={isReply ? data.from.map(item => item.address) : []}
+              defaultValue={
+                isReply ? data.from.map((item) => item.address) : []
+              }
             />
           </Form.Item>
 
@@ -332,7 +335,7 @@ const ComposeMailBox = ({
               size={"middle"}
               style={{ borderRadius: 4, outline: "none" }}
               // disabled={isReply}
-            // defaultValue={getDefaultSubject}
+              // defaultValue={getDefaultSubject}
             />
           </Form.Item>
 
@@ -379,7 +382,7 @@ const ComposeMailBox = ({
                 borderRadius: 4,
               }}
               dangerouslySetInnerHTML={{
-                __html: getDefaultBody()
+                __html: getDefaultBody(),
               }}
             />
           </div>

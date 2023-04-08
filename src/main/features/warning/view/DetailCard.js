@@ -1,27 +1,27 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Button, Tag, Skeleton } from 'antd';
-import { useSelector } from 'react-redux';
-import { useMediaQuery } from 'react-responsive';
-import { warningDictionaryList } from '../localization/index';
-import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
-import UserInfo from '../../../sharedComponents/UserShortInfo/UserInfo';
-import SublineDesigWithTime from '../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime';
-import StatusTag from '../../../sharedComponents/Tag/StatusTag';
-import DefaultAttachment from '../../../../content/NewContent/warning/warningsDefaultAttachment.svg';
-import Avatar from '../../../sharedComponents/Avatar/avatar';
-import moment from 'moment';
+import React, { useContext, useEffect, useState } from "react";
+import { Button, Tag, Skeleton } from "antd";
+import { useSelector } from "react-redux";
+import { useMediaQuery } from "react-responsive";
+import { warningDictionaryList } from "../localization/index";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import UserInfo from "../../../sharedComponents/UserShortInfo/UserInfo";
+import SublineDesigWithTime from "../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
+import StatusTag from "../../../sharedComponents/Tag/StatusTag";
+import DefaultAttachment from "../../../../content/NewContent/warning/warningsDefaultAttachment.svg";
+import Avatar from "../../../sharedComponents/Avatar/avatar";
+import moment from "moment";
 import {
   ItemContent,
   ItemHeader,
-} from '../../../sharedComponents/Card/CardStyle';
-import RemarksApproval from '../../../sharedComponents/AppComponents/Approvals/view';
+} from "../../../sharedComponents/Card/CardStyle";
+import RemarksApproval from "../../../sharedComponents/AppComponents/Approvals/view";
 import {
   ApprovalsModule,
   ApprovalStatus,
-} from '../../../sharedComponents/AppComponents/Approvals/enums';
-import { cancelWarning, GetWarningById } from '../store/actions';
-import { useDispatch } from 'react-redux';
-import ConfirmationRemarkModal from '../../../sharedComponents/ConfirmationRemarkModal/ConfirmationRemarkModal';
+} from "../../../sharedComponents/AppComponents/Approvals/enums";
+import { cancelWarning, GetWarningById } from "../store/actions";
+import { useDispatch } from "react-redux";
+import ConfirmationRemarkModal from "../../../sharedComponents/ConfirmationRemarkModal/ConfirmationRemarkModal";
 
 function DetaileCard(props) {
   const dispatch = useDispatch();
@@ -36,7 +36,7 @@ function DetaileCard(props) {
   const { warningDetail, loadingData } = useSelector(
     (state) => state.warningSlice
   );
-  console.log(warningDetail, 'warning detaill');
+  console.log(warningDetail, "warning detaill");
   let {
     InProcess,
     Approved,
@@ -65,7 +65,7 @@ function DetaileCard(props) {
     approvers,
     referenceNo,
     id,
-  } = warningDetail === null ? '' : warningDetail;
+  } = warningDetail === null ? "" : warningDetail;
 
   const isTablet = useMediaQuery({ maxWidth: 800 });
 
@@ -96,11 +96,13 @@ function DetaileCard(props) {
             <div className="left">
               <UserInfo
                 avatarSrc={creator && creator.image}
+                status={creator.userActiveStatus}
+                profileId={"asd13123zxczxc"}
                 name={creator && creator.name}
                 Subline={
                   <SublineDesigWithTime
                     designation={
-                      creator && creator.designation ? creator.designation : ''
+                      creator && creator.designation ? creator.designation : ""
                     }
                     time={moment
                       .utc(createDate)
@@ -122,10 +124,10 @@ function DetaileCard(props) {
                     Cancel
                   </Button>
                 ) : (
-                  ''
+                  ""
                 )
               ) : (
-                ''
+                ""
               )}
             </div>
           </ItemHeader>
@@ -141,7 +143,7 @@ function DetaileCard(props) {
               </div>
               <div className="cardSection__body">
                 <Tag className="IdTag">
-                  {category ? category : 'Default Category'}
+                  {category ? category : "Default Category"}
                 </Tag>
               </div>
             </div>
@@ -154,10 +156,10 @@ function DetaileCard(props) {
                   <Avatar
                     isAvatarGroup={true}
                     isTag={false}
-                    heading={'Members'}
+                    heading={"Members"}
                     membersData={members}
-                    text={'Members'}
-                    image={'https://joeschmoe.io/api/v1/random'}
+                    text={"Members"}
+                    image={"https://joeschmoe.io/api/v1/random"}
                   />
                 )}
               </div>
@@ -171,10 +173,10 @@ function DetaileCard(props) {
                   <Avatar
                     isAvatarGroup={true}
                     isTag={false}
-                    heading={'Approvers'}
+                    heading={"Approvers"}
                     membersData={approvers}
-                    text={'Approvers'}
-                    image={'https://joeschmoe.io/api/v1/random'}
+                    text={"Approvers"}
+                    image={"https://joeschmoe.io/api/v1/random"}
                   />
                 )}
               </div>

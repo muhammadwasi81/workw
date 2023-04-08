@@ -51,7 +51,7 @@ function ComplainDetail(props) {
               avatarSrc={complainDetail?.creator?.image}
               name={complainDetail?.creator?.name}
               status={complainDetail?.creator.userActiveStatus}
-              profileId={"asd13123zxczxc"}
+              profileId={creator.id}
               Subline={
                 <SublineDesigWithTime
                   designation={

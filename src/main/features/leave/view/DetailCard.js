@@ -110,7 +110,7 @@ function DetailCard(props) {
                 <UserInfo
                   avatarSrc={creator.image}
                   name={creator.name}
-                  profileId={"asd13123zxczxc"}
+                  profileId={creator.id}
                   status={creator.userActiveStatus}
                   Subline={
                     <SublineDesigWithTime

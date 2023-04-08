@@ -35,7 +35,6 @@ export const InitMessengerSocket = (dispatch, userSlice) => {
 					playSound: true,
 					avatarName: data.creator.name,
 					avatarImage: data.creator.image,
-					// duration:0
 				})
 			);
 		}
@@ -63,6 +62,19 @@ export const InitMessengerSocket = (dispatch, userSlice) => {
 		console.log(data, "chatMessageStatusOut")
 		if (data) {
 			data.forEach((messageItem) => dispatch(handleStatusUpdate(messageItem)))
+		}
+	});
+	connection.on("userActiveStatus", data => {
+		console.log(data, "userActiveStatus")
+		if(!!data.status){
+			dispatch(
+				openNotification({
+					message: `${data.user.name} is online`,
+					avatarName: data.user.name,
+					avatarImage: data.user.image,
+					style: { backgroundColor: "yellow", color: black }
+				})
+			);
 		}
 	});
 

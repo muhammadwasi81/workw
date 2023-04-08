@@ -5,12 +5,26 @@ import { CloseCircleOutlined } from "@ant-design/icons";
 import messageTune from "../../../content/audio/messageTune.mp3";
 import Avatar from "../../sharedComponents/Avatar/avatarOLD";
 
+const getAvatar = (src, name) => {
+	if(src || name){
+		return <Avatar
+		src={src}
+		name={name || "Anonymous"}
+		size={38}
+		round={true}
+		contStyle={{ marginTop: "-10px", marginLeft: "-10px" }}
+	/>
+	}else{
+		return <></>
+	}
+}
+
 const openNotification = options => {
 	const {
 		title = "",
 		message = "",
 		direction = "bottomLeft",
-		duration = 4.5,
+		duration = 0,
 		onClick = () => {},
 		className = "defaultNotification",
 		style = {},
@@ -23,17 +37,9 @@ const openNotification = options => {
 		playSound = false,
 		soundTune = messageTune,
 		type,
-		icon = (
-			<Avatar
-				src={
-					"https://konnect.im/upload/2021/3/5325454b-1c5d-40f1-b95d-df0fad2d4da9.jpeg"
-				}
-				name={"Test"}
-				size={38}
-				round={true}
-				contStyle={{ marginTop: "-10px", marginLeft: "-10px" }}
-			/>
-		),
+		icon,
+		avatarImage,
+		avatarName
 	} = options;
 	notification.open({
 		message: title,
@@ -50,7 +56,7 @@ const openNotification = options => {
 				? " !bg-[#f44336]"
 				: ""),
 		closeIcon,
-		// icon,
+		icon: icon || getAvatar(avatarImage, avatarName),
 	});
 	if (playSound) {
 		const audio = new Audio(soundTune);

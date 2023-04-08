@@ -425,6 +425,9 @@ iframe {
   top: 9px;
   left: 12px;
 }
+.defaultNotification .ant-notification-notice-with-icon .ant-notification-notice-description{
+  margin-left: 40px;
+}
 
 .drawerSecondary .ant-drawer-body,
 .ant-drawer-body {

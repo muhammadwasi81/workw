@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ProjectDefaultImage from "../../../../content/png/project_cover_img.png";
 import Avatar from "../../../sharedComponents/Avatar/avatar";
 import { Card } from "antd";
@@ -15,8 +15,11 @@ import { StarFilled, StarOutlined } from "@ant-design/icons";
 import { addProjectFavoriteAction } from "./../store/actions";
 import "./style.css";
 import QuickOptions from "../quickOptions";
+import { handleItemDetailModal } from "../../../../utils/Shared/store/slice";
+import ItemDetailModal from "../../../sharedComponents/ItemDetails";
 import NotificationBadge from "../../../sharedComponents/Badge/NotificationBadge";
 import { getAllNotification } from "./../../../../utils/Shared/store/actions";
+
 const { Meta } = Card;
 
 const ListItem = (props) => {
@@ -38,6 +41,7 @@ const ListItem = (props) => {
     dispatch(getAllNotification());
   }, []);
 
+  const [openModal, setOpenModal] = useState(false);
   const handlePinnedPost = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -49,8 +53,26 @@ const ListItem = (props) => {
     e.stopPropagation();
   };
 
+  const handleModalOpen = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    setOpenModal(true);
+  };
   return (
     <>
+      {
+        <ItemDetailModal
+          data={members} //Data of members will pass here in array
+          isDeleteDisabled={true} //Pass true to hide delete icon
+          addEnabled={false} //Pass false to hide select member
+          addFunc={false} // define and pass addMember action of particular members
+          onDelete={false} // define and pass onDeletemember actions of particular members
+          isSearch={false} //Pass true if you want to search the list
+          openModal={true} // pass true if you want to open member details in modal other wise it display in listing
+          visible={openModal}
+          setVisible={(da) => setOpenModal(da)}
+        />
+      }
       <Card
         className={`${`Card2`} ${`relative`}`}
         cover={
@@ -62,6 +84,7 @@ const ListItem = (props) => {
           />
         }
         hoverable
+        style={{ padding: "7px" }}
         onClick={() => {
           navigate(`${ROUTES.PROJECT.DEFAULT}/${props.id} `);
         }}
@@ -80,7 +103,7 @@ const ListItem = (props) => {
           className="overflow-hidden whitespace-nowrap text-ellipsis"
         />
         <div className="flex justify-between items-center">
-          <div className="members">
+          <div className="members" onClick={(e) => handleModalOpen(e)}>
             <Avatar
               isAvatarGroup={true}
               isTag={false}

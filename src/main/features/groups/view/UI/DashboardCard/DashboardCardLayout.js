@@ -1,4 +1,4 @@
-import { memo, useEffect } from "react";
+import { memo, useEffect, useState } from "react";
 import { Card } from "antd";
 import Avatar from "../../../../../sharedComponents/Avatar/avatar";
 import PublicPrivateIcon from "../../../../../sharedComponents/PublicPrivateIcon/PublicPrivateIcon";
@@ -10,6 +10,7 @@ import { addGroupFavoriteMarkAction } from "../../../store/actions";
 import PropTypes from "prop-types";
 import { CommentOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
+import ItemDetailModal from "../../../../../sharedComponents/ItemDetails";
 import NotificationBadge from "../../../../../sharedComponents/Badge/NotificationBadge";
 import { getAllNotification } from "../../../../../../utils/Shared/store/actions";
 
@@ -23,10 +24,9 @@ function DashboardCardLayout({
   dictionary = {},
   chatIcon,
 }) {
-  // const { groupMembers } = useSelector((state) => state.groupSlice);
+  const { groupMembers } = useSelector((state) => state.groupSlice);
+  const [openModal, setOpenModal] = useState(false);
   const { notificationCounts } = useSelector((state) => state.sharedSlice);
-  // console.log(groupMembers, "group members");
-  // console.log(data, "Dataaa");
   const dispatch = useDispatch();
   const { Meta } = Card;
   const menuHandler = (e) => {
@@ -43,12 +43,32 @@ function DashboardCardLayout({
     );
   };
 
+  const handleModalOpen = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    setOpenModal(true);
+  };
+
   useEffect(() => {
     console.log("group count", notificationCounts);
     dispatch(getAllNotification());
   }, []);
+
   return (
     <>
+      {
+        <ItemDetailModal
+          data={data.members} //Data of members will pass here in array
+          isDeleteDisabled={true} //Pass true to hide delete icon
+          addEnabled={false} //Pass false to hide select member
+          addFunc={false} // define and pass addMember action of particular members
+          onDelete={false} // define and pass onDeletemember actions of particular members
+          isSearch={false} //Pass true if you want to search the list
+          openModal={true} // pass true if you want to open member details in modal other wise it display in listing
+          visible={openModal}
+          setVisible={(da) => setOpenModal(da)}
+        />
+      }
       <Card
         cover={
           <img
@@ -57,6 +77,7 @@ function DashboardCardLayout({
             src={data.image ? data.image : defaultImg}
           />
         }
+        style={{ padding: "7px" }}
         className={`${`Card2`} ${`relative`}`}
         hoverable
         onClick={onClick}
@@ -80,7 +101,7 @@ function DashboardCardLayout({
           }
         />
         <div className="flex justify-between items-center">
-          <div className="members">
+          <div className="members" onClick={(e) => handleModalOpen(e)}>
             <Avatar
               isAvatarGroup={true}
               isTag={false}

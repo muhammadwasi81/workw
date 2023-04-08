@@ -1,8 +1,6 @@
-import React from "react";
 import ZoomImage from "../ZoomImage";
 import { getNameForImage, STRINGS } from "../../../utils/base";
 import { Badge } from "antd";
-import propTypes from "prop-types";
 
 export default function Avatar({
   src = "",
@@ -67,19 +65,3 @@ export default function Avatar({
     );
   }
 }
-
-Avatar.propTypes = {
-  src: propTypes.string,
-  size: propTypes.number,
-  name: propTypes.string,
-  active: propTypes.bool,
-  width: propTypes.number,
-  height: propTypes.number,
-  round: propTypes.bool,
-  position: propTypes.string,
-  isZoom: propTypes.bool,
-  id: propTypes.string,
-  style: propTypes.object,
-  counter: propTypes.number,
-  customClass: propTypes.string,
-};

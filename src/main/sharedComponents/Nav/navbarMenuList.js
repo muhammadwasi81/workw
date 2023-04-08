@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../utils/localization/languages";
 import { ROUTES } from "../../../utils/routes";
@@ -46,21 +46,11 @@ import quotationIcon from "../../../content/svg/menu/newNavBarIcon/quotationsIco
 import chartAccountIcon from "../../../content/svg/menu/newNavBarIcon/chartAccountsIcon.svg";
 import { DOMAIN_PREFIX } from "../../../utils/routes";
 import { FeaturesEnum } from "../../../utils/Shared/enums/featuresEnums";
-import { useSelector } from "react-redux";
-import { getAllNotification } from "../../../utils/Shared/store/actions";
-import { useDispatch } from "react-redux";
 
-const NavMenuList = () => {
+const NavMenuList = (notificationCounts) => {
   // const { Direction } = dictionaryList[userLanguage];
-  const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
   const label = dictionaryList[userLanguage];
-  const { notificationCounts } = useSelector((state) => state.sharedSlice);
-
-  useEffect(() => {
-    console.log("useEffect ran", notificationCounts);
-    dispatch(getAllNotification());
-  }, []);
 
   const menuItems = [
     {

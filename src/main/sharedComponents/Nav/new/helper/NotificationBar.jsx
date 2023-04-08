@@ -44,7 +44,7 @@ function NotificationBar() {
     (state) => state.responsiveSlice
   );
   const { keyword } = useSelector((state) => state.globalSearchSlice);
-  console.log(keyword, "search keyworddd");
+  // console.log(keyword, "search keyworddd");
   const handleSearch = () => {
     setIsSearch(!isSearch);
   };

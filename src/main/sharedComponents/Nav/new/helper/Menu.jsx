@@ -1,5 +1,5 @@
+import { useContext, useEffect, useState } from "react";
 import { Tooltip } from "antd";
-import React, { useContext, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { NavLink, useLocation } from "react-router-dom";
 import { groupByKey } from "../../../../../utils/base";
@@ -22,19 +22,28 @@ import {
   FeaturesEnumList,
 } from "../../../../../utils/Shared/enums/featuresEnums";
 import NotificationBadge from "../../../Badge/NotificationBadge";
+import { useDispatch } from "react-redux";
+import { getAllNotification } from "../../../../../utils/Shared/store/actions";
 const { Panel } = Collapse;
 
-function Menu() {
+export default function Menu() {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, navMenuLabel } = dictionaryList[userLanguage];
+  const { notificationCounts } = useSelector((state) => state.sharedSlice);
   const { pathname } = useLocation();
-  let { menuItems } = NavMenuList();
-  // console.log("menuItems", menuItems);
+  const dispatch = useDispatch();
+  let { menuItems } = NavMenuList(notificationCounts);
+
+  useEffect(() => {
+    dispatch(getAllNotification());
+  }, []);
+
+  console.log("menuItems", menuItems);
   const { navBarStatus } = useSelector((state) => state.responsiveSlice);
   const { user } = useSelector((state) => state.userSlice);
 
   const groupedMenuItems = groupByKey(
-    menuItems.filter((x) => getUserPermissions().includes(x.featureId)),
+    [...menuItems.filter((x) => getUserPermissions().includes(x.featureId))],
     "key"
   );
   const [data, setData] = useState(groupedMenuItems);
@@ -50,7 +59,7 @@ function Menu() {
 
   useEffect(() => {
     setData(groupedMenuItems);
-  }, [Direction, navMenuLabel]);
+  }, [Direction, notificationCounts]);
 
   const activeTab = (isActive, path) => {
     return isActive
@@ -155,6 +164,7 @@ function Menu() {
                                 <img src={icon} alt="#" />
                               </div>
                               <p>{name}</p>
+                              <p>{notificationCount}</p>
                             </NavLink>
                           </div>
                         </Tooltip>
@@ -176,11 +186,9 @@ function Menu() {
                               <img src={icon} alt="#" />
                             </div>
                             <p>{name}</p>
-                            {notificationCount > 0 && (
-                              <NotificationBadge
-                                notificationCount={notificationCount}
-                              />
-                            )}
+                            <NotificationBadge
+                              notificationCount={notificationCount}
+                            />
                           </NavLink>
                         </div>
                       );
@@ -195,5 +203,3 @@ function Menu() {
     </div>
   );
 }
-
-export default Menu;

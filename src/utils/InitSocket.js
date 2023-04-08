@@ -1,7 +1,7 @@
 import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
 import { addRealTimePost } from "../main/features/feed/store/slice";
 import { updateMessageDeliver } from "../main/features/Messenger/store/actions";
-import { handleConversationIndexing, handleStatusUpdate, receiveChatMessage } from "../main/features/Messenger/store/messengerSlice";
+import { handleConversationIndexing, handleStatusUpdate, handleUserOnlineStatus, receiveChatMessage } from "../main/features/Messenger/store/messengerSlice";
 import { servicesUrls } from "./services/baseURLS";
 import { openNotification } from "./Shared/store/slice";
 import { MESSENGER_ENUMS } from "../main/features/Messenger/utils/Constant";
@@ -35,7 +35,6 @@ export const InitMessengerSocket = (dispatch, userSlice) => {
 					playSound: true,
 					avatarName: data.creator.name,
 					avatarImage: data.creator.image,
-					// duration:0
 				})
 			);
 		}
@@ -63,6 +62,21 @@ export const InitMessengerSocket = (dispatch, userSlice) => {
 		console.log(data, "chatMessageStatusOut")
 		if (data) {
 			data.forEach((messageItem) => dispatch(handleStatusUpdate(messageItem)))
+		}
+	});
+	connection.on("userActiveStatus", data => {
+		console.log(data, "userActiveStatus")
+		if (!!data.status) {
+			dispatch(
+				openNotification({
+					message: `${data.user.name} is online`,
+					avatarName: data.user.name,
+					avatarImage: data.user.image,
+					style: { backgroundColor: "#ffb70b", color: "black" }
+				})
+			);
+			dispatch(
+				handleUserOnlineStatus(data))
 		}
 	});
 

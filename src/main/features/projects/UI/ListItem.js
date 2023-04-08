@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ProjectDefaultImage from "../../../../content/png/project_cover_img.png";
 import Avatar from "../../../sharedComponents/Avatar/avatar";
 import { Card } from "antd";

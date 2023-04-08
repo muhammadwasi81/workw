@@ -62,6 +62,7 @@ function TaskDetailItem({
     predecessor,
   } = item;
 
+  console.log(item, "preddd");
   let {
     NotStarted,
     InProcess,
@@ -93,6 +94,7 @@ function TaskDetailItem({
   };
 
   const Cancel = () => {
+    console.log("Clicked cancel button");
     setOpenRating(false);
   };
   const handleCancel = (e, payload) => {
@@ -109,6 +111,8 @@ function TaskDetailItem({
             <UserInfo
               avatarSrc={creator?.image}
               name={creator?.name}
+              status={creator.userActiveStatus}
+              profileId={creator.id}
               Subline={
                 <SublineDesigWithTime
                   designation={creator?.designation ? creator?.designation : ""}

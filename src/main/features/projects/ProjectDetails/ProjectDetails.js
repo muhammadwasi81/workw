@@ -290,7 +290,9 @@ function ProjectDetails() {
                       formats={formats}
                       className={"stickyNoteItem-textarea"}
                       placeholder={"Take a Note"}
-                      defaultValue={projectSticky?.description || ""}
+                      defaultValue={
+                        projectSticky ? projectSticky?.description : ""
+                      }
                     />
                   )}
                 </div>
@@ -315,7 +317,7 @@ function ProjectDetails() {
       </Drawer>
 
       {/* {visible && <MemberModal data={detail} />} */}
-      {visible && (
+      {
         <ItemDetailModal
           data={detail?.members} //Data
           isDeleteDisabled={false} //Pass true to hide delete icon
@@ -324,8 +326,10 @@ function ProjectDetails() {
           onDelete={onDelete}
           isSearch={true} //Pass true if you want to search the list
           openModal={true}
+          visible={visible}
+          setVisible={(da) => setVisible(da)}
         />
-      )}
+      }
     </>
   );
 }

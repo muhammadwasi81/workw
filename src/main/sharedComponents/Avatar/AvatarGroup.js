@@ -12,7 +12,7 @@ import { handleItemDetailModal } from "../../../utils/Shared/store/slice";
 function AvatarGroup(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // const showModal = (e) => {
   //   e.preventDefault();

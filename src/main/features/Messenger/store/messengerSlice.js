@@ -136,6 +136,12 @@ export const messengerSlice = createSlice({
       state.MessengerList[chatId][messageIndex] = {...payload};
      }
     },
+    handleUserOnlineStatus: (state, { payload }) => {
+      let status = payload.status;
+      let user = payload.user;
+      let itemIndex = state.ConversationsWithEmployee.findIndex((conversation)=> conversation.chatWithId === user.id)
+      state.ConversationsWithEmployee[itemIndex].chatWith = user
+     },
   },
 
   extraReducers: (builder) => {
@@ -198,6 +204,7 @@ export const {
   handleExpendChatBox,
   handleMessageFailure,
   handleConversationIndexing,
-  handleStatusUpdate
+  handleStatusUpdate,
+  handleUserOnlineStatus
 } = messengerSlice.actions;
 export default messengerSlice.reducer;

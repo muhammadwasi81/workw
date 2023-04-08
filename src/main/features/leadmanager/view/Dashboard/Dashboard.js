@@ -23,6 +23,7 @@ function LeadDashboard({ isTableView, dictionary, data, onChange }) {
   const navigate = useNavigate();
   const [payloadId, setPayloadId] = useState("");
   const { loading, memberData } = useSelector((state) => state.leadMangerSlice);
+  const [visible, setVisible] = useState(false);
   const onRow = (record, rowIndex) => {
     return {
       onClick: (event) => {
@@ -42,11 +43,9 @@ function LeadDashboard({ isTableView, dictionary, data, onChange }) {
   const handleModalOpen = (e, rowData) => {
     e.stopPropagation();
     e.preventDefault();
-    // setMemData(members);
-    dispatch(handleItemDetailModal(true));
+    setVisible(true);
     dispatch(getAllLeadManagerMember(rowData.id));
     setPayloadId(rowData.id);
-    // console.log("handle open modal");
   };
 
   const addLeadMemberFunc = (id) => {
@@ -68,6 +67,8 @@ function LeadDashboard({ isTableView, dictionary, data, onChange }) {
         onDelete={false} // define and pass onDeletemember actions of particular members
         isSearch={false} //Pass true if you want to search the list
         openModal={true} // pass true if you want to open member details in modal other wise it display in listing
+        visible={visible}
+        setVisible={(da) => setVisible(da)}
       />
       {isTableView && (
         <Table

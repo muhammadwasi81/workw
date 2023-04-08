@@ -27,7 +27,7 @@ const PostHeader = ({
   id,
 }) => {
   const dispatch = useDispatch();
-  const { image, name, designation } = creator;
+  const { image, name, designation, userActiveStatus } = creator;
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleShowModal = (e) => {
@@ -53,7 +53,14 @@ const PostHeader = ({
     <>
       <div className="post-header">
         <div className="top-det">
-          <Avatar src={image} name={name} width={44} height={44} round={true} />
+          <Avatar 
+            src={image}
+            name={name}
+            width={44}
+            height={44}
+            round={true}
+            status={userActiveStatus}
+          />
           <div className="user-det">
             <div className="name">
               <span>

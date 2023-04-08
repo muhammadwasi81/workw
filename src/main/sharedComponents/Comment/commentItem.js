@@ -33,12 +33,14 @@ const CommentItem = ({
   console.log(mentions, "mentionss");
   const [openComposer, setOpenComposer] = useState(false);
   const [replies, setReplies] = useState([]);
+
   const toggleReply = (referenceId, parentId) => {
     setOpenComposer((prevState) => {
       if (!prevState) getRepliesByParent(referenceId, parentId);
       return !prevState;
     });
   };
+  
   const getRepliesByParent = async (referenceId, parentId) => {
     const response = await getAllComment(referenceId, parentId);
     if (response) {

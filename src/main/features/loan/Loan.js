@@ -35,6 +35,8 @@ function Loan() {
     (state) => state.loanSlice
   );
 
+  const [detailId, setDetailId] = useState("");
+  const [visible, setVisible] = useState(false);
   const [tableView, setTableView] = useState(false);
   const [viewType, setViewType] = useState("List");
   const [search, setSearch] = useState("");
@@ -58,6 +60,26 @@ function Loan() {
 
   const onSearch = (value) => setFilter({ ...filter, search: value });
   const onSegment = (value) => setViewType(value);
+
+  
+  const onClose = () => {
+    setDetailId(null);
+    setVisible(false);
+  };
+
+
+  const onRow = (record, rowIndex) => {
+    return {
+      onClick: (event) => {
+        setDetailId(record.id);
+        setVisible(true);
+      },
+      onDoubleClick: (event) => {}, // double click row
+      onContextMenu: (event) => {}, // right button click row
+      onMouseEnter: (event) => {}, // mouse enter row
+      onMouseLeave: (event) => {}, // mouse leave row
+    };
+  };
 
   return (
     <TabbableContainer>
@@ -121,12 +143,14 @@ function Loan() {
             columns={tableColumn()}
             dragable={true}
             data={loanList ? loanList : []}
+            onRow={onRow}
           />
         )}
 
         {!tableView && <ListView filter={filter} />}
       </ContBody>
 
+        {<DetailedView onClose={onClose}  visible={visible}  id={detailId} />}
       <Drawer
         title={
           <h1

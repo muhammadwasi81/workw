@@ -28,12 +28,13 @@ import { quickAddOpen } from "../../../../features/quickEmployee/store/slice";
 import { darkModeHandler } from "../../../../../utils/Shared/store/slice";
 import { useNavigate } from "react-router-dom";
 import { globalSearch } from "../../../../features/search/store/actions";
-import { SearchFilterEnum } from "../../../../features/search/enums/enums";
+import { SearchFilterEnum } from "../../../../features/search/utils/enums";
 import { message } from "antd";
+import { handleGlobalSearch } from "../../../../features/search/store/slice";
 
 function NotificationBar() {
   const [isSearch, setIsSearch] = useState(false);
-  const [keyword, setKeyword] = useState("");
+  // const [keyword, setKeyword] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [theme, setTheme] = useState(
@@ -42,6 +43,8 @@ function NotificationBar() {
   const { navBarStatus, notifcationStatus, approvalStatus } = useSelector(
     (state) => state.responsiveSlice
   );
+  const { keyword } = useSelector((state) => state.globalSearchSlice);
+  console.log(keyword, "search keyworddd");
   const handleSearch = () => {
     setIsSearch(!isSearch);
   };
@@ -86,7 +89,7 @@ function NotificationBar() {
   function onKeyUp(e) {
     e.preventDefault();
     e.stopPropagation();
-    setKeyword(e.target.value);
+    // setKeyword(e.target.value);
     if (e.keyCode === 13 && !e.shiftKey) {
       // setIsSearch();
       dispatch(
@@ -97,7 +100,7 @@ function NotificationBar() {
           filterType: 0,
         })
       );
-
+      // dispatch(handleGlobalSearch());
       navigate(`search?q=${keyword}`);
       // setIsSearch(false);
       // e.target.value = "";

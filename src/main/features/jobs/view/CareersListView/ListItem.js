@@ -1,9 +1,9 @@
-import moment from 'moment';
-import Avatar from '../../../../sharedComponents/Avatar/avatarOLD';
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import { getCareerByIdAction } from '../../../careers/store/action';
-import CardProfileTopView from '../../../travel/view/ListView/CardProfileTopView';
+import moment from "moment";
+import Avatar from "../../../../sharedComponents/Avatar/avatarOLD";
+import React from "react";
+import { useDispatch } from "react-redux";
+import { getCareerByIdAction } from "../../../careers/store/action";
+import CardProfileTopView from "../../../travel/view/ListView/CardProfileTopView";
 
 function ListItem({ item }) {
   const dispatch = useDispatch();
@@ -20,7 +20,7 @@ function ListItem({ item }) {
 
   const onJobClick = (id) => {
     //todo dispatch career by id
-    console.log('on jobclick works');
+    console.log("on jobclick works");
     dispatch(getCareerByIdAction(id));
   };
 
@@ -34,6 +34,7 @@ function ListItem({ item }) {
         <Avatar
           name={creator.name}
           src={creator.image}
+          status={creator.userActiveStatus}
           round={true}
           width={40}
           height={40}

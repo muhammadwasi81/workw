@@ -1,4 +1,4 @@
-import { Button, Form, Input, Avatar } from "antd";
+import { Button, Form, Input, Avatar, InputNumber } from "antd";
 import React, { useEffect, useState, useContext } from "react";
 import TextInput from "../../../sharedComponents/Input/TextInput";
 import Select from "../../../sharedComponents/Select/Select";
@@ -93,6 +93,7 @@ const Composer = (props) => {
   }, []);
   const amountHandler = () => {
     if (amount > 0) {
+      console.log(amount, "amount");
       setAmount(amount);
     } else {
       console.log("amount should be greater than 0!");
@@ -180,17 +181,12 @@ const Composer = (props) => {
           label={customApprovalDictionary.amount}
           name="value"
           labelPosition="top"
-          rules={[
-            {
-              required: true,
-              message: "Please Enter Amount",
-            },
-          ]}
         >
-          <TextInput
+          <Input
             placeholder={customApprovalDictionary.pleaseEnterAmount}
             type="number"
             onChange={amountHandler}
+            onWheel={(e) => e.target.blur()}
             value={amount}
           />
         </Form.Item>

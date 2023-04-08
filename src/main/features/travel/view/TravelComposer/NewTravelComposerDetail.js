@@ -72,7 +72,9 @@ function NewTravelComposerDetail(props) {
 					>
 						<Input placeholder={placeHolder.reason} size="middle" />
 					</Form.Item>
-					<Form.Item label={labels.travel} required>
+					<Form.Item 
+					label={labels.travel} 
+					required>
 						<div className="flex gap-4 flex-col sm:flex-row">
 							<div className="flex flex-col w-full">
 								<CitySelect

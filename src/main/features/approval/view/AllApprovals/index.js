@@ -1,20 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useLocation, useParams, useSearchParams } from 'react-router-dom';
-import { ROUTES } from '../../../../../utils/routes';
-import { TabbableContainer } from '../../../../layout/GridStyle';
-import Header from '../../../../layout/header/index';
-import { ApprovalStatus } from '../../../../sharedComponents/AppComponents/Approvals/enums';
-import { ContBody } from '../../../../sharedComponents/AppComponents/MainFlexContainer';
-import { getAllApproval } from '../../store/action';
-import ApprovalDetail from './detail';
-import Listing from './listing';
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useLocation, useParams, useSearchParams } from "react-router-dom";
+import { ROUTES } from "../../../../../utils/routes";
+import { TabbableContainer } from "../../../../layout/GridStyle";
+import Header from "../../../../layout/header/index";
+import { ApprovalStatus } from "../../../../sharedComponents/AppComponents/Approvals/enums";
+import { ContBody } from "../../../../sharedComponents/AppComponents/MainFlexContainer";
+import { getAllApproval } from "../../store/action";
+import ApprovalDetail from "./detail";
+import Listing from "./listing";
+import { approvalsEnum } from "../../enum/enum";
 
 export default function AllApprovals() {
   const defaultFilter = {
     pageNo: 0,
-    search: '',
-    status: [1],
+    search: "",
+    status: [ApprovalStatus.InProcess],
   };
   const [filter, setFilter] = useState(defaultFilter);
   const [approvalDetailData, setApprovalDetailData] = useState({});
@@ -23,22 +24,22 @@ export default function AllApprovals() {
   const handleApprovalDetail = (item) => {
     setApprovalDetailData(item);
   };
-  
+
   const handleTabChange = (tabIndex) => {
     tabIndex = Number(tabIndex);
-    let status = ApprovalStatus.InProcess;
+    let status = [ApprovalStatus.InProcess];
     switch (tabIndex) {
-      case 1:
-        status = ApprovalStatus.InProcess;
+      case ApprovalStatus.InProcess:
+        status = [ApprovalStatus.InProcess];
         break;
-      case 2:
-        status = ApprovalStatus.Approved;
+      case ApprovalStatus.Approved:
+        status = [ApprovalStatus.Approved];
         break;
-      case 3:
-        status = ApprovalStatus.Declined;
+      case ApprovalStatus.Declined:
+        status = [ApprovalStatus.Declined];
         break;
-      case 4:
-        status = ApprovalStatus.Hold;
+      case ApprovalStatus.Hold:
+        status = [ApprovalStatus.Hold];
         break;
       default:
         break;
@@ -54,15 +55,14 @@ export default function AllApprovals() {
     dispatch(getAllApproval({ isMyApproval, filter }));
   }, [filter]);
 
-  
   return (
     <TabbableContainer>
       <Header
         buttons={[]}
         items={[
           {
-            name: 'Approvals',
-            renderButton: [1],
+            name: "Approvals",
+            approvalFilterItem: [1],
             to: ROUTES.APPROVALS.DEFAULT,
           },
           // {
@@ -81,7 +81,9 @@ export default function AllApprovals() {
               handleApprovalDetail={handleApprovalDetail}
               handleTabChange={handleTabChange}
               tabFilter={filter}
-              // handleRefresh={handleRefresh} 
+              isDetail={true}
+
+              // handleRefresh={handleRefresh}
             />
           </div>
           <div className="flex-1">

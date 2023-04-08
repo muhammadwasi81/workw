@@ -15,6 +15,7 @@ import { LanguageChangeContext } from "../../../../utils/localization/localConte
 import { documentDictionaryList } from "../localization/index";
 import { Skeleton } from "antd";
 import { FeaturePermissionEnum } from "../../../../utils/Shared/enums/featuresEnums";
+import DetailedFormView from "./DetailedFormView";
 
 const Forms = ({ dictionary }) => {
   const [filter, setFilter] = useState({ filterType: 0, search: "" });
@@ -24,7 +25,27 @@ const Forms = ({ dictionary }) => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { documentDictionary } = documentDictionaryList[userLanguage];
   const dispatch = useDispatch();
+  const [detailId, setDetailId] = useState("");
 
+  const [visible, setVisible] = useState(false);
+
+  const onRow = (record, rowIndex) => {
+    return {
+      onClick: (event) => {
+        setDetailId(record.id);
+        setVisible(true);
+      },
+      onDoubleClick: (event) => {}, // double click row
+      onContextMenu: (event) => {}, // right button click row
+      onMouseEnter: (event) => {}, // mouse enter row
+      onMouseLeave: (event) => {}, // mouse leave row
+    };
+  };
+
+  const handleDrawerClose = () => {
+    setVisible(false);
+    setDetailId(null);
+  }
 
   useEffect(() => {
     dispatch(
@@ -50,10 +71,13 @@ const Forms = ({ dictionary }) => {
             columns={tableColumn(documentDictionary)}
             dragable={true}
             data={forms ? forms : []}
+            onRow={onRow}
           />
         )}
         {!tableView && <FormShortCard />}
       </ContBody>
+
+      <DetailedFormView id={detailId} visible={visible} onClose={handleDrawerClose}/>
     </TabbableContainer>
   );
 };

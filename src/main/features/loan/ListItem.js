@@ -47,6 +47,7 @@ function ListItem(props) {
               <AvatarOld
                 width={40}
                 height={40}
+                status={creator.userActiveStatus}
                 // src={user.image}
                 // name={user.name}
                 round

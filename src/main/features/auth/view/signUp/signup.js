@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Checkbox, Space } from "antd";
 import { STRINGS, SvgSpinner } from "../../../../../utils/base";
 import { ShopOutlined, MailOutlined, LockOutlined } from "@ant-design/icons";
@@ -12,7 +12,7 @@ import { signup, getDesignation } from "../../store/actions";
 import { Form } from "antd";
 import PasswordInput from "../../../../sharedComponents/Input/PasswordInput";
 import SingleUpload from "../../../../sharedComponents/Upload/singleUpload";
-
+import { ROUTES } from "../../../../../utils/routes";
 
 let formData = {};
 
@@ -59,7 +59,6 @@ function Signup() {
   }, [isError, isSuccess]);
 
   const handleSignUpSubmit = (values) => {
-
     let image = {
       id: STRINGS.DEFAULTS.guid,
       file: profileImage && profileImage[0]?.originFileObj,
@@ -71,9 +70,7 @@ function Signup() {
     } else {
       dispatch(signup(values));
     }
-    
   };
-
 
   const onChange = (value, name) => {
     formData = { ...formData, [name]: value };
@@ -213,11 +210,7 @@ function Signup() {
                 />
               </Form.Item> */}
               <div className="agreement small-sign-up-form small-sign-up-form-agreement">
-                <Form.Item 
-                  name="agree"
-                  valuePropName="checked"
-                  rules={rules}
-                >
+                <Form.Item name="agree" valuePropName="checked" rules={rules}>
                   <Checkbox>
                     <span className="terms-and-conditions">
                       I agree the terms and conditions.
@@ -250,14 +243,10 @@ function Signup() {
           </button>
         </div>
         <div className="already-acc">
-          <p className="p">Already have an acount?&nbsp;</p>
-          <NavLink
-            id="login_btn"
-            className="a"
-            to={STRINGS.ROUTES.AUTH.SIGN_IN}
-          >
+          <p className="p">Already have an account?&nbsp;</p>
+          <Link id="login_btn" className="a" to={ROUTES.AUTH.SIGN_IN}>
             Login
-          </NavLink>
+          </Link>
         </div>
       </div>
     </Form>

@@ -1,9 +1,10 @@
 import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
 import { addRealTimePost } from "../main/features/feed/store/slice";
 import { updateMessageDeliver } from "../main/features/Messenger/store/actions";
-import { receiveChatMessage } from "../main/features/Messenger/store/messengerSlice";
+import { handleConversationIndexing, handleStatusUpdate, handleUserOnlineStatus, receiveChatMessage } from "../main/features/Messenger/store/messengerSlice";
 import { servicesUrls } from "./services/baseURLS";
 import { openNotification } from "./Shared/store/slice";
+import { MESSENGER_ENUMS } from "../main/features/Messenger/utils/Constant";
 
 export const InitMessengerSocket = (dispatch, userSlice) => {
 	// console.log(userSlice, "UserSlice")
@@ -14,15 +15,18 @@ export const InitMessengerSocket = (dispatch, userSlice) => {
 		.configureLogging(LogLevel.Information)
 		.build();
 	connection.start().then(() => { });
+
 	// Receive Message Listner Here
 	connection.on("messageOut", data => {
 		console.log(data, "messageOut mySocket");
 		if (data.creator.id !== userSlice.user.id) {
-			dispatch(receiveChatMessage(data));
 			dispatch(
 				updateMessageDeliver({
 					chatId: data.chatId,
 					msgIds: [data.id],
+					// the reason of hardly pass deliver status is 
+					// this listner will only fire of delivered case
+					status: MESSENGER_ENUMS.MESSAGE_STATUS.DELIVERED
 				})
 			);
 			dispatch(
@@ -31,10 +35,10 @@ export const InitMessengerSocket = (dispatch, userSlice) => {
 					playSound: true,
 					avatarName: data.creator.name,
 					avatarImage: data.creator.image,
-					// duration:0
 				})
 			);
 		}
+		dispatch(receiveChatMessage(data));
 	});
 	connection.on("notificationOut", data => {
 		console.log(data, "notificationOut");
@@ -48,25 +52,43 @@ export const InitMessengerSocket = (dispatch, userSlice) => {
 			})
 		);
 	});
+	connection.on("ConversationOut", data => {
+		dispatch(handleConversationIndexing(data))
+	});
 	connection.on("newFeedOut", data => {
 		dispatch(addRealTimePost(data))
 	});
+	connection.on("chatMessageStatusOut", data => {
+		console.log(data, "chatMessageStatusOut")
+		if (data) {
+			data.forEach((messageItem) => dispatch(handleStatusUpdate(messageItem)))
+		}
+	});
+	connection.on("userActiveStatus", data => {
+		console.log(data, "userActiveStatus")
+		if (!!data.status) {
+			dispatch(
+				openNotification({
+					message: `${data.user.name} is online`,
+					avatarName: data.user.name,
+					avatarImage: data.user.image,
+					style: { backgroundColor: "#ffb70b", color: "black" }
+				})
+			);
+			dispatch(
+				handleUserOnlineStatus(data))
+		}
+	});
+
+
+
+
 	connection.on("commentOut", data => {
 		console.log(data, "commentOut")
 	});
 	connection.on("likeOut", data => {
 		console.log(data, "commentOut")
 	});
-	// connection.on("ReceiveMessage", data => {
-	// 	// console.log(data)
-	// 	dispatch(receiveChatMessage(data));
-	// 	dispatch(openNotification({
-	// 		message: `${data.messageFrom.name} sent you a message ${data.chatMessage.message}`,
-	// 		playSound: false,
-	// 		avatarName: data.messageFrom.name,
-	// 		avatarImage: data.messageFrom.image
-	// 	}));
-	// });
 };
 
 

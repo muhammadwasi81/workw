@@ -337,12 +337,10 @@ function CreateExpense({ referenceId = DEFAULT_GUID, feature = "" }) {
           name="expenseDate"
           labelPosition="top"
           rules={[{ required: true }]}
-          defaultValue={moment()}
         >
           <DatePicker
             placeholder={placeHolder.pickCurrentDate}
             className={"expenseDate"}
-            defaultValue={moment()}
           />
         </Form.Item>
         <Form.Item

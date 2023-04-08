@@ -34,7 +34,6 @@ function LeadManager() {
     (state) => state.leadMangerSlice.leadManagersData
   );
   const [table, setTable] = useState(1);
-  console.log(table, "tablee");
   const { loading, success, isComposerOpen, isEditComposer } = useSelector(
     (state) => state.leadMangerSlice
   );

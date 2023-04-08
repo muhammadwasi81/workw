@@ -2,7 +2,6 @@ import React, { useEffect, useContext, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Drawer } from "antd";
-
 import { ROUTES } from "../../../../../utils/routes";
 import Header from "../../../../layout/header";
 import {
@@ -98,7 +97,7 @@ function GroupDetails() {
     };
   }, []);
 
-  let featurePermissions = detail?.features.map((item) => item.featureId);
+  let featurePermissions = groupFeatures.map((item) => item.featureId);
   console.log(featurePermissions, "featurePermissionn");
 
   // function getUserPermissions(){
@@ -109,7 +108,7 @@ function GroupDetails() {
   //   })
   // }
   useEffect(() => {
-    let temp = detail?.features.map((feat) => {
+    let temp = groupFeatures.map((feat) => {
       return {
         ...feat,
         content: featuresComp[feat.featureId],
@@ -119,7 +118,7 @@ function GroupDetails() {
       temp &&
       temp.filter((item) => featurePermissions.includes(item.featureId));
     setFeatures(payload);
-  }, [detail]);
+  }, [groupFeatures]);
 
   const defaultRoute = ROUTES.GROUP.DEFAULT + "/" + id;
   const featuresComp = {
@@ -285,7 +284,7 @@ function GroupDetails() {
           id={id}
         />
       </Drawer>
-      {visible && (
+      {
         <ItemDetailModal
           data={detail?.members} //Data
           isDeleteDisabled={false} //Pass true to hide delete icon
@@ -294,8 +293,10 @@ function GroupDetails() {
           onDelete={onDelete}
           isSearch={true} //Pass true if you want to search the list
           openModal={true}
+          visible={visible}
+          setVisible={(da) => setVisible(da)}
         />
-      )}
+      }
     </>
   );
 }

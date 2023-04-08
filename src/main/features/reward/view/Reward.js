@@ -30,7 +30,7 @@ const Reward = (props) => {
   const {user} = useSelector((state) => state.userSlice);
   const userPermissions = user.permissions
 
-  const [detailId, setDetailId] = useState(false);
+  const [detailId,setDetailId] = useState(false);
   const [sort, setSort] = useState(1);
   const [page, setPage] = useState(20);
   const [pageNo, setPageNo] = useState(1);

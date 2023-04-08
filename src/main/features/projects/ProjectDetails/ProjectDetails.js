@@ -49,36 +49,48 @@ import Expenses from "../../expense";
 import Documents from "../../documents/view/documents";
 import CustomNotes from "../../notes/singleNotes/singleNotes";
 import useDebounce from "../../../../utils/Shared/helper/use-debounce";
-import StickyColor from "../UI/StickyColor";
+
 import { formats, modules } from "./utils";
 import Schedules from "../../schedule/index";
-import MemberModal from "../UI/MemberModal";
 import ProjectInformation from "../UI/ProjectInformation";
-import { STRINGS } from "../../../../utils/base";
-import {addProjectMemberAction , deleteProjectMemberAction } from "../store/actions";
+import {
+  addProjectMemberAction,
+  deleteProjectMemberAction,
+} from "../store/actions";
 import ItemDetailModal from "../../../sharedComponents/ItemDetails";
-import { handleItemDetailModal } from "../../../../utils/Shared/store/slice";
-import { ProjectFeaturePermissionEnumList } from "../../../../utils/Shared/enums/projectFeatureEnum";
-
+import MenuDropDown from "./menuDropdown/MenuDropDown";
+import { createGuid } from "../../../../utils/base";
+import { DownOutlined } from "@ant-design/icons";
 function ProjectDetails() {
   const params = useParams();
   const dispatch = useDispatch();
   const detail = useSelector((state) => state.projectSlice.projectDetail);
   const { projectSticky } = useSelector((state) => state.projectSlice);
-  console.log(projectSticky, "sticky array");
+  console.log(projectSticky?.description, "pppp");
   const [projectfeatures, setprojectFeatures] = useState([]);
   const [description, setDescription] = useState(null);
   const descriptionDebounce = useDebounce(description, 500);
-
-  const [openColor, setOpenColor] = useState(true);
-
   const [visible, setVisible] = useState(false);
-
+  const [openSticky, setOpenSticky] = useState(false);
   const { userLanguage } = useContext(LanguageChangeContext);
   const { projectsDictionary } = projectsDictionaryList[userLanguage];
   const { updateTextBtn, labels, features } = projectsDictionary;
   const [open, setOpen] = useState(false);
-  const { projectId } = params;
+  let { projectId } = params;
+  projectId = projectId.trim();
+  const { projectFeature } = useSelector((state) => state.projectSlice);
+
+  // useEffect(() => {
+  //   if (Object.keys(projectStickyState?.description)?.length) {
+  //     setprojectStickyState(projectStickyState);
+  //     // let stickyNote = {
+  //     //   ...projectStickyState?.description,
+  //     //   description: projectStickyState?.description,
+  //     // };
+  //     // console.log(stickyNote, "stickyNoteee");
+  //     // setprojectStickyState();
+  //   }
+  // }, [projectStickyState]);
 
   useEffect(() => {
     dispatch(getProjectById(projectId));
@@ -90,18 +102,20 @@ function ProjectDetails() {
     };
   }, []);
 
-  let featurePermissions = detail?.features.map((item) => item.featureId)
+  let featurePermissions = projectFeature.map((item) => item.featureId);
 
   useEffect(() => {
-    let temp = detail?.features.map((feat) => {
+    let temp = projectFeature.map((feat) => {
       return {
         ...feat,
         content: featuresComp[feat.featureId],
       };
     });
-    let payload = temp && temp.filter((item) =>  featurePermissions.includes(item.featureId))
+    let payload =
+      temp &&
+      temp.filter((item) => featurePermissions.includes(item.featureId));
     setprojectFeatures(payload);
-  }, [detail]);
+  }, [projectFeature]);
 
   const panes = [
     {
@@ -200,43 +214,26 @@ function ProjectDetails() {
     dispatch(addMember({ status: true }));
   };
   useEffect(() => {
-    dispatch(getProjectSticky());
-  }, []);
+    // setOpenSticky(true);
+    dispatch(getProjectSticky(projectId));
+  }, [projectId]);
 
   useEffect(() => {
     if (descriptionDebounce) setDescriptionValue(descriptionDebounce);
   }, [descriptionDebounce]);
 
   const setDescriptionValue = (value) => {
+    // setOpenSticky(true);
     dispatch(
       saveStickyproject({
-        id: projectId,
+        id: projectSticky?.id,
         description: value,
+        // colorCode: "#0f4c81",
+
+        referenceId: projectId,
       })
     );
   };
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText("");
-  };
-  const menu = (
-    <Menu
-      items={[
-        {
-          label: (
-            <div onClick={copyToClipboard}>
-              <CopyOutlined />
-              <a className="drop-downList">Copy</a>
-            </div>
-          ),
-          key: "1",
-        },
-        {
-          label: <div>{openColor && <StickyColor />}</div>,
-          key: "2",
-        },
-      ]}
-    />
-  );
 
   const onDelete = (userId) => {
     const memberId = userId.toString();
@@ -256,8 +253,6 @@ function ProjectDetails() {
     };
     dispatch(addProjectMemberAction(members));
   };
-
-  console.log(projectSticky);
 
   return (
     <>
@@ -283,28 +278,19 @@ function ProjectDetails() {
               <WhiteCard>
                 <ProjectInformation />
               </WhiteCard>
-
               <div className="singleNote_container">
-                <div className="singleNote_header">
-                  <div className="leftNote_Icon">
-                    <Dropdown menu={menu}>
-                      <a onClick={(e) => e.preventDefault()}>
-                        <Space>
-                          <EllipsisOutlined className="threedot_Icon" />
-                        </Space>
-                      </a>
-                    </Dropdown>
-                  </div>
-                </div>
+                <div className="singleNote_header"></div>
                 <div className="textArea_container bg-white">
-                  {projectSticky?.id && (
+                  {projectSticky?.referenceId === projectId && (
                     <CustomNotes
                       onChange={(value) => setDescription(value)}
                       modules={modules}
                       formats={formats}
                       className={"stickyNoteItem-textarea"}
                       placeholder={"Take a Note"}
-                      defaultValue={projectSticky?.description}
+                      defaultValue={
+                        projectSticky ? projectSticky?.description : ""
+                      }
                     />
                   )}
                 </div>
@@ -329,7 +315,7 @@ function ProjectDetails() {
       </Drawer>
 
       {/* {visible && <MemberModal data={detail} />} */}
-      {visible && (
+      {
         <ItemDetailModal
           data={detail?.members} //Data
           isDeleteDisabled={false} //Pass true to hide delete icon
@@ -338,8 +324,10 @@ function ProjectDetails() {
           onDelete={onDelete}
           isSearch={true} //Pass true if you want to search the list
           openModal={true}
+          visible={visible}
+          setVisible={(da) => setVisible(da)}
         />
-      )}
+      }
     </>
   );
 }

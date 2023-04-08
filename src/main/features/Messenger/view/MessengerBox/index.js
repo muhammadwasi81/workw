@@ -12,13 +12,11 @@ const MessengerBox = () => {
   const messengerDetail = useSelector(
     (state) => state.MessengerSlice.currentMessenger
   );
-  console.log(messengerDetail.chatId, "messenger detail");
   // const messageList = useSelector((state) => state.MessengerSlice.MessengerList[messengerDetail.chatId]);
   const [isOpenProfile, setIsOpenProfile] = useState(false);
   const isEmptyMessenger =
     messengerDetail.members.length === 0 &&
     messengerDetail.chatId === STRINGS.DEFAULTS.guid;
-console.log(messengerDetail, "messengerDetail")
   if (isEmptyMessenger) return <EmptyMessenger />;
   return (
     <div className="MessengerBox">

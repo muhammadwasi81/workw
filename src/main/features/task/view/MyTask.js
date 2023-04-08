@@ -1,20 +1,21 @@
-import React, { useState } from 'react';
-import TaskListItem from './TaskList/listItem';
-import { Collapse, Divider, Skeleton } from 'antd';
-import { groupByKey } from '../../../../utils/base';
-import moment from 'moment';
-import { useSelector } from 'react-redux';
-import Scroll from '../../../sharedComponents/ScrollSelect/infinteScoll';
-import TaskComposer from './TaskDetail/TaskComposer';
-import { NoDataFound } from '../../../sharedComponents/NoDataIcon';
+import React, { useState } from "react";
+import TaskListItem from "./TaskList/listItem";
+import { Collapse, Divider, Skeleton } from "antd";
+import { groupByKey } from "../../../../utils/base";
+import moment from "moment";
+import { useSelector } from "react-redux";
+import Scroll from "../../../sharedComponents/ScrollSelect/infinteScoll";
+import TaskComposer from "./TaskDetail/TaskComposer";
+import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
 const { Panel } = Collapse;
 
 function MyTask({ referenceId, referenceType }) {
   const {
     taskList: { loading, list },
   } = useSelector((state) => state.taskSlice);
+  console.log(list, "listttt");
   const [visible, setVisible] = useState(false);
-  const [id, setId] = useState('');
+  const [id, setId] = useState("");
   const handleCard = (id) => {
     setId(id);
     setVisible(true);
@@ -36,9 +37,9 @@ function MyTask({ referenceId, referenceType }) {
 
   let filteredList = list.map((item) => ({
     ...item,
-    startDateOnly: moment(item.startDate).format('MMM Do YYYY'),
+    startDateOnly: moment(item.startDate).format("MMM Do YYYY"),
   }));
-  const groupDate = groupByKey(filteredList, 'startDateOnly');
+  const groupDate = groupByKey(filteredList, "startDateOnly");
   return (
     <>
       <Scroll
@@ -49,20 +50,20 @@ function MyTask({ referenceId, referenceType }) {
           // setPageNo(pageNo);
         }}
         loader={<Skeleton avatar />}
-        endMessage={'No more posts...'}
+        endMessage={"No more posts..."}
       >
         {Object.keys(groupDate).map((item) => {
           return (
             <Collapse
               key={item}
-              defaultActiveKey={['1']}
+              defaultActiveKey={["1"]}
               className="myTask"
               ghost={true}
               accordion={false}
             >
               <Panel
                 header={
-                  <Divider style={{ margin: '0 0 10px 0' }}>
+                  <Divider style={{ margin: "0 0 10px 0" }}>
                     {item}
                     {/* {moment(item).format("MMMM Do YYYY")} */}
                   </Divider>

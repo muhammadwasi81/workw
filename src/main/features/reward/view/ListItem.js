@@ -51,6 +51,8 @@ function ListItem(props) {
             <UserInfo
               avatarSrc={creator?.image}
               name={creator?.name}
+              status={creator?.userActiveStatus}
+              profileId={creator?.id}
               Subline={
                 <SublineDesigWithTime
                   designation={creator?.designation ? creator?.designation : ""}
@@ -105,8 +107,9 @@ function ListItem(props) {
             <div className="cardSection__title">
               {rewardDictionary.rewardTo}
             </div>
+
             <div className="cardSection__body">
-              {console.log(members, "ggegegeg") && members && (
+              {members && (
                 <Avatar
                   isAvatarGroup={true}
                   isTag={false}

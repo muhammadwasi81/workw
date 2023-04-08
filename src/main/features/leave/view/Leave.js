@@ -42,6 +42,18 @@ const Leave = () => {
     (state) => state.leaveSlice
   );
 
+  const onRow = (record, rowIndex) => {
+    return {
+      onClick: (event) => {
+        setDetailId(record.id);
+      },
+      onDoubleClick: (event) => {}, // double click row
+      onContextMenu: (event) => {}, // right button click row
+      onMouseEnter: (event) => {}, // mouse enter row
+      onMouseLeave: (event) => {}, // mouse leave row
+    };
+  };
+
   const onClose = () => {
     setDetailId(null);
   };
@@ -128,6 +140,7 @@ const Leave = () => {
               columns={tableColumn(leaveDictionary)}
               dragable={true}
               data={leaves}
+              onRow={onRow}
             />
           )}
           {leaves?.length > 0 && !loader && !tableView ? (

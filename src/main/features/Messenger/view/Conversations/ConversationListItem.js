@@ -28,6 +28,7 @@ const ConversationListItem = ({ conversation }) => {
 			message: "",
 		},
 		lastUpdate = "",
+		messageCount = 0
 	} = conversation;
 	// TODO: Conditionally get profileImage & profileName behalf of ChatId
 	const profileImage =
@@ -62,12 +63,15 @@ const ConversationListItem = ({ conversation }) => {
 	return (
 		<div className="ConversationListItem" onClick={handleItemClick}>
 			<div className="ItemDP">
-				<Avatar
-					src={profileImage}
-					name={profileName}
-					size={38}
-					round={true}
-				/>
+				<Badge count={messageCount} >
+					<Avatar
+						src={profileImage}
+						name={profileName}
+						size={38}
+						round={true}
+						status={chatWith?.userActiveStatus}
+					/>
+				</Badge>
 			</div>
 			<div className="ItemNameCont">
 				<div className="ItemName">{profileName}</div>

@@ -65,7 +65,7 @@ export const SideBarListItem = ({ item }) => {
     <div className="sideBarListItem" onClick={handleItemClick}>
       <div className="sideBarListAvatar" >
       <Badge count={messageCount} >
-        <Avatar src={profileImage} name={profileName} size={35} round={true}  />
+        <Avatar src={profileImage} name={profileName} size={35} round={true} status={chatWith?.userActiveStatus}  />
         </Badge>
       </div>
       <div className={`sideBarListName ${sideBarChatIsDefault ? "hideMe" : !sideBarStatus ? "hideSideBarItem" : "unHideSideBarItem"}`}>

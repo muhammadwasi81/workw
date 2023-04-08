@@ -24,7 +24,7 @@ const openNotification = options => {
 		title = "",
 		message = "",
 		direction = "bottomLeft",
-		duration = 0,
+		duration = 4,
 		onClick = () => {},
 		className = "defaultNotification",
 		style = {},

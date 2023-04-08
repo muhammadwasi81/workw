@@ -14,6 +14,12 @@ function CommentBubble({
   type,
   creator,
 }) {
+  console.log(content, "contentttt");
+  console.log(mentionedUser, "contentttt");
+  console.log(
+    renderTitleWithMentions(content, mentionedUser),
+    "renderTitleWithMentions(content, mentionedUser)"
+  );
   const { name, designation = "", userImage: image = "" } = user;
   let ts = moment.utc(date);
   ts.local().format("D-MMM-Y");
@@ -59,6 +65,7 @@ function CommentBubble({
             __html: renderTitleWithMentions(content, mentionedUser),
           }}
         />
+        {/* <div>{renderTitleWithMentions(content, mentionedUser)}</div> */}
         {attachmentFile && (
           <div className="rounded-[20px] overflow-hidden w-auto inline-block">
             <img

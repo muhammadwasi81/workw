@@ -30,6 +30,7 @@ const CommentItem = ({
     cssClass,
     mentions,
   } = comment;
+  console.log(mentions, "mentionss");
   const [openComposer, setOpenComposer] = useState(false);
   const [replies, setReplies] = useState([]);
   const toggleReply = (referenceId, parentId) => {

@@ -38,6 +38,7 @@ const CommentComposer = ({
   };
   const { name, userImage } = user;
   const [mentions, setMentions] = useState([...initialMentions]);
+  console.log(mentions, "initialmentionnn");
   const [mentionsInTitle, setMentionsInTitle] = useState([]);
   const [state, setState] = useState(defaultState);
   const search = useDebounce(state.commentText, 500);
@@ -85,6 +86,7 @@ const CommentComposer = ({
         : [],
       mentions,
     };
+    console.log(mentions, "mentionsss composer");
     if (event.keyCode === 13 || event.which === 13) {
       event.preventDefault();
       if (state.commentText.length > 0 || state.hasAttachment) {

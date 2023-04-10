@@ -1,6 +1,7 @@
 import moment from "moment";
 import { renderTitleWithMentions } from "../../../utils/base";
 import Avatar from "../Avatar/avatarOLD";
+import { commentTypeEnum } from "./enum/enum";
 
 function CommentBubble({
   user,
@@ -14,13 +15,12 @@ function CommentBubble({
   creator,
 }) {
   const { name, designation = "", userImage: image = "" } = user;
-  // console.log("wwwwwwwwww", creator);
   let ts = moment.utc(date);
   ts.local().format("D-MMM-Y");
 
   return (
     <div style={{ display: "flex", width: "100%" }}>
-      {type !== 2 && (
+      {type !== commentTypeEnum.SystemComment && (
         <Avatar
           src={creator?.image ? creator?.image : image}
           name={creator?.name ? creator?.name : name}
@@ -28,7 +28,7 @@ function CommentBubble({
           round={true}
         />
       )}
-      {type === 2 && (
+      {type === commentTypeEnum.SystemComment && (
         <div className="commentName">
           <Avatar
             src={creator?.image || image}
@@ -40,7 +40,7 @@ function CommentBubble({
         </div>
       )}
       <div className="CommentBubble">
-        {type !== 2 && (
+        {type !== commentTypeEnum.SystemComment && (
           <div className="CommentHeader">
             <div className="CommentHeaderDet">
               <div className="name">{creator?.name || name}</div>
@@ -54,11 +54,12 @@ function CommentBubble({
           </div>
         )}
 
-        <p
+        <div
           dangerouslySetInnerHTML={{
             __html: renderTitleWithMentions(content, mentionedUser),
           }}
         />
+        {/* <div>{renderTitleWithMentions(content, mentionedUser)}</div> */}
         {attachmentFile && (
           <div className="rounded-[20px] overflow-hidden w-auto inline-block">
             <img

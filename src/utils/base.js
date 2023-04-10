@@ -858,6 +858,7 @@ export function jsonToFormData(data) {
 }
 
 export const getMentionsAndText = (titleWithMentions, mentions) => {
+  console.log(titleWithMentions, "titleWithMentionn");
   const mentionsFoundInTitle = [];
   mentions.forEach(({ key, value }) => {
     const regex = `@${value}`;
@@ -878,25 +879,11 @@ export const getMentionsAndText = (titleWithMentions, mentions) => {
 };
 export function renderTitleWithMentions(title, mentions) {
   if (mentions.length > 0) {
-    // console.log(mentions);
-    let titleArr = title.split(" ");
-    titleArr = titleArr
-      .map((item) => {
-        const mention = mentions.filter((member) => member.memberId == item);
-        // console.log("mention", mention);
-        if (mention.length > 0) {
-          return `<a href=user/${mention[0]?.member?.id}>${mention[0]?.member?.name}</a>`;
-          // return mention;
-        } else {
-          return item;
-        }
-      })
-      .join(" ");
+    let arr = `<div>${mentions.map((member) => {
+      return `<a href="user/${member?.member?.id}">${member?.member?.name}</a>`;
+    })}</div>`;
 
-    if (replaceURL(titleArr).includes("<a href=")) {
-      return replaceURL(titleArr);
-    }
-    return titleArr;
+    return arr;
   } else {
     return title && replaceURL(title);
   }

@@ -81,12 +81,6 @@ function ProjectDetails() {
   const { projectFeature } = useSelector((state) => state.projectSlice);
 
   useEffect(() => {
-    if (Object.keys(projectSticky).length) {
-      setprojectStickyState(projectSticky);
-    }
-  }, [projectSticky]);
-
-  useEffect(() => {
     dispatch(getProjectById(projectId));
   }, [projectId]);
 

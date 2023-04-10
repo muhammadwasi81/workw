@@ -5,7 +5,6 @@ import brokenPaper from "../content/svg/brokenpaper.svg";
 import { Link } from "react-router-dom";
 import { ROUTES } from "./routes";
 import { replaceURL } from "../main/features/feed/utils/ValidateCreatePost";
-import Userprofile from "./userProfile";
 // import { Link } from "react-router-dom";
 // require("jquery.caret");
 

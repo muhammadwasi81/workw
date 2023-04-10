@@ -5,6 +5,7 @@ import brokenPaper from "../content/svg/brokenpaper.svg";
 import { Link } from "react-router-dom";
 import { ROUTES } from "./routes";
 import { replaceURL } from "../main/features/feed/utils/ValidateCreatePost";
+import Userprofile from "./userProfile";
 // import { Link } from "react-router-dom";
 // require("jquery.caret");
 
@@ -879,28 +880,11 @@ export const getMentionsAndText = (titleWithMentions, mentions) => {
 };
 export function renderTitleWithMentions(title, mentions) {
   if (mentions.length > 0) {
-    // let titleArr = title.split(" ");
-    // titleArr = titleArr
-    //   .map((item) => {
-    //     console.log(item, "itemmm");
-    //     const mention = mentions.filter((member) => member.memberId == item);
+    let arr = `<div>${mentions.map((member) => {
+      return `<a href="user/${member?.member?.id}">${member?.member?.name}</a>`;
+    })}</div>`;
 
-    let titleArr = title;
-    mentions
-      .map((member) => {
-        titleArr = titleArr.replace(member?.memberId, member?.member?.name);
-        if (member.length > 0) {
-          return `<a href="user/${member[0]?.member?.id}">${member[0]?.member?.name}</a>`;
-        } else {
-          return member;
-        }
-      })
-      .join(" ");
-
-    if (replaceURL(titleArr).includes("<a href=")) {
-      return replaceURL(titleArr);
-    }
-    return titleArr;
+    return arr;
   } else {
     return title && replaceURL(title);
   }

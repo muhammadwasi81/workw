@@ -40,7 +40,7 @@ const CommentItem = ({
       return !prevState;
     });
   };
-  
+
   const getRepliesByParent = async (referenceId, parentId) => {
     const response = await getAllComment(referenceId, parentId);
     if (response) {
@@ -63,7 +63,7 @@ const CommentItem = ({
         (type === commentTypeEnum.SystemComment ? "SystemComment" : "")
       }
     >
-      <div style={{ flex: "1" }}>
+      <div style={{ flex: "1" }} className="">
         <div>
           <CommentBubble
             user={user}

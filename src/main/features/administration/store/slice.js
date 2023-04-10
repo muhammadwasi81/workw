@@ -3,7 +3,7 @@ import { GetAllWizard } from "./action";
 
 const initialState = {
   currentTab: "businessLogo",
-  handleModal: [],
+  handleModal: null,
 };
 const adminstrationSlice = createSlice({
   name: "adminstrationSlice",

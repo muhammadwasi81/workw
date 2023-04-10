@@ -24,7 +24,6 @@ const Administration = () => {
   const [visible, setVisible] = useState(false);
 
   const { handleModal } = useSelector((state) => state.adminstrationSlice);
-  console.log(handleModal.data[0].type, "adminstrationSlice");
 
   useEffect(() => {
     console.log("useEffect ran");
@@ -115,7 +114,7 @@ const Administration = () => {
   return (
     <>
       <AdminPanelContainer>
-        {checkType === 0 && (
+        {checkType === 1 && (
           <Modal
             title=""
             centered

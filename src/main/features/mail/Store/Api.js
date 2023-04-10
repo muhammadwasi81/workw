@@ -6,7 +6,6 @@ import { MailServices } from "../MailServices/MailServices";
 export const getMailFolders = createAsyncThunk(
   "mail/getMailFolders",
   async (_, { rejectWithValue }) => {
-    alert();
     try {
       const response = await MailServices.getMenuFolders();
       console.log(response, "responseresponse");

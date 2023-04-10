@@ -16,8 +16,9 @@ import {
 } from "../Styles/employeeCard.styles";
 import PropTypes from "prop-types";
 import userAvatar from "../../../../content/png/userAvatar.jpg";
+import { userTypeEnum } from "../../../../utils/Shared/enums/enums";
 function EmployeeCard({
-  employees: { image, name, email, designation, id, isDisable },
+  employees: { image, name, email, designation, id, isDisable, userTypeId },
 }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -49,24 +50,26 @@ function EmployeeCard({
           <strong>{designation || "No Designation"}</strong>
         </Text>
         <ButtonsBox>
-          <Popconfirm
-            title={
-              isDisable === false
-                ? "Are you sure to enable this employee"
-                : "Are you sure to disable this employee"
-            }
-            description="Are you sure to disable this employee?"
-            onConfirm={confirm}
-            onCancel={cancel}
-            okText="Yes"
-            cancelText="No"
-          >
-            <ActionButton
-              BackgroundColor={isDisable === true ? "#db5252" : "#01ae3a"}
+          {userTypeId !== userTypeEnum.SuperAdmin ? (
+            <Popconfirm
+              title={
+                isDisable
+                  ? "Are you sure to enable this employee"
+                  : "Are you sure to disable this employee"
+              }
+              description="Are you sure to disable this employee?"
+              onConfirm={confirm}
+              onCancel={cancel}
+              okText="Yes"
+              cancelText="No"
             >
-              {isDisable === true ? sharedLabels.Disable : "Enable"}
-            </ActionButton>
-          </Popconfirm>
+              <ActionButton BackgroundColor={isDisable ? "#01ae3a" : "#db5252"}>
+                {isDisable ? "Enable" : sharedLabels.Disable}
+              </ActionButton>
+            </Popconfirm>
+          ) : (
+            ``
+          )}
           <ActionButton
             onClick={() => {
               navigate(`info/basicInfo/${id}`);

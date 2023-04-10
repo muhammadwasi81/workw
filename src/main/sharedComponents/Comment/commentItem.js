@@ -63,7 +63,7 @@ const CommentItem = ({
         (type === commentTypeEnum.SystemComment ? "SystemComment" : "")
       }
     >
-      <div style={{ flex: "1" }} className="">
+      <div className="flex-1">
         <div>
           <CommentBubble
             user={user}

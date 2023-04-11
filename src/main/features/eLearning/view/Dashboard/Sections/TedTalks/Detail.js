@@ -105,10 +105,7 @@ function TedTalkDetail() {
 							description && description 
 						} */}
               {loader ? (
-                <Skeleton.Image
-                  style={{ width: "100%", height: "400px" }}
-                  active={true}
-                />
+                <Skeleton.Image className="w-full h-400" active={true} />
               ) : (
                 <video controls>
                   <source src={links ? links : attachment} type="video/mp4" />
@@ -125,10 +122,7 @@ function TedTalkDetail() {
             <WhiteCard className="flex flex-col gap-1 w-full">
               {loader ? (
                 <>
-                  <Skeleton.Image
-                    style={{ width: "100%", height: "400px" }}
-                    active={true}
-                  />
+                  <Skeleton.Image className="w-full h-400" active={true} />
                   <Skeleton paragraph={{ rows: 4 }} />
                 </>
               ) : (

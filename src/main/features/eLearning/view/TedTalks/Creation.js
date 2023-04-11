@@ -204,10 +204,7 @@ function CreateTedTalk() {
                   <CustomSelect
                     data={ELearningCategory}
                     placeholder={"Select Categoy"}
-                    style={{
-                      width: "100%",
-                      borderRadius: "5px",
-                    }}
+                    className="w-full rounded-5"
                     size="large"
                   />
                 </Form.Item>
@@ -327,7 +324,7 @@ function CreateTedTalk() {
                   <TextInput placeholder={"Enter Name"} />
                 </Form.Item>
               </div>
-              <div className="innerColumn" style={{ paddingTop: "33px" }}>
+              <div className="innerColumn pt-33">
                 <Form.Item>
                   <Radio.Group onChange={onChangeRadio} value={videoType}>
                     <Radio value={1}>Via Link</Radio>
@@ -382,7 +379,7 @@ function CreateTedTalk() {
               >
                 <Input.TextArea
                   placeholder={"Enter Description"}
-                  style={{ height: "50px" }}
+                  className="h-50"
                 />
               </Form.Item>
               <div className="flex">

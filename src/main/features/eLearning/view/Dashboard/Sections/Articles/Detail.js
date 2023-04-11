@@ -105,15 +105,12 @@ function ArticleDetail() {
 							description && description 
 						} */}
               {loader ? (
-                <Skeleton.Image
-                  style={{ width: "100%", height: "400px" }}
-                  active={true}
-                />
+                <Skeleton.Image className="w-full h-400" active={true} />
               ) : (
                 <embed
-                  src={`${links ? links : attachment}`}
                   width="100%"
-                  height="400"
+                  height="400px"
+                  src={`${links ? links : attachment}`}
                 ></embed>
               )}
             </WhiteCard>
@@ -127,10 +124,7 @@ function ArticleDetail() {
             <WhiteCard className="flex flex-col gap-1 w-full">
               {loader ? (
                 <>
-                  <Skeleton.Image
-                    style={{ width: "100%", height: "400px" }}
-                    active={true}
-                  />
+                  <Skeleton.Image className="w-full h-400" active={true} />
                   <Skeleton paragraph={{ rows: 4 }} />
                 </>
               ) : (

@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+// import  { useEffect,useState } from "react";
 import { Tabs } from "antd";
 import "./tab.css";
+import NotificationBadge from "../Badge/NotificationBadge";
 // import { useLocation, useNavigate } from "react-router-dom";
-// import { useState } from "react";
+
 const { TabPane } = Tabs;
 function Tab(props) {
   const {
@@ -70,7 +71,22 @@ function Tab(props) {
         >
           {panes?.map((pane) => {
             return (
-              <TabPane tab={pane.featureName} key={pane.featureId}>
+              <TabPane
+                tab={
+                  <>
+                    <span>{pane.featureName}</span>
+                    <NotificationBadge
+                      customClass="absolute top-0 right-0 text-xs"
+                      notificationCount={pane.notificationCount}
+                      style={{
+                        padding: "0 4px",
+                        fontSize: "10px",
+                      }}
+                    />
+                  </>
+                }
+                key={pane.featureId}
+              >
                 {pane.content}
               </TabPane>
             );

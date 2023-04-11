@@ -38,7 +38,7 @@ export default function Menu() {
     dispatch(getAllNotification());
   }, []);
 
-  console.log("menuItems", menuItems);
+  // console.log("menuItems", menuItems);
   const { navBarStatus } = useSelector((state) => state.responsiveSlice);
   const { user } = useSelector((state) => state.userSlice);
 
@@ -59,7 +59,7 @@ export default function Menu() {
 
   useEffect(() => {
     setData(groupedMenuItems);
-  }, [Direction, notificationCounts]);
+  }, [Direction, notificationCounts, navMenuLabel]);
 
   const activeTab = (isActive, path) => {
     return isActive

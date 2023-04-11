@@ -140,6 +140,8 @@ const projectSlice = createSlice({
         //TODO: array length check will be change when they convert this array into obj
         if (payload.data.length > 0) {
           state.projectSticky = payload.data[0];
+        } else {
+          state.projectSticky = { description: "" };
         }
       })
 

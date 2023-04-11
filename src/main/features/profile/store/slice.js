@@ -21,7 +21,7 @@ const initialState = {
   loader: false,
   coverImg: {},
   profileImg: {},
-  profileSticky: {},
+  profileSticky: { description: "" },
 };
 
 const employeeProfileSlice = createSlice({
@@ -75,7 +75,9 @@ const employeeProfileSlice = createSlice({
         state.profileSticky = payload.data;
       })
       .addCase(getStickyNotes.fulfilled, (state, { payload }) => {
-        state.profileSticky = payload?.data[0];
+        if (state.profileSticky.length > 0) {
+          state.profileSticky = payload?.data[0];
+        }
       })
       .addMatcher(isPending(...[getAllEmployeeAction]), (state) => {
         state.loader = true;

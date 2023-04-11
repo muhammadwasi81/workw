@@ -27,19 +27,19 @@ export default function AllApprovals() {
 
   const handleTabChange = (tabIndex) => {
     tabIndex = Number(tabIndex);
-    let status = ApprovalStatus.InProcess;
+    let status = [ApprovalStatus.InProcess];
     switch (tabIndex) {
       case ApprovalStatus.InProcess:
-        status = ApprovalStatus.InProcess;
+        status = [ApprovalStatus.InProcess];
         break;
       case ApprovalStatus.Approved:
-        status = ApprovalStatus.Approved;
+        status = [ApprovalStatus.Approved];
         break;
       case ApprovalStatus.Declined:
-        status = ApprovalStatus.Declined;
+        status = [ApprovalStatus.Declined];
         break;
       case ApprovalStatus.Hold:
-        status = ApprovalStatus.Hold;
+        status = [ApprovalStatus.Hold];
         break;
       default:
         break;

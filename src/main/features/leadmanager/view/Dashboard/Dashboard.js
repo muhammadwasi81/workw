@@ -10,15 +10,20 @@ import { tableColumn } from "./TableView/tableColumn";
 import { Drawer } from "antd";
 import BoardComposer from "../Composer/BoardComposer";
 import { handleComposer } from "../../store/slice";
+import { handleItemDetailModal } from "../../../../../utils/Shared/store/slice";
+import ItemDetailModal from "../../../../sharedComponents/ItemDetails";
+import { addLeadManagerService } from "../../services/services";
+import {
+  addLeadManagereMember,
+  getAllLeadManagerMember,
+} from "../../store/actions";
 
 function LeadDashboard({ isTableView, dictionary, data, onChange }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [table, setTable] = useState(0);
-  // const loading = useSelector((state) => state.leadMangerSlice.loading);
-  const { loading, success, isComposerOpen, isEditComposer } = useSelector(
-    (state) => state.leadMangerSlice
-  );
+  const [payloadId, setPayloadId] = useState("");
+  const { loading, memberData } = useSelector((state) => state.leadMangerSlice);
+  const [visible, setVisible] = useState(false);
   const onRow = (record, rowIndex) => {
     return {
       onClick: (event) => {
@@ -34,14 +39,42 @@ function LeadDashboard({ isTableView, dictionary, data, onChange }) {
   const handleClickNavigation = (id) => {
     navigate(`${ROUTES.LEAD_MANAGER.LEAD_GROUP_DETAIL}${id}`);
   };
-  const handleEditComposer = () => {
-    dispatch(handleComposer({ isOpen: false, isEdit: false }));
+
+  const handleModalOpen = (e, rowData) => {
+    e.stopPropagation();
+    e.preventDefault();
+    setVisible(true);
+    dispatch(getAllLeadManagerMember(rowData.id));
+    setPayloadId(rowData.id);
   };
+
+  const addLeadMemberFunc = (id) => {
+    let memberId = id.toString();
+    const membersData = {
+      id: payloadId,
+      memberId: memberId,
+    };
+    dispatch(addLeadManagereMember(membersData));
+  };
+
   return (
     <>
+      <ItemDetailModal
+        data={memberData} //Data of members will pass here in array
+        isDeleteDisabled={true} //Pass true to hide delete icon
+        addEnabled={true} //Pass false to hide select member
+        addFunc={addLeadMemberFunc} // define and pass addMember action of particular members
+        onDelete={false} // define and pass onDeletemember actions of particular members
+        isSearch={false} //Pass true if you want to search the list
+        openModal={true} // pass true if you want to open member details in modal other wise it display in listing
+        visible={visible}
+        setVisible={(da) => setVisible(da)}
+      />
       {isTableView && (
         <Table
-          columns={tableColumn(dictionary)}
+          columns={tableColumn(dictionary, (e, rowData) =>
+            handleModalOpen(e, rowData)
+          )}
           dragable={true}
           handleChange={onChange}
           // onPageChange={onPageChange}

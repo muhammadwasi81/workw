@@ -69,7 +69,6 @@ export const addProjectFeatureService = (data) => {
 };
 
 export const saveStickyNoteProject = (data) => {
-  console.log(data, "dataaa service");
   return MasterConfig.post(`api/StickyNotes/SaveProjectStickyNotes`, data)
     .then((res) => {
       return res.data;

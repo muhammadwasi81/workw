@@ -14,15 +14,15 @@ function AvatarGroup(props) {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const showModal = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsModalOpen(!isModalOpen);
-    dispatch(handleItemDetailModal(true));
-  };
+  // const showModal = (e) => {
+  //   e.preventDefault();
+  //   e.stopPropagation();
+  //   setIsModalOpen(!isModalOpen);
+  //   dispatch(handleItemDetailModal(true));
+  // };
 
   return (
-    <div onClick={(e) => showModal(e)} className="inline-flex">
+    <div className="inline-flex">
       <Avatar.Group
         maxCount={2}
         maxPopoverTrigger="click"
@@ -61,7 +61,7 @@ function AvatarGroup(props) {
           // </Tooltip>
         ))}
       </Avatar.Group>
-      {isModalOpen && (
+      {/* {isModalOpen && (
         <ItemDetailModal
           data={props?.membersData} //Data of members will pass here in array
           isDeleteDisabled={true} //Pass true to hide delete icon
@@ -71,7 +71,7 @@ function AvatarGroup(props) {
           isSearch={false} //Pass true if you want to search the list
           openModal={true} // pass true if you want to open member details in modal other wise it display in listing
         />
-      )}
+      )} */}
     </div>
   );
 }

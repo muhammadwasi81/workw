@@ -69,6 +69,7 @@ const ConversationListItem = ({ conversation }) => {
 						name={profileName}
 						size={38}
 						round={true}
+						status={chatWith?.userActiveStatus}
 					/>
 				</Badge>
 			</div>

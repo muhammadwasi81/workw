@@ -73,6 +73,7 @@ const FromDetail = (props) => {
             <div className="left">
               <UserInfo
                 avatarSrc={creator.image}
+                status={creator.userActiveStatus}
                 name={creator.name}
                 Subline={
                   <SublineDesigWithTime

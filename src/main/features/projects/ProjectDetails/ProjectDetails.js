@@ -71,7 +71,7 @@ function ProjectDetails() {
   const [description, setDescription] = useState(null);
   const descriptionDebounce = useDebounce(description, 500);
   const [visible, setVisible] = useState(false);
-  const [openSticky, setOpenSticky] = useState(false);
+  const [openSticky, setOpenSticky] = useState(true);
   const { userLanguage } = useContext(LanguageChangeContext);
   const { projectsDictionary } = projectsDictionaryList[userLanguage];
   const { updateTextBtn, labels, features } = projectsDictionary;
@@ -204,7 +204,7 @@ function ProjectDetails() {
     dispatch(addMember({ status: true }));
   };
   useEffect(() => {
-    // setOpenSticky(true);
+    setOpenSticky(true);
     dispatch(getProjectSticky(projectId));
   }, [projectId]);
 
@@ -251,11 +251,7 @@ function ProjectDetails() {
             <div className="rounded-xl basis-9/12 flex flex-col gap-5 overflow-scroll">
               <CoverImage image={detail?.image || ProjectCover} />
               <CoverDetail detail={detail} />
-              <Tab
-                panes={projectfeatures}
-                id={projectId}
-                //  features={panes}
-              />
+              <Tab panes={projectfeatures} id={projectId} />
             </div>
             <div className="basis-1/4 gap-5 flex flex-col overflow-scroll">
               <Budget data={detail} />

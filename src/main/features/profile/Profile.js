@@ -94,7 +94,17 @@ const Profile = () => {
           <div className="singleNote_container ">
             <div className="singleNote_header"></div>
             <div className="textArea_container bg-white w-[300px]">
-              {profileSticky?.id && (
+              {profileSticky?.createBy === id && (
+                <CustomNotes
+                  onChange={(value) => setDescription(value)}
+                  modules={modules}
+                  formats={formats}
+                  className={"stickyNoteItem-textarea"}
+                  placeholder={"Take a Note"}
+                  defaultValue={profileSticky?.description}
+                />
+              )}
+              {profileSticky?.description.length === 0 && (
                 <CustomNotes
                   onChange={(value) => setDescription(value)}
                   modules={modules}

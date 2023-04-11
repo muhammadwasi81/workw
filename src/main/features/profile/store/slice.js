@@ -75,8 +75,10 @@ const employeeProfileSlice = createSlice({
         state.profileSticky = payload.data;
       })
       .addCase(getStickyNotes.fulfilled, (state, { payload }) => {
-        if (state.profileSticky.length > 0) {
+        if (payload.data.length > 0) {
           state.profileSticky = payload?.data[0];
+        } else {
+          state.profileSticky = { description: "" };
         }
       })
       .addMatcher(isPending(...[getAllEmployeeAction]), (state) => {

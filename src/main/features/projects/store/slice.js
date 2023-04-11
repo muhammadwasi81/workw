@@ -136,7 +136,6 @@ const projectSlice = createSlice({
         state.projectSticky = payload.data;
       })
       .addCase(getProjectSticky.fulfilled, (state, { payload }) => {
-        console.log(payload.data, "payload sticky");
         //TODO: array length check will be change when they convert this array into obj
         if (payload.data.length > 0) {
           state.projectSticky = payload.data[0];

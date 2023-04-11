@@ -51,7 +51,6 @@ const Profile = () => {
   } = useSelector((state) => state.userSlice);
 
   const { profileSticky } = useSelector((state) => state.employeeProfileSlice);
-  console.log(profileSticky, "profileSticky");
   const onChange = (key) => {
     navigate(key);
   };
@@ -71,7 +70,7 @@ const Profile = () => {
   const setDescriptionValue = (value) => {
     dispatch(
       saveSticyNotes({
-        id: id,
+        createBy: id,
         description: value,
       })
     );
@@ -94,7 +93,7 @@ const Profile = () => {
           <div className="singleNote_container ">
             <div className="singleNote_header"></div>
             <div className="textArea_container bg-white w-[300px]">
-              {profileSticky?.createBy === id && (
+              {profileSticky?.id && (
                 <CustomNotes
                   onChange={(value) => setDescription(value)}
                   modules={modules}

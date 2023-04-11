@@ -78,12 +78,6 @@ function ProjectDetails() {
   const { projectFeature, projectSticky } = useSelector(
     (state) => state.projectSlice
   );
-  console.log(projectSticky, "project sticky");
-  // useEffect(() => {
-  //   if (Object.keys(projectStickyState?.description).length > 0) {
-  //     setprojectStickyState(projectStickyState);
-  //   }
-  // }, [projectStickyState]);
 
   useEffect(() => {
     dispatch(getProjectById(projectId));
@@ -203,7 +197,6 @@ function ProjectDetails() {
   };
 
   useEffect(() => {
-    console.log("useEffect works when");
     setDescription(projectSticky?.description);
   }, [projectSticky]);
 
@@ -221,14 +214,9 @@ function ProjectDetails() {
   }, [descriptionDebounce]);
 
   const setDescriptionValue = (value) => {
-    // setOpenSticky(true);
-    setDescription(value);
     dispatch(
       saveStickyproject({
-        // id: projectSticky?.id,
         description: value,
-        // colorCode: "#0f4c81",
-
         referenceId: projectId,
       })
     );
@@ -252,11 +240,7 @@ function ProjectDetails() {
     };
     dispatch(addProjectMemberAction(members));
   };
-  // const defaultProjectSticky = {
-  //   referenceId: projectId,
-  //   id: null,
-  //   description: { blocks: [{ type: "paragraph", text: "" }], entityMap: {} },
-  // };
+
   return (
     <>
       <TabContainer>
@@ -286,7 +270,7 @@ function ProjectDetails() {
                 <div className="textArea_container bg-white">
                   {projectSticky?.referenceId === projectId && (
                     <CustomNotes
-                      onChange={(value) => setDescriptionValue(value)}
+                      onChange={(value) => setDescription(value)}
                       modules={modules}
                       formats={formats}
                       className={"stickyNoteItem-textarea"}
@@ -297,7 +281,7 @@ function ProjectDetails() {
 
                   {projectSticky?.description.length === 0 && (
                     <CustomNotes
-                      onChange={(value) => setDescriptionValue(value)}
+                      onChange={(value) => setDescription(value)}
                       modules={modules}
                       formats={formats}
                       className={"stickyNoteItem-textarea"}

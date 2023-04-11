@@ -1,5 +1,5 @@
 export const EmployeeDisableFilterEnum = {
-  Disable: 0,
-  Enable: 1,
+  Enable: 0,
+  Disable: 1,
   Both: 2,
 };

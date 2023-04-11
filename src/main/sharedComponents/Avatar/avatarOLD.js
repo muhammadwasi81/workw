@@ -13,17 +13,42 @@ export default function Avatar({
   position,
   isZoom = true,
   id,
+  userId,
   style,
-  counter,
+  status,
   customClass,
 }) {
   const handleRoute = () => {
     window.location.href = `${STRINGS.ROUTES.USER.TIMELINE.DEFAULT}/${id}`;
   };
 
+  let profileId = userId;
+  console.log(profileId, "PROFILE ID");
+
+  function color(val) {
+    if (val === 0) {
+      return "gray";
+    }
+    if (val === 1) {
+      return "green";
+    }
+    if (val === 2) {
+      return "yellow";
+    }
+    if (val === 3) {
+      return "blue";
+    }
+    if (val === 4) {
+      return "black";
+    }
+    if (val === 5) {
+      return "pink";
+    }
+  }
+
   try {
     return (
-      <Badge count={counter}>
+      <Badge className="statusIcon" dot={!!status} color={color(status)}>
         <div
           onClick={id !== undefined ? handleRoute : null}
           className={`avatar ${round && "round"} ${customClass}`}

@@ -107,6 +107,8 @@ function RequisitionDetailCard(props) {
               <UserInfo
                 avatarSrc={creator?.image}
                 name={creator?.name}
+                status={creator.userActiveStatus}
+                profileId={creator.id}
                 Subline={
                   <SublineDesigWithTime
                     designation={

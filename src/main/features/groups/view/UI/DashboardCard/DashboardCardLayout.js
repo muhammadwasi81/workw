@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useState } from "react";
 import { Card } from "antd";
 import Avatar from "../../../../../sharedComponents/Avatar/avatar";
 import PublicPrivateIcon from "../../../../../sharedComponents/PublicPrivateIcon/PublicPrivateIcon";
@@ -9,6 +9,7 @@ import { handleFavoriteMark } from "../../../store/slice";
 import { addGroupFavoriteMarkAction } from "../../../store/actions";
 import PropTypes from "prop-types";
 import { CommentOutlined } from "@ant-design/icons";
+import ItemDetailModal from "../../../../../sharedComponents/ItemDetails";
 import NotificationBadge from "../../../../../sharedComponents/Badge/NotificationBadge";
 import "../style.css";
 function DashboardCardLayout({
@@ -24,6 +25,7 @@ function DashboardCardLayout({
   // const { groupMembers } = useSelector((state) => state.groupSlice);
   // console.log(groupMembers, "group members");
   // console.log(data, "Dataaa");
+  const [openModal, setOpenModal] = useState(false);
   const dispatch = useDispatch();
   const { Meta } = Card;
   const menuHandler = (e) => {
@@ -40,8 +42,27 @@ function DashboardCardLayout({
     );
   };
 
+  const handleModalOpen = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    setOpenModal(true);
+  };
+
   return (
     <>
+      {
+        <ItemDetailModal
+          data={data.members} //Data of members will pass here in array
+          isDeleteDisabled={true} //Pass true to hide delete icon
+          addEnabled={false} //Pass false to hide select member
+          addFunc={false} // define and pass addMember action of particular members
+          onDelete={false} // define and pass onDeletemember actions of particular members
+          isSearch={false} //Pass true if you want to search the list
+          openModal={true} // pass true if you want to open member details in modal other wise it display in listing
+          visible={openModal}
+          setVisible={(da) => setOpenModal(da)}
+        />
+      }
       <Card
         cover={
           <img
@@ -51,6 +72,7 @@ function DashboardCardLayout({
           />
         }
         className="Card2 relative"
+        style={{ padding: "7px" }}
         hoverable
         onClick={onClick}
       >
@@ -73,7 +95,7 @@ function DashboardCardLayout({
           }
         />
         <div className="flex justify-between items-center">
-          <div className="members">
+          <div className="members" onClick={(e) => handleModalOpen(e)}>
             <Avatar
               isAvatarGroup={true}
               isTag={false}

@@ -93,6 +93,7 @@ function PromotionDetail(props) {
             <div className="left">
               <UserInfo
                 avatarSrc={creator && creator.image}
+                status={creator.userActiveStatus}
                 name={creator && creator.name}
                 Subline={
                   <SublineDesigWithTime

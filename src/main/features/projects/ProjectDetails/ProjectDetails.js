@@ -35,6 +35,7 @@ import {
   resetProjectDetail,
   targetStickyDescription,
   addMember,
+  handleOpenSticky,
 } from "../store/slice";
 import WorkBoard from "../../workboard";
 import { TravelReferenceTypeEnum } from "../enum/enums";
@@ -58,39 +59,29 @@ import {
   deleteProjectMemberAction,
 } from "../store/actions";
 import ItemDetailModal from "../../../sharedComponents/ItemDetails";
-import MenuDropDown from "./menuDropdown/MenuDropDown";
-import { createGuid } from "../../../../utils/base";
-import { DownOutlined } from "@ant-design/icons";
+
 function ProjectDetails() {
   const params = useParams();
   const dispatch = useDispatch();
   const detail = useSelector((state) => state.projectSlice.projectDetail);
-  const { projectSticky } = useSelector((state) => state.projectSlice);
-  console.log(projectSticky?.description, "pppp");
   const [projectfeatures, setprojectFeatures] = useState([]);
   const [description, setDescription] = useState(null);
   const descriptionDebounce = useDebounce(description, 500);
   const [visible, setVisible] = useState(false);
-  const [openSticky, setOpenSticky] = useState(true);
   const { userLanguage } = useContext(LanguageChangeContext);
   const { projectsDictionary } = projectsDictionaryList[userLanguage];
   const { updateTextBtn, labels, features } = projectsDictionary;
   const [open, setOpen] = useState(false);
   let { projectId } = params;
+  const [isOpenSticky, setIsOpenSticky] = useState(true);
   projectId = projectId.trim();
-  const { projectFeature } = useSelector((state) => state.projectSlice);
-  const [projectStickyState, setprojectStickyState] = useState({});
+  const { projectFeature, projectSticky } = useSelector(
+    (state) => state.projectSlice
+  );
+  console.log(projectSticky, "project sticky");
   // useEffect(() => {
   //   if (Object.keys(projectStickyState?.description).length > 0) {
   //     setprojectStickyState(projectStickyState);
-  //     // let stickyNote = {
-  //     //   ...projectStickyState?.description,
-  //     //   description: projectStickyState?.description,
-  //     // };
-  //     // console.log(stickyNote, "stickyNoteee");
-  //     // setprojectStickyState();
-  //   } else {
-  //     return null;
   //   }
   // }, [projectStickyState]);
 
@@ -215,8 +206,8 @@ function ProjectDetails() {
     setVisible(true);
     dispatch(addMember({ status: true }));
   };
+
   useEffect(() => {
-    setOpenSticky(true);
     dispatch(getProjectSticky(projectId));
   }, [projectId]);
 
@@ -226,9 +217,10 @@ function ProjectDetails() {
 
   const setDescriptionValue = (value) => {
     // setOpenSticky(true);
+    setDescription(value);
     dispatch(
       saveStickyproject({
-        id: projectSticky?.id,
+        // id: projectSticky?.id,
         description: value,
         // colorCode: "#0f4c81",
 
@@ -255,7 +247,11 @@ function ProjectDetails() {
     };
     dispatch(addProjectMemberAction(members));
   };
-
+  // const defaultProjectSticky = {
+  //   referenceId: projectId,
+  //   id: null,
+  //   description: { blocks: [{ type: "paragraph", text: "" }], entityMap: {} },
+  // };
   return (
     <>
       <TabContainer>
@@ -285,14 +281,12 @@ function ProjectDetails() {
                 <div className="textArea_container bg-white">
                   {projectSticky?.referenceId === projectId && (
                     <CustomNotes
-                      onChange={(value) => setDescription(value)}
+                      onChange={(value) => setDescriptionValue(value)}
                       modules={modules}
                       formats={formats}
                       className={"stickyNoteItem-textarea"}
                       placeholder={"Take a Note"}
-                      defaultValue={
-                        projectSticky ? projectSticky?.description : ""
-                      }
+                      defaultValue={projectSticky?.description}
                     />
                   )}
                 </div>

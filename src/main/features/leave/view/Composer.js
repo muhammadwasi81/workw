@@ -17,6 +17,7 @@ import { GetLeaveTypeAction } from "../store/actions";
 import { DatePicker, Checkbox, Typography } from "antd";
 import { DEFAULT_GUID } from "../../../../utils/constants";
 import moment from "moment";
+import "./style.css";
 
 import { STRINGS } from "../../../../utils/base";
 
@@ -47,6 +48,7 @@ const initialState = {
 const Composer = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, leaveDictionary } = leaveDictionaryList[userLanguage];
+  const { Option } = Select;
 
   const dispatch = useDispatch();
   const [form] = Form.useForm();
@@ -58,19 +60,26 @@ const Composer = (props) => {
 
   const [value, setValue] = useState([]);
   const { leaveTypes, success } = useSelector((state) => state.leaveTypeSlice);
+  console.log(leaveTypes,"leaveTypessss");
+  const {leaves} = useSelector((state) => state.leaveSlice);
   const employees = useSelector((state) => state.sharedSlice.employees);
   const { UserLeave, createLoader } = useSelector((state) => state.leaveSlice);
+  const [previousGrade, setPreviousGrade] = useState(null);
+  const [leaveType,setleaveTypes] = useState("");
+  console.log(leaveType,"leaveTypeee");
 
-  console.log("UserLeaveUserLeave",leaveTypes);
+  console.log("UserLeaveUserLeave",previousGrade);
+ // let leaveType=leaveTypes.map((item)=>item?.name);
   console.log(props, "userIddd");
   const selectedDataApprovers = (data, obj) => {
     setValue(data);
     handleMember(obj);
   };
   const selectedData = (data, obj) => {
-    console.log(data, "dataaaa leave");
+    console.log(obj, "dataaaaleave");
     setValue(data);
     handleMember(obj);
+     setPreviousGrade(obj[0].name === "" ? "Not Available" : obj[0].name);
     // setMembers(obj);
     // onChange(data, obj);
     dispatch(GetLeaveTypeAction(data));
@@ -126,6 +135,11 @@ const Composer = (props) => {
     var b = moment(values.startEndDate[1]);
     const days = b.diff(a, "days");
 
+    // let currentGrade = leaveTypes.filter(
+    //   (item) => item.id === values.memberId
+    // )[0].name;
+    // console.log(currentGrade, "HELLONEW");
+
     if (days === 0) {
       message.error("select leave date at least for one day! ");
     } else if (values.members === undefined) {
@@ -165,6 +179,7 @@ const Composer = (props) => {
           };
         });
       }
+
       if (typeof values.members === "string") {
         members.push({
           memberId: values.members,
@@ -185,7 +200,9 @@ const Composer = (props) => {
         attachments,
         startDate: values.startEndDate[0].format(),
         endDate: values.startEndDate[1].format(),
+       // previousGrade: currentGrade,
       };
+
       dispatch(addLeave(payload));
     }
 
@@ -200,7 +217,15 @@ const Composer = (props) => {
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+  const handleleaveTypes = (value) => {
+    const selectedLeaveType = leaveTypes.find((leaveType) => leaveType.id === value);
+  const selectedLeaveTypeName = selectedLeaveType ? selectedLeaveType.defaultAllotLeaves : '';
 
+  console.log(selectedLeaveTypeName,"selectedLeaveTypeName");
+    setleaveTypes(selectedLeaveTypeName);
+  }
+
+  
   return (
     <>
       <Form
@@ -238,8 +263,22 @@ const Composer = (props) => {
               borderRadius: "5px",
             }}
             size="large"
-          />
+            onChange={handleleaveTypes}
+          >
+              {leaveTypes.map((item) => (
+
+                <Option key={item.id} value={item.id} label={item.name}>
+                      {item.name}
+                </Option>
+              
+            ))}
+          </Select>
         </Form.Item>
+
+        <div className="allotedLeaves">
+          <h5>{"Alloated Leaves"}: </h5>
+          <h5>&nbsp;&nbsp;{leaveType}</h5>
+        </div>
 
         <Form.Item
           name="members"

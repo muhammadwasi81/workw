@@ -65,7 +65,7 @@ function ProjectDetails() {
   const dispatch = useDispatch();
   const detail = useSelector((state) => state.projectSlice.projectDetail);
   const [projectfeatures, setprojectFeatures] = useState([]);
-  const [description, setDescription] = useState(null);
+  const [description, setDescription] = useState("");
   const descriptionDebounce = useDebounce(description, 500);
   const [visible, setVisible] = useState(false);
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -202,6 +202,11 @@ function ProjectDetails() {
     ),
   };
 
+  useEffect(() => {
+    console.log("useEffect works when");
+    setDescription(projectSticky?.description);
+  }, [projectSticky]);
+
   const memberHandler = () => {
     setVisible(true);
     dispatch(addMember({ status: true }));
@@ -287,6 +292,17 @@ function ProjectDetails() {
                       className={"stickyNoteItem-textarea"}
                       placeholder={"Take a Note"}
                       defaultValue={projectSticky?.description}
+                    />
+                  )}
+
+                  {projectSticky?.description.length === 0 && (
+                    <CustomNotes
+                      onChange={(value) => setDescriptionValue(value)}
+                      modules={modules}
+                      formats={formats}
+                      className={"stickyNoteItem-textarea"}
+                      placeholder={"Take a Note"}
+                      defaultValue={""}
                     />
                   )}
                 </div>

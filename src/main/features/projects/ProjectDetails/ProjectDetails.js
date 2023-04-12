@@ -71,7 +71,7 @@ function ProjectDetails() {
   const [description, setDescription] = useState(null);
   const descriptionDebounce = useDebounce(description, 500);
   const [visible, setVisible] = useState(false);
-  const [openSticky, setOpenSticky] = useState(false);
+  const [openSticky, setOpenSticky] = useState(true);
   const { userLanguage } = useContext(LanguageChangeContext);
   const { projectsDictionary } = projectsDictionaryList[userLanguage];
   const { updateTextBtn, labels, features } = projectsDictionary;
@@ -79,9 +79,9 @@ function ProjectDetails() {
   let { projectId } = params;
   projectId = projectId.trim();
   const { projectFeature } = useSelector((state) => state.projectSlice);
-
+  const [projectStickyState, setprojectStickyState] = useState({});
   // useEffect(() => {
-  //   if (Object.keys(projectStickyState?.description)?.length) {
+  //   if (Object.keys(projectStickyState?.description).length > 0) {
   //     setprojectStickyState(projectStickyState);
   //     // let stickyNote = {
   //     //   ...projectStickyState?.description,
@@ -89,6 +89,8 @@ function ProjectDetails() {
   //     // };
   //     // console.log(stickyNote, "stickyNoteee");
   //     // setprojectStickyState();
+  //   } else {
+  //     return null;
   //   }
   // }, [projectStickyState]);
 
@@ -214,7 +216,7 @@ function ProjectDetails() {
     dispatch(addMember({ status: true }));
   };
   useEffect(() => {
-    // setOpenSticky(true);
+    setOpenSticky(true);
     dispatch(getProjectSticky(projectId));
   }, [projectId]);
 

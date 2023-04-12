@@ -38,10 +38,10 @@ const PostFooter = ({
   isDetailViewOpen = true,
   isDetail = false,
 }) => {
+  console.log(myReaction, "myReactionnn");
   const {
     postCompose: { reactionMembersData },
   } = useSelector((state) => state.feedSlice);
-  console.log(reactionMembersData, "reaction member dataaa");
   const dispatch = useDispatch();
   let navigate = useNavigate();
   const [visible, setVisible] = useState(false);
@@ -59,6 +59,7 @@ const PostFooter = ({
   } = Post;
 
   const handleAddReaction = (myReaction, id) => {
+    console.log(id, "idddd");
     if (myReaction === 0) {
       dispatch(
         addFeedReaction({
@@ -112,7 +113,6 @@ const PostFooter = ({
 
   useEffect(() => {
     if (visible) {
-      console.log(visible, "visibleee reactionnn");
       dispatch(handleItemDetailModal(true));
     }
   }, [visible]);

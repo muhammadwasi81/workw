@@ -19,6 +19,7 @@ export default class Reactions extends Component {
 
   state = {
     open: false,
+    // activeReaction: ReactionType.NoReaction,
   };
 
   toggleOpen(openState) {
@@ -26,9 +27,22 @@ export default class Reactions extends Component {
       open: openState,
     });
   }
+  // LikeHandler() {
+  //   this.setState({
+  //     activeReaction: ReactionType.Like,
+  //   });
+  // }
   images = [
-    { id: ReactionType.Like, description: "Like", img: likeIcon },
-    { id: ReactionType.Love, description: "Love", img: heartIcon },
+    {
+      id: ReactionType.Like,
+      description: "Like",
+      img: likeIcon,
+    },
+    {
+      id: ReactionType.Love,
+      description: "Love",
+      img: heartIcon,
+    },
     {
       id: ReactionType.Support,
       description: "Appreciate",
@@ -39,7 +53,11 @@ export default class Reactions extends Component {
       description: "Celebrate",
       img: celebrateIcon,
     },
-    { id: ReactionType.Curious, description: "Curious", img: searchIcon },
+    {
+      id: ReactionType.Curious,
+      description: "Curious",
+      img: searchIcon,
+    },
   ];
 
   componentDidUpdate(prevProps, prevState) {}

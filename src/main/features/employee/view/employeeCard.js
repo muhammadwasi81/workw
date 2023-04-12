@@ -16,8 +16,8 @@ import {
 } from "../Styles/employeeCard.styles";
 import PropTypes from "prop-types";
 import userAvatar from "../../../../content/png/userAvatar.jpg";
-import { useSelector } from "react-redux";
 import { userTypeEnum } from "../../../../utils/Shared/enums/enums";
+import { removeDisabledEmployee } from "../../../../utils/Shared/store/slice";
 function EmployeeCard({
   employees: { image, name, email, designation, id, isDisable, userTypeId },
 }) {
@@ -25,7 +25,6 @@ function EmployeeCard({
   const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
   const { sharedLabels } = dictionaryList[userLanguage];
-  const { user } = useSelector((state) => state.userSlice);
 
   const confirm = (e) => {
     console.log(e);
@@ -36,6 +35,7 @@ function EmployeeCard({
       isDisable: isDisable === true ? false : true,
     };
     dispatch(disableEmployee(payload));
+    dispatch(removeDisabledEmployee(id));
   };
 
   const cancel = (e) => {
@@ -52,32 +52,10 @@ function EmployeeCard({
           <strong>{designation || "No Designation"}</strong>
         </Text>
         <ButtonsBox>
-          <Popconfirm
-            title={
-              isDisable === false
-                ? "Are you sure to enable this employee"
-                : "Are you sure to disable this employee"
-            }
-            description="Are you sure to disable this employee?"
-            onConfirm={confirm}
-            onCancel={cancel}
-            okText="Yes"
-            cancelText="No"
-          >
-            {user?.id === id ? (
-              ""
-            ) : (
-              <ActionButton
-                BackgroundColor={isDisable === true ? "#db5252" : "#01ae3a"}
-              >
-                {isDisable === true ? sharedLabels.Disable : "Enable"}
-              </ActionButton>
-            )}
-          </Popconfirm>
           {userTypeId !== userTypeEnum.SuperAdmin ? (
             <Popconfirm
               title={
-                isDisable
+                isDisable === true
                   ? "Are you sure to enable this employee"
                   : "Are you sure to disable this employee"
               }
@@ -92,7 +70,6 @@ function EmployeeCard({
               </ActionButton>
             </Popconfirm>
           ) : null}
-
           <ActionButton
             onClick={() => {
               navigate(`info/basicInfo/${id}`);

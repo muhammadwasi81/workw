@@ -230,7 +230,7 @@ export const disableEmployee = createAsyncThunk(
     const response = await disableEmployeeService(payload);
     console.log("disableEmployeeService", response.data);
     if (response.responseCode === 1001) {
-      return response.data.isDisable === true
+      return response.data.isDisable === false
         ? message.success("Employee Enabled Successfully")
         : message.success("Employee Disabled Successfully");
     }

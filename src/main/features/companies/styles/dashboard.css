@@ -14,6 +14,12 @@
     margin-right: 5px;
     margin-bottom: 7px;
 }
+.resendBtn {
+    padding-left: "16px";
+    padding-right: "16px";
+    padding-top: "5px";
+    padding-bottom: "5px";
+}
 .tagsContainer {
     display: flex;
     flex-wrap: wrap;

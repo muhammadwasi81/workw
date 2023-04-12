@@ -165,16 +165,19 @@ export const saveSticyNotes = createAsyncThunk(
   }
 );
 
-export const getSticyNotes = createAsyncThunk(`getStickyNote`, async (data) => {
-  try {
-    const response = await getProfileStickyNote(data);
-    if (!response.data) {
-      message.error(response.data.message);
+export const getStickyNotes = createAsyncThunk(
+  `getStickyNote`,
+  async (data) => {
+    try {
+      const response = await getProfileStickyNote(data);
+      if (!response.data) {
+        message.error(response.data.message);
+      }
+      return response.data;
+    } catch (error) {
+      throw new Error(`Error in Sticky Notes: ${error}`, {
+        cause: error,
+      });
     }
-    return response.data;
-  } catch (error) {
-    throw new Error(`Error in Sticky Notes: ${error}`, {
-      cause: error,
-    });
   }
-});
+);

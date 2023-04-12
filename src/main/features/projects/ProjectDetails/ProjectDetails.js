@@ -59,24 +59,40 @@ import {
 } from "../store/actions";
 import ItemDetailModal from "../../../sharedComponents/ItemDetails";
 import MenuDropDown from "./menuDropdown/MenuDropDown";
-
+import { createGuid } from "../../../../utils/base";
+import { DownOutlined } from "@ant-design/icons";
 function ProjectDetails() {
   const params = useParams();
   const dispatch = useDispatch();
   const detail = useSelector((state) => state.projectSlice.projectDetail);
   const { projectSticky } = useSelector((state) => state.projectSlice);
+  console.log(projectSticky?.description, "pppp");
   const [projectfeatures, setprojectFeatures] = useState([]);
   const [description, setDescription] = useState(null);
   const descriptionDebounce = useDebounce(description, 500);
-
   const [visible, setVisible] = useState(false);
-
+  const [openSticky, setOpenSticky] = useState(true);
   const { userLanguage } = useContext(LanguageChangeContext);
   const { projectsDictionary } = projectsDictionaryList[userLanguage];
   const { updateTextBtn, labels, features } = projectsDictionary;
   const [open, setOpen] = useState(false);
-  const { projectId } = params;
+  let { projectId } = params;
+  projectId = projectId.trim();
   const { projectFeature } = useSelector((state) => state.projectSlice);
+  const [projectStickyState, setprojectStickyState] = useState({});
+  // useEffect(() => {
+  //   if (Object.keys(projectStickyState?.description).length > 0) {
+  //     setprojectStickyState(projectStickyState);
+  //     // let stickyNote = {
+  //     //   ...projectStickyState?.description,
+  //     //   description: projectStickyState?.description,
+  //     // };
+  //     // console.log(stickyNote, "stickyNoteee");
+  //     // setprojectStickyState();
+  //   } else {
+  //     return null;
+  //   }
+  // }, [projectStickyState]);
 
   useEffect(() => {
     dispatch(getProjectById(projectId));
@@ -200,18 +216,23 @@ function ProjectDetails() {
     dispatch(addMember({ status: true }));
   };
   useEffect(() => {
-    dispatch(getProjectSticky());
-  }, []);
+    setOpenSticky(true);
+    dispatch(getProjectSticky(projectId));
+  }, [projectId]);
 
   useEffect(() => {
     if (descriptionDebounce) setDescriptionValue(descriptionDebounce);
   }, [descriptionDebounce]);
 
   const setDescriptionValue = (value) => {
+    // setOpenSticky(true);
     dispatch(
       saveStickyproject({
-        id: projectId,
+        id: projectSticky?.id,
         description: value,
+        // colorCode: "#0f4c81",
+
+        referenceId: projectId,
       })
     );
   };
@@ -260,20 +281,18 @@ function ProjectDetails() {
                 <ProjectInformation />
               </WhiteCard>
               <div className="singleNote_container">
-                <div className="singleNote_header">
-                  {/* <div className="leftNote_Icon">
-                    <MenuDropDown changeBgColor={BgcolorHandler} />
-                  </div> */}
-                </div>
+                <div className="singleNote_header"></div>
                 <div className="textArea_container bg-white">
-                  {projectSticky?.id && (
+                  {projectSticky?.referenceId === projectId && (
                     <CustomNotes
                       onChange={(value) => setDescription(value)}
                       modules={modules}
                       formats={formats}
                       className={"stickyNoteItem-textarea"}
                       placeholder={"Take a Note"}
-                      defaultValue={projectSticky?.description}
+                      defaultValue={
+                        projectSticky ? projectSticky?.description : ""
+                      }
                     />
                   )}
                 </div>
@@ -298,7 +317,7 @@ function ProjectDetails() {
       </Drawer>
 
       {/* {visible && <MemberModal data={detail} />} */}
-      {visible && (
+      {
         <ItemDetailModal
           data={detail?.members} //Data
           isDeleteDisabled={false} //Pass true to hide delete icon
@@ -307,8 +326,10 @@ function ProjectDetails() {
           onDelete={onDelete}
           isSearch={true} //Pass true if you want to search the list
           openModal={true}
+          visible={visible}
+          setVisible={(da) => setVisible(da)}
         />
-      )}
+      }
     </>
   );
 }

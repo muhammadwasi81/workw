@@ -17,8 +17,9 @@ import {
 import PropTypes from "prop-types";
 import userAvatar from "../../../../content/png/userAvatar.jpg";
 import { useSelector } from "react-redux";
+import { userTypeEnum } from "../../../../utils/Shared/enums/enums";
 function EmployeeCard({
-  employees: { image, name, email, designation, id, isDisable },
+  employees: { image, name, email, designation, id, isDisable, userTypeId },
 }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -73,6 +74,25 @@ function EmployeeCard({
               </ActionButton>
             )}
           </Popconfirm>
+          {userTypeId !== userTypeEnum.SuperAdmin ? (
+            <Popconfirm
+              title={
+                isDisable
+                  ? "Are you sure to enable this employee"
+                  : "Are you sure to disable this employee"
+              }
+              description="Are you sure to disable this employee?"
+              onConfirm={confirm}
+              onCancel={cancel}
+              okText="Yes"
+              cancelText="No"
+            >
+              <ActionButton BackgroundColor={isDisable ? "#01ae3a" : "#db5252"}>
+                {isDisable ? "Enable" : sharedLabels.Disable}
+              </ActionButton>
+            </Popconfirm>
+          ) : null}
+
           <ActionButton
             onClick={() => {
               navigate(`info/basicInfo/${id}`);

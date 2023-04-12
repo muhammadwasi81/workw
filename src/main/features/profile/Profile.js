@@ -28,9 +28,11 @@ import { useSelector } from "react-redux";
 import CustomNotes from "../notes/singleNotes/singleNotes";
 import Courses from "../eLearning/view/Dashboard/Sections/Courses/Courses";
 import TeamAppraisal from "../appraisalModule/view/components/TeamAppraisal/index";
-import { saveSticyNotes, getSticyNotes } from "./store/action";
+import { saveSticyNotes, getStickyNotes } from "./store/action";
 import useDebounce from "../../../utils/Shared/helper/use-debounce";
-import { formats, modules } from "./utils/index";
+import Nodata from "../../../content/NewContent/eLearning/Nodata.svg";
+
+import { formats, modules } from "./utils";
 
 const Profile = () => {
   const param = useParams();
@@ -59,7 +61,7 @@ const Profile = () => {
   }, [pathname]);
 
   useEffect(() => {
-    dispatch(getSticyNotes());
+    dispatch(getStickyNotes());
   }, []);
 
   useEffect(() => {
@@ -178,7 +180,7 @@ const Profile = () => {
             <Tab
               panes={userId === id ? panes : panes.slice(0, 2)}
               canChangeRoute={true}
-              onChange={onChange}
+              onChangeTab={onChange}
               defaultPath={defaultPath}
             />
           </div>

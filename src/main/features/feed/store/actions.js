@@ -1,7 +1,7 @@
-import { createAsyncThunk, current } from '@reduxjs/toolkit';
-import { PollType, PostType } from '../utils/constants';
-import ValidateCreatePost from '../utils/ValidateCreatePost';
-import SavePostRequestDto from '../data/model/SavePostRequestDto';
+import { createAsyncThunk, current } from "@reduxjs/toolkit";
+import { PollType, PostType } from "../utils/constants";
+import ValidateCreatePost from "../utils/ValidateCreatePost";
+import SavePostRequestDto from "../data/model/SavePostRequestDto";
 import {
   feedFavorite,
   feedReaction,
@@ -10,14 +10,14 @@ import {
   saveCreatePost,
   savePollResponseService,
   getAllReaction,
-} from '../data/FeedApi';
-import { ResponseType } from '../../../../utils/api/ResponseResult';
-import { getAllEmployeeService } from '../../../../utils/Shared/services/services';
-import { DEFAULT_GUID } from '../../../../utils/constants';
-import { openNotification } from '../../../../utils/Shared/store/slice';
+} from "../data/FeedApi";
+import { ResponseType } from "../../../../utils/api/ResponseResult";
+import { getAllEmployeeService } from "../../../../utils/Shared/services/services";
+import { DEFAULT_GUID } from "../../../../utils/constants";
+import { openNotification } from "../../../../utils/Shared/store/slice";
 
 export const onFeedCreateSubmitAction = createAsyncThunk(
-  'feedSlice/onFeedCreateSubmit',
+  "feedSlice/onFeedCreateSubmit",
   async (
     { referenceType = undefined, referenceId = DEFAULT_GUID },
     { getState, rejectWithValue }
@@ -51,7 +51,7 @@ export const onFeedCreateSubmitAction = createAsyncThunk(
   }
 );
 export const sharePostOnFeed = createAsyncThunk(
-  'feedSlice/sharePostOnFeed',
+  "feedSlice/sharePostOnFeed",
   async (
     { referenceType = undefined, referenceId = DEFAULT_GUID },
     { getState, rejectWithValue, dispatch }
@@ -74,8 +74,8 @@ export const sharePostOnFeed = createAsyncThunk(
       case ResponseType.SUCCESS:
         dispatch(
           openNotification({
-            type: 'success',
-            message: 'Successfully Shared on Feed',
+            type: "success",
+            message: "Successfully Shared on Feed",
           })
         );
         return response.data;
@@ -84,7 +84,7 @@ export const sharePostOnFeed = createAsyncThunk(
 );
 
 export const getAllFeed = createAsyncThunk(
-  'feedSlice/getAllFeed',
+  "feedSlice/getAllFeed",
   async (data, { _, rejectWithValue }) => {
     const response = await getAllFeedServices(data);
 
@@ -99,7 +99,7 @@ export const getAllFeed = createAsyncThunk(
 );
 
 export const addReaction = createAsyncThunk(
-  'feedSlice/addPostReaction',
+  "feedSlice/addPostReaction",
   async (data, { _, rejectWithValue }) => {
     const response = await feedReaction(data);
 
@@ -114,10 +114,10 @@ export const addReaction = createAsyncThunk(
 );
 
 export const getAllReactionsAction = createAsyncThunk(
-  'feedSlice/getAllReactions',
+  "feedSlice/getAllReactions",
   async (args, { _, rejectWithValue }) => {
     const response = await getAllReaction(args);
-    console.log('getAllReactionAction', response.data);
+    console.log("getAllReactionAction", response.data);
     // eslint-disable-next-line default-case
     switch (response.type) {
       case ResponseType.ERROR:
@@ -129,7 +129,7 @@ export const getAllReactionsAction = createAsyncThunk(
 );
 
 export const favoriteFeed = createAsyncThunk(
-  'feedSlice/addPostReaction',
+  "feedSlice/addPostReaction",
   async (data, { _, rejectWithValue }) => {
     const response = await feedFavorite(data);
 
@@ -144,7 +144,7 @@ export const favoriteFeed = createAsyncThunk(
 );
 
 export const savePollResponse = createAsyncThunk(
-  'feedSlice/savePollResponse',
+  "feedSlice/savePollResponse",
   async (data, { _, rejectWithValue }) => {
     const response = await savePollResponseService(data);
 
@@ -159,7 +159,7 @@ export const savePollResponse = createAsyncThunk(
 );
 
 export const getFeedById = createAsyncThunk(
-  'feedSlice/getFeedById',
+  "feedSlice/getFeedById",
   async (data, { _, rejectWithValue }) => {
     const response = await getFeedByIdServices(data);
 
@@ -174,7 +174,7 @@ export const getFeedById = createAsyncThunk(
 );
 
 export const getAllUser = createAsyncThunk(
-  'feedSlice/getAllUser',
+  "feedSlice/getAllUser",
   async (data, { _, rejectWithValue }) => {
     const { search, pageNo, pageSize } = data;
     const response = await getAllEmployeeService(search, pageNo, pageSize);
@@ -289,7 +289,7 @@ function addPostPollOption(state, _) {
     ...state.postCompose.poll.options,
     {
       type: PollType.DEFAULT,
-      value: '',
+      value: "",
       attachment: null,
     },
   ];

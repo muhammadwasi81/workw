@@ -81,6 +81,8 @@ const ContentOptions = ({ handleClose, data }) => {
             onDelete={onDelete} // define and pass onDeletemember actions of particular members
             isSearch={false} //Pass true if you want to search the list
             openModal={true} // pass true if you want to open member details in modal other wise it display in listing
+            visible={visible}
+            setVisible={(da) => setVisible(da)}
           />
         }
       </div>

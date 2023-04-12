@@ -43,7 +43,7 @@ const initialState = {
   employeeShort: [],
   isDarkMode: localStorage.getItem("darkMode") === "1",
   itemDetailModal: false,
-  userNotification: {},
+  notificationCounts: {},
 };
 
 const sharedSlice = createSlice({
@@ -62,6 +62,9 @@ const sharedSlice = createSlice({
     handleItemDetailModal: (state, { payload }) => {
       console.log(payload, "payload");
       state.itemDetailModal = payload;
+    },
+    setNotificationCount: (state, { payload }) => {
+      state.notificationCounts = payload;
     },
   },
   extraReducers: (builder) => {
@@ -144,7 +147,7 @@ const sharedSlice = createSlice({
       })
       .addCase(getAllNotification.fulfilled, (state, { payload }) => {
         console.log(payload, "payload of notification");
-        state.userNotification = payload.data;
+        state.notificationCounts = payload.data;
         state.loader = false;
       })
       .addMatcher(isPending(uploadImage), (state) => {
@@ -186,5 +189,6 @@ export const {
   emptyEmployeesData,
   darkModeHandler,
   handleItemDetailModal,
+  setNotificationCount,
 } = sharedSlice.actions;
 export default sharedSlice.reducer;

@@ -17,9 +17,6 @@ import {
   SingleItem,
 } from "../../../sharedComponents/Card/CardStyle";
 import moment from "moment";
-import { Category } from "emoji-mart";
-import { AttachmentType } from "../../documents/constant";
-import ItemDetailModal from "../../../sharedComponents/ItemDetails";
 
 function ListItem(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -57,6 +54,8 @@ function ListItem(props) {
             <UserInfo
               avatarSrc={creator.image}
               name={creator.name}
+              status={creator.userActiveStatus}
+              profileId={creator.id}
               Subline={
                 <SublineDesigWithTime
                   designation={creator.designation ? creator.designation : ""}
@@ -85,9 +84,6 @@ function ListItem(props) {
               onClick={() => {}}
               size={"60px"}
             />
-            {/* {attachments.map((i) => {
-              return <img width={"100%"} src={i.path} />;
-            })} */}
           </div>
         </ItemContent>
         <div className="cardSections">
@@ -109,10 +105,7 @@ function ListItem(props) {
             </div>
             <div className="cardSection__body">{value}</div>
           </div>
-          {/* <div className="cardSectionItem">
-          <div className="cardSection__title">{customApprovalDictionary.days}</div>
-          <div className="cardSection__body">{customApprovalDictionary.days}</div>
-        </div> */}
+
           <div className="cardSectionItem">
             <div className="cardSection__title">
               {customApprovalDictionary.approvers}
@@ -127,15 +120,6 @@ function ListItem(props) {
                   text={"Approvers"}
                   image={"https://joeschmoe.io/api/v1/random"}
                 />
-                // <ItemDetailModal
-                //   data={approvers} //Data of members will pass here in array
-                //   isDeleteDisabled={true} //Pass true to hide delete icon
-                //   addEnabled={false} //Pass false to hide select member
-                //   addFunc={false} // define and pass addMember action of particular members
-                //   onDelete={false} // define and pass onDeletemember actions of particular members
-                //   isSearch={false} //Pass true if you want to search the list
-                //   openModal={true} // pass true if you want to open member details in modal other wise it display in listing
-                // />
               )}
             </div>
           </div>

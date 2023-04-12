@@ -52,6 +52,7 @@ function ListItem({ item, onClick, onClickMyCareer }) {
               height={40}
               src={item.creator?.image}
               name={item.creator.name}
+              status={item.creator.userActiveStatus}
               round
             ></AvatarOld>
           }
@@ -87,8 +88,6 @@ function ListItem({ item, onClick, onClickMyCareer }) {
           </div>
         </div>
 
-
-        
         <div className="cardSections">
           <div className="cardSectionItem">
             <div className="cardSection__title">{labels.salaryRange}</div>

@@ -91,7 +91,7 @@ const DocShortCard = ({
     }
   };
 
-  const infoHandler = (e) => {
+  const informationHandler = (e) => {
     e.preventDefault();
     e.stopPropagation();
     setOpenDrawer(true);
@@ -145,7 +145,7 @@ const DocShortCard = ({
                 <div className="flex justify_between gap-2">
                   <InfoCircleOutlined
                     className="!text-[18px] cursor-pointer !text-[#707070] info-icon"
-                    onClick={(e) => infoHandler(e)}
+                    onClick={(e) => informationHandler(e)}
                   />
                   {documentType === DUCOMENT_TYPE.folder && (
                     <QuickOptions data={data} />

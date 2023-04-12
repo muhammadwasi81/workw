@@ -9,7 +9,7 @@ import {
   updateUserCoverImgAction,
   updateUserProfileImgAction,
   saveSticyNotes,
-  getSticyNotes,
+  getStickyNotes,
 } from "./action";
 
 const initialState = {
@@ -39,12 +39,10 @@ const employeeProfileSlice = createSlice({
       state.loader = false;
     });
     builder.addCase(getEmployeeByIdAction.fulfilled, (state, action) => {
-      console.log(action.payload.data, "getEmployeeById slice");
       state.employees = action.payload.data;
       state.loader = false;
     });
     builder.addCase(addEmployeeAction.fulfilled, (state, { payload }) => {
-      console.log(payload, "addEmployee slice");
       state.success = true;
       state.employees = [...state.employees, payload.data.data];
       state.loader = false;
@@ -54,35 +52,30 @@ const employeeProfileSlice = createSlice({
       state.loader = false;
     });
     builder.addCase(getEducationAction.fulfilled, (state, action) => {
-      console.log(action.payload.data, "action.payload");
       state.education = action.payload.data;
       state.loader = false;
     });
     builder.addCase(updateEmployeeAction.fulfilled, (state, { payload }) => {
-      console.log(payload, "updateEmployee slice");
       state.success = true;
       state.employees = [...state.employees, payload.data.data];
       state.loader = false;
     });
     builder
       .addCase(updateUserCoverImgAction.fulfilled, (state, { payload }) => {
-        console.log(payload, "updateUserCoverImgAction slice");
         state.success = true;
         state.coverImg = payload;
         state.loader = false;
       })
       .addCase(updateUserProfileImgAction.fulfilled, (state, { payload }) => {
-        console.log(payload, "updateUserProfileImgAction slice");
         state.success = true;
         state.profileImg = payload;
         state.loader = false;
       })
       .addCase(saveSticyNotes.fulfilled, (state, { payload }) => {
-        console.log(payload, "payload");
         state.profileSticky = payload.data;
       })
-      .addCase(getSticyNotes.fulfilled, (state, { payload }) => {
-        state.profileSticky = payload.data;
+      .addCase(getStickyNotes.fulfilled, (state, { payload }) => {
+        state.profileSticky = payload?.data[0];
       })
       .addMatcher(isPending(...[getAllEmployeeAction]), (state) => {
         state.loader = true;

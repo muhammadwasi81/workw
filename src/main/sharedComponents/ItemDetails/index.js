@@ -27,6 +27,8 @@ function ItemDetailModal({
   addFunc = () => {},
   onDelete = () => {},
   children,
+  setVisible = () => {},
+  visible = false,
 }) {
   const dispatch = useDispatch();
   // const modalRequest = useSelector((state) => state.groupSlice.addMemberModal);
@@ -85,7 +87,8 @@ function ItemDetailModal({
   };
 
   const handleClose = () => {
-    dispatch(handleItemDetailModal(false));
+    // dispatch(handleItemDetailModal(false));
+    setVisible(false);
     // setMyData([]);
   };
 
@@ -145,7 +148,7 @@ function ItemDetailModal({
   if (openModal) {
     return (
       <Modal
-        open={itemDetailModal}
+        open={visible}
         onOk={(e) => {}}
         onCancel={handleClose}
         footer={false}
@@ -155,6 +158,8 @@ function ItemDetailModal({
         destroyOnClose={true}
         // afterClose={afterClose}
         forceRender={true}
+        // mask={true}
+        maskStyle={{ background: "transparent" }}
       >
         {addEnabled && (
           <CustomSelect

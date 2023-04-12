@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { ROUTES } from "../../../../../utils/routes";
+import { useEffect, useState } from "react";
 import sunIcon from "../../../../../content/svg/menu/newNavBarIcon/new/dark_mode.svg";
 import moonIcon from "../../../../../content/svg/menu/newNavBarIcon/new/light_mode.svg";
 import addUser from "../../../../../content/svg/menu/newNavBarIcon/new/add_user.svg";
@@ -8,7 +7,7 @@ import notification from "../../../../../content/svg/menu/newNavBarIcon/new/ring
 import rewards from "../../../../../content/svg/menu/newNavBarIcon/new/check_list.svg";
 import stickyNotes from "../../../../../content/svg/menu/newNavBarIcon/new/sticky_notes.svg";
 // import Notes from "../../../../features/notes/Notes";
-import NewStickyNote from "../../../../features/notes/NewStickyNote";
+// import NewStickyNote from "../../../../features/notes/NewStickyNote";
 import { toggleStickyNote } from "../../../../features/notes/newStickyNotes/store/stickySlice";
 import {
   setApprovalStatus,
@@ -28,9 +27,8 @@ import { quickAddOpen } from "../../../../features/quickEmployee/store/slice";
 import { darkModeHandler } from "../../../../../utils/Shared/store/slice";
 import { useNavigate } from "react-router-dom";
 import { globalSearch } from "../../../../features/search/store/actions";
-import { SearchFilterEnum } from "../../../../features/search/utils/enums";
-import { message } from "antd";
-import { handleGlobalSearch } from "../../../../features/search/store/slice";
+// import { SearchFilterEnum } from "../../../../features/search/utils/enums";
+// import { handleGlobalSearch } from "../../../../features/search/store/slice";
 
 function NotificationBar() {
   const [isSearch, setIsSearch] = useState(false);
@@ -123,22 +121,30 @@ function NotificationBar() {
             />
           </li>
           <li className="list__item">
-            <img src={addUser} alt="" onClick={quickEmployeeHandler} />
+            <img
+              src={addUser}
+              alt="quick-employee"
+              onClick={quickEmployeeHandler}
+            />
           </li>
           <li className="list__item">
-            <img src={stickyNotes} alt="" onClick={stickyNoteHandler} />
+            <img
+              src={stickyNotes}
+              alt="sticky-notes"
+              onClick={stickyNoteHandler}
+            />
           </li>
           <li className="list__item" onClick={handleNotification}>
-            <img src={notification} alt="" />
+            <img src={notification} alt="notifications-icon" />
           </li>
-          <li className="list__item" onClick={handleApproval}>
-            <img src={rewards} alt="" />
+          <li className="list__item rewards__icon" onClick={handleApproval}>
+            <img src={rewards} alt="rewards-icon" />
           </li>
         </ul>
         <div className="searchBar">
           <img
             src={search}
-            alt=""
+            alt="search-icon"
             onClick={handleSearch}
             className="cursor-pointer"
           />

@@ -15,6 +15,7 @@ function MadalHeader({
   const dispatch = useDispatch();
 
   const handleMaximize = () => {
+    handleClose()
     window.open(document?.callUrl, "_blank", "location=yes,height=1000,width=1200,scrollbars=yes,status=yes")
   }
   const handleMinimize = () => {

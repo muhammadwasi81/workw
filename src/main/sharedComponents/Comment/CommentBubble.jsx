@@ -59,7 +59,6 @@ function CommentBubble({
             __html: renderTitleWithMentions(content, mentionedUser),
           }}
         />
-        {/* <div>{renderTitleWithMentions(content, mentionedUser)}</div> */}
         {attachmentFile && (
           <div className="rounded-[20px] overflow-hidden w-auto inline-block">
             <img

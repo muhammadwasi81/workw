@@ -22,7 +22,6 @@ function CommentWrapper({
   reactionModule,
   setShowComments = () => {},
 }) {
-  console.log(initialMentions, "initial mention");
   const [comments, setComments] = useState([]);
   const [likeClass, setLikeClass] = useState("hello boy");
   const dispatch = useDispatch();

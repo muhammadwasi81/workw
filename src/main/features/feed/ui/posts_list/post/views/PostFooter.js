@@ -38,7 +38,6 @@ const PostFooter = ({
   isDetailViewOpen = true,
   isDetail = false,
 }) => {
-  console.log(myReaction, "myReactionnn");
   const {
     postCompose: { reactionMembersData },
   } = useSelector((state) => state.feedSlice);
@@ -60,12 +59,12 @@ const PostFooter = ({
   } = Post;
 
   const handleAddReaction = (myReaction, id) => {
-    if (myReaction === 0) {
+    if (myReaction === ReactionType.NoReaction) {
       dispatch(
         addFeedReaction({
           referenceId: id,
           reactionMode: "click",
-          ReactionType: 1,
+          ReactionType: ReactionType.NoReaction,
           isDetail,
         })
       );
@@ -73,7 +72,7 @@ const PostFooter = ({
         addReaction({
           referenceId: id,
           reactionModule,
-          reactionType: 1,
+          reactionType: ReactionType.NoReaction,
         })
       );
       return;
@@ -185,15 +184,15 @@ const PostFooter = ({
         </div>
         <div className="post-events">
           <div
-            className={`btn ${myReaction === 1 ? "on" : ""}`}
+            className={`btn ${myReaction === ReactionType.Like ? "on" : ""}`}
             onClick={() =>
               handleAddReaction(
-                myReaction === 1 ||
-                  myReaction === 2 ||
-                  myReaction === 3 ||
-                  myReaction === 4 ||
-                  myReaction === 5 ||
-                  myReaction === 6
+                myReaction === ReactionType.Like ||
+                  myReaction === ReactionType.Celebrate ||
+                  myReaction === ReactionType.Support ||
+                  myReaction === ReactionType.Love ||
+                  myReaction === ReactionType.Insightful ||
+                  myReaction === ReactionType.Curious
                   ? 0
                   : 1,
                 id
@@ -218,7 +217,9 @@ const PostFooter = ({
                   })
                 );
               }}
-              onLikeBtnClick={() => handleAddReaction(0, id)}
+              onLikeBtnClick={() =>
+                handleAddReaction(ReactionType.NoReaction, id)
+              }
             >
               <div className={`btn on`}>
                 <span>

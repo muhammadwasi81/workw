@@ -6,6 +6,16 @@ import CommentBubble from "./CommentBubble";
 import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
 import { CommentDictionary } from "./localization";
 import { commentTypeEnum } from "./enum/enum";
+import Reactions from "../reactionBox";
+import { addFeedReaction } from "../../features/feed/store/slice";
+import { addReaction } from "../../features/feed/store/actions";
+import { ReactionType } from "../../features/feed/utils/constants";
+import {
+  reactionColor,
+  reactionDescription,
+  reactions,
+} from "../../features/feed/ui/reactions/reactions";
+import { useDispatch } from "react-redux";
 const CommentItem = ({
   comment,
   initialMentions,
@@ -26,14 +36,17 @@ const CommentItem = ({
     attachments,
     attachmentCount,
     attachmentFile,
+    youLikeType,
+    likeCounter,
     reactionCount,
+    reactionModule,
     cssClass,
     mentions,
   } = comment;
-  console.log(mentions, "mentionss");
+  console.log(reactionModule, "you like typeee");
   const [openComposer, setOpenComposer] = useState(false);
   const [replies, setReplies] = useState([]);
-
+  const dispatch = useDispatch();
   const toggleReply = (referenceId, parentId) => {
     setOpenComposer((prevState) => {
       if (!prevState) getRepliesByParent(referenceId, parentId);
@@ -53,7 +66,9 @@ const CommentItem = ({
     }
   };
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { Reply, Like, WriteYourReplyHere } = CommentDictionary[userLanguage];
+  const { Reply, Like, WriteYourReplyHere, Direction } = CommentDictionary[
+    userLanguage
+  ];
 
   return (
     <div
@@ -79,9 +94,50 @@ const CommentItem = ({
           />
           {type !== commentTypeEnum.SystemComment && (
             <div className="likeReplyCont">
-              <div className={cssClass} onClick={() => handleLike(parentId)}>
-                {/* {Like} &nbsp; {reactionCount > 0 ? reactionCount : ""} */}
-                {Like}
+              <div className={cssClass} onClick={() => handleLike(0, parentId)}>
+                <Reactions
+                  direction={Direction}
+                  onUpdate={(e) => {
+                    dispatch(
+                      addFeedReaction({
+                        referenceId: parentId,
+                        reactionModule,
+                        reactionType: e,
+                      })
+                    );
+                    dispatch(
+                      addReaction({
+                        referenceId: parentId,
+                        reactionModule,
+                        reactionType: e,
+                      })
+                    );
+                  }}
+                  onLikeBtnClick={() =>
+                    handleLike(ReactionType.NoReaction, parentId)
+                  }
+                >
+                  <div className={`flex justify-between	 btn on`}>
+                    <span>
+                      <img
+                        className={
+                          ReactionType.Like === youLikeType ||
+                          ReactionType.NoReaction === youLikeType
+                            ? "w-[20px] h-[30px]"
+                            : " w-[30px] h-[30px]"
+                        }
+                        src={reactions[youLikeType]}
+                        alt={reactionDescription[youLikeType]}
+                      />
+                    </span>
+                    <div
+                      className={`text-[${reactionColor[youLikeType]}]`}
+                      style={{ color: reactionColor[youLikeType] }}
+                    >
+                      {reactionDescription[youLikeType]}
+                    </div>
+                  </div>
+                </Reactions>
               </div>
               <div onClick={() => toggleReply(referenceId, parentId)}>
                 {Reply}

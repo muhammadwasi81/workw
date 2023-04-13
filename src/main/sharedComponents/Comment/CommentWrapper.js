@@ -6,6 +6,8 @@ import { addReaction } from "../../features/feed/store/actions";
 import CommentItem from "./commentItem";
 import CommentComposer from "./Composer";
 import { getAllComment } from "./services";
+import { ReactionType } from "../../features/feed/utils/constants";
+import { addFeedReaction } from "../../features/feed/store/slice";
 
 function CommentWrapper({
   initailComments = [],
@@ -20,6 +22,8 @@ function CommentWrapper({
   showComments = true,
   isDetailViewOpen = true,
   reactionModule,
+  isDetail = false,
+
   setShowComments = () => {},
 }) {
   const [comments, setComments] = useState([]);
@@ -47,7 +51,34 @@ function CommentWrapper({
 
   if (comments.length === 0 && loadSkeleton) return <Skeleton active />;
 
-  const handleAddReaction = (id) => {
+  const handleAddReaction = (youLikeType, id) => {
+    console.log(youLikeType, "youliketypee");
+    // if (youLikeType === ReactionType.NoReaction) {
+    //   dispatch(
+    //     addFeedReaction({
+    //       referenceId: id,
+    //       reactionMode: "click",
+    //       ReactionType: youLikeType,
+    //       isDetail,
+    //     })
+    //   );
+    //   dispatch(
+    //     addReaction({
+    //       referenceId: id,
+    //       reactionModule,
+    //       reactionType: youLikeType,
+    //     })
+    //   );
+    //   return;
+    // } else {
+    //   dispatch(
+    //     addFeedReaction({
+    //       referenceId: id,
+    //       reactionMode: "click",
+    //       reactionType: youLikeType,
+    //       isDetail,
+    //     })
+    //   );
     dispatch(
       addReaction({
         referenceId: id,
@@ -55,6 +86,7 @@ function CommentWrapper({
         reactionType: 1,
       })
     );
+    // }
     //todo set className for comments
     const updatedComments = comments.map((item) => {
       // console.log(item);
@@ -123,6 +155,7 @@ function CommentWrapper({
                     createDate,
                     youLikeType: 0,
                     likeCounter: 0,
+                    reactionModule,
                     reactionCount,
                     creator: {
                       name,

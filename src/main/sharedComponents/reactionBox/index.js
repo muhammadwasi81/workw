@@ -19,7 +19,6 @@ export default class Reactions extends Component {
 
   state = {
     open: false,
-    // activeReaction: ReactionType.NoReaction,
   };
 
   toggleOpen(openState) {
@@ -27,11 +26,7 @@ export default class Reactions extends Component {
       open: openState,
     });
   }
-  // LikeHandler() {
-  //   this.setState({
-  //     activeReaction: ReactionType.Like,
-  //   });
-  // }
+
   images = [
     {
       id: ReactionType.Like,

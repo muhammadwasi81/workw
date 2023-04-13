@@ -48,6 +48,7 @@ const PostFooter = ({
   const [showComments, setShowComments] = useState(false);
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Post, Direction } = FeedDictionary[userLanguage];
+
   const {
     Comments,
     Comment,
@@ -59,13 +60,12 @@ const PostFooter = ({
   } = Post;
 
   const handleAddReaction = (myReaction, id) => {
-    console.log(id, "idddd");
     if (myReaction === 0) {
       dispatch(
         addFeedReaction({
           referenceId: id,
           reactionMode: "click",
-          ReactionType: myReaction,
+          ReactionType: 1,
           isDetail,
         })
       );
@@ -73,7 +73,7 @@ const PostFooter = ({
         addReaction({
           referenceId: id,
           reactionModule,
-          reactionType: myReaction,
+          reactionType: 1,
         })
       );
       return;
@@ -95,8 +95,6 @@ const PostFooter = ({
       })
     );
   };
-
-  console.log(reactionMembersData, "reactionMembersData");
 
   const handleOpenMembers = (e) => {
     e.preventDefault();
@@ -186,7 +184,22 @@ const PostFooter = ({
           )}
         </div>
         <div className="post-events">
-          <div className={`btn on`} onClick={() => handleAddReaction(0, id)}>
+          <div
+            className={`btn ${myReaction === 1 ? "on" : ""}`}
+            onClick={() =>
+              handleAddReaction(
+                myReaction === 1 ||
+                  myReaction === 2 ||
+                  myReaction === 3 ||
+                  myReaction === 4 ||
+                  myReaction === 5 ||
+                  myReaction === 6
+                  ? 0
+                  : 1,
+                id
+              )
+            }
+          >
             <Reactions
               direction={Direction}
               onUpdate={(e) => {

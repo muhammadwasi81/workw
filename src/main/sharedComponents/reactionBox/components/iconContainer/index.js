@@ -15,7 +15,6 @@ export default class IconContainer extends Component {
   state = {
     selected: "",
     hover: false,
-    activeReaction: ReactionType.NoReaction,
   };
 
   constructor(props) {
@@ -30,11 +29,8 @@ export default class IconContainer extends Component {
   }
 
   hovering(hoverState) {
-    console.log(hoverState, "hoverState");
-    console.log(this.state.activeReaction, "active reaction");
     this.setState({
       hover: hoverState,
-      activeReaction: ReactionType.Like,
     });
   }
 

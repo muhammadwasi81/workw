@@ -19,7 +19,6 @@ export default class Icon extends Component {
 
   render() {
     const { title, link, width, hover } = this.props;
-    console.log(link, "linkkkkk");
 
     const iconStyles = {
       transition: "all 0.2s",

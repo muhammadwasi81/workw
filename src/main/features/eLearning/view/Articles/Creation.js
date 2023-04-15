@@ -4,8 +4,8 @@ import DashboardLayout from "../Dashboard/Layout/DashboardLayout";
 import { elearningDictionaryList } from "../../localization/index";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { FormContainer, Heading, MainContainer } from "./styleObjects";
-import "./style.css"
-import { Avatar, Button, Form, Input, Select, Radio } from "antd";
+import "./style.css";
+import { Avatar, Button, Form, Input, Select, Radio, message } from "antd";
 import TextInput from "../../../../sharedComponents/Input/TextInput";
 import SingleUpload from "../../../../sharedComponents/Upload/singleUpload";
 import { useState } from "react";
@@ -22,32 +22,34 @@ import { getELearningCategory } from "../../../eLearningCategory/store/action";
 const { Option } = Select;
 
 function CreateArticle() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
-  const { Direction, elearningDictionary } = elearningDictionaryList[userLanguage];
+  const { Direction, elearningDictionary } = elearningDictionaryList[
+    userLanguage
+  ];
 
   const [form] = Form.useForm();
   const [profileImage, setProfileImage] = useState(null);
-  const [video, setVideo] = useState(null)
+  const [video, setVideo] = useState(null);
   const [privacyId, setPrivacyId] = useState(PostPrivacyType.PUBLIC);
-  const [fileType, setFileType] = useState(1)
+  const [fileType, setFileType] = useState(1);
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [value, setValue] = useState([]);
   const [videoType, setVideoType] = useState(1);
 
-  const {ELearningCategory } = useSelector((state) => state.eLearningCategorySlice);
+  const { ELearningCategory } = useSelector(
+    (state) => state.eLearningCategorySlice
+  );
   const { loaders, success } = useSelector((state) => state.eLearningSlice);
   const employees = useSelector((state) => state.sharedSlice.employees);
 
-
   const onChangeRadio = (e) => {
-    let value = e.target.value 
+    let value = e.target.value;
     setVideoType(value);
   };
 
-
-  let loader = loaders.addArticleLoading
+  let loader = loaders.addArticleLoading;
   const selectedData = (data, obj) => {
     setValue(data);
     handleMember(obj);
@@ -83,7 +85,7 @@ function CreateArticle() {
     dispatch(getELearningCategory());
   }, []);
 
-  const onPrivacyChange = value => {
+  const onPrivacyChange = (value) => {
     setPrivacyId(value);
   };
 
@@ -96,7 +98,6 @@ function CreateArticle() {
   };
 
   const onFinish = (values) => {
-
     let image = {
       id: STRINGS.DEFAULTS.guid,
       file: profileImage && profileImage,
@@ -115,16 +116,15 @@ function CreateArticle() {
       links: values.links,
       image: image,
       attachment: attachment,
-    }
+    };
 
-    console.log(dataObject, "DATA OBJECT")
+    console.log(dataObject, "DATA OBJECT");
 
     if (Object.keys(image).length > 0) {
-      dispatch(addArticle(dataObject))
+      dispatch(addArticle(dataObject));
     } else {
-      dispatch(addArticle(dataObject))
+      dispatch(addArticle(dataObject));
     }
-    
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -134,8 +134,8 @@ function CreateArticle() {
   useEffect(() => {
     if (success) {
       form.resetFields();
-      setProfileImage([])
-      setVideo([])
+      setProfileImage([]);
+      setVideo([]);
     }
   }, [success]);
 
@@ -173,17 +173,14 @@ function CreateArticle() {
                   <CustomSelect
                     data={ELearningCategory}
                     placeholder={"Select Categoy"}
-                    style={{
-                      width: "100%",
-                      borderRadius: "5px",
-                    }}
+                    className="w-full rounded-5"
                     size="large"
                   />
                 </Form.Item>
               </div>
             </div>
             <div className="flex">
-            <div className="innerColumn">
+              <div className="innerColumn">
                 <Form.Item
                   label={"Name"}
                   name="name"
@@ -198,7 +195,7 @@ function CreateArticle() {
                   <TextInput placeholder={"Enter Name"} />
                 </Form.Item>
               </div>
-              <div className="innerColumn" style={{paddingTop: "33px"}}>
+              <div className="innerColumn pt-33">
                 <Form.Item>
                   <Radio.Group onChange={onChangeRadio} value={videoType}>
                     <Radio value={1}>Via Link</Radio>
@@ -209,30 +206,36 @@ function CreateArticle() {
             </div>
             <div className="flex">
               <div className="innerColumn">
-                {
-                  videoType === 1 ? 
-                    <Form.Item
-                      label={"Link"}
-                      name="links"
-                      labelPosition="top"
-                      rules={[
-                        {
-                          required: true,
-                          message: "Please Insert Link",
-                        },
-                      ]}
-                    >
-                      <TextInput placeholder={"Insert Link"} />
-                    </Form.Item> :
-                    <FileUploader
+                {videoType === 1 ? (
+                  <Form.Item
+                    label={"Link"}
+                    name="links"
+                    labelPosition="top"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please Insert Link",
+                      },
+                    ]}
+                  >
+                    <TextInput
+                      placeholder={"Insert Link"}
+                      type={"text"}
+                      pattern="^https?://.*\.(pdf|PDF|png|jpg|jpeg)$"
+                      title="Please enter a valid link to a PDF, PNG, or JPG file, starting with http:// or https://"
+                    />
+                  </Form.Item>
+                ) : (
+                  <FileUploader
                     fileList={video ? video : []}
                     isMultiple={false}
-                    uploadButton={<div>Upload Video</div>}
-                    handleUpload={handleVideoUpload} 
-                    classes="" 
+                    uploadButton={<div>Upload Photo or PDF</div>}
+                    handleUpload={handleVideoUpload}
+                    acceptFile=".pdf,.PDF,.png,.jpg,.jpeg"
+                    classes=""
                     // acceptFile=".PDF"
-                />
-                }
+                  />
+                )}
               </div>
             </div>
             <div className="innerColumn">
@@ -246,17 +249,20 @@ function CreateArticle() {
                   },
                 ]}
               >
-                <Input.TextArea placeholder={"Enter Description"} style={{ height: "50px" }} />
+                <Input.TextArea
+                  placeholder={"Enter Description"}
+                  className="h-50"
+                />
               </Form.Item>
               <div className="flex">
                 <FileUploader
                   fileList={profileImage ? profileImage : []}
                   uploadButton={<div>Upload Image</div>}
-                  handleUpload={handleImageUpload} 
+                  handleUpload={handleImageUpload}
                   isMultiple={false}
                   acceptFile="image/*"
                   classes=""
-                  />
+                />
               </div>
             </div>
           </FormContainer>
@@ -286,4 +292,4 @@ function CreateArticle() {
   );
 }
 
-export default CreateArticle
+export default CreateArticle;

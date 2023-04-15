@@ -1,5 +1,5 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
-import { getUserLeave, addLeaveByEmployee, updateUserLeave } from "./actions";
+import { getUserLeave, updateUserLeave } from "./actions";
 
 const initialState = {
   allLeaves: [],
@@ -15,19 +15,14 @@ const userLeaveSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getUserLeave.fulfilled, (state, action) => {
-        console.log(action.payload, "action paylod");
         state.allLeaves = action.payload.data;
         state.loader = false;
       })
       .addCase(updateUserLeave.fulfilled, (state, action) => {
-        console.log(action.payload.data, "ttttttttttttttttt");
         state.loader = false;
         state.allLeaves = action.payload.data;
       })
-      .addCase(addLeaveByEmployee.fulfilled, (state, { payload }) => {
-        state.loader = false;
-        state.allLeaves.push(payload.data);
-      })
+
       .addMatcher(isPending(...[getUserLeave]), (state) => {
         state.loader = true;
       })
@@ -36,6 +31,5 @@ const userLeaveSlice = createSlice({
       });
   },
 });
-// export const { setmodal, closeModal } = externalBookAppointment.actions;
 
 export default userLeaveSlice.reducer;

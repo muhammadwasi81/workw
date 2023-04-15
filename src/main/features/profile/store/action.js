@@ -14,6 +14,7 @@ import {
   addRatingService,
   saveProfileStickyNote,
   getProfileStickyNote,
+  getEmployeeProfileByIdService,
 } from "../service/service";
 
 export const addEmployeeAction = createAsyncThunk(
@@ -179,5 +180,14 @@ export const getStickyNotes = createAsyncThunk(
         cause: error,
       });
     }
+  }
+);
+
+export const getEmployeeProfileById = createAsyncThunk(
+  `Employee/getEmployeeProfileById`,
+  async (id) => {
+    const response = await getEmployeeProfileByIdService(id);
+    console.log(response.data, "getEmployeeProfileById actions");
+    return response.data;
   }
 );

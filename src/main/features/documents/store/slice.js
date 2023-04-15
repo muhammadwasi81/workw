@@ -122,7 +122,10 @@ const documentSlice = createSlice({
           ...payload,
         },
       };
-      state.minimzedDocuments = [...state.minimzedDocuments, dcoumentItem];
+      let isAlreadyAvailable = state.minimzedDocuments.find((document)=> document.id === payload.id)
+      if(!(!!isAlreadyAvailable)){
+        state.minimzedDocuments = [...state.minimzedDocuments, dcoumentItem];
+      }
     },
     handleRemoveMinimizeDocument: (state, { payload }) => {
       let id = payload.id;

@@ -5,6 +5,7 @@ import {
   verification,
   getDesignation,
   setNewPassword,
+  forgotPasswordVerification,
 } from "./actions.js";
 
 const initialState = {
@@ -14,6 +15,7 @@ const initialState = {
   isSuccess: false,
   verificationSuccess: false,
   verificationLoader: false,
+  token: {},
 };
 
 export const authSlice = createSlice({
@@ -49,6 +51,11 @@ export const authSlice = createSlice({
         state.loader = false;
         state.isSuccess = true;
         return state;
+      })
+
+      .addCase(forgotPasswordVerification.fulfilled, (state, action) => {
+        state.loader = false;
+        state.token = action.payload;
       })
 
       // .addCase(verification.pending, (state, { payload }) => {

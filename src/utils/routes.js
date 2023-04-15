@@ -1,4 +1,3 @@
-
 export let DOMAIN_PREFIX = "";
 DOMAIN_PREFIX = process.env.NODE_ENV !== "development" ? "/konnect" : "";
 // DOMAIN_PREFIX =
@@ -69,6 +68,7 @@ export const ROUTES = {
     SIGN_IN_ANONYMOUSLY: `${DOMAIN_PREFIX}/authenticating`,
     FORGOT_PASSWORD_LANDING: `${DOMAIN_PREFIX}/resetpassword`,
     FORGOT_PASSWORD: `${DOMAIN_PREFIX}/forgotpassword`,
+    FORGOT_PASS: `${DOMAIN_PREFIX}/forgotPassword`,
     VERIFICATION: `${DOMAIN_PREFIX}/signupVerification/verify`,
     SETUP_PASSWORD: `${DOMAIN_PREFIX}/SetupNewPassword`,
     // VERIFICATION_INPROCESS: `${DOMAIN_PREFIX}/verifying`,
@@ -576,7 +576,7 @@ export const ROUTES = {
     BONUS: {
       DEFAULT: `${DOMAIN_PREFIX}/bonus`,
     },
-    OrganizationalChart:{
+    OrganizationalChart: {
       DEFAULT: `${DOMAIN_PREFIX}/index`,
     },
   },
@@ -674,8 +674,13 @@ export const ROUTES = {
     ROOT: `${DOMAIN_PREFIX}/bonus`,
     DETAIL: `/detail`,
   },
-  OrganizationalChart:{
+  OrganizationalChart: {
     DEFAULT: `${DOMAIN_PREFIX}/index`,
     ROOT: `${DOMAIN_PREFIX}/index`,
+  },
+
+  MARKETPLACE: {
+    DEFAULT: `${DOMAIN_PREFIX}/marketplace/*`,
+    ROOT: `${DOMAIN_PREFIX}/marketplace`,
   },
 };

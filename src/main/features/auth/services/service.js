@@ -82,3 +82,26 @@ export const setNewPasswordService = (data) => {
 // 			return error;
 // 		});
 // };
+export const forgotPassword = (data) => {
+  console.log(data, "datttta");
+
+  return MasterConfig.post(`api/User/ForgotPassword?email=${data}`)
+    .then((res) => {
+      return res;
+    })
+    .catch((error) => {
+      return error;
+    });
+};
+
+// export const forgotPasswordTokenService = (tokenData) => {
+//   console.log(tokenData, "datttta");
+
+//   return MasterConfig.get(`api/User/VerifyToken?token=${tokenData}`)
+//     .then((res) => {
+//       return res;
+//     })
+//     .catch((error) => {
+//       return error;
+//     });
+// };

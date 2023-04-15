@@ -345,6 +345,12 @@ export const routes = {
       path: `${ROUTES.COMPANIES.DEFAULT}`,
       component: lazy(() => import("../main/features/companies/index")),
     },
+    {
+      path: `${ROUTES.MARKETPLACE.DEFAULT},`,
+      component: lazy(() => {
+        import("../main/features/marketPlace/index");
+      }),
+    },
   ],
   AdminRoutes: [
     {

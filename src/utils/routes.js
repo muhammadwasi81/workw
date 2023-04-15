@@ -1,4 +1,3 @@
-
 export let DOMAIN_PREFIX = "";
 DOMAIN_PREFIX = process.env.NODE_ENV !== "development" ? "/konnect" : "";
 // DOMAIN_PREFIX =
@@ -576,7 +575,7 @@ export const ROUTES = {
     BONUS: {
       DEFAULT: `${DOMAIN_PREFIX}/bonus`,
     },
-    OrganizationalChart:{
+    OrganizationalChart: {
       DEFAULT: `${DOMAIN_PREFIX}/index`,
     },
   },
@@ -674,8 +673,13 @@ export const ROUTES = {
     ROOT: `${DOMAIN_PREFIX}/bonus`,
     DETAIL: `/detail`,
   },
-  OrganizationalChart:{
+  OrganizationalChart: {
     DEFAULT: `${DOMAIN_PREFIX}/index`,
     ROOT: `${DOMAIN_PREFIX}/index`,
+  },
+
+  MARKETPLACE: {
+    DEFAULT: `${DOMAIN_PREFIX}/marketplace/*`,
+    ROOT: `${DOMAIN_PREFIX}/marketplace`,
   },
 };

@@ -13,7 +13,7 @@ import NewsFeed from "../feed/ui";
 import { getEducationDetailByUser } from "../education/store/actions";
 import { useDispatch } from "react-redux";
 import { getUserWorkExperience } from "../experienceInfo/store/actions";
-import { getEmployeeByIdAction } from "./store/action";
+import { getEmployeeByIdAction, getEmployeeProfileById } from "./store/action";
 import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
 import { profileDictionaryList } from "./localization/index";
 import ActivityLog from "../team/view/ActivityLog";
@@ -50,7 +50,10 @@ const Profile = () => {
     user: { id: userId },
   } = useSelector((state) => state.userSlice);
 
-  const { profileSticky } = useSelector((state) => state.employeeProfileSlice);
+  const { profileSticky, employeeProfile } = useSelector(
+    (state) => state.employeeProfileSlice
+  );
+  console.log(profileSticky, "profileSticky");
   const onChange = (key) => {
     navigate(key);
   };
@@ -176,7 +179,8 @@ const Profile = () => {
   useEffect(() => {
     dispatch(getEducationDetailByUser(id));
     dispatch(getUserWorkExperience(id));
-    dispatch(getEmployeeByIdAction(id));
+    // dispatch(getEmployeeByIdAction(id));
+    dispatch(getEmployeeProfileById(id));
   }, []);
 
   return (

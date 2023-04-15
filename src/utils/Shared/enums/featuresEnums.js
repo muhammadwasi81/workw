@@ -43,7 +43,8 @@ export const FeaturesEnum = {
   Voucher: 42,
   Quotation: 43,
   Company: 44,
-  Report: 45
+  Report: 45,
+  MarketPlace: 46,
 };
 
 export const FeaturePermissionEnum = {
@@ -148,7 +149,7 @@ export const FeaturePermissionEnum = {
   CreateQuotation: 99,
   ViewCompany: 100,
   CreateArticle: 101,
-  ViewReport: 102
+  ViewReport: 102,
 };
 export const FeaturePermissionEnumList = [
   {

@@ -162,6 +162,7 @@ const en = {
     teams: "My Team",
     basicInfo: "Basic Info",
     LD: "L & D",
+    marketPlace: "MarketPlace",
   },
 
   /*** AppHeader only used in Component headerTab ***/

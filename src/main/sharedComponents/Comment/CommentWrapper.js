@@ -7,7 +7,10 @@ import CommentItem from "./commentItem";
 import CommentComposer from "./Composer";
 import { getAllComment } from "./services";
 import { ReactionType } from "../../features/feed/utils/constants";
-import { addFeedReaction } from "../../features/feed/store/slice";
+import {
+  addCommentsReaction,
+  addFeedReaction,
+} from "../../features/feed/store/slice";
 
 function CommentWrapper({
   initailComments = [],
@@ -50,43 +53,45 @@ function CommentWrapper({
   };
 
   if (comments.length === 0 && loadSkeleton) return <Skeleton active />;
+  console.log(comments, "commentss");
 
-  const handleAddReaction = (youLikeType, id) => {
-    console.log(youLikeType, "youliketypee");
-    // if (youLikeType === ReactionType.NoReaction) {
-    //   dispatch(
-    //     addFeedReaction({
-    //       referenceId: id,
-    //       reactionMode: "click",
-    //       ReactionType: youLikeType,
-    //       isDetail,
-    //     })
-    //   );
-    //   dispatch(
-    //     addReaction({
-    //       referenceId: id,
-    //       reactionModule,
-    //       reactionType: youLikeType,
-    //     })
-    //   );
-    //   return;
-    // } else {
-    //   dispatch(
-    //     addFeedReaction({
-    //       referenceId: id,
-    //       reactionMode: "click",
-    //       reactionType: youLikeType,
-    //       isDetail,
-    //     })
-    //   );
-    dispatch(
-      addReaction({
-        referenceId: id,
-        reactionModule: 3,
-        reactionType: 1,
-      })
-    );
-    // }
+  const handleAddReaction = (youLikeType, id, commentId) => {
+    console.log(youLikeType, id, "youliketypee");
+    if (youLikeType === ReactionType.NoReaction) {
+      dispatch(
+        addCommentsReaction({
+          referenceId: id,
+          reactionMode: "click",
+          ReactionType: ReactionType.NoReaction,
+          isDetail,
+          id: commentId,
+        })
+      );
+      dispatch(
+        addReaction({
+          referenceId: id,
+          reactionModule,
+          reactionType: ReactionType.NoReaction,
+        })
+      );
+      return;
+    } else {
+      dispatch(
+        addCommentsReaction({
+          referenceId: id,
+          reactionMode: "click",
+          reactionType: youLikeType,
+          isDetail,
+        })
+      );
+      dispatch(
+        addReaction({
+          referenceId: id,
+          reactionModule: 3,
+          reactionType: youLikeType,
+        })
+      );
+    }
     //todo set className for comments
     const updatedComments = comments.map((item) => {
       // console.log(item);
@@ -136,6 +141,7 @@ function CommentWrapper({
               reactionCount,
               cssClass,
               mentions,
+              myReaction,
             }) => {
               const { designation, name, image } = creator;
               return (
@@ -167,6 +173,7 @@ function CommentWrapper({
                     attachmentFile,
                     cssClass: cssClass,
                     mentions: mentions,
+                    myReaction: myReaction,
                   }}
                 />
               );

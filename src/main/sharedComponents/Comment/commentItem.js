@@ -7,7 +7,10 @@ import { LanguageChangeContext } from "../../../utils/localization/localContext/
 import { CommentDictionary } from "./localization";
 import { commentTypeEnum } from "./enum/enum";
 import Reactions from "../reactionBox";
-import { addFeedReaction } from "../../features/feed/store/slice";
+import {
+  addCommentsReaction,
+  addFeedReaction,
+} from "../../features/feed/store/slice";
 import { addReaction } from "../../features/feed/store/actions";
 import { ReactionType } from "../../features/feed/utils/constants";
 import {
@@ -42,8 +45,9 @@ const CommentItem = ({
     reactionModule,
     cssClass,
     mentions,
+    myReaction,
   } = comment;
-  console.log(reactionModule, "you like typeee");
+  console.log(comment, "reactionModule");
   const [openComposer, setOpenComposer] = useState(false);
   const [replies, setReplies] = useState([]);
   const dispatch = useDispatch();
@@ -94,15 +98,32 @@ const CommentItem = ({
           />
           {type !== commentTypeEnum.SystemComment && (
             <div className="likeReplyCont">
-              <div className={cssClass} onClick={() => handleLike(0, parentId)}>
+              <div
+                // className={cssClass}
+                // className={`btn ${
+                //   youLikeType === ReactionType.Like ? "on" : ""
+                // }`}
+                className={`btn ${myReaction ? "liked" : "no"}`}
+                onClick={() =>
+                  handleLike(ReactionType.NoReaction, referenceId, parentId)
+                }
+              >
                 <Reactions
                   direction={Direction}
                   onUpdate={(e) => {
+                    // dispatch(
+                    //   addFeedReaction({
+                    //     referenceId: parentId,
+                    //     reactionModule,
+                    //     reactionType: e,
+                    //   })
+                    // );
                     dispatch(
-                      addFeedReaction({
-                        referenceId: parentId,
+                      addCommentsReaction({
+                        referenceId: referenceId,
                         reactionModule,
                         reactionType: e,
+                        id: parentId,
                       })
                     );
                     dispatch(
@@ -114,27 +135,27 @@ const CommentItem = ({
                     );
                   }}
                   onLikeBtnClick={() =>
-                    handleLike(ReactionType.NoReaction, parentId)
+                    handleLike(ReactionType.NoReaction, referenceId, parentId)
                   }
                 >
-                  <div className={`flex justify-between	 btn on`}>
+                  <div className={`flex justify-between btn on`}>
                     <span>
                       <img
                         className={
-                          ReactionType.Like === youLikeType ||
-                          ReactionType.NoReaction === youLikeType
+                          ReactionType.Like === myReaction ||
+                          ReactionType.NoReaction === myReaction
                             ? "w-[20px] h-[30px]"
                             : " w-[30px] h-[30px]"
                         }
-                        src={reactions[youLikeType]}
-                        alt={reactionDescription[youLikeType]}
+                        src={reactions[myReaction || 0]}
+                        alt={reactionDescription[myReaction || 0]}
                       />
                     </span>
                     <div
-                      className={`text-[${reactionColor[youLikeType]}]`}
-                      style={{ color: reactionColor[youLikeType] }}
+                      className={`text-[${reactionColor[myReaction || 0]}]`}
+                      style={{ color: reactionColor[myReaction || 0] }}
                     >
-                      {reactionDescription[youLikeType]}
+                      {reactionDescription[myReaction || 0]}
                     </div>
                   </div>
                 </Reactions>

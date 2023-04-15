@@ -38,7 +38,6 @@ const PostFooter = ({
   isDetailViewOpen = true,
   isDetail = false,
 }) => {
-  console.log(isDetail, "isDetail");
   const {
     postCompose: { reactionMembersData },
   } = useSelector((state) => state.feedSlice);

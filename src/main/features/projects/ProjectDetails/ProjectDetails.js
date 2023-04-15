@@ -35,6 +35,7 @@ import {
   resetProjectDetail,
   targetStickyDescription,
   addMember,
+  handleOpenSticky,
 } from "../store/slice";
 import WorkBoard from "../../workboard";
 import { TravelReferenceTypeEnum } from "../enum/enums";
@@ -58,39 +59,25 @@ import {
   deleteProjectMemberAction,
 } from "../store/actions";
 import ItemDetailModal from "../../../sharedComponents/ItemDetails";
-import MenuDropDown from "./menuDropdown/MenuDropDown";
-import { createGuid } from "../../../../utils/base";
-import { DownOutlined } from "@ant-design/icons";
+
 function ProjectDetails() {
   const params = useParams();
   const dispatch = useDispatch();
   const detail = useSelector((state) => state.projectSlice.projectDetail);
-  const { projectSticky } = useSelector((state) => state.projectSlice);
-  console.log(projectSticky?.description, "pppp");
   const [projectfeatures, setprojectFeatures] = useState([]);
-  const [description, setDescription] = useState(null);
+  const [description, setDescription] = useState("");
   const descriptionDebounce = useDebounce(description, 500);
   const [visible, setVisible] = useState(false);
-  const [openSticky, setOpenSticky] = useState(false);
   const { userLanguage } = useContext(LanguageChangeContext);
   const { projectsDictionary } = projectsDictionaryList[userLanguage];
   const { updateTextBtn, labels, features } = projectsDictionary;
   const [open, setOpen] = useState(false);
   let { projectId } = params;
+  const [isOpenSticky, setIsOpenSticky] = useState(true);
   projectId = projectId.trim();
-  const { projectFeature } = useSelector((state) => state.projectSlice);
-
-  // useEffect(() => {
-  //   if (Object.keys(projectStickyState?.description)?.length) {
-  //     setprojectStickyState(projectStickyState);
-  //     // let stickyNote = {
-  //     //   ...projectStickyState?.description,
-  //     //   description: projectStickyState?.description,
-  //     // };
-  //     // console.log(stickyNote, "stickyNoteee");
-  //     // setprojectStickyState();
-  //   }
-  // }, [projectStickyState]);
+  const { projectFeature, projectSticky } = useSelector(
+    (state) => state.projectSlice
+  );
 
   useEffect(() => {
     dispatch(getProjectById(projectId));
@@ -209,12 +196,16 @@ function ProjectDetails() {
     ),
   };
 
+  useEffect(() => {
+    setDescription(projectSticky?.description);
+  }, [projectSticky]);
+
   const memberHandler = () => {
     setVisible(true);
     dispatch(addMember({ status: true }));
   };
+
   useEffect(() => {
-    // setOpenSticky(true);
     dispatch(getProjectSticky(projectId));
   }, [projectId]);
 
@@ -223,13 +214,9 @@ function ProjectDetails() {
   }, [descriptionDebounce]);
 
   const setDescriptionValue = (value) => {
-    // setOpenSticky(true);
     dispatch(
       saveStickyproject({
-        id: projectSticky?.id,
         description: value,
-        // colorCode: "#0f4c81",
-
         referenceId: projectId,
       })
     );
@@ -288,9 +275,18 @@ function ProjectDetails() {
                       formats={formats}
                       className={"stickyNoteItem-textarea"}
                       placeholder={"Take a Note"}
-                      defaultValue={
-                        projectSticky ? projectSticky?.description : ""
-                      }
+                      defaultValue={projectSticky?.description}
+                    />
+                  )}
+
+                  {projectSticky?.description.length === 0 && (
+                    <CustomNotes
+                      onChange={(value) => setDescription(value)}
+                      modules={modules}
+                      formats={formats}
+                      className={"stickyNoteItem-textarea"}
+                      placeholder={"Take a Note"}
+                      defaultValue={""}
                     />
                   )}
                 </div>

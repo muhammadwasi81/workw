@@ -5,6 +5,7 @@ import { handleConversationIndexing, handleStatusUpdate, handleUserOnlineStatus,
 import { servicesUrls } from "./services/baseURLS";
 import { openNotification } from "./Shared/store/slice";
 import { MESSENGER_ENUMS } from "../main/features/Messenger/utils/Constant";
+import { logout } from "./base";
 
 export const InitMessengerSocket = (dispatch, userSlice) => {
 	// console.log(userSlice, "UserSlice")
@@ -75,13 +76,14 @@ export const InitMessengerSocket = (dispatch, userSlice) => {
 					style: { backgroundColor: "#ffb70b", color: "black" }
 				})
 			);
-			dispatch(
-				handleUserOnlineStatus(data))
 		}
+		dispatch(
+			handleUserOnlineStatus(data))
 	});
 
-
-
+	connection.on("logoutDevice", data => {
+		logout()
+	});
 
 	connection.on("commentOut", data => {
 		console.log(data, "commentOut")

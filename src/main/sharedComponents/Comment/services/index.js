@@ -4,6 +4,7 @@ import MasterConfig from "../../../../utils/services/MasterConfig";
 
 const API_PREFIX = "api/Comment/";
 export const postComment = async (comment) => {
+  console.log(comment, "pppp");
   const response = await MasterConfig.post(`${API_PREFIX}AddComment`, comment)
     .then((res) => {
       return res.data;

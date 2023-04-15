@@ -22,7 +22,7 @@ const initialState = {
   loader: false,
   coverImg: {},
   profileImg: {},
-  profileSticky: {},
+  profileSticky: { description: "" },
   employeeProfile: {},
 };
 
@@ -36,7 +36,6 @@ const employeeProfileSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getAllEmployeeAction.fulfilled, (state, action) => {
-      console.log(action.payload, "getAllEmployee slice");
       state.employees = action.payload ? action.payload : [];
       state.loader = false;
     });
@@ -81,7 +80,11 @@ const employeeProfileSlice = createSlice({
         state.profileSticky = payload.data;
       })
       .addCase(getStickyNotes.fulfilled, (state, { payload }) => {
-        state.profileSticky = payload?.data[0];
+        if (payload.data) {
+          state.profileSticky = payload?.data;
+        } else {
+          state.profileSticky = { description: "" };
+        }
       })
       .addMatcher(
         isPending(

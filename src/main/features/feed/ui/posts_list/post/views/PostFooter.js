@@ -130,43 +130,6 @@ const PostFooter = ({
             >
               {reactionCount}
             </span>
-            {/* <ItemDetailModal
-            
-            isDeleteDisabled={false}
-            isSearch={false}
-            addEnabled={false}
-            openModal={true}
-            onCancel={() => {
-              setVisible(false);
-              dispatch(handleItemDetailModal(false));
-            }}
-            children={reactionMembersData.map((x) => (
-              <div className="flex items-center mb-2">
-                <div>
-                  <img
-                    src={x.user.image}
-                    alt={x.user.name}
-                    style={{
-                      borderRadius: "50%",
-                      height: "40px",
-                      width: "40px",
-                      cursor: "pointer",
-                    }}
-                  />
-                </div>
-                <div className="ml-2 font-semibold">
-                  <span>{x.user.name}</span>
-                  <br />
-                  {x.user.email}
-                </div>
-                <img
-                  className="w-[30px] h-[30px] rounded-full cursor-pointer ml-auto"
-                  src={reactions[x.reactionType]}
-                  alt="profile"
-                />
-              </div>
-            ))}
-          /> */}
           </div>
           {commentCount > 0 && (
             <div
@@ -296,6 +259,7 @@ const PostFooter = ({
           showComments={showComments}
           isDetailViewOpen={isDetailViewOpen}
           reactionModule={reactionModule}
+          myReaction={myReaction}
           setShowComments={setShowComments}
         />
         {commentCount > 3 && showComments && (
@@ -310,43 +274,43 @@ const PostFooter = ({
           </p>
         )}
       </div>
-      {visible && (
-        <ItemDetailModal
-          // data={reactionMembersData}
-          isDeleteDisabled={true}
-          addEnabled={false}
-          addFunc={false}
-          onDelete={false}
-          isSearch={false}
-          openModal={true}
-          children={reactionMembersData.map((x) => (
-            <div className="flex items-center mb-2">
-              <div>
-                <img
-                  src={x.user.image}
-                  alt={x.user.name}
-                  style={{
-                    borderRadius: "50%",
-                    height: "40px",
-                    width: "40px",
-                    cursor: "pointer",
-                  }}
-                />
-              </div>
-              <div className="ml-2 font-semibold">
-                <span>{x.user.name}</span>
-                <br />
-                {x.user.email}
-              </div>
+      <ItemDetailModal
+        // data={reactionMembersData}
+        isDeleteDisabled={true}
+        addEnabled={false}
+        addFunc={false}
+        onDelete={false}
+        isSearch={false}
+        openModal={true}
+        visible={visible}
+        setVisible={(data) => setVisible(data)}
+        children={reactionMembersData.map((x) => (
+          <div className="flex items-center mb-2">
+            <div>
               <img
-                className="w-[30px] h-[30px] rounded-full cursor-pointer ml-auto"
-                src={reactions[x.reactionType]}
-                alt="profile"
+                src={x.user.image}
+                alt={x.user.name}
+                style={{
+                  borderRadius: "50%",
+                  height: "40px",
+                  width: "40px",
+                  cursor: "pointer",
+                }}
               />
             </div>
-          ))}
-        />
-      )}
+            <div className="ml-2 font-semibold">
+              <span>{x.user.name}</span>
+              <br />
+              {x.user.email}
+            </div>
+            <img
+              className="w-[30px] h-[30px] rounded-full cursor-pointer ml-auto"
+              src={reactions[x.reactionType]}
+              alt="profile"
+            />
+          </div>
+        ))}
+      />
     </>
   );
 };

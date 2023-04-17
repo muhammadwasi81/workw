@@ -11,6 +11,10 @@ import {
   addCommentsReaction,
   addFeedReaction,
 } from "../../features/feed/store/slice";
+import {
+  defaultUiid,
+  ReactionModuleEnum,
+} from "../../../utils/Shared/enums/enums";
 
 function CommentWrapper({
   initailComments = [],
@@ -24,7 +28,8 @@ function CommentWrapper({
   loadSkeleton = false,
   showComments = true,
   isDetailViewOpen = true,
-  reactionModule,
+  reactionModule = ReactionModuleEnum.FeedComment,
+  myReaction,
   isDetail = false,
 
   setShowComments = () => {},
@@ -70,7 +75,7 @@ function CommentWrapper({
       dispatch(
         addReaction({
           referenceId: id,
-          reactionModule,
+          reactionModule: ReactionModuleEnum.FeedComment,
           reactionType: ReactionType.NoReaction,
         })
       );
@@ -80,15 +85,16 @@ function CommentWrapper({
         addCommentsReaction({
           referenceId: id,
           reactionMode: "click",
-          reactionType: youLikeType,
+          reactionType: myReaction,
           isDetail,
+          id: commentId,
         })
       );
       dispatch(
         addReaction({
           referenceId: id,
-          reactionModule: 3,
-          reactionType: youLikeType,
+          reactionModule: ReactionModuleEnum.FeedComment,
+          reactionType: myReaction,
         })
       );
     }

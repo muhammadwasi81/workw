@@ -124,13 +124,11 @@ export const feedSlice = createSlice({
         const postIndex = state.allFeed.posts.findIndex(
           (post) => post.id === referenceId
         );
-        console.log(postIndex, "postIndex");
         const feedCommentIndex = state.allFeed.posts[
           postIndex
         ]?.comments.findIndex((comment) => comment.id === id);
         let feedComment =
           state.allFeed.posts[postIndex]?.comments[feedCommentIndex];
-        console.log(feedComment?.reactionCount, "feedCommentsss");
         if (feedComment.myReaction === 0) {
           feedComment.myReaction = reactionType;
           feedComment.reactionCount = feedComment.reactionCount + 1;
@@ -138,14 +136,6 @@ export const feedSlice = createSlice({
           feedComment.myReaction = 0;
           feedComment.reactionCount = feedComment.reactionCount - 1;
         }
-
-        // if (reactionMode && reactionMode === "click") {
-        //   if (feedComments.myReaction === reactionType) {
-        //     feedComments.myReaction = 0;
-        //     feedComments.reactionCount = feedComments.reactionCount - 1;
-        //     return;
-        //   }
-        // }
       }
     },
     postPoll(state, { payload }) {

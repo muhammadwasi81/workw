@@ -27,6 +27,7 @@ import { quickAddOpen } from "../../../../features/quickEmployee/store/slice";
 import { darkModeHandler } from "../../../../../utils/Shared/store/slice";
 import { useNavigate } from "react-router-dom";
 import { globalSearch } from "../../../../features/search/store/actions";
+import NotificationBadge from "../../../Badge/NotificationBadge";
 // import { SearchFilterEnum } from "../../../../features/search/utils/enums";
 // import { handleGlobalSearch } from "../../../../features/search/store/slice";
 
@@ -134,9 +135,29 @@ function NotificationBar() {
               onClick={stickyNoteHandler}
             />
           </li>
+          <NotificationBadge
+            notificationCount={3}
+            style={{
+              right: "75px",
+              position: "absolute",
+              bottom: "26px",
+              padding: "0 4.5px",
+              cursor: "pointer",
+            }}
+          />
           <li className="list__item" onClick={handleNotification}>
             <img src={notification} alt="notifications-icon" />
           </li>
+          <NotificationBadge
+            notificationCount={7}
+            style={{
+              right: "43px",
+              position: "absolute",
+              bottom: "26px",
+              padding: "0 4.5px",
+              cursor: "pointer",
+            }}
+          />
           <li className="list__item rewards__icon" onClick={handleApproval}>
             <img src={rewards} alt="rewards-icon" />
           </li>

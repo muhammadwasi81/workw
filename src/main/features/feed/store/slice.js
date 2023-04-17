@@ -4,7 +4,7 @@ import {
   isPending,
   isRejected,
   current,
-} from '@reduxjs/toolkit';
+} from "@reduxjs/toolkit";
 import {
   onFeedCreateSubmitAction,
   onPostTitleTextChange,
@@ -29,8 +29,8 @@ import {
   sharePostOnFeed,
   resetComposeFeed,
   getAllReactionsAction,
-} from './actions';
-import { PollType, PostPrivacyType, PostType } from '../utils/constants';
+} from "./actions";
+import { PollType, PostPrivacyType, PostType } from "../utils/constants";
 
 const composeInitialState = {
   reactionMembersData: [],
@@ -38,15 +38,15 @@ const composeInitialState = {
   loading: false,
   privacyType: PostPrivacyType.PUBLIC,
   type: PostType.DEFAULT,
-  title: '',
-  pollTitle: '',
+  title: "",
+  pollTitle: "",
   mentions: [],
   tags: [],
   attachments: [],
   poll: {
     options: [
-      { type: PollType.DEFAULT, value: '', attachment: null },
-      { type: PollType.DEFAULT, value: '', attachment: null },
+      { type: PollType.DEFAULT, value: "", attachment: null },
+      { type: PollType.DEFAULT, value: "", attachment: null },
     ],
   },
 };
@@ -57,7 +57,7 @@ const allFeedInitialState = {
 };
 
 export const feedSlice = createSlice({
-  name: 'feedSlice',
+  name: "feedSlice",
   initialState: {
     reactionMembersData: [],
     loading: false,
@@ -93,7 +93,7 @@ export const feedSlice = createSlice({
         const feed = state.allFeed.posts.find(
           (feed) => feed.id === referenceId
         );
-        if (reactionMode && reactionMode === 'click') {
+        if (reactionMode && reactionMode === "click") {
           // feed.myReaction===myReaction
           if (feed.myReaction === reactionType) {
             feed.myReaction = 0;
@@ -171,7 +171,7 @@ export const feedSlice = createSlice({
       state.postCompose.loading = false;
     });
     builder.addCase(getAllReactionsAction.fulfilled, (state, { payload }) => {
-      console.log('SLICE DATA', payload);
+      console.log("SLICE DATA", payload);
       state.postCompose.reactionMembersData = payload;
     });
     builder

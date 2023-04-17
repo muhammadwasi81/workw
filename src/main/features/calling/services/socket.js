@@ -67,6 +67,12 @@ export class InitializeCallingSocket {
 			this.#dispatch(handleOutgoingCallAccepted({ userId: data.userId, token: this.#authToken }))
 
 		})
+
+
+		await this.connection.on("received-by-other-device", (data) => {
+			console.log(data, "message_message", "received-by-other-device");
+			this.#dispatch(handleIncomingCall(null))
+		})
 	}
 
 	startCalling = (members) => {
@@ -74,11 +80,11 @@ export class InitializeCallingSocket {
 
 	acceptCall = (callInitializerId) => {
 		console.log("call-accepted", callInitializerId)
-		this.connection.emit("call-accepted", callInitializerId);
+		this.connection.emit("call-accepted", {callInitializerId, receiverId: this.user.id});
 	}
 
 	declineCall = (callInitializerId) => {
 		console.log("call-declined", callInitializerId)
-		this.connection.emit("call-declined", callInitializerId);
+		this.connection.emit("call-declined", {callInitializerId, receiverId: this.user.id});
 	}
 }

@@ -421,6 +421,15 @@ const NavMenuList = (notificationCounts) => {
       notificationCount: notificationCounts.form,
     },
     {
+      name: label.navMenuLabel.marketPlace,
+      counter: 0,
+      to: ROUTES.MARKETPLACE.ROOT,
+      icon: coaIcon,
+      isActive: true,
+      key: label.navMenuLabel.menu,
+      featureId: FeaturesEnum.Form,
+    },
+    {
       name: label.navMenuLabel.loan,
       counter: 0,
       icon: loanIcon,

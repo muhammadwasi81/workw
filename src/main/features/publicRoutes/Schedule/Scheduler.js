@@ -22,7 +22,7 @@ const Scheduler = (referenceId) => {
   }, []);
   console.log(id);
   return (
-    <div className="wrapper">
+    <div className="schedulerWrapper">
       <div className="flex items-center">
         <div className="w-12 h-12 rounded-full overflow-hidden drop-shadow-2xl color-gray-900">
           <img

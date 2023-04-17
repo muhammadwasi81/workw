@@ -25,9 +25,9 @@ const sendMessage = (data) => {
 }
 const getAllConversations = (data) => {
 	return {
-		"pageNo": 1,
-		"pageSize": 20,
-		"search": ""
+		"pageNo": data.pageNo ? data.pageNo : 1,
+		"pageSize": data.pageSize ? data.pageSize : 20,
+		"search": data.search ? data.search : "",
 	}
 }
 const getAllChatMessage = (data) => {

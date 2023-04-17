@@ -21,7 +21,7 @@ export const createRoom = createAsyncThunk(
 				})
 			);
 			dispatch(handleAddCallWindow({
-				callUrl: `${servicesUrls.callingSocket}${res.data.roomId}?token=${user.accessToken}?isVideo=1`,
+				callUrl: `${servicesUrls.callingSocket}${res.data.roomId}?token=${user.accessToken}&isVideo=1`,
 				isOpen: true
 			}));
 			// dispatch(handleOutgoingCall({
@@ -90,7 +90,7 @@ export const instantCall = createAsyncThunk(
 				})
 			);
 			dispatch(handleAddCallWindow({
-				callUrl: `${servicesUrls.callingSocket}${res.data.roomId}?token=${user.accessToken}?isVideo=1`,
+				callUrl: `${servicesUrls.callingSocket}${res.data.roomId}?token=${user.accessToken}&isVideo=1`,
 				isOpen: true
 			}));
 			return res;

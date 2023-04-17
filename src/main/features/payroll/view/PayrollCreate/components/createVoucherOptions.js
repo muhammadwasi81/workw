@@ -14,6 +14,7 @@ const CreateVoucherOptions = ({ handleChange, data }) => {
   const { payrollDictionary, Direction } = payrollDictionaryList[userLanguage];
   const dispatch = useDispatch();
   const employeesData = useSelector((state) => state.sharedSlice.employees);
+  console.log(employeesData, "employeesData");
 
   useEffect(() => {
     fetchEmployees();

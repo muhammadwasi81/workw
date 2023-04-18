@@ -6,6 +6,15 @@ import { addReaction } from "../../features/feed/store/actions";
 import CommentItem from "./commentItem";
 import CommentComposer from "./Composer";
 import { getAllComment } from "./services";
+import { ReactionType } from "../../features/feed/utils/constants";
+import {
+  addCommentsReaction,
+  addFeedReaction,
+} from "../../features/feed/store/slice";
+import {
+  defaultUiid,
+  ReactionModuleEnum,
+} from "../../../utils/Shared/enums/enums";
 
 function CommentWrapper({
   initailComments = [],
@@ -19,10 +28,12 @@ function CommentWrapper({
   loadSkeleton = false,
   showComments = true,
   isDetailViewOpen = true,
-  reactionModule,
+  reactionModule = ReactionModuleEnum.FeedComment,
+  myReaction,
+  isDetail = false,
+
   setShowComments = () => {},
 }) {
-  console.log(initialMentions, "initial mention");
   const [comments, setComments] = useState([]);
   const [likeClass, setLikeClass] = useState("hello boy");
   const dispatch = useDispatch();
@@ -47,15 +58,45 @@ function CommentWrapper({
   };
 
   if (comments.length === 0 && loadSkeleton) return <Skeleton active />;
+  console.log(comments, "commentss");
 
-  const handleAddReaction = (id) => {
-    dispatch(
-      addReaction({
-        referenceId: id,
-        reactionModule: 3,
-        reactionType: 1,
-      })
-    );
+  const handleAddReaction = (myReaction, id, commentId) => {
+    if (myReaction === ReactionType.NoReaction) {
+      dispatch(
+        addCommentsReaction({
+          referenceId: id,
+          reactionModule: ReactionModuleEnum.FeedComment,
+          ReactionType: ReactionType.NoReaction,
+          isDetail,
+          id: commentId,
+        })
+      );
+      dispatch(
+        addReaction({
+          referenceId: id,
+          reactionModule: ReactionModuleEnum.FeedComment,
+          reactionType: ReactionType.NoReaction,
+        })
+      );
+      return;
+    } else {
+      dispatch(
+        addCommentsReaction({
+          referenceId: id,
+          reactionModule: ReactionModuleEnum.FeedComment,
+          reactionType: myReaction,
+          isDetail,
+          id: commentId,
+        })
+      );
+      dispatch(
+        addReaction({
+          referenceId: id,
+          reactionModule: ReactionModuleEnum.FeedComment,
+          reactionType: myReaction,
+        })
+      );
+    }
     //todo set className for comments
     const updatedComments = comments.map((item) => {
       // console.log(item);
@@ -105,6 +146,7 @@ function CommentWrapper({
               reactionCount,
               cssClass,
               mentions,
+              myReaction,
             }) => {
               const { designation, name, image } = creator;
               return (
@@ -124,6 +166,7 @@ function CommentWrapper({
                     createDate,
                     youLikeType: 0,
                     likeCounter: 0,
+                    reactionModule,
                     reactionCount,
                     creator: {
                       name,
@@ -135,6 +178,7 @@ function CommentWrapper({
                     attachmentFile,
                     cssClass: cssClass,
                     mentions: mentions,
+                    myReaction: myReaction,
                   }}
                 />
               );

@@ -10,6 +10,7 @@ import Reactions from "../reactionBox";
 import {
   addCommentsReaction,
   addFeedReaction,
+  addReplyReaction,
 } from "../../features/feed/store/slice";
 import {
   addReaction,
@@ -91,6 +92,41 @@ const CommentItem = ({
       })
     );
   };
+  const handleReplyReaction = (myReaction, referenceId, Rid) => {
+    // if (myReaction === ReactionType.NoReaction) {
+    //   dispatch(
+    //     addReplyReaction({
+    //       referenceId: referenceId,
+    //       reactionModule: ReactionModuleEnum.NoReaction,
+    //       reactionType: ReactionType.NoReaction,
+    //       id: Rid,
+    //     })
+    //   );
+    //   dispatch(
+    //     addReaction({
+    //       referenceId: Rid,
+    //       reactionModule: ReactionModuleEnum.FeedComment,
+    //       reactionType: ReactionType.NoReaction,
+    //     })
+    //   );
+    // } else {
+    //   dispatch(
+    //     addReplyReaction({
+    //       referenceId: referenceId,
+    //       reactionModule: ReactionModuleEnum.FeedComment,
+    //       reactionType: myReaction,
+    //       id: Rid,
+    //     })
+    //   );
+    //   dispatch(
+    //     addReaction({
+    //       referenceId: Rid,
+    //       reactionModule: ReactionModuleEnum.FeedComment,
+    //       reactionType: myReaction,
+    //     })
+    //   );
+    // }
+  };
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Reply, Like, WriteYourReplyHere, Direction } = CommentDictionary[
     userLanguage
@@ -122,9 +158,22 @@ const CommentItem = ({
             {type !== commentTypeEnum.SystemComment && (
               <div className="likeReplyCont">
                 <div
-                  className={`btn ${myReaction ? "liked" : "no"}`}
+                  className={`btn ${
+                    myReaction === ReactionType.Like ? "liked" : ""
+                  }`}
                   onClick={() =>
-                    handleLike(ReactionType.NoReaction, referenceId, parentId)
+                    handleLike(
+                      myReaction === ReactionType.Like ||
+                        myReaction === ReactionType.Celebrate ||
+                        myReaction === ReactionType.Support ||
+                        myReaction === ReactionType.Love ||
+                        myReaction === ReactionType.Insightful ||
+                        myReaction === ReactionType.Curious
+                        ? 0
+                        : 1,
+                      referenceId,
+                      parentId
+                    )
                   }
                 >
                   <Reactions
@@ -141,7 +190,7 @@ const CommentItem = ({
                       dispatch(
                         addReaction({
                           referenceId: parentId,
-                          reactionModule,
+                          reactionModule: ReactionModuleEnum.FeedComment,
                           reactionType: e,
                         })
                       );
@@ -212,7 +261,89 @@ const CommentItem = ({
                           />
                         </div>
                         <div className="likeReplyCont">
-                          <div onClick={() => handleLike(Rid)}>{Like}</div>
+                          {Like}
+                          {/* <div
+                            className={`btn ${
+                              myReaction === ReactionType.Like ? "liked" : ""
+                            }`}
+                            onClick={() =>
+                              handleReplyReaction(
+                                myReaction === ReactionType.Like ||
+                                  myReaction === ReactionType.Celebrate ||
+                                  myReaction === ReactionType.Support ||
+                                  myReaction === ReactionType.Love ||
+                                  myReaction === ReactionType.Insightful ||
+                                  myReaction === ReactionType.Curious
+                                  ? 0
+                                  : 1,
+                                referenceId,
+                                Rid
+                              )
+                            }
+                          >
+                            <Reactions
+                              direction={Direction}
+                              onUpdate={(e) => {
+                                dispatch(
+                                  addReplyReaction({
+                                    referenceId: referenceId,
+                                    reactionModule:
+                                      ReactionModuleEnum.FeedComment,
+                                    reactionType: e,
+                                    id: Rid,
+                                  })
+                                );
+                                dispatch(
+                                  addReaction({
+                                    referenceId: Rid,
+                                    reactionModule:
+                                      ReactionModuleEnum.FeedComment,
+                                    reactionType: e,
+                                  })
+                                );
+                              }}
+                              onLikeBtnClick={() =>
+                                handleReplyReaction(
+                                  ReactionType.NoReaction,
+                                  referenceId,
+                                  Rid
+                                )
+                              }
+                            >
+                              <div
+                                className={`flex justify-between gap-1 btn on`}
+                              >
+                                <span>
+                                  <img
+                                    className={
+                                      ReactionType.Like === myReaction ||
+                                      ReactionType.NoReaction === myReaction
+                                        ? "w-[20px] h-[20px]"
+                                        : " w-[20px] h-[20px]"
+                                    }
+                                    src={reactions[myReaction || 0]}
+                                    alt={reactionDescription[myReaction || 0]}
+                                  />
+                                </span>
+                                <span
+                                  className="cursor-pointer"
+                                  onClick={(e) => handleOpenReactions(e)}
+                                >
+                                  {reactionCount}
+                                </span>
+                                <div
+                                  className={`text-[${
+                                    reactionColor[myReaction || 0]
+                                  }]`}
+                                  style={{
+                                    color: reactionColor[myReaction || 0],
+                                  }}
+                                >
+                                  {reactionDescription[myReaction || 0]}
+                                </div>
+                              </div>
+                            </Reactions> */}
+                          {/* </div> */}
                         </div>
                       </React.Fragment>
                     );

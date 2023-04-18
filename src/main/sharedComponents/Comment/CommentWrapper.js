@@ -60,13 +60,12 @@ function CommentWrapper({
   if (comments.length === 0 && loadSkeleton) return <Skeleton active />;
   console.log(comments, "commentss");
 
-  const handleAddReaction = (youLikeType, id, commentId) => {
-    console.log(youLikeType, id, "youliketypee");
-    if (youLikeType === ReactionType.NoReaction) {
+  const handleAddReaction = (myReaction, id, commentId) => {
+    if (myReaction === ReactionType.NoReaction) {
       dispatch(
         addCommentsReaction({
           referenceId: id,
-          reactionMode: "click",
+          reactionModule: ReactionModuleEnum.FeedComment,
           ReactionType: ReactionType.NoReaction,
           isDetail,
           id: commentId,
@@ -84,7 +83,7 @@ function CommentWrapper({
       dispatch(
         addCommentsReaction({
           referenceId: id,
-          reactionMode: "click",
+          reactionModule: ReactionModuleEnum.FeedComment,
           reactionType: myReaction,
           isDetail,
           id: commentId,

@@ -1,5 +1,6 @@
 const en = {
-  globalSearch: {
+  globalSearch1: {
+    All:"All",
     feed: "Feed",
     Lead_Manager: "Lead Manager",
     Travel: "Travel",

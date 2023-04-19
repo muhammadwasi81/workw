@@ -90,20 +90,24 @@ function NotificationBar() {
     e.preventDefault();
     e.stopPropagation();
     // setKeyword(e.target.value);
+    let value = e.target.value
+    console.log(value,"value")
     if (e.keyCode === 13 && !e.shiftKey) {
       // setIsSearch();
+      setIsSearch(false);
       dispatch(
         globalSearch({
           pageNo: 1,
           pageSize: 20,
-          search: keyword,
+          search: value,
           filterType: 0,
         })
       );
       // dispatch(handleGlobalSearch());
-      navigate(`search?q=${keyword}`);
+      // navigate(`search/sea`);
+      navigate(`search?q=${value}`);
       // setIsSearch(false);
-      // e.target.value = "";
+      e.target.value = "";
     }
   }
 

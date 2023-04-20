@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Modal, notification } from "antd";
+import { useState, useEffect } from "react";
+import { notification } from "antd";
 import { useSelector } from "react-redux";
 import { CloseCircleOutlined } from "@ant-design/icons";
 import messageTune from "../../../content/audio/messageTune.mp3";
@@ -9,6 +9,9 @@ import { useDispatch } from "react-redux";
 import PostHeader from "../../features/feed/ui/posts_list/post/views/PostHeader";
 import PostSection from "../../features/feed/ui/posts_list/post/views/PostSection";
 import PostFooter from "../../features/feed/ui/posts_list/post/views/PostFooter";
+import CustomModal from ".";
+import { ActionType } from ".";
+import { useNavigate } from "react-router-dom";
 
 const getAvatar = (src, name) => {
   if (src || name) {
@@ -26,16 +29,24 @@ const getAvatar = (src, name) => {
   }
 };
 
-const openNotification = (options, setIsModalOpen) => {
-  console.log(options, "options");
+const openNotification = (options, setIsModalOpen, navigate) => {
   const {
     title = "",
     message = "",
     direction = "bottomLeft",
-    duration = 4,
+    duration = 20,
     onClick = () => {
       !message.toLowerCase().includes("online") && setIsModalOpen(true);
+      if (message === "Group Created Successfully") {
+        navigate(`/groups/${groupId}`);
+        setIsModalOpen(false);
+      }
+      if (message === "Project Created Successfully") {
+        navigate(`/projects/${projectId}`);
+        setIsModalOpen(false);
+      }
     },
+    value = "",
     className = "defaultNotification",
     style = {},
     closeIcon = (
@@ -51,8 +62,10 @@ const openNotification = (options, setIsModalOpen) => {
     avatarImage,
     avatarName,
     referenceId,
+    groupId,
+    projectId,
   } = options;
-  console.log(referenceId, "referenceId in notification.js file");
+  console.log(options, "options in notification.js file");
 
   notification.open({
     message: title,
@@ -71,6 +84,9 @@ const openNotification = (options, setIsModalOpen) => {
     closeIcon,
     icon: icon || getAvatar(avatarImage, avatarName),
     referenceId,
+    groupId,
+    value,
+    projectId,
   });
   if (playSound) {
     const audio = new Audio(soundTune);
@@ -80,67 +96,68 @@ const openNotification = (options, setIsModalOpen) => {
 
 const MainNotification = () => {
   const { notification } = useSelector((state) => state.sharedSlice);
-  const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalContent, setModalContent] = useState(null);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { singlePost } = useSelector((state) => state.feedSlice);
-  console.log(singlePost, "singlePost");
-  console.log(notification, "notificationData");
 
   useEffect(() => {
     notification.referenceId && dispatch(getFeedById(notification.referenceId));
-  }, [notification.referenceId]);
+  }, [notification.referenceId, dispatch]);
 
   useEffect(() => {
-    notification.message && openNotification(notification, setIsModalOpen);
-  }, [notification]);
+    notification.message &&
+      openNotification(notification, setIsModalOpen, navigate);
+    setModalContent(
+      <div className="post">
+        <PostHeader
+          id={singlePost.referenceId}
+          privacyId={singlePost.privacyId}
+          creator={singlePost.creator}
+          isPinnedPost={singlePost.isPinnedPost}
+          tags={singlePost.tags}
+          createDate={singlePost.createDate}
+        />
+        <PostSection
+          post={singlePost}
+          attachments={singlePost.attachments}
+          isOpen={false}
+          id={singlePost.id}
+          isDetail={{}}
+        />
+        <PostFooter
+          isDetail={singlePost.isDetail}
+          id={singlePost.id}
+          comments={singlePost.comments}
+          reactionCount={singlePost.reactionCount}
+          commentCount={singlePost.commentCount}
+          isOpen={singlePost.openModel}
+          viewAllComments={singlePost.viewAllComments}
+          attachments={singlePost.attachments}
+          reactionModule={singlePost.reactionModule}
+          referenceType={singlePost.referenceType}
+          referenceId={singlePost.referenceId}
+          isDetailViewOpen={singlePost.modelState}
+          myReaction={singlePost.myReaction}
+        />
+      </div>
+    );
+  }, [notification, singlePost]);
 
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
   return (
     <>
-      <Modal
+      <CustomModal
         visible={isModalOpen}
-        onCancel={() => setIsModalOpen(false)}
-        onOk={() => setIsModalOpen(false)}
-        footer={null}
-        closable={false}
-        style={{
-          top: 20,
-          borderRadius: "11px",
-          paddingBottom: "13px",
-        }}
-      >
-        <div className="post">
-          <PostHeader
-            id={singlePost.referenceId}
-            privacyId={singlePost.privacyId}
-            creator={singlePost.creator}
-            isPinnedPost={singlePost.isPinnedPost}
-            tags={singlePost.tags}
-            createDate={singlePost.createDate}
-          />
-          <PostSection
-            post={singlePost}
-            attachments={singlePost.attachments}
-            isOpen={false}
-            id={singlePost.id}
-            isDetail={{}}
-          />
-          <PostFooter
-            isDetail={singlePost.isDetail}
-            id={singlePost.id}
-            comments={singlePost.comments}
-            reactionCount={singlePost.reactionCount}
-            commentCount={singlePost.commentCount}
-            isOpen={singlePost.openModel}
-            viewAllComments={singlePost.viewAllComments}
-            attachments={singlePost.attachments}
-            reactionModule={singlePost.reactionModule}
-            referenceType={singlePost.referenceType}
-            referenceId={singlePost.referenceId}
-            isDetailViewOpen={singlePost.modelState}
-            myReaction={singlePost.myReaction}
-          />
-        </div>
-      </Modal>
+        onCancel={closeModal}
+        onOk={closeModal}
+        actionType={ActionType.OPEN_MODAL}
+        actionData={null}
+        content={modalContent}
+      />
     </>
   );
 };

@@ -41,7 +41,8 @@ export const addGroup = createAsyncThunk(
         openNotification({
           message: "Group Created Successfully",
           type: "success",
-          duration: 2,
+          duration: 20,
+          groupId: res.data.id,
         })
       );
 

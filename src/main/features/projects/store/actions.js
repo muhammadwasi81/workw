@@ -55,7 +55,8 @@ export const addProject = createAsyncThunk(
         openNotification({
           message: "Project Created Successfully!",
           type: "success",
-          duration: 2,
+          duration: 20,
+          projectId: res.data.id,
         })
       );
       return res;

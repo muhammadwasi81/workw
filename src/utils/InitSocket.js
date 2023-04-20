@@ -47,10 +47,8 @@ export const InitMessengerSocket = (dispatch, userSlice) => {
     dispatch(receiveChatMessage(data));
   });
   connection.on("notificationOut", (data) => {
-    console.log(data.referenceId, "referenceId");
     dispatch(
       openNotification({
-        referenceId: data.referenceId,
         message: `${data.fromUser.name} ${data.message}`,
         playSound: true,
         avatarName: data.fromUser.name,
@@ -121,11 +119,12 @@ export const InitMessengerSocket = (dispatch, userSlice) => {
     console.log(data, "notificationOut");
     dispatch(
       openNotification({
+        referenceId: data.referenceId,
         message: `${data.fromUser.name} ${data.message}`,
         playSound: true,
         avatarName: data.fromUser.name,
         avatarImage: data.fromUser.image,
-        style: { backgroundColor: "#64c4b2" },
+        style: { backgroundColor: "#64c4b2", cursor: "pointer" },
       })
     );
   });

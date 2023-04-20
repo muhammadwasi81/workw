@@ -7,7 +7,7 @@ import { PostType } from "../../../../utils/constants";
 const PostSection = ({ post, isOpen, onOpen, isDetail }) => {
   console.log({ post, isOpen, onOpen, isDetail });
   const {
-    title = "dsdsdsd",
+    title = "",
     attachments = [],
     pollOptions = [],
     voteCount,

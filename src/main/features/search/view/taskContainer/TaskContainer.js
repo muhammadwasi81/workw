@@ -6,6 +6,7 @@ import { groupByKey } from "../../../../../utils/base";
 import moment from "moment";
 import TaskListItem from "../../../task/view/TaskList/listItem";
 import TaskComposer from "../../../task/view/TaskComposer";
+import { NoDataFound } from "../../../../sharedComponents/NoDataIcon";
 
 function TaskContainer() {
   const [visible, setVisible] = useState(false);
@@ -16,6 +17,10 @@ function TaskContainer() {
     taskList: { loading, list },
   } = useSelector((state) => state.taskSlice);
 
+  const {keyword} = useSelector((state) => state.globalSearchSlice);
+
+
+
   const handleCard = (id) => {
     setId(id);
     setVisible(true);
@@ -24,9 +29,9 @@ function TaskContainer() {
     setVisible(false);
   };
 
-  let filteredList = list.map((item) => ({
+  let filteredList = keyword?.Task?.map((item) => ({
     ...item,
-    startDateOnly: moment(item.startDate).format("MMM Do YYYY"),
+    startDateOnly: moment(item?.startDate).format("MMM Do YYYY"),
   }));
   const groupDate = groupByKey(filteredList, "startDateOnly");
 
@@ -37,22 +42,30 @@ function TaskContainer() {
 
   return (
     <>
-      <div className="SearchMainContainer">
-        <h5 className="containerHeading">Task</h5>
-        {Object.keys(groupDate).map((item) => {
-          return groupDate[item].slice(0, 4).map((task) => {
-            return (
-              <TaskListItem key={task.id} item={task} onTask={handleCard} />
-            );
-          });
-        })}
-        <div
-          onClick={searchHandler}
-          className="flex justify-center !text-[18px] cursor-pointer !text-[#707070]"
-        >
-          See more
-        </div>
-      </div>
+    {
+      keyword?.Task?.length > 0 ? (  <div className="SearchMainContainer">
+      <h5 className="containerHeading">Task</h5>
+      {Object?.keys(groupDate).map((item) => {
+        return groupDate[item]?.slice(0, 4)?.map((task) => {
+          return (
+            <TaskListItem key={task.id} item={task} onTask={handleCard} />
+          );
+        });
+      })}
+     {keyword?.Task?.length>3 ? (<div
+              onClick={searchHandler}
+              className="flex justify-center !text-[18px] cursor-pointer !text-[#707070]"
+            >
+              See more
+            </div>):( <div></div> )}
+    </div>): (
+       <div className="SearchMainContainer">
+       <NoDataFound/>
+       </div>
+    )
+
+    }
+    
     </>
   );
 }

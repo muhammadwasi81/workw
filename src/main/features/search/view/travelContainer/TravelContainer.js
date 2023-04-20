@@ -12,6 +12,8 @@ function TravelContainer() {
   console.log(SearchFilter, "serchhhh");
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
+  
+  const {keyword} = useSelector((state) => state.globalSearchSlice);
   const { travels, loader, success, isAdded } = useSelector(
     (state) => state.travelSlice
   );
@@ -21,6 +23,7 @@ function TravelContainer() {
   const searchQuery = searchParams.get("q");
 
   const searchHandler = () => {
+    setSeeMore(!seeMore);
     navigate(`/travel?f=trv?q=${searchQuery}`);
   };
   useEffect(() => {
@@ -29,23 +32,29 @@ function TravelContainer() {
     }
   }, []);
 
+  const [seeMore  , setSeeMore ] = useState(false);
   return (
     <>
-      <div className="SearchMainContainer">
-        <h5 className="containerHeading">Travel</h5>
-
-        <ListView
-          data={travels ? travels.slice(0, 4) : []}
-          loader={loader}
-          labels={headings}
-        />
-        <div
-          onClick={searchHandler}
-          className="flex justify-center !text-[18px] cursor-pointer !text-[#707070]"
-        >
-          See more
-        </div>
-      </div>
+    {
+      keyword?.Travel?.length > 0  ?  ( <div className="SearchMainContainer">
+      <h5 className="containerHeading">Travel</h5>
+      <ListView
+        data={keyword?.Travel ? keyword?.Travel?.slice(0, 4) : []}
+        // loader={loader}
+        labels={headings}
+      />
+        {keyword?.Travel?.length > 3 ? (<div
+        onClick={searchHandler}
+        className="flex justify-center !text-[18px] cursor-pointer !text-[#707070]"
+      >
+        See more
+      </div>):(<div></div>)} 
+    </div>) : (<div><div className="SearchMainContainer">
+      <h5 className="containerHeading"></h5>
+      <div></div>
+      </div></div>)
+    }
+  
     </>
   );
 }

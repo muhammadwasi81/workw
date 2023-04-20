@@ -41,13 +41,13 @@ const PostFooter = ({
   const {
     postCompose: { reactionMembersData },
   } = useSelector((state) => state.feedSlice);
-  console.log(reactionMembersData, "reaction member dataaa");
   const dispatch = useDispatch();
   let navigate = useNavigate();
   const [visible, setVisible] = useState(false);
   const [showComments, setShowComments] = useState(false);
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Post, Direction } = FeedDictionary[userLanguage];
+
   const {
     Comments,
     Comment,
@@ -59,12 +59,12 @@ const PostFooter = ({
   } = Post;
 
   const handleAddReaction = (myReaction, id) => {
-    if (myReaction === 0) {
+    if (myReaction === ReactionType.NoReaction) {
       dispatch(
         addFeedReaction({
           referenceId: id,
           reactionMode: "click",
-          ReactionType: myReaction,
+          ReactionType: ReactionType.NoReaction,
           isDetail,
         })
       );
@@ -72,7 +72,7 @@ const PostFooter = ({
         addReaction({
           referenceId: id,
           reactionModule,
-          reactionType: myReaction,
+          reactionType: ReactionType.NoReaction,
         })
       );
       return;
@@ -95,8 +95,6 @@ const PostFooter = ({
     );
   };
 
-  console.log(reactionMembersData, "reactionMembersData");
-
   const handleOpenMembers = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -112,7 +110,6 @@ const PostFooter = ({
 
   useEffect(() => {
     if (visible) {
-      console.log(visible, "visibleee reactionnn");
       dispatch(handleItemDetailModal(true));
     }
   }, [visible]);
@@ -133,43 +130,6 @@ const PostFooter = ({
             >
               {reactionCount}
             </span>
-            {/* <ItemDetailModal
-            
-            isDeleteDisabled={false}
-            isSearch={false}
-            addEnabled={false}
-            openModal={true}
-            onCancel={() => {
-              setVisible(false);
-              dispatch(handleItemDetailModal(false));
-            }}
-            children={reactionMembersData.map((x) => (
-              <div className="flex items-center mb-2">
-                <div>
-                  <img
-                    src={x.user.image}
-                    alt={x.user.name}
-                    style={{
-                      borderRadius: "50%",
-                      height: "40px",
-                      width: "40px",
-                      cursor: "pointer",
-                    }}
-                  />
-                </div>
-                <div className="ml-2 font-semibold">
-                  <span>{x.user.name}</span>
-                  <br />
-                  {x.user.email}
-                </div>
-                <img
-                  className="w-[30px] h-[30px] rounded-full cursor-pointer ml-auto"
-                  src={reactions[x.reactionType]}
-                  alt="profile"
-                />
-              </div>
-            ))}
-          /> */}
           </div>
           {commentCount > 0 && (
             <div
@@ -186,7 +146,22 @@ const PostFooter = ({
           )}
         </div>
         <div className="post-events">
-          <div className={`btn on`} onClick={() => handleAddReaction(0, id)}>
+          <div
+            className={`btn ${myReaction === ReactionType.Like ? "on" : ""}`}
+            onClick={() =>
+              handleAddReaction(
+                myReaction === ReactionType.Like ||
+                  myReaction === ReactionType.Celebrate ||
+                  myReaction === ReactionType.Support ||
+                  myReaction === ReactionType.Love ||
+                  myReaction === ReactionType.Insightful ||
+                  myReaction === ReactionType.Curious
+                  ? 0
+                  : 1,
+                id
+              )
+            }
+          >
             <Reactions
               direction={Direction}
               onUpdate={(e) => {
@@ -205,7 +180,9 @@ const PostFooter = ({
                   })
                 );
               }}
-              onLikeBtnClick={() => handleAddReaction(0, id)}
+              onLikeBtnClick={() =>
+                handleAddReaction(ReactionType.NoReaction, id)
+              }
             >
               <div className={`btn on`}>
                 <span>
@@ -282,6 +259,7 @@ const PostFooter = ({
           showComments={showComments}
           isDetailViewOpen={isDetailViewOpen}
           reactionModule={reactionModule}
+          myReaction={myReaction}
           setShowComments={setShowComments}
         />
         {commentCount > 3 && showComments && (
@@ -296,43 +274,43 @@ const PostFooter = ({
           </p>
         )}
       </div>
-      {visible && (
-        <ItemDetailModal
-          // data={reactionMembersData}
-          isDeleteDisabled={true}
-          addEnabled={false}
-          addFunc={false}
-          onDelete={false}
-          isSearch={false}
-          openModal={true}
-          children={reactionMembersData.map((x) => (
-            <div className="flex items-center mb-2">
-              <div>
-                <img
-                  src={x.user.image}
-                  alt={x.user.name}
-                  style={{
-                    borderRadius: "50%",
-                    height: "40px",
-                    width: "40px",
-                    cursor: "pointer",
-                  }}
-                />
-              </div>
-              <div className="ml-2 font-semibold">
-                <span>{x.user.name}</span>
-                <br />
-                {x.user.email}
-              </div>
+      <ItemDetailModal
+        // data={reactionMembersData}
+        isDeleteDisabled={true}
+        addEnabled={false}
+        addFunc={false}
+        onDelete={false}
+        isSearch={false}
+        openModal={true}
+        visible={visible}
+        setVisible={(data) => setVisible(data)}
+        children={reactionMembersData.map((x) => (
+          <div className="flex items-center mb-2">
+            <div>
               <img
-                className="w-[30px] h-[30px] rounded-full cursor-pointer ml-auto"
-                src={reactions[x.reactionType]}
-                alt="profile"
+                src={x.user.image}
+                alt={x.user.name}
+                style={{
+                  borderRadius: "50%",
+                  height: "40px",
+                  width: "40px",
+                  cursor: "pointer",
+                }}
               />
             </div>
-          ))}
-        />
-      )}
+            <div className="ml-2 font-semibold">
+              <span>{x.user.name}</span>
+              <br />
+              {x.user.email}
+            </div>
+            <img
+              className="w-[30px] h-[30px] rounded-full cursor-pointer ml-auto"
+              src={reactions[x.reactionType]}
+              alt="profile"
+            />
+          </div>
+        ))}
+      />
     </>
   );
 };

@@ -3,10 +3,10 @@ import { createGuid, STRINGS } from "../../../../utils/base";
 import {
   createChat,
   getAllChats,
-  searchConversation,
   sendChatMessage,
   getAllChatMessage,
   getAllEmployeeWithChat,
+  searchConversations,
 } from "./actions";
 
 const defaultCurrentMessenger = {
@@ -158,19 +158,15 @@ export const messengerSlice = createSlice({
       .addCase(getAllEmployeeWithChat.fulfilled, (state, { payload }) => {
         state.ConversationsWithEmployee = payload;
       })
+      .addCase(searchConversations.fulfilled, (state, { payload }) => {
+        state.Conversations = payload;
+      })
       .addCase(createChat.fulfilled, (state, { payload }) => {
         state.Conversations = state.Conversations.find(
           (itm) => itm.id === payload.id
         )
           ? state.Conversations
           : [...state.Conversations, { ...payload }];
-        console.log(state.Conversations, "conversationnn");
-        console.log(payload, "payload");
-
-        //       [
-        //     ...(state.Conversations ? state.Conversations : []),
-        //     payload,
-        //   ];
         state.loader = false;
         state.success = true;
       })

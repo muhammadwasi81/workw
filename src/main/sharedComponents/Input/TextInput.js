@@ -16,6 +16,10 @@ function TextInput({
   status,
   disabled,
   defaultValue,
+  required,
+  pattern,
+  title,
+  accept,
   ...props
 }) {
   const [state, setstate] = useState("");
@@ -50,6 +54,8 @@ function TextInput({
         className={className}
         disabled={disabled}
         size={props.size}
+        pattern={pattern}
+        title={title}
         style={
           error
             ? { border: "solid 1px red", borderRadius: "5px" }

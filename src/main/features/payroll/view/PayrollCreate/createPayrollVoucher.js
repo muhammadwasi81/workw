@@ -23,6 +23,8 @@ const CreatePayrollVoucher = () => {
   const payrollCalculatedList = useSelector(
     (state) => state.payrollSlice.payrollCalculatedList
   );
+
+  console.log(payrollCalculatedList, "payrollCalculatedList");
   let [state, setState] = useState(initialState);
   let totalAmount =
     payrollCalculatedList &&

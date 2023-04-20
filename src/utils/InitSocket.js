@@ -77,7 +77,11 @@ export const InitMessengerSocket = (dispatch, userSlice) => {
           message: `${data.user.name} is online`,
           avatarName: data.user.name,
           avatarImage: data.user.image,
-          style: { backgroundColor: "#ffb70b", color: "black" },
+          style: {
+            backgroundColor: "#ffb70b",
+            color: "#ffffff",
+            cursor: "pointer",
+          },
         })
       );
       dispatch(handleUserOnlineStatus(data));

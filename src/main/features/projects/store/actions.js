@@ -26,6 +26,8 @@ import {
   addProjectMember,
   deleteProjectFeature,
 } from "../store/slice";
+import { ActionType } from "../../../sharedComponents/CustomModal";
+import { ROUTES } from "../../../../utils/routes";
 
 export const getAllProjects = createAsyncThunk(
   "getAllProject",
@@ -55,8 +57,11 @@ export const addProject = createAsyncThunk(
         openNotification({
           message: "Project Created Successfully!",
           type: "success",
-          duration: 20,
-          projectId: res.data.id,
+          duration: 2,
+          actionType: ActionType.Route,
+          actionData: {
+            path: `${ROUTES.PROJECT.DEFAULT}/${res.data.id}`,
+          },
         })
       );
       return res;

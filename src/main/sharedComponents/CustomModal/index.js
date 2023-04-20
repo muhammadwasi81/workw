@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, memo } from "react";
 import { Modal } from "antd";
 import propTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
@@ -15,8 +15,6 @@ const CustomModal = ({
   actionData,
   content,
 }) => {
-  console.log("actionType", actionType);
-  console.log("actionData", actionData);
   const navigate = useNavigate();
   useEffect(() => {
     if (actionType === ActionType.REDIRECT && actionData) {
@@ -55,4 +53,4 @@ CustomModal.propTypes = {
   content: propTypes.object,
 };
 
-export default CustomModal;
+export default memo(CustomModal);

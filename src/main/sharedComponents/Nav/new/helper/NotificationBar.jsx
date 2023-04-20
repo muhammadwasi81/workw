@@ -28,6 +28,7 @@ import { darkModeHandler } from "../../../../../utils/Shared/store/slice";
 import { useNavigate } from "react-router-dom";
 import { globalSearch } from "../../../../features/search/store/actions";
 import NotificationBadge from "../../../Badge/NotificationBadge";
+import { getAllNotification } from "../../../../features/notifiation/store/action";
 // import { SearchFilterEnum } from "../../../../features/search/utils/enums";
 // import { handleGlobalSearch } from "../../../../features/search/store/slice";
 
@@ -43,6 +44,12 @@ function NotificationBar() {
     (state) => state.responsiveSlice
   );
   const { keyword } = useSelector((state) => state.globalSearchSlice);
+  const { notificationCounts } = useSelector((state) => state.sharedSlice);
+
+  useEffect(() => {
+    dispatch(getAllNotification());
+  }, []);
+
   // console.log(keyword, "search keyworddd");
   const handleSearch = () => {
     setIsSearch(!isSearch);
@@ -136,7 +143,7 @@ function NotificationBar() {
             />
           </li>
           <NotificationBadge
-            notificationCount={3}
+            notificationCount={notificationCounts.notifications}
             style={{
               right: "75px",
               position: "absolute",
@@ -149,7 +156,7 @@ function NotificationBar() {
             <img src={notification} alt="notifications-icon" />
           </li>
           <NotificationBadge
-            notificationCount={7}
+            notificationCount={notificationCounts.approvals}
             style={{
               right: "43px",
               position: "absolute",

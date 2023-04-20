@@ -118,6 +118,92 @@ export const feedSlice = createSlice({
       state.singlePost.myReaction = reactionType;
       return;
     },
+    addCommentsReaction(state, { payload }) {
+      // const { reactionMode, referenceId, id, reactionType, isDetail } = payload;
+      // if (!isDetail) {
+      //   const postIndex = state.allFeed.posts.findIndex(
+      //     (post) => post.id === referenceId
+      //   );
+      //   const feedCommentIndex = state.allFeed.posts[
+      //     postIndex
+      //   ]?.comments.findIndex((comment) => comment.id === id);
+      //   let feedComment =
+      //     state.allFeed.posts[postIndex]?.comments[feedCommentIndex];
+      //   if (feedComment.myReaction === 0) {
+      //     feedComment.myReaction = reactionType;
+      //     feedComment.reactionCount = feedComment.reactionCount + 1;
+      //   } else {
+      //     feedComment.myReaction = 0;
+      //     if (feedComment.reactionCount < 0) {
+      //       feedComment.reactionCount = 0;
+      //     }
+      //     feedComment.reactionCount = feedComment.reactionCount - 1;
+      //   }
+      // }
+
+      const { reactionMode, referenceId, id, reactionType, isDetail } = payload;
+      if (!isDetail) {
+        const postIndex = state.allFeed.posts.findIndex(
+          (post) => post.id === referenceId
+        );
+        const feedCommentIndex = state.allFeed.posts[
+          postIndex
+        ]?.comments.findIndex((comment) => comment.id === id);
+        let feedComment =
+          state.allFeed.posts[postIndex]?.comments[feedCommentIndex];
+
+        if (feedComment.myReaction === reactionType) {
+          // User clicked on the same reaction as before
+          feedComment.myReaction = 0;
+          feedComment.reactionCount -= 1;
+        } else {
+          // User clicked on a different reaction than before
+          if (feedComment.myReaction !== 0) {
+            feedComment.reactionCount -= 1;
+          }
+          feedComment.myReaction = reactionType;
+          feedComment.reactionCount += 1;
+        }
+      }
+    },
+    addReplyReaction(state, { payload }) {
+      const {
+        reactionMode,
+        referenceId,
+        parentId,
+        id,
+        reactionType,
+        isDetail,
+      } = payload;
+      if (!isDetail) {
+        const postIndex = state.allFeed.posts.findIndex(
+          (post) => post.id === referenceId
+        );
+        const feedCommentIndex = state.allFeed.posts[
+          postIndex
+        ]?.comments.findIndex((comment) => comment.id === parentId);
+        let feedComment =
+          state.allFeed.posts[postIndex]?.comments[feedCommentIndex];
+
+        const replyIndex = feedComment.replies.findIndex(
+          (reply) => reply.id === id
+        );
+        let reply = feedComment.replies[replyIndex];
+
+        if (reply.myReaction === reactionType) {
+          // User clicked on the same reaction as before
+          reply.myReaction = 0;
+          reply.reactionCount -= 1;
+        } else {
+          // User clicked on a different reaction than before
+          if (reply.myReaction !== 0) {
+            reply.reactionCount -= 1;
+          }
+          reply.myReaction = reactionType;
+          reply.reactionCount += 1;
+        }
+      }
+    },
     postPoll(state, { payload }) {
       const { id, postId } = payload;
       let filteredPoll = state.allFeed.posts.filter(
@@ -236,5 +322,7 @@ export const {
   addFeedReaction,
   postPoll,
   addRealTimePost,
+  addCommentsReaction,
+  addReplyReaction,
 } = feedSlice.actions;
 export default feedSlice.reducer;

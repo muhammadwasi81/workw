@@ -8,10 +8,11 @@ import ExpenseDetailsComposer from "../../../expense/view/ExpenseDetailsComposer
 import { clearExpense } from "../../../expense/store/slice";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
 import { ExpenseDictionary } from "../../../expense/localization";
-
+import { NoDataFound } from "../../../../sharedComponents/NoDataIcon";
 function ExpenseContainer() {
   const [id, setId] = useState("");
   const [visible, setVisible] = useState(false);
+  const {keyword} = useSelector((state) => state.globalSearchSlice);
   const [searchParams, setSearchParams] = useSearchParams();
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction } = ExpenseDictionary[userLanguage];
@@ -35,10 +36,12 @@ function ExpenseContainer() {
   };
   return (
     <>
-      <div className="SearchMainContainer">
+      {
+          keyword?.Expense?.length > 0 ? (<div>
+              <div className="SearchMainContainer">
         <h5 className="containerHeading">Expense</h5>
         <CardWrapper>
-          {expenses.slice(0, 4)?.map((expense, index) => {
+          {keyword?.Expense?.slice(0, 4)?.map((expense, index) => {
             return (
               <ExpenseList
                 key={index}
@@ -48,12 +51,12 @@ function ExpenseContainer() {
             );
           })}
         </CardWrapper>
-        <div
-          onClick={searchHandler}
-          className="flex justify-center !text-[18px] cursor-pointer !text-[#707070]"
-        >
-          See more
-        </div>
+        {keyword?.Expense?.length > 3 ? (<div
+        onClick={searchHandler}
+        className="flex justify-center !text-[18px] cursor-pointer !text-[#707070]"
+      >
+        See more
+      </div>):(<div></div>)}
       </div>
       <ExpenseDetailsComposer
         direction={Direction}
@@ -61,6 +64,11 @@ function ExpenseContainer() {
         onClose={handleDrawerClose}
         id={id}
       />
+          </div>) :  (<div className="SearchMainContainer">
+          <div><NoDataFound/></div></div>
+    )
+      }
+      
     </>
   );
 }

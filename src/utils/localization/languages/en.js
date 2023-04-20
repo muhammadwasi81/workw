@@ -162,6 +162,7 @@ const en = {
     teams: "My Team",
     basicInfo: "Basic Info",
     LD: "L & D",
+    marketPlace: "MarketPlace",
   },
 
   /*** AppHeader only used in Component headerTab ***/
@@ -442,6 +443,7 @@ const en = {
     Family: "Family",
     Attachments: "Attachments",
     My_Team: "My Team",
+    Employees_Linkage: "Employees Linkage",
   },
   administration: {
     basicInfo: "Basic Info",

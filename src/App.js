@@ -48,6 +48,7 @@ import { servicesUrls } from "./utils/services/baseURLS";
 import { InitializeCallingSocket } from "./main/features/calling/services/socket";
 import { ExternalProject } from "./main/features/publicRoutes/projects/view/index";
 import Scheduler from "./main/features/publicRoutes/Schedule/Scheduler";
+import ForgotPassword from "./main/features/auth/view/signIn/ForgotPasword";
 
 const App = () => {
   const { userLanguageChange } = useContext(LanguageChangeContext);
@@ -128,7 +129,10 @@ const App = () => {
                 path={ROUTES.AUTH.SIGN_UP}
                 element={<OrganizationalSignup isLoggedIn={isLoggedIn} />}
               />
-
+              <Route
+                path={ROUTES.AUTH.FORGOT_PASS}
+                element={<ForgotPassword />}
+              />
               <Route path={ROUTES.AUTH.VERIFICATION} element={<Verified />} />
               <Route path={"/verification"} element={<Verifying />} />
               <Route
@@ -139,6 +143,7 @@ const App = () => {
                 path={`${ROUTES.FORMS.SUBMIT_FORM}/:id`}
                 element={<SubmitForm />}
               />
+
               <Route
                 path={`${ROUTES.EXTERNAL_PROJECT.REGISTER}`}
                 element={<ExternalProject />}

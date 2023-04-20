@@ -134,14 +134,13 @@ export const getAllComplainCategoryService = () => {
 export const getAllEmployeeShortService = (
   pageNo = 1,
   pageSize = 20,
-  disableFilter = 1,
+  disableFilter = 0,
   search = ""
 ) => {
   return MasterConfig.get(
     `/api/Employee/GetAllEmployeeShort?disableFilter=${disableFilter}&pageNo=${pageNo}&pageSize=${pageSize}&search=${search}`
   )
     .then((res) => {
-      console.log();
       return res.data;
     })
     .catch((err) => {
@@ -201,7 +200,6 @@ export const disableEmployeeService = (payload) => {
 export const getAllNotificationCount = () => {
   return MasterConfig.get(`api/Notification/GetAllNotificationCount`)
     .then((res) => {
-      console.log(res.data, "getAllNotificationService");
       return res.data;
     })
     .catch((err) => {

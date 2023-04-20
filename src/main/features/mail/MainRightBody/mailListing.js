@@ -1,5 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import { NavLink, useLocation, Route, Routes, useParams } from "react-router-dom";
+import {
+  NavLink,
+  useLocation,
+  Route,
+  Routes,
+  useParams,
+} from "react-router-dom";
 import { Checkbox, Rate, Skeleton } from "antd";
 import {
   parseDate,
@@ -34,7 +40,6 @@ const MailListing = () => {
   const mailHolder = useRef();
   const [selectedMail, setSelectedMail] = useState(undefined);
 
-
   const GetAllMailHandle = () => {
     let objData = {
       folderPath: api_base,
@@ -51,19 +56,19 @@ const MailListing = () => {
   };
 
   const handleClick = (id) => {
-    setSelectedMail(id)
-  }
+    setSelectedMail(id);
+  };
 
   const changeSeenFlag = (ID, IsRead) => {
     dispatch(
       changeMailSeenFlag({ uid: ID, flag: IsRead, folderPath: api_base })
     );
   };
-  const handlePagination = (doPagination = true) => { };
+  const handlePagination = (doPagination = true) => {};
 
   return (
     <div className="mailMainBody" ref={mailHolder}>
-      <div className="w-[50%] overflow-scroll" >
+      <div className="w-[50%] overflow-scroll">
         {inProcess &&
           [1, 3, 4, 2, 2, 2, 2].map((value) => (
             <div className="mailItem" key={value} style={{ height: "auto" }}>
@@ -116,10 +121,7 @@ const MailListing = () => {
                   <Checkbox onChange={() => console.log("checked")} />
                 </div>
 
-                <NavLink
-                  className="subjectAndBodyMob"
-                  to={`${id}`}
-                >
+                <NavLink className="subjectAndBodyMob" to={`${id}`}>
                   <div className="mailForm">
                     <div className="subject">{from[0].name}</div>
 
@@ -162,13 +164,12 @@ const MailListing = () => {
           )}
       </div>
 
-      <div className="w-[50%]" >
+      <div className="w-[50%]">
         <MailDetailView
           detailIdByProps={selectedMail}
           folderIdByProps={api_base}
         />
       </div>
-
     </div>
   );
 };

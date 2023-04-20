@@ -50,13 +50,13 @@ function ComplainDetail(props) {
             <UserInfo
               avatarSrc={complainDetail?.creator?.image}
               name={complainDetail?.creator?.name}
-              status={complainDetail?.creator.userActiveStatus}
-              profileId={complainDetail?.creator.id}
+              status={complainDetail?.creator?.userActiveStatus}
+              profileId={complainDetail?.creator?.id}
               Subline={
                 <SublineDesigWithTime
                   designation={
                     complainDetail?.creator?.designation
-                      ? complainDetail?.creator.designation
+                      ? complainDetail?.creator?.designation
                       : ""
                   }
                   time={moment(complainDetail?.createDate).fromNow()}

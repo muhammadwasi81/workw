@@ -145,3 +145,15 @@ export const getProfileStickyNote = async (data) => {
       return err;
     });
 };
+
+export const getEmployeeProfileByIdService = async (id) => {
+  return MasterConfig.get(`/api/Employee/GetEmployeeProfileById?id=${id}`)
+    .then((res) => {
+      console.log(res.data, "GetEmployeeProfileById service");
+      return res;
+    })
+    .catch((err) => {
+      console.log(err.message, "error in GetEmployeeProfileById");
+      return err;
+    });
+};

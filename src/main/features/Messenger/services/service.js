@@ -36,7 +36,7 @@ export const searchConversationService = (search, pageNo) => {
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++
 // New Services here
 const getAllChat = async (payload) => {
-	let request = messengerDTO.getAllConversations(payload);
+	let request = messengerDTO.getAllConversations(payload={});
 	try {
 		const {
 			data: { responseCode, data, message },
@@ -48,7 +48,7 @@ const getAllChat = async (payload) => {
 	}
 };
 
-const getAllEmployeeWithChat = async (payload) => {
+const getAllEmployeeWithChat = async (payload={}) => {
 	let request = messengerDTO.getAllConversations(payload);
 	try {
 		const {

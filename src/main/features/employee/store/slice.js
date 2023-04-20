@@ -1,9 +1,9 @@
-import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
-import { getUserBasicInfo } from '../../basicInfo/store/actions';
-import { getUserDeviceInfoAction } from '../../devices/store/action';
-import { getEducationDetailByUser } from '../../education/store/actions';
-import { getUserWorkExperience } from '../../experienceInfo/store/actions';
-import { getAllBankDetailByUser } from './../../bankDetails/store/actions';
+import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
+import { getUserBasicInfo } from "../../basicInfo/store/actions";
+import { getUserDeviceInfoAction } from "../../devices/store/action";
+import { getEducationDetailByUser } from "../../education/store/actions";
+import { getUserWorkExperience } from "../../experienceInfo/store/actions";
+import { getAllBankDetailByUser } from "./../../bankDetails/store/actions";
 import {
   addEmployee,
   getAllEmployees,
@@ -15,7 +15,10 @@ import {
   addEmployeeDetailAttachment,
   getAllEmployeeDetailAttachment,
   // removeEmployeeDetailAttachment,
-} from './actions';
+  getAllEmployeeLink,
+  addEmployeeLink,
+  removeEmployeeLink,
+} from "./actions";
 
 const initialState = {
   employees: [],
@@ -29,6 +32,7 @@ const initialState = {
     profileDetails: {},
     family: [],
     attachments: [],
+    employeeLink: [],
   },
   loader: false,
   addFamilyLoader: false,
@@ -38,7 +42,7 @@ const initialState = {
 };
 
 const employeeSlice = createSlice({
-  name: 'employee',
+  name: "employee",
   initialState,
   reducers: {
     resetBankDetails: (state) => {
@@ -66,6 +70,12 @@ const employeeSlice = createSlice({
       console.log(payload);
       state.employee.attachments = state.employee.attachments.filter(
         (item) => payload !== item.id
+      );
+    },
+    deleteEmployeeLink: (state, { payload }) => {
+      console.log(payload, state.employee.employeeLink);
+      state.employee.employeeLink = state.employee.employeeLink.filter(
+        (item) => payload !== item.linkUserId
       );
     },
   },
@@ -136,6 +146,20 @@ const employeeSlice = createSlice({
       .addCase(getEducationDetailByUser.fulfilled, (state, { payload }) => {
         state.employee.educationdetails = payload.data;
       })
+      .addCase(getAllEmployeeLink.fulfilled, (state, { payload }) => {
+        console.log(payload);
+        state.employee.employeeLink = payload.data;
+      })
+      .addCase(addEmployeeLink.fulfilled, (state, { payload }) => {
+        console.log(payload);
+        //check if array is empty then do nothing
+        if (payload.data.length > 0) {
+          state.employee.employeeLink = [
+            ...state.employee.employeeLink,
+            payload.data[0],
+          ];
+        }
+      })
       .addMatcher(
         isPending(
           ...[
@@ -143,6 +167,8 @@ const employeeSlice = createSlice({
             getAllEmployees,
             getAllEmployeeFamilyAction,
             getAllEmployeeDetailAttachment,
+            getAllEmployeeLink,
+            addEmployeeLink,
           ]
         ),
         (state) => {
@@ -171,6 +197,8 @@ const employeeSlice = createSlice({
             getAllEmployeeFamilyAction,
             updateEmployeeFamily,
             getAllEmployeeDetailAttachment,
+            getAllEmployeeLink,
+            addEmployeeLink,
           ]
         ),
         (state) => {
@@ -201,4 +229,5 @@ export const {
   resetEmergencydetails,
   removeFamilyMember,
   deleteEmployeeAttachment,
+  deleteEmployeeLink,
 } = employeeSlice.actions;

@@ -10,6 +10,7 @@ import {
   updateUserProfileImgAction,
   saveSticyNotes,
   getStickyNotes,
+  getEmployeeProfileById,
 } from "./action";
 
 const initialState = {
@@ -21,7 +22,8 @@ const initialState = {
   loader: false,
   coverImg: {},
   profileImg: {},
-  profileSticky: {},
+  profileSticky: { description: "" },
+  employeeProfile: {},
 };
 
 const employeeProfileSlice = createSlice({
@@ -34,12 +36,15 @@ const employeeProfileSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getAllEmployeeAction.fulfilled, (state, action) => {
-      console.log(action.payload, "getAllEmployee slice");
       state.employees = action.payload ? action.payload : [];
       state.loader = false;
     });
     builder.addCase(getEmployeeByIdAction.fulfilled, (state, action) => {
       state.employees = action.payload.data;
+      state.loader = false;
+    });
+    builder.addCase(getEmployeeProfileById.fulfilled, (state, action) => {
+      state.employeeProfile = action.payload.data;
       state.loader = false;
     });
     builder.addCase(addEmployeeAction.fulfilled, (state, { payload }) => {
@@ -75,16 +80,28 @@ const employeeProfileSlice = createSlice({
         state.profileSticky = payload.data;
       })
       .addCase(getStickyNotes.fulfilled, (state, { payload }) => {
-        state.profileSticky = payload?.data[0];
+        if (payload.data) {
+          state.profileSticky = payload?.data;
+        } else {
+          state.profileSticky = { description: "" };
+        }
       })
-      .addMatcher(isPending(...[getAllEmployeeAction]), (state) => {
-        state.loader = true;
-      })
-      .addMatcher(isPending(...[getEmployeeByIdAction]), (state) => {
-        state.loader = true;
-      })
+      .addMatcher(
+        isPending(
+          ...[
+            getAllEmployeeAction,
+            getEmployeeProfileById,
+            getEmployeeByIdAction,
+          ]
+        ),
+        (state) => {
+          state.loader = true;
+          state.success = false;
+        }
+      )
       .addMatcher(isRejected(...[getAllEmployeeAction]), (state) => {
-        state.loader = true;
+        state.loader = false;
+        state.success = false;
       });
   },
 });

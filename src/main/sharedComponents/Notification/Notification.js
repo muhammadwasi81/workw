@@ -15,6 +15,7 @@ const MainNotification = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { singlePost } = useSelector((state) => state.feedSlice);
+
   useEffect(() => {
     notification.referenceId && dispatch(getFeedById(notification.referenceId));
   }, [notification.referenceId, dispatch]);

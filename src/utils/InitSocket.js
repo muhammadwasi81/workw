@@ -12,8 +12,7 @@ import { openNotification } from "./Shared/store/slice";
 import { MESSENGER_ENUMS } from "../main/features/Messenger/utils/Constant";
 import { logout } from "./base";
 
-export const InitMessengerSocket = (dispatch, userSlice) => {
-  // console.log(userSlice, "UserSlice")
+export const InitMessengerSocket = (dispatch, userSlice, loggedInUserId) => {
   // const URL = `${servicesUrls.messenger}hubs/messenger`;
   const URL = `${servicesUrls.master}hub/notificationHub`;
   let connection = new HubConnectionBuilder()
@@ -121,6 +120,10 @@ export const InitMessengerSocket = (dispatch, userSlice) => {
   });
   connection.on("notificationOut", (data) => {
     console.log(data, "notificationOut");
+    console.log(loggedInUserId, "hurray");
+    // if (data.fromUserId === loggedInUserId) {
+    //   return;
+    // }
     dispatch(
       openNotification({
         referenceId: data.referenceId,

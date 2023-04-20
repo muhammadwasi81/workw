@@ -10,8 +10,7 @@ import { LanguageChangeContext } from "../../../../utils/localization/localConte
 import ListItem from "./ListItem";
 import Composer from "./Composer";
 import DetailedView from "./DetailedView";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import { getAllLeaves, GetLeaveById } from "../store/actions";
 import { tableColumn } from "./TableColumn";
 import { Table } from "../../../sharedComponents/customTable";
@@ -41,6 +40,8 @@ const Leave = () => {
   const { leaves, loader, leaveDetail, drawerOpen } = useSelector(
     (state) => state.leaveSlice
   );
+
+  console.log(leaves,"leavesleaves");
 
   const onRow = (record, rowIndex) => {
     return {

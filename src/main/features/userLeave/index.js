@@ -7,6 +7,8 @@ import { EditOutlined } from "@ant-design/icons";
 
 const UserLeave = () => {
   const { id } = useParams();
+
+  console.log(id,"myid");
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getUserLeave(id));
@@ -18,6 +20,7 @@ const UserLeave = () => {
   useEffect(() => {
     setInitialinputs(allLeaves);
   }, [allLeaves]);
+
   const columns = [
     {
       title: "Leave Type",

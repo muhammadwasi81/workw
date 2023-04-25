@@ -191,11 +191,6 @@ export class InitializeSocket {
 			console.log(data, "commentOut")
 		});
 	}
-
-	// declineCall = (callInitializerId) => {
-	// 	console.log("call-declined", callInitializerId)
-	// 	this.connection.emit("call-declined", { callInitializerId, receiverId: this.user.id });
-	// }
 }
 
 

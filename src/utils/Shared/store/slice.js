@@ -66,6 +66,11 @@ const sharedSlice = createSlice({
     setNotificationCount: (state, { payload }) => {
       state.notificationCounts = payload;
     },
+    removeDisabledEmployee: (state, action) => {
+      state.employeeShort = state.employeeShort.filter(
+        (employee) => employee.id !== action.payload
+      );
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -89,7 +94,12 @@ const sharedSlice = createSlice({
         state.success = true;
       })
       .addCase(getAllEmployeeShort.fulfilled, (state, { payload }) => {
+        // const filterEmployees = payload.data.filter(
+        //   (employee) => !employee.isDisable
+        // );
+        // state.employeeShort = filterEmployees;
         state.employeeShort = payload.data;
+        console.log("filterEmployees");
         state.loadingData = false;
         state.loader = false;
       })
@@ -191,5 +201,6 @@ export const {
   darkModeHandler,
   handleItemDetailModal,
   setNotificationCount,
+  removeDisabledEmployee,
 } = sharedSlice.actions;
 export default sharedSlice.reducer;

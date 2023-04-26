@@ -22,6 +22,7 @@ const globalSearchSlice = createSlice({
 
   extraReducers: (builder) => {
     builder.addCase(globalSearch.fulfilled, (state, { payload }) => {
+      console.log({ payload }, "slicedata")
       state.keyword = payload.data;
     });
   },

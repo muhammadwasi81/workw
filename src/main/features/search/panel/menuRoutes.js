@@ -17,7 +17,6 @@ import TedTalks from "../view/tedTalksContainer/TedTalks";
 import TravelContainer from "../view/travelContainer/TravelContainer";
 import VideoContainer from "../view/videosContainer/VideoContainer";
 import WorkBoardContainer from "../view/workBoardContainer/WorkBoardContainer";
-// import mainContainer from "../view/mainContainer/MainContainer";
 import MainContainer from "../view/mainContainer/MainContainer";
 import FeedContainer from "../view/feedContainer/FeedContainer";
 

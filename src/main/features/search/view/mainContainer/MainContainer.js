@@ -57,7 +57,19 @@ function MainContainer() {
       setLoading(false)
     }
   })
+  useEffect(() => {
+    const handleScroll = () => {
+      // Your function to be called on scroll down
+      console.log('Scrolled down!');
+      document.body.style.background = "#f0c040"
+    };
 
+    window.addEventListener('scroll', handleScroll); // Attach event listener on mount
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll); // Detach event listener on unmount
+    };
+  }, []); 
   return (
     <>
         {isLoading == true ? (

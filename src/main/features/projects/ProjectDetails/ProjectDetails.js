@@ -104,6 +104,8 @@ function ProjectDetails() {
     setprojectFeatures(payload);
   }, [projectFeature]);
 
+  console.log(projectfeatures, "projectfeatures");
+
   const panes = [
     {
       title: labels.travel,
@@ -250,7 +252,7 @@ function ProjectDetails() {
             <div className="rounded-xl basis-9/12 flex flex-col gap-5 overflow-scroll">
               <CoverImage image={detail?.image || ProjectCover} />
               <CoverDetail detail={detail} />
-              <Tab panes={projectfeatures} id={projectId} features={panes} />
+              <Tab panes={projectfeatures} id={projectId} />
             </div>
             <div className="basis-1/4 gap-5 flex flex-col overflow-scroll">
               <Budget data={detail} />

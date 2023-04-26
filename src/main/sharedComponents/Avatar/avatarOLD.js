@@ -1,8 +1,6 @@
-import React, { useState } from "react";
 import ZoomImage from "../ZoomImage";
 import { getNameForImage, STRINGS } from "../../../utils/base";
 import { Badge } from "antd";
-import propTypes from "prop-types";
 
 export default function Avatar({
   src = "",
@@ -24,38 +22,33 @@ export default function Avatar({
     window.location.href = `${STRINGS.ROUTES.USER.TIMELINE.DEFAULT}/${id}`;
   };
 
-  let profileId = userId
-  console.log(profileId, "PROFILE ID")
-
+  let profileId = userId;
+  console.log(profileId, "PROFILE ID");
 
   function color(val) {
     if (val === 0) {
-      return 'gray'
+      return "gray";
     }
-    if ( val === 1 ) {
-      return 'green'
-    } 
-    if ( val === 2 ) {
-      return 'yellow'
-    } 
-    if ( val === 3 ) {
-      return 'blue'
-    } 
-    if ( val === 4 ) {
-      return 'black'
-    } 
-    if ( val === 5 ) {
-      return 'pink'
+    if (val === 1) {
+      return "green";
     }
-  } 
+    if (val === 2) {
+      return "yellow";
+    }
+    if (val === 3) {
+      return "blue";
+    }
+    if (val === 4) {
+      return "black";
+    }
+    if (val === 5) {
+      return "pink";
+    }
+  }
 
   try {
     return (
-      <Badge 
-        className='statusIcon'
-        dot={!!status}
-        color={color(status)}
-      >
+      <Badge className="statusIcon" dot={!!status} color={color(status)}>
         <div
           onClick={id !== undefined ? handleRoute : null}
           className={`avatar ${round && "round"} ${customClass}`}
@@ -97,19 +90,3 @@ export default function Avatar({
     );
   }
 }
-
-Avatar.propTypes = {
-  src: propTypes.string,
-  size: propTypes.number,
-  name: propTypes.string,
-  active: propTypes.bool,
-  width: propTypes.number,
-  height: propTypes.number,
-  round: propTypes.bool,
-  position: propTypes.string,
-  isZoom: propTypes.bool,
-  id: propTypes.string,
-  style: propTypes.object,
-  counter: propTypes.number,
-  customClass: propTypes.string,
-};

@@ -10,7 +10,7 @@ import {
   addMember,
   handleFavoriteProjects,
 } from "../store/slice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { StarFilled, StarOutlined } from "@ant-design/icons";
 import { addProjectFavoriteAction } from "./../store/actions";
 import "./style.css";
@@ -18,6 +18,7 @@ import QuickOptions from "../quickOptions";
 import { handleItemDetailModal } from "../../../../utils/Shared/store/slice";
 import ItemDetailModal from "../../../sharedComponents/ItemDetails";
 import NotificationBadge from "../../../sharedComponents/Badge/NotificationBadge";
+import "./style.css";
 import { getAllNotification } from "./../../../../utils/Shared/store/actions";
 
 const { Meta } = Card;
@@ -25,7 +26,6 @@ const { Meta } = Card;
 const ListItem = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { notificationCounts } = useSelector((state) => state.sharedSlice);
   // later on we have a property in get all project for inner notification
   const {
     name,
@@ -34,12 +34,8 @@ const ListItem = (props) => {
     members = [],
     id,
     isPinnedPost,
+    notificationCount,
   } = props.item;
-
-  useEffect(() => {
-    console.log("project count", notificationCounts);
-    dispatch(getAllNotification());
-  }, []);
 
   const [openModal, setOpenModal] = useState(false);
   const handlePinnedPost = (e) => {
@@ -74,7 +70,7 @@ const ListItem = (props) => {
         />
       }
       <Card
-        className={`${`Card2`} ${`relative`}`}
+        className="Card2 relative"
         cover={
           <img
             alt="example"
@@ -90,7 +86,7 @@ const ListItem = (props) => {
         }}
       >
         <NotificationBadge
-          notificationCount={notificationCounts.projects}
+          notificationCount={notificationCount}
           customClass="absolute top-0 right-0"
         />
         <Meta

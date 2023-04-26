@@ -146,7 +146,7 @@ const sharedSlice = createSlice({
         state.success = true;
       })
       .addCase(getAllNotification.fulfilled, (state, { payload }) => {
-        console.log(payload, "payload of notification");
+        console.log(payload.data, "SLICE DATA");
         state.notificationCounts = payload.data;
         state.loader = false;
       })
@@ -165,6 +165,7 @@ const sharedSlice = createSlice({
             getAllEmployeeTypes,
             getAllEmployees,
             getAllEmployeeShort,
+            getAllNotification,
           ]
         ),
         (state) => {

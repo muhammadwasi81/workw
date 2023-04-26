@@ -1,3 +1,4 @@
+import { memo } from "react";
 import propTypes from "prop-types";
 
 const NotificationBadge = ({
@@ -6,12 +7,16 @@ const NotificationBadge = ({
   customClass = "",
 }) => {
   return (
-    <div
-      className={`${`inline-block bg-red-500 rounded-full px-2 py-1 text-xs font-bold text-white`} ${customClass}`}
-      style={{ ...style }}
-    >
-      {notificationCount}
-    </div>
+    <>
+      {notificationCount > 0 && (
+        <div
+          className={`${`inline-block bg-red-500 rounded-full px-2 py-1 text-xs font-bold text-white`} ${customClass}`}
+          style={{ ...style }}
+        >
+          {notificationCount}
+        </div>
+      )}
+    </>
   );
 };
 
@@ -21,4 +26,4 @@ NotificationBadge.propTypes = {
   style: propTypes.object,
 };
 
-export default NotificationBadge;
+export default memo(NotificationBadge);

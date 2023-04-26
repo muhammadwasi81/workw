@@ -13,7 +13,7 @@ import { approvalsEnum } from "../../enum/enum";
 
 export default function AllApprovals() {
   const defaultFilter = {
-    pageNo: 0,
+    pageNo: 1,
     search: "",
     status: [ApprovalStatus.InProcess],
   };

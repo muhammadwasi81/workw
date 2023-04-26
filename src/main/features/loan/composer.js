@@ -97,6 +97,12 @@ const Composer = () => {
       loanTenure,
     } = values;
 
+    // let deadlin = new Date();
+    // deadlin.setFullYear(new Date().getFullYear());
+    // deadlin.setMonth(loanTenure - 1);
+    // deadlin.setMonth(deadlin.getMonth() + loanTenure);
+
+
     const loanObj = {
       id: DEFAULT_GUID,
       amount,
@@ -166,7 +172,12 @@ const Composer = () => {
           },
         ]}
       >
-        <Input type="number" placeholder={loanDictionaryList.months} />
+        <Input 
+          type="number" 
+          placeholder={loanDictionaryList.months} 
+          step={"1"}
+          min={1}
+        />
       </Form.Item>
       <Form.Item
         disabled={true}
@@ -225,7 +236,10 @@ const Composer = () => {
         </Select>
       </Form.Item>
       <Form.Item label={loanDictionaryList.deadline} name="deadline">
-        <DatePicker />
+
+       <DatePicker
+          disabledDate={(current) => current && current.valueOf() < Date.now()}
+       />
       </Form.Item>
       <Form.Item label={loanDictionaryList.approvers} name="approvers">
         <MemberSelect

@@ -19,6 +19,7 @@ export default function Listing({
     search: "",
     status: ApprovalStatus.InProcess,
   };
+  console.log(defaultFilter,"tabFilter");
   const dispatch = useDispatch();
   let filter = tabFilter;
   const approvalList = useSelector((state) => state.approvalSlice.approvalList);

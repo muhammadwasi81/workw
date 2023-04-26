@@ -27,7 +27,11 @@ export default function AllApprovals() {
 
   const handleTabChange = (tabIndex) => {
     tabIndex = Number(tabIndex);
+    console.log(tabIndex,"tabIndex");
+
     let status = [ApprovalStatus.InProcess];
+    console.log(status,"statusstatus");
+
     switch (tabIndex) {
       case ApprovalStatus.InProcess:
         status = [ApprovalStatus.InProcess];
@@ -52,6 +56,8 @@ export default function AllApprovals() {
 
   useEffect(() => {
     let isMyApproval = true;
+    console.log("approvalisMyApproval",isMyApproval);
+    
     dispatch(getAllApproval({ isMyApproval, filter }));
   }, [filter]);
 

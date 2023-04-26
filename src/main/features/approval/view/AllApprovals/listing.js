@@ -55,8 +55,8 @@ export default function Listing({
 
   return (
     <>
-      <Tab canChangeRoute={true} panes={panes} onChange={handleTabChange} />
-      <div className="refresButton">
+      <Tab canChangeRoute={true} panes={panes} onChangeTab={handleTabChange} />
+      {/* <div className="refresButton">
         <img
           src={RefreshIcon}
           alt="calender logo"
@@ -64,7 +64,7 @@ export default function Listing({
           className="cursor-pointer m-auto"
           onClick={handleRefresh}
         />
-      </div>
+      </div> */}
       <div className="overflow-scroll h-[85vh]">
         {approvalList && approvalList.length > 0 ? (
           approvalList.map((item) => (

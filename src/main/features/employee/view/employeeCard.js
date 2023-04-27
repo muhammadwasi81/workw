@@ -17,6 +17,7 @@ import {
 import PropTypes from "prop-types";
 import userAvatar from "../../../../content/png/userAvatar.jpg";
 import { userTypeEnum } from "../../../../utils/Shared/enums/enums";
+import { removeDisabledEmployee } from "../../../../utils/Shared/store/slice";
 function EmployeeCard({
   employees: { image, name, email, designation, id, isDisable, userTypeId },
 }) {
@@ -34,6 +35,7 @@ function EmployeeCard({
       isDisable: isDisable === true ? false : true,
     };
     dispatch(disableEmployee(payload));
+    dispatch(removeDisabledEmployee(id));
   };
 
   const cancel = (e) => {
@@ -53,7 +55,7 @@ function EmployeeCard({
           {userTypeId !== userTypeEnum.SuperAdmin ? (
             <Popconfirm
               title={
-                isDisable
+                isDisable === true
                   ? "Are you sure to enable this employee"
                   : "Are you sure to disable this employee"
               }
@@ -67,9 +69,7 @@ function EmployeeCard({
                 {isDisable ? "Enable" : sharedLabels.Disable}
               </ActionButton>
             </Popconfirm>
-          ) : (
-            ``
-          )}
+          ) : null}
           <ActionButton
             onClick={() => {
               navigate(`info/basicInfo/${id}`);

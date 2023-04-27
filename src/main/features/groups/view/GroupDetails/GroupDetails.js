@@ -55,21 +55,22 @@ function GroupDetails() {
   const { groupsDictionary, Direction } = groupsDictionaryList[userLanguage];
   const { groupDetail, updateTextBtn, editGroup } = groupsDictionary;
   const params = useParams();
+  const { groupId: id } = params;
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
+  const [features, setFeatures] = useState([]);
 
   const detail = useSelector((state) => state.groupSlice.groupDetail);
-  console.log(detail, "detaill");
+  // console.log(detail, "detaill");
   const { isComposerOpen, isEditComposer } = useSelector(
     (state) => state.groupSlice
   );
-  const [features, setFeatures] = useState([]);
-  const { groupId: id } = params;
   const { groupFeatures } = useSelector((state) => state.groupSlice);
 
   useEffect(() => {
     dispatch(getGroupById(id));
   }, [id]);
+  console.log(groupFeatures, "groupFeatures");
 
   // useEffect(() => {
   //   dispatch(getGroupFeatures(id));
@@ -78,7 +79,6 @@ function GroupDetails() {
     // setVisible(true);
     // // const userTypes = memberType === 1 ? Members.user : Members.admin;
     // dispatch(addMember({ status: true }));
-
     setVisible(true);
     dispatch(handleItemDetailModal(true));
   };
@@ -98,7 +98,7 @@ function GroupDetails() {
   }, []);
 
   let featurePermissions = groupFeatures.map((item) => item.featureId);
-  console.log(featurePermissions, "featurePermissionn");
+  // console.log(featurePermissions, "featurePermissionn");
 
   // function getUserPermissions(){
   //   return GroupFeaturePermissionEnumList.map((x)=>{
@@ -173,34 +173,7 @@ function GroupDetails() {
       />
     ),
   };
-  const panes = [
-    {
-      title: groupDetail.discussion,
-      content: <div>Discussion div</div>,
-      key: 0,
-    },
-    {
-      title: groupDetail.schedule,
-      content: <div>Schedule div</div>,
-      key: 1,
-    },
 
-    {
-      title: groupDetail.task,
-      content: <div>Task div</div>,
-      key: 2,
-    },
-    {
-      title: groupDetail.expenses,
-      content: <div>Expenses div</div>,
-      key: 3,
-    },
-    {
-      title: groupDetail.documents,
-      content: <div>Documents div</div>,
-      key: 4,
-    },
-  ];
   const items = [
     {
       name: detail?.name,
@@ -250,7 +223,7 @@ function GroupDetails() {
             <div className="rounded-xl basis-9/12 flex flex-col gap-5 overflow-scroll ">
               <CoverImage image={detail?.image || GroupDefaultImage} />
               <CoverDetail detail={detail} key={detail} />
-              <Tab panes={features} dir={Direction} id={id} features={panes} />
+              <Tab panes={features} dir={Direction} id={id} />
             </div>
 
             <div className="basis-1/4 gap-5 flex flex-col overflow-scroll">
@@ -284,7 +257,7 @@ function GroupDetails() {
           id={id}
         />
       </Drawer>
-      {
+      {visible && (
         <ItemDetailModal
           data={detail?.members} //Data
           isDeleteDisabled={false} //Pass true to hide delete icon
@@ -293,10 +266,8 @@ function GroupDetails() {
           onDelete={onDelete}
           isSearch={true} //Pass true if you want to search the list
           openModal={true}
-          visible={visible}
-          setVisible={(da) => setVisible(da)}
         />
-      }
+      )}
     </>
   );
 }

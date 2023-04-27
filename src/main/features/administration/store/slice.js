@@ -1,5 +1,5 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
-import { GetAllWizard } from "./action";
+import { GetAllWizard,seenWizard } from "./action";
 
 const initialState = {
   currentTab: "businessLogo",
@@ -15,6 +15,11 @@ const adminstrationSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(GetAllWizard.fulfilled, (state, action) => {
+      console.log(action.payload, "SLICEDATA");
+      state.handleModal = action.payload;
+    });
+
+    builder.addCase(seenWizard.fulfilled, (state, action) => {
       console.log(action.payload, "SLICEDATA");
       state.handleModal = action.payload;
     });

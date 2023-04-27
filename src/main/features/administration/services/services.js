@@ -10,3 +10,14 @@ export const GetAllWizardService = () => {
       return error;
     });
 };
+
+export const seenWizardService = (data) => {
+  return MasterConfig.get(`api/Wizard/SeenWizard`,data)
+    .then((res) => {
+      console.log(res, "seenWizardService");
+      return res;
+    })
+    .catch((error) => {
+      return error;
+    });
+};

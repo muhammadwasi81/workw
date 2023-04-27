@@ -7,14 +7,13 @@ import {
 import { getAllApproval_dto } from "./dto";
 
 export const getAllApprovalService = async (payload) => {
+	console.log(payload,"payloadpayload");
 	try {
-		const payloadJSON = getAllApproval_dto(payload);
-		
+		payload = getAllApproval_dto(payload);
 		const {
-			data: { responseCode, data, message }
-
-		} = await MasterConfig.post(`api/Approval/GetAllApproval`, payloadJSON);
-		
+			data: { responseCode, data, message },
+		} = await MasterConfig.post(`api/Approval/GetAllApproval`, payload);
+			
 		if (responseCode === 1001) return ResponseResultSuccess(data);
 		
 		return ResponseResultError(message);

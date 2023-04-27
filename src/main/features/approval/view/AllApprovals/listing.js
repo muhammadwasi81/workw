@@ -15,9 +15,9 @@ export default function Listing({
   isDetail = false,
 }) {
   const defaultFilter = {
-    pageNo: 0,
+    pageNo: 1,
     search: "",
-    status: ApprovalStatus.InProcess,
+    status: [ApprovalStatus.InProcess],
   };
   const dispatch = useDispatch();
   let filter = tabFilter;

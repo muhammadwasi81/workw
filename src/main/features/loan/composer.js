@@ -49,6 +49,7 @@ const Composer = () => {
   const [employeesData, setEmployeesData] = useState([]);
   const [defaultData, setDefaultData] = useState([]);
 
+  console.log(loanTenure,"loanTenureloanTenure");
   const fetchEmployees = (text, pgNo) => {
     dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
   };
@@ -238,8 +239,14 @@ const Composer = () => {
       <Form.Item label={loanDictionaryList.deadline} name="deadline">
 
        <DatePicker
-          disabledDate={(current) => current && current.valueOf() < Date.now()}
+          disabledDate={(current) =>
+            current && (
+              current.valueOf() < Date.now() ||
+              current.valueOf() < moment().add(loanTenure - 1 , 'months').endOf('month').valueOf()
+            )
+          }
        />
+
       </Form.Item>
       <Form.Item label={loanDictionaryList.approvers} name="approvers">
         <MemberSelect

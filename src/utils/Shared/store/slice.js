@@ -44,6 +44,7 @@ const initialState = {
   isDarkMode: localStorage.getItem("darkMode") === "1",
   itemDetailModal: false,
   notificationCounts: {},
+  isModalOpen: false,
 };
 
 const sharedSlice = createSlice({
@@ -65,6 +66,9 @@ const sharedSlice = createSlice({
     },
     setNotificationCount: (state, { payload }) => {
       state.notificationCounts = payload;
+    },
+    toggleModal: (state) => {
+      state.isModalOpen = !state.isModalOpen;
     },
   },
   extraReducers: (builder) => {
@@ -191,5 +195,6 @@ export const {
   darkModeHandler,
   handleItemDetailModal,
   setNotificationCount,
+  toggleModal,
 } = sharedSlice.actions;
 export default sharedSlice.reducer;

@@ -70,6 +70,11 @@ const sharedSlice = createSlice({
     toggleModal: (state) => {
       state.isModalOpen = !state.isModalOpen;
     },
+    removeDisabledEmployee: (state, action) => {
+      state.employeeShort = state.employeeShort.filter(
+        (employee) => employee.id !== action.payload
+      );
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -93,7 +98,12 @@ const sharedSlice = createSlice({
         state.success = true;
       })
       .addCase(getAllEmployeeShort.fulfilled, (state, { payload }) => {
+        // const filterEmployees = payload.data.filter(
+        //   (employee) => !employee.isDisable
+        // );
+        // state.employeeShort = filterEmployees;
         state.employeeShort = payload.data;
+        console.log("filterEmployees");
         state.loadingData = false;
         state.loader = false;
       })
@@ -196,5 +206,6 @@ export const {
   handleItemDetailModal,
   setNotificationCount,
   toggleModal,
+  removeDisabledEmployee,
 } = sharedSlice.actions;
 export default sharedSlice.reducer;

@@ -20,9 +20,9 @@ export const GetAllWizard = createAsyncThunk(
 
 export const seenWizard = createAsyncThunk(
   "Wizard/seenWizard",
-  async (data) => {
+  async (type) => {
     try {
-      const response = await seenWizardService(data);
+      const response = await seenWizardService(type);
       console.log("seen wizard");
       console.log(response.data, "respose.data");
       return response.data;

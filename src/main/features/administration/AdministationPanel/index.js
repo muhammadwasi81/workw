@@ -18,6 +18,7 @@ import { addDesignation } from "../../designation/store/actions";
 import { addFiscalYear } from "../../fiscalYear/store/actions";
 import { addPayrollGroup } from "../../payroll/payrollGroup/store/actions";
 import { GetAllWizard ,seenWizard} from "../store/action";
+import { WIZARD_ENUMS } from "../../../../utils/Shared/enums/wizardEnums";
 
 const Administration = () => {
   const dispatch = useDispatch();
@@ -76,7 +77,7 @@ const Administration = () => {
   }, []);
 
   const handleshow = () => {
-    dispatch(seenWizard(2));
+    dispatch(seenWizard(WIZARD_ENUMS.administration));
   }
 
   const handleSkip = () => {
@@ -113,8 +114,11 @@ const Administration = () => {
       setFormData={setFormData}
       handleChangeTab={handleChangeTab}
     />,
+    
   ];
   const checkType = handleModal?.data[0]?.type;
+  console.log(checkType,"checkType");
+
   return (
     <>
       <AdminPanelContainer>
@@ -131,7 +135,6 @@ const Administration = () => {
               <Button className="ThemeBtn" onClick={handleSkip}>
                 Skip
               </Button>,
-
             ]}
             
             open={visible}

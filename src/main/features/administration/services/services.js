@@ -11,8 +11,8 @@ export const GetAllWizardService = () => {
     });
 };
 
-export const seenWizardService = (data) => {
-  return MasterConfig.get(`api/Wizard/SeenWizard`,data)
+export const seenWizardService = (type) => {
+  return MasterConfig.get(`api/Wizard/SeenWizard?type=${type}`)
     .then((res) => {
       console.log(res, "seenWizardService");
       return res;

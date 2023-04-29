@@ -45,6 +45,7 @@ const Resignation = (props) => {
   const { drawerOpen, items, loader } = useSelector(
     (state) => state.resignationSlice
   );
+  console.log("detailIddetailId",items);
 
   const onSearch = (value) => {
     const filtered = items.filter((item) => {
@@ -76,7 +77,7 @@ const Resignation = (props) => {
     return {
       onClick: (event) => {
         console.log(record.id, 'ID');
-        setDetailId(record.id);
+        //setDetailId(record.id);
       },
       onDoubleClick: (event) => {}, // double click row
       onContextMenu: (event) => {}, // right button click row

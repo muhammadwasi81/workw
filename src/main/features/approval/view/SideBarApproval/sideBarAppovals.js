@@ -10,9 +10,9 @@ import { setApprovalStatus } from "../../../../../store/appReducer/responsiveSli
 // import { setApprovalStatus } from "../../../../../store/appReducer/responsiveSlice";
 
 const defaultFilter = {
-    pageNo: 0,
+    pageNo: 1,
     search: "",
-    status: [1]
+    status: 1
 }
 
 export default function Approvals() {

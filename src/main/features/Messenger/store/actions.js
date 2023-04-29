@@ -148,8 +148,9 @@ export const getAllChatMessage = createAsyncThunk(
         return rejectWithValue(response.errorMessage);
       case ResponseType.SUCCESS:
         return {
-          data:response.data,
-          chatId:request.chatId
+          data: response.data,
+          pageNo: request.pageNo,
+          chatId: request.chatId
         };
       default:
         return;

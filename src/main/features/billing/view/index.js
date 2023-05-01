@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   FormContainer,
@@ -6,10 +6,13 @@ import {
 } from "../../../sharedComponents/Administration/StyledComponents/adminForm";
 import BillingTable from "./table";
 import { getAllBilling } from "../store/actions";
+import { Button, Modal } from "antd";
+import PendingBills from "./pendingBills";
 
 const Index = () => {
   const { billing } = useSelector((state) => state.userBillingSlice);
   console.log(billing);
+  const [PendingBillBoolean , setPendingBillBoolean] = useState(false)
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -27,7 +30,16 @@ const Index = () => {
   }, []);
   return (
     <>
+      <Button className="ThemeBtn" style={{float:"right",  marginRight:"78px" , marginTop:"2px"}} onClick={()=>{ setPendingBillBoolean(!PendingBillBoolean)}}>
+        Pending Bills
+      </Button>
       <FormContainer>
+        {PendingBillBoolean && (
+          <>
+          <FormHeader>{"Pending Bills"}</FormHeader>
+          <PendingBills/>
+          </>
+        )}
         <FormHeader>{"Billing"}</FormHeader>
         <BillingTable />
       </FormContainer>

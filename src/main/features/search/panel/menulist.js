@@ -39,11 +39,12 @@ const MenuList = () => {
         })
       );
       navigate(`?q=${value}`);
+      dispatch(handleTab("All"))
     }
   }
   return (
     <>
-      <List className="Adminlist" style={{ height: "inherit" , position:"sticky"}}>
+      <List className="Adminlist" style={{ height: "inherit"}}>
         <AList className="admin_list">
           <div className="searchBox" style={{height:"30px" , marginBottom:"5px"}}>
           <SearchOutlined/>

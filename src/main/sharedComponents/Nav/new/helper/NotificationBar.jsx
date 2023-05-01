@@ -30,7 +30,7 @@ import { useNavigate } from "react-router-dom";
 import { globalSearch } from "../../../../features/search/store/actions";
 import { SearchFilterEnum } from "../../../../features/search/utils/enums";
 import { message } from "antd";
-import { handleGlobalSearch } from "../../../../features/search/store/slice";
+import { handleGlobalSearch, handleTab } from "../../../../features/search/store/slice";
 
 function NotificationBar() {
   const [isSearch, setIsSearch] = useState(false);
@@ -103,6 +103,7 @@ function NotificationBar() {
           filterType: 0,
         })
       );
+      dispatch(handleTab("All"))
       // dispatch(handleGlobalSearch());
       // navigate(`search/sea`);
       navigate(`search?q=${value}`);

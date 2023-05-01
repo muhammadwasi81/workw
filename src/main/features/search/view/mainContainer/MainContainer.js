@@ -23,9 +23,9 @@ import VideoContainer from "../videosContainer/VideoContainer";
 import TaskContainer from "../taskContainer/TaskContainer";
 import FeedContainer from "../feedContainer/FeedContainer";
 import MenuRoutes from "../../panel/menuRoutes";
-// import { NoDataFound } from "../../../../sharedComponents/NoDataIcon";
 import { useEffect } from "react";
 
+//  to Check the length of each at each index of object
 function toCheck (keyword)
 {
   for (const key in keyword) {
@@ -39,12 +39,11 @@ function toCheck (keyword)
         }
     }
   }
-
   return false
 }
+
 function MainContainer() {
-  const {keyword ,tab}= useSelector((state) => state.globalSearchSlice );
-  console.log("keyword",keyword)
+  const {keyword ,tab, FeedData}= useSelector((state) => state.globalSearchSlice );
   const [isLoading , setLoading] = useState(false);
   
   useEffect(()=>{
@@ -57,23 +56,10 @@ function MainContainer() {
       setLoading(false)
     }
   })
-  useEffect(() => {
-    const handleScroll = () => {
-      // Your function to be called on scroll down
-      console.log('Scrolled down!');
-      document.body.style.background = "#f0c040"
-    };
-
-    window.addEventListener('scroll', handleScroll); // Attach event listener on mount
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll); // Detach event listener on unmount
-    };
-  }, []); 
   return (
     <>
         {isLoading == true ? (
-        <div style={{overflowY: 'scroll'}}>
+        <div style={{overflowY: 'scroll' ,width:'100%'}}>
         {keyword?.Feed?.length > 0 ?  (tab ==="All"  || tab ==="feed") && <FeedContainer/> : (tab==="feed" && <NoDataFound style={{marginLeft: '10rem'}}/>)}
         {keyword?.Lead?.length > 0 ? (tab ==="All"  || tab ==="Lead_Manager") && <LeadContainer/>  : (tab==="Lead_Manager" && <NoDataFound style={{marginLeft: '10rem'}}/>)}
         {keyword?.Document?.length > 0 ? (tab ==="All"  || tab ==="Document") && <DocumentContainer/> : (tab==="Document" && <NoDataFound style={{marginLeft: '10rem'}}/>) }

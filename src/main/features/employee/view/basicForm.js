@@ -464,7 +464,6 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
           }}
           canFetchNow={cities && cities.length > 0}
           fetchData={fetchCityData}
-          value={isEdit ? basicdetails.city : basicdetails.cityId}
           optionComponent={(opt) => {
             return (
               <>
@@ -483,13 +482,30 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
           label={labels.City}
         />
 
-        <Form.Item name="probationPeriod" label={labels.ProbationPeriod}>
+        <Form.Item
+          name="probationPeriod"
+          label={labels.ProbationPeriod}
+          rules={[
+            { required: true, message: "Please input your Probation Period!" },
+            {
+              validator: (rule, value) => {
+                if (value < 1 || value > 30) {
+                  return Promise.reject(
+                    "Probation period must be between 1 and 30"
+                  );
+                }
+                return Promise.resolve();
+              },
+            },
+          ]}
+        >
           <Input
             placeholder={placeholder.probPeriod}
             size="large"
             type={"number"}
             step={"1"}
             min={1}
+            onWheel={(e) => e.target.blur()}
           />
         </Form.Item>
         {!isEdit && (
@@ -582,6 +598,7 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
             min={0}
             placeholder={placeholder.empNo}
             size="large"
+            onWheel={(e) => e.target.blur()}
           />
         </Form.Item>
         <Form.Item name="employmentTypeId" label={labels.EmploymentType}>

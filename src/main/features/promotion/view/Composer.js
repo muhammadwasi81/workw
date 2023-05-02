@@ -48,6 +48,7 @@ const Composer = (props) => {
   const [previousGrade, setPreviousGrade] = useState(null);
 
   const { employeeShort } = useSelector((state) => state.sharedSlice);
+  console.log(previousGrade,"employeeshort");
   const { createLoader } = useSelector((state) => state.promotionSlice);
   const { grades } = useSelector((state) => state.gradeSlice);
 
@@ -56,6 +57,7 @@ const Composer = (props) => {
   }, []);
 
   const selectedData = (data, obj) => {
+    console.log(obj,"object");
     setValue(data);
     handleMember(obj);
     setPreviousGrade(obj[0].grade === "" ? "Not Available" : obj[0].grade);
@@ -93,10 +95,12 @@ const Composer = (props) => {
 
   const onFinish = (values) => {
     let approvers = [];
-    let currentGrade = employeeShort.filter(
-      (item) => item.id === values.memberId
-    )[0].grade;
-    console.log(currentGrade, "HELLO NEW");
+    
+    // let currentGrade = employeeShort.filter(
+    //   (item) => item.id === values.memberId
+    // )[0].grade;
+    // console.log(currentGrade, "HELLO NEW");
+
     if (typeof values.approvers === "string") {
       approvers.push({
         approverId: values.approvers,
@@ -108,7 +112,9 @@ const Composer = (props) => {
         };
       });
     }
-    let payload = { ...values, approvers, previousGrade: currentGrade };
+    let payload = { ...values, approvers, 
+       // previousGrade: currentGrade
+     };
     console.log(payload, "Payload");
     dispatch(addPromotion(payload));
   };

@@ -39,9 +39,11 @@ export default function ApprovalActions({ item }) {
       dispatch(getAllApproval(defaultFilter));
     }
   };
+  
   const onClose = () => {
     setIsOpen(false);
   };
+
   const onFinish = (values) => {
     let remarks = values.remarks;
     createRemark(currentStatus, remarks);

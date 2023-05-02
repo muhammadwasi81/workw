@@ -64,6 +64,8 @@ const App = () => {
   const dispatch = useDispatch();
   // console.log(userSlice, "USER DATA");
   const isLoggedIn = !!userSlice.token;
+  const loggedInUserId = userSlice?.user?.id;
+  console.log(loggedInUserId, "loggedInUserId");
   useEffect(() => {
     let defaultLanguage = window.localStorage.getItem("rcml-lang");
     if (!defaultLanguage) {
@@ -80,7 +82,8 @@ const App = () => {
       InitializeCallingSocket.getInstance(
         dispatch,
         servicesUrls.callingSocket,
-        userSlice
+        userSlice,
+        loggedInUserId
       );
   }, [isLoggedIn]);
   const [activityCount /*setActivityCount*/] = useState(null);

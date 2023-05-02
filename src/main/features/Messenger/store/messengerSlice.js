@@ -128,20 +128,20 @@ export const messengerSlice = createSlice({
       state.ConversationsWithEmployee = updatedSidebarConversations
     },
     handleStatusUpdate: (state, { payload }) => {
-     let chatId = payload.chatId;
-     let messageId = payload.id;
-     let messageList = state.MessengerList[chatId];
-     if(messageList){
-      let messageIndex = messageList.findIndex((message)=>message.id === messageId);
-      state.MessengerList[chatId][messageIndex] = {...payload};
-     }
+      let chatId = payload.chatId;
+      let messageId = payload.id;
+      let messageList = state.MessengerList[chatId];
+      if (messageList) {
+        let messageIndex = messageList.findIndex((message) => message.id === messageId);
+        state.MessengerList[chatId][messageIndex] = { ...payload };
+      }
     },
     handleUserOnlineStatus: (state, { payload }) => {
       let status = payload.status;
       let user = payload.user;
-      let itemIndex = state.ConversationsWithEmployee.findIndex((conversation)=> conversation.chatWithId === user.id)
+      let itemIndex = state.ConversationsWithEmployee.findIndex((conversation) => conversation.chatWithId === user.id)
       state.ConversationsWithEmployee[itemIndex].chatWith = user
-     },
+    },
   },
 
   extraReducers: (builder) => {
@@ -150,7 +150,10 @@ export const messengerSlice = createSlice({
       //   state.Conversations = payload.data;
       // })
       .addCase(getAllChatMessage.fulfilled, (state, { payload }) => {
-        state.MessengerList[payload.chatId] = payload.data;
+        if (payload.pageNo > 1)
+          state.MessengerList[payload.chatId] = [...payload.data, ...state.MessengerList[payload.chatId]];
+        else
+          state.MessengerList[payload.chatId] = payload.data;
       })
       .addCase(getAllChats.fulfilled, (state, { payload }) => {
         state.Conversations = payload;

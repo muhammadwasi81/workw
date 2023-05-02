@@ -9,9 +9,12 @@ import BoardComposer from "../../../leadmanager/view/Composer/BoardComposer";
 import { handleComposer } from "../../../leadmanager/store/slice";
 import { Drawer } from "antd";
 import { SearchFilterEnum } from "../../utils/enums";
+import { NoDataFound } from "../../../../sharedComponents/NoDataIcon";
 import SearchFilter from "../../utils/searchFilter";
+
 function LeadContainer() {
   const [searchParams, setSearchParams] = useSearchParams();
+   const {keyword} = useSelector((state) => state.globalSearchSlice);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const searchQuery = searchParams.get("q");
@@ -42,31 +45,41 @@ function LeadContainer() {
   // }, []);
   return (
     <>
-      <div className="SearchMainContainer">
-        <h5 className="containerHeading">Lead Manager</h5>
-        <GridView
-          data={leadManagerData ? leadManagerData.slice(0, 4) : []}
-          loading={loading}
-          dispatch={dispatch}
-          handleClickNavigation={handleClickNavigation}
-          dictionary={LeadManagerDictionaryList}
-        />
-        <div
-          onClick={searchHandler}
-          className="flex justify-center !text-[18px] cursor-pointer !text-[#707070]"
-        >
-          See more
+    {
+      keyword?.Lead?.length > 0 ? ( <div>
+        <div className="SearchMainContainer">
+          <h5 className="containerHeading">Lead Manager</h5>
+          <GridView
+            data={keyword?.Lead ? keyword?.Lead?.slice(0, 4) : []}
+            // loading={loading}
+            dispatch={dispatch}
+            handleClickNavigation={handleClickNavigation}
+            dictionary={LeadManagerDictionaryList}
+          />
+          {
+            keyword?.Lead?.length > 3 ? (<div
+              onClick={searchHandler}
+              className="flex justify-center !text-[18px] cursor-pointer !text-[#707070]"
+            >
+              See more
+            </div>) : (<></>)
+          }
+          
         </div>
-      </div>
-      <Drawer
-        open={isComposerOpen}
-        width={"786px"}
-        onClose={handleEditComposer}
-        title={"Update Lead Manager"}
-        className={"shared_drawer drawerSecondary"}
-      >
-        <BoardComposer isEdit={isEditComposer} loading={loading} />
-      </Drawer>
+        <Drawer
+          open={isComposerOpen}
+          width={"786px"}
+          onClose={handleEditComposer}
+          title={"Update Lead Manager"}
+          className={"shared_drawer drawerSecondary"}
+        >
+          <BoardComposer isEdit={isEditComposer} loading={loading} />
+        </Drawer>
+        </div>) : (<div className="SearchMainContainer">
+          <div><NoDataFound/></div></div>
+    )
+    }
+   
     </>
   );
 }

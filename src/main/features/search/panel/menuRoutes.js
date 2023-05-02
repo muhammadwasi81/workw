@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useSearchParams } from "react-router-dom";
 import { ROUTES } from "../../../../utils/routes";
 import ArticleContainer from "../view/articleContainer/ArticleContainer";
 import BookContainer from "../view/bookContainer/BookContainer";
@@ -17,12 +17,20 @@ import TedTalks from "../view/tedTalksContainer/TedTalks";
 import TravelContainer from "../view/travelContainer/TravelContainer";
 import VideoContainer from "../view/videosContainer/VideoContainer";
 import WorkBoardContainer from "../view/workBoardContainer/WorkBoardContainer";
+// import mainContainer from "../view/mainContainer/MainContainer";
+import MainContainer from "../view/mainContainer/MainContainer";
+import FeedContainer from "../view/feedContainer/FeedContainer";
 
 const MenuRoutes = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const searchQuery = searchParams.get("q");
   return (
-    <>
+    <>  
       <Routes>
-        <Route path={ROUTES.SEARCH.FEED} element={<LeadContainer />} />
+        
+      <Route path="/" element={<MainContainer />} />
+        <Route path={ROUTES.SEARCH.FEED} element={<FeedContainer />} />
+        <Route path={ROUTES.SEARCH.LEAD} element={<LeadContainer />} />
         <Route path={ROUTES.SEARCH.TRAVEL} element={<TravelContainer />} />
         <Route path={ROUTES.SEARCH.DOCUMENT} element={<DocumentContainer />} />
         <Route path={ROUTES.SEARCH.PROJECT} element={<ProjectContainer />} />
@@ -50,6 +58,7 @@ const MenuRoutes = () => {
         <Route path={ROUTES.SEARCH.ELEARNINGBOOK} element={<BookContainer />} />
         <Route path={ROUTES.SEARCH.ELEARNINGTEDTALKS} element={<TedTalks />} />
         <Route path={ROUTES.SEARCH.REWARDS} element={<RewardContainer />} />
+        
       </Routes>
     </>
   );

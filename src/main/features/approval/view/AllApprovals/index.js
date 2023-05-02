@@ -9,14 +9,14 @@ import { ContBody } from "../../../../sharedComponents/AppComponents/MainFlexCon
 import { getAllApproval } from "../../store/action";
 import ApprovalDetail from "./detail";
 import Listing from "./listing";
-import { approvalsEnum } from "../../enum/enum";
 
 export default function AllApprovals() {
   const defaultFilter = {
-    pageNo: 0,
+    pageNo: 1,
     search: "",
     status: [ApprovalStatus.InProcess],
   };
+  console.log(defaultFilter.status,"status");
   const [filter, setFilter] = useState(defaultFilter);
   const [approvalDetailData, setApprovalDetailData] = useState({});
   const dispatch = useDispatch();
@@ -27,7 +27,11 @@ export default function AllApprovals() {
 
   const handleTabChange = (tabIndex) => {
     tabIndex = Number(tabIndex);
+    console.log(tabIndex,"tabIndex");
+
     let status = [ApprovalStatus.InProcess];
+    console.log(status,"statusstatus");
+
     switch (tabIndex) {
       case ApprovalStatus.InProcess:
         status = [ApprovalStatus.InProcess];
@@ -46,12 +50,14 @@ export default function AllApprovals() {
     }
     setFilter({
       ...filter,
-      status: [status],
+      status: status,
     });
   };
 
   useEffect(() => {
     let isMyApproval = true;
+    console.log("approvalisMyApproval",isMyApproval);
+    
     dispatch(getAllApproval({ isMyApproval, filter }));
   }, [filter]);
 

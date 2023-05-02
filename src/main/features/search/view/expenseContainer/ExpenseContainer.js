@@ -69,7 +69,7 @@ function ExpenseContainer() {
                     return (
                       <ExpenseList
                         key={index}
-                        // onExpense={handleExpense}
+                        onExpense={handleExpense}
                         expense={expense}
                       />
                     );})
@@ -80,7 +80,7 @@ function ExpenseContainer() {
                     return (
                       <ExpenseList
                         key={index}
-                        // onExpense={handleExpense}
+                        onExpense={handleExpense}
                         expense={expense}
                       />
                     );})

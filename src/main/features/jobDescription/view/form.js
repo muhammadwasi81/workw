@@ -19,6 +19,7 @@ import { LanguageChangeContext } from "../../../../utils/localization/localConte
 export default function JobDescriptionForm({ data, onSubmit }) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { jobDescDictionary } = jobDescDictionaryList[userLanguage];
+  console.log(jobDescDictionary, "jobDescDictionary");
 
   const dispatch = useDispatch();
   const { loader } = useSelector((state) => state.jobDescriptionSlice);
@@ -57,7 +58,7 @@ export default function JobDescriptionForm({ data, onSubmit }) {
             name="designationId"
           >
             {designations.map((item) => (
-              <Select.Option value={item.id}>{item.description}</Select.Option>
+              <Select.Option value={item.id}>{item.name}</Select.Option>
             ))}
           </Select>
         </FormInput>

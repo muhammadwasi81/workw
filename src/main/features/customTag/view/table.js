@@ -3,8 +3,8 @@ import { removeData } from "jquery";
 import { useEffect, useState, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AdminTable } from "../../../sharedComponents/Administration/StyledComponents/adminTable";
-import { getAllCustomTagById,removeCustomTag} from "../store/action";
-import MemberModal from "../../workboard/WorkBoardDetail/TodoMemberModal";
+import { removeCustomTag,getAllCustomTag} from "../store/action";
+import MemberModal from "./MemberModal";
 import {
   AlignLeftOutlined,
   EyeOutlined,
@@ -42,8 +42,8 @@ export default function CustomTagTable({
   console.log(id,"idddd");
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getAllCustomTagById(id));
-  }, [id]);
+    dispatch(getAllCustomTag());
+  }, []);
 
 
   

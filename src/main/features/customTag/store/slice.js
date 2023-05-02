@@ -1,6 +1,10 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import { responseCode } from "../../../../services/enums/responseCode.js";
-import { getAllCustomTagById,addCustomTag,updateCustomTag,removeCustomTag} from "./action.js";
+import { getAllCustomTagById,
+  addCustomTag,updateCustomTag,
+  removeCustomTag,addCustomTagMember,getAllCustomTag
+} 
+  from "./action.js";
 
 const initialState = {
  customTag: [],
@@ -26,6 +30,11 @@ const customTagSlice = createSlice({
         state.loadingData = false;
         state.customTag = payload.data;
       })
+
+      .addCase(getAllCustomTag.fulfilled, (state, { payload }) => {
+        state.loadingData = false;
+        state.customTag = payload.data;
+      })
       .addCase(addCustomTag.fulfilled, (state, { payload }) => {
         console.log(payload,"payload");
         state.loader = false;
@@ -33,6 +42,18 @@ const customTagSlice = createSlice({
           state.customTag.push(payload.data);
           console.log(state.customTag,"custommmmm");
       })
+      .addCase(addCustomTagMember.fulfilled, (state, { payload }) => {
+        if (state.customTag) {
+          if (payload.data?.length) {
+            let newMembers = [...state.customTag.members, payload.data[0]];
+            state.customTag = {
+              ...state.customTag,
+              members: newMembers,
+            };
+          }
+        }
+      })
+
       .addCase(updateCustomTag.fulfilled, (state, { payload }) => {
         state.loader = false;
         state.customTag = state.customTag.map((x) =>

@@ -43,6 +43,7 @@ export const listitem = [
     classObj: "button",
     to: ROUTES.ADMINISTRATOR.GRADE,
   },
+
   {
     IconName: <AiFillFileImage size={20} color={"var(--currentThemeColor)"} />,
     displayName: "Business_Logo",
@@ -77,6 +78,7 @@ export const listitem = [
     classObj: "button",
     to: ROUTES.ADMINISTRATOR.COMPANIES_POLICY,
   },
+
   {
     IconName: <AiFillGolden size={20} color={"var(--currentThemeColor)"} />,
     displayName: "Tax_Slabs_Group",
@@ -116,6 +118,14 @@ export const listitem = [
     classObj: "button",
     to: ROUTES.ADMINISTRATOR.COMLAIN_CATEGORY,
   },
+
+  {
+    IconName: <GiArmorDowngrade size={20} color={"var(--currentThemeColor)"} />,
+    displayName: "Custom_Tag",
+    classObj: "button",
+    to: ROUTES.ADMINISTRATOR.CUSTOMTAG,
+  },
+
   {
     IconName: <AiOutlineShrink size={20} color={"var(--currentThemeColor)"} />,
     displayName: "Default_Hiring_Criteria",

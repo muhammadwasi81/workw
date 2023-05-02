@@ -112,6 +112,7 @@ import userLeaveSlice from "../main/features/userLeave/store/slice";
 import projectExternalSlice from "../main/features/publicRoutes/projects/store/slice";
 import ApproverSlice from "../main/sharedComponents/AppComponents/Approvals/action/slice";
 import globalSearchSlice from "../main/features/search/store/slice";
+import customTagSlice from "../main/features/customTag/store/slice";
 // import thunk from "redux-thunk";
 
 const reducers = combineReducers({
@@ -220,6 +221,7 @@ const reducers = combineReducers({
   projectExternalSlice,
   ApproverSlice,
   globalSearchSlice,
+  customTagSlice,
 });
 
 const persistConfig = {

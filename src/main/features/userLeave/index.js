@@ -7,6 +7,7 @@ import { EditOutlined } from "@ant-design/icons";
 
 const UserLeave = () => {
   const { id } = useParams();
+  console.log(id, "==12ss");
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getUserLeave(id));

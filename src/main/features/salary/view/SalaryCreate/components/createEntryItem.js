@@ -87,111 +87,7 @@ const CreateEntryItem = ({
     console.log(visible);
     setVisible(false);
   };
-  // const [isModalVisible, setIsModalVisible] = useState(false);
 
-  // const dataSource = [
-  //   {
-  //     key: "1",
-  //     allocatedLeaves: (
-  //       <input placeholder="Enter Leave allot" className="bg-transparent" />
-  //     ),
-  //     age: <input placeholder="Enter Leave allot" className="bg-transparent" />,
-  //     address: (
-  //       <input placeholder="Enter Leave allot" className="bg-transparent" />
-  //     ),
-  //   },
-  //   {
-  //     key: "1",
-  //     allocatedLeaves: (
-  //       <input placeholder="Enter Leave allot" className="bg-transparent" />
-  //     ),
-  //     age: <input placeholder="Enter Leave allot" className="bg-transparent" />,
-  //     address: (
-  //       <input placeholder="Enter Leave allot" className="bg-transparent" />
-  //     ),
-  //   },
-  //   {
-  //     key: "1",
-  //     allocatedLeaves: (
-  //       <input placeholder="Enter Leave allot" className="bg-transparent" />
-  //     ),
-  //     age: <input placeholder="Enter Leave allot" className="bg-transparent" />,
-  //     address: (
-  //       <input placeholder="Enter Leave allot" className="bg-transparent" />
-  //     ),
-  //   },
-  //   {
-  //     key: "1",
-  //     allocatedLeaves: (
-  //       <input placeholder="Enter Leave allot" className="bg-transparent" />
-  //     ),
-  //     age: <input placeholder="Enter Leave allot" className="bg-transparent" />,
-  //     address: (
-  //       <input placeholder="Enter Leave allot" className="bg-transparent" />
-  //     ),
-  //   },
-  //   {
-  //     key: "1",
-  //     allocatedLeaves: (
-  //       <input placeholder="Enter Leave allot" className="bg-transparent" />
-  //     ),
-  //     age: <input placeholder="Enter Leave allot" className="bg-transparent" />,
-  //     address: (
-  //       <input placeholder="Enter Leave allot" className="bg-transparent" />
-  //     ),
-  //   },
-  //   {
-  //     key: "1",
-  //     allocatedLeaves: (
-  //       <input placeholder="Enter Leave allot" className="bg-transparent" />
-  //     ),
-  //     age: <input placeholder="Enter Leave allot" className="bg-transparent" />,
-  //     address: (
-  //       <input placeholder="Enter Leave allot" className="bg-transparent" />
-  //     ),
-  //   },
-  //   {
-  //     key: "1",
-  //     allocatedLeaves: (
-  //       <input placeholder="Enter Leave allot" className="bg-transparent" />
-  //     ),
-  //     age: <input placeholder="Enter Leave allot" className="bg-transparent" />,
-  //     address: (
-  //       <input placeholder="Enter Leave allot" className="bg-transparent" />
-  //     ),
-  //   },
-  //   {
-  //     key: "1",
-  //     allocatedLeaves: (
-  //       <input placeholder="Enter Leave allot" className="bg-transparent" />
-  //     ),
-  //     age: <input placeholder="Enter Leave allot" className="bg-transparent" />,
-  //     address: (
-  //       <input placeholder="Enter Leave allot" className="bg-transparent" />
-  //     ),
-  //   },
-  // ];
-
-  // const columns = [
-  //   {
-  //     title: "allocatedLeaves",
-  //     dataIndex: "allocatedLeaves",
-  //     key: "allocatedLeaves",
-  //     width: "33%",
-  //   },
-  //   {
-  //     title: "Age",
-  //     dataIndex: "age",
-  //     key: "age",
-  //     width: "33%",
-  //   },
-  // {
-  //   title: "Address",
-  //   dataIndex: "address",
-  //   key: "address",
-  //   width: "33%",
-  // },
-  // ];
   return (
     <tr>
       <td>{index + 1}</td>
@@ -256,18 +152,6 @@ const CreateEntryItem = ({
           />
         </div>
         <AllowanceDetailTable visible={visible} onClose={handleCloseClick} />
-        {/* <Modal
-          title="Table Popup"
-          visible={isModalVisible}
-          onCancel={() => setIsModalVisible(false)}
-          footer={null}
-        >
-          <Table
-            dataSource={dataSource}
-            columns={columns}
-            scroll={{ y: 240 }}
-          />
-        </Modal> */}
       </td>
       <td>
         <input

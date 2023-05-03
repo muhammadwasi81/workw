@@ -15,7 +15,7 @@ const CompanyRoutes = () => {
           <Route path={"basicInfo/:id"} element={<BaiscInfo />} />
           <Route path={"leaves/:id"} element={<SendEmail />} />
           <Route path={"dashboard/:id"} element={<DashBoard />} />
-          <Route path={"billing/:id"} element={<BillingComponent />} />
+          <Route path={"billing/:id"} element={<BillingComponent  />} />
         </Routes>
       </div>
     </>

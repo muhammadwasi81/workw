@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   FormContainer,
@@ -6,11 +6,36 @@ import {
 } from "../../../sharedComponents/Administration/StyledComponents/adminForm";
 import BillingTable from "./table";
 import { getAllBilling } from "../store/actions";
+import { Button, Modal } from "antd";
+import PendingBills from "./pendingBills";
 
 const Index = () => {
   const { billing } = useSelector((state) => state.userBillingSlice);
-  console.log(billing);
+  const [PendingBillBoolean , setPendingBillBoolean] = useState(false)
   const dispatch = useDispatch();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+    setPendingBillBoolean(!PendingBillBoolean)
+    
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+    setPendingBillBoolean(!PendingBillBoolean)
+    
+  };
+  
+  const handleClick = () => {
+
+    setPendingBillBoolean(!PendingBillBoolean)
+    showModal();
+  }
 
   useEffect(() => {
     dispatch(
@@ -27,7 +52,16 @@ const Index = () => {
   }, []);
   return (
     <>
+      <Button className="ThemeBtn" style={{float:"right",  marginRight:"78px" , marginTop:"4px"}} onClick={handleClick}>
+        Pending Bills
+      </Button>
       <FormContainer>
+        {PendingBillBoolean && (
+          <Modal title="" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}  footer={null}>
+            <FormHeader>{"Pending Bills"}</FormHeader>
+            <PendingBills/>
+          </Modal>
+        )}
         <FormHeader>{"Billing"}</FormHeader>
         <BillingTable />
       </FormContainer>

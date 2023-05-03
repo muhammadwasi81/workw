@@ -199,6 +199,7 @@ function CreateExpense({ referenceId = DEFAULT_GUID, feature = "" }) {
       amount,
       expenseDate,
       description,
+      // referenceId,
       referenceType,
     } = values;
     const expenseObj = {
@@ -206,8 +207,8 @@ function CreateExpense({ referenceId = DEFAULT_GUID, feature = "" }) {
       referenceId: getRefrenceId(referenceId),
       categoryId,
       headerId,
+      referenceType,
       // [typeList[type]]: values[[typeList[type]]],
-      // referenceType,
       amount,
       expenseDate: moment(expenseDate._d).format(),
       isReimbursable: isExecutor,
@@ -219,7 +220,7 @@ function CreateExpense({ referenceId = DEFAULT_GUID, feature = "" }) {
       quantity: 1,
     };
     dispatch(addExpense(expenseObj));
-    console.log(expenseObj, "expense objj");
+    console.log(expenseObj, "payload");
   };
 
   const [form] = Form.useForm();

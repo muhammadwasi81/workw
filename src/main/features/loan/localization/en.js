@@ -5,6 +5,7 @@ const en = {
     selectApprovers: "Select Approvers",
     warning: "Warning",
     create: "Create",
+    startDate: " Start Date",
     upload: "Upload",
     tableView: "Table View",
     listView: "List View",

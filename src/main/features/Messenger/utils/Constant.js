@@ -10,5 +10,8 @@ export const MESSENGER_ENUMS = {
         SENT: 1,
         DELIVERED: 2,
         SEEN: 3
+    },
+    PAGINATION: {
+        PAGE_SIZE: 20
     }
 }

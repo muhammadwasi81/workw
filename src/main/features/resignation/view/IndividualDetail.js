@@ -12,6 +12,7 @@ function IndividualDetail(props) {
 
   const detailId = id ? id : props.id;
 
+
   return (
     <TabbableContainer>
       <ContBody>

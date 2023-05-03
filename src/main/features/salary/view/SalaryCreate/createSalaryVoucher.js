@@ -163,10 +163,6 @@ const CreateSalaryVoucher = ({ defaultRows }) => {
 
         <VoucherFooter amount={0} />
       </div>
-
-
-
-
     </div>
   );
 };

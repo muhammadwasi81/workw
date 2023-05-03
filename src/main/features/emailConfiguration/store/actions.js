@@ -6,17 +6,17 @@ import {
 } from "../../../../services/slices/notificationSlice";
 import AxiosConfig from "../../../../utils/services/AxiosConfig";
 import {
-  addEmailConfigurationService,
-  getAllEmailConfigurationsService,
+  addBusinessEmailConfigurationService,
+  getAllBusinessEmailConfigurationService,
 } from "../services/service";
 import { emailConfigurationDeleted } from "./slice";
 
 const API_PREFIX = "konnectmailbox/api/EmailConfiguration/";
 
-export const getAllEmailConfigurations = createAsyncThunk(
-  "EmailConfiguration/getemailconfigurationbybusinessid",
+export const getAllBusinessEmailConfiguration = createAsyncThunk(
+  "EmailConfiguration/getAllBusinessEmailConfiguration",
   async (args, { dispatch, getState }) => {
-    const res = await getAllEmailConfigurationsService();
+    const res = await getAllBusinessEmailConfigurationService();
 
     if (!res.responseCode) {
       responseMessage({
@@ -31,7 +31,7 @@ export const getAllEmailConfigurations = createAsyncThunk(
 export const addEmailConfiguration = createAsyncThunk(
   "EmailConfiguration/addEmailConfiguration",
   async (args, { dispatch, getState }) => {
-    const res = await addEmailConfigurationService(args);
+    const res = await addBusinessEmailConfigurationService(args);
     console.log(res, "response");
     if (res.responseCode) {
       if (res.responseCode === responseCode.Success)

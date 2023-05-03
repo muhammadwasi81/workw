@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useParams } from "react-router-dom";
 import { BrokenPage } from "../../../../../../utils/base";
 import BankForm from "../../../../bankDetails/index";
 import BasicInfo from "../../../../basicInfo/index";

@@ -15,10 +15,11 @@ export default function Listing({
   isDetail = false,
 }) {
   const defaultFilter = {
-    pageNo: 0,
+    pageNo: 1,
     search: "",
-    status: ApprovalStatus.InProcess,
+    status: [ApprovalStatus.InProcess],
   };
+  console.log(defaultFilter,"tabFilter");
   const dispatch = useDispatch();
   let filter = tabFilter;
   const approvalList = useSelector((state) => state.approvalSlice.approvalList);
@@ -55,8 +56,8 @@ export default function Listing({
 
   return (
     <>
-      <Tab canChangeRoute={true} panes={panes} onChange={handleTabChange} />
-      <div className="refresButton">
+      <Tab canChangeRoute={true} panes={panes} onChangeTab={handleTabChange} />
+      {/* <div className="refresButton">
         <img
           src={RefreshIcon}
           alt="calender logo"
@@ -64,7 +65,7 @@ export default function Listing({
           className="cursor-pointer m-auto"
           onClick={handleRefresh}
         />
-      </div>
+      </div> */}
       <div className="overflow-scroll h-[85vh]">
         {approvalList && approvalList.length > 0 ? (
           approvalList.map((item) => (

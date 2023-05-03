@@ -13,10 +13,13 @@ import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
 import CustomSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 import { getAllLeaveType } from "../leaveType/store/actions";
 import { GetLeaveTypeAction } from "../store/actions";
+import { getUserLeave } from "../../userLeave/store/actions";
+import { useParams } from "react-router-dom";
 
 import { DatePicker, Checkbox, Typography } from "antd";
 import { DEFAULT_GUID } from "../../../../utils/constants";
 import moment from "moment";
+import "./style.css";
 
 import { STRINGS } from "../../../../utils/base";
 
@@ -47,38 +50,75 @@ const initialState = {
 const Composer = (props) => {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, leaveDictionary } = leaveDictionaryList[userLanguage];
+  const { Option } = Select;
+  const { leaveDetail} = useSelector((state) => state.leaveSlice);
+  console.log(leaveDetail?.status,"leaveDetailleaveDetail");
 
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const [profileImage, setProfileImage] = useState(null);
   const [state, setState] = useState(initialState);
+  console.log(state,"state");
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [attachments, setAttachments] = useState([]);
 
+  const [remaningLeave,setRemainingLeave] = useState("");
   const [value, setValue] = useState([]);
   const { leaveTypes, success } = useSelector((state) => state.leaveTypeSlice);
+  console.log(leaveTypes,"leaveTypessss");
+  const {leaves} = useSelector((state) => state.leaveSlice);
   const employees = useSelector((state) => state.sharedSlice.employees);
-  const { UserLeave, createLoader } = useSelector((state) => state.leaveSlice);
+ const { UserLeave, createLoader } = useSelector((state) => state.leaveSlice);
+  const [previousGrade, setPreviousGrade] = useState(null);
+  const [leavecount,setleavecount] = useState("");
+  const { user } = useSelector((state) => state.userSlice);
+  const userId = user.id;
+  
+ // const { id } = useParams();
 
-  console.log("UserLeaveUserLeave",leaveTypes);
+  console.log(userId,"ididid");
+  useEffect(() => {
+    dispatch(getUserLeave(userId));
+  }, []);
+
+  const { allLeaves } = useSelector((state) => state.userLeaveSlice);
+  console.log(allLeaves,"allLeavesallLeaves");
+  const [Initialinputs, setInitialinputs] = useState(allLeaves || []);
+
+  useEffect(() => {
+    setInitialinputs(allLeaves);
+  }, [allLeaves]);
+
+  console.log(Initialinputs,"InitialinputsInitialinputs");
+
+  
+
   console.log(props, "userIddd");
   const selectedDataApprovers = (data, obj) => {
     setValue(data);
     handleMember(obj);
   };
   const selectedData = (data, obj) => {
-    console.log(data, "dataaaa leave");
+    console.log(data, "dataaaaleave");
     setValue(data);
     handleMember(obj);
+     setPreviousGrade(obj[0].name === "" ? "Not Available" : obj[0].name);
+    // dispatch(getUserLeave(id));
     // setMembers(obj);
     // onChange(data, obj);
-    dispatch(GetLeaveTypeAction(data));
+
+    
   };
   useEffect(() => {
     fetchEmployees("", 0);
   }, []);
 
+  // useEffect(() => {
+  //   dispatch(getAllLeaveType());
+  // }, []);
+
+ 
   const handleMember = (val) => {
     setNewState({
       ...newState,
@@ -105,11 +145,6 @@ const Composer = (props) => {
   const handleImageUpload = (data) => {
     setProfileImage(data);
   };
-
-  useEffect(() => {
-    dispatch(getAllLeaveType());
-  }, []);
-
   const handleEndStartDate = (value, dateString, name) => {
     // if (days === 0) {
     //   message.error("select leave date at least for one day! ");
@@ -121,11 +156,17 @@ const Composer = (props) => {
     //}
   };
 
+  
   const onFinish = (values) => {
     var a = moment(values.startEndDate[0]);
     var b = moment(values.startEndDate[1]);
     const days = b.diff(a, "days");
 
+    
+    //const days = remaningLeave;
+    
+    //console.log(remainingdays,"remainingdays");
+      
     if (days === 0) {
       message.error("select leave date at least for one day! ");
     } else if (values.members === undefined) {
@@ -142,6 +183,7 @@ const Composer = (props) => {
           };
         });
       }
+
       const payload = {
         ...values,
         approvers,
@@ -150,6 +192,8 @@ const Composer = (props) => {
         startDate: values.startEndDate[0]._d,
         endDate: values.startEndDate[1]._d,
       };
+
+      console.log(payload,"payloaddd");
       dispatch(addLeave(payload));
     } else {
       let approvers = [];
@@ -165,6 +209,7 @@ const Composer = (props) => {
           };
         });
       }
+
       if (typeof values.members === "string") {
         members.push({
           memberId: values.members,
@@ -177,6 +222,16 @@ const Composer = (props) => {
         });
       }
 
+       if(leavecount > 0){
+        let remaining = days - leavecount;
+        setRemainingLeave(remaining);
+       };
+
+
+      console.log(remaningLeave,"remaningLeave");
+      console.log(approvers,"approversss");
+
+
       const payload = {
         ...values,
         approvers,
@@ -186,8 +241,11 @@ const Composer = (props) => {
         startDate: values.startEndDate[0].format(),
         endDate: values.startEndDate[1].format(),
       };
+    
+      console.log(payload,"payloadpayload");
       dispatch(addLeave(payload));
     }
+
 
     // }
   };
@@ -201,6 +259,15 @@ const Composer = (props) => {
     console.log("Failed:", errorInfo);
   };
 
+  const handleleaveTypes = (value) => {
+    const selectedLeaveType = allLeaves.find((leaveType) => leaveType.id === value);
+    const selectedLeaveTypeName = selectedLeaveType ? selectedLeaveType.allocatedLeaves : '';
+  
+    console.log(selectedLeaveTypeName,"selectedLeaveTypeName");
+    setleavecount(selectedLeaveTypeName);
+  }
+
+  
   return (
     <>
       <Form
@@ -230,16 +297,30 @@ const Composer = (props) => {
           ]}
         >
           <Select
-            //defaultValue={props.id}
-            data={leaveTypes}
+            //defaultValue="Annual"
+            data={allLeaves}
             placeholder={leaveDictionary.selectType}
             style={{
               width: "100%",
               borderRadius: "5px",
             }}
             size="large"
-          />
+            onChange={handleleaveTypes}
+          >
+            {allLeaves.map((leave) =>{
+              return (
+                <>  
+                  {leave.leaveType}
+                </>
+              )
+              })}
+          </Select>
         </Form.Item>
+
+        <div className="allotedLeaves">
+          <h5>{"Allocated Leaves"}: </h5>
+          <h5>&nbsp;&nbsp;{leavecount}</h5>
+        </div>
 
         <Form.Item
           name="members"

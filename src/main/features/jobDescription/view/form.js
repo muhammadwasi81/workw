@@ -57,7 +57,7 @@ export default function JobDescriptionForm({ data, onSubmit }) {
             name="designationId"
           >
             {designations.map((item) => (
-              <Select.Option value={item.id}>{item.description}</Select.Option>
+              <Select.Option value={item.id}>{item.name}</Select.Option>
             ))}
           </Select>
         </FormInput>

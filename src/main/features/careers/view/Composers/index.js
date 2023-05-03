@@ -129,95 +129,33 @@ const Composer = (props) => {
     let payload = {
       ...values,
       endDate: values.endDate.format(),
-      members: modifySelectData(values.members).map((el, index) => {
+      members: modifySelectData(values?.members)?.map((el) => {
         return {
           memberId: el,
         };
       }),
-      approvers: modifySelectData(values.approvers).map((el, index) => {
+      approvers: modifySelectData(values?.approvers)?.map((el) => {
         return {
           approverId: el,
         };
       }),
-      postInterviewers: modifySelectData(values.postInterviewers).map(
-        (el, index) => {
+      postInterviewers: modifySelectData(values?.postInterviewers)?.map(
+        (el) => {
           return {
             userId: el,
           };
         }
       ),
-      interviewers: modifySelectData(values.interviewers).map((el, index) => {
+      interviewers: modifySelectData(values?.interviewers)?.map((el) => {
         return {
           userId: el,
         };
       }),
-      skills: values.skills.join(),
+      skills: values?.skills?.join(),
     };
-    console.log(payload);
+    console.log(payload, "payload");
     dispatch(addCareer({ ...payload, image }));
-    if (success) {
-    }
   };
-
-  // const onFinish = (values) => {
-  //   console.log(values, "testing in process");
-  //   let image = {
-  //     id: STRINGS.DEFAULTS.guid,
-  //     file: profileImage && profileImage[0]?.originFileObj,
-  //   };
-  //   console.log(image, "IMAGE STATUS");
-  //   // if (image.file === null || image.file === undefined ) {
-  //   //   message.error("Attachement can't be emty")
-  //   // }
-  //   //TODO: work on this
-  //   if (
-  //     values.members === undefined ||
-  //     values.approvers === undefined ||
-  //     values.postInterviewers ||
-  //     values.interviewers
-  //   ) {
-  //     let payload = {
-  //       ...values,
-  //       endDate: values.endDate.format(),
-  //       skills: values.skills.join(),
-  //     };
-  //     dispatch(addCareer({ ...payload, image }));
-  //     if (success) {
-  //     }
-  //   } else {
-  //     let payload = {
-  //       ...values,
-  //       endDate: values.endDate.format(),
-  //       members: modifySelectData(values.members).map((el, index) => {
-  //         return {
-  //           memberId: el,
-  //         };
-  //       }),
-  //       approvers: modifySelectData(values.approvers).map((el, index) => {
-  //         return {
-  //           approverId: el,
-  //         };
-  //       }),
-  //       postInterviewers: modifySelectData(values.postInterviewers).map(
-  //         (el, index) => {
-  //           return {
-  //             userId: el,
-  //           };
-  //         }
-  //       ),
-  //       interviewers: modifySelectData(values.interviewers).map((el, index) => {
-  //         return {
-  //           userId: el,
-  //         };
-  //       }),
-  //       skills: values.skills.join(),
-  //     };
-  //     console.log(payload);
-  //     dispatch(addCareer({ ...payload, image }));
-  //     if (success) {
-  //     }
-  //   }
-  // };
 
   return (
     <>
@@ -228,7 +166,6 @@ const Composer = (props) => {
         // initialValues={initialState}
         onFinish={onFinish}
         layout="vertical"
-        // style={{ direction: Direction }}
         style={{ direction: Direction }}
       >
         <Form.Item

@@ -9,6 +9,8 @@ import { ALLOWANCE_ENUM } from "../../../../allowance/view/enum";
 import { calculateAllowance } from "../../../utils/constant";
 import { salaryDictionaryList } from "../../../localization/index";
 import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
+import { Modal, Button, Table, Input } from "antd";
+import AllowanceDetailTable from "./AllowanceDetailTable";
 
 const CreateEntryItem = ({
   index,
@@ -75,6 +77,17 @@ const CreateEntryItem = ({
   const { userLanguage } = useContext(LanguageChangeContext);
   const { salaryDictionary } = salaryDictionaryList[userLanguage];
   const { employee, Approvers } = salaryDictionary;
+  const [visible, setVisible] = useState(false);
+
+  const handleOpenClick = () => {
+    setVisible(true);
+  };
+
+  const handleCloseClick = () => {
+    console.log(visible);
+    setVisible(false);
+  };
+
   return (
     <tr>
       <td>{index + 1}</td>
@@ -131,11 +144,14 @@ const CreateEntryItem = ({
         />
       </td>
       <td>
-        <input
-          className="text-[#a7a7a7] font-bold"
-          value={value.allowance}
-          disabled={true}
-        />
+        <div onClick={handleOpenClick}>
+          <input
+            className="text-[#a7a7a7] font-bold"
+            value={value.allowance}
+            disabled={true}
+          />
+        </div>
+        <AllowanceDetailTable visible={visible} onClose={handleCloseClick} />
       </td>
       <td>
         <input
@@ -155,15 +171,14 @@ const CreateEntryItem = ({
         <CustomSelect
           style={{ marginBottom: "0px" }}
           data={employeesData}
-          selectedData={(value, row) =>{
-            console.log(row, "selectedData")
+          selectedData={(value, row) => {
+            console.log(row, "selectedData");
             handleChange(
               row.map((item) => ({ approverId: item.id })),
               "approvers",
               index
             );
-          }
-          }
+          }}
           canFetchNow={employeesData && employeesData.length > 0}
           fetchData={fetchEmployees}
           placeholder={Approvers}

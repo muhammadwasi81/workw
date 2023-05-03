@@ -51,16 +51,16 @@ export const tableColumn = (
       width: "5%",
     },
     // { title: "Description", dataIndex: "description", width: "5%" },
-    {
-      title: allowanceDictionary.grade,
-      dataIndex: "gradeName",
-      width: "5%",
-    },
-    {
-      title: allowanceDictionary.amount,
-      dataIndex: "value",
-      width: "5%",
-    },
+    // {
+    //   title: allowanceDictionary.grade,
+    //   dataIndex: "gradeName",
+    //   width: "5%",
+    // },
+    // {
+    //   title: allowanceDictionary.amount,
+    //   dataIndex: "value",
+    //   width: "5%",
+    // },
     {
       title: allowanceDictionary.allowanceType,
       dataIndex: "allowanceType",

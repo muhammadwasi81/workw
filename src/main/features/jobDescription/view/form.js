@@ -19,6 +19,7 @@ import { LanguageChangeContext } from "../../../../utils/localization/localConte
 export default function JobDescriptionForm({ data, onSubmit }) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { jobDescDictionary } = jobDescDictionaryList[userLanguage];
+  console.log(jobDescDictionary, "jobDescDictionary");
 
   const dispatch = useDispatch();
   const { loader } = useSelector((state) => state.jobDescriptionSlice);

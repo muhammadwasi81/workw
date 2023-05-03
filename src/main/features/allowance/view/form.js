@@ -106,7 +106,7 @@ export default function AllowanceForm({
                 onChange={handelChangeName}
               />
             </AllowncesFormInput>
-            <AllowncesFormInput>
+            {/* <AllowncesFormInput>
               {amountType == false ? (
                 <>
                   <FormLabel>{allowanceDictionary.percent}</FormLabel>
@@ -132,7 +132,7 @@ export default function AllowanceForm({
                   />
                 </>
               )}
-            </AllowncesFormInput>
+            </AllowncesFormInput> */}
             <AllowncesFormInput>
               <FormLabel>{allowanceDictionary.desc}</FormLabel>
               <FormTextArea
@@ -141,7 +141,7 @@ export default function AllowanceForm({
                 onChange={handelChangeDescription}
               />
             </AllowncesFormInput>
-            <AllowncesFormInput>
+            {/* <AllowncesFormInput>
               <FormLabel>{allowanceDictionary.grade}</FormLabel>
               <Select
                 showSearch
@@ -157,7 +157,7 @@ export default function AllowanceForm({
                   <Select.Option value={item.id}>{item.name}</Select.Option>
                 ))}
               </Select>
-            </AllowncesFormInput>
+            </AllowncesFormInput> */}
           </Col>
           <Col
             lg={22}
@@ -168,7 +168,7 @@ export default function AllowanceForm({
             style={{ paddingTop: 27 }}
           >
             <div className="radioContainer">
-              <Radio.Group
+              {/* <Radio.Group
                 onChange={handleType}
                 name="Type"
                 className="radioGroup"
@@ -176,7 +176,7 @@ export default function AllowanceForm({
               >
                 <Radio value={1}>{allowanceDictionary.percent}</Radio>
                 <Radio value={2}>{allowanceDictionary.amount}</Radio>
-              </Radio.Group>
+              </Radio.Group> */}
 
               <Radio.Group
                 onChange={(e) => {

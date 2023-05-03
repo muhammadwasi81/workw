@@ -2,7 +2,7 @@ import { Skeleton } from "antd";
 import { useEffect, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AdminTable } from "../../../sharedComponents/Administration/StyledComponents/adminTable";
-import { getAllEmailConfigurations } from "../store/actions";
+import { getAllBusinessEmailConfiguration } from "../store/actions";
 import { tableColumn } from "./tableColumn";
 import { emailConfiDictionaryList } from "../localization/index";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
@@ -19,15 +19,14 @@ export default function EmailConfigurationTable({
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAllEmailConfigurations());
+    dispatch(getAllBusinessEmailConfiguration());
   }, []);
-
-  console.log(emailConfigurations, "EMAIL CONFIGURATION");
 
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, emailConfiDictionary } = emailConfiDictionaryList[
     userLanguage
   ];
+  console.log(emailConfigurations, "EMAIL_CONFIGURATION");
   return (
     <AdminTable
       columns={tableColumn(

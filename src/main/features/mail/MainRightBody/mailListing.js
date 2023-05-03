@@ -24,6 +24,8 @@ import MailDetailView from "./mailDetail";
 const MailListing = () => {
   const dispatch = useDispatch();
 
+  const [width, setWidth] = useState(false);
+
   let {
     allMail,
     currentParamId,
@@ -49,7 +51,7 @@ const MailListing = () => {
     };
     handlePagination(false);
     if (mailDetail === null) dispatch(getAllMail(objData));
-
+    dispatch(getMailFolders());
     if (!inProcess) {
       handlePagination(true);
     }
@@ -57,6 +59,7 @@ const MailListing = () => {
 
   const handleClick = (id) => {
     setSelectedMail(id);
+    setWidth(true);
   };
 
   const changeSeenFlag = (ID, IsRead) => {
@@ -68,7 +71,7 @@ const MailListing = () => {
 
   return (
     <div className="mailMainBody" ref={mailHolder}>
-      <div className="w-[50%] overflow-scroll">
+      <div className="w-full overflow-scroll w-screen">
         {inProcess &&
           [1, 3, 4, 2, 2, 2, 2].map((value) => (
             <div className="mailItem" key={value} style={{ height: "auto" }}>
@@ -164,7 +167,7 @@ const MailListing = () => {
           )}
       </div>
 
-      <div className="w-[50%]">
+      <div className={width && "w-[50%]"}>
         <MailDetailView
           detailIdByProps={selectedMail}
           folderIdByProps={api_base}

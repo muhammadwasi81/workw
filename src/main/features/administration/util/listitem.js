@@ -190,6 +190,7 @@ export const listitem = [
     classObj: "button",
     to: ROUTES.ADMINISTRATOR.CUSTOM_APPROVAL_CATEGORY,
   },
+
   {
     IconName: <AiOutlineStar size={20} color={"var(--currentThemeColor)"} />,
     displayName: "Allowances",
@@ -225,6 +226,12 @@ export const listitem = [
     displayName: "Rebate_Category",
     classObj: "button",
     to: ROUTES.ADMINISTRATOR.REBATE_CATEGORY,
+  },
+  {
+    IconName: <AiOutlineStar size={20} color={"var(--currentThemeColor)"} />,
+    displayName: "GRADE_ALLOWANCES",
+    classObj: "button",
+    to: ROUTES.ADMINISTRATOR.GRADE_ALLOWANCES,
   },
   {
     IconName: (

@@ -28,25 +28,23 @@ const Index = () => {
   // const { id: api_base } = useParams();
   const { pathname } = useLocation();
   const api_base = pathname.split("/");
-  const lastIndex = api_base[api_base.length-1] 
-  const dispatch = useDispatch()
+  const lastIndex = api_base[api_base.length - 1];
+  const dispatch = useDispatch();
   const GetAllMailHandle = () => {
     let objData = {
       folderPath: lastIndex,
     };
-    dispatch(getAllMail(objData))
+    dispatch(getAllMail(objData));
   };
   useEffect(() => {
     GetAllMailHandle();
   }, [lastIndex]);
-
-
+  console.log(mailFolderItem, "mailfolderitems");
   return (
     <MailComposerBody isTablet={isTablet} isMobileScreen={isMobileScreen}>
       {/*** mail left body with mail compose button and folder item***/}
 
-      <ComposerBox
-        handleReFetchMail={GetAllMailHandle} />
+      <ComposerBox handleReFetchMail={GetAllMailHandle} />
       <div className="mailMenuSection">
         {/* 
         {mailFolderItem?.map(({ folderPath, unseen }) => (
@@ -61,16 +59,18 @@ const Index = () => {
             style={{ margin: "6px 2px 1px 28px" }}
           />
         ))} */}
-        {mailFolderItem &&
+
+        {mailFolderItem && (
           <MenuItem
             path={`${ROUTES.MAIL.ROOT}/INBOX`}
             pathName={"INBOX"}
             name={menuItem["inbox"]}
             badgeCount={false}
             icon={<MdInbox size={20} color={"var(--currentThemeColor)"} />}
-            onChange={() => { }}
+            onChange={() => {}}
             style={{ margin: "6px 2px 1px 28px" }}
-          />}
+          />
+        )}
         <Demo mailFolderItem={mailFolderItem} />
 
         {responseCode !== 1002 &&

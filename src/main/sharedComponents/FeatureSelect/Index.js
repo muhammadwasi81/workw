@@ -1,24 +1,16 @@
-import React, { useState } from "react";
 import { Form, Switch } from "antd";
 import "./style.css";
-import { FeaturesEnum } from "../../../utils/Shared/enums/featuresEnums";
+// import { FeaturesEnum } from "../../../utils/Shared/enums/featuresEnums";
 import { getFeatureDetails } from "./constant";
+import { groupFeatureEnums } from "../../../utils/Shared/enums/groupFeatureEnum";
 
 function Features({ onChange, checked, disabled }) {
-  console.log(checked, "checkeddd");
+  console.log(checked, "checked");
   return (
     <>
       <p className="!mb-[8px]">Features</p>
       {getFeatureDetails({
-        allocatedFeaures: [
-          FeaturesEnum.Feed,
-          FeaturesEnum.Task,
-          FeaturesEnum.Travel,
-          FeaturesEnum.Schedule,
-          FeaturesEnum.Workboard,
-          FeaturesEnum.Document,
-          FeaturesEnum.Expense,
-        ],
+        allocatedFeatures: groupFeatureEnums.map((feature) => feature.value),
         checked: checked,
         disabled: disabled,
       })

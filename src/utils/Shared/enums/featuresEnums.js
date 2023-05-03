@@ -41,7 +41,7 @@ export const FeaturesEnum = {
   BusinessPolicy: 40,
   ChartofAccount: 41,
   Voucher: 42,
-  Quotation: 43,
+  Quotation: 8,
   Company: 44,
   Report: 45,
   MarketPlace: 46,

@@ -27,19 +27,17 @@ import {
   saveStickyproject,
   getProjectSticky,
 } from "../store/actions";
-import { Collapse, Drawer, Modal, Form, Menu, Dropdown, Space } from "antd";
+import { Drawer } from "antd";
 import Composer from "../UI/Composer";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { projectsDictionaryList } from "../localization";
-import {
-  resetProjectDetail,
-  targetStickyDescription,
-  addMember,
-  handleOpenSticky,
-} from "../store/slice";
+import { resetProjectDetail, addMember } from "../store/slice";
 import WorkBoard from "../../workboard";
 import { TravelReferenceTypeEnum } from "../enum/enums";
-import { PostReferenceType } from "../../feed/utils/constants";
+import {
+  PostReferenceType,
+  QuotationReferenceType,
+} from "../../feed/utils/constants";
 import { TaskReferenceTypeEnum } from "../../task/enums/enum";
 import { WorkBoardReferenceTypeEnum } from "../../workboard/enum";
 import { ExpenseReferenceTypeEnum } from "../../expense/enums";
@@ -50,7 +48,6 @@ import Expenses from "../../expense";
 import Documents from "../../documents/view/documents";
 import CustomNotes from "../../notes/singleNotes/singleNotes";
 import useDebounce from "../../../../utils/Shared/helper/use-debounce";
-
 import { formats, modules } from "./utils";
 import Schedules from "../../schedule/index";
 import ProjectInformation from "../UI/ProjectInformation";
@@ -59,6 +56,8 @@ import {
   deleteProjectMemberAction,
 } from "../store/actions";
 import ItemDetailModal from "../../../sharedComponents/ItemDetails";
+import Quotations from "../../quotation/view/QuotationList/index";
+import { QuotationReferenceTypeEnum } from "../../quotation/enums";
 
 function ProjectDetails() {
   const params = useParams();
@@ -70,10 +69,9 @@ function ProjectDetails() {
   const [visible, setVisible] = useState(false);
   const { userLanguage } = useContext(LanguageChangeContext);
   const { projectsDictionary } = projectsDictionaryList[userLanguage];
-  const { updateTextBtn, labels, features } = projectsDictionary;
+  const { updateTextBtn, labels } = projectsDictionary;
   const [open, setOpen] = useState(false);
   let { projectId } = params;
-  const [isOpenSticky, setIsOpenSticky] = useState(true);
   projectId = projectId.trim();
   const { projectFeature, projectSticky } = useSelector(
     (state) => state.projectSlice
@@ -106,19 +104,6 @@ function ProjectDetails() {
 
   console.log(projectfeatures, "projectfeatures");
 
-  const panes = [
-    {
-      title: labels.travel,
-      content: (
-        <Travel
-          referenceType={TravelReferenceTypeEnum.Project}
-          referenceId={projectId}
-          backButton={false}
-        />
-      ),
-      key: 11,
-    },
-  ];
   const items = [
     {
       name: detail?.name,
@@ -196,6 +181,12 @@ function ProjectDetails() {
         backButton={false}
       />
     ),
+    8: (
+      <Quotations
+        referenceType={QuotationReferenceTypeEnum.Project}
+        referenceId={projectId.trim()}
+      />
+    ),
   };
 
   useEffect(() => {
@@ -226,12 +217,12 @@ function ProjectDetails() {
 
   const onDelete = (userId) => {
     const memberId = userId.toString();
-    const delmembers = {
+    const delMembers = {
       id: projectId,
       memberId: memberId,
     };
 
-    dispatch(deleteProjectMemberAction(delmembers));
+    dispatch(deleteProjectMemberAction(delMembers));
   };
 
   const addFunc = (id) => {

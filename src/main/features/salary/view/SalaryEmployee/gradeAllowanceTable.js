@@ -1,23 +1,32 @@
 import React from "react";
 import { Collapse, Modal, Skeleton, Table } from "antd";
+import { getAllAllowanceGreadeData } from "../../../gradeAllowance/store/action";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import { AdminTable } from "../../../../sharedComponents/Administration/StyledComponents/adminTable";
 const { Panel } = Collapse;
 
 const columns = [
   {
     title: "Name",
-    dataIndex: "name",
-    key: "name",
+    dataIndex: "gradeName",
+    key: "gradeName",
   },
   {
     title: "Age",
-    dataIndex: "age",
-    key: "age",
+    dataIndex: "allowanceName",
+    key: "allowanceName",
   },
   {
     title: "Address",
-    dataIndex: "address",
-    key: "address",
+    dataIndex: "value",
+    key: "value",
+  },
+  {
+    title: "Address",
+    dataIndex: "description",
+    key: "description",
   },
 ];
 
@@ -42,16 +51,28 @@ const data = [
   },
 ];
 
-const gradeAllowanceTable = () => {
+const GradeAllowanceTable = () => {
+  const dispatch = useDispatch();
+  const { AllGradeAllowance } = useSelector(
+    (state) => state.employeeSalarySlice
+  );
+  console.log("AllGradeAllowance", AllGradeAllowance);
+  useEffect(() => {
+    dispatch(getAllAllowanceGreadeData());
+  }, [dispatch]);
   return (
     <div>
       <Collapse>
         <Panel header={"Grade Allowance"}>
-          <AdminTable columns={columns} dataSource={data} pagination={null} />
+          <AdminTable
+            columns={columns}
+            dataSource={AllGradeAllowance}
+            pagination={null}
+          />
         </Panel>
       </Collapse>
     </div>
   );
 };
 
-export default gradeAllowanceTable;
+export default GradeAllowanceTable;

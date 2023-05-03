@@ -1,7 +1,6 @@
 import React from "react";
 
 export default function PolicyItem({ item, handleClick }) {
-  console.log(item.name, "nammmmmmmmme");
   return (
     <div
       className="policycard cursor-pointer !flex !flex-row"

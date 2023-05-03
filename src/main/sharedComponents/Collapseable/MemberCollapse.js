@@ -44,6 +44,12 @@ function MemberCollapse({
             <span className="text-base font-bold text-primary-color">
               Members ({data.length})
             </span>
+            <span
+              className="text-base font-bold text-primary-color"
+              style={{ marginLeft: "32px" }}
+            >
+              External Members
+            </span>
           </div>
         }
         className="custom_member_collapse"
@@ -80,42 +86,6 @@ function MemberCollapse({
           openModal={false}
           onDelete={onDelete}
         />
-        {/* <List
-          itemLayout="horizontal"
-          dataSource={data}
-          className={"max-h-[300px] overflow-y-auto"}
-          renderItem={(item) => {
-            return (
-              <List.Item>
-                <List.Item.Meta
-                  avatar={
-                    <Avatar
-                      name={item.member?.name}
-                      src={item.member?.image}
-                      round={true}
-                      width={"30px"}
-                      height={"30px"}
-                      isZoom={true}
-                    />
-                  }
-                  title={
-                    <span className=" text-black font-bold">
-                      {item?.member?.name}
-                    </span>
-                  }
-                  description={
-                    <span className="text-gray-500 text-xs ">
-                      {item.member?.designation
-                        ? item.member?.designation
-                        : "No designation"}
-                    </span>
-                  }
-                />
-               
-              </List.Item>
-            );
-          }}
-        /> */}
       </Panel>
     </Collapse>
   );

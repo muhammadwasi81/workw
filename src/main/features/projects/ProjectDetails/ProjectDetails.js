@@ -135,7 +135,7 @@ function ProjectDetails() {
         routeLink={defaultRoute}
       />
     ),
-    6: (
+    5: (
       <Task
         referenceType={TaskReferenceTypeEnum.Project}
         referenceId={projectId.trim()}
@@ -145,7 +145,7 @@ function ProjectDetails() {
         feature={"2"}
       />
     ),
-    7: (
+    3: (
       <WorkBoard
         referenceType={WorkBoardReferenceTypeEnum.Project}
         referenceId={projectId.trim()}
@@ -154,7 +154,7 @@ function ProjectDetails() {
         backButton={false}
       />
     ),
-    9: (
+    6: (
       <Expenses
         referenceType={ExpenseReferenceTypeEnum.Project}
         referenceId={projectId.trim()}
@@ -164,15 +164,15 @@ function ProjectDetails() {
         feature={3}
       />
     ),
-    10: <Schedules referenceId={projectId.trim()} />,
-    11: (
+    2: <Schedules referenceId={projectId.trim()} />,
+    7: (
       <Travel
         referenceType={TravelReferenceTypeEnum.Project}
         referenceId={projectId.trim()}
         backButton={false}
       />
     ),
-    12: (
+    4: (
       <Documents
         referenceType={DocumentReferenceTypeEnum.Project}
         referenceId={projectId.trim()}
@@ -285,7 +285,7 @@ function ProjectDetails() {
                 </div>
               </div>
             </div>
-          </div>
+          </div>        
         </ContBody>
       </TabContainer>
       <Drawer

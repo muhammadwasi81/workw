@@ -84,7 +84,6 @@ export const setNewPasswordService = (data) => {
 // };
 export const forgotPassword = (data) => {
   console.log(data, "datttta");
-
   return MasterConfig.post(`api/User/ForgotPassword?email=${data}`)
     .then((res) => {
       return res;

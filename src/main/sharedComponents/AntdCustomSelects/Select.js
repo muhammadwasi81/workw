@@ -24,12 +24,15 @@ function AntCustomSelect(props) {
     tagRender,
     isEmailSelect,
     value = [],
+    valueWithColors = [],
     defaultData = [],
     optionComponent,
     isLoaded,
     label = "",
     name = "",
     showSearch = false,
+    colors = true,
+
     rules = [],
     formItem = true,
     className = "",
@@ -56,7 +59,21 @@ function AntCustomSelect(props) {
     }
   }, [pgNo]);
   // console.log("data", isLoaded, data);
-
+  const tagColorRender = (props) => {
+    let color = valueWithColors.find((member) => member.id === props.value)
+      .color;
+    return (
+      <div
+        className="ant-select-selection-item"
+        style={{
+          border: color ? `1px solid ${color}` : "none",
+          borderRadius: "20px",
+        }}
+      >
+        {props.label}
+      </div>
+    );
+  };
   return (
     <>
       {!formItem ? (
@@ -67,7 +84,7 @@ function AntCustomSelect(props) {
           size={size}
           showSearch={true}
           placeholder={placeholder}
-          tagRender={tagRender}
+          tagRender={colors ? tagColorRender : tagRender}
           value={value}
           loading={loading}
           onPopupScroll={onPopupScroll}

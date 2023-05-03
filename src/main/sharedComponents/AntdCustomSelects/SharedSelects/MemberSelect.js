@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import useDebounce from "../../../../utils/Shared/helper/use-debounce";
 import AntCustomSelect from "../Select";
+import { getRandomColor } from "../../../features/schedule/UI/randomColors";
 
 function MemberSelect({
   onDeselect,
@@ -27,6 +28,7 @@ function MemberSelect({
   showSearch = false,
   emptyStateAfterSelect = false,
   formItem = true,
+  colors = true,
   sliceName = "employees",
   resetField = false,
   className = "",
@@ -37,6 +39,8 @@ function MemberSelect({
   const [value, setValue] = useState("");
   const [stateVal, setStateVal] = useState(dataVal);
   const [defaultValues, setDefaultValues] = useState([]);
+  const [stateValWithColor, setStateValWithColor] = useState([]);
+
   // console.log(defaultValues, "default vv");
   const [isDataFetchable, setIsDataFetchable] = useState(canFetchNow);
   const debouncedSearch = useDebounce(value, 500);
@@ -56,12 +60,18 @@ function MemberSelect({
     if (!tempArray[0]) {
       setStateVal([]);
     } else {
-      setStateVal([...tempArray]);
+      if (colors) {
+        setStateValWithColor(
+          tempArray.map((memberId) => ({
+            id: memberId,
+            color: getRandomColor(),
+          }))
+        );
+        setStateVal([...tempArray]);
+      } else {
+        setStateVal([...tempArray]);
+      }
     }
-
-    // if (emptyStateAfterSelect) {
-    // 	setStateVal("");
-    // }
   };
   const triggerChange = (changedValue) => {
     change?.(changedValue);
@@ -88,7 +98,18 @@ function MemberSelect({
         );
       }
       if (canFetchNow) {
-        selectedData(stateVal, filterArrOfObj);
+        if (colors) {
+          selectedData(
+            stateVal,
+            filterArrOfObj.map((member) => ({
+              ...member,
+              color: stateValWithColor.find((item) => item.id === member.id)
+                ?.color,
+            }))
+          );
+        } else {
+          selectedData(stateVal, filterArrOfObj);
+        }
       }
 
       if (stateVal.length > 0) {
@@ -187,6 +208,7 @@ function MemberSelect({
       className={className}
       onDeselect={onDeselect}
       value={stateVal}
+      valueWithColors={stateValWithColor}
       data={memberData}
       apiData={employees}
       loading={loader}

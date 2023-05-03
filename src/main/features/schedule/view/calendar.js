@@ -8,6 +8,7 @@ import {
   getAllCurrentSchedule,
   getAllEventSchedule,
   getAllUpcomingSchedule,
+  getCalendar,
 } from "../store/action";
 import { defaultUiid } from "../../../../utils/Shared/enums/enums";
 import { useEffect } from "react";
@@ -42,6 +43,7 @@ function Calendar({ referenceId }) {
   } = useSelector((state) => state);
 
   const loading = useSelector((state) => state.scheduleSlice.loading);
+  const userId = useSelector((state) => state.userSlice.user.id);
 
   useEffect(() => {
     fetchAllEventSchedule(new Date(), new Date());
@@ -170,6 +172,29 @@ function Calendar({ referenceId }) {
       </ul>
     );
   };
+  const selectedMemebrHandler = (id, obj) => {
+    console.log(id, "obj in handlerrr");
+    const startDate = moment()
+      .startOf("month")
+      .format();
+    const endDate = moment()
+      .endOf("month")
+      .format();
+
+    dispatch(
+      getCalendar({
+        pageNo: 1,
+        pageSize: 20,
+        search: scheduleSearch,
+        sortBy: 1,
+        referenceId: referenceId,
+        referenceType: 0,
+        startDate,
+        endDate,
+        users: [userId, ...id],
+      })
+    );
+  };
   return (
     <div className="calender">
       <div className="left">
@@ -193,18 +218,19 @@ function Calendar({ referenceId }) {
             data={firstTimeEmpData}
             onChange={(emp) => {
               console.log(emp, "empp");
-              if (Array.isArray(emp)) {
-                setUserData(emp);
-              } else {
-                setUserData([emp]);
-              }
+              // if (Array.isArray(emp)) {
+              //   setUserData(emp);
+              // } else {
+              //   setUserData([emp]);
+              // }
             }}
             defaultData={employeesData}
             canFetchNow={isFirstTimeDataLoaded}
             fetchData={fetchEmployees}
             placeholder={"Select"}
             selectedData={(_, obj) => {
-              setEmployeesData([...obj]);
+              // setEmployeesData([...obj]);
+              selectedMemebrHandler(_, obj);
             }}
             optionComponent={(opt) => {
               return (

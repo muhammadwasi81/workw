@@ -52,6 +52,18 @@ const Groups = (props) => {
   const handleClickNavigation = (id) => {
     navigate(`${ROUTES.GROUP.DEFAULT}/${id}`);
   };
+
+  const onRow = (record, rowIndex) => {
+    return {
+      onClick: (event) => {
+        navigate(`${ROUTES.GROUP.DEFAULT}/${record.id}`);
+      },
+      onDoubleClick: (event) => {}, // double click row
+      onContextMenu: (event) => {}, // right button click row
+      onMouseEnter: (event) => {}, // mouse enter row
+      onMouseLeave: (event) => {}, // mouse leave row
+    };
+  };
   const items = [
     {
       name: topBar.group,
@@ -108,6 +120,7 @@ const Groups = (props) => {
               columns={tableColumn(groupsDictionary)}
               dragable={true}
               data={groups}
+              onRow={onRow}
             />
           )}
           {groups.length > 0 && !loader && !tableView ? (

@@ -1,7 +1,4 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { ResponseType } from "../../../../../utils/api/ResponseResult";
-import { jsonToFormData, STRINGS } from "../../../../../utils/base";
-import { openNotification } from "../../../../../utils/Shared/store/slice";
 import {
   projectExternalService,
   setNewPasswordService,

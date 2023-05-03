@@ -1,29 +1,29 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Tag, Image, Button, Skeleton } from 'antd';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { resignationDictionaryList } from '../localization/index';
-import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
+import React, { useContext, useEffect, useState } from "react";
+import { Tag, Image, Button, Skeleton } from "antd";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { resignationDictionaryList } from "../localization/index";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 
-import UserInfo from '../../../sharedComponents/UserShortInfo/UserInfo';
-import SublineDesigWithTime from '../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime';
-import StatusTag from '../../../sharedComponents/Tag/StatusTag';
-import ResignationDefaultIcon from '../../../../content/svg/menu/newNavBarIcon/resignation.svg';
-import Avatar from '../../../sharedComponents/Avatar/avatar';
+import UserInfo from "../../../sharedComponents/UserShortInfo/UserInfo";
+import SublineDesigWithTime from "../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
+import StatusTag from "../../../sharedComponents/Tag/StatusTag";
+import ResignationDefaultIcon from "../../../../content/svg/menu/newNavBarIcon/resignation.svg";
+import Avatar from "../../../sharedComponents/Avatar/avatar";
 import {
   ItemContent,
   ItemHeader,
-} from '../../../sharedComponents/Card/CardStyle';
-import RemarksApproval from '../../../sharedComponents/AppComponents/Approvals/view';
-import moment from 'moment';
+} from "../../../sharedComponents/Card/CardStyle";
+import RemarksApproval from "../../../sharedComponents/AppComponents/Approvals/view";
+import moment from "moment";
 // import { cancelReward } from "../store/actions";
 import {
   ApprovalsModule,
   ApprovalStatus,
-} from '../../../sharedComponents/AppComponents/Approvals/enums';
-import { cancelResignationAction, GetResignationById } from '../store/action';
-import { ResignationPurposeEnum, ResignationTypeEnum } from '../enums';
-import DetailTabs from './detailTabs';
+} from "../../../sharedComponents/AppComponents/Approvals/enums";
+import { cancelResignationAction, GetResignationById } from "../store/action";
+import { ResignationPurposeEnum, ResignationTypeEnum } from "../enums";
+import DetailTabs from "./detailTabs";
 
 function DetailCard(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -69,6 +69,8 @@ function DetailCard(props) {
     createDate,
   } = detail;
 
+  console.log("detailprops",props.id);
+  
   const handleCancel = (e, payload) => {
     e.preventDefault();
     e.stopPropagation();
@@ -88,10 +90,12 @@ function DetailCard(props) {
                 <UserInfo
                   avatarSrc={creator.image}
                   name={creator.name}
+                  status={creator.userActiveStatus}
+                  profileId={creator.id}
                   Subline={
                     <SublineDesigWithTime
                       designation={
-                        creator.designation ? creator.designation : ''
+                        creator.designation ? creator.designation : ""
                       }
                       time={moment(createDate).fromNow()}
                     />
@@ -118,12 +122,12 @@ function DetailCard(props) {
               </div>
               <div
                 className="attachmentBox"
-                style={{ width: '65px', height: '60px' }}
+                style={{ width: "65px", height: "60px" }}
               >
                 <Image
                   preview={false}
                   width={60}
-                  src={image === '' ? ResignationDefaultIcon : image}
+                  src={image === "" ? ResignationDefaultIcon : image}
                 />
               </div>
             </ItemContent>
@@ -156,7 +160,7 @@ function DetailCard(props) {
                           <img src={user.image} />
                         </div>
                       ) : (
-                        ''
+                        ""
                       )}
                       <div className="tagText">
                         <p>{user.name}</p>
@@ -167,7 +171,7 @@ function DetailCard(props) {
               </div>
               <div className="cardSectionItem">
                 <div className="cardSection__title">
-                  {' '}
+                  {" "}
                   {resignationDictionary.finance}
                 </div>
                 <div className="cardSection__body">
@@ -175,10 +179,10 @@ function DetailCard(props) {
                     <Avatar
                       isAvatarGroup={true}
                       isTag={false}
-                      heading={'approvers'}
+                      heading={"approvers"}
                       membersData={finance}
-                      text={'approvers'}
-                      image={'https://joeschmoe.io/api/v1/random'}
+                      text={"approvers"}
+                      image={"https://joeschmoe.io/api/v1/random"}
                     />
                   )}
                 </div>
@@ -186,7 +190,7 @@ function DetailCard(props) {
               {it && it.length > 0 ? (
                 <div className="cardSectionItem">
                   <div className="cardSection__title">
-                    {' '}
+                    {" "}
                     {resignationDictionary.IT}
                   </div>
                   <div className="cardSection__body">
@@ -194,16 +198,16 @@ function DetailCard(props) {
                       <Avatar
                         isAvatarGroup={true}
                         isTag={false}
-                        heading={'approvers'}
+                        heading={"approvers"}
                         membersData={it ? it : []}
-                        text={'Approvers'}
-                        image={'https://joeschmoe.io/api/v1/random'}
+                        text={"Approvers"}
+                        image={"https://joeschmoe.io/api/v1/random"}
                       />
                     )}
                   </div>
                 </div>
               ) : (
-                ''
+                ""
               )}
             </div>
           </div>
@@ -222,13 +226,13 @@ function DetailCard(props) {
                     data={approvers}
                     title={
                       approvers && approvers.length === 0
-                        ? 'No Approvers available'
-                        : 'Approvers'
+                        ? "No Approvers available"
+                        : "Approvers"
                     }
                     className="ApproversRow"
                   />
                 ) : (
-                  ''
+                  ""
                 )}
                 <RemarksApproval
                   module={ApprovalsModule.ResignationFinanceApproval}

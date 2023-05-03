@@ -5,7 +5,25 @@ DOMAIN_PREFIX = process.env.NODE_ENV !== "development" ? "/konnect" : "";
 
 export const ROUTES = {
   SEARCH: {
-    DEFAULT: `${DOMAIN_PREFIX}/search`,
+    DEFAULT: `${DOMAIN_PREFIX}/search/*`,
+    SEARCH: `${DOMAIN_PREFIX}/SEARCH/`,
+    FEED: `feed`,
+    LEAD: `lead`,
+    TRAVEL: `travel`,
+    DOCUMENT: `document`,
+    PROJECT: `project`,
+    WORKBOARD: `workboard`,
+    GROUP: `group`,
+    EXPENSE: `expense`,
+    TASK: `task`,
+    EMPLOYEE: `employee`,
+    ELEARNINGCOURSE: `elearningCourse`,
+    ELEARNINGVIDEOS: `elearningVideos`,
+    ELEARNINGARTICLE: `elearningArticle`,
+    ELEARNINGQUIZ: `elearningQuiz`,
+    ELEARNINGBOOK: `elearningBook`,
+    ELEARNINGTEDTALKS: `elearningTedTalks`,
+    REWARDS: `rewards`,
   },
   //sanjna
   SETTINGS: {
@@ -50,12 +68,17 @@ export const ROUTES = {
     SIGN_IN_ANONYMOUSLY: `${DOMAIN_PREFIX}/authenticating`,
     FORGOT_PASSWORD_LANDING: `${DOMAIN_PREFIX}/resetpassword`,
     FORGOT_PASSWORD: `${DOMAIN_PREFIX}/forgotpassword`,
+    FORGOT_PASS: `${DOMAIN_PREFIX}/forgotPassword`,
     VERIFICATION: `${DOMAIN_PREFIX}/signupVerification/verify`,
     SETUP_PASSWORD: `${DOMAIN_PREFIX}/SetupNewPassword`,
     // VERIFICATION_INPROCESS: `${DOMAIN_PREFIX}/verifying`,
   },
+
   EXTERNAL_PROJECT: {
     REGISTER: `${DOMAIN_PREFIX}/ProjectExternal`,
+  },
+  EXTERNAL_PROJECT_SCHEDULER: {
+    REGISTER: `${DOMAIN_PREFIX}schedules/bookAppointment`,
   },
   BUDGET: {
     DEFAULT: `${DOMAIN_PREFIX}/budgets`,
@@ -247,7 +270,6 @@ export const ROUTES = {
     JUNK: `${DOMAIN_PREFIX}/mail?id=INBOX.junk`,
     DRAFTS: `${DOMAIN_PREFIX}/mail?id=INBOX.Drafts`,
   },
-  //by sanjna
   TASK: {
     DEFAULT: `${DOMAIN_PREFIX}/tasks/*`,
     ROOT: `${DOMAIN_PREFIX}/tasks`,
@@ -443,6 +465,7 @@ export const ROUTES = {
     CUSTOM_APPROVAL_CATEGORY: `customApprovalCategory`,
     DEFAULT_APPROVALS: `defaultApprovals`,
     ALLOWANCES: `allowances`,
+    GRADE_ALLOWANCES: `gradeAllowances`,
     REWARD_CATEGORY: `rewardCategory`,
     WARNING_CATEGORY: `warningCategory`,
     BILLING: `billing`,
@@ -554,6 +577,9 @@ export const ROUTES = {
     BONUS: {
       DEFAULT: `${DOMAIN_PREFIX}/bonus`,
     },
+    OrganizationalChart: {
+      DEFAULT: `${DOMAIN_PREFIX}/index`,
+    },
   },
   MAIL: {
     DEFAULT: `${DOMAIN_PREFIX}/mail/*`,
@@ -648,5 +674,14 @@ export const ROUTES = {
     DEFAULT: `${DOMAIN_PREFIX}/bonus/*`,
     ROOT: `${DOMAIN_PREFIX}/bonus`,
     DETAIL: `/detail`,
+  },
+  OrganizationalChart: {
+    DEFAULT: `${DOMAIN_PREFIX}/index`,
+    ROOT: `${DOMAIN_PREFIX}/index`,
+  },
+
+  MARKETPLACE: {
+    DEFAULT: `${DOMAIN_PREFIX}/marketplace/*`,
+    ROOT: `${DOMAIN_PREFIX}/marketplace`,
   },
 };

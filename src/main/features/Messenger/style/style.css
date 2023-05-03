@@ -278,6 +278,20 @@ input:focus {
   animation-fill-mode: forwards;
   flex-direction: row;
 }
+.MessengerListItem.GroupMessage {
+  margin-left: 30px;
+  margin-top: 2px;
+}
+.MessengerListItem.GroupMessage >.MessageBubble::before{
+  border-bottom: 0px;
+}
+.MessengerListItem-ME.GroupMessage {
+  margin-left: 30px;
+  margin-top: 2px;
+}
+.MessengerListItem-ME.GroupMessage >.MessageBubble::before{
+  border-bottom: 0px;
+}
 
 .MessengerListItem-ME {
   display: flex;

@@ -1,12 +1,9 @@
-import { Checkbox } from 'antd';
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import { handleChangePayrollItem } from '../../../store/slice';
+import { Checkbox } from "antd";
+import React from "react";
+import { useDispatch } from "react-redux";
+import { handleChangePayrollItem } from "../../../store/slice";
 
-const CreateEntryItem = ({
-  value,
-  index
-}) => {
+const CreateEntryItem = ({ value, index }) => {
   let {
     user,
     basicSalary,
@@ -19,21 +16,26 @@ const CreateEntryItem = ({
     other,
     netSalary,
     deduction,
-    isChecked
+    isChecked,
   } = value;
   const dispatch = useDispatch();
   const handleChangeCheck = (e) => {
-    dispatch(handleChangePayrollItem({
-      index,
-      data:{
-        ...value,
-        isChecked:e.target.checked
-      }
-    }))
-  }
+    dispatch(
+      handleChangePayrollItem({
+        index,
+        data: {
+          ...value,
+          isChecked: e.target.checked,
+        },
+      })
+    );
+  };
   return (
     <tr>
-      <td className='!py-[2px] text-center'> <Checkbox onChange={handleChangeCheck} checked={isChecked} /></td>
+      <td className="!py-[2px] text-center">
+        {" "}
+        <Checkbox onChange={handleChangeCheck} checked={isChecked} />
+      </td>
       <td>{user.name}</td>
       <td>{basicSalary}</td>
       {/* <td>{grossSalary}</td> */}
@@ -46,6 +48,6 @@ const CreateEntryItem = ({
       <td>{other}</td>
       <td>{netSalary}</td>
     </tr>
-  )
-}
+  );
+};
 export default CreateEntryItem;

@@ -1,10 +1,10 @@
 // import { useNavigate } from "react-router-dom";
-import { getNameForImage } from "../../../utils/base";
-import { DeleteFilled } from "@ant-design/icons";
-import { Avatar } from "antd";
-import AvatarOld from "../Avatar/avatarOLD";
+import { getNameForImage } from '../../../utils/base';
+import { DeleteFilled } from '@ant-design/icons';
+import { Avatar } from 'antd';
+import AvatarOld from '../Avatar/avatarOLD';
 
-import "./style.css";
+import './style.css';
 
 function Item({ item, handleDelete, isDeleteDisabled = true, onDelete }) {
   //   const navigate = useNavigate(); onClick={() => console.log("clicked")}
@@ -21,7 +21,7 @@ function Item({ item, handleDelete, isDeleteDisabled = true, onDelete }) {
       <div className="imageBox">
         <Avatar
           className="cursor-pointer !bg-black  imageAvatar"
-          src={item.member.image.length && item.member.image}
+          src={item.member?.image?.length && item.member?.image}
         >
           {item.member && getNameForImage(item.member.name && item.member.name)}
         </Avatar>
@@ -29,15 +29,15 @@ function Item({ item, handleDelete, isDeleteDisabled = true, onDelete }) {
 
       <div className="flex flex-auto justify-between">
         <div className="contentBox">
-          <p style={{ color: "#222222" }}>{item.member && item.member.name}</p>
-          <p style={{ color: "rgb(117, 125, 134)" }} className="member-email">
+          <p style={{ color: '#222222' }}>{item.member && item.member.name}</p>
+          <p style={{ color: 'rgb(117, 125, 134)' }} className="member-email">
             {item.member && item.member.email}
           </p>
         </div>
         {!isDeleteDisabled && (
           <DeleteFilled
             className=""
-            style={{ color: "#000000" }}
+            style={{ color: '#000000' }}
             onClick={(e) => onDeleteFunc(e, item.member.id)}
           />
         )}

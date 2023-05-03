@@ -3,10 +3,10 @@ import { createGuid, STRINGS } from "../../../../utils/base";
 import {
   createChat,
   getAllChats,
-  searchConversation,
   sendChatMessage,
   getAllChatMessage,
   getAllEmployeeWithChat,
+  searchConversations,
 } from "./actions";
 
 const defaultCurrentMessenger = {
@@ -43,9 +43,13 @@ export const messengerSlice = createSlice({
   initialState: initialState,
   reducers: {
     receiveChatMessage: (state, { payload }) => {
-      state.MessengerList[payload.chatId] = state.MessengerList[payload.chatId]
-        ? [...state.MessengerList[payload.chatId], payload]
-        : [payload];
+      let existChatMessages = state.MessengerList[payload.chatId] || [];
+      if (!existChatMessages.find(message => message.id === payload.id)) {
+        state.MessengerList[payload.chatId] = [...existChatMessages, payload];
+      }
+      // state.MessengerList[payload.chatId] = state.MessengerList[payload.chatId]
+      //   ? [...state.MessengerList[payload.chatId], payload]
+      //   : [payload];
     },
     handleIsopenChat: (state, { payload }) => {
       state.mobileIsopenChat = payload;
@@ -113,6 +117,31 @@ export const messengerSlice = createSlice({
       };
       console.log(currentChatMessages, "currentChatMessages");
     },
+    handleConversationIndexing: (state, { payload }) => {
+      // Shuffle Messenger Conversaions
+      let updatedConversations = state.Conversations.filter(conversation => conversation.chatWithId !== payload.chatWithId);
+      updatedConversations = [payload, ...updatedConversations];
+      state.Conversations = updatedConversations
+      // Shuffle SideBar Conversaions
+      let updatedSidebarConversations = state.ConversationsWithEmployee.filter(conversation => conversation.chatWithId !== payload.chatWithId);
+      updatedSidebarConversations = [payload, ...updatedSidebarConversations];
+      state.ConversationsWithEmployee = updatedSidebarConversations
+    },
+    handleStatusUpdate: (state, { payload }) => {
+      let chatId = payload.chatId;
+      let messageId = payload.id;
+      let messageList = state.MessengerList[chatId];
+      if (messageList) {
+        let messageIndex = messageList.findIndex((message) => message.id === messageId);
+        state.MessengerList[chatId][messageIndex] = { ...payload };
+      }
+    },
+    handleUserOnlineStatus: (state, { payload }) => {
+      let status = payload.status;
+      let user = payload.user;
+      let itemIndex = state.ConversationsWithEmployee.findIndex((conversation) => conversation.chatWithId === user.id)
+      state.ConversationsWithEmployee[itemIndex].chatWith = user
+    },
   },
 
   extraReducers: (builder) => {
@@ -121,7 +150,10 @@ export const messengerSlice = createSlice({
       //   state.Conversations = payload.data;
       // })
       .addCase(getAllChatMessage.fulfilled, (state, { payload }) => {
-        state.MessengerList[payload.chatId] = payload.data;
+        if (payload.pageNo > 1)
+          state.MessengerList[payload.chatId] = [...payload.data, ...state.MessengerList[payload.chatId]];
+        else
+          state.MessengerList[payload.chatId] = payload.data;
       })
       .addCase(getAllChats.fulfilled, (state, { payload }) => {
         state.Conversations = payload;
@@ -129,19 +161,15 @@ export const messengerSlice = createSlice({
       .addCase(getAllEmployeeWithChat.fulfilled, (state, { payload }) => {
         state.ConversationsWithEmployee = payload;
       })
+      .addCase(searchConversations.fulfilled, (state, { payload }) => {
+        state.Conversations = payload;
+      })
       .addCase(createChat.fulfilled, (state, { payload }) => {
         state.Conversations = state.Conversations.find(
           (itm) => itm.id === payload.id
         )
           ? state.Conversations
           : [...state.Conversations, { ...payload }];
-        console.log(state.Conversations, "conversationnn");
-        console.log(payload, "payload");
-
-        //       [
-        //     ...(state.Conversations ? state.Conversations : []),
-        //     payload,
-        //   ];
         state.loader = false;
         state.success = true;
       })
@@ -174,5 +202,8 @@ export const {
   handleMinimizeChatBox,
   handleExpendChatBox,
   handleMessageFailure,
+  handleConversationIndexing,
+  handleStatusUpdate,
+  handleUserOnlineStatus
 } = messengerSlice.actions;
 export default messengerSlice.reducer;

@@ -159,7 +159,8 @@ function TravelDetail(props) {
                       return { ...prev, ...status };
                     });
                   }}
-                  status={travelDetail && travelDetail.agentStatus}
+                 status={travelDetail &&  travelDetail.agentStatus
+                }
                 />
               </div>
             </div>

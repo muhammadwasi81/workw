@@ -30,6 +30,7 @@ import Fiscalyear from "../../fiscalYear/view";
 import AssetsCategory from "../../assetsCategory/view/index";
 import DefaultApprovers from "./../../defaultApprovers/index";
 import BillingComponent from "../util/billingComponent";
+import GradeAllowances from "../../gradeAllowance";
 
 const AdminRoutes = () => {
   return (
@@ -107,6 +108,10 @@ const AdminRoutes = () => {
         element={<CustomApprovalCategory />}
       />
       <Route path={ROUTES.ADMINISTRATOR.ALLOWANCES} element={<Allowance />} />
+      <Route
+        path={ROUTES.ADMINISTRATOR.GRADE_ALLOWANCES}
+        element={<GradeAllowances />}
+      />
       <Route
         path={ROUTES.ADMINISTRATOR.DEFAULT_APPROVALS}
         element={<DefaultApprovers />}

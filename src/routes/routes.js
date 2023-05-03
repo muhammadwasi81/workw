@@ -14,6 +14,12 @@ export const routes = {
         import("../main/features/publicRoutes/projects/view")
       ),
     },
+    {
+      path: ROUTES.EXTERNAL_PROJECT_SCHEDULER.REGISTER,
+      component: lazy(() =>
+        import("../main/features/publicRoutes/Schedule/Scheduler")
+      ),
+    },
   ],
 
   // Private Route Here
@@ -223,10 +229,10 @@ export const routes = {
       path: `${ROUTES.HR.BONUS.DEFAULT}`,
       component: lazy(() => import("../main/features/bonus/view/Bonus")),
     },
-    // {
-    //   path: `${ROUTES.HR.ORGCHART.DEFAULT}`,
-    //   component: lazy(() => import("../main/features/orgchart/view/index")),
-    // },
+    {
+      path: `${ROUTES.HR.OrganizationalChart.DEFAULT}`,
+      component: lazy(() => import("../main/features/orgchart/view/index")),
+    },
     {
       path: `${ROUTES.APPRAISALS.DEFAULT}`,
       component: lazy(() =>
@@ -338,6 +344,12 @@ export const routes = {
     {
       path: `${ROUTES.COMPANIES.DEFAULT}`,
       component: lazy(() => import("../main/features/companies/index")),
+    },
+    {
+      path: `${ROUTES.MARKETPLACE.DEFAULT},`,
+      component: lazy(() => {
+        import("../main/features/marketPlace/index");
+      }),
     },
   ],
   AdminRoutes: [

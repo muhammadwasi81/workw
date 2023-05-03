@@ -67,7 +67,7 @@ function TaskComposer({
     priority: "2",
     checkList: "",
   };
-
+  console.log(initialValues, "assignnnn");
   const confirm = () => {
     setVisible(false);
     setEmployeesData([]);
@@ -121,7 +121,6 @@ function TaskComposer({
     };
     dispatch(addNewTask(requestData));
   };
-  console.log(attachments, "Attachmenst");
   useEffect(() => {
     if (success) {
       form.resetFields();

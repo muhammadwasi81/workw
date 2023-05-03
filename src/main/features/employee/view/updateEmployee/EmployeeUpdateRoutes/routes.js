@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useParams } from "react-router-dom";
 import { BrokenPage } from "../../../../../../utils/base";
 import BankForm from "../../../../bankDetails/index";
 import BasicInfo from "../../../../basicInfo/index";
@@ -17,6 +17,7 @@ import Devices from "../../../../devices";
 import EmployeeFamily from "../../../../employeeFamily/index";
 import EmployeeAttachments from "../../employeeAttachments";
 import MyTeam from "../../../../team/TeamforEmployees";
+import EmployeesLinkage from "../../EmployeeLinkage";
 import "../styles/style.css";
 
 const EmployeeRoutes = () => {
@@ -40,6 +41,7 @@ const EmployeeRoutes = () => {
         <Route path={"/family/:id"} element={<EmployeeFamily mode="edit" />} />
         <Route path={"/attachments/:id"} element={<EmployeeAttachments />} />
         <Route path={"/team/:id"} element={<MyTeam />} />
+        <Route path={"/employee-linkage/:id"} element={<EmployeesLinkage />} />
         <Route path={"*"} element={<BrokenPage />} />
       </Routes>
     </div>

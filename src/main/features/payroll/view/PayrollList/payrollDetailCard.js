@@ -40,6 +40,7 @@ function PayrolDetailCard(props) {
             <UserInfo
               avatarSrc={payrollDetail?.creator.image}
               name={payrollDetail?.creator.name}
+              status={payrollDetail?.creator.userActiveStatus}
               Subline={
                 <SublineDesigWithTime
                   designation={

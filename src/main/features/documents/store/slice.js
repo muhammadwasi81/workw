@@ -119,22 +119,31 @@ const documentSlice = createSlice({
         isOpen: false,
         id: payload.id,
         document: {
-          ...payload
-        }
+          ...payload,
+        },
       };
-      state.minimzedDocuments = [...state.minimzedDocuments, dcoumentItem];
+      let isAlreadyAvailable = state.minimzedDocuments.find((document)=> document.id === payload.id)
+      if(!(!!isAlreadyAvailable)){
+        state.minimzedDocuments = [...state.minimzedDocuments, dcoumentItem];
+      }
     },
     handleRemoveMinimizeDocument: (state, { payload }) => {
       let id = payload.id;
-      state.minimzedDocuments = state.minimzedDocuments.filter(item => item.id !== id);
+      state.minimzedDocuments = state.minimzedDocuments.filter(
+        (item) => item.id !== id
+      );
     },
     toggleMinimizeDocument: (state, { payload: { id, status } }) => {
-      let index = state.minimzedDocuments.findIndex(item => item.id === id);
+      let index = state.minimzedDocuments.findIndex((item) => item.id === id);
       state.minimzedDocuments[index] = {
         ...state.minimzedDocuments[index],
-        isOpen: status
-      }
-    }
+        isOpen: status,
+      };
+    },
+    handleFavoriteMark(state, { payload }) {
+      const favDocs = state.listData.find((group) => group.id === payload.id);
+      favDocs.isPinnedPost = !favDocs.isPinnedPost;
+    },
   },
 
   extraReducers: (builder) => {
@@ -142,15 +151,6 @@ const documentSlice = createSlice({
       .addCase(addDocument.fulfilled, (state, { payload }) => {
         state.loader = false;
         state.success = true;
-        // state.listData = payload.attachments.length > 0 ?
-        //   [
-        //     ...payload.attachments.map((item) => ({
-        //       ...payload,
-        //       path: item.path,
-        //       name: item.attachmentName
-        //     })),
-        //     ...state.listData
-        //   ] : [payload, ...state.listData]
         state.listData = [
           ...payload.map((item) => ({
             ...item,
@@ -165,6 +165,16 @@ const documentSlice = createSlice({
         state.isOpenComposers.milepad = false;
         state.isOpenComposers.mileshow = false;
         state.isOpenComposers.upload = false;
+        // handle minimize document working...
+        let createdDocument = state.listData[0];
+        let dcoumentItem = {
+          isOpen: true,
+          id: createdDocument.id,
+          document: {
+            ...createdDocument,
+          },
+        };
+        state.minimzedDocuments = [...state.minimzedDocuments, dcoumentItem];
       })
       .addCase(addDirectory.fulfilled, (state, { payload }) => {
         state.loader = false;
@@ -235,6 +245,7 @@ export const {
   handleUpdateFolderMemberId,
   handleAddMinimizeDocument,
   handleRemoveMinimizeDocument,
-  toggleMinimizeDocument
+  toggleMinimizeDocument,
+  handleFavoriteMark,
 } = documentSlice.actions;
 export default documentSlice.reducer;

@@ -1,79 +1,118 @@
-import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { Button, Table, Divider } from "antd";
+import { useSelector, useDispatch } from "react-redux";
+import { getUserLeave, updateUserLeave } from "../userLeave/store/actions";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Table } from "antd";
-import "./style.css";
-import { useDispatch } from "react-redux";
-import { GetLeaveUserById } from "../leave/store/actions";
+import { EditOutlined } from "@ant-design/icons";
 
-const columns = [
-  {
-    title: "Leave Type",
-    dataIndex: "leaveTypeName",
-    ellipsis: true,
-    key: "leaveTypeName",
-  },
-  {
-    title: "Alloted",
-    dataIndex: "alloted",
-    ellipsis: true,
-    key: "alloted",
-  },
-  {
-    title: "Availed",
-    dataIndex: "availed",
-    ellipsis: true,
-    key: "availed",
-  },
-
-  // {
-  //   title: sharedLabels.action,
-  //   render: (value, __, rowIndex) => {
-  //     return (
-  //       <a
-  //         href=" "
-  //         onClick={(e) => {
-  //           e.preventDefault();
-  //           if (isEdit) {
-  //             handleRowChange(rowIndex);
-  //           } else {
-  //             const filterArray = bankDetails.filter((value, i) => {
-  //               if (rowIndex !== i) return value;
-  //             });
-  //             setBankDetails(filterArray);
-  //           }
-  //         }}
-  //       >
-  //         {isEdit ? sharedLabels.Edit : sharedLabels.Delete}
-  //       </a>
-  //     );
-  //   },
-  // },
-];
-
-function UserLeave() {
+const UserLeave = () => {
   const { id } = useParams();
+
   const dispatch = useDispatch();
   useEffect(() => {
-    //TODO: dispatch get leaveUserById
-    dispatch(GetLeaveUserById(id));
+    dispatch(getUserLeave(id));
   }, []);
-  const {
-    employee: { basicdetails },
-  } = useSelector((state) => state.employeeSlice);
 
-  const { leaves } = useSelector((state) => state.leaveSlice);
-  console.log(leaves, "leaves");
+  const { allLeaves } = useSelector((state) => state.userLeaveSlice);
+  const [Initialinputs, setInitialinputs] = useState(allLeaves || []);
 
+  useEffect(() => {
+    setInitialinputs(allLeaves);
+  }, [allLeaves]);
+
+  const columns = [
+    {
+      title: "Leave Type",
+      dataIndex: "leaveType",
+      key: "leaveType",
+    },
+    {
+      title: "Allocated",
+      dataIndex: "allocatedLeaves",
+      key: "allocatedLeaves",
+    },
+    {
+      title: "Availed",
+      dataIndex: "availed",
+      key: "availed",
+    },
+  ];
+
+  const renderTableRows = () => {
+    return Initialinputs.map((row, index) => {
+      return {
+        leaveType: <h2 className="w-48 mt-2">{row.leaveType}</h2>,
+
+        allocatedLeaves: (
+          <input
+            placeholder="Enter Leave allot"
+            defaultValue={row.allocatedLeaves}
+            className="bg-transparent"
+            type="number"
+            value={row.name}
+            onChange={(event) =>
+              handleInputChange(event, index, "allocatedLeaves")
+            }
+          />
+        ),
+
+        availed: (
+          <input
+            placeholder="Enter Leave avail"
+            defaultValue={row.availed}
+            className="bg-transparent"
+            type="number"
+            value={row.age}
+            onChange={(event) => handleInputChange(event, index, "availed")}
+          />
+        ),
+      };
+    });
+  };
+
+  console.log(Initialinputs, "Initialinputs");
+  const handleInputChange = (event, rowIndex, field) => {
+    const newData = Initialinputs.map((row, index) => {
+      if (index === rowIndex) {
+        return {
+          ...row,
+          [field]: Number(event.target.value),
+        };
+      }
+
+      return row;
+    });
+    setInitialinputs(newData);
+  };
+  const handleUpdate = () => {
+    const payload = {
+      Initialinputs: Initialinputs,
+      id: id,
+    };
+    dispatch(updateUserLeave(payload));
+  };
+  console.log(Initialinputs, "Initialinputs");
   return (
-    <div className="userLeavesTable">
-      <Table
-        columns={columns}
-        dragable={true}
-        dataSource={leaves ? leaves : []}
-      />
+    <div>
+      <Divider orientation="left">
+        <h2 className="text-xl">
+          <b>Leaves info</b>
+        </h2>
+      </Divider>
+
+      <Table dataSource={renderTableRows()} columns={columns} />
+
+      {Initialinputs.length > 0 && (
+        <Button
+          className="btn ThemeBtn mt-1"
+          icon={<EditOutlined />}
+          onClick={handleUpdate}
+        >
+          Update Leave
+        </Button>
+      )}
     </div>
   );
-}
+};
 
 export default UserLeave;

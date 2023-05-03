@@ -73,4 +73,9 @@ export const listitem = [
     classObj: "button",
     to: (id) => `${ROUTES.EMPLOYEES.EMPLOYEELINK}/info/attachments/${id}`,
   },
+  {
+    displayName: "Employees_Linkage",
+    classObj: "button",
+    to: (id) => `${ROUTES.EMPLOYEES.EMPLOYEELINK}/info/employee-linkage/${id}`,
+  },
 ];

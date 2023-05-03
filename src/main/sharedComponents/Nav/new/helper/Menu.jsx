@@ -1,5 +1,5 @@
+import { useContext, useEffect, useState } from "react";
 import { Tooltip } from "antd";
-import React, { useContext, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { NavLink, useLocation } from "react-router-dom";
 import { groupByKey } from "../../../../../utils/base";
@@ -17,35 +17,51 @@ import {
   GlobalOutlined,
   SafetyCertificateOutlined,
 } from "@ant-design/icons";
-import { FeaturePermissionEnumList,FeaturesEnumList } from "../../../../../utils/Shared/enums/featuresEnums";
+import {
+  FeaturePermissionEnumList,
+  FeaturesEnumList,
+} from "../../../../../utils/Shared/enums/featuresEnums";
+import NotificationBadge from "../../../Badge/NotificationBadge";
+import { useDispatch } from "react-redux";
+import { getAllNotification } from "../../../../../utils/Shared/store/actions";
 const { Panel } = Collapse;
 
-function Menu() {
+export default function Menu() {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, navMenuLabel } = dictionaryList[userLanguage];
+  const { notificationCounts } = useSelector((state) => state.sharedSlice);
   const { pathname } = useLocation();
-  let { menuItems } = NavMenuList();
+  const dispatch = useDispatch();
+  let { menuItems } = NavMenuList(notificationCounts);
+
+  useEffect(() => {
+    dispatch(getAllNotification());
+  }, []);
+
+  // console.log("menuItems", menuItems);
   const { navBarStatus } = useSelector((state) => state.responsiveSlice);
-  const {user} = useSelector((state) => state.userSlice);
- 
-  const groupedMenuItems = groupByKey(menuItems.filter(x=>getUserPermissions().includes(x.featureId)), "key");
+  const { user } = useSelector((state) => state.userSlice);
+
+  const groupedMenuItems = groupByKey(
+    [...menuItems.filter((x) => getUserPermissions().includes(x.featureId))],
+    "key"
+  );
   const [data, setData] = useState(groupedMenuItems);
   let currentCategory = "";
 
-  function getUserPermissions(){
-    return FeaturePermissionEnumList.map((x)=>{
-      if (user.permissions.includes(x.id)) {
-        return x.featureId 
+  function getUserPermissions() {
+    return FeaturePermissionEnumList.map((x) => {
+      if (user?.permissions.includes(x?.id)) {
+        return x.featureId;
       }
-    })
+    });
   }
 
   useEffect(() => {
     setData(groupedMenuItems);
-  }, [Direction, navMenuLabel]);
+  }, [Direction, notificationCounts, navMenuLabel]);
 
   const activeTab = (isActive, path) => {
-    
     return isActive
       ? "on"
       : DOMAIN_PREFIX.length > 0
@@ -113,7 +129,7 @@ function Menu() {
             <Collapse
               expandIconPosition="end"
               className="MenuCollapse"
-              defaultActiveKey={ ["1", "2", "3", "4", "5"]}
+              defaultActiveKey={["1", "2", "3", "4", "5"]}
               onChange={() => {}}
               expandIcon={({ isActive }) => (
                 <CaretRightOutlined rotate={isActive ? 90 : 0} />
@@ -121,15 +137,38 @@ function Menu() {
             >
               <Panel header={key} key="1" extra={renderIcons[key]}>
                 <ReactDragListView {...dragProps}>
-                  {data[key].map(({ name, to: path, icon}, index) => {
-                    return !navBarStatus ? (
-                      <Tooltip
-                        title={name}
-                        color={""}
-                        placement="right"
-                        key={index}
-                        overlayClassName=""
-                      >
+                  {data[key].map(
+                    ({ name, to: path, icon, notificationCount }, index) => {
+                      return !navBarStatus ? (
+                        <Tooltip
+                          title={name}
+                          color={""}
+                          placement="right"
+                          key={index}
+                          overlayClassName=""
+                        >
+                          <div
+                            className="menu-item"
+                            onDrag={() => {
+                              currentCategory = key;
+                            }}
+                          >
+                            <NavLink
+                              className={({ isActive }) => {
+                                return activeTab(isActive, path);
+                              }}
+                              to={path}
+                              end
+                            >
+                              <div className="icon">
+                                <img src={icon} alt="#" />
+                              </div>
+                              <p>{name}</p>
+                              <p>{notificationCount}</p>
+                            </NavLink>
+                          </div>
+                        </Tooltip>
+                      ) : (
                         <div
                           className="menu-item"
                           onDrag={() => {
@@ -147,31 +186,14 @@ function Menu() {
                               <img src={icon} alt="#" />
                             </div>
                             <p>{name}</p>
+                            <NotificationBadge
+                              notificationCount={notificationCount}
+                            />
                           </NavLink>
                         </div>
-                      </Tooltip>
-                    ) : (
-                      <div
-                        className="menu-item"
-                        onDrag={() => {
-                          currentCategory = key;
-                        }}
-                      >
-                        <NavLink
-                          className={({ isActive }) => {
-                            return activeTab(isActive, path);
-                          }}
-                          to={path}
-                          end
-                        >
-                          <div className="icon">
-                            <img src={icon} alt="#" />
-                          </div>
-                          <p>{name}</p>
-                        </NavLink>
-                      </div>
-                    );
-                  })}
+                      );
+                    }
+                  )}
                 </ReactDragListView>
               </Panel>
             </Collapse>
@@ -181,5 +203,3 @@ function Menu() {
     </div>
   );
 }
-
-export default Menu;

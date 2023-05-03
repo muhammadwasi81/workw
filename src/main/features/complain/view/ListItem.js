@@ -39,12 +39,16 @@ function ListItem(props) {
   return (
     <SingleItem className="ComplainListItem">
       <div id={props.id} onClick={props.onClick}>
+
+        
         <ItemHeader>
           <div className={"item-header"}>
             <div className="left">
               <UserInfo
-                avatarSrc={creator.image}
+                avatarSrc={creator?.image}
                 name={creator.name}
+                status={creator.userActiveStatus}
+                profileId={creator.id}
                 Subline={
                   <SublineDesigWithTime
                     designation={creator.designation ? creator.designation : ""}

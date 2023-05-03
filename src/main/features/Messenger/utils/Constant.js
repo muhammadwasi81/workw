@@ -5,8 +5,13 @@ export const MESSENGER_ENUMS = {
         PROJECT_CHAT: 3,
         GROUP_CHAT: 4,
         CALLING_CHAT: 5
+    },
+    MESSAGE_STATUS: {
+        SENT: 1,
+        DELIVERED: 2,
+        SEEN: 3
+    },
+    PAGINATION: {
+        PAGE_SIZE: 20
     }
 }
-
-
-

@@ -17,10 +17,20 @@ import EmailConfigurationForm from "../adminstrationCard/EmailConfiguration";
 import { addDesignation } from "../../designation/store/actions";
 import { addFiscalYear } from "../../fiscalYear/store/actions";
 import { addPayrollGroup } from "../../payroll/payrollGroup/store/actions";
+import { GetAllWizard ,seenWizard} from "../store/action";
+import { WIZARD_ENUMS } from "../../../../utils/Shared/enums/wizardEnums";
 
 const Administration = () => {
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
+
+  const { handleModal } = useSelector((state) => state.adminstrationSlice);
+
+  useEffect(() => {
+    console.log("useEffect ran");
+    dispatch(GetAllWizard());
+  }, []);
+
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -66,6 +76,10 @@ const Administration = () => {
     setVisible(true);
   }, []);
 
+  const handleshow = () => {
+    dispatch(seenWizard(WIZARD_ENUMS.administration));
+  }
+
   const handleSkip = () => {
     if (page === 4) {
       setVisible(false);
@@ -100,32 +114,41 @@ const Administration = () => {
       setFormData={setFormData}
       handleChangeTab={handleChangeTab}
     />,
+    
   ];
+  const checkType = handleModal?.data[0]?.type;
+  console.log(checkType,"checkType");
 
   return (
     <>
       <AdminPanelContainer>
-        <Modal
-          title=""
-          centered
-          className="modal-body"
-          footer={[
-            <Button className="ThemeBtn" onClick={handleSkip}>
-              Skip
-            </Button>,
-          ]}
-          open={visible}
-          onOk={() => setVisible(false)}
-          onCancel={() => setVisible(false)}
-          closable={false}
-          width={900}
-          // height={550}
-        >
-          {RenderTab[page]}
-        </Modal>
+        {checkType === 1 && (
+          <Modal
+            title=""
+            centered
+            className="modal-body"
+            footer={[
+              <Button className="ThemeBtn" onClick={handleshow}>
+                 Don't Show this again
+              </Button>,
+
+              <Button className="ThemeBtn" onClick={handleSkip}>
+                Skip
+              </Button>,
+            ]}
+            
+            open={visible}
+            onOk={() => setVisible(false)}
+            onCancel={() => setVisible(false)}
+            closable={false}
+            width={900}
+            // height={550}
+          >
+            {RenderTab[page]}
+          </Modal>
+        )}
 
         <AdminList />
-
         <AdminRoutes />
         <AdminNotification />
       </AdminPanelContainer>

@@ -121,7 +121,7 @@ const en = {
     eLearning: "E-Learning",
     inventory: "Inventory",
     myTeam: "My Team",
-    orgChart: "Org Chart",
+    orgChart: "Organizational Chart",
     payroll: "Payroll",
     employee: "Employees",
     administration: "Administration",
@@ -162,6 +162,7 @@ const en = {
     teams: "My Team",
     basicInfo: "Basic Info",
     LD: "L & D",
+    marketPlace: "MarketPlace",
   },
 
   /*** AppHeader only used in Component headerTab ***/
@@ -356,6 +357,7 @@ const en = {
     Salary_Headers: "Salary Header",
     Request_For_Right: "Request For Right",
     Custom_Approval_Category: "Custom Approval Category",
+    GRADE_ALLOWANCES: "Grade Allowances",
     Email_Configuration: "Email Configuration",
     Allowances: "Allowances",
     Default_Approvals: "Default Approval",
@@ -442,6 +444,7 @@ const en = {
     Family: "Family",
     Attachments: "Attachments",
     My_Team: "My Team",
+    Employees_Linkage: "Employees Linkage",
   },
   administration: {
     basicInfo: "Basic Info",
@@ -472,6 +475,7 @@ const en = {
     Salary_Headers: "Salary Header",
     Request_For_Right: "Request For Right",
     Custom_Approval_Category: "Custom Approval Category",
+    GRADE_ALLOWANCES: "Grade Allowances",
     Email_Configuration: "Email Configuration",
     Allowances: "Allowances",
     Default_Approvals: "Default Approval",

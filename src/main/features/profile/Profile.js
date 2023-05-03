@@ -13,7 +13,7 @@ import NewsFeed from "../feed/ui";
 import { getEducationDetailByUser } from "../education/store/actions";
 import { useDispatch } from "react-redux";
 import { getUserWorkExperience } from "../experienceInfo/store/actions";
-import { getEmployeeByIdAction } from "./store/action";
+import { getEmployeeByIdAction, getEmployeeProfileById } from "./store/action";
 import { LanguageChangeContext } from "../../../utils/localization/localContext/LocalContext";
 import { profileDictionaryList } from "./localization/index";
 import ActivityLog from "../team/view/ActivityLog";
@@ -26,13 +26,13 @@ import AwardsTable from "./awards";
 import SalaryTable from "./salary";
 import { useSelector } from "react-redux";
 import CustomNotes from "../notes/singleNotes/singleNotes";
-import { CopyOutlined, EllipsisOutlined } from "@ant-design/icons";
-import { Menu, Dropdown, Space } from "antd";
 import Courses from "../eLearning/view/Dashboard/Sections/Courses/Courses";
 import TeamAppraisal from "../appraisalModule/view/components/TeamAppraisal/index";
-import { saveSticyNotes, getSticyNotes } from "./store/action";
+import { saveSticyNotes, getStickyNotes } from "./store/action";
 import useDebounce from "../../../utils/Shared/helper/use-debounce";
-import { formats, modules } from "./utils/index";
+import Nodata from "../../../content/NewContent/eLearning/Nodata.svg";
+
+import { formats, modules } from "./utils";
 
 const Profile = () => {
   const param = useParams();
@@ -50,7 +50,10 @@ const Profile = () => {
     user: { id: userId },
   } = useSelector((state) => state.userSlice);
 
-  const { profileSticky } = useSelector((state) => state.employeeProfileSlice);
+  const { profileSticky, employeeProfile } = useSelector(
+    (state) => state.employeeProfileSlice
+  );
+  console.log(profileSticky, "profileSticky");
   const onChange = (key) => {
     navigate(key);
   };
@@ -60,7 +63,7 @@ const Profile = () => {
   }, [pathname]);
 
   useEffect(() => {
-    dispatch(getSticyNotes());
+    dispatch(getStickyNotes());
   }, []);
 
   useEffect(() => {
@@ -70,34 +73,11 @@ const Profile = () => {
   const setDescriptionValue = (value) => {
     dispatch(
       saveSticyNotes({
-        id: id,
+        createBy: id,
         description: value,
       })
     );
   };
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText("");
-  };
-  const menu = (
-    <Menu
-      items={[
-        {
-          label: (
-            <div onClick={copyToClipboard}>
-              <CopyOutlined />
-              <a className="drop-downList">Copy</a>
-            </div>
-          ),
-          key: "1",
-        },
-        {
-          label: <div></div>,
-          key: "2",
-          // icon: <HighlightOutlined onClick={openColorHandler} />,
-        },
-      ]}
-    />
-  );
 
   const panes = [
     {
@@ -114,19 +94,19 @@ const Profile = () => {
             routeLink={ROUTES.USER.DEFAULT + id}
           />
           <div className="singleNote_container ">
-            <div className="singleNote_header">
-              <div className="leftNote_Icon">
-                <Dropdown menu={menu}>
-                  <a onClick={(e) => e.preventDefault()}>
-                    <Space>
-                      <EllipsisOutlined className="threedot_Icon" />
-                    </Space>
-                  </a>
-                </Dropdown>
-              </div>
-            </div>
+            <div className="singleNote_header"></div>
             <div className="textArea_container bg-white w-[300px]">
-              {profileSticky.id && (
+              {profileSticky?.id && (
+                <CustomNotes
+                  onChange={(value) => setDescription(value)}
+                  modules={modules}
+                  formats={formats}
+                  className={"stickyNoteItem-textarea"}
+                  placeholder={"Take a Note"}
+                  defaultValue={profileSticky?.description}
+                />
+              )}
+              {profileSticky?.description.length === 0 && (
                 <CustomNotes
                   onChange={(value) => setDescription(value)}
                   modules={modules}
@@ -199,7 +179,8 @@ const Profile = () => {
   useEffect(() => {
     dispatch(getEducationDetailByUser(id));
     dispatch(getUserWorkExperience(id));
-    dispatch(getEmployeeByIdAction(id));
+    // dispatch(getEmployeeByIdAction(id));
+    dispatch(getEmployeeProfileById(id));
   }, []);
 
   return (
@@ -212,7 +193,7 @@ const Profile = () => {
             <Tab
               panes={userId === id ? panes : panes.slice(0, 2)}
               canChangeRoute={true}
-              onChange={onChange}
+              onChangeTab={onChange}
               defaultPath={defaultPath}
             />
           </div>

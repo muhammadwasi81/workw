@@ -51,7 +51,7 @@ const en = {
 			approvers: "Approvers",
 			agent: "Agent",
 			reason: "Reason",
-			travel: "Travel",
+			travel: "Travel from and To",
 			date: "Date",
 			return: "Return",
 			hotelTada: "Hotel & Tada",

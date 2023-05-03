@@ -36,7 +36,7 @@ export const searchConversationService = (search, pageNo) => {
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++
 // New Services here
 const getAllChat = async (payload) => {
-	let request = messengerDTO.getAllConversations(payload);
+	let request = messengerDTO.getAllConversations(payload={});
 	try {
 		const {
 			data: { responseCode, data, message },
@@ -48,7 +48,7 @@ const getAllChat = async (payload) => {
 	}
 };
 
-const getAllEmployeeWithChat = async (payload) => {
+const getAllEmployeeWithChat = async (payload={}) => {
 	let request = messengerDTO.getAllConversations(payload);
 	try {
 		const {
@@ -101,29 +101,29 @@ const sendMessage = async (payload) => {
 	}
 };
 const updateMessageDeliver = async (payload) => {
-	let { chatId, msgIds } = payload;
+	let { chatId, msgIds, status } = payload;
 	try {
 		const {
 			data: { responseCode, data, message },
-		} = await Config.post(`api/chat/UpdateMessageDeliverStatus?id=${chatId}`, msgIds);
+		} = await Config.post(`api/chat/UpdateChatMessageStatus?chatId=${chatId}&status=${status}`, msgIds);
 		if (responseCode === responseCodeEnum.Success) return ResponseResultSuccess(data);
 		return ResponseResultError(message);
 	} catch (e) {
 		return ResponseResultError(e);
 	}
 };
-const updateMessageSeen = async (payload) => {
-	let { chatId, msgIds } = payload;
-	try {
-		const {
-			data: { responseCode, data, message },
-		} = await Config.post(`api/chat/UpdateMessageSeenStatus?id=${chatId}`, msgIds);
-		if (responseCode === responseCodeEnum.Success) return ResponseResultSuccess(data);
-		return ResponseResultError(message);
-	} catch (e) {
-		return ResponseResultError(e);
-	}
-};
+// const updateMessageSeen = async (payload) => {
+// 	let { chatId, msgIds } = payload;
+// 	try {
+// 		const {
+// 			data: { responseCode, data, message },
+// 		} = await Config.post(`api/chat/UpdateMessageSeenStatus?id=${chatId}`, msgIds);
+// 		if (responseCode === responseCodeEnum.Success) return ResponseResultSuccess(data);
+// 		return ResponseResultError(message);
+// 	} catch (e) {
+// 		return ResponseResultError(e);
+// 	}
+// };
 
 export const MessengerService = {
 	createChat,
@@ -131,6 +131,6 @@ export const MessengerService = {
 	sendMessage,
 	getAllChatMessage,
 	updateMessageDeliver,
-	updateMessageSeen,
+	// updateMessageSeen,
 	getAllEmployeeWithChat
 }

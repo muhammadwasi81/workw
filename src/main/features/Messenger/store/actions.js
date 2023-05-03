@@ -7,57 +7,6 @@ import { getAllChatsService, getAllMessageService, MessengerService, searchConve
 import { handleAppendMessage, handleMessageFailure } from "./messengerSlice";
 
 
-// export const sendChatMessage = createAsyncThunk(
-//   "messenger/sendChatMessage",
-//   async (
-//     data = {
-//       messageId: "",
-//       chatId: STRINGS.DEFAULTS.guid,
-//       parentId: STRINGS.DEFAULTS.guid,
-//       message: "",
-//       members: [],
-//       attachments: []
-//     }
-//     , { dispatch }) => {
-//     const res = await sendMessageService(data);
-//     if (!res.responseCode) {
-//       responseMessage({
-//         dispatch: dispatch,
-//         type: responseMessageType.ApiFailure,
-//       });
-//     }
-//     return res;
-//   }
-// );
-
-// export const getAllMessages = createAsyncThunk(
-//   "messenger/getAllMessages",
-//   async (data, { dispatch }) => {
-//     const res = await getAllMessageService(data.chatId, data.pageNo);
-//     if (!res.responseCode) {
-//       responseMessage({
-//         dispatch: dispatch,
-//         type: responseMessageType.ApiFailure,
-//       });
-//     }
-//     return res;
-//   }
-// );
-
-export const searchConversation = createAsyncThunk(
-  "messenger/searchConversation",
-  async (data, { dispatch }) => {
-    const res = await searchConversationService(data.search, data.pageNo);
-    if (!res.responseCode) {
-      responseMessage({
-        dispatch: dispatch,
-        type: responseMessageType.ApiFailure,
-      });
-    }
-    return res;
-  }
-);
-
 const createObjectForAppendMsg = (payload) => {
   let attachments = payload.attachments.map(item => ({
     path: window.webkitURL.createObjectURL(item.file)
@@ -65,8 +14,6 @@ const createObjectForAppendMsg = (payload) => {
   let request = {
     ...payload,
     status: "Pending",
-    // status: 1,
-    // messageType: 1,
     createBy: "local",
     attachments
   }
@@ -153,7 +100,6 @@ export const sendChatMessage = createAsyncThunk(
 export const getAllChats = createAsyncThunk(
   "messenger/getAllChats",
   async (request, { rejectWithValue }) => {
-    console.log(request, "REQUEST")
     const response = await MessengerService.getAllChat(request);
     switch (response.type) {
       case ResponseType.ERROR:
@@ -164,7 +110,21 @@ export const getAllChats = createAsyncThunk(
         return;
     }
   }
-);
+)
+export const searchConversations = createAsyncThunk(
+  "messenger/searchConversations",
+  async (request, { rejectWithValue }) => {
+    const response = await MessengerService.getAllEmployeeWithChat(request);
+    switch (response.type) {
+      case ResponseType.ERROR:
+        return rejectWithValue(response.errorMessage);
+      case ResponseType.SUCCESS:
+        return response.data;
+      default:
+        return;
+    }
+  }
+);;
 export const getAllEmployeeWithChat = createAsyncThunk(
   "messenger/getAllEmployeeWithChat",
   async (request, { rejectWithValue }) => {
@@ -188,8 +148,9 @@ export const getAllChatMessage = createAsyncThunk(
         return rejectWithValue(response.errorMessage);
       case ResponseType.SUCCESS:
         return {
-          data:response.data,
-          chatId:request.chatId
+          data: response.data,
+          pageNo: request.pageNo,
+          chatId: request.chatId
         };
       default:
         return;
@@ -200,20 +161,6 @@ export const updateMessageDeliver = createAsyncThunk(
   "messenger/updateMessageDeliver",
   async (request, { rejectWithValue, getState }) => {
     const response = await MessengerService.updateMessageDeliver(request);
-    switch (response.type) {
-      case ResponseType.ERROR:
-        return rejectWithValue(response.errorMessage);
-      case ResponseType.SUCCESS:
-        return response.data;
-      default:
-        return;
-    }
-  }
-);
-export const updateMessageSeen = createAsyncThunk(
-  "messenger/updateMessageSeen",
-  async (request, { rejectWithValue }) => {
-    const response = await MessengerService.updateMessageSeen(request);
     switch (response.type) {
       case ResponseType.ERROR:
         return rejectWithValue(response.errorMessage);

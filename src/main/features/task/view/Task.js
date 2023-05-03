@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { STRINGS } from '../../../../utils/base';
-import { dictionaryList } from '../../../../utils/localization/languages';
-import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
+import React, { useContext, useEffect, useState } from "react";
+import { STRINGS } from "../../../../utils/base";
+import { dictionaryList } from "../../../../utils/localization/languages";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import {
   ContBody,
   TabbableContainer,
@@ -20,37 +20,40 @@ import { taskDictionary } from '../localization';
 import { defaultUiid } from '../../../../utils/Shared/enums/enums';
 import { TaskReferenceTypeEnum } from '../enums/enum';
 import { handleOpenTaskComposer } from '../store/taskSlice';
-import { Button, Drawer } from 'antd';
-import CreateTask from './createTask/CreateTask';
 import SideDrawer from '../../../sharedComponents/Drawer/SideDrawer';
+import TaskDetailDrawer from './TaskDetail/TaskComposer';
 
-import '../view/style/task.css';
-import { NoDataFound } from '../../../sharedComponents/NoDataIcon';
-import { FeaturePermissionEnum } from '../../../../utils/Shared/enums/featuresEnums';
+import "../view/style/task.css";
+import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
+import { FeaturePermissionEnum } from "../../../../utils/Shared/enums/featuresEnums";
+import { ROUTES } from "../../../../utils/routes";
 
 function Task({
   referenceId = defaultUiid,
   referenceType = TaskReferenceTypeEnum.General,
-  width = '',
+  width = "",
   routeLink,
   backButton,
-  feature = '',
+  feature = "",
 }) {
   let defaultFilter = {
     filterType: 2,
     pageNo: 1,
     pageSize: 40,
-    search: '',
+    search: "",
   };
 
   const { userLanguage } = useContext(LanguageChangeContext);
   const { appHeader, sharedLabels, navMenuLabel } = dictionaryList[
     userLanguage
   ];
+  const [detailId, setDetailId] = useState("");
+  const [visible, setVisible] = useState(false);
+
   const { taskDictionaryList } = taskDictionary[userLanguage];
   const [filterType, setFilterType] = useState(2);
   const [tableView, setTableView] = useState(false);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const dispatch = useDispatch();
   const {
     taskList: { list, loading },
@@ -58,9 +61,26 @@ function Task({
     drawerOpen,
     // loading,
   } = useSelector((state) => state.taskSlice);
-  const {user} = useSelector((state) => state.userSlice);
-  const userPermissions = user.permissions
+  const { user } = useSelector((state) => state.userSlice);
+  const userPermissions = user.permissions;
 
+  const onRow = (record, rowIndex) => {
+    return {
+      onClick: (event) => {
+        setDetailId(record.id);
+        setVisible(true);
+      },
+      onDoubleClick: (event) => {}, // double click row
+      onContextMenu: (event) => {}, // right button click row
+      onMouseEnter: (event) => {}, // mouse enter row
+      onMouseLeave: (event) => {}, // mouse leave row
+    };
+  };
+
+  const handleDrawerClose = () => {
+    setVisible(false);
+    setDetailId(null);
+  }
   useEffect(() => {
     dispatch(
       getAllTask({
@@ -77,7 +97,7 @@ function Task({
   const items = [
     {
       name: navMenuLabel.tasks,
-      to: `${routeLink ? routeLink : STRINGS.ROUTES.TASK.ROOT}`,
+      to: `${ROUTES.TASK.ROOT}`,
       renderButton: buttonsEnum.dashboard,
     },
   ];
@@ -85,27 +105,33 @@ function Task({
     <TabbableContainer>
       <Header
         items={items}
-        buttons={userPermissions.includes(FeaturePermissionEnum.CreateTask) ? [
-          {
-            buttonText: taskDictionaryList.createTextBtn,
-            render: (
-              <SideDrawer
-                title={taskDictionaryList.createTextBtn}
-                buttonText={taskDictionaryList.createTextBtn}
-                handleClose={() => dispatch(handleOpenTaskComposer(false))}
-                handleOpen={() => dispatch(handleOpenTaskComposer(true))}
-                isOpen={drawerOpen}
-                children={
-                  <TaskComposer
-                    feature={feature}
-                    referenceId={referenceId}
-                    referenceType={referenceType}
-                  />
-                }
-              />
-            ),
-          },
-        ] : []}
+        buttons={
+          userPermissions.includes(FeaturePermissionEnum.CreateTask)
+            ? [
+                {
+                  buttonText: taskDictionaryList.createTextBtn,
+                  render: (
+                    <SideDrawer
+                      title={taskDictionaryList.createTextBtn}
+                      buttonText={taskDictionaryList.createTextBtn}
+                      handleClose={() =>
+                        dispatch(handleOpenTaskComposer(false))
+                      }
+                      handleOpen={() => dispatch(handleOpenTaskComposer(true))}
+                      isOpen={drawerOpen}
+                      children={
+                        <TaskComposer
+                          feature={feature}
+                          referenceId={referenceId}
+                          referenceType={referenceType}
+                        />
+                      }
+                    />
+                  ),
+                },
+              ]
+            : []
+        }
         width={width}
         backButton={backButton}
       />
@@ -147,6 +173,7 @@ function Task({
               columns={tableColumn(taskDictionaryList)}
               dragable={true}
               data={list ? list : []}
+              onRow={onRow}
             />
           )}
           {list?.length > 0 && !loading && !tableView ? (
@@ -160,6 +187,13 @@ function Task({
           )}
         </div>
       </ContBody>
+
+      <TaskDetailDrawer
+        id={detailId}
+        visible={visible}
+        onClose={handleDrawerClose}
+      />
+
       {/* <CreateTask
         referenceId={referenceId}
         referenceType={referenceType}

@@ -66,7 +66,6 @@ export const updateUserBankInfoAction = createAsyncThunk(
           openNotification({
             message: `Bank Details Updated Successfully`,
             type: 'success',
-            duration: 2,
           })
         );
         return response.data;

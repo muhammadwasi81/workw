@@ -9,7 +9,8 @@ import {
   updateUserCoverImgAction,
   updateUserProfileImgAction,
   saveSticyNotes,
-  getSticyNotes,
+  getStickyNotes,
+  getEmployeeProfileById,
 } from "./action";
 
 const initialState = {
@@ -21,7 +22,8 @@ const initialState = {
   loader: false,
   coverImg: {},
   profileImg: {},
-  profileSticky: {},
+  profileSticky: { description: "" },
+  employeeProfile: {},
 };
 
 const employeeProfileSlice = createSlice({
@@ -34,17 +36,18 @@ const employeeProfileSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getAllEmployeeAction.fulfilled, (state, action) => {
-      console.log(action.payload, "getAllEmployee slice");
       state.employees = action.payload ? action.payload : [];
       state.loader = false;
     });
     builder.addCase(getEmployeeByIdAction.fulfilled, (state, action) => {
-      console.log(action.payload.data, "getEmployeeById slice");
       state.employees = action.payload.data;
       state.loader = false;
     });
+    builder.addCase(getEmployeeProfileById.fulfilled, (state, action) => {
+      state.employeeProfile = action.payload.data;
+      state.loader = false;
+    });
     builder.addCase(addEmployeeAction.fulfilled, (state, { payload }) => {
-      console.log(payload, "addEmployee slice");
       state.success = true;
       state.employees = [...state.employees, payload.data.data];
       state.loader = false;
@@ -54,44 +57,51 @@ const employeeProfileSlice = createSlice({
       state.loader = false;
     });
     builder.addCase(getEducationAction.fulfilled, (state, action) => {
-      console.log(action.payload.data, "action.payload");
       state.education = action.payload.data;
       state.loader = false;
     });
     builder.addCase(updateEmployeeAction.fulfilled, (state, { payload }) => {
-      console.log(payload, "updateEmployee slice");
       state.success = true;
       state.employees = [...state.employees, payload.data.data];
       state.loader = false;
     });
     builder
       .addCase(updateUserCoverImgAction.fulfilled, (state, { payload }) => {
-        console.log(payload, "updateUserCoverImgAction slice");
         state.success = true;
         state.coverImg = payload;
         state.loader = false;
       })
       .addCase(updateUserProfileImgAction.fulfilled, (state, { payload }) => {
-        console.log(payload, "updateUserProfileImgAction slice");
         state.success = true;
         state.profileImg = payload;
         state.loader = false;
       })
       .addCase(saveSticyNotes.fulfilled, (state, { payload }) => {
-        console.log(payload, "payload");
         state.profileSticky = payload.data;
       })
-      .addCase(getSticyNotes.fulfilled, (state, { payload }) => {
-        state.profileSticky = payload.data;
+      .addCase(getStickyNotes.fulfilled, (state, { payload }) => {
+        if (payload.data) {
+          state.profileSticky = payload?.data;
+        } else {
+          state.profileSticky = { description: "" };
+        }
       })
-      .addMatcher(isPending(...[getAllEmployeeAction]), (state) => {
-        state.loader = true;
-      })
-      .addMatcher(isPending(...[getEmployeeByIdAction]), (state) => {
-        state.loader = true;
-      })
+      .addMatcher(
+        isPending(
+          ...[
+            getAllEmployeeAction,
+            getEmployeeProfileById,
+            getEmployeeByIdAction,
+          ]
+        ),
+        (state) => {
+          state.loader = true;
+          state.success = false;
+        }
+      )
       .addMatcher(isRejected(...[getAllEmployeeAction]), (state) => {
-        state.loader = true;
+        state.loader = false;
+        state.success = false;
       });
   },
 });

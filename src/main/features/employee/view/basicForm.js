@@ -1,10 +1,10 @@
-import { useContext, useEffect, useState } from 'react';
-import { Button, DatePicker, Divider, Form, Input, Select, Avatar } from 'antd';
-import { useSelector } from 'react-redux';
-import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
-import { employeeDictionaryList } from '../localization/index';
-import SingleUpload from '../../../sharedComponents/Upload/singleUpload';
-import { EditOutlined } from '@ant-design/icons';
+import { useContext, useEffect, useState } from "react";
+import { Button, DatePicker, Divider, Form, Input, Select, Avatar } from "antd";
+import { useSelector } from "react-redux";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { employeeDictionaryList } from "../localization/index";
+import SingleUpload from "../../../sharedComponents/Upload/singleUpload";
+import { EditOutlined } from "@ant-design/icons";
 import {
   userTypeList,
   userTitle,
@@ -12,58 +12,58 @@ import {
   maritalStatusList,
   employmentType,
   userTypeEnum,
-} from '../../../../utils/Shared/enums/enums';
-import { useDispatch } from 'react-redux';
+} from "../../../../utils/Shared/enums/enums";
+import { useDispatch } from "react-redux";
 import {
   getAllEmployees,
   getCities,
   getCountries,
-} from '../../../../utils/Shared/store/actions';
-import { getAllGrades } from '../../grade/store/actions';
-import { getAllDepartmentService } from '../../departments/services/service';
-import { getAllAccessRoles } from '../../accessRole/store/action';
-import { getAllOfficeTimingGroups } from '../../officeTimings/store/actions';
-import { getUserBasicInfo } from '../../basicInfo/store/actions';
-import moment from 'moment';
-import { getNameForImage, STRINGS } from '../../../../utils/base';
-import CitySelect from '../../../sharedComponents/AntdCustomSelects/SharedSelects/CitySelect';
-import { resetBasicdetails } from '../store/slice';
-import { getAllDesignation } from '../../designation/store/actions';
-import { getAllBranch } from '../../subsidiary/store/actions';
-import { getAllBranchOffice } from '../../subsidiaryOffice/store/actions';
-import { updateEmployeeAction } from '../store/actions';
-import CustomSelect from '../../../sharedComponents/Select/Select';
-import { getAllDepartments } from '../../departments/store/actions';
-import { getEmployeeByIdAction } from './../store/actions';
+} from "../../../../utils/Shared/store/actions";
+import { getAllGrades } from "../../grade/store/actions";
+import { getAllDepartmentService } from "../../departments/services/service";
+import { getAllAccessRoles } from "../../accessRole/store/action";
+import { getAllOfficeTimingGroups } from "../../officeTimings/store/actions";
+import { getUserBasicInfo } from "../../basicInfo/store/actions";
+import moment from "moment";
+import { getNameForImage, STRINGS } from "../../../../utils/base";
+import CitySelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/CitySelect";
+import { resetBasicdetails } from "../store/slice";
+import { getAllDesignation } from "../../designation/store/actions";
+import { getAllBranch } from "../../subsidiary/store/actions";
+import { getAllBranchOffice } from "../../subsidiaryOffice/store/actions";
+import { updateEmployeeAction } from "../store/actions";
+import CustomSelect from "../../../sharedComponents/Select/Select";
+import { getAllDepartments } from "../../departments/store/actions";
+import { getEmployeeByIdAction } from "./../store/actions";
 
 const { Option } = Select;
 
 const BasicInfo = ({ mode, id, handleImageUpload }) => {
-  const isEdit = mode === 'edit';
+  const isEdit = mode === "edit";
   const [form] = Form.useForm();
   const [selectedAccessRole, setSelectedAccessRole] = useState([]);
   const [userSelectedAccessRole, setUserSelectedAccessRole] = useState([]);
   const [updateProfileImage, setUpdateProfileImage] = useState(null);
 
   const initialState = {
-    coverImageId: '',
-    userTypeId: '',
+    coverImageId: "",
+    userTypeId: "",
     titleId: 1,
-    firstName: '',
-    lastName: '',
-    fatherName: '',
-    email: '',
-    personalEmail: '',
-    nic: '',
-    phoneNo: '',
+    firstName: "",
+    lastName: "",
+    fatherName: "",
+    email: "",
+    personalEmail: "",
+    nic: "",
+    phoneNo: "",
     designationId: [],
     managerId: [],
     gradesId: [],
     countryId: [],
     cityId: [],
-    probationPeriod: '',
-    birthDate: '',
-    joinDate: '',
+    probationPeriod: "",
+    birthDate: "",
+    joinDate: "",
     genderId: [],
     maritalStatusId: [],
     officeTimingId: [],
@@ -120,7 +120,7 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
       return false;
     });
 
-    const selectedRoleIds = form.getFieldValue('accessRoles');
+    const selectedRoleIds = form.getFieldValue("accessRoles");
     const unselectedRoles = filteredRoles.filter(
       (role) => !selectedRoleIds?.includes(role?.id)
     );
@@ -150,8 +150,8 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
     <Form.Item name="titleId" className="titleSelect">
       <Select
         style={{
-          padding: '0',
-          width: '4.5rem',
+          padding: "0",
+          width: "4.5rem",
           marginBottom: 0,
         }}
         getPopupContainer={(trigger) => trigger.parentNode}
@@ -166,7 +166,7 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
   );
 
   useEffect(() => {
-    fetchEmployees('', 0);
+    fetchEmployees("", 0);
     getDepartment();
     dispatch(getAllBranch());
     dispatch(getAllBranchOffice());
@@ -175,7 +175,7 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
     if (isEdit) {
       dispatch(getUserBasicInfo(id));
       if (!countries.length) dispatch(getCountries());
-      if (!cities.length) fetchCityData('', 0);
+      if (!cities.length) fetchCityData("", 0);
       if (!designations.length) dispatch(getAllDesignation());
       if (!grades.length) dispatch(getAllGrades());
       if (!officeTimingGroups?.length) dispatch(getAllOfficeTimingGroups());
@@ -201,25 +201,25 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
       setInitialValues({
         ...basicdetails,
         image: image,
-        birthDate: basicdetails.birthDate ? moment(basicdetails.birthDate) : '',
+        birthDate: basicdetails.birthDate ? moment(basicdetails.birthDate) : "",
         joinDate: moment(basicdetails.joinDate),
         accessRoles: basicdetails?.accessRoles?.map((role) => {
           return role.accessRole;
         }),
         officeTimingId:
           basicdetails.officeTimingId === STRINGS.DEFAULTS.guid
-            ? ''
+            ? ""
             : basicdetails.officeTimingId,
         managerId: basicdetails.managerId
           ? basicdetails.managerId
           : STRINGS.DEFAULTS.guid,
         countryId:
           basicdetails.countryId === STRINGS.DEFAULTS.guid
-            ? ''
+            ? ""
             : basicdetails.countryId,
         cityId:
           basicdetails.cityId === STRINGS.DEFAULTS.guid
-            ? ''
+            ? ""
             : basicdetails.cityId,
       });
     }
@@ -229,12 +229,12 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
     form.setFieldsValue(initialValues);
   }, [initialValues, form]);
 
-  Object.defineProperty(form, 'values', {
+  Object.defineProperty(form, "values", {
     value: function() {
       return {
         ...form.getFieldsValue(),
-        birthDate: moment(form.getFieldValue('birthDate')._ds).format(),
-        joinDate: moment(form.getFieldValue('joinDate')._ds).format(),
+        birthDate: moment(form.getFieldValue("birthDate")._ds).format(),
+        joinDate: moment(form.getFieldValue("joinDate")._ds).format(),
       };
     },
     writable: true,
@@ -276,8 +276,8 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
             accessRoles: payloadRoles,
             image: image,
             id: id,
-            birthDate: moment(form.getFieldValue('birthDate')._ds).format(),
-            joinDate: moment(form.getFieldValue('joinDate')._ds).format(),
+            birthDate: moment(form.getFieldValue("birthDate")._ds).format(),
+            joinDate: moment(form.getFieldValue("joinDate")._ds).format(),
             probationPeriod: parseInt(payload.probationPeriod),
             noticePeriod: isEdit ? 30 : parseInt(payload.noticePeriod),
           };
@@ -295,8 +295,8 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
     }
   };
 
-  let classes = 'employeeForm basicInfo ';
-  classes += Direction === 'ltr' ? 'ltr' : 'rtl';
+  let classes = "employeeForm basicInfo ";
+  classes += Direction === "ltr" ? "ltr" : "rtl";
 
   return (
     <div className={classes}>
@@ -304,13 +304,13 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
       <Form
         name="basicInfo"
         form={form}
-        layout={'vertical'}
+        layout={"vertical"}
         initialValues={initialValues}
       >
         <Form.Item
           area="true"
           style={{
-            gridArea: '1/-2 / span 2 / span 1',
+            gridArea: "1/-2 / span 2 / span 1",
           }}
         >
           <SingleUpload
@@ -320,7 +320,7 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
             position="flex-start"
             uploadText={labels.upload}
             multiple={false}
-            url={basicdetails.image || ''}
+            url={basicdetails.image || ""}
           />
         </Form.Item>
         <Form.Item
@@ -353,7 +353,7 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
               required: true,
             },
             {
-              type: 'email',
+              type: "email",
             },
           ]}
           name="email"
@@ -367,7 +367,7 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
               required: true,
             },
             {
-              type: 'email',
+              type: "email",
             },
           ]}
           name="personalEmail"
@@ -379,7 +379,12 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
           <Input type="number" min={0} placeholder={placeholder.phNo}></Input>
         </Form.Item>
         <Form.Item name="nic" label={labels.CNICNumber}>
-          <Input type="number" min={0} placeholder={placeholder.cnicNo}></Input>
+          <Input
+            type="number"
+            min={0}
+            onWheel={(e) => e.target.blur()}
+            placeholder={placeholder.cnicNo}
+          ></Input>
         </Form.Item>
         <Form.Item
           rules={[{ required: true }]}
@@ -404,12 +409,12 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
             optionFilterProp="children"
             value={isEdit && basicdetails.manager?.id}
             filterOption={(input, option) =>
-              (option?.label ?? '').includes(input)
+              (option?.label ?? "").includes(input)
             }
             filterSort={(optionA, optionB) =>
-              (optionA?.label ?? '')
+              (optionA?.label ?? "")
                 .toLowerCase()
-                .localeCompare((optionB?.label ?? '').toLowerCase())
+                .localeCompare((optionB?.label ?? "").toLowerCase())
             }
           >
             {firstTimeEmpData.map((item) => (
@@ -455,22 +460,21 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
         <CitySelect
           data={cities}
           selectedData={(val) => {
-            console.log('val', val);
+            console.log("val", val);
           }}
           canFetchNow={cities && cities.length > 0}
           fetchData={fetchCityData}
-          value={isEdit ? basicdetails.city : basicdetails.cityId}
           optionComponent={(opt) => {
             return (
               <>
                 <Avatar src={opt.image} className="!bg-black">
                   {getNameForImage(opt.name)}
                 </Avatar>
-                {opt.name + ' - ' + opt.country}
+                {opt.name + " - " + opt.country}
               </>
             );
           }}
-          defaultKey={'id'}
+          defaultKey={"id"}
           isObject={true}
           placeholder={placeholder.searchToSelect}
           size="large"
@@ -478,13 +482,30 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
           label={labels.City}
         />
 
-        <Form.Item name="probationPeriod" label={labels.ProbationPeriod}>
+        <Form.Item
+          name="probationPeriod"
+          label={labels.ProbationPeriod}
+          rules={[
+            { required: true, message: "Please input your Probation Period!" },
+            {
+              validator: (rule, value) => {
+                if (value < 1 || value > 30) {
+                  return Promise.reject(
+                    "Probation period must be between 1 and 30"
+                  );
+                }
+                return Promise.resolve();
+              },
+            },
+          ]}
+        >
           <Input
             placeholder={placeholder.probPeriod}
             size="large"
-            type={'number'}
-            step={'1'}
+            type={"number"}
+            step={"1"}
             min={1}
+            onWheel={(e) => e.target.blur()}
           />
         </Form.Item>
         {!isEdit && (
@@ -496,9 +517,9 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
             <Input
               placeholder={placeholder.noticePeriod}
               size="large"
-              type={'number'}
+              type={"number"}
               min={1}
-              step={'1'}
+              step={"1"}
             />
           </Form.Item>
         )}
@@ -507,7 +528,7 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
             getPopupContainer={(trigger) => trigger.parentNode}
             placeholder={placeholder.selectDate}
             size="large"
-            format={'DD/MM/YYYY'}
+            format={"DD/MM/YYYY"}
           />
         </Form.Item>
         <Form.Item name="joinDate" label={labels.DateOfJoining}>
@@ -515,7 +536,7 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
             getPopupContainer={(trigger) => trigger.parentNode}
             placeholder={placeholder.selectDate}
             size="large"
-            format={'DD/MM/YYYY'}
+            format={"DD/MM/YYYY"}
           />
         </Form.Item>
         <Form.Item
@@ -555,7 +576,7 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
             placeholder={placeholder.selectShift}
             getPopupContainer={(trigger) => trigger.parentNode}
             filterOption={(input, option) =>
-              (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+              (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
             }
             options={(officeTimingGroups || [])?.map((item) => {
               return {
@@ -577,6 +598,7 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
             min={0}
             placeholder={placeholder.empNo}
             size="large"
+            onWheel={(e) => e.target.blur()}
           />
         </Form.Item>
         <Form.Item name="employmentTypeId" label={labels.EmploymentType}>
@@ -636,7 +658,7 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
                     accessRoles: [],
                   });
                 }
-                const selectedRoleIds = form.getFieldValue('accessRoles');
+                const selectedRoleIds = form.getFieldValue("accessRoles");
                 const unselectedRoles = filteredRoles.filter(
                   (role) => !selectedRoleIds.includes(role.id)
                 );
@@ -668,13 +690,13 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
               ({ getFieldValue }) => ({
                 validator(_, value) {
                   if (
-                    getFieldValue('userTypeId') === userTypeEnum.Admin ||
+                    getFieldValue("userTypeId") === userTypeEnum.Admin ||
                     (value && value.length > 0)
                   ) {
                     return Promise.resolve();
                   }
                   return Promise.reject(
-                    'Please select at least one access role.'
+                    "Please select at least one access role."
                   );
                 },
               }),
@@ -688,7 +710,7 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
               showSearch={true}
               mode="multiple"
               filterOption={(input, option) =>
-                (option?.label ?? '')
+                (option?.label ?? "")
                   .toLowerCase()
                   .includes(input.toLowerCase())
               }
@@ -754,7 +776,7 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
               onChange={() => setShowSubsidary((prev) => !prev)}
               optionFilterProp="children"
               filterOption={(input, option) =>
-                (option?.label ?? '')
+                (option?.label ?? "")
                   .toLowerCase()
                   .includes(input.toLowerCase())
               }
@@ -793,7 +815,7 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
                 // console.log(value);
               }}
               filterOption={(input, option) =>
-                (option?.label ?? '')
+                (option?.label ?? "")
                   .toLowerCase()
                   .includes(input.toLowerCase())
               }
@@ -820,7 +842,7 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
         )}
       </Form>
 
-      <div className={isEdit ? 'editButtons' : 'buttons'}>
+      <div className={isEdit ? "editButtons" : "buttons"}>
         {isEdit && (
           <Button
             className="btn ThemeBtn"

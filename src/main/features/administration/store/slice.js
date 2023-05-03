@@ -1,15 +1,28 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
+import { GetAllWizard,seenWizard } from "./action";
 
 const initialState = {
   currentTab: "businessLogo",
+  handleModal: null,
 };
 const adminstrationSlice = createSlice({
-  name: "careers",
+  name: "adminstrationSlice",
   initialState,
   reducers: {
     handleChangeTab: (state, { payload: tab }) => {
       state.currentTab = tab;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(GetAllWizard.fulfilled, (state, action) => {
+      console.log(action.payload, "SLICEDATA");
+      state.handleModal = action.payload;
+    });
+
+    builder.addCase(seenWizard.fulfilled, (state, action) => {
+      console.log(action.payload, "SLICEDATA");
+      state.handleModal = action.payload;
+    });
   },
 });
 

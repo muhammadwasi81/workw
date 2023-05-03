@@ -1,40 +1,30 @@
-import { Drawer } from 'antd';
-import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { handleItemDetailModal } from '../../../../utils/Shared/store/slice';
-import DetailModal from '../../../sharedComponents/ItemDetails';
+import { Drawer } from "antd";
+import React, { useState } from "react";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { handleItemDetailModal } from "../../../../utils/Shared/store/slice";
+import DetailModal from "../../../sharedComponents/ItemDetails";
 import {
   addGroupMemberAction,
   deleteGroupMemberAction,
-} from '../store/actions';
-import { getGroupDetailById, handleComposer, addMember } from '../store/slice';
-import MemberModal from '../view/Modal/MemberModal';
+} from "../store/actions";
+import { getGroupDetailById, handleComposer, addMember } from "../store/slice";
+import MemberModal from "../view/Modal/MemberModal";
 
 const ContentOptions = ({ handleClose, data }) => {
   const params = useParams();
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
-  const { isComposerOpen, groupDetail, isEditComposer } = useSelector(
-    (state) => state.groupSlice
-  );
+
   const { groupDetailid } = params;
 
   const handleUpdate = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    // getDetailById(data.id);
     dispatch(getGroupDetailById(data.id));
     dispatch(handleComposer({ isOpen: true, isEdit: true }));
     handleClose(false);
   };
-  // const handleOpenMembers = (e) => {
-  //   e.preventDefault();
-  //   e.stopPropagation();
-  //   setVisible(true);
-  //   dispatch(addMember({ status: true }));
-  //   handleClose(false);
-  // };
 
   const handleOpenMembers = (e) => {
     e.preventDefault();
@@ -91,6 +81,8 @@ const ContentOptions = ({ handleClose, data }) => {
             onDelete={onDelete} // define and pass onDeletemember actions of particular members
             isSearch={false} //Pass true if you want to search the list
             openModal={true} // pass true if you want to open member details in modal other wise it display in listing
+            visible={visible}
+            setVisible={(da) => setVisible(da)}
           />
         }
       </div>

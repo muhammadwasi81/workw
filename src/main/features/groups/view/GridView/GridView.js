@@ -23,11 +23,9 @@ function GridView({
     isEditComposer,
     drawerOpen,
   } = useSelector((state) => state.groupSlice);
-  console.log(isComposerOpen, "isComposerOpen");
   const handleEditComposer = () => {
     dispatch(handleComposer({ isOpen: false, isEdit: false }));
   };
-  console.log(data, "dataa");
   return (
     <CardWrapper2>
       {data &&

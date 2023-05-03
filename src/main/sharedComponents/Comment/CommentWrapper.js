@@ -1,11 +1,20 @@
-import { useEffect, useState } from 'react';
-import { Skeleton } from 'antd';
-import { useDispatch, useSelector } from 'react-redux';
-import { STRINGS } from '../../../utils/base';
-import { addReaction } from '../../features/feed/store/actions';
-import CommentItem from './commentItem';
-import CommentComposer from './Composer';
-import { getAllComment } from './services';
+import { useEffect, useState } from "react";
+import { Skeleton } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { STRINGS } from "../../../utils/base";
+import { addReaction } from "../../features/feed/store/actions";
+import CommentItem from "./commentItem";
+import CommentComposer from "./Composer";
+import { getAllComment } from "./services";
+import { ReactionType } from "../../features/feed/utils/constants";
+import {
+  addCommentsReaction,
+  addFeedReaction,
+} from "../../features/feed/store/slice";
+import {
+  defaultUiid,
+  ReactionModuleEnum,
+} from "../../../utils/Shared/enums/enums";
 
 function CommentWrapper({
   initailComments = [],
@@ -19,22 +28,23 @@ function CommentWrapper({
   loadSkeleton = false,
   showComments = true,
   isDetailViewOpen = true,
-  reactionModule,
+  reactionModule = ReactionModuleEnum.FeedComment,
+  myReaction,
+  isDetail = false,
+
   setShowComments = () => {},
 }) {
   const [comments, setComments] = useState([]);
-  const [likeClass, setLikeClass] = useState('hello boy');
+  const [likeClass, setLikeClass] = useState("hello boy");
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.userSlice);
-  console.log('user', user);
   useEffect(() => {
     const newResponse = initailComments?.map((it) => {
       return {
         ...it,
-        cssClass: 'no',
+        cssClass: "no",
       };
     });
-    // console.log(newResponse, "newresponse");
     setComments([...newResponse]);
   }, [JSON.stringify(initailComments)]);
 
@@ -48,23 +58,52 @@ function CommentWrapper({
   };
 
   if (comments.length === 0 && loadSkeleton) return <Skeleton active />;
+  console.log(comments, "commentss");
 
-  const handleAddReaction = (id) => {
-    console.log('id', id);
-    dispatch(
-      addReaction({
-        referenceId: id,
-        reactionModule: 3,
-        reactionType: 1,
-      })
-    );
+  const handleAddReaction = (myReaction, id, commentId) => {
+    if (myReaction === ReactionType.NoReaction) {
+      dispatch(
+        addCommentsReaction({
+          referenceId: id,
+          reactionModule: ReactionModuleEnum.FeedComment,
+          ReactionType: ReactionType.NoReaction,
+          isDetail,
+          id: commentId,
+        })
+      );
+      dispatch(
+        addReaction({
+          referenceId: id,
+          reactionModule: ReactionModuleEnum.FeedComment,
+          reactionType: ReactionType.NoReaction,
+        })
+      );
+      return;
+    } else {
+      dispatch(
+        addCommentsReaction({
+          referenceId: id,
+          reactionModule: ReactionModuleEnum.FeedComment,
+          reactionType: myReaction,
+          isDetail,
+          id: commentId,
+        })
+      );
+      dispatch(
+        addReaction({
+          referenceId: id,
+          reactionModule: ReactionModuleEnum.FeedComment,
+          reactionType: myReaction,
+        })
+      );
+    }
     //todo set className for comments
     const updatedComments = comments.map((item) => {
       // console.log(item);
       if (item.id === id) {
         return {
           ...item,
-          cssClass: 'liked',
+          cssClass: "liked",
         };
       } else {
         return item;
@@ -93,7 +132,7 @@ function CommentWrapper({
               type,
               comment,
               creator = {
-                designation: user.designation || '',
+                designation: user?.designation || "",
                 name: user.name,
                 image: user.userImage,
               },
@@ -107,6 +146,7 @@ function CommentWrapper({
               reactionCount,
               cssClass,
               mentions,
+              myReaction,
             }) => {
               const { designation, name, image } = creator;
               return (
@@ -126,6 +166,7 @@ function CommentWrapper({
                     createDate,
                     youLikeType: 0,
                     likeCounter: 0,
+                    reactionModule,
                     reactionCount,
                     creator: {
                       name,
@@ -137,6 +178,7 @@ function CommentWrapper({
                     attachmentFile,
                     cssClass: cssClass,
                     mentions: mentions,
+                    myReaction: myReaction,
                   }}
                 />
               );

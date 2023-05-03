@@ -1,11 +1,10 @@
-import { useContext, useState } from 'react';
-import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
-import { dictionaryList } from '../../../../utils/localization/languages';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { disableEmployee } from '../../../../utils/Shared/store/actions';
-import { Popconfirm } from 'antd';
-import { EmployeeDisableFilterEnum } from '../util/EmployeeEnum';
+import { useContext, memo } from "react";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import { dictionaryList } from "../../../../utils/localization/languages";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { disableEmployee } from "../../../../utils/Shared/store/actions";
+import { Popconfirm } from "antd";
 import {
   ActionButton,
   ButtonsBox,
@@ -14,15 +13,14 @@ import {
   ImageBox,
   Parent,
   Text,
-} from '../Styles/employeeCard.styles';
-import PropTypes from 'prop-types';
-
+} from "../Styles/employeeCard.styles";
+import PropTypes from "prop-types";
+import userAvatar from "../../../../content/png/userAvatar.jpg";
+import { userTypeEnum } from "../../../../utils/Shared/enums/enums";
+import { removeDisabledEmployee } from "../../../../utils/Shared/store/slice";
 function EmployeeCard({
-  employees: { image, name, email, designation, id, isDisable },
-  filterType,
+  employees: { image, name, email, designation, id, isDisable, userTypeId },
 }) {
-  // console.log(filterType, 'filterType');
-  const [disabled, setDisabled] = useState(isDisable);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -32,15 +30,12 @@ function EmployeeCard({
     console.log(e);
     e.preventDefault();
     e.stopPropagation();
-    // console.log({ userId: id, status: 'DISABLED' });
     const payload = {
       userId: id,
-      isDisable:
-        filterType === EmployeeDisableFilterEnum.Disable ? true : false,
-      // isDisable: !disabled,
+      isDisable: isDisable === true ? false : true,
     };
     dispatch(disableEmployee(payload));
-    setDisabled(!disabled);
+    dispatch(removeDisabledEmployee(id));
   };
 
   const cancel = (e) => {
@@ -49,52 +44,32 @@ function EmployeeCard({
 
   return (
     <Parent>
-      <ImageBox
-        src={
-          image
-            ? image
-            : 'https://konnect.im/static/media/user_default.22b0811e.jpg'
-        }
-        alt="logo"
-        loading="lazy"
-      />
+      <ImageBox src={image ? image : userAvatar} alt="logo" loading="lazy" />
       <ContentBox>
         <Heading>{name}</Heading>
         <Text>{email}</Text>
         <Text>
-          <strong>{designation || 'No Designation'}</strong>
+          <strong>{designation || "No Designation"}</strong>
         </Text>
         <ButtonsBox>
-          <Popconfirm
-            title={
-              filterType === EmployeeDisableFilterEnum.Disable
-                ? 'Are you sure to enable this employee'
-                : 'Are you sure to disable this employee'
-            }
-            description="Are you sure to disable this employee?"
-            onConfirm={confirm}
-            onCancel={cancel}
-            okText="Yes"
-            cancelText="No"
-          >
-            <ActionButton
-              BackgroundColor={
-                filterType === 0
-                  ? '#01ae3a'
-                  : disabled && filterType === 2
-                  ? '#4BB543'
-                  : '#db5252'
+          {userTypeId !== userTypeEnum.SuperAdmin ? (
+            <Popconfirm
+              title={
+                isDisable === true
+                  ? "Are you sure to enable this employee"
+                  : "Are you sure to disable this employee"
               }
-              // BackgroundColor={filterType === 0 ? '#01ae3a' : '#db5252'}
+              description="Are you sure to disable this employee?"
+              onConfirm={confirm}
+              onCancel={cancel}
+              okText="Yes"
+              cancelText="No"
             >
-              {/* {filterType === 0 ? 'Enable' : sharedLabels.Disable} */}
-              {filterType === 0
-                ? 'Enable'
-                : disabled && filterType === 2
-                ? 'Enable'
-                : sharedLabels.Disable}
-            </ActionButton>
-          </Popconfirm>
+              <ActionButton BackgroundColor={isDisable ? "#01ae3a" : "#db5252"}>
+                {isDisable ? "Enable" : sharedLabels.Disable}
+              </ActionButton>
+            </Popconfirm>
+          ) : null}
           <ActionButton
             onClick={() => {
               navigate(`info/basicInfo/${id}`);
@@ -121,4 +96,4 @@ EmployeeCard.propTypes = {
   filterType: PropTypes.number,
 };
 
-export default EmployeeCard;
+export default memo(EmployeeCard);

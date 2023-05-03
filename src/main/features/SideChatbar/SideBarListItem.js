@@ -1,3 +1,4 @@
+import { Badge } from "antd";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -26,6 +27,7 @@ export const SideBarListItem = ({ item }) => {
       lastMessage: "",
     },
     lastUpdate = "",
+    messageCount = 0
   } = item;
 
   // TODO: Conditionally get profileImage & profileName behalf of ChatId
@@ -62,7 +64,9 @@ export const SideBarListItem = ({ item }) => {
   return (
     <div className="sideBarListItem" onClick={handleItemClick}>
       <div className="sideBarListAvatar" >
-        <Avatar src={profileImage} name={profileName} size={35} round={true}  />
+      <Badge count={messageCount} >
+        <Avatar src={profileImage} name={profileName} size={35} round={true} status={chatWith?.userActiveStatus}  />
+        </Badge>
       </div>
       <div className={`sideBarListName ${sideBarChatIsDefault ? "hideMe" : !sideBarStatus ? "hideSideBarItem" : "unHideSideBarItem"}`}>
         {profileName}

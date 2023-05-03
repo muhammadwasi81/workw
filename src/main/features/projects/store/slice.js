@@ -28,7 +28,9 @@ const initialState = {
   removeMemberSucess: false,
   projectFeature: [],
   drawerOpen: false,
-  projectSticky: {},
+  projectSticky: {
+    description: "",
+  },
 };
 
 const projectSlice = createSlice({
@@ -97,6 +99,11 @@ const projectSlice = createSlice({
         (feature) => feature.featureId !== payload.featureId
       );
     },
+    // handleOpenSticky(state, { payload }) {
+    //   console.log(payload, "payloaddd");
+    //   let openStickyId = payload;
+    //   state.openSticky = openStickyId;
+    // },
     targetStickyDescription(state, { payload }) {
       const value = payload;
     },
@@ -126,15 +133,15 @@ const projectSlice = createSlice({
         state.success = true;
       })
       .addCase(saveStickyproject.fulfilled, (state, { payload }) => {
-        console.log(payload.data, "payloadddd");
-
-        state.loader = false;
-        state.success = true;
         state.projectSticky = payload.data;
       })
       .addCase(getProjectSticky.fulfilled, (state, { payload }) => {
-        console.log(payload, "payloadd");
-        state.projectSticky = payload.data;
+        //TODO: array length check will be change when they convert this array into obj
+        if (payload.data) {
+          state.projectSticky = payload.data;
+        } else {
+          state.projectSticky = { description: "" };
+        }
       })
 
       .addCase(getAllProjectMemberAction.fulfilled, (state, action) => {

@@ -14,7 +14,7 @@ export default function ApprovalActions({ item }) {
   const defaultFilter = {
     pageNo: 0,
     search: "",
-    status: [1],
+    status: [ApprovalStatus.InProcess],
   };
   const handleAction = (e, status) => {
     e.preventDefault();
@@ -39,15 +39,17 @@ export default function ApprovalActions({ item }) {
       dispatch(getAllApproval(defaultFilter));
     }
   };
+  
   const onClose = () => {
     setIsOpen(false);
   };
+
   const onFinish = (values) => {
     let remarks = values.remarks;
     createRemark(currentStatus, remarks);
     setIsOpen(false);
   };
-  
+
   return (
     <div className="approval_item_status">
       <div
@@ -68,7 +70,7 @@ export default function ApprovalActions({ item }) {
       >
         Hold
       </div>
-      
+
       <ConfirmationRemarkModal
         isOpen={isOpen}
         onCancel={onClose}

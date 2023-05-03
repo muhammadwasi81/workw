@@ -1,9 +1,9 @@
-import './stylesheet/Post.css';
-import PostHeader from './views/PostHeader';
-import PostSection from './views/PostSection';
-import PostFooter from './views/PostFooter';
-import { useState } from 'react';
-import CommentComposer from '../../../../../sharedComponents/Comment/Composer';
+import "./stylesheet/Post.css";
+import PostHeader from "./views/PostHeader";
+import PostSection from "./views/PostSection";
+import PostFooter from "./views/PostFooter";
+import { useState } from "react";
+import CommentComposer from "../../../../../sharedComponents/Comment/Composer";
 
 const Post = ({
   post = { attachments: [] },
@@ -31,7 +31,6 @@ const Post = ({
     reactionCount,
     myReaction,
   } = post;
-  console.log('post file index', comments);
   return (
     <div className="post">
       <PostHeader

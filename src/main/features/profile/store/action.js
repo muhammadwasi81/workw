@@ -14,6 +14,7 @@ import {
   addRatingService,
   saveProfileStickyNote,
   getProfileStickyNote,
+  getEmployeeProfileByIdService,
 } from "../service/service";
 
 export const addEmployeeAction = createAsyncThunk(
@@ -165,16 +166,28 @@ export const saveSticyNotes = createAsyncThunk(
   }
 );
 
-export const getSticyNotes = createAsyncThunk(`getStickyNote`, async (data) => {
-  try {
-    const response = await getProfileStickyNote(data);
-    if (!response.data) {
-      message.error(response.data.message);
+export const getStickyNotes = createAsyncThunk(
+  `getStickyNote`,
+  async (data) => {
+    try {
+      const response = await getProfileStickyNote(data);
+      if (!response.data) {
+        message.error(response.data.message);
+      }
+      return response.data;
+    } catch (error) {
+      throw new Error(`Error in Sticky Notes: ${error}`, {
+        cause: error,
+      });
     }
-    return response.data;
-  } catch (error) {
-    throw new Error(`Error in Sticky Notes: ${error}`, {
-      cause: error,
-    });
   }
-});
+);
+
+export const getEmployeeProfileById = createAsyncThunk(
+  `Employee/getEmployeeProfileById`,
+  async (id) => {
+    const response = await getEmployeeProfileByIdService(id);
+    console.log(response.data, "getEmployeeProfileById actions");
+    return response.data;
+  }
+);

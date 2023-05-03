@@ -1,17 +1,17 @@
-import React, { useContext } from 'react';
-import { ExpenseDictionary } from '../localization';
-import { LanguageChangeContext } from '../../../../utils/localization/localContext/LocalContext';
-import UserInfo from '../../../sharedComponents/UserShortInfo/UserInfo';
-import SublineDesigWithTime from '../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime';
-import { BiWorld } from 'react-icons/bi';
-import moment from 'moment';
-import { expenseCategory } from '../enums/expenseCategory';
-import Avatar from '../../../sharedComponents/Avatar/avatar';
-import { getStatusLabelAndColor } from '../../../sharedComponents/AppComponents/Approvals/enums';
-import { ApprovalDictionary } from '../../../sharedComponents/AppComponents/Approvals/localization';
-import Attachments from '../../travel/view/UI/Attachments';
-import { referenceHandler } from './utils';
-import '../style/style.css';
+import React, { useContext } from "react";
+import { ExpenseDictionary } from "../localization";
+import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
+import UserInfo from "../../../sharedComponents/UserShortInfo/UserInfo";
+import SublineDesigWithTime from "../../../sharedComponents/UserShortInfo/SubLine/DesigWithTime";
+import { BiWorld } from "react-icons/bi";
+import moment from "moment";
+import { expenseCategory } from "../enums/expenseCategory";
+import Avatar from "../../../sharedComponents/Avatar/avatar";
+import { getStatusLabelAndColor } from "../../../sharedComponents/AppComponents/Approvals/enums";
+import { ApprovalDictionary } from "../../../sharedComponents/AppComponents/Approvals/localization";
+import Attachments from "../../travel/view/UI/Attachments";
+import { referenceHandler } from "./utils";
+import "../style/style.css";
 
 function ExpenseList({
   onExpense = () => {},
@@ -32,6 +32,7 @@ function ExpenseList({
     description,
     amount,
     categoryId,
+    creator,
     header,
     approvers,
     executors,
@@ -40,10 +41,10 @@ function ExpenseList({
   } = expense;
 
   const { labels } = ExpenseDictionaryList;
-  let classes = 'expenseCard ';
-  classes += Direction === 'rtl' ? 'rtl' : '';
+  let classes = "expenseCard ";
+  classes += Direction === "rtl" ? "rtl" : "";
   const category = expenseCategory.filter((cate) => cate.id === categoryId)[0];
-  const { label, color } = getStatusLabelAndColor('', statusLabels)[
+  const { label, color } = getStatusLabelAndColor("", statusLabels)[
     updateStatus || status
   ];
 
@@ -54,6 +55,8 @@ function ExpenseList({
           <UserInfo
             avatarSrc={image}
             name={name}
+            status={creator.userActiveStatus}
+            profileId={creator.id}
             Subline={
               <SublineDesigWithTime
                 designation={designation}
@@ -78,7 +81,7 @@ function ExpenseList({
             key={{ data: attachments }}
             toShow={1}
             onClick={() => {}}
-            size={'50px'}
+            size={"50px"}
           />
         </div>
         <div className="expensedetail">
@@ -88,7 +91,14 @@ function ExpenseList({
                 {category.image}
                 {category.name}
               </span>
-              <span className="secondaryTag">{label}</span>
+              {/* <span className="secondaryTag">{label}</span> */}
+              {expense.referenceType !== 1 ? (
+                <div className="referenceType bg-gray-300 rounded-md h-[34px] w-[80px] border border-[#526bb1] text-center text-[#526bb1]">
+                  <span className="text-gray-500 text-xs">
+                    {referenceHandler(expense.referenceType) || "N/A"}
+                  </span>
+                </div>
+              ) : null}
             </div>
             <div className="right">
               <p>Rs. {amount}</p>
@@ -97,7 +107,7 @@ function ExpenseList({
           <div className="expensedetail__footer">
             <div className="left">
               <span>{labels.expenseDate}</span>
-              <span> {moment(expenseDate).fromNow()}</span>
+              <span> {moment(expenseDate).format("DD MMM YYYY")}</span>
             </div>
             <div className="right">
               <span>{labels.header}:</span>
@@ -115,10 +125,10 @@ function ExpenseList({
                 <Avatar
                   isAvatarGroup={true}
                   isTag={false}
-                  heading={'approvers'}
+                  heading={"approvers"}
                   membersData={approvers}
-                  text={'Danish'}
-                  image={'https://joeschmoe.io/api/v1/random'}
+                  text={"Danish"}
+                  image={"https://joeschmoe.io/api/v1/random"}
                 />
               </div>
             </div>
@@ -128,10 +138,10 @@ function ExpenseList({
                 <Avatar
                   isAvatarGroup={true}
                   isTag={false}
-                  heading={'approvers'}
+                  heading={"approvers"}
                   membersData={executors}
-                  text={'Danish'}
-                  image={'https://joeschmoe.io/api/v1/random'}
+                  text={"Danish"}
+                  image={"https://joeschmoe.io/api/v1/random"}
                 />
               </div>
             </div>
@@ -141,18 +151,18 @@ function ExpenseList({
                 <Avatar
                   isAvatarGroup={true}
                   isTag={false}
-                  heading={'approvers'}
+                  heading={"approvers"}
                   membersData={financers}
-                  text={'Danish'}
-                  image={'https://joeschmoe.io/api/v1/random'}
+                  text={"Danish"}
+                  image={"https://joeschmoe.io/api/v1/random"}
                 />
               </div>
             </div>
             <div className="card-column-item">
-              <div className="column-item-head">{labels.type}</div>
-              <div className="referenceType bg-gray-300 rounded-md h-[34px] w-[80px] px-2">
-                {referenceHandler(expense.referenceType) || 'N/A'}
-              </div>
+              {/* <div className="column-item-head">{labels.type}</div> */}
+              {/* <div className="referenceType bg-gray-300 rounded-md h-[34px] w-[80px] px-2">
+                {referenceHandler(expense.referenceType) || "N/A"}
+              </div> */}
             </div>
           </div>
         </div>

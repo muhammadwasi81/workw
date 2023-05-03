@@ -7,6 +7,7 @@ import SublineDesigWithTime from "../../../sharedComponents/UserShortInfo/SubLin
 import { getNameForImage } from "../../../../utils/base";
 import StatusTag from "../../../sharedComponents/Tag/StatusTag";
 import DefaultIcon from "../../../../content/NewContent/leaves/Leaves.svg";
+import { getAllLeaveType } from "../leaveType/store/actions";
 import moment from "moment";
 import {
   ItemContent,
@@ -15,10 +16,17 @@ import {
 } from "../../../sharedComponents/Card/CardStyle";
 import Avatar from "../../../sharedComponents/Avatar/avatar";
 import Attachments from "../../travel/view/UI/Attachments";
+import { useSelector, useDispatch } from "react-redux";
+
 
 function ListItem(props) {
+  const dispatch = useDispatch();
   const { userLanguage } = useContext(LanguageChangeContext);
   const { Direction, leaveDictionary } = leaveDictionaryList[userLanguage];
+  const { leaveTypes, success } = useSelector((state) => state.leaveTypeSlice);
+  // console.log(leaveTypes.map((item)=>{
+  //   <h1>{item ? item.defaultAllotLeaves:''}</h1>
+  // }),"leavesssss");
 
   const {
     creator,
@@ -35,21 +43,31 @@ function ListItem(props) {
     attachments,
   } = props.item;
 
+  console.log(props.item,"propsitem");
+
+  // useEffect(() => {
+  //   dispatch(getAllLeaveType());
+  // }, []);
+
   var a = moment(startDate);
   var b = moment(endDate);
   const days = b.diff(a, "days");
 
+console.log(days,"dayssssss");
+console.log(status,"status");
   return (
     <SingleItem onClick={props.onClick}>
       <div className="new" id={props.id}></div>
       <ItemHeader>
         <div className="left">
           <UserInfo
-            avatarSrc={creator.image}
-            name={creator.name}
+            avatarSrc={creator?.image}
+            name={creator?.name}
+            status={creator?.userActiveStatus}
+            profileId={creator?.id}
             Subline={
               <SublineDesigWithTime
-                designation={creator.designation}
+                designation={creator?.designation}
                 time={moment
                   .utc(createDate)
                   .local()

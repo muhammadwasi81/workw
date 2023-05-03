@@ -45,13 +45,12 @@ function Header({ dictionary, direction }) {
 
   const buttons = [
     {
-      buttonText: email,
-      onClick: () => {
-        dispatch(handleComposeEmail(true));
-      },
-      icon: <MailOutlined />,
+      // buttonText: email,
+      // onClick: () => {
+      //   dispatch(handleComposeEmail(true));
+      // },
+      // icon: <MailOutlined />,
     },
-
     {
       render: (
         <SideDrawer

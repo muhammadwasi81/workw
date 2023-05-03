@@ -1,75 +1,49 @@
-import React, { useEffect } from "react";
-import { notification } from "antd";
+import { useState, useEffect, memo } from "react";
 import { useSelector } from "react-redux";
-import { CloseCircleOutlined } from "@ant-design/icons";
-import messageTune from "../../../content/audio/messageTune.mp3";
-import Avatar from "../../sharedComponents/Avatar/avatarOLD";
-
-const getAvatar = (src, name) => {
-	if(src || name){
-		return <Avatar
-		src={src}
-		name={name || "Anonymous"}
-		size={38}
-		round={true}
-		contStyle={{ marginTop: "-10px", marginLeft: "-10px" }}
-	/>
-	}else{
-		return <></>
-	}
-}
-
-const openNotification = options => {
-	const {
-		title = "",
-		message = "",
-		direction = "bottomLeft",
-		duration = 4,
-		onClick = () => {},
-		className = "defaultNotification",
-		style = {},
-		closeIcon = (
-			<CloseCircleOutlined
-				twoToneColor="#fffff"
-				style={{ fontSize: "20px", color: "white" }}
-			/>
-		),
-		playSound = false,
-		soundTune = messageTune,
-		type,
-		icon,
-		avatarImage,
-		avatarName
-	} = options;
-	notification.open({
-		message: title,
-		description: message,
-		placement: direction,
-		duration,
-		onClick,
-		style,
-		className:
-			className +
-			(type === "success"
-				? " !bg-[#4CAF50]"
-				: type === "error"
-				? " !bg-[#f44336]"
-				: ""),
-		closeIcon,
-		icon: icon || getAvatar(avatarImage, avatarName),
-	});
-	if (playSound) {
-		const audio = new Audio(soundTune);
-		audio.autoplay = true;
-	}
-};
+import { getFeedById } from "../../features/feed/store/actions";
+import { useDispatch } from "react-redux";
+import CustomModal from "../CustomModal";
+import { ActionType } from "../CustomModal";
+import { useNavigate } from "react-router-dom";
+import PostModalContent from "../CustomModal/ModalContent";
+import { openNotification } from "./notificationHelper";
 
 const MainNotification = () => {
-	const { notification } = useSelector(state => state.sharedSlice);
-	useEffect(() => {
-		notification.message && openNotification(notification);
-	}, [notification]);
-	return <></>;
+  const { notification } = useSelector((state) => state.sharedSlice);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalContent, setModalContent] = useState(null);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { singlePost } = useSelector((state) => state.feedSlice);
+
+  useEffect(() => {
+    notification.referenceId && dispatch(getFeedById(notification.referenceId));
+  }, [notification.referenceId, dispatch]);
+
+  useEffect(() => {
+    notification.message &&
+      openNotification(notification, setIsModalOpen, navigate);
+  }, [notification]);
+
+  useEffect(() => {
+    setModalContent(<PostModalContent singlePost={singlePost} />);
+  }, [singlePost]);
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+  return (
+    <>
+      <CustomModal
+        visible={isModalOpen}
+        onCancel={closeModal}
+        onOk={closeModal}
+        actionType={ActionType.OPEN_MODAL}
+        actionData={null}
+        content={modalContent}
+      />
+    </>
+  );
 };
 
-export default MainNotification;
+export default memo(MainNotification);

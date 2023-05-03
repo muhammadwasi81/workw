@@ -19,6 +19,8 @@ import {
   deleteGroupMember,
   removeGroupFeatures,
 } from "../store/slice";
+import { ActionType } from "../../../sharedComponents/CustomModal";
+import { ROUTES } from "../../../../utils/routes";
 
 export const getAllGroup = createAsyncThunk(
   "getAllGroup",
@@ -39,9 +41,13 @@ export const addGroup = createAsyncThunk(
     if (res.responseCode === responseCode.Success) {
       dispatch(
         openNotification({
-          message: "Group Created Successfully",
+          message: "Group Created Successfully!",
           type: "success",
           duration: 2,
+          actionType: ActionType.Route,
+          actionData: {
+            path: `${ROUTES.GROUP.DEFAULT}/${res.data.id}`,
+          },
         })
       );
 

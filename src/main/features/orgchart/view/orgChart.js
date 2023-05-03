@@ -58,8 +58,7 @@ function Organization({ org, onCollapse, collapsed }) {
   let backgroundColor = "white";
 
   return (
-    <div
-    >
+    <div>
       <CardHeader
         style={{ display: "block", marginRight: '0px', padding: "0px" }}
         avatar={

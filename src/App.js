@@ -35,7 +35,7 @@ import ErrorBoundary from "./utils/ErrorBoundary";
 import { LanguageChangeContext } from "./utils/localization/localContext/LocalContext";
 import { ROUTES } from "./utils/routes";
 import { routes } from "./routes/routes";
-import { InitMessengerSocket } from "./utils/InitSocket";
+import { InitializeSocket, InitMessengerSocket } from "./utils/InitSocket";
 import SubmitForm from "./main/features/forms/view/forms/SubmitForm/index.js";
 import { openNotification } from "./utils/Shared/store/slice";
 import Careers from "./main/features/careers/view/Careers";
@@ -64,6 +64,8 @@ const App = () => {
   const dispatch = useDispatch();
   // console.log(userSlice, "USER DATA");
   const isLoggedIn = !!userSlice.token;
+  const loggedInUserId = userSlice?.user?.id;
+  console.log(loggedInUserId, "loggedInUserId");
   useEffect(() => {
     let defaultLanguage = window.localStorage.getItem("rcml-lang");
     if (!defaultLanguage) {
@@ -74,12 +76,14 @@ const App = () => {
 
   useEffect(() => {
     themeHandler(window.localStorage.getItem("darkMode") === "1");
-    isLoggedIn && InitMessengerSocket(dispatch, userSlice);
+    // isLoggedIn && InitMessengerSocket(dispatch, userSlice);
+    isLoggedIn && InitializeSocket.getInstance(dispatch, userSlice);
     isLoggedIn &&
       InitializeCallingSocket.getInstance(
         dispatch,
         servicesUrls.callingSocket,
-        userSlice
+        userSlice,
+        loggedInUserId
       );
   }, [isLoggedIn]);
   const [activityCount /*setActivityCount*/] = useState(null);

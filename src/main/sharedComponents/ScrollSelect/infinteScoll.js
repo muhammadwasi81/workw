@@ -84,6 +84,7 @@ export default class Scroll extends React.Component {
 					next={this.fetchMoreData}
 					hasMore={this.hasMoreData()}
 					inverse={this.props.inverse || false}
+					style={this.props.inverse ? { display: 'flex', flexDirection: 'column-reverse' } : {}}
 					loader={
 						(
 							<>
@@ -114,14 +115,14 @@ export default class Scroll extends React.Component {
 					endMessage={
 						this.props.data.length > 0
 							? !this.props.isLoading &&
-							  !this.hasMoreData() && (
-									<p style={{ textAlign: "center" }}>
-										<b>
-											{this.props.endMessage ||
-												"Yay! You have seen it all"}
-										</b>
-									</p>
-							  )
+							!this.hasMoreData() && (
+								<p style={{ textAlign: "center" }}>
+									<b>
+										{this.props.endMessage ||
+											"Yay! You have seen it all"}
+									</b>
+								</p>
+							)
 							: null
 					}
 					scrollThreshold={"100%"}

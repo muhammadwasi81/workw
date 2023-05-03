@@ -12,8 +12,13 @@ import { useParams } from "react-router-dom";
 import EmailConfigurationTable from "./table.js";
 import { openNotification } from "../../../../utils/Shared/store/slice";
 
-export default function UserEmailConfiguration() {
+export default function UserEmailConfiguration(props) {
+  const { renderTable = true } = props;
   let { id } = useParams();
+
+  id = props?.id ?? id;
+
+  console.log(id, props, "PROPS");
   //TODO: changes will be done according to the user configuration
   const initialState = {
     name: "",
@@ -46,10 +51,13 @@ export default function UserEmailConfiguration() {
       };
       setemailConfiguration(bussinessEmailConfig);
     }
+    console.log(
+      bussinessEmailConfigurations,
+      "==bussinessEmailConfigurations=="
+    );
   }, [bussinessEmailConfigurations]);
 
   useEffect(() => {
-    dispatch(getAllUserEmailConfigurations(id));
     dispatch(getAllBussinessEmailConfiguration());
   }, []);
 
@@ -94,11 +102,13 @@ export default function UserEmailConfiguration() {
         onSubmit={onSubmit}
         loading={loader}
       />
-      <EmailConfigurationTable
-        handleEdit={setemailConfiguration}
-        handleDelete={handleDelete}
-        actionRights={[1, 2]}
-      />
+      {renderTable && (
+        <EmailConfigurationTable
+          handleEdit={setemailConfiguration}
+          handleDelete={handleDelete}
+          actionRights={[1, 2]}
+        />
+      )}
     </AdminContainer>
   );
 }

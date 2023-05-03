@@ -27,7 +27,7 @@ function Courses({ userId = null }) {
   let myId = userId ? userId : id;
 
   useEffect(() => {
-    dispatch(getCourseAction('47D7929B-5B7D-4FFE-859D-2059ECE13191'));
+    dispatch(getCourseAction(myId));
   }, []);
 
   const columns = [

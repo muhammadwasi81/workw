@@ -18,7 +18,7 @@ const OpenImage = () => {
       <div className={classes.icon} onClick={closeImg}>
         <AiOutlineClose />
       </div>
-      <img src={openImgSrc} />
+      <img src={openImgSrc} alt="openImg-icon" />
     </div>
   );
 };

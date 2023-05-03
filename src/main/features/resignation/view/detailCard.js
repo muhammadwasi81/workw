@@ -69,6 +69,8 @@ function DetailCard(props) {
     createDate,
   } = detail;
 
+  console.log("detailprops",props.id);
+  
   const handleCancel = (e, payload) => {
     e.preventDefault();
     e.stopPropagation();

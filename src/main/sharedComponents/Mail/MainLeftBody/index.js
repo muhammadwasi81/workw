@@ -20,19 +20,20 @@ const Index = () => {
   const {
     mail: { menuItem },
   } = dictionaryList[userLanguage];
+  console.log(mailFolderItem, "mailFolderItem");
 
-  const openNotification = () => {
-    notification.warning({
-      message: "Notification Title",
-      description:
-        "This is the content of the notification. This is the content of the notification. This is the content of the notification.",
-      onClick: () => {
-        console.log("Notification Clicked!");
-      },
-      placement: "bottomLeft",
-      bottom: 10,
-    });
-  };
+  // const openNotification = () => {
+  //   notification.warning({
+  //     message: "Notification Title",
+  //     description:
+  //       "This is the content of the notification. This is the content of the notification. This is the content of the notification.",
+  //     onClick: () => {
+  //       console.log("Notification Clicked!");
+  //     },
+  //     placement: "bottomLeft",
+  //     bottom: 10,
+  //   });
+  // };
 
   return (
     <MailComposerBody isTablet={isTablet} isMobileScreen={isMobileScreen}>
@@ -78,7 +79,7 @@ const Index = () => {
           ))}
       </div>
 
-      {/*** mail left body with mail compose button and folder item***/}
+      {/* ** mail left body with mail compose button and folder item** */}
     </MailComposerBody>
   );
 };

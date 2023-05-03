@@ -27,6 +27,9 @@ import { quickAddOpen } from "../../../../features/quickEmployee/store/slice";
 import { darkModeHandler } from "../../../../../utils/Shared/store/slice";
 import { useNavigate } from "react-router-dom";
 import { globalSearch } from "../../../../features/search/store/actions";
+import { SearchFilterEnum } from "../../../../features/search/utils/enums";
+import { message } from "antd";
+import { handleGlobalSearch, handleTab } from "../../../../features/search/store/slice";
 import NotificationBadge from "../../../Badge/NotificationBadge";
 import { getAllNotification } from "../../../../features/notifiation/store/action";
 // import { SearchFilterEnum } from "../../../../features/search/utils/enums";
@@ -109,6 +112,7 @@ function NotificationBar() {
           filterType: 0,
         })
       );
+      dispatch(handleTab("All"))
       // dispatch(handleGlobalSearch());
       // navigate(`search/sea`);
       navigate(`search?q=${value}`);

@@ -13,51 +13,43 @@ export const groupFeatureEnums = [
   {
     label: "Feed",
     value: GroupFeatureEnums.Feed,
-    description:
-      "Share your thoughts, ideas, and updates with your team members.",
-  },
-  {
-    label: "Schedule",
-    value: GroupFeatureEnums.Schedule,
-    description:
-      "Plan your meetings, events, and other activities with your team members.",
-  },
-  {
-    label: "WorkBoard",
-    value: GroupFeatureEnums.WorkBoard,
-    description:
-      "Plan your meetings, events, and other activities with your team members.",
-  },
-  {
-    label: "Document",
-    value: GroupFeatureEnums,
-    description:
-      "Plan your meetings, events, and other activities with your team members.",
+    description: "A board to have open conversations",
   },
   {
     label: "Task",
     value: GroupFeatureEnums.Task,
-    description:
-      "Plan your meetings, events, and other activities with your team members.",
+    description: "Key tasks and milestones",
+  },
+  {
+    label: "WorkBoard",
+    value: GroupFeatureEnums.WorkBoard,
+    description: "A Kanban methodology board to manage tasks",
   },
   {
     label: "Expense",
     value: GroupFeatureEnums.Expense,
-    description:
-      "Plan your meetings, events, and other activities with your team members.",
+    description: "Expense management",
+  },
+  {
+    label: "Schedule",
+    value: GroupFeatureEnums.Schedule,
+    description: "Schedule to manage timelines",
   },
   {
     label: "Travel",
     value: GroupFeatureEnums.Travel,
-    description:
-      "plan your meetings, events, and other activities with your team members.",
+    description: "ManagementTravel requirements",
+  },
+  {
+    label: "Documents",
+    value: GroupFeatureEnums.Document,
+    description: "documents",
   },
 
   {
     label: "Quotation",
     value: GroupFeatureEnums.Quotation,
-    description:
-      "Plan your meetings, events, and other activities with your team members.",
+    description: "Quotation",
   },
 ];
 

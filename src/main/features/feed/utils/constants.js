@@ -1,4 +1,6 @@
-import $ from "jquery";
+import WorldIcon from "../../../../content/world.svg";
+import LockIcon from "../../../../content/lock.svg";
+
 // Constants Values
 export const DEFAULT_MAX_POLL_OPTIONS = 4;
 export const FeedFilterTypeEnum = {
@@ -29,10 +31,6 @@ export const ReactionType = Object.freeze({
   Curious: 6,
 });
 
-export const QuotationReferenceType = Object.freeze({
-  Quotation: 8,
-});
-
 export const PostType = Object.freeze({
   DEFAULT: 1,
   POLL: 2,
@@ -61,11 +59,11 @@ export const PostPrivacyType = Object.freeze({
     // eslint-disable-next-line default-case
     switch (type) {
       case PostPrivacyType.PUBLIC:
-        return "https://konnect.im/static/media/world.f69f1142.svg";
+        return WorldIcon;
       case PostPrivacyType.PRIVATE:
-        return "https://konnect.im/static/media/padlock.35a2d6ca.svg";
+        return LockIcon;
       case PostPrivacyType.EXTERNAL:
-        return "https://konnect.im/static/media/padlock.35a2d6ca.svg";
+        return LockIcon;
     }
   },
 });

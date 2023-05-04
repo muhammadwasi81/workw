@@ -6,12 +6,7 @@ import {
 } from "../../../sharedComponents/AppComponents/MainFlexContainer";
 import Tab from "../../../sharedComponents/Tab";
 import LayoutHeader from "../../../layout/header/index";
-import {
-  EditOutlined,
-  CopyOutlined,
-  EllipsisOutlined,
-  EyeOutlined,
-} from "@ant-design/icons";
+import { EditOutlined } from "@ant-design/icons";
 import Travel from "../../travel/view/Travel";
 import "../styles/projects.css";
 import Budget from "../UI/Budget";
@@ -34,10 +29,7 @@ import { projectsDictionaryList } from "../localization";
 import { resetProjectDetail, addMember } from "../store/slice";
 import WorkBoard from "../../workboard";
 import { TravelReferenceTypeEnum } from "../enum/enums";
-import {
-  PostReferenceType,
-  QuotationReferenceType,
-} from "../../feed/utils/constants";
+import { PostReferenceType } from "../../feed/utils/constants";
 import { TaskReferenceTypeEnum } from "../../task/enums/enum";
 import { WorkBoardReferenceTypeEnum } from "../../workboard/enum";
 import { ExpenseReferenceTypeEnum } from "../../expense/enums";
@@ -285,7 +277,7 @@ function ProjectDetails() {
                 </div>
               </div>
             </div>
-          </div>        
+          </div>
         </ContBody>
       </TabContainer>
       <Drawer

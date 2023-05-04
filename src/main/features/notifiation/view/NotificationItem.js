@@ -12,6 +12,7 @@ import { NOTIFICATION_ENUMS } from "../utils/enums";
 import RewardDetailCard from "../../reward/view/DetailCard";
 import { toggleModal } from "../../../../utils/Shared/store/slice";
 import { useSelector } from "react-redux";
+import { NotificationTypesEnum } from "../enums";
 
 export default function NotificationItem({ item, index }) {
   let { fromUser, featureType, message, referenceId, createDate, type } = item;
@@ -76,7 +77,11 @@ export default function NotificationItem({ item, index }) {
         onOk={closeModal}
         actionType={ActionType.OPEN_MODAL}
         actionData={null}
-        content={<RewardDetailCard id={type === 1 && referenceId} />}
+        content={
+          <RewardDetailCard
+            id={type === NotificationTypesEnum.RewardApproval && referenceId}
+          />
+        }
       />
     </div>
   );

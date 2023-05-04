@@ -9,6 +9,7 @@ import groupsIcon from "../../../content/svg/menu/newNavBarIcon/Groups.svg";
 import projectsIcon from "../../../content/svg/menu/newNavBarIcon/Projects.svg";
 import taskIcon from "../../../content/svg/menu/newNavBarIcon/Tasks.svg";
 import todoBoard from "../../../content/svg/menu/newNavBarIcon/Work Board.svg";
+import marketPlace from "../../../content/svg/menu/newNavBarIcon/new/marketplace.svg";
 import contactManagerIcon from "../../../content/svg/menu/newNavBarIcon/Lead Manager.svg";
 import schedulesIcon from "../../../content/svg/menu/newNavBarIcon/Schedules.svg";
 import expensesIcon from "../../../content/svg/menu/newNavBarIcon/Expenses.svg";
@@ -424,7 +425,7 @@ const NavMenuList = (notificationCounts) => {
       name: label.navMenuLabel.marketPlace,
       counter: 0,
       to: ROUTES.MARKETPLACE.ROOT,
-      icon: coaIcon,
+      icon: marketPlace,
       isActive: true,
       key: label.navMenuLabel.menu,
       featureId: FeaturesEnum.Form,

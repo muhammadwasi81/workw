@@ -4,27 +4,26 @@ import { useDispatch, useSelector } from "react-redux";
 import { AdminTable } from "../../../sharedComponents/Administration/StyledComponents/adminTable";
 // import { getAllEmailConfigurations } from "../store/actions";
 import { tableColumn ,pendingBillsColumns, BillingUserColumn } from "./tableColumn";
-import { addBilling, getAllPendingBills } from "../store/actions";
+import { addBilling, getAllBilling, getAllPendingBills } from "../store/actions";
+import { useLocation, useParams } from "react-router-dom";
 const { Panel } = Collapse;
 
 
 export default function PendingBills({}) {
   const dispatch = useDispatch();
-  const [open, setOpen] = useState(false);
+  const location = useLocation();
+  const {id} = useParams();
   const {PendingBillData} = useSelector((state) => state.userBillingSlice);
   const [billingUserBoolean , setbillingUserBoolean] = useState(false)
-  const [confrimSendBillBoolean , setconfrimSendBillBoolean] = useState(false)
   const [billingUsersData,setBillingUser] = useState();
   const [pendingBillDataState , setpendingBillDataState ] = useState(PendingBillData)
-
-  // useEffect(() => {
-  //   dispatch(getAllPendingBills([]));
-  //   setpendingBillDataState(PendingBillData)
-  // }, []);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedRecord, setSelectedRecord] = useState(null);
 
   
   useEffect(() => {
-    setpendingBillDataState(PendingBillData)
+    console.log(PendingBillData,"PendingBillData")
+    setpendingBillDataState(prevState => [...PendingBillData]);
   }, [PendingBillData]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -32,13 +31,6 @@ export default function PendingBills({}) {
   const showModal = () => {
     setIsModalOpen(true);
   };
-
-  const showModalforSendBill = () =>{
-      setOpen(true)
-  }
-  const hideModalforSendBill = () =>{
-      setOpen(false)
-  }
 
   const handleOk = () => {
     setIsModalOpen(false);
@@ -58,18 +50,33 @@ export default function PendingBills({}) {
   }
 
   const addBilingHandler = (bilingData) => {
-      console.log(bilingData,"billingData")
-      dispatch(addBilling(bilingData))
+    dispatch(addBilling(bilingData))
+    if(location.pathname.includes("companies/info/billing/"))
+    {
+        console.log("Called1")
+        dispatch(getAllPendingBills([id]));
+    }   
+    else
+    {
+      console.log("Called2")
       dispatch(getAllPendingBills([]));
-      setpendingBillDataState(PendingBillData)
-      setconfrimSendBillBoolean(!confrimSendBillBoolean)
     }
-    const handelWarning = ()=>{
-      setconfrimSendBillBoolean(!confrimSendBillBoolean)
+    console.log(bilingData,"billingData")
+    setpendingBillDataState(prevState => [...PendingBillData]);
+
+    dispatch(
+      getAllBilling({
+        pageNo: 1,
+        pageSize: 20,
+        search: "",
+        sortBy: 1,
+      })
+    );
     }
+
   return (
     <>
-    {
+    {pendingBillDataState &&
       pendingBillDataState?.map((bill , index)=>{
           return ( <Collapse defaultActiveKey={0} >
           <Panel
@@ -77,7 +84,7 @@ export default function PendingBills({}) {
               key={0}
           >
           <AdminTable
-            columns={pendingBillsColumns(handleClick , addBilingHandler , handelWarning)}
+            columns={pendingBillsColumns(handleClick , addBilingHandler ,isModalVisible ,selectedRecord , setIsModalVisible , setSelectedRecord )}
             dataSource={bill?.billings}
             pagination={false}
             rowKey="id"
@@ -102,21 +109,6 @@ export default function PendingBills({}) {
     />
           </Modal>
         )}
-    {
-      confrimSendBillBoolean && (
-        <Popconfirm
-        placement="right"
-        title={'Are you sure to send this Bill?'}
-        description={"Send the Bill"}
-        onConfirm={addBilingHandler}
-        onCancel={handelWarning}
-        visible={confrimSendBillBoolean}
-        okText="Yes"
-        cancelText="No"
-      >
-      </Popconfirm>
-      )
-    }
     </>   
   );
 }

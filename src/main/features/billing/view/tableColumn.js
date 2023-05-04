@@ -1,7 +1,8 @@
 import { DeleteFilled, EditOutlined } from "@ant-design/icons";
 import { LoadingOutlined } from "@ant-design/icons";
 import { Button, Popconfirm } from "antd";
-// import { addBilling } from "../store/actions";
+import React, { useState } from "react";
+
 const getMonthName = (monthNumber) => {
   const months = [
     "January",
@@ -52,7 +53,8 @@ export const tableColumn = () => {
     },
   ];
 };
-export const pendingBillsColumns = (handleClick , addBilingHandler , handelWarning) => {
+export const pendingBillsColumns = (handleClick , addBilingHandler ,isModalVisible ,selectedRecord  ,setIsModalVisible ,setSelectedRecord) => {
+  
   //Width will be set Accordingly
   return [
     // { title: "Bill No.", 
@@ -75,13 +77,26 @@ export const pendingBillsColumns = (handleClick , addBilingHandler , handelWarni
     {
       render: (text, record) => (
         <div>
-          <Button
-            className="ThemeBtn"
-            // style={{ color: "blue", marginRight: 8 }}
-            onClick={() => handelWarning()}
-          >
+          <Button className="ThemeBtn" onClick={() => {setSelectedRecord(record);setIsModalVisible(true)}}>
             Send Bill
           </Button>
+          {selectedRecord === record && (
+            <Popconfirm
+              title="Are you sure you want to send the bill?"
+              visible={isModalVisible}
+              onConfirm={() => {
+                addBilingHandler(selectedRecord);
+                setIsModalVisible(false);
+                setSelectedRecord(null);
+              }}
+              onCancel={() => {
+                setIsModalVisible(false);
+                setSelectedRecord(null);
+              }}
+              okText="Yes"
+              cancelText="No"
+            />
+          )}
         </div>
       ),
     }

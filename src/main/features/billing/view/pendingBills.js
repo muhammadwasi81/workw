@@ -1,4 +1,4 @@
-import { Collapse, Modal, Skeleton } from "antd";
+import { Collapse, Modal, Popconfirm, Skeleton } from "antd";
 import { useEffect, useContext, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AdminTable } from "../../../sharedComponents/Administration/StyledComponents/adminTable";
@@ -10,19 +10,20 @@ const { Panel } = Collapse;
 
 export default function PendingBills({}) {
   const dispatch = useDispatch();
+  const [open, setOpen] = useState(false);
   const {PendingBillData} = useSelector((state) => state.userBillingSlice);
   const [billingUserBoolean , setbillingUserBoolean] = useState(false)
+  const [confrimSendBillBoolean , setconfrimSendBillBoolean] = useState(false)
   const [billingUsersData,setBillingUser] = useState();
   const [pendingBillDataState , setpendingBillDataState ] = useState(PendingBillData)
 
-  useEffect(() => {
-    dispatch(getAllPendingBills([]));
-    setpendingBillDataState(PendingBillData)
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getAllPendingBills([]));
+  //   setpendingBillDataState(PendingBillData)
+  // }, []);
 
   
   useEffect(() => {
-    // dispatch(getAllPendingBills([]));
     setpendingBillDataState(PendingBillData)
   }, [PendingBillData]);
 
@@ -31,6 +32,13 @@ export default function PendingBills({}) {
   const showModal = () => {
     setIsModalOpen(true);
   };
+
+  const showModalforSendBill = () =>{
+      setOpen(true)
+  }
+  const hideModalforSendBill = () =>{
+      setOpen(false)
+  }
 
   const handleOk = () => {
     setIsModalOpen(false);
@@ -44,8 +52,6 @@ export default function PendingBills({}) {
   
 
   const handleClick = (billingUsers) => {
-    
-      
       setBillingUser(billingUsers)
       setbillingUserBoolean(!billingUserBoolean)
       showModal();
@@ -56,7 +62,11 @@ export default function PendingBills({}) {
       dispatch(addBilling(bilingData))
       dispatch(getAllPendingBills([]));
       setpendingBillDataState(PendingBillData)
-  }
+      setconfrimSendBillBoolean(!confrimSendBillBoolean)
+    }
+    const handelWarning = ()=>{
+      setconfrimSendBillBoolean(!confrimSendBillBoolean)
+    }
   return (
     <>
     {
@@ -67,7 +77,7 @@ export default function PendingBills({}) {
               key={0}
           >
           <AdminTable
-            columns={pendingBillsColumns(handleClick , addBilingHandler)}
+            columns={pendingBillsColumns(handleClick , addBilingHandler , handelWarning)}
             dataSource={bill?.billings}
             pagination={false}
             rowKey="id"
@@ -92,6 +102,21 @@ export default function PendingBills({}) {
     />
           </Modal>
         )}
+    {
+      confrimSendBillBoolean && (
+        <Popconfirm
+        placement="right"
+        title={'Are you sure to send this Bill?'}
+        description={"Send the Bill"}
+        onConfirm={addBilingHandler}
+        onCancel={handelWarning}
+        visible={confrimSendBillBoolean}
+        okText="Yes"
+        cancelText="No"
+      >
+      </Popconfirm>
+      )
+    }
     </>   
   );
 }

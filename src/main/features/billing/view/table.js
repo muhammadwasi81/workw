@@ -7,34 +7,16 @@ import { tableColumn } from "./tableColumn";
 
 export default function BillingTable({}) {
   const dispatch = useDispatch();
-
-  //   useEffect(() => {
-  //     dispatch(getAllEmailConfigurations());
-  //   }, []);
+  const { billing } = useSelector((state) => state.userBillingSlice);  
 
   return (
     <AdminTable
       columns={tableColumn()}
-      dataSource={[]}
+      dataSource={billing}
       pagination={false}
       rowKey="id"
       size="small"
       scroll={{ x: true }}
-      //   locale={
-      //     loadingData && {
-      //       emptyText: (
-      //         <Skeleton.Input
-      //           active="true"
-      //           size="small"
-      //           block={true}
-      //           //   loading={}
-      //           round="true"
-      //           shape="circle"
-      //           style={{ width: "100%", marginBottom: 2 }}
-      //         />
-      //       ),
-      //     }
-      //   }
     />
   );
 }

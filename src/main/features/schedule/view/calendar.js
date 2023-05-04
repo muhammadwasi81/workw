@@ -173,7 +173,7 @@ function Calendar({ referenceId }) {
     );
   };
   const selectedMemebrHandler = (id, obj) => {
-    console.log(id, "obj in handlerrr");
+    console.log(obj, "obj in handlerrr");
     const startDate = moment()
       .startOf("month")
       .format();

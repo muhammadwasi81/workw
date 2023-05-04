@@ -26,8 +26,7 @@ function Scheduler({ feed = false, referenceId }) {
   const calendarRef = useRef();
   const { scheduleSearch } = useSelector((state) => state.scheduleSlice);
   const { calendar } = useSelector((state) => state.scheduleSlice);
-  const userId = useSelector((state) => state.userSlice.user.id);
-
+  console.log(calendar, "calendarrr");
   let isPanelChange = false;
   const dispatch = useDispatch();
   // const renderEventContent = eventInfo => {
@@ -61,7 +60,6 @@ function Scheduler({ feed = false, referenceId }) {
         referenceId: referenceId,
         // filterType: 1,
         referenceType: 0,
-        // userId: userId,
         startDate,
         endDate,
       })
@@ -97,13 +95,15 @@ function Scheduler({ feed = false, referenceId }) {
   }
 
   let data = [...eventsData]?.map((sch) => {
+    console.log(eventsData, "eventsData");
+
     return {
       ...sch,
       date: new Date(sch.startDate), //this will only show the start date and upon clicking the schedule it will open detail of that event
       end: new Date(sch.endDate),
       // end: new Date(moment(sch.endDate).add(1, "day")), //commented by humayoun
       title: sch.subject,
-      // backgroundColor: "green",
+      backgroundColor: "green",
       // timezone: "UTC",
     };
   });
@@ -134,15 +134,15 @@ function Scheduler({ feed = false, referenceId }) {
     console.log(start, end, title, id, "info eventtt");
     // Here you can make an API call to update the event's information on the server
     // by sending the updated `start`, `end`, and `title` fields along with the `id`.
-    dispatch(
-      updateSchedule({
-        subject: title,
-        description: description,
-        startDate: start,
-        endDate: end,
-        id: id,
-      })
-    );
+    // dispatch(
+    //   updateSchedule({
+    //     subject: title,
+    //     description: description,
+    //     startDate: start,
+    //     endDate: end,
+    //     id: id,
+    //   })
+    // );
     console.log(
       `Event ${id} was dropped at ${start} with new end time ${end} and new title ${title}`
     );
@@ -177,7 +177,7 @@ function Scheduler({ feed = false, referenceId }) {
       <EventDetail />
       <div className={`schedulerCalender ${calenderView}`}>
         <FullCalendar
-          timeZone="local"
+          // timeZone="local"
           ref={calendarRef}
           selectable={true}
           select={onSelectFunc}
@@ -243,11 +243,11 @@ function Scheduler({ feed = false, referenceId }) {
           nowIndicator={true}
           nowIndicatorPlacement="top"
           nowIndicatorDisplay="block"
-          now={() => new Date()}
+          // now={() => new Date()}
           scrollTime={moment()
             .subtract(50, "minutes")
             .format("HH:mm:ss")}
-          eventMaxStack={3}
+          // eventMaxStack={3}
           dayHeaders={true}
           allDaySlot={true}
           allDayText={"All Day"}

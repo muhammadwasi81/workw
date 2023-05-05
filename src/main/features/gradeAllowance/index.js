@@ -22,9 +22,16 @@ import {
 import { Radio, Row, Select, InputNumber, message, Col } from "antd";
 import LeaveTable from "./table";
 import { getAllAllowanceGreadeData } from "./store/action";
+import {
+  handleAddButton,
+  removeUpdateInput,
+  updateUser,
+  addSliceGradeAllowance,
+} from "./store/slice";
 
 const GradeAllowances = () => {
   const { gradesData } = useSelector((state) => state.AllGreadeAllowance);
+  const { handleUpdate } = useSelector((state) => state.AllGreadeAllowance);
   const { defaultInputValue } = useSelector(
     (state) => state.AllGreadeAllowance
   );
@@ -36,6 +43,7 @@ const GradeAllowances = () => {
     description: "",
     allowanceUnit: null,
   });
+
   useEffect(() => {
     setFormValues(defaultInputValue);
   }, [defaultInputValue]);
@@ -59,17 +67,16 @@ const GradeAllowances = () => {
     ) {
       return message.error(`These fields are required`);
     }
-    // Object.keys(defaultInputValue).length > 0 ?
-    //   dispatch(updateGradeAllowance(formValues):dispatch(updateGradeAllowance())
-
-    //   )
 
     if (Object.keys(defaultInputValue).length > 0) {
       dispatch(updateGradeAllowance(formValues));
-      dispatch(getAllAllowanceGreadeData());
+      dispatch(handleAddButton(true));
+      dispatch(removeUpdateInput());
+      dispatch(updateUser(formValues));
+      // dispatch(getAllAllowanceGreadeData());
     } else {
+      dispatch(addSliceGradeAllowance(formValues));
       dispatch(addGradeAllowance(formValues));
-      dispatch(getAllAllowanceGreadeData());
     }
     setFormValues({
       gradeId: "",
@@ -92,6 +99,7 @@ const GradeAllowances = () => {
                 showSearch
                 value={formValues.gradeId}
                 style={{ width: "100%" }}
+                placeholder="Select Type"
                 optionFilterProp="children"
                 name="gradeId"
                 size="large"
@@ -109,7 +117,7 @@ const GradeAllowances = () => {
               <Select
                 showSearch
                 style={{ width: "100%" }}
-                placeholder="Select Allowance Type"
+                placeholder="Select Type"
                 optionFilterProp="children"
                 name="allowanceType"
                 size="large"
@@ -192,13 +200,13 @@ const GradeAllowances = () => {
               </div>
             </Col>
             <AllowncesFormInput>
-              <FormLabel>Discription</FormLabel>
+              <FormLabel>Description</FormLabel>
               <FormTextArea
                 onChange={(e) =>
                   setFormValues({ ...formValues, description: e.target.value })
                 }
                 value={formValues.description}
-                placeholder="Discription"
+                placeholder="Description"
               />
             </AllowncesFormInput>
           </Row>
@@ -210,9 +218,7 @@ const GradeAllowances = () => {
             loading={loader}
             onClick={() => submitForm(formValues)}
           >
-            {Object.keys(defaultInputValue).length > 0
-              ? "Update Allowance"
-              : "Add Allowance"}
+            {handleUpdate === true ? "Add Allowance" : "Update Allowance"}
           </FormButton>
         </FormInputContainer>
         <FormButtonContainer></FormButtonContainer>

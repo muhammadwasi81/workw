@@ -1,7 +1,7 @@
-import AxiosConfig from "../../../../utils/services/AxiosConfig";
+import MasterConfig from "../../../../utils/services/MasterConfig";
 
 export const getAllBusinessEmailConfigurationService = () => {
-  return AxiosConfig.get(`api/Mailbox/GetAllBusinessEmailConfiguration`)
+  return MasterConfig.get(`api/Mailbox/GetAllBusinessEmailConfiguration`)
     .then((res) => {
       return res.data;
     })
@@ -12,7 +12,7 @@ export const getAllBusinessEmailConfigurationService = () => {
 
 export const addBusinessEmailConfigurationService = (args) => {
   console.log(args, "argssss");
-  return AxiosConfig.post(`api/Mailbox/AddBusinessEmailConfiguration`, args)
+  return MasterConfig.post(`api/Mailbox/AddBusinessEmailConfiguration`, args)
     .then((res) => {
       return res.data;
     })

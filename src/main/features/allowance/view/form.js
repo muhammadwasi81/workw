@@ -31,7 +31,7 @@ export default function AllowanceForm({
   const { grades } = useSelector((state) => state.gradeSlice);
   const { loader } = useSelector((state) => state.allowanceSlice);
   const handleClear = (e) => {
-    setForm({ ...form, description: "", name: "", gradeId: null, value: "" });
+    setForm({ ...form, description: "", name: "" });
     setClearButton(false);
   };
 
@@ -62,27 +62,27 @@ export default function AllowanceForm({
     setForm({ ...form, description: e.target.value });
   };
 
-  const handelChangeGrade = (value) => {
-    if (value.length > 0) {
-      setClearButton(true);
-    } else {
-      setClearButton(false);
-    }
-    const x = grades.filter((item) => item.id === value);
-    setForm({ ...form, gradeId: x[0].id });
-    console.log(x, "fdfdfd");
-  };
+  // const handelChangeGrade = (value) => {
+  //   if (value.length > 0) {
+  //     setClearButton(true);
+  //   } else {
+  //     setClearButton(false);
+  //   }
+  //   const x = grades.filter((item) => item.id === value);
+  //   setForm({ ...form, gradeId: x[0].id });
+  //   console.log(x, "fdfdfd");
+  // };
 
-  const handleType = (e) => {
-    setForm({ ...form, allowanceType: e.target.value });
-    let type = e.target.value;
-    if (type === 2) {
-      setAmountType(true);
-    } else {
-      setAmountType(false);
-    }
-    setValue(e);
-  };
+  // const handleType = (e) => {
+  //   setForm({ ...form, allowanceType: e.target.value });
+  //   let type = e.target.value;
+  //   if (type === 2) {
+  //     setAmountType(true);
+  //   } else {
+  //     setAmountType(false);
+  //   }
+  //   setValue(e);
+  // };
 
   useEffect(() => {
     setForm(data);

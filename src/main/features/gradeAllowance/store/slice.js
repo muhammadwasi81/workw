@@ -16,6 +16,7 @@ const initialState = {
   success: false,
   error: false,
   defaultInputValue: {},
+  handleUpdate: true,
 };
 
 const AllGreadeAllowance = createSlice({
@@ -24,6 +25,46 @@ const AllGreadeAllowance = createSlice({
   reducers: {
     updateInput: (state, action) => {
       state.defaultInputValue = action.payload;
+    },
+    removeUpdateInput: (state) => {
+      state.defaultInputValue = {};
+    },
+
+    handleUpdateButton: (state) => {
+      state.handleUpdate = false;
+    },
+    handleAddButton: (state) => {
+      state.handleUpdate = true;
+    },
+    updateUser: (state, action) => {
+      const {
+        id,
+
+        gradeId,
+        description,
+        allowanceUnit,
+        allowanceId,
+        value,
+      } = action.payload;
+      console.log(action.payload, "vvvvvvvvv");
+      const user = state.gradeAllowances.find((grade) => grade.id === id);
+      if (user) {
+        user.gradeId = gradeId;
+        user.description = description;
+        user.allowanceUnit = allowanceUnit;
+        user.value = value;
+        user.allowanceId = allowanceId;
+      }
+    },
+    addSliceGradeAllowance: (state, action) => {
+      state.gradeAllowances.push(action.payload);
+      console.log(state.gradeAllowances, "sateee");
+    },
+    deleteSliceGradeAllowance: (state, action) => {
+      console.log("payload", action.payload.id);
+      state.gradeAllowances = state.gradeAllowances.filter(
+        (grade) => grade.id !== action.payload.id
+      );
     },
   },
 
@@ -51,5 +92,13 @@ const AllGreadeAllowance = createSlice({
     );
   },
 });
-export const { updateInput } = AllGreadeAllowance.actions;
+export const {
+  updateInput,
+  removeUpdateInput,
+  handleUpdateButton,
+  handleAddButton,
+  updateUser,
+  addSliceGradeAllowance,
+  deleteSliceGradeAllowance,
+} = AllGreadeAllowance.actions;
 export default AllGreadeAllowance.reducer;

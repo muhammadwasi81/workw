@@ -33,7 +33,7 @@ export default function Allowance() {
 
   const onSubmit = (e) => {
     console.log(e, "FROM MAIN");
-    if (!e.name || !e.description || !e.gradeId) {
+    if (!e.name || !e.description) {
       return message.error(`Please fill all the fields`);
     }
     if (!e.id) {

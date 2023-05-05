@@ -1,25 +1,25 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Header from "../../../../layout/header";
 import {
   ContBody,
   TabbableContainer,
 } from "../../../../sharedComponents/AppComponents/MainFlexContainer";
-import { Button, Modal } from "antd";
+import { Button } from "antd";
 import { ROUTES } from "../../../../../utils/routes";
 import QuotationList from "./quotationList";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getAllQuotation } from "../../store/actions";
 import TopBar from "../../../../sharedComponents/topBar/topBar";
-import { Table } from "../../../../sharedComponents/customTable";
 import { useSelector } from "react-redux";
-import TableView from "./TableViewComponent";
-import { quotationTableColumn } from "./tableColumns";
 import TableViewComponent from "./TableViewComponent";
 import { quotationDictionaryList } from "../../localization/index";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+import CreateQoutationVoucher from "../CreateQuotation/createSalaryVoucher";
+import CustomModal from "../../../workboard/Modal/CustomModal";
 
-function Quotations() {
+function Quotations({ referenceId, referenceType }) {
+  const location = useLocation();
   const listData = useSelector((state) => state.quotationSlice.quotationList);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -39,12 +39,21 @@ function Quotations() {
       renderButton: [1],
     },
   ];
+  const showModal = () => setOpenModal(true);
   const buttons = [
     {
       buttonText: quotationDictionary.createQuotation,
       render: (
-        <Button className="ThemeBtn" onClick={() => navigate("create")}>
-          {" "}
+        <Button
+          className="ThemeBtn"
+          onClick={() => {
+            if (location.pathname !== "/quotation") {
+              showModal();
+            } else {
+              navigate("create");
+            }
+          }}
+        >
           {quotationDictionary.createQuotation}
         </Button>
       ),
@@ -71,18 +80,11 @@ function Quotations() {
       getAllQuotation({
         filterType,
         search,
+        referenceId,
+        referenceType,
       })
     );
   }, [filterType, search]);
-
-  const onRow = () => {
-    console.log("on row click");
-    setOpenModal(true);
-  };
-
-  const handleCancel = () => {
-    setOpenModal(false);
-  };
 
   const render = {
     List: <QuotationList data={listData} />,
@@ -103,16 +105,16 @@ function Quotations() {
         />
         <ContBody>{render[viewType]}</ContBody>
       </TabbableContainer>
-      {/* {openModal && (
-        <Modal
-          visible={openModal}
-          onCancel={handleCancel}
-          footer={null}
-          width={"50%"}
-        >
-          <div>data</div>
-        </Modal>
-      )} */}
+      <CustomModal
+        isModalVisible={openModal}
+        footer={null}
+        width={"80%"}
+        className="quotationModal"
+        onCancel={() => {
+          setOpenModal(false);
+        }}
+        children={<CreateQoutationVoucher />}
+      />
     </>
   );
 }

@@ -50,6 +50,7 @@ import {
 import ItemDetailModal from "../../../sharedComponents/ItemDetails";
 import Quotations from "../../quotation/view/QuotationList/index";
 import { QuotationReferenceTypeEnum } from "../../quotation/enums";
+import ProjectMiniDashBoard from "../UI/ProjectMiniDashBoard";
 
 function ProjectDetails() {
   const params = useParams();
@@ -238,7 +239,8 @@ function ProjectDetails() {
               <Tab panes={projectfeatures} id={projectId} />
             </div>
             <div className="basis-1/4 gap-5 flex flex-col overflow-scroll">
-              <Budget data={detail} />
+              {/* <Budget data={detail} /> */}
+              <ProjectMiniDashBoard data={detail} />
               <WhiteCard>
                 <MemberCollapse
                   data={detail?.members}

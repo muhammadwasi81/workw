@@ -22,8 +22,8 @@ export default function PendingBills({}) {
 
   
   useEffect(() => {
-    console.log(PendingBillData,"PendingBillData")
-    setpendingBillDataState(prevState => [...PendingBillData]);
+    setpendingBillDataState([...PendingBillData]);
+    console.log(pendingBillDataState,"PendingBillData")
   }, [PendingBillData]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -49,8 +49,8 @@ export default function PendingBills({}) {
       showModal();
   }
 
-  const addBilingHandler = (bilingData) => {
-    dispatch(addBilling(bilingData))
+  const addBilingHandler =  async (bilingData) => {
+    await dispatch(addBilling(bilingData))
     if(location.pathname.includes("companies/info/billing/"))
     {
         console.log("Called1")
@@ -62,7 +62,7 @@ export default function PendingBills({}) {
       dispatch(getAllPendingBills([]));
     }
     console.log(bilingData,"billingData")
-    setpendingBillDataState(prevState => [...PendingBillData]);
+    setpendingBillDataState([...PendingBillData]);
 
     dispatch(
       getAllBilling({

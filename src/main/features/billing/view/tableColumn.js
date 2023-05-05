@@ -2,25 +2,9 @@ import { DeleteFilled, EditOutlined } from "@ant-design/icons";
 import { LoadingOutlined } from "@ant-design/icons";
 import { Button, Popconfirm } from "antd";
 import React, { useState } from "react";
+import { getMonthName } from "../enum";
 
-const getMonthName = (monthNumber) => {
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
 
-  return months[monthNumber - 1];
-};
 
 export const tableColumn = () => {
   //Width will be set Accordingly
@@ -74,6 +58,11 @@ export const pendingBillsColumns = (handleClick , addBilingHandler ,isModalVisib
       dataIndex: "users",
       render: (text, record) => <a onClick={() => handleClick(record.billingUsers)} className="cursor-poiner">{text}</a>
     },
+    {
+      title: "Total",
+      dataIndex: "total",
+    },
+    ,
     {
       render: (text, record) => (
         <div>

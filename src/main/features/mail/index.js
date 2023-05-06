@@ -61,22 +61,18 @@ const Index = () => {
     const payloadData = {
       configurationId: emailConfigurations[0].id,
       userId: user.id,
-      // incomingPort: emailConfigurations[0].incomingPort,
-      // incomingServerAddress: emailConfigurations[0].incomingServerAddress,
-      // isDefault: emailConfigurations[0].isDefault,
-      // outgoingPort: emailConfigurations[0].outgoingPort,
-      // outgoingServerAddress: emailConfigurations[0].outgoingServerAddress,
-      // provider: emailConfigurations[0].provider,
+
       ...values,
     };
 
     const data = { pageNo: 0, pageSize: 20, search: "", folderPath: "INBOX" };
     dispatch(addUserEmailConfiguration(payloadData));
     setIsModalVisible(false);
-    dispatch(getAllMail(data));
-    dispatch(getAllBusinessEmailConfiguration());
+
     dispatch(getMailFolders());
     dispatch(getAllUserEmailConfigurations(user.id));
+    dispatch(getAllMail(data));
+    dispatch(getAllBusinessEmailConfiguration());
   };
   return loadingData ? (
     <Skeleton />

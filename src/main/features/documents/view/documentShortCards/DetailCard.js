@@ -26,6 +26,7 @@ import DocShortCard from "../components/shortCard";
 import RemarksApproval from "../../../../sharedComponents/AppComponents/Approvals/view";
 import PreviewModal from "../components/modal";
 import CommentWrapper from "../../../../sharedComponents/Comment/CommentWrapper";
+import { PostPrivacyType } from "../../../../../utils/Shared/enums/enums";
 // import "../fullCard/style.css";
 
 function DetailCard(props) {
@@ -136,7 +137,7 @@ function DetailCard(props) {
           <div className="cardSectionItem">
             <div className="cardSection__title">Readers</div>
             <div className="cardSection__body">
-              {privacyId === 1 ? (
+              {privacyId === PostPrivacyType.PUBLIC ? (
                 "Public"
               ) : readers.length > 0 ? (
                 <Avatar
@@ -195,7 +196,7 @@ function DetailCard(props) {
           <CommentWrapper
             initailComments={[]}
             referenceId={props.id}
-            module={5}
+            module={DOCUMENT_ENUM.MODULE_NO}
             isCommentLoad={true}
           />
         </div>

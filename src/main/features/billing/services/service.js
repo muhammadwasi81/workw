@@ -12,3 +12,29 @@ export const getAllBillingService = (payload) => {
       return err;
     });
 };
+
+export const getAllPendingBillsService = (payload) =>{
+
+  return MasterConfig.post(`api/Payment/GetAllPendingBilling`,payload)
+  .then((res)=>{
+    console.log("res");
+
+    return res?.data
+  })
+  .catch((err)=>{
+    return err;
+  })
+}
+
+export const addBillingService = (payload) =>{
+
+  return MasterConfig.post(`api/Payment/AddBilling`,payload)
+  .then((res)=>{
+    console.log("res");
+
+    return res?.data
+  })
+  .catch((err)=>{
+    return err;
+  })
+}

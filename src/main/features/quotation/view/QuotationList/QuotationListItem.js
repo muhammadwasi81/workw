@@ -1,10 +1,9 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import {
   ItemHeader,
   SingleItem,
 } from "../../../../sharedComponents/Card/CardStyle";
 import AvatarOld from "../../../../sharedComponents/Avatar/avatarOLD";
-import { useDispatch } from "react-redux";
 import Avatar from "../../../../sharedComponents/Avatar/avatar";
 import { quotationDictionaryList } from "../../localization/index";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
@@ -15,7 +14,6 @@ function QuotationListItem(props) {
   const { quotationDictionary, Direction } = quotationDictionaryList[
     userLanguage
   ];
-  const disptach = useDispatch();
   const {
     creator,
     status = 1,
@@ -42,10 +40,10 @@ function QuotationListItem(props) {
               <AvatarOld
                 width={40}
                 height={40}
-                // src={user.image}
-                // name={user.name}
+                src={creator.image}
+                name={creator.name}
                 round
-              ></AvatarOld>
+              />
             }
             createDate={createDate}
             isPublic={true}

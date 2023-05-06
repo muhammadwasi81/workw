@@ -30,10 +30,10 @@ const CustomModal = ({
           onOk={onOk}
           footer={null}
           closable={false}
+          mask={false}
           style={{
             top: 20,
             borderRadius: "27px",
-            boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.1)",
             paddingBottom: "13px",
           }}
         >

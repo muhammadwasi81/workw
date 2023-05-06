@@ -7673,6 +7673,43 @@ i.ic-magnifying {
   border: 1px solid red;
 }
 
+/*  For Mobile View Calling */
+
+@media (max-width: 800px) {
+  .app-modal-without-block.react-draggable{
+    transform: unset !important;
+    width: 100%;
+  }
+
+  .outgoing-call{
+    width: 95%;
+    margin: 5px auto;
+    flex-direction: row;
+  }
+  .outgoing-call video{
+    max-height: 50px;
+    max-width: 65px;
+  }
+  .outgoing-call .outgoing-call-body{
+    flex: 1;
+    margin-right: 10px;
+  }
+  .outgoing-call .call-footer{
+    align-items: center;
+    height: 100%;
+  }
+
+  .DocumentModal.CallingModal .react-draggable{
+    transform: unset !important;
+  }
+}
+
+
+
+
+
+
+
 /* Summary expense travel  */
 .card_main {
   display: flex;

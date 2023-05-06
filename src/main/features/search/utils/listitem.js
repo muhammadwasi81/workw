@@ -50,12 +50,12 @@ export const listitem = [
     classObj: "button",
     to: ROUTES.SEARCH.PROJECT,
   },
-  {
-    IconName: todoBoard,
-    displayName: "Workboard",
-    classObj: "button",
-    to: ROUTES.SEARCH.WORKBOARD,
-  },
+  // {
+  //   IconName: todoBoard,
+  //   displayName: "Workboard",
+  //   classObj: "button",
+  //   to: ROUTES.SEARCH.WORKBOARD,
+  // },
   {
     IconName: groupsIcon,
     displayName: "Group",

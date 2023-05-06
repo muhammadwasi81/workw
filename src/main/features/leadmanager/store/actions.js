@@ -31,6 +31,7 @@ import {
   deleteLeadManagerMemberById,
 } from "../services/services";
 import { addLeadMember, deleteLeadManagerMember } from "../store/slice";
+import { ActionType } from "../../../sharedComponents/CustomModal";
 
 export const addLeadManager = createAsyncThunk(
   "addLeadManager",
@@ -42,6 +43,10 @@ export const addLeadManager = createAsyncThunk(
           message: "LeadManager Created Successfully",
           type: "success",
           duration: 2,
+          actionType: ActionType.Route,
+          actionData: {
+            path: `leadManager/leadManagerGroupDetails/${res.data.id}`,
+          },
         })
       );
       return res;

@@ -1,47 +1,48 @@
 import { DeleteFilled, EditOutlined } from "@ant-design/icons";
 import { LoadingOutlined } from "@ant-design/icons";
 import { Button, Popconfirm } from "antd";
-// import { addBilling } from "../store/actions";
+import React, { useState } from "react";
+import { getMonthName } from "../enum";
+
+
 
 export const tableColumn = () => {
   //Width will be set Accordingly
   return [
-    { title: "Bill No.", dataIndex: "name" },
+    { title: "Bill No.", dataIndex: "billNumber" },
     {
-      title: "Month",
-      dataIndex: "incomingPort",
+      title: "Month - Year",
+      dataIndex: "billMonth",
+      render: (monthNumber , record) =>  {
+        const monthName = getMonthName(monthNumber);
+        return `${monthName} - ${record?.billYear} `;
+      }
     },
     {
       title: "Users",
-      dataIndex: "incomingServerAddress",
+      dataIndex: "users",
     },
     {
       title: "Amount",
-      dataIndex: "outgoingPort",
+      dataIndex: "total",
+      render: (amount) => `$${amount}`
     },
     {
       title: "Description",
-      dataIndex: "outgoingServerAddress",
+      dataIndex: "description",
     },
     {
       title: "Status",
-      dataIndex: "outgoingServerAddress",
-    },
-    {
-      title: "Transaction",
-      dataIndex: "outgoingServerAddress",
-    },
-    {
-      title: "Reference",
-      dataIndex: "outgoingServerAddress",
+      dataIndex: "status",
     },
     {
       title: "Bussiness Name",
-      dataIndex: "outgoingServerAddress",
+      dataIndex: "businessName",
     },
   ];
 };
-export const pendingBillsColumns = (handleClick , addBilingHandler) => {
+export const pendingBillsColumns = (handleClick , addBilingHandler ,isModalVisible ,selectedRecord  ,setIsModalVisible ,setSelectedRecord) => {
+  
   //Width will be set Accordingly
   return [
     // { title: "Bill No.", 
@@ -50,6 +51,7 @@ export const pendingBillsColumns = (handleClick , addBilingHandler) => {
     {
       title: "Month",
       dataIndex: "billMonth",
+      render: (monthNumber) => getMonthName(monthNumber)
     },
     {
       title: "Year",
@@ -61,15 +63,33 @@ export const pendingBillsColumns = (handleClick , addBilingHandler) => {
       render: (text, record) => <a onClick={() => handleClick(record.billingUsers)} className="cursor-poiner">{text}</a>
     },
     {
+      title: "Total",
+      dataIndex: "total",
+    },
+    ,
+    {
       render: (text, record) => (
         <div>
-          <Button
-            className="ThemeBtn"
-            // style={{ color: "blue", marginRight: 8 }}
-            onClick={() => addBilingHandler(record)}
-          >
+          <Button className="ThemeBtn" onClick={() => {setSelectedRecord(record);setIsModalVisible(true)}}>
             Send Bill
           </Button>
+          {selectedRecord === record && (
+            <Popconfirm
+              title="Are you sure you want to send the bill?"
+              visible={isModalVisible}
+              onConfirm={() => {
+                addBilingHandler(selectedRecord);
+                setIsModalVisible(false);
+                setSelectedRecord(null);
+              }}
+              onCancel={() => {
+                setIsModalVisible(false);
+                setSelectedRecord(null);
+              }}
+              okText="Yes"
+              cancelText="No"
+            />
+          )}
         </div>
       ),
     }

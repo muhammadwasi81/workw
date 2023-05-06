@@ -4,7 +4,7 @@ export const getAllBillingService = (payload) => {
   //TODO: url will be changed
   return MasterConfig.post(`/api/Payment/GetAllBilling`, payload)
     .then((res) => {
-      console.log(res, "resssss");
+      console.log(res, "getAllBiling");
 
       return res.data;
     })

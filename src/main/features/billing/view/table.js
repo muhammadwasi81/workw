@@ -12,7 +12,7 @@ export default function BillingTable({}) {
 
   useEffect(()=>{
       setBilling(billing)
-  },[billing])
+  },[billing?.length])
 
   return (
     <AdminTable 

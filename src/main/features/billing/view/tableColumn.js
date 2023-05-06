@@ -11,9 +11,12 @@ export const tableColumn = () => {
   return [
     { title: "Bill No.", dataIndex: "billNumber" },
     {
-      title: "Month",
+      title: "Month - Year",
       dataIndex: "billMonth",
-      render: (monthNumber) => getMonthName(monthNumber)
+      render: (monthNumber , record) =>  {
+        const monthName = getMonthName(monthNumber);
+        return `${monthName} - ${record?.billYear} `;
+      }
     },
     {
       title: "Users",
@@ -22,6 +25,7 @@ export const tableColumn = () => {
     {
       title: "Amount",
       dataIndex: "total",
+      render: (amount) => `$${amount}`
     },
     {
       title: "Description",
@@ -33,7 +37,7 @@ export const tableColumn = () => {
     },
     {
       title: "Bussiness Name",
-      dataIndex: "outgoingServerAddress",
+      dataIndex: "businessName",
     },
   ];
 };

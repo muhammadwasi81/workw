@@ -22,8 +22,7 @@ export default function PendingBills({}) {
 
   
   useEffect(() => {
-    setpendingBillDataState([...PendingBillData]);
-    console.log(pendingBillDataState,"PendingBillData")
+    setpendingBillDataState(PendingBillData);
   }, [PendingBillData]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -49,29 +48,38 @@ export default function PendingBills({}) {
       showModal();
   }
 
-  const addBilingHandler =  async (bilingData) => {
-    await dispatch(addBilling(bilingData))
+  const addBilingHandler =  (bilingData) => {
+    
+    const filteredBills = pendingBillDataState.map((business) => {
+      const filteredBillings = business.billings.filter((bill) => bill.id !== bilingData?.id);
+      return { ...business, billings: filteredBillings };
+    });
+    setpendingBillDataState(filteredBills);
+    dispatch(addBilling(bilingData))  
     if(location.pathname.includes("companies/info/billing/"))
     {
-        console.log("Called1")
-        dispatch(getAllPendingBills([id]));
+        dispatch(
+          getAllBilling({
+            pageNo: 1,
+            pageSize: 20,
+            search: "",
+            sortBy: 1,
+            businessIds:[id]
+          })
+        );   
     }   
     else
     {
-      console.log("Called2")
-      dispatch(getAllPendingBills([]));
-    }
-    console.log(bilingData,"billingData")
-    setpendingBillDataState([...PendingBillData]);
-
     dispatch(
       getAllBilling({
         pageNo: 1,
         pageSize: 20,
         search: "",
         sortBy: 1,
+        businessIds:[]
       })
     );
+    }
     }
 
   return (
@@ -80,8 +88,13 @@ export default function PendingBills({}) {
       pendingBillDataState?.map((bill , index)=>{
           return ( <Collapse defaultActiveKey={0} >
           <Panel
-              header={bill?.business}
-              key={0}
+             header={
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <b>{bill?.business}</b>
+                <b>Total : ${bill?.billings.reduce((acc, curr) => acc + curr.total, 0)}</b>
+              </div>
+            }
+              key={1}
           >
           <AdminTable
             columns={pendingBillsColumns(handleClick , addBilingHandler ,isModalVisible ,selectedRecord , setIsModalVisible , setSelectedRecord )}

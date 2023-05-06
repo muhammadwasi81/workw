@@ -2,15 +2,19 @@ import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import { responseCode } from "../../../../services/enums/responseCode.js";
 import { getAllCustomTagById,
   addCustomTag,updateCustomTag,
-  removeCustomTag,addCustomTagMember,getAllCustomTag
-} 
-  from "./action.js";
+  removeCustomTag,addCustomTagMember,
+  getAllCustomTag, getAllCustomTagMember
+} from "./action.js";
 
 const initialState = {
- customTag: [],
+  customTag: [],
+  memberData: [],
+  customTagMembers:null,
   loadingData: false,
   loader: false,
   addMemberModal :false,
+  isMemberModalOpen: false,
+  MemberId: "",
 };
 
 const customTagSlice = createSlice({
@@ -23,6 +27,28 @@ const customTagSlice = createSlice({
     addMember: (state, { payload }) => {
       state.addMemberModal = payload;
     },
+
+    handleMemberModal(state, { payload }) {
+      state.MemberId = payload.id;
+      state.isMemberModalOpen = !state.isMemberModalOpen;
+    },
+
+    addCustomMember: (state, { payload }) => {
+      const customMember = state.customTag.map((item, i) => {
+        if (item.id === payload[0].customTagId) {
+          let members = [...item.members, payload[0]];
+          let newItem = {
+            ...item,
+            members,
+          };
+          return newItem;
+        } else {
+          return item;
+        }
+      });
+  
+      state.customTag = customMember;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -30,10 +56,10 @@ const customTagSlice = createSlice({
         state.loadingData = false;
         state.customTag = payload.data;
       })
-
       .addCase(getAllCustomTag.fulfilled, (state, { payload }) => {
-        state.loadingData = false;
-        state.customTag = payload.data;
+        console.log(payload, "getAllCustomTag");
+        state.customTag = payload ? payload : [];
+        state.loader = false;
       })
       .addCase(addCustomTag.fulfilled, (state, { payload }) => {
         console.log(payload,"payload");
@@ -42,12 +68,18 @@ const customTagSlice = createSlice({
           state.customTag.push(payload.data);
           console.log(state.customTag,"custommmmm");
       })
+
+      .addCase(getAllCustomTagMember.fulfilled, (state, action) => {
+        state.memberData = action.payload.data;
+      })
+      
       .addCase(addCustomTagMember.fulfilled, (state, { payload }) => {
-        if (state.customTag) {
+        console.log(payload,"payloooood");
+        if (state.customTagMembers) {
           if (payload.data?.length) {
-            let newMembers = [...state.customTag.members, payload.data[0]];
-            state.customTag = {
-              ...state.customTag,
+            let newMembers = [...state.customTagMembers.members, payload.data[0]];
+            state.customTagMembers = {
+              ...state.customTagMembers,
               members: newMembers,
             };
           }
@@ -76,5 +108,7 @@ const customTagSlice = createSlice({
   },
 });
 
-export const { customDeleted,addMember } = customTagSlice.actions;
+export const { customDeleted,addMember,addCustomMember,
+  handleMemberModal } = customTagSlice.actions;
+  
 export default customTagSlice.reducer;

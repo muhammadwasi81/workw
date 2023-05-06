@@ -1,22 +1,24 @@
-import { Skeleton } from "antd";
+import { Skeleton,Form, Select, Avatar } from "antd";
 import { removeData } from "jquery";
 import { useEffect, useState, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AdminTable } from "../../../sharedComponents/Administration/StyledComponents/adminTable";
+import { Table } from "../../../sharedComponents/customTable";
+
 import { removeCustomTag,getAllCustomTag} from "../store/action";
-import MemberModal from "./MemberModal";
 import {
   AlignLeftOutlined,
   EyeOutlined,
   PaperClipOutlined,
   PlusOutlined,
-  UnorderedListOutlined,
+  UnorderedListOutlined, 
   PictureOutlined,
   TagOutlined,
 } from "@ant-design/icons";
 
-import { customDeleted , addMember} from "../store/slice";
+import { customDeleted , addMember,handleMemberModal} from "../store/slice";
 import { tableColumn } from "./tableColumn";
+import  MemberModal  from "./MemberModal";
 
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../utils/localization/languages";
@@ -26,6 +28,7 @@ export default function CustomTagTable({
   removeButtons,
   actionRights = [],
   setClearButton,
+  visibleModal
 }) {
   const { userLanguage } = useContext(LanguageChangeContext);
   const { administration, grade, sharedLabels, Direction } = dictionaryList[
@@ -33,20 +36,27 @@ export default function CustomTagTable({
   ];
   console.log("jkjll", sharedLabels);
 
-  const { customTag , loadingData } = useSelector((state) => state.customTagSlice); 
-  console.log(customTag,"customTag");
+  const { customTag, loadingData } = useSelector((state) => state.customTagSlice);
+  //const { customTagMembers } = useSelector(state => state.customTagSlice);
+  const memberData = useSelector((state) => state.customTagSlice);
+  console.log(memberData,"abcfggg");
 
-  const [id, setId] = useState();
-  const [visible, setVisible] = useState(false);
-
-  console.log(id,"idddd");
+  console.log(customTag,"abccccc");
   const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch(getAllCustomTag());
+    dispatch(
+      getAllCustomTag({
+        pageNo: 1,
+        pageSize: 20,
+        search:"",
+        sortBy: 1,
+      })
+    );
   }, []);
 
+  const [id, setId] = useState();
 
-  
   const onSuccess = (e) => {
     console.log(e.id);
     setId(null);
@@ -63,22 +73,61 @@ export default function CustomTagTable({
     dispatch(removeCustomTag(e)).then(() => onSuccess(e), onError);
   };
 
-  const handleMember =() => {
-    dispatch(addMember({ status: true }));
-    setVisible(true);
-    console.log(visible,"visiblee");
-  }
+  const onRow = (record, rowIndex) => {
+		return {
+			onClick: event => {
+         //setVisible(true);
+        // console.log("visibleeee",visible);
+         //dispatch(addMember({ status: true }));
+				//dispatch(getLeadManagerDetailById(record.id));
+				//dispatch(handleSectionDetailModal());
+			}, // click row
+			onDoubleClick: event => {}, // double click row
+			onContextMenu: event => {}, // right button click row
+			onMouseEnter: event => {}, // mouse enter row
+			onMouseLeave: event => {}, // mouse leave row
+		};
+	};
 
+  const handleModal =()=> {
+    visibleModal(true);
+    dispatch(addMember({ status: true }));
+    console.log("helllooooo");
+	};
   return (
     <>
-    <AdminTable
-      // scroll={{ x: 1500, y: 300 }}
-      columns={tableColumn(
-        //grade,
+    <Table
+			columns={tableColumn(
+        grade,
         handleEdit,
         handleDelete,
-        handleMember,
         removeButtons,
+        handleModal,
+        actionRights,
+        id,
+        setClearButton,
+        sharedLabels
+      )}
+			dragable={false}
+			//onRow={onRow}
+			data={customTag}
+			//   columns={tableColumns(dictionary)}
+			// handleChange={handleColumnSorting}
+			// onPageChange={onPageChange}
+			// status={travelStatus}
+			// loading={loader}
+			// success={success}
+			// onActionClick={onActionClick}
+		/>
+    
+    {/* <AdminTable
+      // scroll={{ x: 1500, y: 300 }}
+      columns={tableColumn(
+        grade,
+        handleEdit,
+        handleDelete,
+        removeButtons,
+        handleMemberModal,
         actionRights,
         id,
         setClearButton,
@@ -104,9 +153,18 @@ export default function CustomTagTable({
           ),
         }
       }
-         
-    />
-    {visible && <MemberModal data={customTag}/>}
-  </>        
+    /> */}
+
+    {/* {customTag.map((item)=>
+    {
+      return(
+        <>
+          {visible && <MemberModal data={item.id}/>}
+        </>
+      )
+    } )} */}
+
+      
+    </>  
   );
 }

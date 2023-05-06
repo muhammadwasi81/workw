@@ -64,6 +64,8 @@ function ProjectDetails() {
   const params = useParams();
   const dispatch = useDispatch();
   const detail = useSelector((state) => state.projectSlice.projectDetail);
+   console.log(detail,"detaildetail");
+
   const [projectfeatures, setprojectFeatures] = useState([]);
   const [description, setDescription] = useState("");
   const descriptionDebounce = useDebounce(description, 500);

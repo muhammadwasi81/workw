@@ -12,6 +12,7 @@ import { addMember, deleteProjectMember } from "../store/slice";
 import {addProjectMemberAction,deleteProjectMemberAction} from "../store/actions";
 
 function MemberModal({ isOpen = false, data }) {
+
   const dispatch = useDispatch();
 
   const employees = useSelector((state) => state.sharedSlice.employees);

@@ -5,6 +5,7 @@ import { AdminContainer } from "../../../sharedComponents/Administration/StyledC
 import { addCustomTag,updateCustomTag,removeCustomTag } from "../store/action";
 import CustomTagForm from "./form.js";
 import CustomTagTable from "./table.js";
+import MemberModal from './MemberModal';
 
 export default function CustomTag() {
   const initialState = { name: "", description: "" };
@@ -13,14 +14,19 @@ export default function CustomTag() {
 
   const dispatch = useDispatch();
   const  loader  = useSelector((state) => state.customTagSlice);
+  const [visible, setVisible] = useState(false);
 
+  console.log(visible,"chaljaoooo");
+
+  
   const handleDelete = (e) => {
     dispatch(removeCustomTag(e));
   };
 
   const onSubmit = (e) => {
+    console.log("dataofeeee" , e)
     if (e.name === "" || e.description === "") {
-      message.error("Please fill all required fields");
+     return message.error("Please fill all required fields");
     } else {
       if (!e.id) {
         dispatch(addCustomTag(e));
@@ -34,20 +40,25 @@ export default function CustomTag() {
   };
 
   return (
+    <>
     <AdminContainer>
       <CustomTagForm
         clearButton={clearButton}
         setClearButton={setClearButton}
         data={custom}
         onSubmit={onSubmit}
-        //loading={loader}
+       //loading={loader}
       />
       <CustomTagTable
         handleEdit={setCustom}
         setClearButton={setClearButton}
         handleDelete={handleDelete}
         actionRights={[1, 2]}
+        visibleModal={setVisible}
       />
+
+    {visible && <MemberModal data={""}/>}
     </AdminContainer>
+    </>
   );
 }

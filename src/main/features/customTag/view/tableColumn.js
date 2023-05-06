@@ -1,96 +1,52 @@
-import { DeleteFilled, EditFilled ,PlusOutlined } from '@ant-design/icons';
+import { DeleteFilled, EditFilled ,PlusOutlined,PlusCircleFilled } from '@ant-design/icons';
 import { LoadingOutlined } from '@ant-design/icons';
-import { Popconfirm } from 'antd';
+import { Popconfirm,Tooltip} from 'antd';
 import React,{useContext} from "react"
+import { useDispatch, useSelector } from "react-redux";
+
+import Avatar from "../../../sharedComponents/Avatar/avatar";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../utils/localization/languages";
-
-const Edit = (handleEdit, row, setClearButton) => {
-
-  // const { userLanguage } = useContext(LanguageChangeContext);
-	// const { administration, sharedLabels, Direction } =
-	// 	dictionaryList[userLanguage];
-	// 	console.log("jkjll",administration.grade.Grade);
-
-  return (
-    <EditFilled
-      style={{ color: '#1b5669' }}
-      onClick={(e) => {
-        handleEdit({
-          id: row.id,
-          name: row.name,
-          description: row.description,
-        });
-        setClearButton(true);
-      }}
-    />
-  );
-};
-
-const Delete = (handleDelete, row) => {
-  return (
-    <Popconfirm
-      title="Sure to delete?"
-      onConfirm={(e) => handleDelete({ id: row.id })}
-    >
-      <DeleteFilled style={{ color: '#1b5669' }} />
-    </Popconfirm>
-  );
-};
-
-const Member = (addMember,row) => {
-  return (
-   <PlusOutlined className="!text-gray-600" 
-    onClick={(e) => {
-    addMember({
-      id: row.id,
-    })
-   }} 
-  />
-  
-  )
-}
-
 export const tableColumn = (
-  customTag,
-  handleEdit,
-  handleDelete,
-  addMember,
-  removeButtons = false,
-  rights,
-  id,
-  setClearButton,
-  sharedLabels,
+  //sections,
+  handleModal,
+  //userLanguage,
+  //handleSelectedMembers
 ) => {
-  console.log(customTag,"kkkkkk");
+  // const { userLanguage } = useContext(LanguageChangeContext);
+  // const { LeadManagerDictionaryList, Direction } = LeadManagerDictionary[
+  //   userLanguage
+  // ];
+  //const { table } = LeadManagerDictionaryList;
   return [
-    { title:"name", dataIndex: 'name', width: '20%', key: 1 },
-    { title: "description", dataIndex: 'description', width: '70%', key: 2 },
-    { title: "Members", width: '30%', key: 2 },
-    removeButtons
-      ? {}
-      : {
-          align: 'right',
-          key: 3,
-          render: (_, row) => {
-            if (id && row.id === id) return <LoadingOutlined key={row} />;
-            if (rights.length <= 0) return;
-
-            if (rights.includes(1) && rights.includes(2))
-              return (
-                <>
-                  {Edit(handleEdit, row, setClearButton)}{' '}
-                  {Delete(handleDelete, row)}
-                  {Member(addMember,row)}
-                </>
-              );
-
-            if (rights.includes(1)) return Edit(handleEdit, row);
-
-            if (rights.includes(2)) return Delete(handleDelete, row);
-
-            if (rights.includes(3)) return Member(addMember, row);
-          },
-        },
+    { title:"Name", dataIndex: 'name', width: '10%', key: 1 },
+    { title:"Description", dataIndex: 'description', width: '10%', key: 2 },
+    {
+      title: "Members",
+      dataIndex: ['members'],
+      width: 20,
+      render: (members, { id }, index) => {
+        return (
+          <div className="flex gap-2 items-center">
+            <Avatar heading="Members" membersData={members || []} />
+            <Tooltip title="Add Members">
+              <PlusCircleFilled
+                className="!text-[20px] !cursor-pointer !text-primary-color "
+                onClick={() => handleModal()}
+                 
+                //onClick={handleModal}
+                // onClick={(e) => {
+                //   e.stopPropagation();
+                //   e.preventDefault();
+                //   handleModal();
+                //   //handleSelectedMembers('', members);
+                // }}
+              />
+            </Tooltip>
+          </div>
+        );
+      },
+      // ellipsis: true,
+    },
   ];
 };

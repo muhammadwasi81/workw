@@ -8,7 +8,8 @@ import
 {
   addWorkBoardTodoMemberAction,
   removeToDoMemebr,
-  addCustomTagMember
+  addCustomTagMember,
+  addCustomTag
 } 
   from "../store/action";
 import { NoDataFound } from "../../workboard/Dashboard";
@@ -20,11 +21,11 @@ import { getAllEmployees } from "../../../../utils/Shared/store/actions";
 import { data } from "jquery";
 
 function MemberModal({ isOpen = false, data }) {
-  console.log(data,"dataaa");
+  console.log(data, "dataaaaaa")
   const dispatch = useDispatch();
 
-  const modalRequest = useSelector((state) => state.trelloSlice.addMemberModal);
-
+  const modalRequest = useSelector((state) => state.customTagSlice.addMemberModal);
+  
   console.log(modalRequest,"modalRequest");
   const employees = useSelector((state) => state.sharedSlice.employees);
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
@@ -44,24 +45,27 @@ function MemberModal({ isOpen = false, data }) {
   const handleClose = () => {
     dispatch(addMember(false));
   };
-
+  console.log(data, 'dataiud')
   const handleChange = (myId) => {
     let memberId = myId.toString();
     const membersData = {
-      id: data.id,
+      // referenceId: data.id,
+      id: data,
       memberId: memberId,
     };
+   console.log(membersData, "payloaddata")
+    dispatch(addCustomTagMember([membersData]));
    
 
-    let a = data.members.filter((item) => {
-      return item.member.id === membersData.memberId;
-    });
-    let b = a[0] ? a[0].memberId : "";
-    if (membersData.memberId === b) {
-      return message.error("Member Already Added");
-    } else {
-      dispatch(addCustomTagMember({membersData}));
-    }
+    // let a = data.member.filter((item) => {
+    //   return item.member.id === membersData.memberId;
+    // });
+    // let b = a[0] ? a[0].memberId : "";
+    // if (membersData.memberId === b) {
+    //   return message.error("Member Already Added");
+    // } else {
+    //   dispatch(addCustomTagMember({membersData}));
+    // }
   };
 
   useEffect(() => {
@@ -74,7 +78,7 @@ function MemberModal({ isOpen = false, data }) {
   const handleDeleteMember = (myId) => {
     let memberId = myId.toString();
     const membersData = {
-      id: data.id,
+      id: data,
       memberId: memberId,
     };
     //dispatch(removeToDoMemebr(membersData));
@@ -114,7 +118,7 @@ function MemberModal({ isOpen = false, data }) {
           );
         }}
         dataVal={value}
-        name="members"
+        name="member"
         showSearch={true}
         // direction={Direction}
         rules={[

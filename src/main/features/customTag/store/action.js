@@ -4,6 +4,8 @@ import {
   responseMessage,
   responseMessageType,
 } from '../../../../services/slices/notificationSlice';
+import { ResponseType } from "../../../../utils/api/ResponseResult";
+
 import {
     getAllCustomTagByIdService,
     addCustomTagService,
@@ -14,6 +16,8 @@ import {
     getAllCustomTagService,
 
 } from '../services/service';
+
+import {addCustomMember} from "./slice";
 import { message } from 'antd';
 
 export const getAllCustomTagById = createAsyncThunk(
@@ -31,12 +35,28 @@ export const getAllCustomTagById = createAsyncThunk(
   }
 );
 
+
 export const getAllCustomTag = createAsyncThunk(
-  'customtag/getAllCustomTag',
-  async ( { dispatch }) => {
-    const res = await getAllCustomTagService();
-    console.log(res,"responseeee");
-    if (!res.responseCode) {
+  "customtag/getAllCustomTag",
+  async (data) => {
+    console.log(data);
+    const response = await getAllCustomTagService(data);
+
+    if (!response.responseCode) {
+      message.error("Something went wrong");
+    }
+    return response.data;
+  }
+);
+
+export const getAllCustomTagMember = createAsyncThunk(
+  "getMember",
+  async (id, { dispatch }) => {
+    const res = await getAllCustomTagMemberService(id);
+    if (res.responseCode) {
+      if (res.responseCode === responseCode.Success)
+        responseMessage({ dispatch, data: res });
+    } else {
       responseMessage({
         dispatch: dispatch,
         type: responseMessageType.ApiFailure,
@@ -46,26 +66,28 @@ export const getAllCustomTag = createAsyncThunk(
   }
 );
 
-export const getAllCustomTagMember = createAsyncThunk(
-  'customtag/getAllCustomTagById',
-  async (id, { dispatch }) => {
-    const res = await getAllCustomTagByIdService(id);
-    console.log(res,"responseeee");
-    if (!res.responseCode) {
-      responseMessage({
-        dispatch: dispatch,
-        type: responseMessageType.ApiFailure,
-      });
-    }
-    return res;
-  }
-);
+// export const getAllCustomTagMember = createAsyncThunk(
+//   'customtag/getAllCustomTagById',
+//   async (id, { dispatch }) => {
+//     const res = await getAllCustomTagByIdService(id);
+//     if (res.responseCode) {
+//       if (res.responseCode === responseCode.Success)
+//         responseMessage({ dispatch, data: res });
+//     } else {
+//       responseMessage({
+//         dispatch: dispatch,
+//         type: responseMessageType.ApiFailure,
+//       });
+//     }
+//     return res;
+//   }
+// );
 
 export const addCustomTag = createAsyncThunk(
   'customtag/addCustomTag',
   async (args, { dispatch }) => {
     const res = await addCustomTagService(args);
-    console.log(res,"response");
+    console.log(res.data ,"actionData");
     if (res.responseCode) {
       if (res.responseCode === responseCode.Success)
         res.message = 'Custom Tag added successfully!';
@@ -78,19 +100,20 @@ export const addCustomTag = createAsyncThunk(
       });
     }
 
-    return res;
+    return res.data;
   }
 );
 
+
 export const addCustomTagMember = createAsyncThunk(
-  'customtag/addCustomTag',
-  async (args, { dispatch }) => {
-    const res = await addCustomTagMemberService(args);
-    console.log(res,"response");
+  "addMember",
+  async (data, { dispatch }) => {
+    const res = await addCustomTagMemberService(data);
+
+    console.log(res,"responseeeee");
     if (res.responseCode) {
       if (res.responseCode === responseCode.Success)
-        res.message = 'Custom Tag added successfully!';
-      message.success(res.message);
+        dispatch(addCustomMember(res.data));
       responseMessage({ dispatch, data: res });
     } else {
       responseMessage({
@@ -98,7 +121,6 @@ export const addCustomTagMember = createAsyncThunk(
         type: responseMessageType.ApiFailure,
       });
     }
-
     return res;
   }
 );
@@ -125,7 +147,7 @@ export const updateCustomTag = createAsyncThunk(
 );
 
 export const removeCustomTag = createAsyncThunk(
-  'grade/removeGrade',
+  'customtag/removeCustomTag',
   async (args, { dispatch }) => {
     const res = await removeCustomTagService(args.id);
 

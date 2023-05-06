@@ -1,5 +1,7 @@
 import "./custom.css";
-import { Input } from "antd";
+import { Input,Form, Select, Skeleton } from "antd";
+import { useSelector, useDispatch } from "react-redux";
+
 import { useEffect, useState, useContext } from "react";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../utils/localization/languages";
@@ -14,6 +16,12 @@ import {
   FormTextArea,
 } from "../../../sharedComponents/Administration/StyledComponents/adminForm";
 import MemberSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
+import Avatar from "../../../sharedComponents/Avatar/avatar";
+import { getAllEmployees } from "../../../../utils/Shared/store/actions";
+import {addCustomTag,addCustomTagMember} from "../store/action";
+import { useParams } from "react-router-dom";
+import { getNameForImage } from "../../../../utils/base";
+import { defaultUiid } from '../../../../utils/Shared/enums/enums';
 
 export default function CustomTagForm({
   data,
@@ -26,8 +34,6 @@ export default function CustomTagForm({
   const { administration, sharedLabels, Direction } = dictionaryList[
     userLanguage
   ];
-
-  const [employeesData, setEmployeesData] = useState([]);
 
   const [form, setForm] = useState(data);
   const handleClear = (e) => {
@@ -65,7 +71,7 @@ export default function CustomTagForm({
           <FormLabel>CustomTag</FormLabel>
           <Input
             placeholder="Enter CustomTag"
-            value={form.name}
+            value={form?.name}
             onChange={handelChangeName}
           />
         </FormInput>
@@ -73,16 +79,13 @@ export default function CustomTagForm({
           <FormLabel>Description</FormLabel>
           <FormTextArea
             placeholder= "EnterDescription"
-            value={form.description}
+            value={form?.description}
             onChange={handelChangeDescription}
           />
         </FormInput>
-        <FormInput>
-       
-      </FormInput>
       </FormInputContainer>
       <FormButtonContainer>
-        {form.id ? (
+        {form?.id ? (
           <>
             <FormButton
               type="primary"
@@ -94,7 +97,7 @@ export default function CustomTagForm({
                 setClearButton(false);
               }}
             >
-              saveCustomTag
+              SaveCustomTag
             </FormButton>
           </>
         ) : (
@@ -120,7 +123,7 @@ export default function CustomTagForm({
             className="formBtn"
             onClick={handleClear}
           >
-            clear
+           Clear
           </FormButton>
         )}
       </FormButtonContainer>

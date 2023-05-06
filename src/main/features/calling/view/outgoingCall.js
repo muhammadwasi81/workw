@@ -72,7 +72,7 @@ export default function OutgoingCall() {
 				outgoingCallData.members.length === 1 &&
 				<Draggable
 					Draggable
-					defaultPosition={window.innerWidth < 800 ? undefined : { x: axis.x_axis, y: axis.y_axis }}
+					// defaultPosition={window.innerWidth < 800 ? undefined : { x: axis.x_axis, y: axis.y_axis }}
 					handle=".outgoing-call"
 					disabled={window.innerWidth < 800}
 					// grid={[25, 25]}

@@ -91,7 +91,14 @@ function ExpenseList({
                 {category.image}
                 {category.name}
               </span>
-              <span className="secondaryTag">{label}</span>
+              {/* <span className="secondaryTag">{label}</span> */}
+              {expense.referenceType !== 1 ? (
+                <div className="referenceType bg-gray-300 rounded-md h-[34px] w-[80px] border border-[#526bb1] text-center text-[#526bb1]">
+                  <span className="text-gray-500 text-xs">
+                    {referenceHandler(expense.referenceType) || "N/A"}
+                  </span>
+                </div>
+              ) : null}
             </div>
             <div className="right">
               <p>Rs. {amount}</p>
@@ -100,7 +107,7 @@ function ExpenseList({
           <div className="expensedetail__footer">
             <div className="left">
               <span>{labels.expenseDate}</span>
-              <span> {moment(expenseDate).fromNow()}</span>
+              <span> {moment(expenseDate).format("DD MMM YYYY")}</span>
             </div>
             <div className="right">
               <span>{labels.header}:</span>
@@ -152,10 +159,10 @@ function ExpenseList({
               </div>
             </div>
             <div className="card-column-item">
-              <div className="column-item-head">{labels.type}</div>
-              <div className="referenceType bg-gray-300 rounded-md h-[34px] w-[80px] px-2">
+              {/* <div className="column-item-head">{labels.type}</div> */}
+              {/* <div className="referenceType bg-gray-300 rounded-md h-[34px] w-[80px] px-2">
                 {referenceHandler(expense.referenceType) || "N/A"}
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

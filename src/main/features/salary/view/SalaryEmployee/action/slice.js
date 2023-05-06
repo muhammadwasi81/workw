@@ -4,12 +4,14 @@ import {
   getCurrentSalaryOfEmployeeAction,
   getEmployeeSalaryAction,
 } from "./action";
+import { getAllAllowanceGreadeData } from "../../../../gradeAllowance/store/action";
 
 const initialState = {
   employeeSalary: [],
   currentEmployeeSalary: [],
   loader: false,
   success: false,
+  AllGradeAllowance: [],
 };
 
 const employeeSalarySlice = createSlice({
@@ -21,6 +23,12 @@ const employeeSalarySlice = createSlice({
       .addCase(getEmployeeSalaryAction.fulfilled, (state, { payload }) => {
         console.log(payload, "slice payload");
         state.currentEmployeeSalary = payload;
+        state.loader = false;
+        state.success = true;
+      })
+      .addCase(getAllAllowanceGreadeData.fulfilled, (state, { payload }) => {
+        console.log(payload, "ddddddddddd");
+        state.AllGradeAllowance = payload.data;
         state.loader = false;
         state.success = true;
       })

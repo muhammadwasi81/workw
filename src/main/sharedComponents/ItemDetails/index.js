@@ -200,18 +200,15 @@ function ItemDetailModal({
           />
         )}
 
-        {isSearch && (
+        {/* {isSearch && (
           <Input
             placeholder="input search text"
             allowClear
             onChange={onSearch}
-            // style={{
-            //   width: 200,
-            // }}
             size={"medium"}
             style={{ marginBottom: "1rem" }}
           />
-        )}
+        )} */}
 
         <ListItem
           ListData={myData}
@@ -263,7 +260,6 @@ function ItemDetailModal({
             />
             {!isDeleteDisabled && (
               <DeleteFilled
-                className=""
                 style={{ color: "#000000" }}
                 onClick={(e) => DeleteInItemDetail(e, item.member.id)}
               />

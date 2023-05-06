@@ -5,12 +5,11 @@ import { MailServices } from "../MailServices/MailServices";
 
 export const getMailFolders = createAsyncThunk(
   "mail/getMailFolders",
-  async (_, { rejectWithValue }) => {
+  async (arg, { rejectWithValue }) => {
     try {
       const response = await MailServices.getMenuFolders();
       console.log(response, "responseresponse");
-      if (response.data.responseCode !== 1002)
-        return rejectWithValue(response.data);
+      if (response.data.responseCode === 1001) return response.data;
     } catch (e) {
       console.log(e, "responseresponse");
       return rejectWithValue(e.response.data);

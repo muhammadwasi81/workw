@@ -222,11 +222,8 @@ const reducers = combineReducers({
   projectExternalSlice,
   ApproverSlice,
   globalSearchSlice,
-<<<<<<< HEAD
   customTagSlice,
-=======
   AllGreadeAllowance,
->>>>>>> 615b18abf70e076f673f8bbb7d9e8f9a9169752c
 });
 
 const persistConfig = {

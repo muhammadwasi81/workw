@@ -42,7 +42,7 @@ const Index = () => {
   }, []);
 
   const [isModalVisible, setIsModalVisible] = useState(false);
-  useEffect(() => {}, [isModalVisible]);
+  // useEffect(() => {}, [isModalVisible]);
 
   const showModal = () => {
     setIsModalVisible(true);

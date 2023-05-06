@@ -103,7 +103,8 @@ export default function CreateRoom() {
 		let dataToSend = {
 			...fields,
 			members: [...members, ...externals],
-			mediaType: CALL_MEDIA_TYPE.VIDEO
+			mediaType: CALL_MEDIA_TYPE.VIDEO,
+			isVideo: true
 		};
 
 		dispatch(createRoom(dataToSend));

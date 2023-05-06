@@ -29,7 +29,8 @@ const MessengerHead = ({
         userId: member.id,
         user: member
       })),
-      mediaType: isVideoCall ? CALL_MEDIA_TYPE.VIDEO : CALL_MEDIA_TYPE.AUDIO
+      mediaType: isVideoCall ? CALL_MEDIA_TYPE.VIDEO : CALL_MEDIA_TYPE.AUDIO,
+      isVideo: isVideoCall
     }
     dispatch(createDirectCall(payload));
     // const callingSocket = InitializeCallingSocket.getInstance();

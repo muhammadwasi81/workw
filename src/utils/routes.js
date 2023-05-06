@@ -467,6 +467,7 @@ export const ROUTES = {
     CUSTOM_APPROVAL_CATEGORY: `customApprovalCategory`,
     DEFAULT_APPROVALS: `defaultApprovals`,
     ALLOWANCES: `allowances`,
+    GRADE_ALLOWANCES: `gradeAllowances`,
     REWARD_CATEGORY: `rewardCategory`,
     WARNING_CATEGORY: `warningCategory`,
     BILLING: `billing`,

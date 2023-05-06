@@ -1,6 +1,6 @@
 import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import { responseCode } from "../../../../services/enums/responseCode.js";
-import { getAllBilling } from "./actions.js";
+import { addBilling, getAllBilling, getAllPendingBills } from "./actions.js";
 
 const initialState = {
   billing: [],
@@ -8,6 +8,9 @@ const initialState = {
   loader: false,
   success: false,
   error: false,
+
+ PendingBillData:[],
+ addBillingResponseMessage:""
 };
 
 const userBillingSlice = createSlice({
@@ -21,6 +24,14 @@ const userBillingSlice = createSlice({
         state.loadingData = false;
         state.billing = payload.data;
       })
+      .addCase(getAllPendingBills.fulfilled, (state, { payload }) => {
+        console.log(payload, "get all pending Bill data");
+        state.PendingBillData = payload.data;
+      })
+      .addCase(addBilling.fulfilled, (state, { payload }) => {
+        // console.log(payload, "get all pending Bill data");
+        state.addBillingResponseMessage = payload.message;
+      })
       .addMatcher(isPending(...[getAllBilling]), (state) => {
         state.loadingData = true;
         state.success = false;
@@ -29,7 +40,7 @@ const userBillingSlice = createSlice({
       .addMatcher(isRejected(...[getAllBilling]), (state) => {
         state.loadingData = false;
         state.success = false;
-      });
+      })
   },
 });
 

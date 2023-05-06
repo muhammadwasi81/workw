@@ -2,7 +2,7 @@ import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import { responseCode } from "../../../../services/enums/responseCode.js";
 import {
   addEmailConfiguration,
-  getAllEmailConfigurations,
+  getAllBusinessEmailConfiguration,
   removeEmailConfiguration,
   updateEmailConfiguration,
 } from "./actions.js";
@@ -27,10 +27,13 @@ const userEmailConfigurationSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getAllEmailConfigurations.fulfilled, (state, { payload }) => {
-        state.loadingData = false;
-        state.emailConfigurations = payload.data;
-      })
+      .addCase(
+        getAllBusinessEmailConfiguration.fulfilled,
+        (state, { payload }) => {
+          state.loadingData = false;
+          state.emailConfigurations = payload.data;
+        }
+      )
       .addCase(addEmailConfiguration.fulfilled, (state, { payload }) => {
         state.loader = false;
         if (payload.responseCode === responseCode.Success)
@@ -50,7 +53,7 @@ const userEmailConfigurationSlice = createSlice({
           state.error = false;
         }
       )
-      .addMatcher(isPending(...[getAllEmailConfigurations]), (state) => {
+      .addMatcher(isPending(...[getAllBusinessEmailConfiguration]), (state) => {
         state.loadingData = true;
         state.success = false;
         state.error = false;
@@ -58,7 +61,7 @@ const userEmailConfigurationSlice = createSlice({
       .addMatcher(
         isRejected(
           ...[
-            getAllEmailConfigurations,
+            getAllBusinessEmailConfiguration,
             addEmailConfiguration,
             updateEmailConfiguration,
           ]

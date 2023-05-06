@@ -113,6 +113,7 @@ import projectExternalSlice from "../main/features/publicRoutes/projects/store/s
 import ApproverSlice from "../main/sharedComponents/AppComponents/Approvals/action/slice";
 import globalSearchSlice from "../main/features/search/store/slice";
 import customTagSlice from "../main/features/customTag/store/slice";
+import AllGreadeAllowance from "../main/features/gradeAllowance/store/slice";
 // import thunk from "redux-thunk";
 
 const reducers = combineReducers({
@@ -221,7 +222,11 @@ const reducers = combineReducers({
   projectExternalSlice,
   ApproverSlice,
   globalSearchSlice,
+<<<<<<< HEAD
   customTagSlice,
+=======
+  AllGreadeAllowance,
+>>>>>>> 615b18abf70e076f673f8bbb7d9e8f9a9169752c
 });
 
 const persistConfig = {

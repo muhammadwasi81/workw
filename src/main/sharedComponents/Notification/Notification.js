@@ -17,6 +17,7 @@ const MainNotification = () => {
   const { singlePost } = useSelector((state) => state.feedSlice);
 
   useEffect(() => {
+    // this code should be removed
     notification.referenceId && dispatch(getFeedById(notification.referenceId));
   }, [notification.referenceId, dispatch]);
 
@@ -25,6 +26,7 @@ const MainNotification = () => {
       openNotification(notification, setIsModalOpen, navigate);
   }, [notification]);
 
+   // this code should be removed
   useEffect(() => {
     setModalContent(<PostModalContent singlePost={singlePost} />);
   }, [singlePost]);

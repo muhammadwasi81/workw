@@ -69,14 +69,19 @@ const GradeAllowances = () => {
     }
 
     if (Object.keys(defaultInputValue).length > 0) {
-      dispatch(updateGradeAllowance(formValues));
+      let UpdateFormValues = formValues;
+      delete UpdateFormValues.gradeName;
+      delete UpdateFormValues.allowanceName;
+      dispatch(updateGradeAllowance(UpdateFormValues));
       dispatch(handleAddButton(true));
       dispatch(removeUpdateInput());
       dispatch(updateUser(formValues));
+      console.log(formValues, "updateFormvalues");
       // dispatch(getAllAllowanceGreadeData());
     } else {
       dispatch(addSliceGradeAllowance(formValues));
       dispatch(addGradeAllowance(formValues));
+      dispatch(getAllAllowanceGreadeData());
     }
     setFormValues({
       gradeId: "",
@@ -85,7 +90,7 @@ const GradeAllowances = () => {
       description: "",
       allowanceUnit: null,
     });
-    dispatch(getAllAllowanceGreadeData());
+    // dispatch(getAllAllowanceGreadeData());
   };
   return (
     <div className="w-full">

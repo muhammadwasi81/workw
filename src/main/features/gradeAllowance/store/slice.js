@@ -45,6 +45,8 @@ const AllGreadeAllowance = createSlice({
         allowanceUnit,
         allowanceId,
         value,
+        allowanceName,
+        gradeName,
       } = action.payload;
       console.log(action.payload, "vvvvvvvvv");
       const user = state.gradeAllowances.find((grade) => grade.id === id);
@@ -54,6 +56,8 @@ const AllGreadeAllowance = createSlice({
         user.allowanceUnit = allowanceUnit;
         user.value = value;
         user.allowanceId = allowanceId;
+        user.allowanceName = allowanceName;
+        user.gradeName = gradeName;
       }
     },
     addSliceGradeAllowance: (state, action) => {

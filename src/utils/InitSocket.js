@@ -88,6 +88,19 @@ import { logout } from "./base";
 
 // };
 
+
+const handleNotificationDetail = (notificationItem, dispatch) => {
+	switch (notificationItem.featureType) {
+		case 1:
+			
+			break;
+	
+		default:
+			break;
+	}
+}
+
+
 export class InitializeSocket {
 	connection;
 	classInstance;
@@ -161,6 +174,7 @@ export class InitializeSocket {
 
 		this.connection.on("notificationOut", data => {
 			console.log(data, "notificationOut");
+			handleNotificationDetail(data, this.#dispatch)
 			this.#dispatch(
 				openNotification({
 					message: `${data.fromUser.name} ${data.message}`,

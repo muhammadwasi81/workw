@@ -42,8 +42,7 @@ function TaskContainer() {
 
   return (
     <>
-    {
-      keyword?.Task?.length > 0 ? (  <div className="SearchMainContainer">
+    <div className="SearchMainContainer">
       <h5 className="containerHeading">Task</h5>
       {Object?.keys(groupDate).map((item) => {
         return groupDate[item]?.slice(0, 4)?.map((task) => {
@@ -58,13 +57,7 @@ function TaskContainer() {
             >
               See more
             </div>):( <div></div> )}
-    </div>): (
-       <div className="SearchMainContainer">
-       <NoDataFound/>
-       </div>
-    )
-
-    }
+    </div>
     
     </>
   );

@@ -18,6 +18,8 @@ import {
   getEmployeeSalaryAction,
 } from "./action/action";
 import { useParams } from "react-router-dom";
+import GradeAllowanceTable from "./gradeAllowanceTable";
+import "../style.css";
 
 function SalaryEmployee({ mode }) {
   const isEdit = mode === "edit";
@@ -164,14 +166,6 @@ function SalaryEmployee({ mode }) {
         >
           <DatePicker placeholder="Select Date" size="large"></DatePicker>
         </Form.Item>
-
-        <Form.Item
-          name="basicSalary"
-          label={"Basic Salary"}
-          rules={[{ required: true }]}
-        >
-          <Input type="number" placeholder="Basic Salary"></Input>
-        </Form.Item>
         <Form.Item
           name="approvers"
           label={"Approvers"}
@@ -201,32 +195,53 @@ function SalaryEmployee({ mode }) {
             }}
           />
         </Form.Item>
+        <div className="flex flex-wrap">
+          <div className="w-1/3 pr-4">
+            <Form.Item
+              className="Basic"
+              name="basicSalary"
+              label={"Basic Salary"}
+              rules={[{ required: true }]}
+            >
+              <Input type="number" placeholder="Basic Salary" />
+            </Form.Item>
+          </div>
 
-        <Form.Item label={"Gross Salary"}>
-          <Input
-            type="number"
-            placeholder="0"
-            disabled={true}
-            value={form.getFieldValue("basicSalary")}
-          />
-        </Form.Item>
-        <Form.Item label={"Net Salary"}>
-          <Input
-            type="number"
-            placeholder="0"
-            disabled={true}
-            value={form.getFieldValue("basicSalary")}
-          />
-        </Form.Item>
+          <div className="w-1/3 pr-4">
+            <Form.Item className="Gross ml-8" label={"Gross Salary"}>
+              <Input
+                type="number"
+                placeholder="0"
+                disabled={true}
+                value={form.getFieldValue("basicSalary")}
+              />
+            </Form.Item>
+          </div>
 
-        <Form.Item
-          name="description"
-          label={"Description"}
-          rules={[{ required: true }]}
-        >
-          <Input.TextArea placeholder="Enter Description"></Input.TextArea>
-        </Form.Item>
+          <div className="w-1/3">
+            <Form.Item className="Net" label={"Net Salary"}>
+              <Input
+                type="number"
+                placeholder="0"
+                disabled={true}
+                value={form.getFieldValue("basicSalary")}
+              />
+            </Form.Item>
+          </div>
+
+          <div className="w-full">
+            <Form.Item
+              name="description"
+              className="w-full"
+              label="Description"
+              rules={[{ required: true }]}
+            >
+              <Input.TextArea placeholder="Enter Description" />
+            </Form.Item>
+          </div>
+        </div>
       </Form>
+
       <div className={isEdit ? "editButtons" : "buttons"}>
         <Button
           type="btn ThemeBtn"
@@ -237,6 +252,9 @@ function SalaryEmployee({ mode }) {
           Add Salary
         </Button>
       </div>
+      <div className="mt-3">
+        <GradeAllowanceTable />
+      </div>
       {/* {salaryEmployee.length > 0 && (
         <div className="rebateTable" style={{ marginTop: '1rem' }}>
           <Table
@@ -246,6 +264,7 @@ function SalaryEmployee({ mode }) {
           />
         </div>
       )} */}
+
       <div className="rebateTable" style={{ marginTop: "1rem" }}>
         <Table
           columns={columns}

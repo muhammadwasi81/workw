@@ -6,12 +6,7 @@ import {
 } from "../../../sharedComponents/AppComponents/MainFlexContainer";
 import Tab from "../../../sharedComponents/Tab";
 import LayoutHeader from "../../../layout/header/index";
-import {
-  EditOutlined,
-  CopyOutlined,
-  EllipsisOutlined,
-  EyeOutlined,
-} from "@ant-design/icons";
+import { EditOutlined } from "@ant-design/icons";
 import Travel from "../../travel/view/Travel";
 import "../styles/projects.css";
 import Budget from "../UI/Budget";
@@ -27,16 +22,11 @@ import {
   saveStickyproject,
   getProjectSticky,
 } from "../store/actions";
-import { Collapse, Drawer, Modal, Form, Menu, Dropdown, Space } from "antd";
+import { Drawer } from "antd";
 import Composer from "../UI/Composer";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { projectsDictionaryList } from "../localization";
-import {
-  resetProjectDetail,
-  targetStickyDescription,
-  addMember,
-  handleOpenSticky,
-} from "../store/slice";
+import { resetProjectDetail, addMember } from "../store/slice";
 import WorkBoard from "../../workboard";
 import { TravelReferenceTypeEnum } from "../enum/enums";
 import { PostReferenceType } from "../../feed/utils/constants";
@@ -50,7 +40,6 @@ import Expenses from "../../expense";
 import Documents from "../../documents/view/documents";
 import CustomNotes from "../../notes/singleNotes/singleNotes";
 import useDebounce from "../../../../utils/Shared/helper/use-debounce";
-
 import { formats, modules } from "./utils";
 import Schedules from "../../schedule/index";
 import ProjectInformation from "../UI/ProjectInformation";
@@ -59,6 +48,9 @@ import {
   deleteProjectMemberAction,
 } from "../store/actions";
 import ItemDetailModal from "../../../sharedComponents/ItemDetails";
+import Quotations from "../../quotation/view/QuotationList/index";
+import { QuotationReferenceTypeEnum } from "../../quotation/enums";
+import ProjectMiniDashBoard from "../UI/ProjectMiniDashBoard";
 
 function ProjectDetails() {
   const params = useParams();
@@ -70,10 +62,9 @@ function ProjectDetails() {
   const [visible, setVisible] = useState(false);
   const { userLanguage } = useContext(LanguageChangeContext);
   const { projectsDictionary } = projectsDictionaryList[userLanguage];
-  const { updateTextBtn, labels, features } = projectsDictionary;
+  const { updateTextBtn, labels } = projectsDictionary;
   const [open, setOpen] = useState(false);
   let { projectId } = params;
-  const [isOpenSticky, setIsOpenSticky] = useState(true);
   projectId = projectId.trim();
   const { projectFeature, projectSticky } = useSelector(
     (state) => state.projectSlice
@@ -106,19 +97,6 @@ function ProjectDetails() {
 
   console.log(projectfeatures, "projectfeatures");
 
-  const panes = [
-    {
-      title: labels.travel,
-      content: (
-        <Travel
-          referenceType={TravelReferenceTypeEnum.Project}
-          referenceId={projectId}
-          backButton={false}
-        />
-      ),
-      key: 11,
-    },
-  ];
   const items = [
     {
       name: detail?.name,
@@ -150,7 +128,7 @@ function ProjectDetails() {
         routeLink={defaultRoute}
       />
     ),
-    6: (
+    5: (
       <Task
         referenceType={TaskReferenceTypeEnum.Project}
         referenceId={projectId.trim()}
@@ -160,7 +138,7 @@ function ProjectDetails() {
         feature={"2"}
       />
     ),
-    7: (
+    3: (
       <WorkBoard
         referenceType={WorkBoardReferenceTypeEnum.Project}
         referenceId={projectId.trim()}
@@ -169,7 +147,7 @@ function ProjectDetails() {
         backButton={false}
       />
     ),
-    9: (
+    6: (
       <Expenses
         referenceType={ExpenseReferenceTypeEnum.Project}
         referenceId={projectId.trim()}
@@ -179,21 +157,27 @@ function ProjectDetails() {
         feature={3}
       />
     ),
-    10: <Schedules referenceId={projectId.trim()} />,
-    11: (
+    2: <Schedules referenceId={projectId.trim()} />,
+    7: (
       <Travel
         referenceType={TravelReferenceTypeEnum.Project}
         referenceId={projectId.trim()}
         backButton={false}
       />
     ),
-    12: (
+    4: (
       <Documents
         referenceType={DocumentReferenceTypeEnum.Project}
         referenceId={projectId.trim()}
         width={"!w-full"}
         routeLink={defaultRoute}
         backButton={false}
+      />
+    ),
+    8: (
+      <Quotations
+        referenceType={QuotationReferenceTypeEnum.Project}
+        referenceId={projectId.trim()}
       />
     ),
   };
@@ -226,12 +210,12 @@ function ProjectDetails() {
 
   const onDelete = (userId) => {
     const memberId = userId.toString();
-    const delmembers = {
+    const delMembers = {
       id: projectId,
       memberId: memberId,
     };
 
-    dispatch(deleteProjectMemberAction(delmembers));
+    dispatch(deleteProjectMemberAction(delMembers));
   };
 
   const addFunc = (id) => {
@@ -255,7 +239,8 @@ function ProjectDetails() {
               <Tab panes={projectfeatures} id={projectId} />
             </div>
             <div className="basis-1/4 gap-5 flex flex-col overflow-scroll">
-              <Budget data={detail} />
+              {/* <Budget data={detail} /> */}
+              <ProjectMiniDashBoard data={detail} />
               <WhiteCard>
                 <MemberCollapse
                   data={detail?.members}

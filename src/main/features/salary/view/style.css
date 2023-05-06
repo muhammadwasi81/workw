@@ -1,6 +1,18 @@
 .RequisitionForm .ant-form-item-label {
-    text-align: right;
+  text-align: right;
 }
 .RequisitionForm .ant-input-number-input {
-    text-align: right;
+  text-align: right;
+}
+
+.Basic {
+  width: 200px;
+}
+.Gross {
+  width: 200px;
+  margin-left: 146px;
+}
+.Net {
+  width: 200px;
+  margin-left: 306px;
 }

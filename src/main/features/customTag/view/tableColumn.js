@@ -34,7 +34,7 @@ export const tableColumn = (
                 className="!text-[20px] !cursor-pointer !text-primary-color "
                 onClick={() => handleModal(id)}
                  
-                //onClick={handleModal}
+                // onClick={handleModal}
                 // onClick={(e) => {
                 //   e.stopPropagation();
                 //   e.preventDefault();

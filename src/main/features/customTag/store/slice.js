@@ -54,7 +54,7 @@ const customTagSlice = createSlice({
     builder
       .addCase(getAllCustomTagById.fulfilled, (state, { payload }) => {
         state.loadingData = false;
-        state.customTag = payload.data;
+        state.customTagMembers = payload.data;
       })
       .addCase(getAllCustomTag.fulfilled, (state, { payload }) => {
         console.log(payload, "getAllCustomTag");
@@ -70,21 +70,26 @@ const customTagSlice = createSlice({
       })
 
       .addCase(getAllCustomTagMember.fulfilled, (state, action) => {
-        state.memberData = action.payload.data;
+        // state.memberData = action.payload.data;
+        state.memberData = action.payload ? action.payload : [];
       })
       
       .addCase(addCustomTagMember.fulfilled, (state, { payload }) => {
-        console.log(payload,"payloooood");
-        //state.customTagMembers=payload.data;
-        if (state.customTagMembers) {
-          if (payload.data?.length) {
-            let newMembers = [...state.customTagMembers.members, payload.data[0]];
-            state.customTagMembers = {
-              ...state.customTagMembers,
-              members: newMembers,
-            };
-          }
+        if (payload.data.data.length > 0) {
+          state.memberData = [...state.memberData, payload.data.data[0]];
+          return state;
         }
+        // console.log(payload,"payloooood");
+        // //state.customTagMembers=payload.data;
+        // if (state.customTagMembers) {
+        //   if (payload.data?.length) {
+        //     let newMembers = [...state.customTagMembers.members, payload.data[0]];
+        //     state.customTagMembers = {
+        //       ...state.customTagMembers,
+        //       members: newMembers,
+        //     };
+        //   }
+        // }
       })
 
       .addCase(updateCustomTag.fulfilled, (state, { payload }) => {

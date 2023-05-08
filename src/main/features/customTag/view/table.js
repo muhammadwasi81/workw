@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AdminTable } from "../../../sharedComponents/Administration/StyledComponents/adminTable";
 import { Table } from "../../../sharedComponents/customTable";
 
-import { removeCustomTag,getAllCustomTag} from "../store/action";
+import { removeCustomTag,getAllCustomTag,getAllCustomTagMember} from "../store/action";
 import {
   AlignLeftOutlined,
   EyeOutlined,
@@ -38,11 +38,11 @@ export default function CustomTagTable({
 
   const { customTag, loadingData } = useSelector((state) => state.customTagSlice);
   //const { customTagMembers } = useSelector(state => state.customTagSlice);
-  const customTagMembers = useSelector((state) => state.customTagSlice);
+  const memberData = useSelector((state) => state.customTagSlice);
 
-  //console.log(customTagMembers?.members,"abcfggg");
+  console.log(memberData,"abcfggg");
 
-  //console.log(customTag?.members,"abccccc");
+  console.log(customTag.data,"abccccc");
 
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
@@ -92,11 +92,12 @@ export default function CustomTagTable({
 		};
 	};
 
-  const handleModal =()=> {
+  const handleModal = (id) => {
     visibleModal(true);
     dispatch(addMember({ status: true }));
     console.log("helllooooo");
 	};
+
   return (
     <>
     <Table

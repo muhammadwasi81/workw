@@ -13,8 +13,10 @@ import EventDetail from "./eventDetail";
 import moment from "moment";
 import { getAllSchedule, getCalendar } from "../store/action";
 import CreateSchedule from "./createSchedule";
+import { getRandomColor } from "../UI/randomColors";
 
-function Scheduler({ feed = false, referenceId }) {
+function Scheduler({ feed = false, referenceId, ColorArray }) {
+  console.log(ColorArray, "colorArray");
   const [calenderView, setCalendarView] = useState("");
   const [todayDate, setTodayDate] = useState(new Date());
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
@@ -22,11 +24,11 @@ function Scheduler({ feed = false, referenceId }) {
   const schedules = useSelector((state) => state.scheduleSlice.schedules);
   const success = useSelector((state) => state.scheduleSlice.success);
   const [composerDate, setComposerDate] = useState("");
-  console.log(schedules, "scheduless");
+  console.log(ColorArray, "stateValueWithColorr");
+
   const calendarRef = useRef();
   const { scheduleSearch } = useSelector((state) => state.scheduleSlice);
   const { calendar } = useSelector((state) => state.scheduleSlice);
-  console.log(calendar, "calendarrr");
   let isPanelChange = false;
   const dispatch = useDispatch();
   // const renderEventContent = eventInfo => {
@@ -95,20 +97,25 @@ function Scheduler({ feed = false, referenceId }) {
   }
 
   let data = [...eventsData]?.map((sch) => {
-    console.log(eventsData, "eventsData");
-
+    console.log(sch, "schhhh");
     return {
       ...sch,
       date: new Date(sch.startDate), //this will only show the start date and upon clicking the schedule it will open detail of that event
       end: new Date(sch.endDate),
-      // end: new Date(moment(sch.endDate).add(1, "day")), //commented by humayoun
       title: sch.subject,
-      backgroundColor: "green",
-      // timezone: "UTC",
+      // backgroundColor:
+      //   ColorArray &&
+      //   ColorArray?.map(
+      //     (val) => val.id === sch.members[0].memberId && val.color
+      //   )[0],
+      backgroundColor: sch.members.map((member) => {
+        const color = ColorArray?.find((c) => c.id === member.memberId)?.color;
+        return color ? color : "var(--currentThemeColor)";
+      }),
     };
   });
-  console.log(data, "datttttt");
 
+  console.log("data", data);
   const onSelectFunc = (d) => {
     //TODO: Here we will open composer according to the date
     setShowDrawer(true);

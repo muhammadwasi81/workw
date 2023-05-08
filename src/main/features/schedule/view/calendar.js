@@ -24,7 +24,7 @@ function Calendar({ referenceId }) {
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
   const [defaultData, setDefaultData] = useState([]);
   const [userData, setUserData] = useState([]);
-
+  const [stateValWithColor, setStateValWithColor] = useState([]);
   const eventSchedules = useSelector(
     (state) => state.scheduleSlice.eventSchedules
   );
@@ -53,17 +53,12 @@ function Calendar({ referenceId }) {
     if (employees.length > 0 && !isFirstTimeDataLoaded) {
       setIsFirstTimeDataLoaded(true);
       setFirstTimeEmpData(employees);
-      console.log(employees, "employees");
     }
   }, [employees]);
 
   const fetchEmployees = (text, pgNo) => {
     dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
   };
-
-  // useEffect(() => {
-  // 	dateCellRender();
-  // }, []);
 
   const fetchAllEventSchedule = (startVal, endVal) => {
     const startDate = moment(startVal)
@@ -195,10 +190,13 @@ function Calendar({ referenceId }) {
       })
     );
   };
+  const memberColor = (data) => {
+    setStateValWithColor(data);
+  };
   return (
     <div className="calender">
       <div className="left">
-        <Scheduler referenceId={referenceId} />
+        <Scheduler referenceId={referenceId} ColorArray={stateValWithColor} />
       </div>
       <div className="right">
         <AntCalendar
@@ -225,6 +223,8 @@ function Calendar({ referenceId }) {
               // }
             }}
             defaultData={employeesData}
+            onData={memberColor}
+            // valueWithColors
             canFetchNow={isFirstTimeDataLoaded}
             fetchData={fetchEmployees}
             placeholder={"Select"}

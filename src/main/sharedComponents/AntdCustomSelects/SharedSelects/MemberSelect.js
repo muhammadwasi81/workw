@@ -11,6 +11,8 @@ function MemberSelect({
   canFetchNow = false,
   fetchData = () => {},
   defaultData = [],
+  valueWithColors = [],
+
   defaultKey = "id",
   isObject = false,
   isImage = false,
@@ -34,6 +36,7 @@ function MemberSelect({
   className = "",
   returnEmpty = false,
   isIncludedMyId = false,
+  onData = (e) => false,
 }) {
   const [value, setValue] = useState("");
   const [stateVal, setStateVal] = useState(dataVal);
@@ -58,13 +61,27 @@ function MemberSelect({
       setStateVal([]);
     } else {
       if (colors) {
-        setStateValWithColor(
-          tempArray.map((memberId) => ({
-            id: memberId,
-            color: getRandomColor(),
-          }))
+        // setStateValWithColor(
+        //   tempArray.map((memberId) => ({
+        //     id: memberId,
+        //     color: getRandomColor(),
+        //   }))
+        // );
+
+        // setStateVal([...tempArray]);
+        // onData(stateValWithColor);
+        const newMembers = tempArray.filter(
+          (memberId) =>
+            !stateVal.find((stateValMember) => stateValMember.id === memberId)
         );
+        const newMembersWithColor = newMembers.map((memberId) => ({
+          id: memberId,
+          color: getRandomColor(),
+        }));
+
+        setStateValWithColor([...stateValWithColor, ...newMembersWithColor]);
         setStateVal([...tempArray]);
+        onData([...stateValWithColor, ...newMembersWithColor]);
       } else {
         setStateVal([...tempArray]);
       }
@@ -162,7 +179,6 @@ function MemberSelect({
   useEffect(() => {
     if (isDataFetchable) {
       const merged = [...memberData, ...employees];
-      console.log(merged, "mergedd");
       setMemberData(() => {
         return [...new Map(merged.map((v) => [v.id, v])).values()];
       });

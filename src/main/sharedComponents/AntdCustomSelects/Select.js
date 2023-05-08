@@ -60,9 +60,9 @@ function AntCustomSelect(props) {
   }, [pgNo]);
   // console.log("data", isLoaded, data);
   const tagColorRender = (props) => {
+    console.log(props, "propsss");
     let color = valueWithColors.find((member) => member.id === props.value)
       .color;
-    console.log(valueWithColors, "valueWithColorss");
     return (
       <div
         className="ant-select-selection-item"

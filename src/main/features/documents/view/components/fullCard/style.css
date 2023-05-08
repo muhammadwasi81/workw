@@ -66,4 +66,5 @@
 .doc_detail_media .d_ShortCard{
  background-color: #f4f4f4;
  cursor: pointer;
+ height: max-content;
 }

@@ -20,6 +20,7 @@ import { configureEmailAccount } from "./configureEmailAccount";
 import NoMilFound from "../../../content/emptyMailBoxImage/empty mailbox-ic.svg";
 import { FormButton } from "../../sharedComponents/Administration/StyledComponents/adminForm";
 import userSlice from "../../../store/appReducer/userSlice";
+import { getAllMail, getMailFolders } from "./Store/Api";
 
 const Index = () => {
   const { isMobileScreen } = useSelector((state) => state.responsiveSlice);
@@ -41,6 +42,7 @@ const Index = () => {
   }, []);
 
   const [isModalVisible, setIsModalVisible] = useState(false);
+  // useEffect(() => {}, [isModalVisible]);
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -53,20 +55,24 @@ const Index = () => {
   const handleCancel = () => {
     setIsModalVisible(false);
   };
+
   const [form] = Form.useForm();
   const handleSubmit = (values) => {
     const payloadData = {
       configurationId: emailConfigurations[0].id,
       userId: user.id,
-      // incomingPort: emailConfigurations[0].incomingPort,
-      // incomingServerAddress: emailConfigurations[0].incomingServerAddress,
-      // isDefault: emailConfigurations[0].isDefault,
-      // outgoingPort: emailConfigurations[0].outgoingPort,
-      // outgoingServerAddress: emailConfigurations[0].outgoingServerAddress,
-      // provider: emailConfigurations[0].provider,
+
       ...values,
     };
+
+    const data = { pageNo: 0, pageSize: 20, search: "", folderPath: "INBOX" };
     dispatch(addUserEmailConfiguration(payloadData));
+    setIsModalVisible(false);
+
+    dispatch(getMailFolders());
+    dispatch(getAllUserEmailConfigurations(user.id));
+    dispatch(getAllMail(data));
+    dispatch(getAllBusinessEmailConfiguration());
   };
   return loadingData ? (
     <Skeleton />

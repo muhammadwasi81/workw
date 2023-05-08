@@ -86,7 +86,9 @@ export const DOCUMENT_ENUM = {
     MilePad: 18,
     MileGrid: 19,
     MileBoard: 20
-  }
+  },
+
+  MODULE_NO: 5
 }
 
 export const DocumentStatusEnum = {

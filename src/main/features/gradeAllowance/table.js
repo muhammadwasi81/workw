@@ -5,6 +5,8 @@ import {
   removeGradeAllowance,
 } from "./store/action";
 import { updateInput } from "./store/slice";
+import { handleUpdateButton, deleteSliceGradeAllowance } from "./store/slice";
+
 import { AdminTable } from "../../sharedComponents/Administration/StyledComponents/adminTable";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 
@@ -36,6 +38,7 @@ const LeaveTable = () => {
     {
       title: "Grade Name",
       dataIndex: "gradeName",
+      render: (text, record) => <span>{record.gradeName}</span>,
       width: "20%",
     },
     {
@@ -49,7 +52,7 @@ const LeaveTable = () => {
           />
           <DeleteOutlined
             style={{ color: "blue" }}
-            onClick={() => handleRemove(record.id)}
+            onClick={() => handleRemove(record)}
           />
         </div>
       ),
@@ -61,11 +64,13 @@ const LeaveTable = () => {
   }, [gradeAllowances]);
   const handleEdit = (record) => {
     dispatch(updateInput(record));
+    dispatch(handleUpdateButton());
   };
 
-  const handleRemove = (id) => {
-    dispatch(removeGradeAllowance(id));
-    dispatch(getAllAllowanceGreadeData());
+  const handleRemove = (record) => {
+    dispatch(deleteSliceGradeAllowance(record));
+    dispatch(removeGradeAllowance(record.id));
+    // dispatch(getAllAllowanceGreadeData());
   };
   return (
     <AdminTable

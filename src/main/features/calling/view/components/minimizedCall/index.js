@@ -54,6 +54,7 @@ function CallPreviewModal({ previewItem, handleClose = () => { }, isMinimizedMod
                         // disabled={disabled}
                         bounds={bounds}
                         onStart={(event, uiData) => onStart(event, uiData)}
+                        disabled={window.innerWidth < 800}
                     >
                         <div ref={draggleRef}>{modal}</div>
                     </Draggable>

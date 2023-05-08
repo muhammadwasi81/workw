@@ -10,7 +10,7 @@ export const handleRedirect = (
   let requestedRoute;
   switch (featureId) {
     case FEATURE_ID.REWARD:
-      requestedRoute = `/rewardDetails/${referenceId}`;
+      // requestedRoute = `/rewardDetails/${referenceId}`;
       break;
     case FEATURE_ID.FEED:
       requestedRoute = `/newsFeedDetails/${referenceId}`;

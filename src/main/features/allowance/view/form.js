@@ -31,7 +31,7 @@ export default function AllowanceForm({
   const { grades } = useSelector((state) => state.gradeSlice);
   const { loader } = useSelector((state) => state.allowanceSlice);
   const handleClear = (e) => {
-    setForm({ ...form, description: "", name: "", gradeId: null, value: "" });
+    setForm({ ...form, description: "", name: "" });
     setClearButton(false);
   };
 
@@ -62,28 +62,6 @@ export default function AllowanceForm({
     setForm({ ...form, description: e.target.value });
   };
 
-  const handelChangeGrade = (value) => {
-    if (value.length > 0) {
-      setClearButton(true);
-    } else {
-      setClearButton(false);
-    }
-    const x = grades.filter((item) => item.id === value);
-    setForm({ ...form, gradeId: x[0].id });
-    console.log(x, "fdfdfd");
-  };
-
-  const handleType = (e) => {
-    setForm({ ...form, allowanceType: e.target.value });
-    let type = e.target.value;
-    if (type === 2) {
-      setAmountType(true);
-    } else {
-      setAmountType(false);
-    }
-    setValue(e);
-  };
-
   useEffect(() => {
     setForm(data);
     dispatch(getAllGrades());
@@ -106,33 +84,7 @@ export default function AllowanceForm({
                 onChange={handelChangeName}
               />
             </AllowncesFormInput>
-            {/* <AllowncesFormInput>
-              {amountType == false ? (
-                <>
-                  <FormLabel>{allowanceDictionary.percent}</FormLabel>
-                  <InputNumber
-                    onChange={handelChangeAmount}
-                    value={form.value}
-                    formatter={(value) => `${value}%`}
-                    parser={(value) => value.replace("%", "")}
-                    placeholder="0"
-                    size="large"
-                    style={{ width: "100%" }}
-                  />
-                </>
-              ) : (
-                <>
-                  <FormLabel>{allowanceDictionary.amount}</FormLabel>
-                  <InputNumber
-                    onChange={handelChangeAmount}
-                    value={form.value}
-                    placeholder={"Enter Amount"}
-                    size="large"
-                    style={{ width: "100%" }}
-                  />
-                </>
-              )}
-            </AllowncesFormInput> */}
+
             <AllowncesFormInput>
               <FormLabel>{allowanceDictionary.desc}</FormLabel>
               <FormTextArea
@@ -141,23 +93,6 @@ export default function AllowanceForm({
                 onChange={handelChangeDescription}
               />
             </AllowncesFormInput>
-            {/* <AllowncesFormInput>
-              <FormLabel>{allowanceDictionary.grade}</FormLabel>
-              <Select
-                showSearch
-                style={{ width: "100%" }}
-                placeholder={allowanceDictionary.selectGrade}
-                optionFilterProp="children"
-                onChange={handelChangeGrade}
-                value={form.gradeId}
-                name="gradeId"
-                size="large"
-              >
-                {grades.map((item) => (
-                  <Select.Option value={item.id}>{item.name}</Select.Option>
-                ))}
-              </Select>
-            </AllowncesFormInput> */}
           </Col>
           <Col
             lg={22}
@@ -168,16 +103,6 @@ export default function AllowanceForm({
             style={{ paddingTop: 27 }}
           >
             <div className="radioContainer">
-              {/* <Radio.Group
-                onChange={handleType}
-                name="Type"
-                className="radioGroup"
-                value={form.allowanceType}
-              >
-                <Radio value={1}>{allowanceDictionary.percent}</Radio>
-                <Radio value={2}>{allowanceDictionary.amount}</Radio>
-              </Radio.Group> */}
-
               <Radio.Group
                 onChange={(e) => {
                   setForm({ ...form, allowanceUnit: e.target.value });

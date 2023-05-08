@@ -1,5 +1,5 @@
 import { Skeleton } from "antd";
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AdminTable } from "../../../sharedComponents/Administration/StyledComponents/adminTable";
 // import { getAllEmailConfigurations } from "../store/actions";
@@ -7,34 +7,21 @@ import { tableColumn } from "./tableColumn";
 
 export default function BillingTable({}) {
   const dispatch = useDispatch();
+  const { billing } = useSelector((state) => state.userBillingSlice);  
+  const [Billing ,setBilling] = useState(billing)
 
-  //   useEffect(() => {
-  //     dispatch(getAllEmailConfigurations());
-  //   }, []);
+  useEffect(()=>{
+      setBilling(billing)
+  },[billing?.length])
 
   return (
-    <AdminTable
+    <AdminTable 
       columns={tableColumn()}
-      dataSource={[]}
+      dataSource={Billing}
       pagination={false}
       rowKey="id"
       size="small"
       scroll={{ x: true }}
-      //   locale={
-      //     loadingData && {
-      //       emptyText: (
-      //         <Skeleton.Input
-      //           active="true"
-      //           size="small"
-      //           block={true}
-      //           //   loading={}
-      //           round="true"
-      //           shape="circle"
-      //           style={{ width: "100%", marginBottom: 2 }}
-      //         />
-      //       ),
-      //     }
-      //   }
     />
   );
 }

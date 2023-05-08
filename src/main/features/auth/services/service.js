@@ -32,7 +32,7 @@ export const setNewPasswordService = (data) => {
   let token = data.token;
   let password = data.password;
   return MasterConfig.get(
-    `api/User/ChangePassword?token=${token}&password=${password}`
+    `api/User/ChangePasswordByToken?token=${token}&password=${password}`
   );
 };
 

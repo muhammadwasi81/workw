@@ -2,10 +2,10 @@ import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
 import { addRealTimePost } from "../main/features/feed/store/slice";
 import { updateMessageDeliver } from "../main/features/Messenger/store/actions";
 import {
-  handleConversationIndexing,
-  handleStatusUpdate,
-  handleUserOnlineStatus,
-  receiveChatMessage,
+	handleConversationIndexing,
+	handleStatusUpdate,
+	handleUserOnlineStatus,
+	receiveChatMessage,
 } from "../main/features/Messenger/store/messengerSlice";
 import { servicesUrls } from "./services/baseURLS";
 import { openNotification } from "./Shared/store/slice";
@@ -88,6 +88,19 @@ import { logout } from "./base";
 
 // };
 
+
+const handleNotificationDetail = (notificationItem, dispatch) => {
+	switch (notificationItem.featureType) {
+		case 1:
+			
+			break;
+	
+		default:
+			break;
+	}
+}
+
+
 export class InitializeSocket {
 	connection;
 	classInstance;
@@ -161,6 +174,7 @@ export class InitializeSocket {
 
 		this.connection.on("notificationOut", data => {
 			console.log(data, "notificationOut");
+			handleNotificationDetail(data, this.#dispatch)
 			this.#dispatch(
 				openNotification({
 					message: `${data.fromUser.name} ${data.message}`,
@@ -184,6 +198,11 @@ export class InitializeSocket {
 			}
 		});
 
+
+		this.connection.on("chatTypingStatus", data => {
+			console.log(data, "chatMessageTypingStatus")
+		});
+
 		this.connection.on("logoutDevice", data => {
 			logout()
 		});
@@ -195,6 +214,14 @@ export class InitializeSocket {
 		this.connection.on("likeOut", data => {
 			console.log(data, "commentOut")
 		});
+
+		this.chatMessageTypingAction()
+	}
+
+	chatMessageTypingAction = async () => {
+		this.connection.invoke("chatMessageTypingStatus",  "ad9685d4-bd4a-4729-ab15-3a4502c2244d", 2)
+			.then((data) => console.log(data, "chatMessageTypingStatus"))
+			.catch((err) => console.log(err, "chatMessageTypingStatus err"))
 	}
 }
 

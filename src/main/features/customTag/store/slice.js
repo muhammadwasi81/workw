@@ -75,6 +75,7 @@ const customTagSlice = createSlice({
       
       .addCase(addCustomTagMember.fulfilled, (state, { payload }) => {
         console.log(payload,"payloooood");
+        //state.customTagMembers=payload.data;
         if (state.customTagMembers) {
           if (payload.data?.length) {
             let newMembers = [...state.customTagMembers.members, payload.data[0]];

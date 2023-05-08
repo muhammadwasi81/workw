@@ -12,11 +12,12 @@ export default function CustomTag() {
   const [custom, setCustom] = useState(initialState);
   const [clearButton, setClearButton] = useState(false);
 
+  const { customTag, loadingData } = useSelector((state) => state.customTagSlice);
   const dispatch = useDispatch();
   const  loader  = useSelector((state) => state.customTagSlice);
   const [visible, setVisible] = useState(false);
 
-  console.log(visible,"chaljaoooo");
+  console.log(customTag,"chaljaoooo");
 
   
   const handleDelete = (e) => {

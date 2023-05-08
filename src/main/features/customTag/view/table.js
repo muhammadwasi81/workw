@@ -38,11 +38,14 @@ export default function CustomTagTable({
 
   const { customTag, loadingData } = useSelector((state) => state.customTagSlice);
   //const { customTagMembers } = useSelector(state => state.customTagSlice);
-  const memberData = useSelector((state) => state.customTagSlice);
-  console.log(memberData,"abcfggg");
+  const customTagMembers = useSelector((state) => state.customTagSlice);
 
-  console.log(customTag,"abccccc");
+  //console.log(customTagMembers?.members,"abcfggg");
+
+  //console.log(customTag?.members,"abccccc");
+
   const dispatch = useDispatch();
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     dispatch(
@@ -76,9 +79,9 @@ export default function CustomTagTable({
   const onRow = (record, rowIndex) => {
 		return {
 			onClick: event => {
-         //setVisible(true);
+         setVisible(true);
         // console.log("visibleeee",visible);
-         //dispatch(addMember({ status: true }));
+         dispatch(addMember({ status: true }));
 				//dispatch(getLeadManagerDetailById(record.id));
 				//dispatch(handleSectionDetailModal());
 			}, // click row
@@ -109,7 +112,7 @@ export default function CustomTagTable({
         sharedLabels
       )}
 			dragable={false}
-			//onRow={onRow}
+			onRow={onRow}
 			data={customTag}
 			//   columns={tableColumns(dictionary)}
 			// handleChange={handleColumnSorting}
@@ -155,14 +158,9 @@ export default function CustomTagTable({
       }
     /> */}
 
-    {/* {customTag.map((item)=>
-    {
-      return(
-        <>
-          {visible && <MemberModal data={item.id}/>}
-        </>
-      )
-    } )} */}
+   
+    {visible && <MemberModal data={customTag}/>}
+    
 
       
     </>  

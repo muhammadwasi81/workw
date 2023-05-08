@@ -32,7 +32,7 @@ export const tableColumn = (
             <Tooltip title="Add Members">
               <PlusCircleFilled
                 className="!text-[20px] !cursor-pointer !text-primary-color "
-                onClick={() => handleModal()}
+                onClick={() => handleModal(id)}
                  
                 //onClick={handleModal}
                 // onClick={(e) => {

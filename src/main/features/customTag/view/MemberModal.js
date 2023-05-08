@@ -18,7 +18,6 @@ import { addMember } from "../store/slice";
 import Avatar from "../../../sharedComponents/Avatar/avatarOLD";
 import { getAllEmployees } from "../../../../utils/Shared/store/actions";
 //import { deleteLeadManagerMember } from "../../store/slice";
-import { data } from "jquery";
 
 function MemberModal({ isOpen = false, data }) {
   console.log(data, "dataaaaaa")
@@ -46,15 +45,17 @@ function MemberModal({ isOpen = false, data }) {
     dispatch(addMember(false));
   };
   console.log(data, 'dataiud')
+  
   const handleChange = (myId) => {
+    console.log(myId,"myIddd");
     let memberId = myId.toString();
     const membersData = {
       // referenceId: data.id,
-      id: data,
+      id: data[0].id,
       memberId: memberId,
     };
    console.log(membersData, "payloaddata")
-    dispatch(addCustomTagMember([membersData]));
+    dispatch(addCustomTagMember(membersData));
    
 
     // let a = data.member.filter((item) => {
@@ -78,7 +79,7 @@ function MemberModal({ isOpen = false, data }) {
   const handleDeleteMember = (myId) => {
     let memberId = myId.toString();
     const membersData = {
-      id: data,
+      id: data.id,
       memberId: memberId,
     };
     //dispatch(removeToDoMemebr(membersData));
@@ -128,10 +129,10 @@ function MemberModal({ isOpen = false, data }) {
           },
         ]}
       />
-      {data.members?.length > 0 ? (
+      {data.member?.length > 0 ? (
         <ApproverListItem
           className="AddMemberModal"
-          data={data.members}
+          data={data.member}
           handleDelete={handleDeleteMember}
         />
       ):

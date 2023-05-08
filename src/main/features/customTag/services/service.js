@@ -46,7 +46,9 @@ export const addCustomTagService = args => {
 // };
 
 export const addCustomTagMemberService = (data) => {
+	console.log(data,"dataa servucesss");
 	let id = data.id;
+	console.log(id,"idddd");
 	let memberId = data.memberId;
 	let member = [
 	  {

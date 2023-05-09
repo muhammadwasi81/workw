@@ -11,7 +11,6 @@ function MemberSelect({
   canFetchNow = false,
   fetchData = () => {},
   defaultData = [],
-  valueWithColors = [],
 
   defaultKey = "id",
   isObject = false,
@@ -68,7 +67,6 @@ function MemberSelect({
         // );
 
         // setStateVal([...tempArray]);
-        // onData(stateValWithColor);
         const newMembers = tempArray.filter(
           (memberId) =>
             !stateVal.find((stateValMember) => stateValMember.id === memberId)

@@ -52,7 +52,7 @@ function ScheduleMemberSelect({
         selectedData={selectedData}
         canFetchNow={isFirstTimeDataLoaded}
         fetchData={fetchEmployees}
-        placeholder={"Search Members"}
+        placeholder={placeholder}
         mode={"multiple"}
         isObject={true}
         loadDefaultData={true}

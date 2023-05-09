@@ -36,7 +36,7 @@ function Scheduler({ feed = false, referenceId, ColorArray }) {
   // };
   useEffect(() => {
     fetchAllSchedule(todayDate, todayDate);
-  }, [scheduleSearch]);
+  }, [scheduleSearch, schedules]);
 
   useEffect(() => {
     if (success) {
@@ -79,7 +79,6 @@ function Scheduler({ feed = false, referenceId, ColorArray }) {
   };
 
   const onChange = (value) => {
-    console.log(value, "sss");
     const date = value.format("YYYY-MM-DD");
     handleDateChange(date);
     calendarRef.current.getApi().gotoDate(new Date(value.format("YYYY-MM-DD")));
@@ -90,26 +89,31 @@ function Scheduler({ feed = false, referenceId, ColorArray }) {
       setIsCalendarOpen(false);
     }
   };
-  let keys = Object.keys(calendar);
-  let eventsData = [];
-  for (const key of keys) {
-    eventsData.push(...calendar[key]);
-  }
+  useEffect(() => {
+    // if (calendar && Object.keys(calendar).length > 0) {
+    let keys = Object.keys(calendar);
+    let eventsData = [];
 
-  let data = [...eventsData]?.map((sch) => {
-    return {
-      ...sch,
-      date: new Date(sch.startDate), //this will only show the start date and upon clicking the schedule it will open detail of that event
-      end: new Date(sch.endDate),
-      title: sch.subject,
+    for (const key of keys) {
+      eventsData.push(...calendar[key]);
+    }
 
-      backgroundColor: sch.members.map((member) => {
-        const color = ColorArray?.find((c) => c.id === member.memberId)?.color;
-        return color ? color : "var(--currentThemeColor)";
-      }),
-    };
-  });
-  console.log(data, "dataaaa");
+    let newData = [...eventsData]?.map((sch) => {
+      return {
+        ...sch,
+        date: new Date(sch.startDate), //this will only show the start date and upon clicking the schedule it will open detail of that event
+        end: new Date(sch.endDate),
+        title: sch.subject,
+        backgroundColor: sch.members.map((member) => {
+          const color = ColorArray?.find((c) => c.id === member.memberId)
+            ?.color;
+          return color ? color : "var(--currentThemeColor)";
+        }),
+      };
+    });
+    setEvents(newData);
+  }, [calendar]);
+
   const onSelectFunc = (d) => {
     //TODO: Here we will open composer according to the date
     setShowDrawer(true);
@@ -244,7 +248,6 @@ function Scheduler({ feed = false, referenceId, ColorArray }) {
           nowIndicator={true}
           nowIndicatorPlacement="top"
           nowIndicatorDisplay="block"
-          // now={() => new Date()}
           scrollTime={moment()
             .subtract(50, "minutes")
             .format("HH:mm:ss")}
@@ -259,7 +262,7 @@ function Scheduler({ feed = false, referenceId, ColorArray }) {
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
           initialView={!feed ? "timeGridWeek" : "timeGridDay"}
           events={
-            data
+            events
             // "https://fullcalendar.io/api/demo-feeds/events.json"
           }
           eventDrop={(info) => eventDropHandler(info)}

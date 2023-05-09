@@ -68,7 +68,7 @@ function AntCustomSelect(props) {
         className="ant-select-selection-item"
         style={{
           border: color ? `1px solid ${color}` : "none",
-          borderRadius: "20px",
+          // borderRadius: "20px",
         }}
       >
         {props.label}

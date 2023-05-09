@@ -176,10 +176,10 @@ const scheduleSlice = createSlice({
         state.scheduleMember = payload.data;
       })
       .addCase(getCalendar.fulfilled, (state, { payload }) => {
+        console.log(payload.data, "payloadd");
         state.loading = false;
         state.success = true;
         state.calendar = payload.data;
-        console.log(payload.data, "payloaddd dataaa");
       })
       .addMatcher(
         isPending(

@@ -170,9 +170,11 @@ function Calendar({ referenceId }) {
   const selectedMemebrHandler = (id, obj) => {
     const startDate = moment()
       .startOf("month")
+      .utc()
       .format();
     const endDate = moment()
       .endOf("month")
+      .utc()
       .format();
 
     console.log(obj, "objjjjj");

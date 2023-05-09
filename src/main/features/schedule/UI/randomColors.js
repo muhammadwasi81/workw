@@ -22,24 +22,21 @@ export const getRandomColor = () => {
   //   return randomColor;
   // }
 
-  // If all colors have been used, reset the usedColors array
-  // let randomColor;
+  //If all colors have been used, reset the usedColors array
+  let randomColor;
 
-  // do {
-  //   const randomColorIndex = Math.floor(
-  //     Math.random() * predefinedColors.length
-  //   );
-  //   randomColor = predefinedColors[randomColorIndex];
-  // } while (usedColors.includes(randomColor));
+  do {
+    const randomColorIndex = Math.floor(
+      Math.random() * predefinedColors.length
+    );
+    randomColor = predefinedColors[randomColorIndex];
+  } while (usedColors.includes(randomColor));
 
-  // usedColors.push(randomColor);
+  usedColors.push(randomColor);
 
-  // if (usedColors.length === predefinedColors.length) {
-  //   usedColors.length = 0; // Clear the array if all colors have been used
-  // }
+  if (usedColors.length === predefinedColors.length) {
+    usedColors.length = 0; // Clear the array if all colors have been used
+  }
 
-  // return randomColor;
-
-  const randomColorIndex = Math.floor(Math.random() * predefinedColors.length);
-  return predefinedColors[randomColorIndex];
+  return randomColor;
 };

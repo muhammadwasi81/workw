@@ -42,7 +42,6 @@ function MemberSelect({
   const [stateVal, setStateVal] = useState(dataVal);
   const [defaultValues, setDefaultValues] = useState([]);
   const [stateValWithColor, setStateValWithColor] = useState([]);
-  console.log(stateValWithColor, "statevalue with color");
 
   const [isDataFetchable, setIsDataFetchable] = useState(canFetchNow);
   const debouncedSearch = useDebounce(value, 500);

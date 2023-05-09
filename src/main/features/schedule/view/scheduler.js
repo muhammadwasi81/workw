@@ -24,11 +24,11 @@ function Scheduler({ feed = false, referenceId, ColorArray }) {
   const schedules = useSelector((state) => state.scheduleSlice.schedules);
   const success = useSelector((state) => state.scheduleSlice.success);
   const [composerDate, setComposerDate] = useState("");
-  console.log(ColorArray, "stateValueWithColorr");
 
   const calendarRef = useRef();
   const { scheduleSearch } = useSelector((state) => state.scheduleSlice);
   const { calendar } = useSelector((state) => state.scheduleSlice);
+  const [events, setEvents] = useState([]);
   let isPanelChange = false;
   const dispatch = useDispatch();
   // const renderEventContent = eventInfo => {
@@ -97,25 +97,19 @@ function Scheduler({ feed = false, referenceId, ColorArray }) {
   }
 
   let data = [...eventsData]?.map((sch) => {
-    console.log(sch, "schhhh");
     return {
       ...sch,
       date: new Date(sch.startDate), //this will only show the start date and upon clicking the schedule it will open detail of that event
       end: new Date(sch.endDate),
       title: sch.subject,
-      // backgroundColor:
-      //   ColorArray &&
-      //   ColorArray?.map(
-      //     (val) => val.id === sch.members[0].memberId && val.color
-      //   )[0],
+
       backgroundColor: sch.members.map((member) => {
         const color = ColorArray?.find((c) => c.id === member.memberId)?.color;
         return color ? color : "var(--currentThemeColor)";
       }),
     };
   });
-
-  console.log("data", data);
+  console.log(data, "dataaaa");
   const onSelectFunc = (d) => {
     //TODO: Here we will open composer according to the date
     setShowDrawer(true);

@@ -168,7 +168,6 @@ function Calendar({ referenceId }) {
     );
   };
   const selectedMemebrHandler = (id, obj) => {
-    console.log(obj, "obj in handlerrr");
     const startDate = moment()
       .startOf("month")
       .format();
@@ -176,6 +175,7 @@ function Calendar({ referenceId }) {
       .endOf("month")
       .format();
 
+    console.log(obj, "objjjjj");
     dispatch(
       getCalendar({
         pageNo: 1,

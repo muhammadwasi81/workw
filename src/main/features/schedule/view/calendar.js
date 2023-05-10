@@ -22,13 +22,11 @@ function Calendar({ referenceId }) {
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [employeesData, setEmployeesData] = useState([]);
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
-  const [defaultData, setDefaultData] = useState([]);
   const [userData, setUserData] = useState([]);
   const [stateValWithColor, setStateValWithColor] = useState([]);
   const eventSchedules = useSelector(
     (state) => state.scheduleSlice.eventSchedules
   );
-  console.log("eventSchedules", eventSchedules);
   const currentSchedules = useSelector(
     (state) => state.scheduleSlice.currentSchedules
   );
@@ -225,7 +223,6 @@ function Calendar({ referenceId }) {
             }}
             defaultData={employeesData}
             onData={memberColor}
-            // valueWithColors
             canFetchNow={isFirstTimeDataLoaded}
             fetchData={fetchEmployees}
             placeholder={"Select"}

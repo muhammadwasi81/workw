@@ -5,15 +5,13 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import "../styles/style.css";
 import "../styles/calender.css";
-// import Event from "./event";
 import { Calendar, Drawer } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleEventDetailComposer } from "../store/slice";
 import EventDetail from "./eventDetail";
 import moment from "moment";
-import { getAllSchedule, getCalendar } from "../store/action";
+import { getCalendar } from "../store/action";
 import CreateSchedule from "./createSchedule";
-import { getRandomColor } from "../UI/randomColors";
 
 function Scheduler({ feed = false, referenceId, ColorArray }) {
   console.log(ColorArray, "colorArray");
@@ -92,7 +90,6 @@ function Scheduler({ feed = false, referenceId, ColorArray }) {
     }
   };
   useEffect(() => {
-    // if (calendar && Object.keys(calendar).length > 0) {
     let keys = Object.keys(calendar);
     let eventsData = [];
 
@@ -103,8 +100,6 @@ function Scheduler({ feed = false, referenceId, ColorArray }) {
     let newData = [...eventsData]?.map((sch) => {
       return {
         ...sch,
-        // date: new Date(sch.startDate), //this will only show the start date and upon clicking the schedule it will open detail of that event
-        // end: new Date(sch.endDate),
         date: moment
           .utc(sch.startDate)
           .local()
@@ -114,6 +109,12 @@ function Scheduler({ feed = false, referenceId, ColorArray }) {
           .local()
           .format("YYYY-MM-DDTHH:mm:ssZ"),
         title: sch.subject,
+        // borderColor: sch.members.map((member) => {
+        //   const color = ColorArray?.find((c) => c.id === member.memberId)
+        //     ?.color;
+        //   return color ? color : "var(--currentThemeColor)";
+        // }),
+
         backgroundColor: sch.members.map((member) => {
           const color = ColorArray?.find((c) => c.id === member.memberId)
             ?.color;
@@ -159,13 +160,11 @@ function Scheduler({ feed = false, referenceId, ColorArray }) {
             style={{
               fontSize: "20px",
               margin: 0,
-              // textAlign: Direction === "ltr" ? "" : "end",
             }}
           >
             {"Create Schedule"}
           </h1>
         }
-        // placement={Direction === "rtl" ? "left" : "right"}
         width="768"
         onClose={() => {
           setShowDrawer(false);
@@ -223,13 +222,6 @@ function Scheduler({ feed = false, referenceId, ColorArray }) {
                 }
           }
           eventClick={(info) => {
-            // console.log("info", info.event._def);
-            // setSchedule({
-            // 	id: info.event._def.publicId,
-            // 	scheduleType:
-            // 		info.event._def.extendedProps.scheduleType,
-            // });
-            // setId(parseInt(info.event._def.publicId));
             dispatch(
               toggleEventDetailComposer({
                 id: info.event._def.publicId,

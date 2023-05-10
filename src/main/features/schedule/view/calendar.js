@@ -176,8 +176,7 @@ function Calendar({ referenceId }) {
       .endOf("month")
       .utc()
       .format();
-
-    console.log(obj, "objjjjj");
+    console.log(obj, "objjj");
     dispatch(
       getCalendar({
         pageNo: 1,

@@ -48,9 +48,11 @@ function Scheduler({ feed = false, referenceId, ColorArray }) {
   const fetchAllSchedule = (startVal, endVal) => {
     const startDate = moment(startVal)
       .startOf("month")
+      .utc()
       .format();
     const endDate = moment(endVal)
       .endOf("month")
+      .utc()
       .format();
 
     dispatch(
@@ -101,8 +103,16 @@ function Scheduler({ feed = false, referenceId, ColorArray }) {
     let newData = [...eventsData]?.map((sch) => {
       return {
         ...sch,
-        date: new Date(sch.startDate), //this will only show the start date and upon clicking the schedule it will open detail of that event
-        end: new Date(sch.endDate),
+        // date: new Date(sch.startDate), //this will only show the start date and upon clicking the schedule it will open detail of that event
+        // end: new Date(sch.endDate),
+        date: moment
+          .utc(sch.startDate)
+          .local()
+          .format("YYYY-MM-DDTHH:mm:ssZ"), // Format start date as '2023-05-10T11:15:00+05:00'
+        end: moment
+          .utc(sch.endDate)
+          .local()
+          .format("YYYY-MM-DDTHH:mm:ssZ"), //
         title: sch.subject,
         backgroundColor: sch.members.map((member) => {
           const color = ColorArray?.find((c) => c.id === member.memberId)

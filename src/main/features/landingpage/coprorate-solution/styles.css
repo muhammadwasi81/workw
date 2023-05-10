@@ -1,0 +1,183 @@
+.main__head {
+  font-size: 46px;
+  font-weight: 800;
+}
+.getStarted__btn {
+  background-color: #183284;
+  color: #ffffff;
+  font-weight: bold;
+  text-transform: capitalize;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  user-select: none;
+}
+.workers__section {
+  width: 100%;
+  height: 35vh;
+  background-color: #7788bb;
+  position: relative;
+  bottom: 100px;
+  z-index: -1;
+}
+
+.bottom__text {
+  font-size: 14px;
+  font-weight: 600;
+  color: #707070;
+}
+.left__icon {
+  font-size: 20px;
+  transform: rotate(180deg);
+  color: #707070;
+}
+.right__icon {
+  font-size: 20px;
+  transform: rotate(180deg);
+  color: #707070;
+}
+.published__text {
+  position: relative;
+  left: 175px;
+  color: #707070;
+}
+.userComp__img {
+  width: 350px;
+}
+.solution__text {
+  width: 59%;
+}
+.companyDesc__head {
+  margin-top: 20px;
+  font-size: 25px;
+  font-weight: bold;
+  width: 58%;
+  text-align: center;
+}
+.module__card {
+  background-color: #ffffff;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  border-radius: 15px;
+  width: 38%;
+  margin: auto;
+  cursor: pointer;
+}
+.subject__wrapper {
+  width: 50%;
+  margin: auto;
+  text-align: center;
+}
+.whatMakes__section {
+  background: url("../../landingpage/icons/building.png") no-repeat;
+  background-size: cover;
+  min-height: 80vh;
+  width: 100%;
+}
+.diff__wrapper {
+  width: 35%;
+  margin: auto;
+  text-align: center;
+}
+.diff__textWrapper {
+  padding-top: 180px;
+}
+.user__feedback {
+  background-color: #ffffff;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  border-radius: 15px;
+  height: 25vh;
+  width: 45%;
+  margin: auto;
+  cursor: pointer;
+  position: relative;
+  margin-top: 40px;
+}
+.comma__wrapper {
+  position: absolute;
+  top: -28px;
+  width: 41px;
+  left: 22px;
+}
+.comma__bottom__wrapper {
+  position: absolute;
+  width: 41px;
+  right: 15px;
+  top: 155px;
+}
+.user__name {
+  font-size: 16px;
+  font-weight: bold;
+  color: #183284;
+  display: flex;
+  justify-content: end;
+}
+.unlock__head {
+  font-size: 48px;
+  font-weight: 800;
+  margin-top: 30px;
+}
+.free__trail {
+  width: 42%;
+}
+.wave__img {
+  width: 50%;
+}
+.footer__wrapper {
+  background-color: #495fa3;
+  width: 100%;
+  height: 25vh;
+}
+@media screen and (max-width: 768px) {
+  .main__head {
+    font-size: 36px;
+  }
+  .getStarted__btn {
+    font-size: 14px;
+  }
+  .bottom__text {
+    font-size: 12px;
+  }
+  .workers__section {
+    display: none;
+  }
+  .solution__text {
+    width: 100%;
+  }
+  .companyDesc__head {
+    width: 100%;
+    font-size: 20px;
+  }
+  .module__card {
+    width: 100%;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .subject__wrapper {
+    width: 100%;
+  }
+  .diff__wrapper {
+    width: 100%;
+  }
+  .diff__textWrapper {
+    padding-top: 0px;
+  }
+  .user__feedback {
+    width: 100%;
+    height: auto;
+  }
+  .free__trail {
+    width: 100%;
+  }
+  .unlock__head {
+    font-size: 36px;
+  }
+  .footer__wrapper {
+    height: auto;
+    text-align: center;
+  }
+  .social__images {
+    justify-content: center;
+  }
+}

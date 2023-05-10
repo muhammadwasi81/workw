@@ -176,21 +176,9 @@ const scheduleSlice = createSlice({
         state.scheduleMember = payload.data;
       })
       .addCase(getCalendar.fulfilled, (state, { payload }) => {
-        console.log(payload.data, "payloadd");
         state.loading = false;
         state.success = true;
         state.calendar = payload.data;
-        // let eventsArray = Object.values(payload.data);
-        // console.log(eventsArray, "eventsArray");
-        // state.calendar = eventsArray.map((sched) => {
-        //   console.log(sched, "schedd");
-        //   return {
-        //     title: sched.title,
-        //     description: sched.description,
-        //     startDate: moment.utc(sched.startDate).local(),
-        //     endDate: moment.utc(sched.endDate).local(),
-        //   };
-        // });
       })
       .addMatcher(
         isPending(

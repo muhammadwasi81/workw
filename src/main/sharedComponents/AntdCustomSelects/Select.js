@@ -3,6 +3,8 @@ import { Form, Select, Skeleton, Space } from "antd";
 import { useState } from "react";
 import "./antdCustomSelect.css";
 import { useSelector } from "react-redux";
+import { CloseOutlined } from "@ant-design/icons";
+
 const { Option } = Select;
 
 function AntCustomSelect(props) {
@@ -12,6 +14,7 @@ function AntCustomSelect(props) {
     loading,
     data,
     onChange,
+    // onData,
     onSearch,
     onSelect,
     paginationHandler,
@@ -58,9 +61,16 @@ function AntCustomSelect(props) {
       paginationHandler(pgNo);
     }
   }, [pgNo]);
-  // console.log("data", isLoaded, data);
+  const handleRemove = (removedValue) => {
+    const updatedValues = value.filter((val) => val !== removedValue);
+    // const updatedValuesWithColor = valueWithColors.filter(
+    //   (member) => member.id !== removedValue
+    // );
+    onChange(updatedValues); // Update the selected values
+    // onData(updatedValuesWithColor);
+  };
+
   const tagColorRender = (props) => {
-    console.log(props, "propsss");
     let color = valueWithColors.find((member) => member.id === props.value)
       .color;
     return (
@@ -68,10 +78,15 @@ function AntCustomSelect(props) {
         className="ant-select-selection-item"
         style={{
           border: color ? `1px solid ${color}` : "none",
-          // borderRadius: "20px",
         }}
       >
         {props.label}
+        <span
+          className="ant-select-selection-item-remove"
+          onClick={() => handleRemove(props.value)}
+        >
+          <CloseOutlined className="text-[12px] text-[#999] ml-1 hover:text-[#777] w-[1em] h-[1em]" />
+        </span>
       </div>
     );
   };
@@ -91,6 +106,7 @@ function AntCustomSelect(props) {
           onPopupScroll={onPopupScroll}
           onSelect={onSelect}
           onChange={onChange}
+          // onData={onData}
           onSearch={onSearch}
           filterOption={filterOption}
           getPopupContainer={(trigger) => trigger.parentNode}

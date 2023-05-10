@@ -108,11 +108,11 @@ function Scheduler({ feed = false, referenceId, ColorArray }) {
         date: moment
           .utc(sch.startDate)
           .local()
-          .format("YYYY-MM-DDTHH:mm:ssZ"), // Format start date as '2023-05-10T11:15:00+05:00'
+          .format("YYYY-MM-DDTHH:mm:ssZ"),
         end: moment
           .utc(sch.endDate)
           .local()
-          .format("YYYY-MM-DDTHH:mm:ssZ"), //
+          .format("YYYY-MM-DDTHH:mm:ssZ"),
         title: sch.subject,
         backgroundColor: sch.members.map((member) => {
           const color = ColorArray?.find((c) => c.id === member.memberId)
@@ -143,21 +143,10 @@ function Scheduler({ feed = false, referenceId, ColorArray }) {
   };
   const eventDropHandler = (info) => {
     console.log(info.event, "infoo eventt");
-    // const { id } = info.event._def.publicId;
-    // console.log(id, "iddd");
+
     const { start, end, title, id, description } = info.event;
     console.log(start, end, title, id, "info eventtt");
-    // Here you can make an API call to update the event's information on the server
-    // by sending the updated `start`, `end`, and `title` fields along with the `id`.
-    // dispatch(
-    //   updateSchedule({
-    //     subject: title,
-    //     description: description,
-    //     startDate: start,
-    //     endDate: end,
-    //     id: id,
-    //   })
-    // );
+
     console.log(
       `Event ${id} was dropped at ${start} with new end time ${end} and new title ${title}`
     );

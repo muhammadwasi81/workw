@@ -119,8 +119,8 @@ function DetailCard(props) {
     readers && setopenModalforReaders(true)
     setstateforReaders(readers)
 
-    const isUserIdExistsforReader = readers?.some(obj => obj?.memberId === user?.id);
-    isUserIdExistsforReader && setisRigthtoAddReaderorCollab(true)
+    const isUserIdExistsforColabrator = collaborators?.some(obj => obj?.memberId === user?.id);
+    isUserIdExistsforColabrator && setisRigthtoAddReaderorCollab(true)
   }
   const CollabratorOrReader = (memeberId) =>
   { 
@@ -159,6 +159,7 @@ function DetailCard(props) {
     openModalforCollaborators && setopenModalforCollaborators(da)
     openModalforReaders && setopenModalforReaders(da)
     setisRigthtoAddReaderorCollab(false);
+    props.id && dispatch(GetDocumentById(props.id));
 
   }
 

@@ -152,7 +152,7 @@ const SolutionTools = () => {
               <p className="font-bold text-gray-500 free__trail">
                 {registerText.description}
               </p>
-              <Link to="/register">
+              <Link to="/register" onClick={() => window.scrollTo(0, 0)}>
                 <button className="getStarted__btn">Free Trial</button>
               </Link>
             </div>

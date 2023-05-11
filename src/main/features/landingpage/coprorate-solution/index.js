@@ -24,7 +24,7 @@ const CorporateSolution = () => {
             efficiency, managing time more effectively and bring the employees
             at one table for bringing the right information at right time
           </p>
-          <Link to="/register">
+          <Link to="/register" onClick={() => window.scrollTo(0, 0)}>
             <button className="getStarted__btn">Get Started</button>
           </Link>
         </Col>

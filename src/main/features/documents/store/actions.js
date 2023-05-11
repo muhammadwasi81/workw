@@ -15,6 +15,8 @@ import {
   getAllDocumentDirectoryMemberService,
   addDocumentDirectoryMemberService,
   addDocumentFavoriteService,
+  AddDocumentMemberService,
+  RemoveDocumentMemberService,
 } from "../services/service";
 import { toggleMinimizeDocument, updateMoveDocument } from "./slice";
 import { message } from "antd";
@@ -245,6 +247,45 @@ export const addDocumentFavorite = createAsyncThunk(
     } else {
       message.error(res.data.message);
       return rejectWithValue(res.data.message);
+    }
+  }
+);
+
+
+export const AddDocumentMember = createAsyncThunk(
+  "document/AddDocumentMember",
+  async (payload, { rejectWithValue, dispatch }) => {
+    const response = await AddDocumentMemberService(payload);
+    if (response?.data?.responseCode === responseCode.Success) {
+      return response?.data?.data;
+    } else {
+      dispatch(
+        openNotification({
+          message: response?.data?.message,
+          type: "error",
+          duration: 2,
+        })
+      );
+      return rejectWithValue(response?.data?.message);
+    }
+  }
+);
+
+export const RemoveDocumentMember = createAsyncThunk(
+  "document/RemoveDocumentMember",
+  async (payload, { rejectWithValue, dispatch }) => {
+    const response = await RemoveDocumentMemberService(payload);
+    if (response?.data?.responseCode === responseCode.Success) {
+      return response?.data;
+    } else {
+      dispatch(
+        openNotification({
+          message: response?.data?.message,
+          type: "error",
+          duration: 2,
+        })
+      );
+      return rejectWithValue(response?.data?.message);
     }
   }
 );

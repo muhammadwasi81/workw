@@ -136,21 +136,24 @@ a.drop-downList {
   box-shadow: 0 5px 5px -3px rgb(0 0 0 / 20%), 0 8px 10px 1px rgb(0 0 0 / 14%),
     0 3px 14px 2px rgb(0 0 0 / 12%);
   display: flex;
-  /* z-index: 10; */
-  bottom: 0;
+  z-index: 9;
+  bottom: 20px;
+  left:25px;
   flex-direction: column;
   background: white;
   border: none;
   resize: both;
   overflow: auto;
   width: 300px;
+  height: 400px;
   max-width: 600px;
+  min-height:250px;
+  min-width: 250px;
   max-height: 600px;
-  height: auto;
   position: absolute;
   border-radius: 5px;
   cursor: move;
-  /* transform: translate(168px, -174px); */
+  /* transform: translate(153px, -146px);} */
 }
 
 .sticky_titleContainer {
@@ -235,7 +238,7 @@ input:focus {
 .leftNote_Icon {
   font-size: 16px !important;
   font-weight: bold;
-  margin-left: 10px !important;
+  /* margin-left: 10px !important; */
   justify-content: space-around !important;
 }
 /* share styling */
@@ -259,6 +262,7 @@ input:focus {
   /* justify-content: space-between; */
   overflow-y: scroll;
   position: relative;
+  height: 100%;
 }
 
 .img-input-container {
@@ -300,7 +304,7 @@ img.ant-image-preview-img {
 }
 .image {
   width: 50px !important;
-  height: 40 !important;
+  height: 40px !important;
   border-radius: 12px;
   margin: 3px;
 }

@@ -166,6 +166,7 @@ const NewStickyNote = ({ item }) => {
           style={{
             // position: "absolute",
             zIndex: item.id === openSticky ? 3 : 2,
+            // transform: "translate(20px, -20px)",
           }}
         >
           <div
@@ -199,12 +200,12 @@ const NewStickyNote = ({ item }) => {
               </Dropdown>
               <DeleteOutlined
                 onClick={deleteStickyNotes}
-                className="margin_Icon"
+                className="ml-2"
                 style={{ color: `${item.colorCode ? "black" : "white"}` }}
               />
               <CloseOutlined
                 onClick={closeStickyNotes}
-                className="margin_Icon"
+                className="ml-2"
                 style={{ color: `${item.colorCode ? "black" : "white"}` }}
               />
             </div>

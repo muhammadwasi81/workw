@@ -2196,25 +2196,20 @@ i.ic-key-feature6 {
   text-align: center;
 }
 
-.scroll-down p {
-  font-size: 16px;
-  font-weight: 500;
-  color: #fff;
-}
-
 .mouse {
   width: 28px;
   height: 48px;
   border-radius: 14px;
-  border: 2px solid #fff;
+  border: 2px solid #526bb1;
   position: relative;
   margin: 0 auto 15px auto;
+  cursor: pointer;
 }
 
 .wheel {
   width: 4px;
   height: 10px;
-  background-color: #fff;
+  background-color: #526bb1;
   border-radius: 2px;
   position: absolute;
   left: 50%;

@@ -15,7 +15,7 @@
 .workers__section {
   width: 100%;
   height: 35vh;
-  background-color: #7788bb;
+  background-color: #495fa3;
   position: relative;
   bottom: 100px;
   z-index: -1;
@@ -24,22 +24,24 @@
 .bottom__text {
   font-size: 14px;
   font-weight: 600;
-  color: #707070;
+  color: #ffffff;
 }
 .left__icon {
   font-size: 20px;
   transform: rotate(180deg);
-  color: #707070;
+  color: #000000;
+  cursor: pointer;
 }
 .right__icon {
   font-size: 20px;
   transform: rotate(180deg);
-  color: #707070;
+  color: #ffffff;
+  cursor: pointer;
 }
 .published__text {
   position: relative;
   left: 175px;
-  color: #707070;
+  color: #ffffff;
 }
 .userComp__img {
   width: 350px;
@@ -71,16 +73,18 @@
 .whatMakes__section {
   background: url("../../landingpage/icons/building.png") no-repeat;
   background-size: cover;
+  background-position: center center;
   min-height: 80vh;
   width: 100%;
 }
+
 .diff__wrapper {
   width: 35%;
   margin: auto;
   text-align: center;
 }
 .diff__textWrapper {
-  padding-top: 180px;
+  padding-top: 250px;
 }
 .user__feedback {
   background-color: #ffffff;
@@ -129,6 +133,41 @@
   width: 100%;
   height: 25vh;
 }
+.hand__container {
+  left: 70px;
+}
+
+/* back to top */
+.scrollTop {
+  background-color: #495fa3;
+  position: fixed;
+  border-radius: 50%;
+  bottom: 50px;
+  width: 50px;
+  height: 50px;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  cursor: pointer;
+  animation: fadeIn 0.3s;
+  transition: all opacity 0.5s;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  right: 20px;
+}
+
+.scrollTop:hover {
+  opacity: 1;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .main__head {
     font-size: 36px;
@@ -171,13 +210,21 @@
     width: 100%;
   }
   .unlock__head {
-    font-size: 36px;
+    font-size: 28px;
+    margin-top: 15px;
   }
   .footer__wrapper {
     height: auto;
     text-align: center;
   }
   .social__images {
+    justify-content: center;
+  }
+  .icons__wrapper {
+    justify-content: center;
+    align-items: center;
+  }
+  .footer__logo {
     justify-content: center;
   }
 }

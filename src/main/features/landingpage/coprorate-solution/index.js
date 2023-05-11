@@ -4,6 +4,7 @@ import groupIcon from "../icons/group.png";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { FaLongArrowAltLeft } from "react-icons/fa";
 import "./styles.css";
+import { Link } from "react-router-dom";
 
 const CorporateSolution = () => {
   return (
@@ -23,7 +24,9 @@ const CorporateSolution = () => {
             efficiency, managing time more effectively and bring the employees
             at one table for bringing the right information at right time
           </p>
-          <button className="getStarted__btn">Get Started</button>
+          <Link to="/register">
+            <button className="getStarted__btn">Get Started</button>
+          </Link>
         </Col>
         <Col xs={24} sm={24} md={12} lg={12} xl={12} className="mt-20">
           <img src={groupIcon} alt="group icon" />
@@ -36,16 +39,7 @@ const CorporateSolution = () => {
               “Most workers toggle between apps 10 times an hour which <br />
               equates to 32 days lost in work place productivity.”
             </p>
-            <span className="published__text">
-              <a
-                href="https://www.forbes.com/sites/forbestechcouncil/2020/02/03/why-2020-is-the-year-of-the-integrated-workplace-app/?sh=3b5b1b7b6b6a"
-                target="_blank"
-                className="cursor-pointer hover:underline"
-                rel="noreferrer"
-              >
-                published by Forbes.com
-              </a>
-            </span>
+            <span className="published__text">published by Forbes.com</span>
             <div className="flex gap-5">
               <FaLongArrowAltRight className="left__icon" />
               <FaLongArrowAltLeft className="right__icon" />

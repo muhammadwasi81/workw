@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Navigate } from "react-router-dom";
 import "./styles/style.css";
 import SignIn from "./signIn/signin";
@@ -10,6 +10,13 @@ import "./styles/style.css";
 import LandingMainPage from "../../landingpage";
 
 const Auth = () => {
+  const landingRef = useRef(null);
+
+  const handleAnimateClick = () => {
+    console.log("dsdsdsdsds");
+    landingRef.current.scrollIntoView({ behavior: "smooth" });
+  };
+
   const { token } = useSelector((state) => state.userSlice);
   const isLoggedIn = !!token;
   if (isLoggedIn) {
@@ -40,13 +47,15 @@ const Auth = () => {
           </div>
         </Col>
       </Row>
-      <div class="scroll-down">
+      <div class="scroll-down" onClick={handleAnimateClick}>
         <div class="mouse">
           <div class="wheel"></div>
         </div>
       </div>
       {/* landing page components */}
-      <LandingMainPage />
+      <div ref={landingRef}>
+        <LandingMainPage />
+      </div>
     </div>
   );
 };

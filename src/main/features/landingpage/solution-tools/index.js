@@ -16,7 +16,9 @@ import {
 } from "./constants";
 import "../coprorate-solution/styles.css";
 import RectangleImg from "../icons/rec.png";
+import handImg from "../icons/hand.png";
 import commaImg from "../icons/comma.png";
+import bottomCommaImg from "../icons/bottomComma.png";
 import keyImg from "../icons/key.png";
 import waveImg from "../icons/wave.png";
 import appleImg from "../icons/apple.png";
@@ -24,6 +26,8 @@ import googleImg from "../icons/googleplay.png";
 import { AiOutlineInstagram } from "react-icons/ai";
 import { FaFacebookF } from "react-icons/fa";
 import { FaLinkedinIn } from "react-icons/fa";
+import workWiseLogo from "../../../../content/blackLogo.svg";
+import { Link } from "react-router-dom";
 
 const SolutionTools = () => {
   return (
@@ -61,7 +65,10 @@ const SolutionTools = () => {
             {solutionAvailability.description}
           </p>
         </Col>
-        <Col xs={24} sm={24} md={8} lg={8} xl={8} className="mt-10">
+        <Col xs={24} sm={24} md={8} lg={8} xl={8} className="mt-10 relative">
+          <div className="absolute hand__container">
+            <img src={handImg} alt="group icon" className="w-52 h-52" />
+          </div>
           <img src={RectangleImg} alt="group icon" className="w-52 h-52" />
         </Col>
         {/* TODO: 4TH SECTION */}
@@ -129,7 +136,7 @@ const SolutionTools = () => {
             <div className="user__name">{userFeedback.name}</div>
           </div>
           <div className="comma__bottom__wrapper">
-            <img src={commaImg} alt="comma-icon" className="comma__img" />
+            <img src={bottomCommaImg} alt="comma-icon" className="comma__img" />
           </div>
         </div>
         {/* unlock the power */}
@@ -139,35 +146,33 @@ const SolutionTools = () => {
               <h1 className="unlock__head text-[#495FA3]">
                 Unlock The Power of <br /> Your Organization Now!
               </h1>
-              <h6 className="font-bold text-black text-lg ">
+              <h6 className="font-bold text-black text-lg">
                 Start your free trial now!
               </h6>
               <p className="font-bold text-gray-500 free__trail">
                 {registerText.description}
               </p>
-              <button className="getStarted__btn">Free Trail</button>
+              <Link to="/register">
+                <button className="getStarted__btn">Free Trial</button>
+              </Link>
             </div>
           </Col>
         </Row>
-        <Row gutter={[16, 16]}>
-          <Col xs={24} sm={24} lg={12} xl={12} md={12}>
-            <img src={waveImg} alt="keyImg" className="wave__img" />
-          </Col>
-          <Col xs={24} sm={24} lg={12} xl={12} md={12}>
-            <img src={keyImg} alt="keyImg" />
-          </Col>
-        </Row>
       </div>
+      <Row gutter={[16, 16]}>
+        <Col xs={24} sm={24} lg={12} xl={12} md={12}>
+          <img src={waveImg} alt="keyImg" className="wave__img" />
+        </Col>
+        <Col xs={24} sm={24} lg={12} xl={12} md={12}>
+          <img src={keyImg} alt="keyImg" />
+        </Col>
+      </Row>
       {/* footer */}
       <footer className="footer__wrapper py-5">
         <Row gutter={{ xs: 0, sm: 0, lg: 24 }} className="main-landing-row">
           <Col xs={24} sm={24} lg={12} xl={16} md={24}>
-            <div className="flex flex-wrap gap-5">
-              <img
-                src="https://workw.com/static/media/blackLogo.507a37e9de88706059515b321799175f.svg"
-                alt="group icon"
-                className="w-28"
-              />
+            <div className="flex flex-wrap gap-5 footer__logo">
+              <img src={workWiseLogo} alt="group icon" className="w-28" />
               <p className="font-semibold text-white mt-10">
                 Work from anywhere the way it should be <br /> Easy – Effective
                 - Efficient
@@ -183,7 +188,7 @@ const SolutionTools = () => {
               www.workwise.com
             </a>
             <br /> Terms & Conditions <br /> Privacy statement
-            <div className="flex flex-wrap gap-3 text-xl pt-5 cursor-pointer">
+            <div className="flex flex-wrap gap-3 text-xl pt-5 cursor-pointer icons__wrapper">
               <AiOutlineInstagram className="text-white" />
               <FaFacebookF className="text-white" />
               <FaLinkedinIn className="text-white" />

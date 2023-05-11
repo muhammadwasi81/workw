@@ -74,6 +74,7 @@ const StickyContainer = () => {
   // *******open clicked sticky note********
   const openClickedNote = (note) => {
     dispatch(showStickyNote(note.id));
+    console.log("clikced showww");
   };
 
   const { userLanguage } = useContext(LanguageChangeContext);

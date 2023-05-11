@@ -9,7 +9,6 @@
   border-radius: 5px;
   z-index: 10;
   bottom: 3px;
-
   transform: translate(11px, 456px);
 }
 
@@ -137,7 +136,7 @@ a.drop-downList {
   box-shadow: 0 5px 5px -3px rgb(0 0 0 / 20%), 0 8px 10px 1px rgb(0 0 0 / 14%),
     0 3px 14px 2px rgb(0 0 0 / 12%);
   display: flex;
-  z-index: 10;
+  /* z-index: 10; */
   bottom: 0;
   flex-direction: column;
   background: white;
@@ -151,6 +150,7 @@ a.drop-downList {
   position: absolute;
   border-radius: 5px;
   cursor: move;
+  /* transform: translate(168px, -174px); */
 }
 
 .sticky_titleContainer {
@@ -176,6 +176,7 @@ input:focus {
 .stickyNoteItem-textarea {
   flex: 1;
   width: 100%;
+  height:auto;
   max-width: 100%;
   max-height: 100%;
   outline: none;
@@ -271,8 +272,16 @@ input:focus {
 
 .img-input {
   position: absolute;
-}
 
+}
+.visually-hidden {
+  position: absolute;
+  clip: rect(0, 0, 0, 0);
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  white-space: nowrap;
+}
 .image_body {
   display: inline-block;
   overflow-x: auto;
@@ -283,7 +292,7 @@ input:focus {
   justify-content: space-between;
 }
 img.ant-image-preview-img {
-  display: inline-block;
+  /* display: inline-block; */
   width: 70%;
 }
 .ant-image-preview-operations-operation {

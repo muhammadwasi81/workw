@@ -130,7 +130,6 @@ const NewStickyNote = ({ item }) => {
     );
   };
   const setDescriptionValue = (value) => {
-    console.log(value, "valueeee");
     const id = item.id;
     dispatch(
       targetStickyDescription({
@@ -165,7 +164,7 @@ const NewStickyNote = ({ item }) => {
           className="stickyNote_container"
           onClick={openNewStikcyHandler}
           style={{
-            position: "absolute",
+            // position: "absolute",
             zIndex: item.id === openSticky ? 3 : 2,
           }}
         >
@@ -231,12 +230,15 @@ const NewStickyNote = ({ item }) => {
             />
 
             <div className="img-input-container">
-              <PictureOutlined className="image_icon text-[20px]" />
+              <label htmlFor="image-upload" className="image-icon-label">
+                <PictureOutlined className="image_icon text-[20px] cursor-pointer" />
+              </label>
               <input
                 type="file"
+                id="image-upload"
                 // multiple={true}
                 onChange={uploadImageHandler}
-                className="img-input"
+                className="img-input visually-hidden"
               />
             </div>
           </div>

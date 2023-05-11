@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import { ROUTES } from "../../../../utils/routes";
 import ExpenseHeader from "../../../../main/features/expenseHeader/view/index";
 import Grade from "../../../../main/features/grade/view/index";
+import CustomTag from "../../../features/customTag/view/index";
 import ELearningCategory from "../../../../main/features/eLearningCategory/view/index";
 import Designation from "../../../../main/features/designation/view/index";
 import Appraisal from "../../../../main/features/appraisal/appraisalQuestion/view/index";
@@ -73,6 +74,7 @@ const AdminRoutes = () => {
         element={<AssetsCategory />}
       />
       <Route path={ROUTES.ADMINISTRATOR.GRADE} element={<Grade />} />
+      <Route path={ROUTES.ADMINISTRATOR.CUSTOMTAG} element={<CustomTag />} />
 
       <Route
         path={ROUTES.ADMINISTRATOR.ELEARNING_CATEGORY}

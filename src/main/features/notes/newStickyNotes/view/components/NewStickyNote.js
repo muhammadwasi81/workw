@@ -37,7 +37,7 @@ import { LanguageChangeContext } from "../../../../../../utils/localization/loca
 import { stickyNotesDictionaryList } from "../../localization/index";
 import { formats, modules } from "../../utils/index";
 
-const NewStickyNote = ({ item }) => {
+const NewStickyNote = ({ item, index }) => {
   const [openColor, setOpenColor] = useState(true);
   const [openShare, setOpenShare] = useState(false);
   const [title, setTitle] = useState(null);
@@ -149,6 +149,12 @@ const NewStickyNote = ({ item }) => {
   const openNewStikcyHandler = () => {
     dispatch(handleOpenSticky(item.id));
   };
+  const axis = {
+    // x_axis: Math.floor(Math.random() * 40) + 300,
+    // y_axis: Math.floor(Math.random() * 40) + 150,
+    x_axis: Math.floor(Math.random() * 40) + 300 - 40 * index,
+    y_axis: Math.floor(Math.random() * 40) + 150 - 80 * index,
+  };
 
   return (
     <>
@@ -159,6 +165,7 @@ const NewStickyNote = ({ item }) => {
         scale={1}
         // bounds="parent"
         // allowAnyClick={true}
+        defaultPosition={{ x: axis.x_axis, y: axis.y_axis }}
       >
         <div
           className="stickyNote_container"
@@ -166,7 +173,6 @@ const NewStickyNote = ({ item }) => {
           style={{
             // position: "absolute",
             zIndex: item.id === openSticky ? 3 : 2,
-            // transform: "translate(20px, -20px)",
           }}
         >
           <div
@@ -200,12 +206,12 @@ const NewStickyNote = ({ item }) => {
               </Dropdown>
               <DeleteOutlined
                 onClick={deleteStickyNotes}
-                className="ml-2"
+                className="delete-close-icon"
                 style={{ color: `${item.colorCode ? "black" : "white"}` }}
               />
               <CloseOutlined
                 onClick={closeStickyNotes}
-                className="ml-2"
+                className="delete-close-icon"
                 style={{ color: `${item.colorCode ? "black" : "white"}` }}
               />
             </div>

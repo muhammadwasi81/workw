@@ -15,36 +15,8 @@ function MemberCollapse({
   onEmailClick = () => {},
   onDelete = () => {},
 }) {
-  const [externalMemberModal, setExternalMemberModal] = useState(false);
-  const [value, setValue] = useState([]);
-  const handleAddExternalMemberModal = () => {
-    setExternalMemberModal(!externalMemberModal);
-  };
-
-  const validateEmail = (input) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(input);
-  };
-
   const handleCollapseChange = (key) => {
     console.log(key);
-  };
-  console.log(value, "value");
-  const handleOnChange = (newValue) => {
-    const validTags = newValue.filter(validateEmail);
-    if (validTags.length === newValue.length) {
-      if (newValue.length < value.length) {
-        const removedTag = value.filter((tag) => !newValue.includes(tag));
-        message.success(`Removed tag '${removedTag}' successfully.`);
-      }
-      if (newValue.length > value.length) {
-        const addedTag = newValue.filter((tag) => !value.includes(tag));
-        message.success(`Added tag '${addedTag}' successfully.`);
-      }
-      setValue(newValue);
-    } else {
-      message.error("Please enter a valid email address.");
-    }
   };
 
   return (
@@ -67,13 +39,6 @@ function MemberCollapse({
             <div>
               <span className="text-base font-bold text-primary-color">
                 Members ({data.length})
-              </span>
-              <span
-                className="text-base font-bold text-primary-color"
-                style={{ marginLeft: "67px" }}
-                onClick={handleAddExternalMemberModal}
-              >
-                Add Externals
               </span>
             </div>
           }
@@ -113,27 +78,6 @@ function MemberCollapse({
           />
         </Panel>
       </Collapse>
-      <CustomModal
-        footer={null}
-        isModalVisible={externalMemberModal}
-        centered={true}
-        onCancel={handleAddExternalMemberModal}
-        destroyOnClose={true}
-        closable={false}
-        children={
-          <Select
-            mode="tags"
-            allowClear
-            style={{
-              width: "100%",
-            }}
-            value={value}
-            placeholder="Enter your email address"
-            tokenSeparators={[","]}
-            onChange={handleOnChange}
-          />
-        }
-      />
     </>
   );
 }

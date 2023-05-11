@@ -10,11 +10,9 @@ const CorporateSolution = () => {
   return (
     <section>
       <Row gutter={{ xs: 0, sm: 0, lg: 24 }} className="main-landing-row">
-        <Col xs={24} sm={24} md={24} lg={24} xl={24} className="pt-10">
-          <img src={ClockIcon} alt="clock icon" className="w-10 h-10" />
-        </Col>
         <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-          <h1 className="text-primary-color main__head">
+          <img src={ClockIcon} alt="clock icon" className="w-10 h-10" />
+          <h1 className="text-primary-color capitalize main__head">
             A corporate
             <br />
             Social Solution

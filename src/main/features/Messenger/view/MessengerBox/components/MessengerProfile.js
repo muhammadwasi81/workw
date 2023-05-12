@@ -4,8 +4,7 @@ import phoneIcon from "../../../../../../content/NewContent/Messenger/phone.svg"
 import videoIcon from "../../../../../../content/NewContent/Messenger/video.svg";
 // import infoIcon from "../../../../../../content/NewContent/Messenger/info.svg";
 
-const MessengerProfile = ({ hanldeClose, messengerDetail }) => {
-	const { profileName, profileImage, chatId, chatType, chatWith } = messengerDetail;
+const MessengerProfile = ({ hanldeClose, messengerDetail= {} }) => {
 	return (
 		<div className="MessengerProfile" onClick={hanldeClose}>
 			<div className="imgHolder">
@@ -15,7 +14,7 @@ const MessengerProfile = ({ hanldeClose, messengerDetail }) => {
 					/> */}
 				<div className="text-center">
 					<Avatar
-						src={profileImage}
+						src={messengerDetail?.profileImage}
 						name={""}
 						size={60}
 						round={true}
@@ -23,8 +22,8 @@ const MessengerProfile = ({ hanldeClose, messengerDetail }) => {
 				</div>
 				<div>
 					<div className="user">
-						<div className="name">{profileName}</div>
-						<div className="desc">{chatWith.designation}</div>
+						<div className="name">{messengerDetail?.profileName}</div>
+						<div className="desc">{messengerDetail?.chatWith.designation}</div>
 					</div>
 					<div className="actions">
 						<div>

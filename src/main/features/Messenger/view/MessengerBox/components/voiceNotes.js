@@ -6,8 +6,13 @@ import pauseRedIcon from "../../../../../../content/NewContent/Messenger/pauseRe
 import sendIcon from "../../../../../../content/NewContent/Messenger/sendRound.svg";
 import deleteIcon from "../../../../../../content/NewContent/Messenger/delete.svg";
 import VoiceTimer from "./voiceTimer";
+import { MESSENGER_ENUMS } from "../../../utils/Constant";
 
-function VoiceNotes({ handleVoiceSend }) {
+function VoiceNotes({
+    handleVoiceSend = () => { },
+    onFocusTyping = () => { },
+    onBlurTyping = () => { }
+}) {
     useEffect(() => {
     }, []);
     // function download(blob, filename) {
@@ -30,10 +35,10 @@ function VoiceNotes({ handleVoiceSend }) {
         return myFile;
     }
     const onStartRecording = (e) => {
-        // console.log(e, "Start Recording")
+        onFocusTyping(MESSENGER_ENUMS.MESSAGE_TYPING.RECORDING)
     }
     const onStopRecording = (blobURL, blob) => {
-        console.log(blobToFile(blob, "Voice"), "Stop Recording");
+        onBlurTyping(MESSENGER_ENUMS.MESSAGE_TYPING.RECORDING)
         // handleVoiceSend(blobToFile(blob, "Voice"))
         handleVoiceSend(blobToFile(blob))
     }
@@ -49,7 +54,10 @@ function VoiceNotes({ handleVoiceSend }) {
             {status === "recording" && <div style={{ display: "flex", alignItems: "center" }} >
 
 
-                <button onClick={clearBlobUrl}>
+                <button onClick={()=>{
+                    onBlurTyping(MESSENGER_ENUMS.MESSAGE_TYPING.RECORDING)
+                    clearBlobUrl()
+                }}>
                     <img src={deleteIcon} style={{ height: "17px", margin: "0 5px 0 10px" }} />
                 </button>
                 <VoiceTimer />

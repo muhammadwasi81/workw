@@ -5,16 +5,16 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import "../styles/style.css";
 import "../styles/calender.css";
-// import Event from "./event";
 import { Calendar, Drawer } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleEventDetailComposer } from "../store/slice";
 import EventDetail from "./eventDetail";
 import moment from "moment";
-import { getAllSchedule } from "../store/action";
+import { getCalendar } from "../store/action";
 import CreateSchedule from "./createSchedule";
 
-function Scheduler({ feed = false, referenceId }) {
+function Scheduler({ feed = false, referenceId, ColorArray }) {
+  console.log(ColorArray, "colorArray");
   const [calenderView, setCalendarView] = useState("");
   const [todayDate, setTodayDate] = useState(new Date());
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
@@ -22,9 +22,11 @@ function Scheduler({ feed = false, referenceId }) {
   const schedules = useSelector((state) => state.scheduleSlice.schedules);
   const success = useSelector((state) => state.scheduleSlice.success);
   const [composerDate, setComposerDate] = useState("");
-  console.log(schedules, "scheduless");
+
   const calendarRef = useRef();
   const { scheduleSearch } = useSelector((state) => state.scheduleSlice);
+  const { calendar } = useSelector((state) => state.scheduleSlice);
+  const [events, setEvents] = useState([]);
   let isPanelChange = false;
   const dispatch = useDispatch();
   // const renderEventContent = eventInfo => {
@@ -32,7 +34,7 @@ function Scheduler({ feed = false, referenceId }) {
   // };
   useEffect(() => {
     fetchAllSchedule(todayDate, todayDate);
-  }, [scheduleSearch]);
+  }, [scheduleSearch, schedules]);
 
   useEffect(() => {
     if (success) {
@@ -44,18 +46,21 @@ function Scheduler({ feed = false, referenceId }) {
   const fetchAllSchedule = (startVal, endVal) => {
     const startDate = moment(startVal)
       .startOf("month")
+      .utc()
       .format();
     const endDate = moment(endVal)
       .endOf("month")
+      .utc()
       .format();
 
     dispatch(
-      getAllSchedule({
-        pageNo: 1,
-        pageSize: 20,
+      getCalendar({
+        // pageNo: 1,
+        // pageSize: 20,
         search: scheduleSearch,
         sortBy: 1,
         referenceId: referenceId,
+        // filterType: 1,
         referenceType: 0,
         startDate,
         endDate,
@@ -74,7 +79,6 @@ function Scheduler({ feed = false, referenceId }) {
   };
 
   const onChange = (value) => {
-    console.log(value, "sss");
     const date = value.format("YYYY-MM-DD");
     handleDateChange(date);
     calendarRef.current.getApi().gotoDate(new Date(value.format("YYYY-MM-DD")));
@@ -85,19 +89,41 @@ function Scheduler({ feed = false, referenceId }) {
       setIsCalendarOpen(false);
     }
   };
-  let data = schedules?.map((sch) => {
-    // date: moment(sch.startDate).format(),
-    // end: moment(sch.endDate).format(),
-    // moment(myDate).add(1, "day");
-    return {
-      ...sch,
-      date: new Date(sch.startDate), //this will only show the start date and upon clicking the schedule it will open detail of that event
-      end: new Date(sch.endDate),
-      // end: new Date(moment(sch.endDate).add(1, "day")), //commented by humayoun
-      title: sch.subject,
-      // timezone: "UTC",
-    };
-  });
+  useEffect(() => {
+    let keys = Object.keys(calendar);
+    let eventsData = [];
+
+    for (const key of keys) {
+      eventsData.push(...calendar[key]);
+    }
+
+    let newData = [...eventsData]?.map((sch) => {
+      return {
+        ...sch,
+        date: moment
+          .utc(sch.startDate)
+          .local()
+          .format("YYYY-MM-DDTHH:mm:ssZ"),
+        end: moment
+          .utc(sch.endDate)
+          .local()
+          .format("YYYY-MM-DDTHH:mm:ssZ"),
+        title: sch.subject,
+        // borderColor: sch.members.map((member) => {
+        //   const color = ColorArray?.find((c) => c.id === member.memberId)
+        //     ?.color;
+        //   return color ? color : "var(--currentThemeColor)";
+        // }),
+
+        backgroundColor: sch.members.map((member) => {
+          const color = ColorArray?.find((c) => c.id === member.memberId)
+            ?.color;
+          return color ? color : "var(--currentThemeColor)";
+        }),
+      };
+    });
+    setEvents(newData);
+  }, [calendar]);
 
   const onSelectFunc = (d) => {
     //TODO: Here we will open composer according to the date
@@ -116,7 +142,16 @@ function Scheduler({ feed = false, referenceId }) {
 
     setComposerDate(d.date);
   };
+  const eventDropHandler = (info) => {
+    console.log(info.event, "infoo eventt");
 
+    const { start, end, title, id, description } = info.event;
+    console.log(start, end, title, id, "info eventtt");
+
+    console.log(
+      `Event ${id} was dropped at ${start} with new end time ${end} and new title ${title}`
+    );
+  };
   return (
     <>
       <Drawer
@@ -125,13 +160,11 @@ function Scheduler({ feed = false, referenceId }) {
             style={{
               fontSize: "20px",
               margin: 0,
-              // textAlign: Direction === "ltr" ? "" : "end",
             }}
           >
             {"Create Schedule"}
           </h1>
         }
-        // placement={Direction === "rtl" ? "left" : "right"}
         width="768"
         onClose={() => {
           setShowDrawer(false);
@@ -147,7 +180,7 @@ function Scheduler({ feed = false, referenceId }) {
       <EventDetail />
       <div className={`schedulerCalender ${calenderView}`}>
         <FullCalendar
-          // timeZone="UTC"
+          // timeZone="local"
           ref={calendarRef}
           selectable={true}
           select={onSelectFunc}
@@ -183,19 +216,12 @@ function Scheduler({ feed = false, referenceId }) {
             feed
               ? { start: "title myCustomButton" }
               : {
-                  left: "timeGridDay prev next today",
+                  left: "prev next today",
                   center: "title,myCustomButton",
-                  right: "timeGridWeek dayGridMonth",
+                  right: "timeGridDay timeGridWeek dayGridMonth",
                 }
           }
           eventClick={(info) => {
-            // console.log("info", info.event._def);
-            // setSchedule({
-            // 	id: info.event._def.publicId,
-            // 	scheduleType:
-            // 		info.event._def.extendedProps.scheduleType,
-            // });
-            // setId(parseInt(info.event._def.publicId));
             dispatch(
               toggleEventDetailComposer({
                 id: info.event._def.publicId,
@@ -210,7 +236,12 @@ function Scheduler({ feed = false, referenceId }) {
               setCalendarView("");
             }
           }}
-          // nowIndicator={true}
+          nowIndicator={true}
+          nowIndicatorPlacement="top"
+          nowIndicatorDisplay="block"
+          scrollTime={moment()
+            .subtract(50, "minutes")
+            .format("HH:mm:ss")}
           // eventMaxStack={3}
           dayHeaders={true}
           allDaySlot={true}
@@ -222,9 +253,10 @@ function Scheduler({ feed = false, referenceId }) {
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
           initialView={!feed ? "timeGridWeek" : "timeGridDay"}
           events={
-            data
+            events
             // "https://fullcalendar.io/api/demo-feeds/events.json"
           }
+          eventDrop={(info) => eventDropHandler(info)}
           eventResize={() => {}}
           onSelect={(e) => onSelectFunc(e)}
           slotDuration={"00:15:00"}

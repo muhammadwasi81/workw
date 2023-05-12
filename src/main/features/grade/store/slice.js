@@ -23,9 +23,12 @@ const gradeSlice = createSlice({
         state.grades = payload.data;
       })
       .addCase(addGrade.fulfilled, (state, { payload }) => {
+        console.log(payload,"payload");
         state.loader = false;
         if (payload.responseCode === responseCode.Success)
           state.grades.push(payload.data);
+
+          console.log(state.grades,"gradesssss");
       })
       .addCase(updateGrade.fulfilled, (state, { payload }) => {
         state.loader = false;

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import useDebounce from "../../../../utils/Shared/helper/use-debounce";
 import AntCustomSelect from "../Select";
+import { getRandomColor } from "../../../features/schedule/UI/randomColors";
 
 function MemberSelect({
   onDeselect,
@@ -10,6 +11,7 @@ function MemberSelect({
   canFetchNow = false,
   fetchData = () => {},
   defaultData = [],
+
   defaultKey = "id",
   isObject = false,
   isImage = false,
@@ -27,26 +29,26 @@ function MemberSelect({
   showSearch = false,
   emptyStateAfterSelect = false,
   formItem = true,
+  colors = true,
   sliceName = "employees",
   resetField = false,
   className = "",
   returnEmpty = false,
   isIncludedMyId = false,
+  onData = (e) => false,
 }) {
-  // console.log(data, "dataa");
   const [value, setValue] = useState("");
   const [stateVal, setStateVal] = useState(dataVal);
   const [defaultValues, setDefaultValues] = useState([]);
-  // console.log(defaultValues, "default vv");
+  const [stateValWithColor, setStateValWithColor] = useState([]);
+
   const [isDataFetchable, setIsDataFetchable] = useState(canFetchNow);
   const debouncedSearch = useDebounce(value, 500);
   const userSlice = useSelector((state) => state.userSlice);
   const user = userSlice.user;
   const [memberData, setMemberData] = useState([...data]);
-  // console.log(memberData, "memberData");
   const { loader } = useSelector((state) => state.sharedSlice);
   const employees = useSelector((state) => state.sharedSlice[sliceName]);
-  // console.log(employees, "employees");
   const [isAssignDefaultData, setIsAssignDefaultData] = useState(
     loadDefaultData
   );
@@ -56,12 +58,31 @@ function MemberSelect({
     if (!tempArray[0]) {
       setStateVal([]);
     } else {
-      setStateVal([...tempArray]);
-    }
+      if (colors) {
+        // setStateValWithColor(
+        //   tempArray.map((memberId) => ({
+        //     id: memberId,
+        //     color: getRandomColor(),
+        //   }))
+        // );
 
-    // if (emptyStateAfterSelect) {
-    // 	setStateVal("");
-    // }
+        // setStateVal([...tempArray]);
+        const newMembers = tempArray.filter(
+          (memberId) =>
+            !stateVal.find((stateValMember) => stateValMember.id === memberId)
+        );
+        const newMembersWithColor = newMembers.map((memberId) => ({
+          id: memberId,
+          color: getRandomColor(),
+        }));
+
+        setStateValWithColor([...stateValWithColor, ...newMembersWithColor]);
+        setStateVal([...tempArray]);
+        onData([...stateValWithColor, ...newMembersWithColor]);
+      } else {
+        setStateVal([...tempArray]);
+      }
+    }
   };
   const triggerChange = (changedValue) => {
     change?.(changedValue);
@@ -69,7 +90,6 @@ function MemberSelect({
   useEffect(() => {
     if (defaultData.length > 0) {
       let tempArray = [];
-      console.log("sssss");
       defaultData.forEach((element) => {
         tempArray.push(element[defaultKey]);
       });
@@ -82,13 +102,23 @@ function MemberSelect({
     if (stateVal.length > 0) {
       let filterArrOfObj;
       if (isObject) {
-        console.log("isobject");
         filterArrOfObj = employees.filter((val) =>
           stateVal.includes(val[defaultKey])
         );
       }
       if (canFetchNow) {
-        selectedData(stateVal, filterArrOfObj);
+        if (colors) {
+          selectedData(
+            stateVal,
+            filterArrOfObj.map((member) => ({
+              ...member,
+              color: stateValWithColor.find((item) => item.id === member.id)
+                ?.color,
+            }))
+          );
+        } else {
+          selectedData(stateVal, filterArrOfObj);
+        }
       }
 
       if (stateVal.length > 0) {
@@ -146,7 +176,6 @@ function MemberSelect({
   useEffect(() => {
     if (isDataFetchable) {
       const merged = [...memberData, ...employees];
-      console.log(merged, "mergedd");
       setMemberData(() => {
         return [...new Map(merged.map((v) => [v.id, v])).values()];
       });
@@ -177,16 +206,13 @@ function MemberSelect({
       setIsAssignDefaultData(false);
     }
   }, [dataVal]);
-  // console.log("isAssignDefaultData", isAssignDefaultData);
-  // console.log("data val----", dataVal);
-  // console.log("canfetch now", canFetchNow);
-  // console.log("data", data);
-  // console.log("stateval", stateVal);
+
   return (
     <AntCustomSelect
       className={className}
       onDeselect={onDeselect}
       value={stateVal}
+      valueWithColors={stateValWithColor}
       data={memberData}
       apiData={employees}
       loading={loader}
@@ -210,6 +236,7 @@ function MemberSelect({
       label={label}
       formItem={formItem}
       isIncludedMyId={isIncludedMyId}
+      // onData={onData}
     />
   );
 }

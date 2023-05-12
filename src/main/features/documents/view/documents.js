@@ -51,11 +51,11 @@ const Documents = ({
   };
   return (
     <TabbableContainer>
-      <Header 
-	  width={width} 
-	  backButton={backButton} 
-	  routeLink={routeLink} 
-	  />
+      <Header
+        width={width}
+        backButton={backButton}
+        routeLink={routeLink}
+      />
       <FilterBar
         width={width}
         CurrentTab={CurrentTab}

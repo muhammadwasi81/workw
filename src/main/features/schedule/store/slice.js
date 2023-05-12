@@ -12,6 +12,7 @@ import {
   updateScheduleMemberType,
   addScheduleMemberAction,
   getAllScheduleMemberAction,
+  getCalendar,
 } from "./action";
 
 const scheduleSlice = createSlice({
@@ -32,6 +33,7 @@ const scheduleSlice = createSlice({
     scheduleTabs: "0",
     referenceType: 0,
     scheduleMember: [],
+    calendar: [],
   },
   reducers: {
     handleOpenComposer: (state, { payload }) => {
@@ -172,6 +174,11 @@ const scheduleSlice = createSlice({
       .addCase(getAllScheduleMemberAction.fulfilled, (state, { payload }) => {
         state.success = true;
         state.scheduleMember = payload.data;
+      })
+      .addCase(getCalendar.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.success = true;
+        state.calendar = payload.data;
       })
       .addMatcher(
         isPending(

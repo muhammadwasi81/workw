@@ -37,7 +37,7 @@ import { LanguageChangeContext } from "../../../../../../utils/localization/loca
 import { stickyNotesDictionaryList } from "../../localization/index";
 import { formats, modules } from "../../utils/index";
 
-const NewStickyNote = ({ item }) => {
+const NewStickyNote = ({ item, index }) => {
   const [openColor, setOpenColor] = useState(true);
   const [openShare, setOpenShare] = useState(false);
   const [title, setTitle] = useState(null);
@@ -130,7 +130,6 @@ const NewStickyNote = ({ item }) => {
     );
   };
   const setDescriptionValue = (value) => {
-    console.log(value, "valueeee");
     const id = item.id;
     dispatch(
       targetStickyDescription({
@@ -150,6 +149,12 @@ const NewStickyNote = ({ item }) => {
   const openNewStikcyHandler = () => {
     dispatch(handleOpenSticky(item.id));
   };
+  const axis = {
+    // x_axis: Math.floor(Math.random() * 40) + 300,
+    // y_axis: Math.floor(Math.random() * 40) + 150,
+    x_axis: Math.floor(Math.random() * 40) + 300 - 40 * index,
+    y_axis: Math.floor(Math.random() * 40) + 150 - 80 * index,
+  };
 
   return (
     <>
@@ -160,12 +165,13 @@ const NewStickyNote = ({ item }) => {
         scale={1}
         // bounds="parent"
         // allowAnyClick={true}
+        defaultPosition={{ x: axis.x_axis, y: axis.y_axis }}
       >
         <div
           className="stickyNote_container"
           onClick={openNewStikcyHandler}
           style={{
-            position: "absolute",
+            // position: "absolute",
             zIndex: item.id === openSticky ? 3 : 2,
           }}
         >
@@ -200,12 +206,12 @@ const NewStickyNote = ({ item }) => {
               </Dropdown>
               <DeleteOutlined
                 onClick={deleteStickyNotes}
-                className="margin_Icon"
+                className="delete-close-icon"
                 style={{ color: `${item.colorCode ? "black" : "white"}` }}
               />
               <CloseOutlined
                 onClick={closeStickyNotes}
-                className="margin_Icon"
+                className="delete-close-icon"
                 style={{ color: `${item.colorCode ? "black" : "white"}` }}
               />
             </div>
@@ -231,12 +237,15 @@ const NewStickyNote = ({ item }) => {
             />
 
             <div className="img-input-container">
-              <PictureOutlined className="image_icon text-[20px]" />
+              <label htmlFor="image-upload" className="image-icon-label">
+                <PictureOutlined className="image_icon text-[20px] cursor-pointer" />
+              </label>
               <input
                 type="file"
+                id="image-upload"
                 // multiple={true}
                 onChange={uploadImageHandler}
-                className="img-input"
+                className="img-input visually-hidden"
               />
             </div>
           </div>

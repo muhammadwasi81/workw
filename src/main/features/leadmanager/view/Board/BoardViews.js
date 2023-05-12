@@ -72,7 +72,10 @@ function BoardViews() {
 
 	const leadManagerDetail = useSelector(
 		state => state.leadMangerSlice.leadManagerDetail
+
 	);
+
+	console.log(leadManagerDetail,"leadManagerDetail");
 	const { userLanguage } = useContext(LanguageChangeContext);
 	const { LeadManagerDictionaryList, Direction } = LeadManagerDictionary[
 		userLanguage

@@ -11,7 +11,7 @@ import { loginUser } from "../../store/actions";
 import { useNavigate } from "react-router-dom";
 import FormFooter from "./formFooter";
 import { getFirebaseToken } from "../../../../../firebase/initFirebase";
-import "../styles/style.css"
+import "../styles/style.css";
 
 function SignIn() {
   let formData = {};
@@ -34,12 +34,12 @@ function SignIn() {
   const onSubmit = async (payload) => {
     let permission = await Notification.requestPermission();
     let deviceToken = null;
-    if (permission === 'granted') {
-      console.log('Notification permission granted.');
+    if (permission === "granted") {
+      console.log("Notification permission granted.");
       let firebaseToken = await getFirebaseToken();
       // set send token api here...
       deviceToken = firebaseToken;
-      console.log(firebaseToken, 'firebaseToken');
+      console.log(firebaseToken, "firebaseToken");
     }
     dispatch(loginUser({ ...payload, deviceToken }));
   };
@@ -62,11 +62,14 @@ function SignIn() {
       <div className="">
         <img src={systemLogo} alt="#" className="mobileLogo" />
       </div>
+
       <Form onFinish={onSubmit} className="lg-form">
         <div className="welcome-heading">
           <div>Welcome</div>
         </div>
-        <div className="note note-heading">Enter your login credentials to continue.</div>
+        <div className="note note-heading">
+          Enter your login credentials to continue.
+        </div>
         <div className="">
           <Space direction="vertical" size={16} style={{ width: "100%" }}>
             <Form.Item name="email">
@@ -80,7 +83,12 @@ function SignIn() {
               />
             </Form.Item>
             <Form.Item name="password">
-              <PasswordInput placeholder="Password" prefix={LockOutlined} size="large" reset={reset} />
+              <PasswordInput
+                placeholder="Password"
+                prefix={LockOutlined}
+                size="large"
+                reset={reset}
+              />
             </Form.Item>
           </Space>
         </div>

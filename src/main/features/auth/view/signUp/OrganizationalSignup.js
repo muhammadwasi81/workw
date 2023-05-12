@@ -7,8 +7,19 @@ import { Col, Row } from "antd";
 // import { STRINGS } from "../../../../../utils/base";
 import { ROUTES } from "../../../../../utils/routes";
 import MainBannerContent from "../AuthPageContent/MainBannerContent";
+import LandingMainPage from "./../../../landingpage/index";
 
 export default class OrganizationalSignup extends Component {
+  constructor(props) {
+    super(props);
+    this.landingRef = React.createRef();
+    this.handleAnimateClick = this.handleAnimateClick.bind(this);
+  }
+  handleAnimateClick() {
+    this.landingRef.current.scrollIntoView({
+      behavior: "smooth",
+    });
+  }
   componentDidMount() {
     console.log(window.location.href, "location", this.props.location);
   }
@@ -42,6 +53,15 @@ export default class OrganizationalSignup extends Component {
             </div>
           </Col>
         </Row>
+        <div class="scroll-down" onClick={this.handleAnimateClick}>
+          <div class="mouse">
+            <div class="wheel"></div>
+          </div>
+        </div>
+        {/* landing page components */}
+        <div ref={this.landingRef}>
+          <LandingMainPage />
+        </div>
       </div>
     );
   }

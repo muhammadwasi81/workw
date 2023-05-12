@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useId, useState } from "react";
 import { Tag, Image, Button, Skeleton } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { documentDictionaryList } from "../../localization/index";
@@ -11,7 +11,7 @@ import {
   SingleItem,
 } from "../../../../sharedComponents/Card/CardStyle";
 import moment from "moment";
-import { GetDocumentById, UpdateDocumentById } from "../../store/actions";
+import { AddDocumentMember, GetDocumentById, RemoveDocumentMember, UpdateDocumentById } from "../../store/actions";
 import {
   getDocumentRightLabel,
   getIconByExtensionType,
@@ -27,7 +27,12 @@ import RemarksApproval from "../../../../sharedComponents/AppComponents/Approval
 import PreviewModal from "../components/modal";
 import CommentWrapper from "../../../../sharedComponents/Comment/CommentWrapper";
 import { PostPrivacyType } from "../../../../../utils/Shared/enums/enums";
+import ItemDetailModal from "../../../../sharedComponents/ItemDetails";
+import DocumentReaderCollaboratorsEnum from "../../localization/enum";
+import { openNotification } from "../../../../../utils/Shared/store/slice";
 // import "../fullCard/style.css";
+
+
 
 function DetailCard(props) {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -37,11 +42,23 @@ function DetailCard(props) {
   const ducomentDetail = useSelector(
     (state) => state.documentSlice.documentDetail
   );
+  const AddDocReaderAndCollabrator = useSelector((state) => state?.documentSlice?.AddDocReaderAndCollabrator)
+  console.log("DocumentDetail",ducomentDetail)
   const detailLoader = useSelector((state) => state.documentSlice.detailLoader);
+
+  
+
+  const [openModalforCollaborators,setopenModalforCollaborators]=useState(false)
+  const [openModalforReaders,setopenModalforReaders]  = useState(false);
+  const { user} = useSelector((state) => state.userSlice)
+  const [isRigthtoAddReaderorCollab, setisRigthtoAddReaderorCollab] = useState(false)
+  const [stateforColaborattors , setstateforColaborattors] = useState([]);
+  const [stateforReaders , setstateforReaders] = useState([]);
 
   useEffect(() => {
     props.id && dispatch(GetDocumentById(props.id));
   }, [props.id]);
+
 
   const handlePreview = (item) => {
     setPreviewPath(item);
@@ -81,9 +98,121 @@ function DetailCard(props) {
     ...documentFile,
     documentType,
   };
+ 
+
+  const handleModalOpen = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+
+    collaborators && setopenModalforCollaborators(true);
+    setstateforColaborattors(collaborators)
+
+
+    const isUserIdExistsforColabrator = collaborators?.some(obj => obj?.memberId === user?.id);
+    isUserIdExistsforColabrator && setisRigthtoAddReaderorCollab(true)
+
+  };
+  const setReaderModal = (e) =>
+  {
+    e.stopPropagation();
+    e.preventDefault();
+    readers && setopenModalforReaders(true)
+    setstateforReaders(readers)
+
+    const isUserIdExistsforReader = readers?.some(obj => obj?.memberId === user?.id);
+    isUserIdExistsforReader && setisRigthtoAddReaderorCollab(true)
+  }
+  const CollabratorOrReader = (memeberId) =>
+  { 
+      const promise = openModalforCollaborators === true ? 
+      dispatch(AddDocumentMember(
+       [{
+          id:ducomentDetail?.id , 
+          memberId:memeberId[0],
+          memberRightType:DocumentReaderCollaboratorsEnum.Collabrator
+        }]
+      )) 
+      : 
+      dispatch(AddDocumentMember(
+        [{
+          id:ducomentDetail?.id , 
+          memberId:memeberId[0],
+          memberRightType:DocumentReaderCollaboratorsEnum.Reader
+        }]
+      )) 
+
+      promise
+        .then((res)=>
+          {
+          if(res?.payload?.length > 0)
+          {
+            openModalforCollaborators ? setstateforColaborattors([...stateforColaborattors , res?.payload[0]]) : setstateforReaders([...stateforReaders , res?.payload[0]])}  
+          }
+        )
+      .catch((error)=>
+        console.log(error)
+      )
+  } 
+
+  const onClosePopUp =(da)=> 
+  {
+    openModalforCollaborators && setopenModalforCollaborators(da)
+    openModalforReaders && setopenModalforReaders(da)
+    setisRigthtoAddReaderorCollab(false);
+
+  }
+
+  const onDelete = (userId) => {
+    const promise = openModalforCollaborators === true ? 
+    dispatch(RemoveDocumentMember(
+     [{
+        id:ducomentDetail?.id , 
+        memberId:userId,
+        memberRightType:DocumentReaderCollaboratorsEnum.Collabrator
+      }]
+    )) 
+    : 
+    dispatch(RemoveDocumentMember(
+      [{
+        id:ducomentDetail?.id , 
+        memberId:userId,
+        memberRightType:DocumentReaderCollaboratorsEnum.Reader
+      }]
+    )) 
+    
+    promise.then((res)=>
+    {
+      openModalforCollaborators === true ?
+       setstateforColaborattors(stateforColaborattors?.filter(obj => obj?.memberId !== userId))
+      :
+      setstateforReaders(stateforReaders?.filter(obj => obj?.memberId !== userId))
+      
+      res?.payload?.message==="success" && dispatch(
+        openNotification({
+          message: "Deleted",
+          type: "success",
+          duration: 2,
+        })
+      );
+    })
+
+  };
 
   return (
     <>
+    {
+          <ItemDetailModal
+            data={(openModalforCollaborators ? stateforColaborattors : stateforReaders)} //Data of members will pass here in array
+            isDeleteDisabled={!isRigthtoAddReaderorCollab} //Pass true to hide delete icon
+            addEnabled={isRigthtoAddReaderorCollab} //Pass false to hide select member
+            addFunc={CollabratorOrReader} // define and pass addMember action of particular members
+            onDelete={onDelete} // define and pass onDeletemember actions of particular members
+            isSearch={isRigthtoAddReaderorCollab} //Pass true if you want to search the list
+            openModal={true} // pass true if you want to open member details in modal other wise it display in listing
+            visible={openModalforCollaborators || openModalforReaders}
+            setVisible={(da) => onClosePopUp(da)}
+          />
+      }
       <SingleItem>
         <ItemHeader>
           <div className="left">
@@ -136,7 +265,7 @@ function DetailCard(props) {
 
           <div className="cardSectionItem">
             <div className="cardSection__title">Readers</div>
-            <div className="cardSection__body">
+            <div className="cardSection__body" onClick={(e) => setReaderModal(e)}>
               {privacyId === PostPrivacyType.PUBLIC ? (
                 "Public"
               ) : readers.length > 0 ? (
@@ -151,11 +280,11 @@ function DetailCard(props) {
             </div>
           </div>
 
-          <div className="cardSectionItem">
+          <div className="cardSectionItem"> 
             <div className="cardSection__title">
               {getDocumentRightLabel(documentType)}
             </div>
-            <div className="cardSection__body">
+            <div className="cardSection__body" onClick={(e) => getDocumentRightLabel(documentType)==="Collaborators"  && handleModalOpen(e)} >
               {collaborators.length > 0 ? (
                 <Avatar
                   isAvatarGroup={true}

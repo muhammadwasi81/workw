@@ -63,6 +63,7 @@ const projectSlice = createSlice({
             ...item,
             members,
           };
+          
           return newItem;
         } else {
           return item;

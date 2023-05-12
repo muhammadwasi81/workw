@@ -92,8 +92,8 @@ import { logout } from "./base";
 const handleNotificationDetail = (notificationItem, dispatch) => {
 	switch (notificationItem.featureType) {
 	// working in process
-		case 1:
-			dispatch(notificationItem.details)
+		case 2:
+			dispatch(addRealTimePost(notificationItem.details))
 			break;
 
 		default:

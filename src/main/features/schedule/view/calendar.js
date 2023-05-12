@@ -96,11 +96,9 @@ function Calendar({ referenceId }) {
   const fetchCurrentDateScedules = (value) => {
     const startDate = moment(value)
       .startOf("day")
-      .utc()
       .format();
     const endDate = moment(value)
       .endOf("day")
-      .utc()
       .format();
 
     dispatch(
@@ -168,13 +166,10 @@ function Calendar({ referenceId }) {
   const selectedMemebrHandler = (id, obj) => {
     const startDate = moment()
       .startOf("month")
-      .utc()
       .format();
     const endDate = moment()
       .endOf("month")
-      .utc()
       .format();
-    console.log(obj, "objjj");
     dispatch(
       getCalendar({
         pageNo: 1,

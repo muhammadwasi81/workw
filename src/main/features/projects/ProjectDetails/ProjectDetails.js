@@ -9,7 +9,6 @@ import LayoutHeader from "../../../layout/header/index";
 import { EditOutlined } from "@ant-design/icons";
 import Travel from "../../travel/view/Travel";
 import "../styles/projects.css";
-import Budget from "../UI/Budget";
 import CoverDetail from "../UI/CoverDetail";
 import CoverImage from "../../departments/view/CoverImage";
 import MemberCollapse from "../../../sharedComponents/Collapseable/MemberCollapse";
@@ -28,7 +27,6 @@ import { LanguageChangeContext } from "../../../../utils/localization/localConte
 import { projectsDictionaryList } from "../localization";
 import { resetProjectDetail, addMember } from "../store/slice";
 import WorkBoard from "../../workboard";
-import { TravelReferenceTypeEnum } from "../enum/enums";
 import { PostReferenceType } from "../../feed/utils/constants";
 import { TaskReferenceTypeEnum } from "../../task/enums/enum";
 import { WorkBoardReferenceTypeEnum } from "../../workboard/enum";
@@ -51,12 +49,12 @@ import ItemDetailModal from "../../../sharedComponents/ItemDetails";
 import Quotations from "../../quotation/view/QuotationList/index";
 import { QuotationReferenceTypeEnum } from "../../quotation/enums";
 import ProjectMiniDashBoard from "../UI/ProjectMiniDashBoard";
+import { TravelReferenceTypeEnum } from "../../travel/enums/enums";
 
 function ProjectDetails() {
   const params = useParams();
   const dispatch = useDispatch();
   const detail = useSelector((state) => state.projectSlice.projectDetail);
-   console.log(detail,"detaildetail");
 
   const [projectfeatures, setprojectFeatures] = useState([]);
   const [description, setDescription] = useState("");
@@ -96,8 +94,6 @@ function ProjectDetails() {
       temp.filter((item) => featurePermissions.includes(item.featureId));
     setprojectFeatures(payload);
   }, [projectFeature]);
-
-  console.log(projectfeatures, "projectfeatures");
 
   const items = [
     {
@@ -241,7 +237,6 @@ function ProjectDetails() {
               <Tab panes={projectfeatures} id={projectId} />
             </div>
             <div className="basis-1/4 gap-5 flex flex-col overflow-scroll">
-              {/* <Budget data={detail} /> */}
               <ProjectMiniDashBoard data={detail} />
               <WhiteCard>
                 <MemberCollapse
@@ -299,7 +294,6 @@ function ProjectDetails() {
         />
       </Drawer>
 
-      {/* {visible && <MemberModal data={detail} />} */}
       {
         <ItemDetailModal
           data={detail?.members} //Data

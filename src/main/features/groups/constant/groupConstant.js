@@ -7,16 +7,16 @@ import documentIcon from "../../../../content/NewContent/Documents/file/folder.s
 import expensesIcon from "../../../../content/svg/menu/newNavBarIcon/Expenses.svg";
 import QuotationIcon from "../../../../content/svg/menu/newNavBarIcon/Expenses.svg";
 import {
-  ProjectFeatureEnums,
-  projectFeatureEnums,
-} from "../../../../utils/Shared/enums/projectFeatureEnum";
+  GroupFeatureEnums,
+  groupFeatureEnums,
+} from "../../../../utils/Shared/enums/groupFeatureEnum";
 
 export const getFeatureDetails = ({
   allocatedFeatures = [],
   checked = [],
   disabled = [],
 }) => {
-  const featureDetails = projectFeatureEnums.filter((x) =>
+  const featureDetails = groupFeatureEnums.filter((x) =>
     allocatedFeatures.includes(x.value)
   );
   return featureDetails.map((x) => {
@@ -32,12 +32,12 @@ export const getFeatureDetails = ({
   });
 };
 function getFeatureIcon(feature) {
-  if (feature === ProjectFeatureEnums.Feed) return feedIcon;
-  if (feature === ProjectFeatureEnums.Task) return taskIcon;
-  if (feature === ProjectFeatureEnums.Schedule) return schedulesIcon;
-  if (feature === ProjectFeatureEnums.WorkBoard) return todoBoard;
-  if (feature === ProjectFeatureEnums.Travel) return travelIcon;
-  if (feature === ProjectFeatureEnums.Document) return documentIcon;
-  if (feature === ProjectFeatureEnums.Expense) return expensesIcon;
-  if (feature === ProjectFeatureEnums.Quotation) return QuotationIcon;
+  if (feature === GroupFeatureEnums.Feed) return feedIcon;
+  if (feature === GroupFeatureEnums.Task) return taskIcon;
+  if (feature === GroupFeatureEnums.Schedule) return schedulesIcon;
+  if (feature === GroupFeatureEnums.WorkBoard) return todoBoard;
+  if (feature === GroupFeatureEnums.Travel) return travelIcon;
+  if (feature === GroupFeatureEnums.Document) return documentIcon;
+  if (feature === GroupFeatureEnums.Expense) return expensesIcon;
+  if (feature === GroupFeatureEnums.Quotation) return QuotationIcon;
 }

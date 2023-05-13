@@ -27,6 +27,7 @@ import {
 import FeatureSelect from "../../../sharedComponents/FeatureSelect/Index";
 import { FeaturesEnum } from "../../../../utils/Shared/enums/enums";
 import CustomModal from "../../workboard/Modal/CustomModal";
+import ProjectFeatures from "../constant/projectFeatures";
 
 const { Panel } = Collapse;
 function ProjectInformation({ ghost = true }) {
@@ -163,7 +164,10 @@ function ProjectInformation({ ghost = true }) {
           closable={false}
           width={900}
         >
-          <FeatureSelect checked={projectFeature} onChange={onFeatureHandler} />
+          <ProjectFeatures
+            checked={projectFeature}
+            onChange={onFeatureHandler}
+          />
         </Modal>
       )}
 

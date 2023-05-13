@@ -1,10 +1,9 @@
 import { Form, Switch } from "antd";
-import "./style.css";
-import { getFeatureDetails } from "./projectConstant";
-import { groupFeatureEnums } from "../../../../../utils/Shared/enums/groupFeatureEnum";
+import "../../projects/styles/projects.css";
+import { groupFeatureEnums } from "../../../../utils/Shared/enums/groupFeatureEnum";
+import { getFeatureDetails } from "./groupConstant";
 
-function ProjectFeatures({ onChange, checked, disabled }) {
-  console.log(checked, "checked");
+function GroupFeatures({ onChange, checked, disabled }) {
   return (
     <>
       <p className="!mb-[8px]">Features</p>
@@ -50,4 +49,4 @@ function ProjectFeatures({ onChange, checked, disabled }) {
   );
 }
 
-export default ProjectFeatures;
+export default GroupFeatures;

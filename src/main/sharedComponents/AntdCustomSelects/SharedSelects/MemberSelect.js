@@ -57,6 +57,7 @@ function MemberSelect({
     const tempArray = String(value).split(",");
     if (!tempArray[0]) {
       setStateVal([]);
+      setStateValWithColor([]);
     } else {
       if (colors) {
         // setStateValWithColor(
@@ -75,12 +76,12 @@ function MemberSelect({
           id: memberId,
           color: getRandomColor(),
         }));
-
-        setStateValWithColor([...stateValWithColor, ...newMembersWithColor]);
         setStateVal([...tempArray]);
+        setStateValWithColor([...stateValWithColor, ...newMembersWithColor]);
         onData([...stateValWithColor, ...newMembersWithColor]);
       } else {
         setStateVal([...tempArray]);
+        setStateValWithColor([]);
       }
     }
   };
@@ -99,7 +100,7 @@ function MemberSelect({
   }, [defaultData]);
 
   useEffect(() => {
-    if (stateVal.length > 0) {
+    if (stateVal.length > 0 || stateVal.length === 0) {
       let filterArrOfObj;
       if (isObject) {
         filterArrOfObj = employees.filter((val) =>

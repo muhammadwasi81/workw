@@ -132,7 +132,7 @@ const AdminRoutes = () => {
       />
       <Route
         path={ROUTES.ADMINISTRATOR.BILLING}
-        element={<BillingComponent />}
+        element={<BillingComponent isAdmin={true} />}
       />
     </Routes>
   );

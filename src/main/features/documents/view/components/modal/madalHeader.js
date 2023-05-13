@@ -25,7 +25,7 @@ function MadalHeader({
         status: false
       }))
     } else {
-      dispatch(handleAddMinimizeDocument(document));
+      dispatch(handleAddMinimizeDocument({ document, status: false }));
       handleClose()
     }
   }

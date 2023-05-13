@@ -10,7 +10,6 @@ import {
   getAllUpcomingSchedule,
   getCalendar,
 } from "../store/action";
-import { defaultUiid } from "../../../../utils/Shared/enums/enums";
 import { useEffect } from "react";
 import moment from "moment";
 import MemberSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
@@ -164,12 +163,14 @@ function Calendar({ referenceId }) {
     );
   };
   const selectedMemebrHandler = (id, obj) => {
+    console.log(id, "idddddd");
     const startDate = moment()
       .startOf("month")
       .format();
     const endDate = moment()
       .endOf("month")
       .format();
+
     dispatch(
       getCalendar({
         pageNo: 1,
@@ -209,7 +210,6 @@ function Calendar({ referenceId }) {
             isObject={true}
             data={firstTimeEmpData}
             onChange={(emp) => {
-              console.log(emp, "empp");
               // if (Array.isArray(emp)) {
               //   setUserData(emp);
               // } else {

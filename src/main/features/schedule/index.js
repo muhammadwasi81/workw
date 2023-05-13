@@ -12,7 +12,6 @@ import { LinkOutlined } from "@ant-design/icons";
 import MySchedules from "./view/ScheduleDetail/SchedulesDetail";
 import { Button, Modal, message } from "antd";
 import { defaultUiid } from "../../../utils/Shared/enums/enums";
-import CopyToClipboard from "react-copy-to-clipboard";
 import { ROUTES } from "../../../utils/routes";
 
 // import { Button, Drawer } from "antd";

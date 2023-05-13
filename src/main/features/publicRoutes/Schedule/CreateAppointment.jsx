@@ -19,41 +19,18 @@ function CreateSchedule(
   { scheduleDetail = {}, referenceType, referenceId }
 ) {
   const [quillError, setQuillError] = useState(false);
-  const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
-  const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [subject, setSubject] = useState("");
   const [discription, setDiscription] = useState("");
   const [internalDuration, setInternalDuration] = useState();
 
-  console.log(subject, "subject");
-  console.log(discription, "discription");
   let userId = props.id;
-  console.log(userId, "ccccciiddd");
-  const {
-    sharedSlice: { employees },
-  } = useSelector((state) => state);
+
   // const userId = useSelector((state) => state.userSlice.user.id);
   const { loader } = useSelector((state) => state.externalBookAppointment);
 
   const dispatch = useDispatch();
   const [form] = Form.useForm();
 
-  const fetchEmployees = (text, pgNo) => {
-    dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
-  };
-  useEffect(() => {
-    if (employees.length > 0 && !isFirstTimeDataLoaded) {
-      setIsFirstTimeDataLoaded(true);
-      setFirstTimeEmpData(employees);
-    }
-  }, [employees]);
-
-  useEffect(() => {
-    fetchEmployees("", 0);
-  }, []);
-  console.log(props.durationInMinutes, "durationInMinutes");
-
-  console.log(meetingDuration, "meeeeeeeeeeeeeee");
   const onFinishFailed = (value) => {
     if (form.getFieldError("description")[0]) {
       setQuillError(true);
@@ -62,7 +39,6 @@ function CreateSchedule(
     setQuillError(false);
   };
   const onFinish = (value, props) => {
-    console.log(value, "dsdsdds");
     let objToSend = value;
     // objToSend = [value.externals.id];
     objToSend.createBy = "42714b44-f73b-4607-9b0d-30a30b3e2c7f";
@@ -88,8 +64,7 @@ function CreateSchedule(
     } else {
       objToSend.endDate = "";
     }
-    console.log(userId, "propsids");
-    console.log({ ...objToSend }, "...objToSend");
+
     const payload = {
       data: objToSend,
       id: userId,

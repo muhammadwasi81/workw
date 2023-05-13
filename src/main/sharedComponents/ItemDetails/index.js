@@ -19,6 +19,7 @@ import ListItem from "./itemListing";
 
 const { Search } = Input;
 function ItemDetailModal({
+  isReaction=false,
   openModal = false,
   isSearch = false,
   data,
@@ -214,6 +215,7 @@ function ItemDetailModal({
           ListData={myData}
           deleteDisabled={isDeleteDisabled}
           onDelete={onDelete}
+          isReaction={isReaction}
         />
 
         {/* <ApproverListItem

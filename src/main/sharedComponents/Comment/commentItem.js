@@ -366,7 +366,8 @@ const CommentItem = ({
         </div>
       </div>
       <ItemDetailModal
-        // data={reactionMembersData}
+      isReaction={true}
+        data={reactionMembersData}
         isDeleteDisabled={true}
         addEnabled={false}
         addFunc={false}
@@ -375,32 +376,32 @@ const CommentItem = ({
         openModal={true}
         visible={visible}
         setVisible={(data) => setVisible(data)}
-        children={reactionMembersData.map((x) => (
-          <div className="flex items-center mb-2">
-            <div>
-              <img
-                src={x.user.image}
-                alt={x.user.name}
-                style={{
-                  borderRadius: "50%",
-                  height: "40px",
-                  width: "40px",
-                  cursor: "pointer",
-                }}
-              />
-            </div>
-            <div className="ml-2 font-semibold">
-              <span>{x.user.name}</span>
-              <br />
-              {x.user.email}
-            </div>
-            <img
-              className="w-[30px] h-[30px] rounded-full cursor-pointer ml-auto"
-              src={reactions[x.reactionType]}
-              alt="profile"
-            />
-          </div>
-        ))}
+        // children={reactionMembersData.map((x) => (
+        //   <div className="flex items-center mb-2">
+        //     <div>
+        //       <img
+        //         src={x.user.image}
+        //         alt={x.user.name}
+        //         style={{
+        //           borderRadius: "50%",
+        //           height: "40px",
+        //           width: "40px",
+        //           cursor: "pointer",
+        //         }}
+        //       />
+        //     </div>
+        //     <div className="ml-2 font-semibold">
+        //       <span>{x.user.name}</span>
+        //       <br />
+        //       {x.user.email}
+        //     </div>
+        //     <img
+        //       className="w-[30px] h-[30px] rounded-full cursor-pointer ml-auto"
+        //       src={reactions[x.reactionType]}
+        //       alt="profile"
+        //     />
+        //   </div>
+        // ))}
       />
     </>
   );

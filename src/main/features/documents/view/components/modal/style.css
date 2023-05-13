@@ -103,6 +103,9 @@
 .resizable-modal .ant-design-draggable-modal-resize-handle-inner {
     border-color: white;
 }
+.resizable-modal.black-resize-handle .ant-design-draggable-modal-resize-handle-inner {
+    border-color: black;
+}
 
 @media (min-width: 320px) and (max-width: 720px) {
     /* .ModalInner .doc-modal-content {

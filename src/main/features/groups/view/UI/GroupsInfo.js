@@ -7,9 +7,6 @@ import {
   EyeOutlined,
 } from "@ant-design/icons";
 import moment from "moment";
-import FeatureSelect from "../../../../sharedComponents/FeatureSelect/Index";
-import { FeaturesEnum } from "../../../../../utils/Shared/enums/enums";
-import { toggleInfoModal } from "../../store/slice";
 import { useDispatch, useSelector } from "react-redux";
 import { LaptopOutlined } from "@ant-design/icons";
 import {
@@ -20,6 +17,7 @@ import {
 import { useParams } from "react-router-dom";
 import { groupsDictionaryList } from "../../localization/index";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+import GroupFeatures from "../../constant/groupFeatures";
 
 const { Panel } = Collapse;
 function GroupsInfo({ ghost = true }) {
@@ -109,7 +107,7 @@ function GroupsInfo({ ghost = true }) {
           className="custom_member_collapse"
         >
           <div
-            className="text-black text-sm font-bold flex items-center gap-2 mb-2"
+            className="text-black text-sm font-bold flex items-center gap-2 mb-2 cursor-pointer"
             onClick={featureHandler}
           >
             <EyeOutlined />
@@ -117,15 +115,15 @@ function GroupsInfo({ ghost = true }) {
           </div>
 
           <Divider />
-          <div className="text-black text-sm font-bold flex items-center gap-2 mb-2">
+          <div className="text-black text-sm font-bold flex items-center gap-2 mb-2 cursor-pointer">
             <Popover content={`Created by: `}>
-              <InfoCircleOutlined className="cursor-pointer" />
+              <InfoCircleOutlined />
             </Popover>
             <span>
               {"Created By"}: {detail?.creator?.name}
             </span>
           </div>
-          <div className="font-bold flex items-center gap-2 mb-2">
+          <div className="font-bold flex items-center gap-2 mb-2 cursor-pointer">
             <CalendarOutlined />
             <p className="!mb-0 text-sm">
               {"Created At"}:&nbsp;
@@ -133,7 +131,7 @@ function GroupsInfo({ ghost = true }) {
             </p>
           </div>
           <Divider />
-          <div className="font-bold flex items-center gap-2 mb-2">
+          <div className="font-bold flex items-center gap-2 mb-2 cursor-pointer">
             <LaptopOutlined />
             <span>{"Summary"}</span>
           </div>
@@ -151,7 +149,7 @@ function GroupsInfo({ ghost = true }) {
           closable={false}
           width={900}
         >
-          <FeatureSelect checked={groupFeatures} onChange={onFeatureHandler} />
+          <GroupFeatures checked={groupFeatures} onChange={onFeatureHandler} />
         </Modal>
       )}
     </>

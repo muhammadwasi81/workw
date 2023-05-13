@@ -14,7 +14,6 @@ import { getCalendar } from "../store/action";
 import CreateSchedule from "./createSchedule";
 
 function Scheduler({ feed = false, referenceId, ColorArray }) {
-  console.log(ColorArray, "colorArray");
   const [calenderView, setCalendarView] = useState("");
   const [todayDate, setTodayDate] = useState(new Date());
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
@@ -46,11 +45,9 @@ function Scheduler({ feed = false, referenceId, ColorArray }) {
   const fetchAllSchedule = (startVal, endVal) => {
     const startDate = moment(startVal)
       .startOf("month")
-      .utc()
       .format();
     const endDate = moment(endVal)
       .endOf("month")
-      .utc()
       .format();
 
     dispatch(

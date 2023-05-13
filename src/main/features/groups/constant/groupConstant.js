@@ -1,15 +1,15 @@
-import feedIcon from "../../../content/svg/menu/newNavBarIcon/News Feed.svg";
-import schedulesIcon from "../../../content/svg/menu/newNavBarIcon/Schedules.svg";
-import todoBoard from "../../../content/svg/menu/newNavBarIcon/Work Board.svg";
-import taskIcon from "../../../content/svg/menu/newNavBarIcon/Tasks.svg";
-import travelIcon from "../../../content/svg/menu/newNavBarIcon/Travel.svg";
-import documentIcon from "../../../content/NewContent/Documents/file/folder.svg";
-import expensesIcon from "../../../content/svg/menu/newNavBarIcon/Expenses.svg";
-import QuotationIcon from "../../../content/svg/menu/newNavBarIcon/Expenses.svg";
+import feedIcon from "../../../../content/svg/menu/newNavBarIcon/News Feed.svg";
+import schedulesIcon from "../../../../content/svg/menu/newNavBarIcon/Schedules.svg";
+import todoBoard from "../../../../content/svg/menu/newNavBarIcon/Work Board.svg";
+import taskIcon from "../../../../content/svg/menu/newNavBarIcon/Tasks.svg";
+import travelIcon from "../../../../content/svg/menu/newNavBarIcon/Travel.svg";
+import documentIcon from "../../../../content/NewContent/Documents/file/folder.svg";
+import expensesIcon from "../../../../content/svg/menu/newNavBarIcon/Expenses.svg";
+import QuotationIcon from "../../../../content/svg/menu/newNavBarIcon/Expenses.svg";
 import {
   GroupFeatureEnums,
   groupFeatureEnums,
-} from "../../../../../utils/Shared/enums/groupFeatureEnum";
+} from "../../../../utils/Shared/enums/groupFeatureEnum";
 
 export const getFeatureDetails = ({
   allocatedFeatures = [],
@@ -19,7 +19,6 @@ export const getFeatureDetails = ({
   const featureDetails = groupFeatureEnums.filter((x) =>
     allocatedFeatures.includes(x.value)
   );
-  console.log(featureDetails, "featureDetails");
   return featureDetails.map((x) => {
     return {
       name: x.label,

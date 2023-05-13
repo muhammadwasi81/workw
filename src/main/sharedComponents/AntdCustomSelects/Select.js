@@ -61,13 +61,11 @@ function AntCustomSelect(props) {
       paginationHandler(pgNo);
     }
   }, [pgNo]);
+
   const handleRemove = (removedValue) => {
     const updatedValues = value.filter((val) => val !== removedValue);
-    // const updatedValuesWithColor = valueWithColors.filter(
-    //   (member) => member.id !== removedValue
-    // );
+
     onChange(updatedValues); // Update the selected values
-    // onData(updatedValuesWithColor);
   };
 
   const tagColorRender = (props) => {

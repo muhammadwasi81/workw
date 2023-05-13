@@ -11,7 +11,10 @@ import PendingBills from "./pendingBills";
 import { useLocation, useParams } from "react-router-dom";
 import userSlice from "../../../../store/appReducer/userSlice";
 
-const Index = () => {
+const Index = (props) => {
+
+  const {isAdmin=false , businessId="0" , isAtiveCompany=false , isAllComany=false} = props;
+
   const { billing } = useSelector((state) => state.userBillingSlice);
   const [PendingBillBoolean , setPendingBillBoolean] = useState(false)
   const {id} = useParams();
@@ -37,14 +40,15 @@ const Index = () => {
   };
   
   const handleClick = () => {
-    if(location.pathname.includes("companies/info/billing/"))
-    {
-        dispatch(getAllPendingBills([id]));
-    }   
-    else
-    {
-      dispatch(getAllPendingBills([]));
-    }
+    isAtiveCompany ? dispatch(getAllPendingBills([id])) : dispatch(getAllPendingBills([]));
+    // if(location.pathname.includes("companies/info/billing/"))
+    // {
+    //     dispatch(getAllPendingBills([id]));
+    // }   
+    // else
+    // {
+    //   dispatch(getAllPendingBills([]));
+    // }
     setPendingBillBoolean(!PendingBillBoolean)
     showModal();
   }
@@ -53,22 +57,27 @@ const Index = () => {
   useEffect(() => {
 
     // if else need to be modified -> business id will be passed from prop 
-    location.pathname==="/administrator/billing" ? setAtAdministration(false) : setAtAdministration(true)
-    if(location.pathname.includes("companies/info/billing/"))
-    {
-        dispatch(
-          getAllBilling({
-            pageNo: 1,
-            pageSize: 20,
-            search: "",
-            sortBy: 1,
-            businessIds:[id]
-          })
-        );
-    }  
-    else
-    {
-      dispatch(
+    isAdmin && dispatch(
+      getAllBilling({
+        pageNo: 1,
+        pageSize: 20,
+        search: "",
+        sortBy: 1,
+        businessIds:[businessId]
+      })
+    );
+
+    isAtiveCompany && dispatch(
+      getAllBilling({
+        pageNo: 1,
+        pageSize: 20,
+        search: "",
+        sortBy: 1,
+        businessIds:[id]
+      })
+    );
+
+    isAllComany && dispatch(
       getAllBilling({
         pageNo: 1,
         pageSize: 20,
@@ -77,12 +86,38 @@ const Index = () => {
         businessIds:[]
       })
     );
-    }
+
+
+    // location.pathname==="/administrator/billing" ? setAtAdministration(false) : setAtAdministration(true)
+    // if(location.pathname.includes("companies/info/billing/"))
+    // {
+    //     dispatch(
+    //       getAllBilling({
+    //         pageNo: 1,
+    //         pageSize: 20,
+    //         search: "",
+    //         sortBy: 1,
+    //         businessIds:[id]
+    //       })
+    //     );
+    // }  
+    // else
+    // {
+    //   dispatch(
+    //   getAllBilling({
+    //     pageNo: 1,
+    //     pageSize: 20,
+    //     search: "",
+    //     sortBy: 1,
+    //     businessIds:[]
+    //   })
+    // );
+    // }
   }, []);
   return (
     <>
       {
-        atAdministration && (
+        !isAdmin && (
         <Button className="ThemeBtn" style={{marginTop:"4px" , marginBottom:"4px"}} onClick={handleClick}>
             Pending Bills
         </Button>
@@ -92,7 +127,7 @@ const Index = () => {
         {PendingBillBoolean && (
           <Modal title="" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}  footer={null}>
             <FormHeader>{"Pending Bills"}</FormHeader>
-            <PendingBills/>
+            <PendingBills isAtiveCompany={isAtiveCompany}/>
           </Modal>
         )}
         <FormHeader>{"Billing"}</FormHeader>

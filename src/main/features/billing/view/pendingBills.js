@@ -9,7 +9,10 @@ import { useLocation, useParams } from "react-router-dom";
 const { Panel } = Collapse;
 
 
-export default function PendingBills({}) {
+export default function PendingBills(props) {
+  
+  const {isAtiveCompany=false} = props;
+
   const dispatch = useDispatch();
   const location = useLocation();
   const {id} = useParams();
@@ -50,36 +53,39 @@ export default function PendingBills({}) {
 
   const addBilingHandler =  (bilingData) => {
     
-    const filteredBills = pendingBillDataState.map((business) => {
-      const filteredBillings = business.billings.filter((bill) => bill.id !== bilingData?.id);
+    const filteredBills = pendingBillDataState?.map((business) => {
+      const filteredBillings = business?.billings?.filter((bill) => bill?.id !== bilingData?.id);
       return { ...business, billings: filteredBillings };
     });
     setpendingBillDataState(filteredBills);
-    dispatch(addBilling(bilingData))  
-    if(location.pathname.includes("companies/info/billing/"))
-    {
-        dispatch(
-          getAllBilling({
-            pageNo: 1,
-            pageSize: 20,
-            search: "",
-            sortBy: 1,
-            businessIds:[id]
-          })
-        );   
-    }   
-    else
-    {
-    dispatch(
-      getAllBilling({
-        pageNo: 1,
-        pageSize: 20,
-        search: "",
-        sortBy: 1,
-        businessIds:[]
-      })
-    );
-    }
+
+    dispatch(addBilling(bilingData)).then(()=>{
+      isAtiveCompany ?  dispatch(
+        getAllBilling({
+          pageNo: 1,
+          pageSize: 20,
+          search: "",
+          sortBy: 1,
+          businessIds:[id]
+        })
+      ) : dispatch(
+        getAllBilling({
+          pageNo: 1,
+          pageSize: 20,
+          search: "",
+          sortBy: 1,
+          businessIds:[]
+        })
+      )
+    })
+    // if(location.pathname.includes("companies/info/billing/"))
+    // {
+        
+    // }   
+    // else
+    // {
+    // ;
+    // }
     }
 
   return (
@@ -91,7 +97,7 @@ export default function PendingBills({}) {
              header={
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <b>{bill?.business}</b>
-                <b>Total : ${bill?.billings.reduce((acc, curr) => acc + curr.total, 0)}</b>
+                <b>Total : ${bill?.billings?.reduce((acc, curr) => acc + curr.total, 0)}</b>
               </div>
             }
               key={1}

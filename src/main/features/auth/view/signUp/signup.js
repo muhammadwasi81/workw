@@ -172,6 +172,15 @@ function Signup() {
                   reset={reset}
                 />
               </Form.Item>
+              <Form.Item name="referralCode" rules={rules}>
+                <TextInput
+                  type="text"
+                  placeholder="Referral Code"
+                  prefix={MailOutlined}
+                  size="large"
+                  reset={reset}
+                />
+              </Form.Item>
               {/* <Form.Item name="planTypeId" rules={rules}>
                 <Select
                   data={[

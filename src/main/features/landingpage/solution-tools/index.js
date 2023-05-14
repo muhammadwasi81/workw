@@ -21,8 +21,6 @@ import commaImg from "../icons/comma.png";
 import bottomCommaImg from "../icons/bottomComma.png";
 import keyImg from "../icons/key.png";
 import waveImg from "../icons/wave.png";
-import appleImg from "../icons/apple.png";
-import googleImg from "../icons/googleplay.png";
 import { AiOutlineInstagram } from "react-icons/ai";
 import { FaFacebookF } from "react-icons/fa";
 import { FaLinkedinIn } from "react-icons/fa";
@@ -89,7 +87,7 @@ const SolutionTools = () => {
           </h1>
         </div>
       </Row>
-      <div className="flex flex-wrap md:flex-nowrap justify-center p-4 module__card">
+      {/* <div className="flex flex-wrap md:flex-nowrap justify-center p-4 module__card">
         {moduleImages.map((image) => (
           <img
             key={image.id}
@@ -98,7 +96,7 @@ const SolutionTools = () => {
             className="h-6 mx-2"
           />
         ))}
-      </div>
+      </div> */}
       <h1 className="text-primary-color text-center font-semibold text-2xl mt-10">
         Main Subject Motive
       </h1>
@@ -173,31 +171,53 @@ const SolutionTools = () => {
           <Col xs={24} sm={24} lg={12} xl={16} md={24}>
             <div className="flex flex-wrap gap-5 footer__logo">
               <img src={workWiseLogo} alt="group icon" className="w-28" />
-              <p className="font-semibold text-white mt-10">
+              <p className="font-semibold text-primary-color mt-10">
                 Work from anywhere the way it should be <br /> Easy – Effective
                 - Efficient
               </p>
             </div>
-            <div className="flex flex-wrap gap-5 my-3 social__images">
-              <img src={appleImg} alt="group icon" className="w-28" />
-              <img src={googleImg} alt="group icon" className="w-28" />
+            <div className="flex justify-start flex-wrap gap-5 my-3">
+              <a href="" target="_blank">
+                <img
+                  src="https://uploads-ssl.webflow.com/5eb0899d8fc87851be175c44/611a5d2e71739c07c6a30399_g-play.svg"
+                  loading="lazy"
+                  width="120"
+                  alt="google play store"
+                />
+              </a>
+              <a href="" target="_blank">
+                <img
+                  src="https://linkmaker.itunes.apple.com/assets/shared/badges/en-us/appstore-lrg.svg"
+                  alt="Download on the App Store"
+                  loading="lazy"
+                  width="120"
+                />
+              </a>
             </div>
           </Col>
-          <Col xs={24} lg={8} md={24} className="text-white font-semibold">
-            <a href="www.workw.com" className="text-white">
-              www.workwise.com
+          <Col
+            xs={24}
+            lg={8}
+            md={24}
+            className="text-primary-color font-semibold"
+          >
+            <a
+              href="www.workw.com"
+              className="text-primary-color font-semibold"
+            >
+              workw.com
             </a>
             <br /> Terms & Conditions <br /> Privacy statement
             <div className="flex flex-wrap gap-3 text-xl pt-5 cursor-pointer icons__wrapper">
-              <AiOutlineInstagram className="text-white" />
-              <FaFacebookF className="text-white" />
-              <FaLinkedinIn className="text-white" />
+              <AiOutlineInstagram />
+              <FaFacebookF />
+              <FaLinkedinIn />
             </div>
           </Col>
         </Row>
       </footer>
-      <p className="text-center">
-        Copyright ©{new Date().getFullYear()} All rights reserved | Workwise
+      <p className="text-center font-semibold">
+        Copyright © {new Date().getFullYear()} All rights reserved | Workwise
       </p>
     </section>
   );

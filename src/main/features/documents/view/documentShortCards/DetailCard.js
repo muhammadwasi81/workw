@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useId, useState } from "react";
 import { Tag, Image, Button, Skeleton } from "antd";
+import { PlusCircleFilled } from '@ant-design/icons';
 import { useSelector, useDispatch } from "react-redux";
 import { documentDictionaryList } from "../../localization/index";
 import UserInfo from "../../../../sharedComponents/UserShortInfo/UserInfo";
@@ -99,6 +100,7 @@ function DetailCard(props) {
     documentType,
   };
  
+  let isUserExistInColab = collaborators?.some(obj => obj?.memberId === user?.id);
 
   const handleModalOpen = (e) => {
     e.stopPropagation();
@@ -270,11 +272,13 @@ function DetailCard(props) {
               {privacyId === PostPrivacyType.PUBLIC ? (
                 "Public"
               ) : readers.length > 0 ? (
+                <>
                 <Avatar
                   isAvatarGroup={true}
                   heading={"members"}
                   membersData={readers ? readers : []}
                 />
+                {isUserExistInColab && <PlusCircleFilled style={{ fontSize: '20px' }}/>}</>
               ) : (
                 "Not Available"
               )}
@@ -287,11 +291,14 @@ function DetailCard(props) {
             </div>
             <div className="cardSection__body" onClick={(e) => getDocumentRightLabel(documentType)==="Collaborators"  && handleModalOpen(e)} >
               {collaborators.length > 0 ? (
-                <Avatar
+               <>
+               <Avatar
                   isAvatarGroup={true}
                   heading={"members"}
                   membersData={collaborators ? collaborators : []}
                 />
+               {getDocumentRightLabel(documentType)==="Collaborators" && isUserExistInColab && <PlusCircleFilled style={{ fontSize: '20px' }}/> }
+                </>
               ) : (
                 "Not Available"
               )}

@@ -5,7 +5,6 @@ import { FeaturesEnum } from "../../../utils/Shared/enums/featuresEnums";
 import { getFeatureDetails } from "./constant";
 
 function Features({ onChange, checked, disabled }) {
-  console.log(checked, "checkeddd");
   return (
     <>
       <p className="!mb-[8px]">Features</p>

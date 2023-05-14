@@ -5,7 +5,7 @@ export const servicesUrls = {
   mail: "",
   callingSocket: "",
 };
-//export const buildType = "LIVE";
+// export const buildType = "LIVE";
 export const buildType = "LOCAL";
 
 export const MASTER_URL = (() => {

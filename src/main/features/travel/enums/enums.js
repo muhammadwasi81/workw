@@ -9,3 +9,8 @@ export const travelStatus = Object.freeze({
 export const buttonsEnum = {
   travel: [1, 2],
 };
+export const TravelReferenceTypeEnum = {
+  General: 1,
+  Project: 2,
+  Group: 3,
+};

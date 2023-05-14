@@ -11,6 +11,11 @@ export const MESSENGER_ENUMS = {
         DELIVERED: 2,
         SEEN: 3
     },
+    MESSAGE_TYPING: {
+        NO_STATUS: 0,
+        TYPING: 1,
+        RECORDING: 2
+    },
     PAGINATION: {
         PAGE_SIZE: 20
     }

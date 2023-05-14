@@ -8,8 +8,8 @@ import {
   getAllCurrentSchedule,
   getAllEventSchedule,
   getAllUpcomingSchedule,
+  getCalendar,
 } from "../store/action";
-import { defaultUiid } from "../../../../utils/Shared/enums/enums";
 import { useEffect } from "react";
 import moment from "moment";
 import MemberSelect from "../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
@@ -21,13 +21,11 @@ function Calendar({ referenceId }) {
   const [isFirstTimeDataLoaded, setIsFirstTimeDataLoaded] = useState(false);
   const [employeesData, setEmployeesData] = useState([]);
   const [firstTimeEmpData, setFirstTimeEmpData] = useState([]);
-  const [defaultData, setDefaultData] = useState([]);
   const [userData, setUserData] = useState([]);
-
+  const [stateValWithColor, setStateValWithColor] = useState([]);
   const eventSchedules = useSelector(
     (state) => state.scheduleSlice.eventSchedules
   );
-  console.log("eventSchedules", eventSchedules);
   const currentSchedules = useSelector(
     (state) => state.scheduleSlice.currentSchedules
   );
@@ -42,6 +40,7 @@ function Calendar({ referenceId }) {
   } = useSelector((state) => state);
 
   const loading = useSelector((state) => state.scheduleSlice.loading);
+  const userId = useSelector((state) => state.userSlice.user.id);
 
   useEffect(() => {
     fetchAllEventSchedule(new Date(), new Date());
@@ -51,17 +50,12 @@ function Calendar({ referenceId }) {
     if (employees.length > 0 && !isFirstTimeDataLoaded) {
       setIsFirstTimeDataLoaded(true);
       setFirstTimeEmpData(employees);
-      console.log(employees, "employees");
     }
   }, [employees]);
 
   const fetchEmployees = (text, pgNo) => {
     dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
   };
-
-  // useEffect(() => {
-  // 	dateCellRender();
-  // }, []);
 
   const fetchAllEventSchedule = (startVal, endVal) => {
     const startDate = moment(startVal)
@@ -101,11 +95,9 @@ function Calendar({ referenceId }) {
   const fetchCurrentDateScedules = (value) => {
     const startDate = moment(value)
       .startOf("day")
-      .utc()
       .format();
     const endDate = moment(value)
       .endOf("day")
-      .utc()
       .format();
 
     dispatch(
@@ -170,10 +162,36 @@ function Calendar({ referenceId }) {
       </ul>
     );
   };
+  const selectedMemebrHandler = (id, obj) => {
+    console.log(id, "idddddd");
+    const startDate = moment()
+      .startOf("month")
+      .format();
+    const endDate = moment()
+      .endOf("month")
+      .format();
+
+    dispatch(
+      getCalendar({
+        pageNo: 1,
+        pageSize: 20,
+        search: scheduleSearch,
+        sortBy: 1,
+        referenceId: referenceId,
+        referenceType: 0,
+        startDate,
+        endDate,
+        users: [userId, ...id],
+      })
+    );
+  };
+  const memberColor = (data) => {
+    setStateValWithColor(data);
+  };
   return (
     <div className="calender">
       <div className="left">
-        <Scheduler referenceId={referenceId} />
+        <Scheduler referenceId={referenceId} ColorArray={stateValWithColor} />
       </div>
       <div className="right">
         <AntCalendar
@@ -192,19 +210,20 @@ function Calendar({ referenceId }) {
             isObject={true}
             data={firstTimeEmpData}
             onChange={(emp) => {
-              console.log(emp, "empp");
-              if (Array.isArray(emp)) {
-                setUserData(emp);
-              } else {
-                setUserData([emp]);
-              }
+              // if (Array.isArray(emp)) {
+              //   setUserData(emp);
+              // } else {
+              //   setUserData([emp]);
+              // }
             }}
             defaultData={employeesData}
+            onData={memberColor}
             canFetchNow={isFirstTimeDataLoaded}
             fetchData={fetchEmployees}
             placeholder={"Select"}
             selectedData={(_, obj) => {
-              setEmployeesData([...obj]);
+              // setEmployeesData([...obj]);
+              selectedMemebrHandler(_, obj);
             }}
             optionComponent={(opt) => {
               return (

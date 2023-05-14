@@ -26,6 +26,7 @@ import {
   preparationDuration,
   travelDuration,
 } from "../utils";
+import ScheduleMemberSelect from "./ScheduleMemberSelect";
 
 function CreateSchedule({
   scheduleDetail = {},
@@ -317,26 +318,15 @@ function CreateSchedule({
           //   direction={Direction}
         >
           <Select
-            isObject={true}
-            data={firstTimeEmpData}
-            selectedData={(data, obj) => {}}
-            canFetchNow={isFirstTimeDataLoaded}
-            fetchData={fetchEmployees}
-            name="members"
-            mode="multiple"
-            placeholder={"Select Employee"}
-            optionComponent={(opt) => {
-              return (
-                <>
-                  <Avatar src={opt.image} className="!bg-black">
-                    {getNameForImage(opt.name)}
-                  </Avatar>
-                  {opt.name}
-                </>
-              );
-            }}
+            mode="tags"
+            dropdownClassName="hidden"
+            placeholder={"Enter Email Address"}
+            size="large"
+          />
+
+          <ScheduleMemberSelect
             label={"Members"}
-            size="default"
+            placeholder={"Search Members"}
           />
         </Form.Item>
         <div className="formInput w-50">

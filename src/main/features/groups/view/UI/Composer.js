@@ -12,14 +12,10 @@ import MemberListItem from "../../../../sharedComponents/MemberByTag/Index";
 import MemberComposer from "./MemberComposer";
 import { jsonToFormData } from "../../../../../utils/base";
 
-import {
-  defaultUiid,
-  FeaturesEnum,
-} from "../../../../../utils/Shared/enums/enums";
-import Features from "../../../../sharedComponents/FeatureSelect/Index";
+import { defaultUiid } from "../../../../../utils/Shared/enums/enums";
 import PrivacyOptions from "../../../../sharedComponents/PrivacyOptionsDropdown/PrivacyOptions";
-import { addGroupFeaturesAction } from "../../store/actions";
 import { useParams } from "react-router-dom";
+import GroupFeatures from "../../constant/groupFeatures";
 
 const initialState = {
   id: "",
@@ -212,7 +208,9 @@ const Composer = (props) => {
             )}
           </>
         )}
-        {!update && <Features checked={feature} onChange={onFeatureHandler} />}
+        {!update && (
+          <GroupFeatures checked={feature} onChange={onFeatureHandler} />
+        )}
 
         <Form.Item>
           <div className="flex items-center gap-2">

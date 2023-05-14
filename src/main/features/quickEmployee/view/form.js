@@ -171,7 +171,7 @@ const QuickForm = () => {
               // loading={loader}
               title={'Quick Add'}
             >
-              {'Quick Add'}
+              {'Add'}
             </Button>
           </Form.Item>
         </div>

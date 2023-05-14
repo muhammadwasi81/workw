@@ -91,10 +91,11 @@ import { logout } from "./base";
 
 const handleNotificationDetail = (notificationItem, dispatch) => {
 	switch (notificationItem.featureType) {
-		case 1:
-			
+	// working in process
+		case 2:
+			dispatch(addRealTimePost(notificationItem.details))
 			break;
-	
+
 		default:
 			break;
 	}
@@ -215,13 +216,13 @@ export class InitializeSocket {
 			console.log(data, "commentOut")
 		});
 
-		this.chatMessageTypingAction()
 	}
 
-	chatMessageTypingAction = async () => {
-		this.connection.invoke("chatMessageTypingStatus",  "ad9685d4-bd4a-4729-ab15-3a4502c2244d", 2)
-			.then((data) => console.log(data, "chatMessageTypingStatus"))
-			.catch((err) => console.log(err, "chatMessageTypingStatus err"))
+	chatMessageTypingAction = async (chatId, type) => {
+		console.log("chatMessageTypingStatus", "payload", chatId, type)
+		this.connection.invoke("chatMessageTypingStatus", chatId, type)
+			.then((res) => console.log("chatMessageTypingStatus", res))
+			.catch((err) => console.log("chatMessageTypingStatus", err))
 	}
 }
 

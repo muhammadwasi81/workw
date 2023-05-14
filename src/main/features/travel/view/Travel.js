@@ -13,20 +13,18 @@ import {
 } from "../../../../utils/Shared/enums/enums";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllTravel } from "../store/actions";
-import { travelStatus } from "../enums/enums";
+import { TravelReferenceTypeEnum, travelStatus } from "../enums/enums";
 import ListView from "./ListView/ListView";
 import Header from "./Header";
 import { tableColumns } from "./TableColumns/Columns";
 import TopBar from "../../../sharedComponents/topBar/topBar";
 import { TravelDictionary } from "../localization";
 import useDebounce from "../../../../utils/Shared/helper/use-debounce";
-import { TravelReferenceTypeEnum } from "../../projects/enum/enums";
 import Scroll from "../../../sharedComponents/ScrollSelect/infinteScoll";
-import { Skeleton ,Drawer} from "antd";
+import { Skeleton, Drawer } from "antd";
 import { resetTravelData } from "../store/slice";
 import { NoDataFound } from "../../../sharedComponents/NoDataIcon";
 import TravelDetail from "./TravelDetail/TravelDetail";
-
 
 function Travel({
   referenceType = TravelReferenceTypeEnum.General,
@@ -119,7 +117,7 @@ function Travel({
     };
   };
   const onClose = () => {
-    setVisible(false)
+    setVisible(false);
   };
 
   const onActionClick = (row) => {

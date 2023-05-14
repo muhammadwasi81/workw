@@ -1,6 +1,6 @@
 import Item from './item';
 
-const ListItem = ({ ListData = [], deleteDisabled = false, onDelete }) => {
+const ListItem = ({ ListData = [], deleteDisabled = false, onDelete , isReaction=false }) => {
   //Data will be passed from parent
 
   return (
@@ -9,6 +9,7 @@ const ListItem = ({ ListData = [], deleteDisabled = false, onDelete }) => {
         {ListData.map((it) => {
           return (
             <Item
+              isReaction={isReaction}
               item={it}
               isDeleteDisabled={deleteDisabled}
               onDelete={onDelete}

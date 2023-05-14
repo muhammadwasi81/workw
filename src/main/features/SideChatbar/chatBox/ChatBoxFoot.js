@@ -6,13 +6,15 @@ import sendIcon from './assests/send.svg';
 import SharedButton from "../../../sharedComponents/button";
 import EmojiPicker from "../../Messenger/view/MessengerBox/components/emojiPicker";
 
-const ChatBoxFoot = ({ 
-    handleSend, 
-    FileUploader, 
-    handleClickAttachment, 
-    onSelectEmoji, 
-    msgInpRef,
-    sendVoice, 
+const ChatBoxFoot = ({
+    handleSend = () => { },
+    FileUploader = <></>,
+    handleClickAttachment = () => { },
+    onSelectEmoji = () => { },
+    onFocusTyping = () => { },
+    onBlurTyping = () => { },
+    msgInpRef = {},
+    sendVoice = <></>,
 }) => {
     const [isOpenEmoji, setIsOpenEmoji] = useState(false);
     return (
@@ -40,6 +42,8 @@ const ChatBoxFoot = ({
                     <input
                         placeholder="Type a Message..."
                         ref={msgInpRef}
+                        onFocus={onFocusTyping}
+                        onBlur={onBlurTyping}
                         onKeyUp={(e) => {
                             if (e.keyCode === 13) {
                                 handleSend(e);

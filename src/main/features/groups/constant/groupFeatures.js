@@ -1,10 +1,9 @@
 import { Form, Switch } from "antd";
-import "./style.css";
-import { getFeatureDetails } from "./projectConstant";
-import { groupFeatureEnums } from "../../../../../utils/Shared/enums/groupFeatureEnum";
+import "../../projects/styles/projects.css";
+import { groupFeatureEnums } from "../../../../utils/Shared/enums/groupFeatureEnum";
+import { getFeatureDetails } from "./groupConstant";
 
-function ProjectFeatures({ onChange, checked, disabled }) {
-  console.log(checked, "checked");
+function GroupFeatures({ onChange, checked, disabled }) {
   return (
     <>
       <p className="!mb-[8px]">Features</p>
@@ -19,7 +18,7 @@ function ProjectFeatures({ onChange, checked, disabled }) {
             <div className="FeatureSelect flex justify-between bg-[#f4f4f4] mb-2">
               <div>
                 <div className="flex">
-                  <div className="imageBox border-r border-r-[#b3bed5]">
+                  <div className="imageBox border-r border-r-[#b3bed5] p-3">
                     <img
                       src={item.icon}
                       className="h-[34px] w-[34px]"
@@ -27,8 +26,8 @@ function ProjectFeatures({ onChange, checked, disabled }) {
                     />
                   </div>
                   <div>
-                    <h4>{item.name}</h4>
-                    <p className="text-slate-500">{item.description}</p>
+                    <h4 className="ml-2">{item.name}</h4>
+                    <p className="text-slate-500 ml-2">{item.description}</p>
                   </div>
                 </div>
               </div>
@@ -50,4 +49,4 @@ function ProjectFeatures({ onChange, checked, disabled }) {
   );
 }
 
-export default ProjectFeatures;
+export default GroupFeatures;

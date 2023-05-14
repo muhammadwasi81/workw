@@ -42,7 +42,6 @@ const ContentOptions = ({ handleClose, data }) => {
       id: data.id,
       memberId: memberId,
     };
-    // console.log(membersData, "membersData");
     let a = data.members.filter((item) => {
       return item.member.id === membersData.memberId;
     });

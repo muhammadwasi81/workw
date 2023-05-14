@@ -49,6 +49,10 @@ import {
 } from "../../../../../utils/Shared/enums/groupFeatureEnum";
 import ItemDetailModal from "../../../../sharedComponents/ItemDetails";
 import { handleItemDetailModal } from "../../../../../utils/Shared/store/slice";
+import Travel from "../../../travel/view/Travel";
+import { QuotationReferenceTypeEnum } from "../../../quotation/enums";
+import Quotations from "../../../quotation/view/QuotationList";
+import { TravelReferenceTypeEnum } from "../../../travel/enums/enums";
 
 function GroupDetails() {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -61,7 +65,6 @@ function GroupDetails() {
   const [features, setFeatures] = useState([]);
 
   const detail = useSelector((state) => state.groupSlice.groupDetail);
-  // console.log(detail, "detaill");
   const { isComposerOpen, isEditComposer } = useSelector(
     (state) => state.groupSlice
   );
@@ -70,7 +73,6 @@ function GroupDetails() {
   useEffect(() => {
     dispatch(getGroupById(id));
   }, [id]);
-  console.log(groupFeatures, "groupFeatures");
 
   // useEffect(() => {
   //   dispatch(getGroupFeatures(id));
@@ -133,7 +135,7 @@ function GroupDetails() {
         routeLink={defaultRoute}
       />
     ),
-    6: (
+    5: (
       <Task
         referenceType={TaskReferenceTypeEnum.Group}
         referenceId={id}
@@ -143,7 +145,7 @@ function GroupDetails() {
         backButton={false}
       />
     ),
-    7: (
+    3: (
       <WorkBoard
         referenceType={WorkBoardReferenceTypeEnum.Group}
         referenceId={id}
@@ -152,7 +154,7 @@ function GroupDetails() {
         backButton={false}
       />
     ),
-    9: (
+    6: (
       <Expenses
         referenceType={ExpenseReferenceTypeEnum.Group}
         referenceId={id}
@@ -162,14 +164,27 @@ function GroupDetails() {
         backButton={false}
       />
     ),
-    10: <MySchedules />,
-    12: (
+    2: <MySchedules />,
+    4: (
       <Documents
         referenceType={DocumentReferenceTypeEnum.Group}
         referenceId={id}
         width={"!w-full"}
         routeLink={defaultRoute}
         backButton={false}
+      />
+    ),
+    7: (
+      <Travel
+        referenceType={TravelReferenceTypeEnum.Group}
+        referenceId={id.trim()}
+        backButton={false}
+      />
+    ),
+    8: (
+      <Quotations
+        referenceType={QuotationReferenceTypeEnum.Group}
+        referenceId={id.trim()}
       />
     ),
   };
@@ -205,8 +220,8 @@ function GroupDetails() {
     dispatch(deleteGroupMemberAction(delmembers));
   };
 
-  const addFunc = (id) => {
-    let memberId = id.toString();
+  const addFunc = (userId) => {
+    let memberId = userId.toString();
     const members = {
       id: detail.id,
       memberId: memberId,

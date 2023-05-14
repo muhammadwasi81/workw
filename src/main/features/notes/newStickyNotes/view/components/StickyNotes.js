@@ -13,7 +13,7 @@ function StickyNotes() {
       {stickynote
         .filter((it) => it.isOpen)
         .map((item, index) => (
-          <NewStickyNote item={item} index={item.id} key={item.id} />
+          <NewStickyNote item={item} index={index} key={item.id} />
         ))}
       <StickyContainer />
     </>

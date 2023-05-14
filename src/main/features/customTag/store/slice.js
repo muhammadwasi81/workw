@@ -5,7 +5,6 @@ import { getAllCustomTagById,
   removeCustomTag,addCustomTagMember,
   getAllCustomTag, getAllCustomTagMember
 } from "./action.js";
-
 const initialState = {
   customTag: [],
   memberData: [],
@@ -16,7 +15,6 @@ const initialState = {
   isMemberModalOpen: false,
   MemberId: "",
 };
-
 const customTagSlice = createSlice({
   name: "customTag",
   initialState,
@@ -27,12 +25,11 @@ const customTagSlice = createSlice({
     addMember: (state, { payload }) => {
       state.addMemberModal = payload;
     },
-
     handleMemberModal(state, { payload }) {
+      console.log(payload,"payloood");
       state.MemberId = payload.id;
       state.isMemberModalOpen = !state.isMemberModalOpen;
     },
-
     addCustomMember: (state, { payload }) => {
       const customMember = state.customTag.map((item, i) => {
         if (item.id === payload[0].customTagId) {
@@ -68,30 +65,29 @@ const customTagSlice = createSlice({
           state.customTag.push(payload.data);
           console.log(state.customTag,"custommmmm");
       })
-
       .addCase(getAllCustomTagMember.fulfilled, (state, action) => {
         // state.memberData = action.payload.data;
         state.memberData = action.payload ? action.payload : [];
       })
       
       .addCase(addCustomTagMember.fulfilled, (state, { payload }) => {
-        if (payload.data.data.length > 0) {
-          state.memberData = [...state.memberData, payload.data.data[0]];
-          return state;
-        }
         // console.log(payload,"payloooood");
-        // //state.customTagMembers=payload.data;
-        // if (state.customTagMembers) {
-        //   if (payload.data?.length) {
-        //     let newMembers = [...state.customTagMembers.members, payload.data[0]];
-        //     state.customTagMembers = {
-        //       ...state.customTagMembers,
-        //       members: newMembers,
-        //     };
-        //   }
+        // if (payload.data.data.length > 0) {
+        //   state.memberData = [...state.memberData, payload.data.data[0]];
+        //   return state;
         // }
+        console.log(payload,"payloooood");
+        state.customTagMembers=payload.data;
+        if (state.customTagMembers) {
+          if (payload.data?.length) {
+            let newMembers = [...state.customTagMembers.members, payload.data[0]];
+            state.customTagMembers = {
+              ...state.customTagMembers,
+              members: newMembers,
+            };
+          }
+        }
       })
-
       .addCase(updateCustomTag.fulfilled, (state, { payload }) => {
         state.loader = false;
         state.customTag = state.customTag.map((x) =>
@@ -113,7 +109,6 @@ const customTagSlice = createSlice({
       );
   },
 });
-
 export const { customDeleted,addMember,addCustomMember,
   handleMemberModal } = customTagSlice.actions;
   

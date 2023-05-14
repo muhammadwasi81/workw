@@ -56,6 +56,7 @@ function ProjectDetails() {
   const dispatch = useDispatch();
   const detail = useSelector((state) => state.projectSlice.projectDetail);
 
+  console.log(detail, "project detailll");
   const [projectfeatures, setprojectFeatures] = useState([]);
   const [description, setDescription] = useState("");
   const descriptionDebounce = useDebounce(description, 500);
@@ -65,6 +66,7 @@ function ProjectDetails() {
   const { updateTextBtn, labels } = projectsDictionary;
   const [open, setOpen] = useState(false);
   let { projectId } = params;
+  console.log(projectId, "projetIdddd");
   projectId = projectId.trim();
   const { projectFeature, projectSticky } = useSelector(
     (state) => state.projectSlice
@@ -219,7 +221,7 @@ function ProjectDetails() {
   const addFunc = (id) => {
     let memberId = id.toString();
     const members = {
-      id: detail.id,
+      id: detail?.id,
       memberId: memberId,
     };
     dispatch(addProjectMemberAction(members));

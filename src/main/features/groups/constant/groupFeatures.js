@@ -18,7 +18,7 @@ function GroupFeatures({ onChange, checked, disabled }) {
             <div className="FeatureSelect flex justify-between bg-[#f4f4f4] mb-2">
               <div>
                 <div className="flex">
-                  <div className="imageBox border-r border-r-[#b3bed5]">
+                  <div className="imageBox border-r border-r-[#b3bed5]s">
                     <img
                       src={item.icon}
                       className="h-[34px] w-[34px]"
@@ -26,7 +26,7 @@ function GroupFeatures({ onChange, checked, disabled }) {
                     />
                   </div>
                   <div>
-                    <h4>{item.name}</h4>
+                    <h4 className="">{item.name}</h4>
                     <p className="text-slate-500">{item.description}</p>
                   </div>
                 </div>

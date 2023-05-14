@@ -11,9 +11,9 @@ const CreateEntryItem = ({
   handleRowChange,
   handleRemoveRow,
   value,
-  fetchEmployees = () => { },
+  fetchEmployees = () => {},
   employeesData = [],
-  fetchEmployeesShort = () => { },
+  fetchEmployeesShort = () => {},
   employeesShortData = [],
   allowanceData = [],
 }) => {
@@ -63,7 +63,7 @@ const CreateEntryItem = ({
       quantity: quantity,
       totalAmount: value.price * quantity,
     };
-    handleRowChange({ ...tempValue, }, index);
+    handleRowChange({ ...tempValue }, index);
   };
   const onChangePrice = (price) => {
     let tempValue = {
@@ -71,7 +71,7 @@ const CreateEntryItem = ({
       price: price,
       totalAmount: price * value.quantity,
     };
-    handleRowChange({ ...tempValue, }, index);
+    handleRowChange({ ...tempValue }, index);
   };
 
   return (
@@ -124,13 +124,13 @@ const CreateEntryItem = ({
           //  type="number"
           value={value.totalAmount}
           disabled={true}
-        // onChange={(e) =>
-        //   console.log(e.target.value, `quantity at index ${index}`)
-        // }
+          // onChange={(e) =>
+          //   console.log(e.target.value, `quantity at index ${index}`)
+          // }
         />
       </td>
       <td onClick={() => handleRemoveRow(index)}>
-        <DeleteOutlined />
+        <DeleteOutlined className="cursor-pointer" />
       </td>
     </tr>
   );

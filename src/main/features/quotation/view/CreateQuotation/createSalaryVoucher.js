@@ -12,7 +12,7 @@ import {
   getAllEmployees,
   getAllEmployeeShort,
 } from "../../../../../utils/Shared/store/actions";
-import { createGuid } from "../../../../../utils/base";
+import { createGuid, jsonToFormData } from "../../../../../utils/base";
 import { getAllAllowance } from "../../../allowance/store/actions";
 import { createQuotation } from "../../store/actions";
 import { useNavigate } from "react-router-dom";
@@ -20,6 +20,7 @@ import CreateQuotationOptions from "./components/CreateQuotationOptions";
 import getStoredState from "redux-persist/es/getStoredState";
 import { quotationDictionaryList } from "../../localization/index";
 import { LanguageChangeContext } from "../../../../../utils/localization/localContext/LocalContext";
+import { defaultUiid } from "../../../../../utils/Shared/enums/enums";
 
 const CreateQoutationVoucher = ({ defaultRows }) => {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -50,6 +51,7 @@ const CreateQoutationVoucher = ({ defaultRows }) => {
     phoneNumber: "",
     quotationDate: "",
     approvers: [],
+    attachments: [],
     details: [],
   };
 
@@ -59,11 +61,13 @@ const CreateQoutationVoucher = ({ defaultRows }) => {
   const [entries, setEntries] = useState(initialEntries);
   const [fetchEmployeesData, setFetchEmployeesData] = useState([]);
   const [isFirstTime, setIsFirstTime] = useState(true);
+  const [docs, setDocs] = useState();
+
   const [quotationDetails, setQuotationDetails] = useState(initialState);
+  console.log(quotationDetails, "quotation detailsss");
   const { success, createLoader, loader } = useSelector(
     (state) => state.quotationSlice
   );
-  console.log(createLoader, "createLoader");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const employeesData = useSelector((state) => state.sharedSlice.employees);
@@ -75,20 +79,17 @@ const CreateQoutationVoucher = ({ defaultRows }) => {
   const prevState = useRef({ quotationDetails }).current;
 
   useEffect(() => {
-    console.log("details change");
-    console.log(prevState.quotationDetails);
-    console.log(quotationDetails);
     //TODO: check initial data is empty
     if (quotationDetails.details.length === 1) {
       if (prevState.quotationDetails !== quotationDetails) {
-        dispatch(createQuotation(quotationDetails));
+        dispatch(createQuotation(jsonToFormData(quotationDetails)));
         navigate(-1);
       }
     }
     //TODO: check
     if (quotationDetails.details.length > 1) {
       if (prevState.quotationDetails !== quotationDetails) {
-        dispatch(createQuotation(quotationDetails));
+        dispatch(createQuotation(jsonToFormData(quotationDetails)));
         navigate(-1);
       }
     }
@@ -126,14 +127,12 @@ const CreateQoutationVoucher = ({ defaultRows }) => {
   };
 
   const handleRemoveRow = (index) => {
-    console.log(index);
     let filteredRows = [...entries];
     filteredRows.splice(index, 1);
     setEntries(filteredRows);
   };
 
   const handleChange = (value, name, index) => {
-    console.log(value, name, index);
     let tempEntries = [...entries];
     tempEntries[index] = {
       ...tempEntries[index],
@@ -146,7 +145,10 @@ const CreateQoutationVoucher = ({ defaultRows }) => {
     tempEntries[index] = data;
     setEntries(tempEntries);
   };
-
+  const handleDocsUpload = (data) => {
+    console.log(data, "imagesss");
+    setDocs(data);
+  };
   const handleSubmit = () => {
     let filteredEntries = entries.filter((item) => item.item);
     if (quotationDetails.name.length === 0) {
@@ -169,9 +171,18 @@ const CreateQoutationVoucher = ({ defaultRows }) => {
     //   message.error(`Approvers Required`);
     //   return;
     // }
-
-    setQuotationDetails({ ...quotationDetails, details: filteredEntries }, () =>
-      console.log("***", quotationDetails)
+    let attachments;
+    if (docs?.length > 0) {
+      attachments = docs.map((file) => {
+        return {
+          id: defaultUiid,
+          file: file.originFileObj,
+        };
+      });
+    }
+    setQuotationDetails(
+      { ...quotationDetails, attachments, details: filteredEntries },
+      () => console.log("***", quotationDetails)
     );
   };
 
@@ -180,6 +191,7 @@ const CreateQoutationVoucher = ({ defaultRows }) => {
       <CreateQuotationOptions
         data={quotationDetails}
         handleChange={(value) => setQuotationDetails(value)}
+        handleDocsUpload={handleDocsUpload}
       />
       <div className="bg-white p-4 rounded-md ">
         <div className="overflow-x-auto">
@@ -206,14 +218,14 @@ const CreateQoutationVoucher = ({ defaultRows }) => {
             </tbody>
           </table>
         </div>
-        <div>
-          <div
-            className="defaultBtn addRowBtn cursor-pointer"
-            onClick={handleAddRow}
-          >
-            +
-          </div>
+        {/* <div> */}
+        <div
+          className="defaultBtn addRowBtn cursor-pointer"
+          onClick={handleAddRow}
+        >
+          +
         </div>
+        {/* </div> */}
       </div>
 
       <div className="bg-white p-4 rounded-md flex w-full justify-between mt-5 sticky bottom-2">

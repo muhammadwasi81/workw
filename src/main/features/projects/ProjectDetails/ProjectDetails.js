@@ -219,7 +219,7 @@ function ProjectDetails() {
   const addFunc = (id) => {
     let memberId = id.toString();
     const members = {
-      id: detail.id,
+      id: detail?.id,
       memberId: memberId,
     };
     dispatch(addProjectMemberAction(members));

@@ -3,6 +3,7 @@ import {
   ResponseResultSuccess,
 } from "../../../../utils/api/ResponseResult";
 import Config from "../../../../utils/services/MasterConfig";
+import { jsonToFormData } from "../../../../utils/base";
 
 const getAllEmployeeSalary_dto = (data) => {
   return {
@@ -37,7 +38,6 @@ const addMultipleEmployeeSalary_dto = (data = []) => {
 };
 
 export const addMultipleQuotationService = async (payload) => {
-  console.log(payload);
   try {
     // let request = addMultipleEmployeeSalary_dto(payload);
     const {

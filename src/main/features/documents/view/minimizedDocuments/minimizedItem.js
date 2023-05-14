@@ -5,7 +5,7 @@ import closeMailIcon from '../../../../../content/NewContent/Messenger/closeMail
 import SharedButton from "../../../../sharedComponents/button";
 import { useDispatch } from "react-redux";
 import { handleRemoveMinimizeDocument, toggleMinimizeDocument } from "../../store/slice";
-import PreviewModal from "../components/modal";
+import PreviewModalResizable from "../components/modal/PreviewModalResizable";
 
 function MinimizedItem({ item }) {
     let { document } = item;
@@ -40,7 +40,7 @@ function MinimizedItem({ item }) {
                     </div>
                 </div>}
 
-            <PreviewModal
+            <PreviewModalResizable
                 isMinimizedModal={true}
                 previewItem={item.isOpen ? document : null}
                 handleClose={handleClose} />

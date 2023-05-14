@@ -11,6 +11,8 @@ import VoiceNotes from '../components/voiceNotes';
 import { createGuid, STRINGS } from '../../../../../../utils/base';
 import FileUploader from '../components/fileUploader';
 import ChatBoxFooter from '../../../../SideChatbar/chatBox/ChatBoxFoot';
+import { InitializeSocket } from '../../../../../../utils/InitSocket';
+import { MESSENGER_ENUMS } from '../../../utils/Constant';
 
 const MessengerBottom = ({ isOpenProfile, isChatBoxView, messengerDetail }) => {
   const dispatch = useDispatch();
@@ -44,7 +46,6 @@ const MessengerBottom = ({ isOpenProfile, isChatBoxView, messengerDetail }) => {
 
   const handleMsgSend = (e) => {
     let payload = createPayload(e.target.value);
-    console.log(messengerDetail, 'messengerDetail');
     if (!payload.message && payload.attachments.length === 0) return null;
 
     setIsOpenEmoji(false);
@@ -73,11 +74,24 @@ const MessengerBottom = ({ isOpenProfile, isChatBoxView, messengerDetail }) => {
     msgInpRef.current.focus();
   };
 
-  function sendVoiceComponent() {
+  const handleFocusTyping = (type = MESSENGER_ENUMS.MESSAGE_TYPING.TYPING) => {
+    let socketInstance = InitializeSocket.getInstance();
+    socketInstance.chatMessageTypingAction(messengerDetail.chatId, type)
+  }
+  const handleBlurTyping = () => {
+    let socketInstance = InitializeSocket.getInstance();
+    socketInstance.chatMessageTypingAction(messengerDetail.chatId, MESSENGER_ENUMS.MESSAGE_TYPING.NO_STATUS)
+  }
+
+  const sendVoiceComponent = () => {
     return (
       <div className="MessengerInputHandler sendVoiceIcon">
         <div>
-          <VoiceNotes handleVoiceSend={handleVoiceSend} />
+          <VoiceNotes
+            handleVoiceSend={handleVoiceSend}
+            onFocusTyping={handleFocusTyping}
+            onBlurTyping={handleBlurTyping}
+          />
         </div>
       </div>
     );
@@ -91,6 +105,8 @@ const MessengerBottom = ({ isOpenProfile, isChatBoxView, messengerDetail }) => {
         handleClickAttachment={handleClickAttachment}
         msgInpRef={msgInpRef}
         sendVoice={sendVoiceComponent()}
+        onFocusTyping={() => handleFocusTyping()}
+        onBlurTyping={() => handleBlurTyping()}
         FileUploader={
           <FileUploader
             inputRef={fileInputRef}
@@ -127,6 +143,8 @@ const MessengerBottom = ({ isOpenProfile, isChatBoxView, messengerDetail }) => {
               <input
                 placeholder="Type a Message..."
                 ref={msgInpRef}
+                onFocus={() => handleFocusTyping()}
+                onBlur={() => handleBlurTyping()}
                 onKeyUp={(e) => {
                   if (e.keyCode === 13) handleMsgSend(e);
                 }}

@@ -1,11 +1,15 @@
+import { DraggableModalProvider } from "ant-design-draggable-modal";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { createGuid } from "../../../../../utils/base.js";
 import { NoDataFound } from "../../../../sharedComponents/NoDataIcon/index.js";
 import BreadCumbs from "../components/breadcumb/index.js";
 import PreviewModal from "../components/modal/index.js";
+import PreviewModalResizable from "../components/modal/PreviewModalResizable.js";
 import ShortCard from "../components/shortCard/index.js";
 import DocSceleton from "../skeleton/index.js";
+import { handleAddMinimizeDocument } from "../../store/slice";
 import './style.css';
 
 const DocumentShortCards = (props) => {
@@ -13,9 +17,11 @@ const DocumentShortCards = (props) => {
   const loader = useSelector(state => state.documentSlice.listLoader);
   const [previewPath, setPreviewPath] = useState(false);
   const listData = useSelector(state => state.documentSlice.listData);
+  const dispatch = useDispatch();
 
   const handlePreview = (item) => {
-    setPreviewPath(item)
+    // setPreviewPath(item)
+    dispatch(handleAddMinimizeDocument({ document: item, status: true }));
   }
   const handleClose = (item) => {
     setPreviewPath(null)
@@ -36,9 +42,11 @@ const DocumentShortCards = (props) => {
             />
           ))
         }
-        <PreviewModal
-          previewItem={previewPath}
-          handleClose={handleClose} />
+        {/* <DraggableModalProvider>
+          <PreviewModalResizable
+            previewItem={previewPath}
+            handleClose={handleClose} />
+        </DraggableModalProvider> */}
       </div>
       {
         listData.length === 0 && !loader &&

@@ -2,7 +2,7 @@ import { Form, Switch } from "antd";
 import "../../projects/styles/projects.css";
 import { getFeatureDetails } from "./projectConstant";
 import { projectFeatureEnums } from "../../../../utils/Shared/enums/projectFeatureEnum";
-
+import "../../../sharedComponents/FeatureSelect/style.css";
 function ProjectFeatures({ onChange, checked, disabled }) {
   return (
     <>

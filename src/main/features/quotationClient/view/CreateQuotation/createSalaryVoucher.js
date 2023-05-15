@@ -123,6 +123,7 @@ const CreateQoutationVoucher = ({ defaultRows }) => {
   }, [success]);
 
   const handleAddRow = () => {
+    console.log("clickeddddd");
     setEntries([...entries, defaultEntry]);
   };
 

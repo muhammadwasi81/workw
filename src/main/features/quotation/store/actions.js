@@ -5,17 +5,32 @@ import {
 } from "../../../../services/slices/notificationSlice";
 import { ResponseType } from "../../../../utils/api/ResponseResult";
 import { openNotification } from "../../../../utils/Shared/store/slice";
+import { jsonToFormData } from "../../../../utils/base";
+
 import {
   addMultipleQuotationService,
   getAllQuotationService,
   getQuotationByIdService,
 } from "../services/service";
 
+// const addQuotation = (data) => {
+//   return {
+//     id: data.id ? data.id : "",
+//     name: data.name ? data.name : "",
+//     email: data.email ? data.email : "",
+//     phoneNumber: data.phoneNumber ? data.phoneNumber : "",
+//     quotationDate: data.quotationDate ? data.quotationDate : "",
+//     approvers: data.approvers ? data.approvers : [],
+//     details: data.details ? data.details : [],
+//     attachments: data.attachments ? data.attachments : [],
+//   };
+// };
 export const createQuotation = createAsyncThunk(
   "Quotation/createQuotation",
   async (data, { dispatch, rejectWithValue }) => {
+    // const formdataRequest = jsonToFormData(data);
     const res = await addMultipleQuotationService(data);
-    console.log(res, "FROM CAREER RESPONSE");
+    console.log(res, "FROM QUOTATION RESPONSE");
 
     switch (res.type) {
       case ResponseType.ERROR:

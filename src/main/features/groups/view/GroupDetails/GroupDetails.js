@@ -65,7 +65,6 @@ function GroupDetails() {
   const [features, setFeatures] = useState([]);
 
   const detail = useSelector((state) => state.groupSlice.groupDetail);
-  // console.log(detail, "detaill");
   const { isComposerOpen, isEditComposer } = useSelector(
     (state) => state.groupSlice
   );
@@ -74,7 +73,6 @@ function GroupDetails() {
   useEffect(() => {
     dispatch(getGroupById(id));
   }, [id]);
-  console.log(groupFeatures, "groupFeatures");
 
   // useEffect(() => {
   //   dispatch(getGroupFeatures(id));
@@ -222,8 +220,8 @@ function GroupDetails() {
     dispatch(deleteGroupMemberAction(delmembers));
   };
 
-  const addFunc = (id) => {
-    let memberId = id.toString();
+  const addFunc = (userId) => {
+    let memberId = userId.toString();
     const members = {
       id: detail.id,
       memberId: memberId,

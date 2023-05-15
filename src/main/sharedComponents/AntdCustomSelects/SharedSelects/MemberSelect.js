@@ -29,7 +29,7 @@ function MemberSelect({
   showSearch = false,
   emptyStateAfterSelect = false,
   formItem = true,
-  colors = true,
+  colors = false,
   sliceName = "employees",
   resetField = false,
   className = "",
@@ -108,7 +108,7 @@ function MemberSelect({
         );
       }
       if (canFetchNow) {
-        if (colors) {
+        if (!colors) {
           selectedData(
             stateVal,
             filterArrOfObj.map((member) => ({

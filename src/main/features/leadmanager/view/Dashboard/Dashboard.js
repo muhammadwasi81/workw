@@ -59,17 +59,6 @@ function LeadDashboard({ isTableView, dictionary, data, onChange }) {
 
   return (
     <>
-      <ItemDetailModal
-        data={memberData} //Data of members will pass here in array
-        isDeleteDisabled={true} //Pass true to hide delete icon
-        addEnabled={true} //Pass false to hide select member
-        addFunc={addLeadMemberFunc} // define and pass addMember action of particular members
-        onDelete={false} // define and pass onDeletemember actions of particular members
-        isSearch={false} //Pass true if you want to search the list
-        openModal={true} // pass true if you want to open member details in modal other wise it display in listing
-        visible={visible}
-        setVisible={(da) => setVisible(da)}
-      />
       {isTableView && (
         <Table
           columns={tableColumn(dictionary, (e, rowData) =>
@@ -132,6 +121,19 @@ function LeadDashboard({ isTableView, dictionary, data, onChange }) {
       >
         <BoardComposer isEdit={isEditComposer} loading={loading} />
       </Drawer> */}
+      {visible && (
+        <ItemDetailModal
+          data={memberData} //Data of members will pass here in array
+          isDeleteDisabled={true} //Pass true to hide delete icon
+          addEnabled={true} //Pass false to hide select member
+          addFunc={addLeadMemberFunc} // define and pass addMember action of particular members
+          onDelete={false} // define and pass onDeletemember actions of particular members
+          isSearch={false} //Pass true if you want to search the list
+          openModal={true} // pass true if you want to open member details in modal other wise it display in listing
+          visible={visible}
+          setVisible={(da) => setVisible(da)}
+        />
+      )}
     </>
   );
 }

@@ -1,6 +1,6 @@
 import { Button, DatePicker, Form, Select, Input, InputNumber } from "antd";
 import moment from "moment";
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getAllEmployees } from "../../../../../../utils/Shared/store/actions";
@@ -8,8 +8,10 @@ import CustomSelect from "../../../../../sharedComponents/AntdCustomSelects/Shar
 import Avatar from "../../../../../sharedComponents/Avatar/avatarOLD";
 import { quotationDictionaryList } from "../../../localization/index";
 import { LanguageChangeContext } from "../../../../../../utils/localization/localContext/LocalContext";
+import SingleUpload from "../../../../../sharedComponents/Upload/singleUpload";
 
-const CreateQuotationOptions = ({ handleChange, data }) => {
+const CreateQuotationOptions = ({ handleChange, data, handleDocsUpload }) => {
+  // const [docsData, setDocsData] = useState(null);
   const { userLanguage } = useContext(LanguageChangeContext);
   const { quotationDictionary, Direction } = quotationDictionaryList[
     userLanguage
@@ -25,10 +27,14 @@ const CreateQuotationOptions = ({ handleChange, data }) => {
     dispatch(getAllEmployees({ text, pgNo, pgSize: 20 }));
   };
 
+  // const handleDocsUpload = (data) => {
+  //   setDocsData(data);
+  // };
   return (
     <div className="flex justify-between items-center my-2 bg-white px-4 py-2 rounded-md">
       <div className="flex justify-between items-center">
         <div className="mr-4  w-[170px]">
+          <label>Enter Client's Name:</label>
           <Input
             placeholder={quotationDictionary.clientsName}
             onChange={(e) => handleChange({ ...data, name: e.target.value })}
@@ -38,6 +44,8 @@ const CreateQuotationOptions = ({ handleChange, data }) => {
         </div>
 
         <div className="mr-4 w-[170px]">
+          <label>Enter Client's Email:</label>
+
           <Input
             placeholder={quotationDictionary.clientsEmail}
             rules={[{ type: "email" }]}
@@ -47,6 +55,8 @@ const CreateQuotationOptions = ({ handleChange, data }) => {
         </div>
 
         <div className="mr-4 w-[170px]">
+          <label>Enter Phone Number:</label>
+
           <Input
             placeholder={quotationDictionary.phoneNumber}
             //  rules={[{ type: "number" }]}
@@ -57,6 +67,8 @@ const CreateQuotationOptions = ({ handleChange, data }) => {
           />
         </div>
         <div className="mr-4 w-[170px]">
+          <label>Select Approvers:</label>
+
           <CustomSelect
             data={employeesData}
             style={{ height: "2rem" }}
@@ -100,6 +112,7 @@ const CreateQuotationOptions = ({ handleChange, data }) => {
           />
         </div>
         <div className="mr-4 w-[170px]">
+          <label>Select Date:</label>
           <DatePicker
             className="w-full"
             locale="locale"
@@ -107,6 +120,17 @@ const CreateQuotationOptions = ({ handleChange, data }) => {
               handleChange({ ...data, quotationDate: value })
             }
           />
+        </div>
+        <div className="mr-4 w-[170px]">
+          <label>Attachments:</label>
+          <div className="uploadWrapper flex">
+            <SingleUpload
+              handleImageUpload={handleDocsUpload}
+              uploadText={""}
+              multiple={true}
+              position={"flex-start"}
+            />
+          </div>
         </div>
       </div>
     </div>

@@ -1,7 +1,6 @@
 import "./custom.css";
 import { Input,Form, Select, Skeleton } from "antd";
 import { useSelector, useDispatch } from "react-redux";
-
 import { useEffect, useState, useContext } from "react";
 import { LanguageChangeContext } from "../../../../utils/localization/localContext/LocalContext";
 import { dictionaryList } from "../../../../utils/localization/languages";
@@ -22,7 +21,6 @@ import {addCustomTag,addCustomTagMember} from "../store/action";
 import { useParams } from "react-router-dom";
 import { getNameForImage } from "../../../../utils/base";
 import { defaultUiid } from '../../../../utils/Shared/enums/enums';
-
 export default function CustomTagForm({
   data,
   onSubmit,
@@ -34,13 +32,11 @@ export default function CustomTagForm({
   const { administration, sharedLabels, Direction } = dictionaryList[
     userLanguage
   ];
-
   const [form, setForm] = useState(data);
   const handleClear = (e) => {
     setForm({ ...form, description: "", name: "" });
     setClearButton(false);
   };
-
   const handelChangeName = (e) => {
     if (e.target.value.length > 0) {
       setClearButton(true);
@@ -49,7 +45,6 @@ export default function CustomTagForm({
     }
     setForm({ ...form, name: e.target.value });
   };
-
   const handelChangeDescription = (e) => {
     if (e.target.value.length > 0) {
       setClearButton(true);
@@ -58,11 +53,9 @@ export default function CustomTagForm({
     }
     setForm({ ...form, description: e.target.value });
   };
-
   useEffect(() => {
     setForm(data);
   }, [data]);
-
   return (
     <FormContainer>
       <FormHeader>CustomTag</FormHeader>

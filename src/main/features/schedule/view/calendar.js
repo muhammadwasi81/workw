@@ -225,6 +225,7 @@ function Calendar({ referenceId }) {
               // setEmployeesData([...obj]);
               selectedMemebrHandler(_, obj);
             }}
+            colors={true}
             optionComponent={(opt) => {
               return (
                 <>

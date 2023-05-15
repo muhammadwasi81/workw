@@ -58,6 +58,8 @@
   text-align: center;
 }
 .module__card {
+  position: relative;
+  top: 20px;
   background-color: #ffffff;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
   padding: 20px;
@@ -190,11 +192,12 @@
     font-size: 20px;
   }
   .module__card {
-    width: 100%;
+    /* width: 100%;
     gap: 10px;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center; */
+    display: none;
   }
   .subject__wrapper {
     width: 100%;

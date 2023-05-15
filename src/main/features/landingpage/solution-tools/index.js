@@ -15,7 +15,6 @@ import {
   whatMakesDifferent,
 } from "./constants";
 import "../coprorate-solution/styles.css";
-// import RectangleImg from "../icons/rec.png";
 import handImg from "../icons/sol-avail.png";
 import commaImg from "../icons/comma.png";
 import bottomCommaImg from "../icons/bottomComma.png";
@@ -288,7 +287,11 @@ const SolutionTools = () => {
               </p>
             </div>
             <div className="flex justify-start flex-wrap gap-5 my-3">
-              <a href="" target="_blank">
+              <a
+                href="http://www.workw.com/downloads/Workwise.exe"
+                target="_blank"
+                rel="noreferrer"
+              >
                 <img
                   src="https://uploads-ssl.webflow.com/5eb0899d8fc87851be175c44/611a5d2e71739c07c6a30399_g-play.svg"
                   loading="lazy"
@@ -296,12 +299,32 @@ const SolutionTools = () => {
                   alt="google play store"
                 />
               </a>
-              <a href="" target="_blank">
+              <a
+                href="http://www.workw.com/downloads/Workwise.dmg"
+                target="_blank"
+                rel="noreferrer"
+              >
                 <img
                   src="https://linkmaker.itunes.apple.com/assets/shared/badges/en-us/appstore-lrg.svg"
                   alt="Download on the App Store"
                   loading="lazy"
                   width="120"
+                />
+              </a>
+              <a href="" target="_blank" rel="noreferrer">
+                <img
+                  src={"https://cdn-icons-png.flaticon.com/512/71/71821.png"}
+                  alt="Download on the App Store"
+                  loading="lazy"
+                  style={{ width: "35px" }}
+                />
+              </a>
+              <a href="" target="_blank" rel="noreferrer">
+                <img
+                  src={"https://cdn-icons-png.flaticon.com/512/2/2235.png"}
+                  alt="Download on the App Store"
+                  loading="lazy"
+                  style={{ width: "35px" }}
                 />
               </a>
             </div>
@@ -318,7 +341,7 @@ const SolutionTools = () => {
               rel="noreferrer"
               className="text-primary-color font-semibold"
             >
-              www.Workw.com
+              www.workw.com
             </a>
             <br /> Terms & Conditions <br /> Privacy statement
             <div className="flex flex-wrap gap-3 text-xl pt-5 cursor-pointer icons__wrapper">

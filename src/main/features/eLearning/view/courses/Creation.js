@@ -229,7 +229,7 @@ function CreateCourse() {
             <div className="flex">
               <div className="innerColumn">
                 <Form.Item
-                  label={"Select "}
+                  label={"Select Subject"}
                   name="categoryId"
                   rules={[
                     {
@@ -240,7 +240,7 @@ function CreateCourse() {
                 >
                   <MySelect
                     data={ELearningCategory}
-                    placeholder={"Select Categoy"}
+                    placeholder={"Select Subject"}
                     style={{
                       width: "100%",
                       borderRadius: "5px",
@@ -269,7 +269,7 @@ function CreateCourse() {
                       borderRadius: "5px",
                     }}
                     size="large"
-                    defaultValue={{ label: "Personal Development", value: 1 }}
+                    // defaultValue={{ label: "Personal Development", value: 1 }}
                   >
                     {CourseOptionsEnum.map((item) => (
                       <Option value={item.value}>{item.label}</Option>
@@ -281,7 +281,7 @@ function CreateCourse() {
             <div className="flex">
               <div className="innerColumn">
                 <Form.Item
-                  label={"Name"}
+                  label={"Course Name"}
                   name="name"
                   labelPosition="top"
                   rules={[
@@ -291,7 +291,7 @@ function CreateCourse() {
                     },
                   ]}
                 >
-                  <TextInput placeholder={"Enter Name"} />
+                  <TextInput placeholder={"Enter Course Name"} />
                 </Form.Item>
               </div>
               <div className="innerColumn">
@@ -427,7 +427,7 @@ function CreateCourse() {
               </Form.Item>
               <FileUploader
                 fileList={profileImage ? profileImage : []}
-                uploadButton={<div>Upload</div>}
+                uploadButton={<div>Upload Cover Image</div>}
                 handleUpload={handleImageUpload}
                 isMultiple={false}
                 classes=""
@@ -435,18 +435,18 @@ function CreateCourse() {
             </div>
           </FormContainer>
           <FormContainer>
-            <Heading>Add Curriculum</Heading>
+            <Heading>Add Lesson</Heading>
             <div className="innerColumn">
               {topics.length > 0 ? (
                 ""
               ) : (
                 <Form.Item
-                  label={"Curriculum"}
+                  label={"Lesson Name"}
                   labelPosition="top"
                   name="curriculumName"
                   onChange={handleChangeCurriculum}
                 >
-                  <TextInput placeholder={"Enter Curriculum"} />
+                  <TextInput placeholder={"Enter Lesson Name"} />
                 </Form.Item>
               )}
             </div>
@@ -459,13 +459,13 @@ function CreateCourse() {
                   name="topicName"
                 >
                   <TextInput
-                    placeholder={"Enter Topic"}
+                    placeholder={"Enter Topic Name"}
                     onChange={(e) => setTopic({ ...topic, name: e })}
                   />
                 </Form.Item>
               </div>
               <div className="innerColumn">
-                <Form.Item label={"File Type"} labelPosition="top" name="Type">
+                <Form.Item label={"Topic Type"} labelPosition="top" name="Type">
                   <Select
                     onChange={handleFileType}
                     className="w-100"
@@ -486,12 +486,13 @@ function CreateCourse() {
                   </Select>
                 </Form.Item>
               </div>
-              <div
-                className="defaultBtn addRowBtn cursor-pointer addTopicBtn"
-                onClick={handleAddTopic}
-              >
-                +
-              </div>
+            </div>
+            <div
+              className="defaultBtn addRowBtn cursor-pointer addTopicBtn relative"
+              style={{ bottom: "35px" }}
+              onClick={handleAddTopic}
+            >
+              +
             </div>
             <div className="innerColumn">
               {fileType === TypeEnum.QUIZ ? (
@@ -538,7 +539,7 @@ function CreateCourse() {
                 TypeEnum.VIDEO ? (
                 <FileUploader
                   fileList={singleImage ? singleImage : []}
-                  uploadButton={<div>Upload</div>}
+                  uploadButton={<div>Upload Cover Image</div>}
                   isMultiple={false}
                   handleUpload={(data) => {
                     setSingleImage(data[0]);
@@ -574,7 +575,7 @@ function CreateCourse() {
               )}
             </div>
             <div className="sectionContainer">
-              <h3>Curriculums</h3>
+              <h3>Lesson</h3>
               {sections && sections.length > 0
                 ? sections.map((item, index) => {
                     return (
@@ -603,8 +604,7 @@ function CreateCourse() {
                 title={"Create"}
                 loading={loader}
               >
-                {" "}
-                {"Create"}{" "}
+                {"Create"}
               </Button>
             </div>
           </Form.Item>

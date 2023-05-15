@@ -4,7 +4,8 @@
 }
 .addTopicBtn {
   margin-top: 33px;
-  margin-right: 0px;
+  margin-right: 10px;
+  max-width: 40px;
   margin-left: auto;
   font-size: 25px;
   height: 35px;
@@ -15,6 +16,9 @@
   align-items: center;
   color: white;
   border-radius: 5px;
+}
+.addTopicBtn:hover {
+  background: var(--currentThemeColor);
 }
 .addSectionBtn {
   width: 110px !important;

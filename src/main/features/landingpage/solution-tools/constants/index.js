@@ -118,30 +118,30 @@ export const moduleImages = [
       "https://workw.com/static/media/Tasks.587227158fc83719bd4b3741dcbd51c2.svg",
     title: "Market Place",
   },
-  {
-    id: 9,
-    url:
-      "https://workw.com/static/media/voucher.d2e0583e43775bea39086d76fc9373c9.svg",
-    title: "Market Place",
-  },
-  {
-    id: 10,
-    url:
-      "https://workw.com/static/media/Appraisals.5f733237e87beab2e1e11eab39ec356d.svg",
-    title: "Market Place",
-  },
-  {
-    id: 11,
-    url:
-      "https://workw.com/static/media/rewardIcon.1872d27791f08290da2b85977f16cf07.svg",
-    title: "Market Place",
-  },
-  {
-    id: 12,
-    url:
-      "https://workw.com/static/media/chartAccountsIcon.aeba4763829d93cab322f702239b7183.svg",
-    title: "Market Place",
-  },
+  // {
+  //   id: 9,
+  //   url:
+  //     "https://workw.com/static/media/voucher.d2e0583e43775bea39086d76fc9373c9.svg",
+  //   title: "Market Place",
+  // },
+  // {
+  //   id: 10,
+  //   url:
+  //     "https://workw.com/static/media/Appraisals.5f733237e87beab2e1e11eab39ec356d.svg",
+  //   title: "Market Place",
+  // },
+  // {
+  //   id: 11,
+  //   url:
+  //     "https://workw.com/static/media/rewardIcon.1872d27791f08290da2b85977f16cf07.svg",
+  //   title: "Market Place",
+  // },
+  // {
+  //   id: 12,
+  //   url:
+  //     "https://workw.com/static/media/chartAccountsIcon.aeba4763829d93cab322f702239b7183.svg",
+  //   title: "Market Place",
+  // },
 ];
 
 export const cardsData = [

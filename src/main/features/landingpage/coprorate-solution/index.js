@@ -1,8 +1,6 @@
 import { Col, Row } from "antd";
 import ClockIcon from "../icons/clock.jpg";
 import groupIcon from "../icons/group.png";
-// import { FaLongArrowAltRight } from "react-icons/fa";
-// import { FaLongArrowAltLeft } from "react-icons/fa";
 import "./styles.css";
 import { Link } from "react-router-dom";
 
@@ -19,7 +17,6 @@ const CorporateSolution = () => {
           data-aos="fade-right"
           data-aos-offset="300"
           data-aos-easing="ease-in-sine"
-          data-aos-duration="2000"
         >
           <img src={ClockIcon} alt="clock icon" className="w-10 h-10" />
           <h1 className="text-primary-color capitalize main__head">
@@ -46,7 +43,6 @@ const CorporateSolution = () => {
           data-aos="fade-left"
           data-aos-offset="300"
           data-aos-easing="ease-in-sine"
-          data-aos-duration="2000"
         >
           <img src={groupIcon} alt="group icon" />
         </Col>
@@ -59,16 +55,11 @@ const CorporateSolution = () => {
               data-aos="fade-right"
               data-aos-offset="300"
               data-aos-easing="ease-in-sine"
-              data-aos-duration="2000"
             >
               “Most workers toggle between apps 10 times an hour which <br />
               equates to 32 days lost in work place productivity.”
             </p>
             <span className="published__text">published by Forbes.com</span>
-            {/* <div className="flex gap-5">
-              <FaLongArrowAltRight className="left__icon" />
-              <FaLongArrowAltLeft className="right__icon" />
-            </div> */}
           </Col>
         </Row>
       </div>

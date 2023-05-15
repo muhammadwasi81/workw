@@ -10,8 +10,10 @@ import
   removeToDoMemebr,
   addCustomTagMember,
   addCustomTag
-} 
-  from "../store/action";
+} from "../store/action";
+
+import { getAllCustomTagMember } from "../store/action";
+
 import { NoDataFound } from "../../workboard/Dashboard";
 import { useParams } from "react-router-dom";
 import { addMember } from "../store/slice";
@@ -33,6 +35,10 @@ function MemberModal({ isOpen = false, data }) {
 
   let ModalOpen = modalRequest.status;
 
+  // useEffect(() => {
+  //   getAllCustomTagMember(data.id);
+  // }, []);
+
   useEffect(() => {
     fetchEmployees("", 0);
   }, []);
@@ -51,7 +57,7 @@ function MemberModal({ isOpen = false, data }) {
     let memberId = myId.toString();
     const membersData = {
       // referenceId: data.id,
-      id: data[0].id,
+      id: data[2].id,
       memberId: memberId,
     };
    console.log(membersData, "payloaddata")
@@ -129,10 +135,10 @@ function MemberModal({ isOpen = false, data }) {
           },
         ]}
       />
-      {data.member?.length > 0 ? (
+      {data[2]?.members?.length > 0 ? (
         <ApproverListItem
           className="AddMemberModal"
-          data={data.member}
+          data={data[2]?.members}
           handleDelete={handleDeleteMember}
         />
       ):

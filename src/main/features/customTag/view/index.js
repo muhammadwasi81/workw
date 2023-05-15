@@ -5,25 +5,18 @@ import { AdminContainer } from "../../../sharedComponents/Administration/StyledC
 import { addCustomTag,updateCustomTag,removeCustomTag } from "../store/action";
 import CustomTagForm from "./form.js";
 import CustomTagTable from "./table.js";
-import MemberModal from './MemberModal';
-
 export default function CustomTag() {
   const initialState = { name: "", description: "" };
   const [custom, setCustom] = useState(initialState);
   const [clearButton, setClearButton] = useState(false);
-
   const { customTag, loadingData } = useSelector((state) => state.customTagSlice);
   const dispatch = useDispatch();
   const  loader  = useSelector((state) => state.customTagSlice);
   const [visible, setVisible] = useState(false);
-
-  console.log(customTag,"chaljaoooo");
-
-  
+  const isMemberModalOpen = useSelector(state => state.customTagSlice.isMemberModalOpen);
   const handleDelete = (e) => {
     dispatch(removeCustomTag(e));
   };
-
   const onSubmit = (e) => {
     console.log("dataofeeee" , e)
     if (e.name === "" || e.description === "") {
@@ -39,7 +32,6 @@ export default function CustomTag() {
       setCustom(initialState);
     }
   };
-
   return (
     <>
     <AdminContainer>
@@ -55,10 +47,8 @@ export default function CustomTag() {
         setClearButton={setClearButton}
         handleDelete={handleDelete}
         actionRights={[1, 2]}
-        visibleModal={setVisible}
       />
-
-    {visible && <MemberModal data={""}/>}
+    
     </AdminContainer>
     </>
   );

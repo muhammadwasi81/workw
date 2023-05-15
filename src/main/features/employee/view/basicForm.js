@@ -100,6 +100,10 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
   } = useSelector((state) => state);
 
   useEffect(() => {
+    dispatch(getAllDesignation());
+  }, [dispatch]);
+
+  useEffect(() => {
     if (employees.length > 0 && !isFirstTimeDataLoaded) {
       setIsFirstTimeDataLoaded(true);
       setFirstTimeEmpData(employees);
@@ -195,7 +199,7 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
     id: !updateProfileImage ? profileDetails?.imageId : STRINGS.DEFAULTS.guid,
     file: updateProfileImage,
   };
-
+  console.log(basicdetails, "basicdetails");
   useEffect(() => {
     if (isEdit) {
       setInitialValues({
@@ -210,9 +214,15 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
           basicdetails.officeTimingId === STRINGS.DEFAULTS.guid
             ? ""
             : basicdetails.officeTimingId,
-        managerId: basicdetails.managerId
-          ? basicdetails.managerId
-          : STRINGS.DEFAULTS.guid,
+        // managerId: basicdetails.managerId ? basicdetails.managerId : "",
+        managerId:
+          basicdetails.managerId === STRINGS.DEFAULTS.guid
+            ? ""
+            : basicdetails.managerId,
+        gradeId:
+          basicdetails.gradeId === STRINGS.DEFAULTS.guid
+            ? ""
+            : basicdetails.gradeId,
         countryId:
           basicdetails.countryId === STRINGS.DEFAULTS.guid
             ? ""
@@ -221,6 +231,14 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
           basicdetails.cityId === STRINGS.DEFAULTS.guid
             ? ""
             : basicdetails.cityId,
+        departmentId:
+          basicdetails.departmentId === STRINGS.DEFAULTS.guid
+            ? ""
+            : basicdetails.departmentId,
+        designationId:
+          basicdetails.designationId === STRINGS.DEFAULTS.guid
+            ? ""
+            : basicdetails.designationId,
       });
     }
   }, [basicdetails]);
@@ -324,7 +342,7 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
           />
         </Form.Item>
         <Form.Item
-          rules={[{ required: true }]}
+          rules={[{ required: true, message: "First Name is required" }]}
           name="firstName"
           label={labels.FirstName}
         >
@@ -337,6 +355,7 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
           rules={[
             {
               required: true,
+              message: "Last Name is required",
             },
           ]}
           name="lastName"
@@ -351,6 +370,7 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
           rules={[
             {
               required: true,
+              message: "Please input your email!",
             },
             {
               type: "email",
@@ -365,6 +385,7 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
           rules={[
             {
               required: true,
+              message: "Please input your personal email!",
             },
             {
               type: "email",
@@ -384,20 +405,22 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
             min={0}
             onWheel={(e) => e.target.blur()}
             placeholder={placeholder.cnicNo}
-          ></Input>
+          />
         </Form.Item>
         <Form.Item
-          rules={[{ required: true }]}
+          rules={[{ required: true, message: "Please select Designation!" }]}
           name="designationId"
           label={labels.Designation}
-          placeholder={placeholder.selectGender}
+          placeholder={"Please select Designation"}
         >
           <CustomSelect
             showSearch={true}
             data={designations}
             size="large"
             placeholder="Please select Designation"
-            defaultValue={initialValues.designationId}
+            defaultValue={
+              isEdit ? basicdetails.designation : initialValues.designationId
+            }
           />
         </Form.Item>
         <Form.Item name="managerId" label={labels.Manager}>
@@ -407,7 +430,6 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
             size="large"
             getPopupContainer={(trigger) => trigger.parentNode}
             optionFilterProp="children"
-            value={isEdit && basicdetails.manager?.id}
             filterOption={(input, option) =>
               (option?.label ?? "").includes(input)
             }
@@ -442,7 +464,11 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
             ))}
           </Select>
         </Form.Item>
-        <Form.Item name="countryId" label={labels.Country}>
+        <Form.Item
+          name="countryId"
+          label={labels.Country}
+          rules={[{ required: true, message: "Please select your country!" }]}
+        >
           <Select
             showSearch={true}
             placeholder={placeholder.selectCountry}
@@ -459,8 +485,9 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
 
         <CitySelect
           data={cities}
+          rules={[{ required: true, message: "Please select your city!" }]}
           selectedData={(val) => {
-            console.log("val", val);
+            console.log("selecteeCity", val);
           }}
           canFetchNow={cities && cities.length > 0}
           fetchData={fetchCityData}
@@ -512,7 +539,9 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
           <Form.Item
             name="noticePeriod"
             label={labels.NoticePeriod}
-            rules={[{ required: true }]}
+            rules={[
+              { required: true, message: "Please input your Notice Period!" },
+            ]}
           >
             <Input
               placeholder={placeholder.noticePeriod}
@@ -542,7 +571,7 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
         <Form.Item
           name="genderId"
           label={labels.Gender}
-          rules={[{ required: true }]}
+          rules={[{ required: true, message: "Gender must be selected!" }]}
         >
           <Select
             getPopupContainer={(trigger) => trigger.parentNode}
@@ -619,7 +648,7 @@ const BasicInfo = ({ mode, id, handleImageUpload }) => {
           <Form.Item
             name="userTypeId"
             label={labels.UserType}
-            rules={[{ required: true }]}
+            rules={[{ required: true, message: "Please select user type!" }]}
           >
             <Select
               size="large"

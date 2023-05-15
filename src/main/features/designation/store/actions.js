@@ -1,22 +1,21 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import { responseCode } from '../../../../services/enums/responseCode';
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import { responseCode } from "../../../../services/enums/responseCode";
 import {
   responseMessage,
   responseMessageType,
-} from '../../../../services/slices/notificationSlice';
+} from "../../../../services/slices/notificationSlice";
 import {
   addDesignationService,
   getAllDesignationsService,
   removeDesignationService,
   updateDesignationService,
-} from '../services/service';
-import { message } from 'antd';
+} from "../services/service";
+import { message } from "antd";
 
 export const getAllDesignation = createAsyncThunk(
-  'Designation/getAllDesignation',
+  "Designation/getAllDesignation",
   async (args, { dispatch }) => {
     const res = await getAllDesignationsService();
-    // console.log('GET ALL DESIGNATION ACTION', res);
     if (!res.responseCode) {
       responseMessage({
         dispatch: dispatch,
@@ -28,7 +27,7 @@ export const getAllDesignation = createAsyncThunk(
 );
 
 export const addDesignation = createAsyncThunk(
-  'Designation/addDesignation',
+  "Designation/addDesignation",
   async (args, { dispatch }) => {
     const res = await addDesignationService(args);
     if (res.responseCode) {
@@ -47,7 +46,7 @@ export const addDesignation = createAsyncThunk(
 );
 
 export const updateDesignation = createAsyncThunk(
-  'Designation/updatedesignation',
+  "Designation/updatedesignation",
   async (args, { dispatch }) => {
     const res = await updateDesignationService(args);
     if (res.responseCode) {
@@ -66,13 +65,13 @@ export const updateDesignation = createAsyncThunk(
 );
 
 export const removeDesignation = createAsyncThunk(
-  'Designation/removeDesignation',
+  "Designation/removeDesignation",
   async (args, { dispatch }) => {
-    console.log(args.id, 'fddfdfs');
+    console.log(args.id, "fddfdfs");
     const res = await removeDesignationService(args.id);
     if (res.responseCode) {
       if (res.responseCode === responseCode.Success)
-        message.success('Designation removed successfully!');
+        message.success("Designation removed successfully!");
       responseMessage({ dispatch, data: res });
     } else {
       responseMessage({

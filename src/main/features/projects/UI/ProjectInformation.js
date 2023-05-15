@@ -24,7 +24,6 @@ import {
   removeProjectFeature,
   getProjectFeature,
 } from "../store/actions";
-import FeatureSelect from "../../../sharedComponents/FeatureSelect/Index";
 import { FeaturesEnum } from "../../../../utils/Shared/enums/enums";
 import CustomModal from "../../workboard/Modal/CustomModal";
 import ProjectFeatures from "../constant/projectFeatures";

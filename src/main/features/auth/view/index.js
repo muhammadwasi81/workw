@@ -8,12 +8,14 @@ import { ROUTES } from "../../../../utils/routes";
 import { useSelector } from "react-redux";
 import "./styles/style.css";
 import LandingMainPage from "../../landingpage";
+import appleImg from "../../landingpage/icons/apple.png";
+import googleImg from "../../landingpage/icons/googleplay.png";
+import { FaGooglePlay, FaAppStoreIos } from "react-icons/fa";
 
 const Auth = () => {
   const landingRef = useRef(null);
 
   const handleAnimateClick = () => {
-    console.log("dsdsdsdsds");
     landingRef.current.scrollIntoView({ behavior: "smooth" });
   };
 
@@ -44,6 +46,12 @@ const Auth = () => {
         >
           <div className="center-area">
             <SignIn />
+          </div>
+          <div className="flex justify-center flex-wrap gap-5 my-3 social__images">
+            {/* google play */}
+            <a class="btn btn-google" href="#" title="Google Play">
+              Google Play
+            </a>
           </div>
         </Col>
       </Row>

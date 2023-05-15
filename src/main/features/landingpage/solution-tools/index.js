@@ -33,22 +33,64 @@ const SolutionTools = () => {
   return (
     <section>
       <Row gutter={{ xs: 0, sm: 0, lg: 24 }} className="main-landing-row">
-        <Col xs={24} sm={24} md={16} lg={16} xl={16}>
+        <Col
+          xs={24}
+          sm={24}
+          md={16}
+          lg={16}
+          xl={16}
+          data-aos="fade-right"
+          data-aos-offset="300"
+          data-aos-easing="ease-in-sine"
+          data-aos-duration="2000"
+        >
           <h1 className="text-primary-color main__head">The Solution</h1>
           <p className="font-semibold solution__text">{Services.description}</p>
         </Col>
-        <Col xs={24} sm={24} md={8} lg={8} xl={8} className="mt-10">
+        <Col
+          xs={24}
+          sm={24}
+          md={8}
+          lg={8}
+          xl={8}
+          className="mt-10"
+          data-aos="fade-left"
+          data-aos-offset="300"
+          data-aos-easing="ease-in-sine"
+          data-aos-duration="2000"
+        >
           <img src={CompIcon} alt="group icon" className="w-52 h-52" />
         </Col>
         {/* TODO: 2ND GRID */}
-        <Col xs={24} sm={24} md={12} lg={12} xl={12} className="mt-10 pb-8">
+        <Col
+          xs={24}
+          sm={24}
+          md={12}
+          lg={12}
+          xl={12}
+          className="mt-10 pb-8"
+          data-aos="fade-up"
+          data-aos-offset="300"
+          data-aos-easing="ease-in-sine"
+          data-aos-duration="2000"
+        >
           <img
             src={userCompAvatar}
             alt="group icon"
             className="userComp__img"
           />
         </Col>
-        <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+        <Col
+          xs={24}
+          sm={24}
+          md={12}
+          lg={12}
+          xl={12}
+          data-aos="fade-right"
+          data-aos-offset="300"
+          data-aos-easing="ease-in-sine"
+          data-aos-duration="2000"
+        >
           <h1 className="text-primary-color main__head">Solution Tools</h1>
           <ul className="list-disc">
             {solutionTools.map((tool) => (
@@ -57,7 +99,18 @@ const SolutionTools = () => {
           </ul>
         </Col>
         {/* TODO: 3RD SECTION */}
-        <Col xs={24} sm={24} md={16} lg={16} xl={16} className="pb-8">
+        <Col
+          xs={24}
+          sm={24}
+          md={16}
+          lg={16}
+          xl={16}
+          className="pb-8"
+          data-aos="fade-right"
+          data-aos-offset="300"
+          data-aos-easing="ease-in-sine"
+          data-aos-duration="2000"
+        >
           <h1 className="text-primary-color main__head">
             Solution Availability
           </h1>
@@ -65,31 +118,74 @@ const SolutionTools = () => {
             {solutionAvailability.description}
           </p>
         </Col>
-        <Col xs={24} sm={24} md={8} lg={8} xl={8} className="mt-10 relative">
+        <Col
+          xs={24}
+          sm={24}
+          md={8}
+          lg={8}
+          xl={8}
+          className="mt-10 relative"
+          data-aos="fade-left"
+          data-aos-offset="300"
+          data-aos-easing="ease-in-sine"
+          data-aos-duration="2000"
+        >
           <div className="absolute hand__container">
             <img src={handImg} alt="group icon" className="w-52 h-52" />
           </div>
           <img src={RectangleImg} alt="group icon" className="w-52 h-52" />
         </Col>
         {/* TODO: 4TH SECTION */}
-        <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+        <Col
+          xs={24}
+          sm={24}
+          md={12}
+          lg={12}
+          xl={12}
+          data-aos="fade-right"
+          data-aos-offset="300"
+          data-aos-easing="ease-in-sine"
+          data-aos-duration="2000"
+        >
           <img
             src={userCompAvatar}
             alt="group icon"
             className="userComp__img"
           />
         </Col>
-        <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+        <Col
+          xs={24}
+          sm={24}
+          md={12}
+          lg={12}
+          xl={12}
+          data-aos="fade-left"
+          data-aos-offset="300"
+          data-aos-easing="ease-in-sine"
+          data-aos-duration="2000"
+        >
           <h1 className="text-primary-color main__head">Market Place</h1>
           <p className="font-semibold">{marketPlace.description}</p>
         </Col>
-        <div className="flex flex-wrap justify-center m-auto">
+        <div
+          className="flex flex-wrap justify-center m-auto"
+          data-aos="fade-right"
+          data-aos-offset="300"
+          data-aos-easing="ease-in-sine"
+          data-aos-duration="2000"
+        >
           <h1 className="text-primary-color companyDesc__head">
             {companyFeel.description}
           </h1>
         </div>
       </Row>
-      <div className="flex flex-wrap md:flex-nowrap justify-center p-4 module__card">
+      <div
+        className="flex flex-wrap md:flex-nowrap justify-center p-4 module__card"
+        data-aos="fade-up"
+        data-aos-offset="300"
+        data-aos-easing="ease-in-sine"
+        data-aos-duration="2000"
+      >
         {moduleImages.map((image) => (
           <img
             key={image.id}
@@ -99,13 +195,34 @@ const SolutionTools = () => {
           />
         ))}
       </div>
-      <h1 className="text-primary-color text-center font-semibold text-2xl mt-10">
+      <h1
+        className="text-primary-color text-center font-semibold text-2xl mt-10"
+        data-aos="fade-right"
+        data-aos-offset="300"
+        data-aos-easing="ease-in-sine"
+        data-aos-duration="2000"
+      >
         Main Subject Motive
       </h1>
       <div className="subject__wrapper">
-        <p className="text-base font-bold">{subjectMotive.description}</p>
+        <p
+          className="text-base font-bold"
+          data-aos="fade-right"
+          data-aos-offset="300"
+          data-aos-easing="ease-in-sine"
+          data-aos-duration="2000"
+        >
+          {subjectMotive.description}
+        </p>
       </div>
-      <Row gutter={{ xs: 0, sm: 0, lg: 24 }} className="main-landing-row">
+      <Row
+        gutter={{ xs: 0, sm: 0, lg: 24 }}
+        className="main-landing-row"
+        data-aos="fade-up"
+        data-aos-offset="300"
+        data-aos-easing="ease-in-sine"
+        data-aos-duration="2000"
+      >
         {cardsData.map((card) => (
           <Col key={card.id} sm={24} lg={8} md={6} xl={8} xs={24}>
             <img src={card.image} alt={card.title} className="h-8 mx-2" />
@@ -117,7 +234,13 @@ const SolutionTools = () => {
         ))}
       </Row>
       <div className="whatMakes__section">
-        <div className="diff__textWrapper">
+        <div
+          className="diff__textWrapper"
+          data-aos="fade-right"
+          data-aos-offset="300"
+          data-aos-easing="ease-in-sine"
+          data-aos-duration="2000"
+        >
           <h1 className="text-primary-color text-center font-semibold text-2xl mt-10">
             What makes us different?
           </h1>
@@ -125,7 +248,13 @@ const SolutionTools = () => {
             {whatMakesDifferent.description}
           </p>
         </div>
-        <div className="user__feedback">
+        <div
+          className="user__feedback"
+          data-aos="fade-up"
+          data-aos-offset="300"
+          data-aos-easing="ease-in-sine"
+          data-aos-duration="2000"
+        >
           <div className="comma__wrapper">
             <img src={commaImg} alt="comma-icon" className="comma__img" />
           </div>
@@ -140,7 +269,14 @@ const SolutionTools = () => {
           </div>
         </div>
         {/* unlock the power */}
-        <Row gutter={{ xs: 0, sm: 0, lg: 24 }} className="main-landing-row">
+        <Row
+          gutter={{ xs: 0, sm: 0, lg: 24 }}
+          className="main-landing-row"
+          data-aos="fade-right"
+          data-aos-offset="300"
+          data-aos-easing="ease-in-sine"
+          data-aos-duration="2000"
+        >
           <Col md={24} lg={24} xl={24}>
             <div className="unlock__wrapper pt-10">
               <h1 className="unlock__head text-[#495FA3]">
@@ -185,7 +321,7 @@ const SolutionTools = () => {
           </Col>
           <Col xs={24} lg={8} md={24} className="text-white font-semibold">
             <a href="www.workw.com" className="text-white">
-              www.workwise.com
+              workwise.com
             </a>
             <br /> Terms & Conditions <br /> Privacy statement
             <div className="flex flex-wrap gap-3 text-xl pt-5 cursor-pointer icons__wrapper">

@@ -34,7 +34,7 @@ function AntCustomSelect(props) {
     label = "",
     name = "",
     showSearch = false,
-    colors = true,
+    colors = false,
 
     rules = [],
     formItem = true,
@@ -69,8 +69,11 @@ function AntCustomSelect(props) {
   };
 
   const tagColorRender = (props) => {
-    let color = valueWithColors.find((member) => member.id === props.value)
-      .color;
+    let color;
+    if (!colors) {
+      color = valueWithColors.find((member) => member.id === props.value)
+        ?.color;
+    }
     return (
       <div
         className="ant-select-selection-item"
@@ -98,7 +101,7 @@ function AntCustomSelect(props) {
           size={size}
           showSearch={true}
           placeholder={placeholder}
-          tagRender={colors ? tagColorRender : tagRender}
+          tagRender={colors ? tagRender : tagColorRender}
           value={value}
           loading={loading}
           onPopupScroll={onPopupScroll}

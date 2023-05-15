@@ -1,12 +1,12 @@
 import { Col, Row } from "antd";
-import CompIcon from "../icons/comp.png";
-import userCompAvatar from "../icons/usercomp.png";
+import CompIcon from "../icons/solution.png";
+import userCompAvatar from "../icons/soitools.png";
 import {
   Services,
   cardsData,
   companyFeel,
   marketPlace,
-  moduleImages,
+  // moduleImages,
   registerText,
   solutionAvailability,
   solutionTools,
@@ -15,8 +15,8 @@ import {
   whatMakesDifferent,
 } from "./constants";
 import "../coprorate-solution/styles.css";
-import RectangleImg from "../icons/rec.png";
-import handImg from "../icons/hand.png";
+// import RectangleImg from "../icons/rec.png";
+import handImg from "../icons/sol-avail.png";
 import commaImg from "../icons/comma.png";
 import bottomCommaImg from "../icons/bottomComma.png";
 import keyImg from "../icons/key.png";
@@ -122,10 +122,11 @@ const SolutionTools = () => {
           data-aos-offset="300"
           data-aos-easing="ease-in-sine"
         >
-          <div className="absolute hand__container">
+          <img src={handImg} alt="group icon" className="w-52 h-52" />
+          {/* <div className="absolute hand__container">
             <img src={handImg} alt="group icon" className="w-52 h-52" />
           </div>
-          <img src={RectangleImg} alt="group icon" className="w-52 h-52" />
+          <img src={RectangleImg} alt="group icon" className="w-52 h-52" /> */}
         </Col>
         {/* TODO: 4TH SECTION */}
         <Col
@@ -317,7 +318,7 @@ const SolutionTools = () => {
               rel="noreferrer"
               className="text-primary-color font-semibold"
             >
-              Workw
+              www.Workw.com
             </a>
             <br /> Terms & Conditions <br /> Privacy statement
             <div className="flex flex-wrap gap-3 text-xl pt-5 cursor-pointer icons__wrapper">

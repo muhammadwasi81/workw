@@ -19,7 +19,7 @@ import {
 import { getNameForImage, jsonToFormData } from "../../../../../utils/base";
 import MemberSelect from "../../../../sharedComponents/AntdCustomSelects/SharedSelects/MemberSelect";
 import NewTravelDetailCard from "../UI/NewTravelDetailCard";
-import { TravelReferenceTypeEnum } from "../../../projects/enum/enums";
+import { TravelReferenceTypeEnum } from "../../enums/enums";
 
 function NewTravelComposer(props) {
   const {

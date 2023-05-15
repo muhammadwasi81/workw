@@ -49,6 +49,10 @@ import {
 } from "../../../../../utils/Shared/enums/groupFeatureEnum";
 import ItemDetailModal from "../../../../sharedComponents/ItemDetails";
 import { handleItemDetailModal } from "../../../../../utils/Shared/store/slice";
+import Travel from "../../../travel/view/Travel";
+import { QuotationReferenceTypeEnum } from "../../../quotation/enums";
+import Quotations from "../../../quotation/view/QuotationList";
+import { TravelReferenceTypeEnum } from "../../../travel/enums/enums";
 
 function GroupDetails() {
   const { userLanguage } = useContext(LanguageChangeContext);
@@ -133,7 +137,7 @@ function GroupDetails() {
         routeLink={defaultRoute}
       />
     ),
-    6: (
+    5: (
       <Task
         referenceType={TaskReferenceTypeEnum.Group}
         referenceId={id}
@@ -143,7 +147,7 @@ function GroupDetails() {
         backButton={false}
       />
     ),
-    7: (
+    3: (
       <WorkBoard
         referenceType={WorkBoardReferenceTypeEnum.Group}
         referenceId={id}
@@ -152,7 +156,7 @@ function GroupDetails() {
         backButton={false}
       />
     ),
-    9: (
+    6: (
       <Expenses
         referenceType={ExpenseReferenceTypeEnum.Group}
         referenceId={id}
@@ -162,14 +166,27 @@ function GroupDetails() {
         backButton={false}
       />
     ),
-    10: <MySchedules />,
-    12: (
+    2: <MySchedules />,
+    4: (
       <Documents
         referenceType={DocumentReferenceTypeEnum.Group}
         referenceId={id}
         width={"!w-full"}
         routeLink={defaultRoute}
         backButton={false}
+      />
+    ),
+    7: (
+      <Travel
+        referenceType={TravelReferenceTypeEnum.Group}
+        referenceId={id.trim()}
+        backButton={false}
+      />
+    ),
+    8: (
+      <Quotations
+        referenceType={QuotationReferenceTypeEnum.Group}
+        referenceId={id.trim()}
       />
     ),
   };

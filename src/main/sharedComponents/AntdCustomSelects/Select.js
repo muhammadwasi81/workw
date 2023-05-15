@@ -3,6 +3,8 @@ import { Form, Select, Skeleton, Space } from "antd";
 import { useState } from "react";
 import "./antdCustomSelect.css";
 import { useSelector } from "react-redux";
+import { CloseOutlined } from "@ant-design/icons";
+
 const { Option } = Select;
 
 function AntCustomSelect(props) {
@@ -12,6 +14,7 @@ function AntCustomSelect(props) {
     loading,
     data,
     onChange,
+    // onData,
     onSearch,
     onSelect,
     paginationHandler,
@@ -24,12 +27,15 @@ function AntCustomSelect(props) {
     tagRender,
     isEmailSelect,
     value = [],
+    valueWithColors = [],
     defaultData = [],
     optionComponent,
     isLoaded,
     label = "",
     name = "",
     showSearch = false,
+    colors = true,
+
     rules = [],
     formItem = true,
     className = "",
@@ -55,8 +61,33 @@ function AntCustomSelect(props) {
       paginationHandler(pgNo);
     }
   }, [pgNo]);
-  // console.log("data", isLoaded, data);
 
+  const handleRemove = (removedValue) => {
+    const updatedValues = value.filter((val) => val !== removedValue);
+
+    onChange(updatedValues); // Update the selected values
+  };
+
+  const tagColorRender = (props) => {
+    let color = valueWithColors.find((member) => member.id === props.value)
+      .color;
+    return (
+      <div
+        className="ant-select-selection-item"
+        style={{
+          border: color ? `1px solid ${color}` : "none",
+        }}
+      >
+        {props.label}
+        <span
+          className="ant-select-selection-item-remove"
+          onClick={() => handleRemove(props.value)}
+        >
+          <CloseOutlined className="text-[12px] text-[#999] ml-1 hover:text-[#777] w-[1em] h-[1em]" />
+        </span>
+      </div>
+    );
+  };
   return (
     <>
       {!formItem ? (
@@ -67,12 +98,13 @@ function AntCustomSelect(props) {
           size={size}
           showSearch={true}
           placeholder={placeholder}
-          tagRender={tagRender}
+          tagRender={colors ? tagColorRender : tagRender}
           value={value}
           loading={loading}
           onPopupScroll={onPopupScroll}
           onSelect={onSelect}
           onChange={onChange}
+          // onData={onData}
           onSearch={onSearch}
           filterOption={filterOption}
           getPopupContainer={(trigger) => trigger.parentNode}

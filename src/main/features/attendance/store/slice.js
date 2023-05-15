@@ -5,7 +5,7 @@ const initialState = {
    success: false,
    loader: false,
    error: false,
-   lastCheckIn: null
+   lastCheckIn: []
 };
 
 export const AttendanceSlice = createSlice({

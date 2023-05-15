@@ -77,3 +77,12 @@ export const updateScheduleMemberTypeService = ({ id, type }) => {
       return error;
     });
 };
+export const getCalendarService = (data) => {
+  return MasterConfig.post(`${API_PREFIX}GetCalendar`, data)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((error) => {
+      return error;
+    });
+};

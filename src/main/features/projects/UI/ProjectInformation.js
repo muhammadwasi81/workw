@@ -1,10 +1,20 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Button, Collapse, Divider, Popover, Form, Modal } from "antd";
+import {
+  Button,
+  Collapse,
+  Divider,
+  Popover,
+  Form,
+  Modal,
+  message,
+  Select,
+} from "antd";
 import {
   CalendarOutlined,
   InfoCircleOutlined,
   DownOutlined,
   EyeOutlined,
+  PlusOutlined,
 } from "@ant-design/icons";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,11 +26,15 @@ import {
 } from "../store/actions";
 import FeatureSelect from "../../../sharedComponents/FeatureSelect/Index";
 import { FeaturesEnum } from "../../../../utils/Shared/enums/enums";
+import CustomModal from "../../workboard/Modal/CustomModal";
+import ProjectFeatures from "../constant/projectFeatures";
 
 const { Panel } = Collapse;
 function ProjectInformation({ ghost = true }) {
   const [openFeature, setOpenFeature] = useState(false);
   const [features, setFeatures] = useState([]);
+  const [externalMemberModal, setExternalMemberModal] = useState(false);
+  const [value, setValue] = useState([]);
 
   const dispatch = useDispatch();
 
@@ -70,6 +84,30 @@ function ProjectInformation({ ghost = true }) {
       );
     }
   };
+  const handleExternalMember = () => {
+    setExternalMemberModal(!externalMemberModal);
+  };
+
+  const validateEmail = (input) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(input);
+  };
+  const handleOnChange = (newValue) => {
+    const validTags = newValue.filter(validateEmail);
+    if (validTags.length === newValue.length) {
+      if (newValue.length < value.length) {
+        const removedTag = value.filter((tag) => !newValue.includes(tag));
+        message.success(`Removed tag '${removedTag}' successfully.`);
+      }
+      if (newValue.length > value.length) {
+        const addedTag = newValue.filter((tag) => !value.includes(tag));
+        message.success(`Added tag '${addedTag}' successfully.`);
+      }
+      setValue(newValue);
+    } else {
+      message.error("Please enter a valid email address.");
+    }
+  };
   return (
     <>
       <Collapse
@@ -94,16 +132,23 @@ function ProjectInformation({ ghost = true }) {
           }
           className="custom_member_collapse"
         >
-          <div className="font-bold flex items-center gap-2 mb-2">
+          <div className="font-bold flex items-center gap-2 mb-2 cursor-pointer">
             <ProjectSummary />
             <span>{"View Summary"}</span>
           </div>
           <div
-            className="text-black text-sm font-bold flex items-center gap-2 mb-2"
+            className="text-black text-sm font-bold flex items-center gap-2 mb-2 cursor-pointer"
             onClick={featureHandler}
           >
             <EyeOutlined />
             Features
+          </div>
+          <div
+            className="text-black text-sm font-bold flex items-center gap-2 mb-2 cursor-pointer"
+            onClick={handleExternalMember}
+          >
+            <PlusOutlined />
+            Add Externals
           </div>
         </Panel>
       </Collapse>
@@ -119,9 +164,41 @@ function ProjectInformation({ ghost = true }) {
           closable={false}
           width={900}
         >
-          <FeatureSelect checked={projectFeature} onChange={onFeatureHandler} />
+          <ProjectFeatures
+            checked={projectFeature}
+            onChange={onFeatureHandler}
+          />
         </Modal>
       )}
+
+      <CustomModal
+        footer={null}
+        isModalVisible={externalMemberModal}
+        centered={true}
+        onCancel={handleExternalMember}
+        destroyOnClose={true}
+        closable={false}
+        children={
+          <Form name="externalMember" layout={"vertical"}>
+            <Form.Item
+              name="externalMember"
+              label={"Enter External Member Email Address"}
+            >
+              <Select
+                mode="tags"
+                allowClear
+                style={{
+                  width: "100%",
+                }}
+                value={value}
+                placeholder="Enter your email address"
+                tokenSeparators={[","]}
+                onChange={handleOnChange}
+              />
+            </Form.Item>
+          </Form>
+        }
+      />
     </>
   );
 }

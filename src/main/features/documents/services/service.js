@@ -188,3 +188,35 @@ export const addDocumentFavoriteService = async (payload) => {
 // 		return res;
 // 	  });
 //   };
+
+
+
+
+export const AddDocumentMemberService = async (payload) => {
+  let id = payload[0]?.id;
+  return Config.post(
+    `api/Document/AddDocumentMember?id=${id}`,payload
+  )
+    .then((res) => {
+      console.log(res?.data, "service dataaaaa");
+      return res;
+    })
+    .catch((res) => {
+      return res;
+    });
+};
+
+export const RemoveDocumentMemberService = async (payload) => {
+  const { id, memberId, memberRightType } = payload[0];
+  const member = [memberId]
+  return Config.post(
+    `api/Document/RemoveDocumentMember?id=${id}&status=${memberRightType}`,member
+  )
+    .then((res) => {
+      console.log(res, "Remove service dataaaaa");
+      return res
+    })
+    .catch((res) => {
+      return res;
+    });
+};

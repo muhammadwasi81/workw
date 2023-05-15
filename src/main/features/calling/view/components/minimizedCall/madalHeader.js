@@ -23,7 +23,7 @@ function MadalHeader({
   }
 
   return (
-    <div className="doc-modal-header" >
+    <div className="doc-modal-header call-modal-header" >
       <div className="doc-modal-title" >
         {title}
       </div>

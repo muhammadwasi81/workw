@@ -114,7 +114,7 @@ const PostHeader = ({
             <StarOutlined className="!text-[18px] cursor-pointer !text-[#707070]" />
           )}
         </div>
-        {isModalOpen && <PostTaggedModal tags={tags} />}
+        {isModalOpen && <PostTaggedModal tags={tags}  isModalOpen={isModalOpen}  setIsModalOpen={setIsModalOpen} />}
       </div>
     </>
   );

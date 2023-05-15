@@ -25,6 +25,7 @@ export default function GradeTable({
 
   const { grades, loadingData } = useSelector((state) => state.gradeSlice);
 
+  console.log(grades,"grades");
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllGrades());

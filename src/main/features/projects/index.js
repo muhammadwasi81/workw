@@ -16,7 +16,7 @@ import ProjectTopBar from "./view/ProjectTopBar/ProjectTopBar";
 import useDebounce from "../../../utils/Shared/helper/use-debounce";
 import { NoDataFound } from "../../sharedComponents/NoDataIcon";
 import { ROUTES } from "../../../utils/routes";
-import { Button, Drawer } from "antd";
+import { Drawer } from "antd";
 import { handleComposer } from "./store/slice";
 import Composer from "./UI/Composer";
 import Header from "../../layout/header/index";
@@ -24,7 +24,6 @@ import { PlusOutlined } from "@ant-design/icons";
 import { FeaturePermissionEnum } from "../../../utils/Shared/enums/featuresEnums";
 import SideDrawer from "../../sharedComponents/Drawer/SideDrawer";
 import { handleOpenComposer } from "./store/slice";
-import { Card, Popover } from "antd";
 import { useNavigate } from "react-router-dom";
 
 const Projects = () => {
@@ -44,7 +43,6 @@ const Projects = () => {
   const { projects, loader } = useSelector((state) => state.projectSlice);
   const { user } = useSelector((state) => state.userSlice);
   const userPermissions = user.permissions;
- 
 
   useEffect(() => {
     dispatch(

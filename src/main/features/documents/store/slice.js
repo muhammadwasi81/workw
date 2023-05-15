@@ -11,6 +11,7 @@ import {
   addDirectory,
   addDocumentDirectoryList,
   getAllDocumentDirectoryList,
+  AddDocumentMember,
 } from "./actions";
 
 const initialState = {
@@ -54,6 +55,7 @@ const initialState = {
   ],
   defaultFiles: [],
   minimzedDocuments: [],
+  AddDocReaderAndCollabrator:[]
 };
 
 const documentSlice = createSlice({
@@ -116,13 +118,13 @@ const documentSlice = createSlice({
     },
     handleAddMinimizeDocument: (state, { payload }) => {
       let dcoumentItem = {
-        isOpen: false,
-        id: payload.id,
+        isOpen: payload.status,
+        id: payload.document.id,
         document: {
-          ...payload,
+          ...payload.document,
         },
       };
-      let isAlreadyAvailable = state.minimzedDocuments.find((document)=> document.id === payload.id)
+      let isAlreadyAvailable = state.minimzedDocuments.find((document)=> document.id === payload.document.id)
       if(!(!!isAlreadyAvailable)){
         state.minimzedDocuments = [...state.minimzedDocuments, dcoumentItem];
       }
@@ -201,6 +203,11 @@ const documentSlice = createSlice({
         state.composersInitState.members = payload;
       })
       .addCase(addDocumentDirectoryList.fulfilled, (state, { payload }) => {
+        // state.composersInitState.members = [...state.composersInitState.members, payload];
+        // state.loader = true;
+      })
+      .addCase(AddDocumentMember.fulfilled, (state, { payload }) => {
+          state.AddDocReaderAndCollabrator = payload
         // state.composersInitState.members = [...state.composersInitState.members, payload];
         // state.loader = true;
       })

@@ -11,7 +11,7 @@ function MadalHeader({
   title,
   handleClose,
   document,
-  isMinimizedModal
+  isMinimizedModal,
 }) {
   const dispatch = useDispatch();
 
@@ -25,13 +25,13 @@ function MadalHeader({
         status: false
       }))
     } else {
-      dispatch(handleAddMinimizeDocument(document));
+      dispatch(handleAddMinimizeDocument({ document, status: false }));
       handleClose()
     }
   }
 
   return (
-    <div className="doc-modal-header" >
+    <div className={`doc-modal-header`} >
       <div className="doc-modal-title" >
         {title}
       </div>

@@ -8,9 +8,10 @@ import { ROUTES } from "../../../../utils/routes";
 import { useSelector } from "react-redux";
 import "./styles/style.css";
 import LandingMainPage from "../../landingpage";
-import appleImg from "../../landingpage/icons/apple.png";
-import googleImg from "../../landingpage/icons/googleplay.png";
+// import appleImg from "../../landingpage/icons/apple.png";
+// import googleImg from "../../landingpage/icons/googleplay.png";
 import { FaGooglePlay, FaAppStoreIos } from "react-icons/fa";
+import { moduleImages } from "../../landingpage/solution-tools/constants";
 
 const Auth = () => {
   const landingRef = useRef(null);
@@ -47,14 +48,36 @@ const Auth = () => {
           <div className="center-area">
             <SignIn />
           </div>
-          <div className="flex justify-center flex-wrap gap-5 my-3 social__images">
-            {/* google play */}
-            <a class="btn btn-google" href="#" title="Google Play">
-              Google Play
+          <div className="flex justify-center mt-5 gap-3">
+            <a href="" target="_blank">
+              <img
+                src="https://uploads-ssl.webflow.com/5eb0899d8fc87851be175c44/611a5d2e71739c07c6a30399_g-play.svg"
+                loading="lazy"
+                width="150"
+                alt="google play store"
+              />
+            </a>
+            <a href="" target="_blank">
+              <img
+                src="https://linkmaker.itunes.apple.com/assets/shared/badges/en-us/appstore-lrg.svg"
+                alt="Download on the App Store"
+                loading="lazy"
+                width="150"
+              />
             </a>
           </div>
         </Col>
       </Row>
+      <div className="flex flex-wrap md:flex-nowrap justify-center p-4 module__card">
+        {moduleImages.map((image) => (
+          <img
+            key={image.id}
+            src={image.url}
+            alt={image.title}
+            className="h-6 mx-2"
+          />
+        ))}
+      </div>
       <div class="scroll-down" onClick={handleAnimateClick}>
         <div class="mouse">
           <div class="wheel"></div>

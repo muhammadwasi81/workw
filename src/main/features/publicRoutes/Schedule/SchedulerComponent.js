@@ -39,9 +39,6 @@ function SchedulersComponent(props, { feed = false, referenceId }) {
     const endDate = moment(endVal)
       .endOf("month")
       .format();
-
-    console.log(startDate, "startDate");
-    console.log(endDate, "endDate");
   };
 
   const handleDateChange = (date) => {
@@ -68,7 +65,6 @@ function SchedulersComponent(props, { feed = false, referenceId }) {
 
   function handleSelect(info) {
     setSelectedStartTime(info.startStr.slice(0, 16).replace("T", " "));
-    console.log(selectedStartTime, "sestime");
     setSelectedEndTime(info.end);
     // setShowModal(true);
     dispatch(setmodal(true));

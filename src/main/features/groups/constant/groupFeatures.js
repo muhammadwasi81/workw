@@ -2,6 +2,7 @@ import { Form, Switch } from "antd";
 import "../../projects/styles/projects.css";
 import { groupFeatureEnums } from "../../../../utils/Shared/enums/groupFeatureEnum";
 import { getFeatureDetails } from "./groupConstant";
+import "../../../sharedComponents/FeatureSelect/style.css";
 
 function GroupFeatures({ onChange, checked, disabled }) {
   return (
@@ -18,7 +19,7 @@ function GroupFeatures({ onChange, checked, disabled }) {
             <div className="FeatureSelect flex justify-between bg-[#f4f4f4] mb-2">
               <div>
                 <div className="flex">
-                  <div className="imageBox border-r border-r-[#b3bed5] p-3">
+                  <div className="imageBox border-r border-r-[#b3bed5] ">
                     <img
                       src={item.icon}
                       className="h-[34px] w-[34px]"
@@ -26,8 +27,8 @@ function GroupFeatures({ onChange, checked, disabled }) {
                     />
                   </div>
                   <div>
-                    <h4 className="ml-2">{item.name}</h4>
-                    <p className="text-slate-500 ml-2">{item.description}</p>
+                    <h4>{item.name}</h4>
+                    <p className="text-slate-500">{item.description}</p>
                   </div>
                 </div>
               </div>
